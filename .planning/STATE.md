@@ -23,7 +23,7 @@ See: .planning/PROJECT.md (updated 2026-09-25 CT)
 Phase: 1 of 7 (Design System & Font Pick)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-09-25 (CT): Roadmap created (7 phases, 57/57 v1 requirements mapped)
+Last activity: 2026-09-25 (CT) - Completed quick task 260925-ovl: Replace GitHub Pages workflow with Node 24 CI gate
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -71,6 +71,12 @@ Owner actions on the critical path (dates CT):
 - Day 5, Wed 2026-09-30: receipts, "How we work" confirmations, testimonials marked real or placeholder, Jaymie and Wendy photos; DNS TTLs lowered 24–48 h before cutover
 - Day 7, Fri 2026-10-02: cutover only on the owner's explicit go; drop the Kinsta SPF include after cutover
 - Phase 5: the redirect map needs the WordPress REST API export plus a Search Console export (traffic and backlinks for tags, categories and `/current-promos/`)
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260925-ovl | Replace GitHub Pages workflow with Node 24 CI gate (ci.yml, job `build`) | 2026-09-25 | b886450 | [260925-ovl-replace-github-pages-workflow-with-node-](./quick/260925-ovl-replace-github-pages-workflow-with-node-/) |
 
 ## Deferred Items
 
