@@ -1,0 +1,9 @@
+.planning/
+.claude/
+docs/
+.scratch/
+.env
+.env.*
+node_modules/
+dist/
+.astro/

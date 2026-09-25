@@ -1,0 +1,10 @@
+/*
+ * pairings.css — [data-pairing] font mapping. Plan 01-03 appends the b and c
+ * blocks.
+ */
+[data-pairing="a"] {
+  --font-display: var(--font-display-a);
+  --font-body: var(--font-body-a);
+  --font-mono: var(--font-mono-a);
+  --weight-heavy: 800;
+}

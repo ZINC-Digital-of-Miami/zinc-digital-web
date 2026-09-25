@@ -1,0 +1,44 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/tokens.css';
+import '../styles/themes.css';
+import '../styles/base.css';
+import '../styles/pairings.css';
+
+interface Props {
+  pairing: 'a';
+  title: string;
+}
+
+const { pairing, title } = Astro.props;
+---
+
+<html lang="en" data-pairing={pairing}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Draft design preview for the ZINC website. Not public." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    {pairing === 'a' && (
+      <>
+        <Font cssVariable="--font-display-a" preload />
+        <Font cssVariable="--font-body-a" />
+        <Font cssVariable="--font-mono-a" />
+      </>
+    )}
+  </head>
+  <body>
+    <header data-theme="dark" class="preview-strip">
+      <p class="t-label">
+        Pairing A: Big Shoulders Display 800 / Inter 400 / JetBrains Mono 400
+        [DRAFT PREVIEW]
+        <a href="/design-preview/">All pairings</a>
+      </p>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>

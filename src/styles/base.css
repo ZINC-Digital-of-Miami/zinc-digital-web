@@ -1,0 +1,160 @@
+/*
+ * base.css — reset, type roles, band layout, focus-visible, decorative marks.
+ * No hex values, no color tokens other than the semantic ones (--bg --fg
+ * --muted --accent --accent-text) and the spacing/type tokens from tokens.css.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-synthesis: none; /* only one weight per role ships; never fake bold or italic */
+}
+
+/* Type roles */
+
+.t-display {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--text-display);
+  font-weight: var(--weight-heavy);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+.t-heading {
+  font-family: var(--font-display, sans-serif);
+  font-size: var(--text-heading);
+  font-weight: var(--weight-heavy);
+  line-height: var(--leading-heading);
+}
+
+.t-body {
+  font-family: var(--font-body, sans-serif);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.t-label {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.t-label--caps {
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Band layout */
+
+.band {
+  padding-block: var(--space-4xl);
+  padding-inline: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .band {
+    padding-block: var(--space-5xl);
+    padding-inline: var(--space-2xl);
+  }
+}
+
+.band__inner {
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+/* Focus */
+
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+/* Interactive */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  font-family: var(--font-body, sans-serif);
+  text-decoration: none;
+}
+
+.button:hover,
+.button:focus-visible {
+  text-decoration: underline;
+}
+
+.draft-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+/* Decorative marks (UI-SPEC "Resolved Spec Conflict"). All drawn with
+ * pseudo-elements that carry empty content, so they never enter
+ * text-contrast scope. */
+
+.mark-strike {
+  position: relative;
+}
+
+.mark-strike::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 0.08em;
+  background: var(--accent);
+}
+
+.mark-hit {
+  position: relative;
+  isolation: isolate;
+}
+
+.mark-hit::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.4em;
+  background: var(--accent);
+  z-index: -1;
+}
+
+.mark-bar {
+  position: relative;
+}
+
+.mark-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  height: 0.12em;
+  background: var(--accent);
+}
