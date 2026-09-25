@@ -1,6 +1,6 @@
 {
   "source": "https://www.zincdigital.co/wp-json/wp/v2/posts?per_page=100&status=publish&_fields=id,slug,link,date,date_gmt,modified,modified_gmt,author,title,content",
-  "retrievedAt": "2026-09-25T21:09:30.503Z",
+  "retrievedAt": "2026-09-25T21:14:22.348Z",
   "total": 18,
   "totalPages": 1,
   "posts": [
@@ -2438,7 +2438,7 @@
       "plainTextLength": 33608,
       "slug": "ai-search-results-and-generative-search-optimization",
       "sourceUrl": "https://www.zincdigital.co/ai-search-results-and-geo/",
-      "title": "AI Search Results And generative search optimization: What Businesses Need To Know",
+      "title": "AI Search Results and Generative Search Optimization: What Businesses Need to Know",
       "sourceSlug": "ai-search-results-and-geo",
       "sourceTitle": "AI Search Results And GEO: What Businesses Need To Know",
       "previewEdits": [
@@ -4104,14 +4104,6 @@
             ]
           ],
           "type": "ul"
-        },
-        {
-          "runs": [
-            {
-              "text": "Bring us the feed, the ad account, the store, and the numbers. Bring the mess if that is what you have. ZINC Digital audits and manages Google Ads, Merchant Center, ecommerce tracking, and Shopping campaign structure for operators who want calm control inside the chaos. We will show you what is ready to scale, what is wasting budget, and what needs to be fixed before the next dollar goes in."
-            }
-          ],
-          "type": "p"
         }
       ],
       "date": "2026-05-23T07:24:49",
@@ -4126,7 +4118,8 @@
       "sourceSlug": "google-shopping-ad-management-2026",
       "sourceTitle": "Google Shopping Ad Management in 2026: Fix the Feed Before You Scale",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Omitted retired promotional coda beginning Bring us the feed; complete original retained in ignored raw source."
       ]
     },
     {

@@ -137,8 +137,10 @@ for(const p of posts) {
   if(p.id===56328) p.slug='ai-search-results-and-generative-search-optimization';
   const normalize=text=>text.replace(/\bGEO\b/g,'generative search optimization');
   p.title=normalize(p.title);
+  if(p.id===56328) p.title='AI Search Results and Generative Search Optimization: What Businesses Need to Know';
   for(const b of p.blocks) for(const run of b.runs || b.items?.flat() || []) run.text=normalize(run.text);
   p.previewEdits=['Expanded legacy generative-search abbreviation; source title and slug retained in provenance.'];
+  if(p.id===55980) {const before=p.blocks.length;p.blocks=p.blocks.filter(b=>!(b.runs?.map(r=>r.text).join('').startsWith('Bring us the feed')));if(p.blocks.length!==before)p.previewEdits.push('Omitted retired promotional coda beginning Bring us the feed; complete original retained in ignored raw source.');}
 }
 const localByUrl = new Map(posts.map(p=>[new URL(p.sourceUrl).pathname.replace(/\/$/,''),'/blog/'+p.slug+'/']));
 for (const p of posts) for(const b of p.blocks) for(const run of b.runs || b.items?.flat() || []) if(run.href) {

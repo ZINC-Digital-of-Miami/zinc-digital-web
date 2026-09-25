@@ -44,15 +44,31 @@ export const cases = [
 export type Run = {text:string;href?:string};
 export type Block = {type:string;runs?:Run[];items?:Run[][]};
 export type Post = Omit<(typeof snapshot.posts)[number],'blocks'> & {blocks:Block[];layer:Layer;related:string[]};
-// Explicit editorial mapping, reviewed against each source title/body during preparation.
-export const posts: Post[] = snapshot.posts.map(p=> {
-  const subject=(p.title+' '+p.blocks.slice(0,3).map(b=>JSON.stringify(b)).join(' ')).toLowerCase();
-  const layer:Layer = /analytics|intelligence|dashboard|data-driven/.test(subject) ? 'Intelligence' : /web design|website design|shopify|app development|ecommerce website/.test(subject) ? 'Build' : 'Demand';
-  return {...p,blocks:p.blocks as Block[],layer,related:layer==='Build'?['web-design','shopify']:layer==='Intelligence'?['business-intelligence','apps']: /local|google business/.test(subject)?['local-seo','seo']: /tiktok/.test(subject)?['tiktok-ads','social-ads']:['seo','ai-search-optimization']};
-});
+// Draft editorial assignments use the source article's subject, not keyword guesses.
+const articleMap:Record<number,{layer:Layer;related:string[]}>= {
+  56328:{layer:'Demand',related:['ai-search-optimization','seo']},
+  55980:{layer:'Demand',related:['shopping-ads','shopify']},
+  55886:{layer:'Demand',related:['seo','shopify']},
+  55722:{layer:'Demand',related:['seo','web-design']},
+  55721:{layer:'Demand',related:['seo','web-design']},
+  55720:{layer:'Demand',related:['local-seo','seo']},
+  55719:{layer:'Demand',related:['seo','business-intelligence']},
+  55718:{layer:'Build',related:['web-design','seo']},
+  55717:{layer:'Demand',related:['seo','shopify']},
+  55716:{layer:'Demand',related:['google-search-ads','social-ads','seo']},
+  55715:{layer:'Demand',related:['seo','ai-search-optimization']},
+  55714:{layer:'Demand',related:['shopping-ads','shopify']},
+  55713:{layer:'Intelligence',related:['business-intelligence','google-search-ads']},
+  55712:{layer:'Demand',related:['seo','business-intelligence']},
+  55711:{layer:'Intelligence',related:['business-intelligence','seo']},
+  55710:{layer:'Demand',related:['seo','web-design']},
+  55709:{layer:'Demand',related:['seo','ai-search-optimization']},
+  55708:{layer:'Demand',related:['seo','web-design']},
+};
+export const posts:Post[]=snapshot.posts.map(p=>({...p,blocks:p.blocks as Block[],...articleMap[p.id]}));
 export type Template='home'|'services'|'service'|'work'|'case'|'about'|'contact'|'thanks'|'blog'|'article'|'privacy'|'terms'|'404';
 export type Route={path:string;template:Template;title:string;status:'draft';source:string;slug?:string;layer?:Layer;published?:string};
 const route=(path:string,template:Template,title:string,extra:Partial<Route>={}):Route=>({path,template,title,status:'draft',source,...extra});
 export const routes:Route[]=[route('/','home','ZINC — Build. Demand. Intelligence.'),route('/services/','services','Services'),...services.map(s=>route('/services/'+s.slug+'/','service',s.title,{slug:s.slug,layer:s.layer})),route('/work/','work','Selected work'),...cases.map(c=>route('/work/'+c.slug+'/','case',c.title,{slug:c.slug})),route('/about/','about','The people behind the work'),route('/contact/','contact','Start an Inquiry'),route('/thanks/','thanks','Demo confirmation'),route('/blog/','blog','Notes on the work'),...posts.map(p=>route('/blog/'+p.slug+'/','article',p.title,{slug:p.slug,source:p.sourceUrl,layer:p.layer,published:p.date})),route('/privacy/','privacy','Privacy'),route('/terms/','terms','Terms')];
-export const activeRoutes=routes.filter(r=>['/','/services/shopify/','/contact/','/thanks/'].includes(r.path));
+export const activeRoutes=routes;
 export const dateLabel=(date:string)=>new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'America/Chicago'}).format(new Date(date.endsWith('Z')?date:date+'Z'));

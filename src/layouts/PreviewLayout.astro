@@ -4,13 +4,16 @@ import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/base.css';
 import '../styles/pairings.css';
+import {toSitePath,assets} from '../data/mockup';
 
 interface Props {
   pairing: 'a';
   title: string;
+  basePath?: string;
 }
 
-const { pairing, title } = Astro.props;
+const { pairing, title,basePath='' } = Astro.props;
+const link=(path:string)=>toSitePath(path,basePath);
 ---
 
 <html lang="en" data-pairing={pairing}>
@@ -18,7 +21,7 @@ const { pairing, title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content="Draft design preview for the ZINC website. Not public." />
+    <meta name="description" content={'Public design draft: '+title+'. Full-site review; content and legal approval pending.'} />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     {pairing === 'a' && (
@@ -30,29 +33,20 @@ const { pairing, title } = Astro.props;
     )}
   </head>
   <body>
-    <header data-theme="dark" class="preview-strip">
-      <p class="t-label preview-strip__row">
-        <span>Pairing A: Big Shoulders Display 800 / Inter 400 / JetBrains Mono 400</span>
-        <span class="draft-tag">[DRAFT PREVIEW]</span>
-        <a href="/design-preview/">All pairings</a>
-      </p>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header data-theme="light" class="site-header">
+      <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
+      <span class="draft-tag nav-draft">PUBLIC DESIGN DRAFT / A</span>
+      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
+      <nav id="site-nav" aria-label="Main navigation"><a href={link('/services/')}>Services</a><a href={link('/work/')}>Work</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a><a class="nav-inquiry" href={link('/contact/')}>Start an Inquiry ↗</a></nav>
     </header>
     <main id="main">
       <slot />
     </main>
   </body>
 </html>
-
-<style>
-  .preview-strip {
-    padding-block: var(--space-sm);
-    padding-inline: var(--space-md);
-  }
-
-  .preview-strip__row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--space-sm) var(--space-md);
-  }
-</style>
+<script>
+  const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav=document.querySelector<HTMLElement>('#site-nav');
+  if(toggle&&nav){toggle.hidden=false;document.documentElement.classList.add('nav-ready');const close=()=>{toggle.setAttribute('aria-expanded','false');nav.classList.remove('is-open');};toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('is-open',open);});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus();}});matchMedia('(min-width: 900px)').addEventListener('change',close);}
+</script>
