@@ -3,11 +3,11 @@ gsd_state_version: "1.0"
 current_phase: 1
 current_phase_name: Design System & Font Pick
 status: executing
-stopped_at: "TURNOVER 2026-09-25 3:10 PM CT: 01-01 complete; plans 01-02..01-05 stale, owner chose Replan from scratch (not done). Next deliverable = complete nine-band homepage at / on zinc-digital-web.vercel.app. See docs/handoff/2026-09-25-turnover.md"
-last_updated: "2026-09-25T20:04:45.495Z"
+stopped_at: "Full-site replan verified; execute01-02 for all40 pages plus404. Complete turnover is historical; current CONTEXT governs."
+last_updated: "2026-09-25T21:00:46.606Z"
 last_activity: 2026-09-25
 last_activity_desc: Phase 1 execution started
-state_head: e7fb6a524f2cb77f8e029857ec88bed5073b5c8d
+state_head: 7250ae6310a534e5480a450b18202503c67201cc
 progress:
   total_phases: 7
   completed_phases: 0
@@ -27,9 +27,9 @@ See: .planning/PROJECT.md (updated 2026-09-25 CT)
 
 ## Current Position
 
-Phase: 1 (Design System & Font Pick) — EXECUTING
-Plan: 1 of 5
-Status: Executing Phase 1
+Phase: 1 (Design System & Font Pick) — READY TO EXECUTE
+Plan: 2 of 5 (01-01 complete; 01-02 next)
+Status: Ready to execute
 Last activity: 2026-09-25 — Phase 1 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -61,6 +61,9 @@ Progress: [░░░░░░░░░░] 0%
 
 Decisions are logged in PROJECT.md Key Decisions table. Spec §18 resolved decisions win over research.
 Recent decisions affecting current work:
+
+- [Owner correction]: Phase1 must render the entire40-page approved sitemap plus404 before font comparison/pick. Revised01-02..05 independently checked on2026-09-25 CT.
+- [Planning evidence]: Four plan structures pass; automated failure-direction check0 blockers/0 warnings; all5 phase requirement IDs covered. These are plan checks, not runtime acceptance.
 
 - [Roadmap]: Seven phases following the spec §16 sequence. Work moves in with Services ("Services & Proof") so LOOP-03 lands in one phase. About joins Contact ("About & Inquiry")
 - [Roadmap]: Components take props and never fetch data themselves. Phases 2–4 build on fixture content while copy review runs

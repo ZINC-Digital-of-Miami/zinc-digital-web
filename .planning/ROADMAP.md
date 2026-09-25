@@ -2,7 +2,7 @@
 
 ## Overview
 
-The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site in seven phases over 5–7 days from 2026-09-25 (CT). Phase 1 puts the visual system in front of the owner on a rendered homepage mockup so he can pick the font pairing. Phases 2–4 build the pages that sell: the homepage and its Loop, then services and proof, then the team page and the qualifying inquiry. Every band component takes props and never fetches data itself, so these pages build on fixture data while the owner reviews copy in dated batches. Phase 5 makes the site findable: 18 posts, the full SEO override, and every old WordPress URL resolved. Phase 6 holds the launch gates and the owner's final approval. Phase 7 is the DNS cutover, and it runs only on the owner's explicit go.
+The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site in seven phases over 5–7 days from 2026-09-25 (CT). Per the owner's direct correction, Phase 1 delivers a complete clickable mockup of the entire approved sitemap before the font pick. Phases 2–4 then finish production motion, content/proof and live inquiry integration using those rendered pages. Every band component takes props and never fetches data itself, so the mockup uses clearly marked fixture content while the owner reviews copy. Phase 5 completes the reviewed 18-post migration, full SEO override and old WordPress URL resolution. Phase 6 holds launch gates and final approval. Phase 7 is the DNS cutover, only on the owner's explicit go.
 
 **Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`. The spec's §18 resolved decisions win over research.
 
@@ -29,7 +29,7 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Design System & Font Pick** - Tokens, band theming, self-hosted type and brand mark, rendered as a homepage mockup in three font pairings for the owner to choose from
+- [ ] **Phase 1: Design System & Font Pick** - Complete clickable full-site mockup with tokens, band theming, self-hosted type and brand mark, followed by three font pairings and the owner's pick
 - [ ] **Phase 2: Homepage & the Loop** - Nine alternating bands on `/`, with the scroll-drawn Loop as the signature and the finished state designed for reduced motion and Firefox
 - [ ] **Phase 3: Services & Proof** - `/services/`, 11 flat service pages, `/work/` and both case studies, each with the mini loop lit
 - [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on the SPF repair
@@ -41,27 +41,40 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### Phase 1: Design System & Font Pick
 
-**Goal**: The owner sees ZINC's visual system on a real homepage mockup and picks the font pairing every later page uses
+**Goal**: The owner sees a complete clickable mockup of the entire approved site, then picks the font pairing used across every page
 **Mode:** mvp
 **Depends on**: Nothing (first phase)
 **Requirements**: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05
 **Success Criteria** (what must be TRUE):
 
-  1. On a Vercel preview URL, the owner can view the homepage hero and one service spec sheet in each of three open-license variable font pairings (Archivo excluded), and his pick is recorded (Day 1 gate, Sat 2026-09-26 CT)
+  1. Before the font gate, the owner can navigate the full site: nine-band homepage, services index plus all 11 service pages, work index plus both cases, about, contact and demo confirmation, blog index and article pages, privacy, terms and 404. The Pairing A mockup is shown first at the public noindex Vercel URL with 1440px and 375px visual evidence for every template; B/C use the same full site afterward. Drafts and unconfirmed content remain clearly marked, and the demo form sends no mail. The owner's font pick is then recorded.
   2. The mockup alternates near-black `#0A0A0B` and snow-white `#F5F6F7` bands, each set by one `data-theme` attribute, and the bands do not change when the OS switches between light and dark mode
-  3. Magenta `#FC0781` appears only on black bands, and dark teal appears only on white bands (`#07B2B2` for display and graphics, `#057E7E` for small text). Every accent use passes WCAG AA contrast for its size
+  3. Magenta `#FC0781` appears only on black bands. On white, bright teal `#07B2B2` is decorative only; its 2.42:1 contrast does not pass AA for large text or meaningful graphics. Information uses ink or `#057E7E`, with WCAG AA contrast for its role.
   4. On a throttled mobile load, the chosen pairing arrives in ≤ 3 self-hosted subset files, and the swap from the metric-matched fallback measures CLS 0 on the hero
   5. The circuit-brain mark and the ZINC wordmark render crisply on both grounds at mobile and desktop widths
 
 **Plans**: 1/5 plans executed
 
 Plans:
+**Wave 1**
 
 - [x] 01-01-PLAN.md — Walking skeleton: scaffold, token system, Pairing A hero on a protected Vercel preview (owner gates: package legitimacy + Vercel go; owner opens preview)
-- [ ] 01-02-PLAN.md — Band gate (check-bands), brand mark on both grounds, dark brand band with magenta, spec sheet, stress fixture
-- [ ] 01-03-PLAN.md — Font-budget gate (check-fonts), nine-font config, Pairings B and C, pairing index
-- [ ] 01-04-PLAN.md — Overflow/axe and deployed Lighthouse/CLS gates in one command; Day 1 owner pick (Sat 2026-09-26 CT)
-- [ ] 01-05-PLAN.md — Record the pick, collapse to the chosen pairing on `/`, delete preview scaffolding, re-measure
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site — 40 sitemap pages plus 404, all nine home bands, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 01-03-PLAN.md — Wave 3: identical full-site A/B/C comparisons with correct font families, route/content parity, budgets and cold-font evidence
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 01-04-PLAN.md — Wave 4: complete route/state/visual/accessibility/performance gates, independent review, then owner's explicit font choice
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 01-05-PLAN.md — Wave 5: retain chosen pairing across all 40 pages and 404, remove comparison routes only, remeasure and publish the full noindex mockup
 
 **UI hint**: yes
 

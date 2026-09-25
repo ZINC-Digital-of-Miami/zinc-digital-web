@@ -1,94 +1,97 @@
 ---
 phase: "1"
-slug: "design-system-font-pick"
-# status lifecycle: draft (seeded by plan-phase) → validated (set by validate-phase §6)
+slug: design-system-font-pick
 status: draft
 nyquist_compliant: false
 wave_0_complete: false
 created: "2026-09-25"
+updated: "2026-09-25 CT — full-site replan"
 ---
 
-# Phase 1 — Validation Strategy
+# Phase 1 — Full-Site Validation Strategy
 
-> Per-phase validation contract for feedback sampling during execution. Source: `01-RESEARCH.md` § Validation Architecture.
+Current 01-CONTEXT.md controls scope. Completed01-01 remains historical evidence; none of its old protected-preview or sample-only pass claims establishes current full-site readiness. This file describes required future execution, not measured results.
 
----
+## Infrastructure and feedback
 
-## Test Infrastructure
+| Item | Contract |
+|---|---|
+| Stack | Existing Node24/Astro7.3.5/Vercel11.0.11; no package changes |
+| Existing tools | npm run build; npm run check; installed selenium-webdriver, axe-core, @axe-core/cli, @lhci/cli, lighthouse, sharp |
+| Quick feedback | npm run build && npm run check && node scripts/verify-mockup.mjs --mode quick --pairings a |
+| Full matrix | node scripts/gate-preview.mjs --mode full --pairings a,b,c --base https://zinc-digital-web.vercel.app |
+| After font collapse | node scripts/gate-preview.mjs --mode full --selected --base https://zinc-digital-web.vercel.app |
+| Output | .scratch/phase01-mockup/ only, including browser profiles, raw source, screenshots and audit reports |
+| Feedback timing | Quick checks under60seconds; full browser/Lighthouse matrix is a separate required gate and can run longer |
+| Source expectation |40 canonical content pages, real404; then120 paired pages plus chooser=161 successful page URLs before collapse |
+| Browser support | Native finished states for reduced motion/unsupported timelines; all content/links remain usable without JS |
 
-| Property | Value |
-|----------|-------|
-| **Framework** | none — static markup/CSS only; checks are build, type-check, Lighthouse CI, axe, and one small Node script |
-| **Config file** | `lighthouserc.json` (Wave 0 installs) |
-| **Quick run command** | `npx astro build && npx astro check` |
-| **Full suite command** | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /design-preview/a/ /design-preview/b/ /design-preview/c/` (after Plan 01-05: `... /`) — build, astro check, check-bands, check-fonts, JS budget, headers, overflow, axe, Lighthouse CI, devtools CLS against the deployed protected preview |
-| **Estimated runtime** | ~30 s quick · ~3 min full |
+## Per-task verification map
 
----
+Every pending command below has an explicit creator task; no missing test is treated as a pass. Add script modes before the first use.
 
-## Sampling Rate
+| Task | Wave | Requirements | Creation/check command | Status |
+|---|---:|---|---|---|
+|01-01 completed |1|DSGN-02/03/04|Preserve original plan/summary; inherited scaffold only|historical, not rerun by planning|
+|01-02-01 |2|DSGN-01..05|Create prepare-mockup.mjs --check/--verify-tracer/--verify-site; npm run build && npm run check && node scripts/prepare-mockup.mjs --verify-tracer|pending|
+|01-02-02 |2|DSGN-01..05|npm run build && npm run check && node scripts/prepare-mockup.mjs --verify-site|pending|
+|01-02-03 |2|DSGN-01..05|Create verify-mockup and gate-preview; node scripts/verify-mockup.mjs --self-test; --mode quick/full --pairings a; gate-preview --check-target|pending|
+|01-03-01 |3|DSGN-01/04|npm run build && npm run check && node scripts/verify-mockup.mjs --mode quick --pairings a,b --tracer|pending|
+|01-03-02 |3|DSGN-01..05|node scripts/verify-mockup.mjs --mode full --pairings a,b,c --parity; target checks|pending|
+|01-04-01 |4|DSGN-02..05|Extend full gate/configs; node scripts/gate-preview.mjs --self-test; --mode quick --pairings a --base https://zinc-digital-web.vercel.app|pending|
+|01-04-02 |4|DSGN-01..05|node scripts/gate-preview.mjs --mode full --pairings a,b,c --base https://zinc-digital-web.vercel.app && node scripts/gate-preview.mjs --ready-for-owner|pending|
+|01-04-03 |4|DSGN-01/05|node scripts/gate-preview.mjs --ready-for-owner; blocking explicit owner choice recorded in01-04-SUMMARY|pending owner gate|
+|01-05-01 |5|DSGN-01/04|npm run build && npm run check && node scripts/verify-mockup.mjs --mode quick --selected --tracer|pending|
+|01-05-02 |5|DSGN-01..05|node scripts/gate-preview.mjs --mode full --selected --base https://zinc-digital-web.vercel.app|pending|
 
-- **After every task commit:** `npx astro build && npx astro check`
-- **After every plan wave:** full suite against the Vercel preview deploy (not localhost — CLS must be measured on the deployed, throttled artifact)
-- **Before `/gsd:verify-work`:** full suite green and the owner's Day 1 pairing pick recorded
-- **Max feedback latency:** 60 seconds for the quick command
+## Full template and route coverage
 
----
+Screenshots at1440 and375 CSS pixels/DPR2 for EACH successful-page template and EACH active pairing: home; services index; service detail; work index; case study; about; contact; thanks; blog index; article; privacy; terms. The shared canonical404 is outside A/B/C comparison; capture it separately at both widths and verify unknown canonical/prefixed paths return it with genuine404 status. Include both cases, longest service names and all distinct contact/filter/menu states. Before the owner sees Pairing A, its entire matrix already exists. Later B/C repeat the matrix across the same complete site. Screenshot review is independent; the implementer cannot accept their own work.
 
-## Per-Task Verification Map
+Crawl every canonical and comparison destination, fragment and internal link. Compare expected11 service slugs and18 source article IDs independently with actual built/rendered output. Root is a real homepage, not a redirect. Unknown paths must respond404. All local cards/CTAs/footer links resolve; no article destination is replaced with a link to the old site. Contact query selection is allowlisted and all eleven services are exercised. The demo never submits/stores fields, changes a network endpoint, or implies mail delivery; no-JS still exposes all fields and a confirmation-preview link.
 
-(Filled by the planner per task; each row maps to a PLAN.md task.)
+## UI consideration and edge coverage
 
-| Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 1-01-01 | 01 | 1 | (supply chain) | T-01-SC | Installs only after owner legitimacy check | checkpoint + automated | `npm view astro@7.3.5 repository.url && npm view @astrojs/vercel@11.0.11 repository.url && npm view typescript repository.url` | n/a | ⬜ pending |
-| 1-01-02 | 01 | 1 | DSGN-02, DSGN-03, DSGN-04 | T-01-01..06 | Standard Protection verified before first deploy; unauth 302 to sso-api + `x-robots-tag: noindex` | tracer (build + dist + Vercel) | `npm run build && npx astro check` + dist checks (3 woff2, 1 preload, size-adjust, data-theme, noindex); `vercel project protection ... --format json` assertion; `curl -D` 302/sso-api/noindex | ❌ W0 (created by task) | ⬜ pending |
-| 1-01-03 | 01 | 1 | — | T-01-01 | Owner reaches preview only when logged in | UAT + automated | `curl -D` on `/design-preview/a/` shows 302 | n/a | ⬜ pending |
-| 1-02-01 | 02 | 2 | DSGN-02, DSGN-03 | T-01-09 | Accent placement + alternation enforced | unit (self-test) + automated | `node scripts/check-bands.mjs --self-test && npm run build && node scripts/check-bands.mjs` | ❌ W0 → created | ⬜ pending |
-| 1-02-02 | 02 | 2 | DSGN-05, DSGN-02 | T-01-07 | Brand copies MD5-identical to owner sources | automated | md5 loop; `npm run build && npx astro check && node scripts/check-bands.mjs` + `<picture>` ≥ 3, AVIF, dark band, favicon | ❌ W0 → created | ⬜ pending |
-| 1-02-03 | 02 | 2 | DSGN-03 | — | N/A | automated | build + check-bands; a and stress pages have 3 sections; spec `dl` present; banned abbreviation absent | ❌ W0 → created | ⬜ pending |
-| 1-03-01 | 03 | 2 | DSGN-04 | T-01-10 | No third-party font host | unit (self-test) + automated | `node scripts/check-fonts.mjs --self-test && npm run build && node scripts/check-fonts.mjs --max 3 dist/design-preview/a/index.html` | ❌ W0 → created | ⬜ pending |
-| 1-03-02 | 03 | 2 | DSGN-01, DSGN-04 | — | N/A | automated | build log `Copying fonts (9 files)`, no `No data found`; `check-fonts --max 3 --distinct` a/b/c and `--max 0` index; data-pairing per route | ❌ W0 → created | ⬜ pending |
-| 1-04-01 | 04 | 3 | DSGN-02 (contrast), DSGN-01 (overflow) | — | N/A | unit (self-test) + automated | `node scripts/check-overflow.mjs --self-test`; local server + check-overflow (4 paths × 6 widths) + `npx axe ... --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa --exit` | ❌ W0 → created | ⬜ pending |
-| 1-04-02 | 04 | 3 | DSGN-04, DSGN-05, DSGN-02 | T-01-12..15 | Bypass secret untracked; lhci upload filesystem only; 302 unauth / 200 + noindex with bypass | automated (deployed preview) | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /design-preview/a/ /design-preview/b/ /design-preview/c/` (10 STEP lines, all EXIT=0) | ❌ W0 → created | ⬜ pending |
-| 1-04-03 | 04 | 3 | DSGN-01, DSGN-05 | T-01-14 | Review index not public | UAT (owner pick) + automated | `curl -D` on `/design-preview/` shows 302 | n/a | ⬜ pending |
-| 1-05-01 | 05 | 4 | DSGN-01, DSGN-04 | — | N/A | automated | build + astro check + check-bands + `check-fonts --max 3 dist/index.html`; 3 woff2; no design-preview; 3 font entries; STATE pick bullet | n/a | ⬜ pending |
-| 1-05-02 | 05 | 4 | DSGN-04 | T-01-17, T-01-18 | `/` still protected; no production target, no Git link | automated (deployed preview) | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /` + project-read assertion | n/a | ⬜ pending |
+| ID | Requirement | Check/result required |
+|---|---|---|
+|UI-01;EP-DSGN04-concurrency|DSGN-04|Actual <=3 same-origin WOFF2 requests,1 display preload, generated metric fallbacks, cold/delayed-font CLS0; failed/interrupted isolated build cannot deploy partial output|
+|UI-02|DSGN-01|Hero clamp preserved; widths320/375/768/1024/1440/2560; no horizontal overflow or orphaned final word at>=375|
+|UI-03|DSGN-01|Longest actual service names checked in every pairing|
+|UI-04|DSGN-01|Zero/one/two/six-item list fixtures; no fixed row assumptions; empty blog filter recovery|
+|UI-05|DSGN-05|Native source ratios preserved; image dimensions reserved and chosen source>=2x CSS size|
+|UI-06;EP-DSGN05-unclassified|DSGN-05|Flagged-human judgment: mark<=1000px, wordmark<=446px; source/rendered DPR2 crops on both grounds; never auto-resolve unclassified probe|
+|UI-07|DSGN-02/03|Explicit theme mapping unchanged by OS theme|
+|EP-DSGN01-adjacency|DSGN-01|A/B/C controls distinct,44px targets, no overlapping wrapped labels|
+|EP-DSGN01-empty|DSGN-01|Missing/invalid pairing route yields designed404|
+|EP-DSGN01-ordering|DSGN-01|A→B→C order fixed; article date ties broken by source ID|
+|EP-DSGN02-adjacency|DSGN-02|Band boundaries meet without gaps/overlap|
+|EP-DSGN02-empty|DSGN-02|Missing/invalid explicit theme fails|
+|EP-DSGN02-encoding|DSGN-02|Rendered Unicode core text/names/punctuation/budgets preserved|
+|EP-DSGN02-ordering|DSGN-02|Color semantics independent of cascade/order/OS|
+|EP-DSGN03-adjacency|DSGN-03|No nested conflicting themes; nine-band alternating ground sequence|
+|EP-DSGN03-empty|DSGN-03|Every rendered band declares exactly one valid ground|
+|EP-DSGN03-ordering|DSGN-03|Home/layer/service order stable; only seven-person team permutation varies|
 
-Measured correction (2026-09-25 13:24 CT): an unauthenticated request to a protected deployment on this team returns **302** to `https://vercel.com/sso-api` with `x-robots-tag: noindex`, not 401. The rows above use 302.
+The supplied12 edge items map to3 DSGN-01 +4 DSGN-02 +3 DSGN-03 +1 DSGN-04 explicit truths and1 DSGN-05 flagged assumption. UI IDs add coverage without changing that count. The three retained bespoke prohibitions in01-02 remain flagged-unverified with no invented wired-check descriptor; human review must resolve the actual intent claims.
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+## Accessibility, performance and exposure
 
----
+- Zero axe violations for WCAG2A/AA,2.1A/AA,2.2AA; keyboard/focus/menu/form validation checked; no underlined link in default/hover/focus; clear alternative cues.
+- Per successful-page template/pairing: mobile Lighthouse Performance/Accessibility/Best Practices100. SEO100 only after explicitly skipping is-crawlable for intentional noindex; retain original report and label the adjusted score. No other successful-page audit exception. The shared canonical404 receives the same applicable visual/accessibility/performance/link/noindex checks, but its raw Lighthouse SEO score is reported honestly without a100 gate: the installed http-status-code audit scores400–599 as0. Preserve the genuine404; never skip that audit or change the response to200.
+- LCP<=1200ms; cold devtools-throttled CLS0 including font/menu/team/filter activity; <=15360 gzip bytes of all inline/external JS per page. Controlled interaction duration<100ms with actual EventTiming evidence is lab data, not field INP. Missing measurements block.
+- Full-page images, currentSrc2x dimensions, exact theme/accent values, top placement and all draft markers are measured. Bright teal2.42:1 stays decorative; meaningful light-band text uses ink or #057E7E.
+- Public alias returns expected200/404 plus noindex/nofollow header AND meta. Raw preview/deployment URLs retain SSO protection. Check current project/team/domain list and deployment identity; no custom domains, paid protection, secrets or live inquiry integration.
+- ASVS1 blocks unresolved high threats; gates cover unsafe source content, unsafe queries, form network/storage leakage, deceptive content, exposure and stale evidence.
 
-## Wave 0 Requirements
+## Scaffolds still to create during assigned tasks
 
-- [ ] `lighthouserc.json` + `lighthouserc.cls.json` (Plan 01-04 Task 2) — mobile; 100 ×4 (`is-crawlable` skipped, noindex asserted separately), LCP ≤ 1200 ms, script ≤ 15 KB, CLS = 0 simulated and devtools-throttled; filesystem upload only
-- [ ] `scripts/check-bands.mjs` (Plan 01-02 Task 1) — `data-theme` on every section, alternation, no nesting, accent-token placement, no OS color-scheme rule
-- [ ] `scripts/check-fonts.mjs` (Plan 01-03 Task 1) — ≤ 3 woff2 per page, subset, size-adjust fallback, one preload, self-hosted, `--distinct`
-- [ ] `scripts/check-overflow.mjs` (Plan 01-04 Task 1) — no horizontal scroll at 320–2560 px, no orphaned hero word ≥ 375 px
-- [ ] `scripts/gate-preview.sh` (Plan 01-04 Task 2) — the full suite as one command
-- [ ] Dev dependencies installed in Plan 01-01 Task 2: `@lhci/cli@0.15.1`, `@axe-core/cli@4.13.0` (with `DETECT_CHROMEDRIVER_VERSION=true`), `@astrojs/check@0.9.10`, `typescript`
-- [x] Font resolve check: all 9 families resolve (Big Shoulders Display via fontsource, other 8 via google) — planner probe 2026-09-25 13:19 CT, `Copying fonts (9 files)`; re-checked at execution by Plan 01-03 Task 2
+- [ ]01-02-01 prepare-mockup source/asset/fixture/tracer checks
+- [ ]01-02-03 verify-mockup browser/crawl/screenshot matrix and gate-preview target check
+- [ ]01-03-02 complete paired route/content/font parity checks
+- [ ]01-04-01 Lighthouse configs, full runner and synthetic failing gate fixtures
+- [ ]01-04-02 independent full-matrix evidence and ready-for-owner check
+- [ ]01-05 selected-mode final full-site regression
 
----
+## Sign-off
 
-## Manual-Only Verifications
-
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| Owner picks one pairing | DSGN-01 | Taste decision | Owner opens the protected preview index on Day 1 (Sat 2026-09-26 CT), views A/B/C, states the pick; pick recorded in STATE.md |
-| Brand mark crispness | DSGN-05 | Visual judgment of raster scaling | View mark + wordmark on both grounds at 320/768/1440 px on a retina screen |
-
----
-
-## Validation Sign-Off
-
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 60 s
-- [ ] `nyquist_compliant: true` set in frontmatter
-
-**Approval:** pending
+nyquist_compliant and wave_0_complete stay false until the promised scaffolds/checks are actually created and evidenced. Planning does not self-approve runtime results. Owner font choice and raster crispness are explicit human judgments; production launch/content approval is outside this gate.

@@ -1,14 +1,14 @@
 {
   "version": "1.0",
-  "timestamp": "2026-09-25T20:05:51Z",
-  "timestamp_ct": "2026-09-25 3:05 PM CT",
+  "timestamp": "2026-09-25T16:00:47.532750-05:00",
+  "timestamp_ct": "2026-09-25 04:00 PM CT",
   "phase": "1",
   "phase_name": "Design System & Font Pick",
   "phase_dir": ".planning/phases/01-design-system-font-pick",
-  "plan": 1,
-  "task": 3,
+  "plan": 2,
+  "task": 1,
   "total_tasks": 3,
-  "status": "paused",
+  "status": "ready_to_execute",
   "completed_tasks": [
     {
       "id": 1,
@@ -27,41 +27,39 @@
       "name": "01-01 Task 3: owner opens preview",
       "status": "done",
       "commit": "6c04e71",
-      "note": "superseded by owner: public noindex production URL; owner will judge the complete homepage instead"
+      "note": "Historical sample review superseded by the direct owner request for the entire site."
     }
   ],
   "remaining_tasks": [
     {
       "id": 4,
-      "name": "Replan 01-02..01-05 from scratch around the complete nine-band homepage (owner chose 'Replan from scratch'; not done)",
-      "status": "not_started"
+      "name": "Replan 01-02..01-05 for the complete clickable FULL SITE; direct owner correction supersedes the homepage-only turnover brief",
+      "status": "done",
+      "verification": "Independent gsd-plan-checker passed after resolving404SEO and tracer sequencing; all four plan structures pass, 0 failure-direction blockers, 5/5 phase requirements covered."
     },
     {
       "id": 5,
-      "name": "Execute the new plans; deploy to zinc-digital-web.vercel.app; visual check 1440+375 before any hand-off",
+      "name": "Execute the full-site mockup plan; verify every route/template at 1440 and 375; show the complete site at the public noindex Vercel URL",
       "status": "not_started"
     },
     {
       "id": 6,
-      "name": "Pairings B/C on the full page; gates; owner font pick; collapse",
+      "name": "Compare Pairings B/C across the same complete site; gates; owner font pick; collapse preserving every page",
       "status": "not_started"
     }
   ],
   "blockers": [
     {
-      "description": "Plans 01-02..01-05 on disk are stale (dark band + spec sheet + pairing routes). Do not execute them.",
-      "type": "technical",
-      "workaround": "/gsd-plan-phase 1 -> Replan from scratch with the brief in docs/handoff/2026-09-25-turnover.md section 1 items 5-10 and spec section 6.1"
-    },
-    {
       "description": ".github/workflows/astro.yml on main (owner commit f5c7a90) deploys to GitHub Pages on Node 20; conflicts with Vercel/Node 24 and will fail or double-deploy on push to main",
       "type": "human_action",
-      "workaround": "delete it or convert to check-only; merge origin/main into the phase branch after"
+      "workaround": "Owner decides delete versus check-only. If branch synchronization is needed, rebase onto current main; never merge main into the work branch.",
+      "blocks": "Landing on main; not local full-site mockup execution"
     },
     {
       "description": "zincdigital.co has two SPF records (permerror), neither authorizing Google Workspace",
       "type": "human_action",
-      "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all"
+      "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all",
+      "blocks": "Real inquiry integration; not non-sending mockup"
     },
     {
       "description": "Copilot PR review quota exhausted",
@@ -73,8 +71,8 @@
   "human_actions_pending": [
     {
       "action": "Decide on .github/workflows/astro.yml (delete or check-only)",
-      "context": "Owner-pushed GitHub Pages deploy workflow conflicts with Vercel plan and spends Actions minutes",
-      "blocking": true
+      "context": "Owner-pushed GitHub Pages deploy workflow conflicts with Vercel plan and spends Actions minutes; blocks repository landing, not local mockup work.",
+      "blocking": false
     },
     {
       "action": "Fix SPF in MyKinsta DNS",
@@ -83,13 +81,13 @@
     },
     {
       "action": "Merge PR #2 when main should carry current state",
-      "context": "Head 6d919dc; contains 01-01 + planning docs + turnover",
+      "context": "PR #2 carries the phase branch. Re-read current remote head before landing; resolve the Pages workflow decision first.",
       "blocking": false
     },
     {
-      "action": "Font pick and complete-homepage review",
-      "context": "Owner gates; only after the full nine-band homepage is deployed",
-      "blocking": true
+      "action": "Font pick and complete-site mockup review",
+      "context": "Only after the complete clickable site and desktop/mobile template evidence are available; future blocking-human checkpoint in 01-04, not a prerequisite for 01-02.",
+      "blocking": false
     }
   ],
   "decisions": [
@@ -99,8 +97,8 @@
       "phase": "1"
     },
     {
-      "decision": "Next deliverable is the complete nine-band homepage, not a lone hero",
-      "rationale": "Owner: 'I have not even seen the first complete mockup yet'",
+      "decision": "Complete clickable mockup of the ENTIRE SITE: 40 canonical pages plus genuine404, then identical full-site B/C comparisons.",
+      "rationale": "Direct owner correction supersedes homepage-only Part C in the historical turnover.",
       "phase": "1"
     },
     {
@@ -114,12 +112,20 @@
       "phase": "1"
     }
   ],
-  "uncommitted_files": [
-    "?? .planning/milestone.lock",
-    "?? .planning/state.json"
-  ],
-  "uncommitted_note": "Both are GSD runtime files; leave untracked. Tracked tree is clean at 6d919dc, pushed.",
-  "next_action": "cd /Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01; git fetch && git merge origin/main; read docs/handoff/2026-09-25-turnover-complete.md (Part C is the replan brief); then /gsd-plan-phase 1 -> Replan from scratch.",
+  "uncommitted_files": [],
+  "uncommitted_note": "Run git status for current state. Runtime state files were committed by the prior session at7250ae6; the old untracked-files report is historical.",
+  "next_action": "GSD auto-advance: execute01-02, the complete40-page PairingA mockup plus404, on the existing phase worktree. Completed01-01 stays unchanged.01-04 owner font decision remains blocking-human.",
   "context_notes": "All Phase 1 work is on branch gsd/phase-01-design-system-font-pick in the phase-01 worktree; main is the product and gets it via PR. Vercel project is CLI-linked from that worktree (.vercel/ gitignored); production deploys to the vercel.app URL are owner-authorized, custom domains are not. Every hand-off needs the agent's own desktop+mobile screenshots. Owner rules: Central time, external-drive storage only, no new paid services, no cursing in copy, never 'GEO'.",
-  "turnover_document": "docs/handoff/2026-09-25-turnover-complete.md"
+  "turnover_document": "docs/handoff/2026-09-25-turnover-complete.md",
+  "scope_correction": "2026-09-25 CT direct owner: full mockup of ENTIRE SITE. Current 01-CONTEXT.md supersedes homepage-only wording in the complete historical turnover. Preserve completed 01-01.",
+  "graphify": {
+    "status": "built",
+    "nodes": 482,
+    "edges": 449,
+    "communities": 36,
+    "hyperedges": 0,
+    "path": ".planning/graphs",
+    "source_commit": "7250ae6310a534e5480a450b18202503c67201cc",
+    "limitation": "Astro parsing is partial; graph is a navigation hint and predates finalized replan."
+  }
 }

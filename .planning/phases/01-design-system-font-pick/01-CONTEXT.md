@@ -7,7 +7,9 @@
 <domain>
 ## Phase Boundary
 
-Scaffold the Astro project and deliver the design system (tokens, fonts, band theming, brand mark) proven on a rendered mockup: the homepage hero and one service spec sheet, shown in three font pairings on noindex, deployment-protected preview routes. The owner picks one pairing on Day 1 (Sat 2026-09-26 CT). No other pages, no form, no Loop animation in this phase.
+Deliver a complete, clickable mockup of the ENTIRE approved site before asking the owner to judge fonts or approve the design. The completed 01-01 scaffold is retained. Replace the unexecuted 01-02..01-05 plans from scratch. The first remaining build deliverable must cover every sitemap destination: the nine-band homepage; services index and all 11 service pages; work index and both case studies; about; contact and its demo confirmation; blog index and article pages; privacy; terms; and 404. Navigation, service preselection, blog filtering and form preview states must work locally. Unconfirmed copy, receipts, photos and legal text must be visibly marked; a mockup submission must not send mail or collect live inquiries. Production integrations and final content approval remain later-phase work.
+
+**Superseding owner correction, 2026-09-25 CT:** "this is supposed to be a fucking full mockup of entire site!" followed by the explicit `$gsd-plan-phase` command and "CONTINUE". This direct correction supersedes the homepage-only next-build interpretation in `docs/handoff/2026-09-25-turnover-complete.md` Part C and every older hero/spec-sheet-only phase boundary. The turnover remains the source for the approved sitemap, assets, design decisions and historical state. Do not narrow this deliverable back to a homepage.
 
 Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 
@@ -19,7 +21,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 ### Stack (locked)
 - Astro 7.3.5, `@astrojs/vercel` 11.0.11, TypeScript (version pinned by `create-astro`), Node 24. `output: 'static'`.
 - Plain CSS with custom-property tokens. No CSS framework, no UI framework, no animation library, no component registry.
-- Hosting: Vercel team `zincdigitalofmiamis-projects` (Pro, already paid). Preview deploys only in this phase — no production domain change.
+- Hosting: Vercel team `zincdigitalofmiamis-projects` (Pro, already paid). Owner selected the public noindex `zinc-digital-web.vercel.app` URL; custom domains remain unattached. Verify deployment target, protection and noindex after each deploy.
 - Repo: `ZINC-Digital-of-Miami/zinc-digital-web`; work on branch `gsd/phase-01-design-system-font-pick` in worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`; lands on `main` by PR.
 
 ### Color (locked — spec §8, §18)
@@ -41,13 +43,14 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 ### Copy (locked — spec §7)
 - Core line: "Other agencies deliver the scope. ZINC delivers the business."
 - Fresh voice: short declaratives, senior, no slang, no cursing, no exclamation points, nouns and receipts over adjectives; no legacy lines; never "GEO".
-- Mockup body copy is draft and marked [DRAFT]. Primary CTA "Start an Inquiry"; text line "Text (786) 575-4837".
+- Mockup body copy is draft and marked [DRAFT]. The rejected hero supporting line remains a [DRAFT] slot. Primary CTA "Start an Inquiry"; text line "Text (786) 575-4837". No underlined links; page content starts at the top; use crisp assets at 2x their displayed dimensions.
 
 ### Brand mark (locked)
 - Black/white circuit-brain profile mark + ZINC wordmark, from `/Volumes/Satechi Hub/ZINC Digital Agency/Graphics/` and `/Volumes/Satechi Hub/ZINC Digital Agency/docs/context/brand-assets/`. Raster only; on-screen width capped at source ÷ 2.
 
 ### Gates that start here (spec §10)
 - Lighthouse mobile 100 ×4 on the mockup routes; CLS 0 on cold throttled load per pairing; WCAG 2.2 AA contrast; ≤ 15 KB JS (this phase should ship ~0 KB).
+- Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete Pairing A site before expanding B/C or requesting a font pick.
 
 ### Claude's Discretion
 - Directory layout and token file names (follow `.planning/research/ARCHITECTURE.md`).
@@ -89,8 +92,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 <deferred>
 ## Deferred Ideas
 
-- The Loop animation, homepage bands, motion system — Phase 2.
-- Service pages, case studies — Phase 3. Form — Phase 4. Blog/SEO/redirects — Phase 5.
+- Later phases complete production motion/performance, final copy and receipts, mail delivery/anti-abuse, reviewed blog migration, SEO/redirects, and launch/cutover. Their visible page designs and interactive mockup states are included in Phase 1 now; do not defer the full-site mockup itself.
 
 </deferred>
 
