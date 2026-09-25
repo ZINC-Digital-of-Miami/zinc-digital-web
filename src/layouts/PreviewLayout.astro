@@ -31,9 +31,9 @@ const { pairing, title } = Astro.props;
   </head>
   <body>
     <header data-theme="dark" class="preview-strip">
-      <p class="t-label">
-        Pairing A: Big Shoulders Display 800 / Inter 400 / JetBrains Mono 400
-        [DRAFT PREVIEW]
+      <p class="t-label preview-strip__row">
+        <span>Pairing A: Big Shoulders Display 800 / Inter 400 / JetBrains Mono 400</span>
+        <span class="draft-tag">[DRAFT PREVIEW]</span>
         <a href="/design-preview/">All pairings</a>
       </p>
     </header>
@@ -42,3 +42,17 @@ const { pairing, title } = Astro.props;
     </main>
   </body>
 </html>
+
+<style>
+  .preview-strip {
+    padding-block: var(--space-sm);
+    padding-inline: var(--space-md);
+  }
+
+  .preview-strip__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-sm) var(--space-md);
+  }
+</style>

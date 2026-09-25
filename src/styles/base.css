@@ -10,12 +10,39 @@
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: var(--font-body, sans-serif);
   font-size: var(--text-body);
   line-height: var(--leading-body);
   font-synthesis: none; /* only one weight per role ships; never fake bold or italic */
+}
+
+/* Links: always semantic tokens, never the browser default blue/purple. Each
+ * link inherits the ground's --fg by default (works for both grounds
+ * automatically); specific contexts opt into --accent-text where the design
+ * calls for it. */
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.15em;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration-thickness: 0.14em;
 }
 
 /* Type roles */
@@ -124,7 +151,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 52%;
+  bottom: 0.34em;
   height: 0.08em;
   background: var(--accent);
 }
