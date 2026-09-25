@@ -85,6 +85,12 @@ Owner actions on the critical path (dates CT):
 - Day 7, Fri 2026-10-02: cutover only on the owner's explicit go; drop the Kinsta SPF include after cutover
 - Phase 5: the redirect map needs the WordPress REST API export plus a Search Console export (traffic and backlinks for tags, categories and `/current-promos/`)
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260925-ovl | Replace GitHub Pages workflow with Node 24 CI gate (ci.yml, job `build`) | 2026-09-25 | 959adeb | [260925-ovl-replace-github-pages-workflow-with-node-](./quick/260925-ovl-replace-github-pages-workflow-with-node-/) |
+
 ## Deferred Items
 
 Items acknowledged and deferred at milestone close, most recent first:
