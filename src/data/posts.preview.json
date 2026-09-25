@@ -1,6 +1,6 @@
 {
   "source": "https://www.zincdigital.co/wp-json/wp/v2/posts?per_page=100&status=publish&_fields=id,slug,link,date,date_gmt,modified,modified_gmt,author,title,content",
-  "retrievedAt": "2026-09-25T21:14:22.348Z",
+  "retrievedAt": "2026-09-25T21:18:23.319Z",
   "total": 18,
   "totalPages": 1,
   "posts": [

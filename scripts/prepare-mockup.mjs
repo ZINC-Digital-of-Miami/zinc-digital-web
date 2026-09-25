@@ -83,17 +83,18 @@ await sharp(path.join(assetRoot,'Graphics/ZINC Fusion Icons .png')).resize(96,96
 await save('src/data/assets.preview.json',assets);
 
 const endpoint = 'https://www.zincdigital.co/wp-json/wp/v2/posts?per_page=100&status=publish&_fields=id,slug,link,date,date_gmt,modified,modified_gmt,author,title,content';
-const response = await fetch(endpoint);
+const response = await fetch(endpoint,{signal:AbortSignal.timeout(30000)});
 assert.equal(response.status,200,'public source response');
 const raw = await response.json();
 assert.equal(Number(response.headers.get('x-wp-total')),18,'source count changed; reconcile before continuing');
 assert.equal(Number(response.headers.get('x-wp-totalpages')),1,'source pagination');
 assert.equal(raw.length,18,'complete source inventory');
 assert.equal(new Set(raw.map(p=>p.id)).size,18);
+assert.deepEqual(raw.map(p=>p.id).sort((a,b)=>a-b),[56328,55980,55886,...Array.from({length:15},(_,i)=>55708+i)].sort((a,b)=>a-b),'source identity inventory changed; reconcile before continuing');
 await save(path.join(scratch,'posts.raw.json'),raw);
 const authors = {};
 for (const id of new Set(raw.map(p=>p.author))) {
-  const res = await fetch('https://www.zincdigital.co/wp-json/wp/v2/users/'+id+'?_fields=id,name,description,link');
+  const res = await fetch('https://www.zincdigital.co/wp-json/wp/v2/users/'+id+'?_fields=id,name,description,link',{signal:AbortSignal.timeout(30000)});
   authors[id] = res.ok ? await res.json() : {id,name:'[OWNER CONFIRM]',description:''};
 }
 await save(path.join(scratch,'authors.raw.json'),authors);
@@ -102,6 +103,8 @@ const driver = await new Builder().forBrowser('chrome').setChromeOptions(options
 let posts;
 try {
   await driver.get('about:blank');
+  // A malicious-source probe traverses exactly the same parser as the real articles.
+  const probe={id:-1,slug:'sanitizer-probe',link:'https://www.zincdigital.co/probe/',date:'2026-01-01',date_gmt:'2026-01-01',author:-1,title:{rendered:'Probe'},content:{rendered:'<p>Safe &amp; complete <a href="javascript:alert(1)" onclick="alert(2)">unsafe URL</a><script>window.sourceExecuted=true</script></p><h2>Heading</h2><ul><li>Item</li></ul><iframe src="https://example.test"></iframe>'}};
   posts = await driver.executeScript(function(input, authors) {
     const decode = html => new DOMParser().parseFromString(html,'text/html').body.textContent.trim();
     return input.map(post => {
@@ -130,7 +133,13 @@ try {
       walk(doc.body);
       return {id:post.id,slug:post.slug,title:decode(post.title.rendered),sourceUrl:post.link,date:post.date,dateGmt:post.date_gmt,modified:post.modified,modifiedGmt:post.modified_gmt,author:{id:post.author,name:authors[post.author].name,description:authors[post.author].description||''},plainTextLength:doc.body.textContent.trim().length,blocks};
     });
-  },raw,authors);
+  },[...raw,probe],{...authors,[-1]:{name:'Probe',description:''}});
+  const sanitized=posts.pop();
+  assert.equal(sanitized.blocks.length,3,'sanitizer preserves substantive blocks');
+  assert.equal(sanitized.blocks[0].runs.map(r=>r.text).join(''),'Safe & complete unsafe URL');
+  assert.ok(!JSON.stringify(sanitized.blocks).includes('javascript:')&&!JSON.stringify(sanitized.blocks).includes('sourceExecuted'),'sanitizer drops executable payloads');
+  assert.equal(await driver.executeScript('return window.sourceExecuted===true'),false,'source HTML never executes');
+  await save(path.join(scratch,'sanitizer-check.json'),{checkedAt:new Date().toISOString(),probe:'script,iframe,event handler,javascript URL',preservedBlocks:3,passed:true});
 } finally {await driver.quit();}
 for(const p of posts) {
   p.sourceSlug=p.slug;p.sourceTitle=p.title;
