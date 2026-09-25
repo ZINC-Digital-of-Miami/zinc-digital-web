@@ -3,8 +3,6 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'static',
-  // PRE-LAUNCH: root points at the Phase 1 mockup until the real homepage lands (Plan 01-05).
-  redirects: { '/': '/design-preview/a/' },
   adapter: vercel(),
   fonts: [
     {
