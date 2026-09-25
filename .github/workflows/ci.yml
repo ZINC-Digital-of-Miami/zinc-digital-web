@@ -1,0 +1,79 @@
+# Node 24 CI gate for the Vercel-hosted Astro site.
+# Vercel handles deploys; this workflow only gates pull requests into main.
+# The `build` job always reports (pass/fail, never pending/skipped) so a
+# branch ruleset can require it. When package.json is absent on the ref
+# (e.g. main before the app lands), the job passes and logs a notice.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Detect app
+        id: detect
+        run: |
+          if [ -f package.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "package.json found on this ref; app present, running install/check/build."
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=No app yet::package.json is not on this ref; the Astro app has not landed yet, so install, check and build are skipped."
+          fi
+
+      - name: Set up Node 24
+        if: steps.detect.outputs.present == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Assert Node 24
+        if: steps.detect.outputs.present == 'true'
+        run: |
+          node --version
+          major=$(node -p "process.versions.node.split('.')[0]")
+          if [ "$major" != "24" ]; then
+            echo "::error title=Wrong Node major::Expected Node 24, got Node $major"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        if: steps.detect.outputs.present == 'true'
+        run: npm ci
+
+      - name: Type-check (astro check)
+        if: steps.detect.outputs.present == 'true'
+        run: npm run check
+
+      - name: Build (astro build)
+        if: steps.detect.outputs.present == 'true'
+        run: npm run build
