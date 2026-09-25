@@ -53,7 +53,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. On a throttled mobile load, the chosen pairing arrives in ≤ 3 self-hosted subset files, and the swap from the metric-matched fallback measures CLS 0 on the hero
   5. The circuit-brain mark and the ZINC wordmark render crisply on both grounds at mobile and desktop widths
 
-**Plans**: 1/5 plans executed
+**Plans**: 2/5 plans executed
 
 Plans:
 **Wave 1**
@@ -62,7 +62,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site — 40 sitemap pages plus 404, all nine home bands, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
+- [x] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site — 40 sitemap pages plus 404, all nine home bands, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -205,7 +205,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System & Font Pick | 1/5 | In Progress|  |
+| 1. Design System & Font Pick | 2/5 | In Progress|  |
 | 2. Homepage & the Loop | 0/TBD | Not started | - |
 | 3. Services & Proof | 0/TBD | Not started | - |
 | 4. About & Inquiry | 0/TBD | Not started | - |

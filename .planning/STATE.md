@@ -1,13 +1,13 @@
 ---
 gsd_state_version: "1.0"
-current_phase: 1
+current_phase: 01
 current_phase_name: Design System & Font Pick
 status: executing
-stopped_at: "Full-site replan verified; execute01-02 for all40 pages plus404. Complete turnover is historical; current CONTEXT governs."
-last_updated: "2026-09-25T21:00:46.606Z"
+stopped_at: 01-02 complete and publicly verified at ed4c1fa; executing 01-03 complete-site font comparisons.
+last_updated: "2026-09-25T21:38:05.127Z"
 last_activity: 2026-09-25
-last_activity_desc: Phase 1 execution started
-state_head: 7250ae6310a534e5480a450b18202503c67201cc
+last_activity_desc: Complete 40-page A mockup deployed and verified; executing 01-03.
+state_head: c54d31ee2feaed59e791963571efc30244e31a83
 progress:
   total_phases: 7
   completed_phases: 0
@@ -23,14 +23,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-09-25 CT)
 
 **Core value:** The right prospect leaves certain ZINC is the serious option, and sends a qualified inquiry or a text about a specific service, on a site that loads instantly and ranks.
-**Current focus:** Phase 1 — Design System & Font Pick
+**Current focus:** Phase 01 — Design System & Font Pick
 
 ## Current Position
 
-Phase: 1 (Design System & Font Pick) — READY TO EXECUTE
-Plan: 2 of 5 (01-01 complete; 01-02 next)
-Status: Ready to execute
-Last activity: 2026-09-25 — Phase 1 execution started
+Phase: 01 (Design System & Font Pick) — EXECUTING
+Plan: 3 of 5
+Status: Executing Phase 01
+Last activity: 2026-09-25 — Complete 40-page A mockup deployed and verified; executing 01-03.
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -79,7 +79,7 @@ None yet.
 Owner actions on the critical path (dates CT):
 
 - Day 1, Sat 2026-09-26: font pairing pick (blocks Phase 2 visual work)
-- Day 4, Tue 2026-09-29: SPF record replaced in Route 53 (§18 exact record). The form stays off for live submissions until one SPF record measures with `_spf.google.com` (LNCH-02)
+- Day 4, Tue 2026-09-29: SPF record replaced in MyKinsta DNS (owner's current turnover; remeasure before editing). The form stays off for live submissions until one SPF record measures with `_spf.google.com` (LNCH-02)
 - Phase 4: Workspace App Password and Turnstile keys entered by the owner as Vercel env vars. If Workspace admin blocks App Passwords, fall back to the Gmail API (§18)
 - Day 5, Wed 2026-09-30: receipts, "How we work" confirmations, testimonials marked real or placeholder, Jaymie and Wendy photos; DNS TTLs lowered 24–48 h before cutover
 - Day 7, Fri 2026-10-02: cutover only on the owner's explicit go; drop the Kinsta SPF include after cutover
@@ -96,5 +96,5 @@ Items acknowledged and deferred at milestone close, most recent first:
 ## Session Continuity
 
 Last session: 2026-09-25T20:04:45.480Z
-Stopped at: TURNOVER 2026-09-25 3:10 PM CT: 01-01 complete; plans 01-02..01-05 stale, owner chose Replan from scratch (not done). Next deliverable = complete nine-band homepage at / on zinc-digital-web.vercel.app. See docs/handoff/2026-09-25-turnover.md
-Resume file: docs/handoff/2026-09-25-turnover.md
+Stopped at: 01-02 complete and publicly verified at ed4c1fa; executing 01-03 complete-site font comparisons.
+Resume file: .planning/phases/01-design-system-font-pick/.continue-here.md
