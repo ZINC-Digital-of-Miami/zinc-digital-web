@@ -101,7 +101,7 @@
 ### Launch (LNCH)
 
 - [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 font pick; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos; Day 6 final approval (§18)
-- [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the §18 record in Route 53) (§18)
+- [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the §18 record in MyKinsta DNS) (§18)
 - [ ] **LNCH-03**: DNS TTLs are lowered 24–48 h ahead; on the owner's explicit go, Route 53 web records point to Vercel with mail records untouched (§15)
 - [ ] **LNCH-04**: After cutover on the live domain: every redirect passes, sitemap submitted in Search Console, GA4 receives hits, a test inquiry reaches Jaymie, Lighthouse gates re-run (§15)
 
