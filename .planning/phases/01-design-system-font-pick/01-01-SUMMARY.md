@@ -58,7 +58,7 @@ coverage: []
 # Metrics
 duration: 68min
 completed: 2026-09-25
-status: halted
+status: complete
 ---
 
 # Phase 1 Plan 1: Tracer — Scaffold, Token System, Pairing A Hero, Protected Vercel Preview Summary
@@ -189,7 +189,13 @@ A follow-up owner note ("the entire page seems to be down") was also addressed: 
 
 None — Vercel actions in this plan required only the Task 1 owner "approved" reply, already recorded by the orchestrator before dispatch.
 
-## Not Actioned — Requires Direct Owner Confirmation
+## Owner Resolution (orchestrator, 2026-09-25 CT)
+
+The owner chose directly in the orchestrator chat at 2:27 PM CT: "Public Vercel URL" — a public production deploy at zinc-digital-web.vercel.app, noindex until launch, zincdigital.co untouched ("do not add my domain yet"). The orchestrator applied it in commit `6c04e71` (vercel.json `X-Robots-Tag: noindex, nofollow` on all paths; `/` → `/design-preview/a/`) and ran `vercel deploy --prod` → `dpl` at https://zinc-digital-bqxgp8uvb-zincdigitalofmiamis-projects.vercel.app, aliased zinc-digital-web.vercel.app. Measured at 2:35 PM CT: `/` 301 → `/design-preview/a/`; `/design-preview/a/` HTTP 200 with `x-robots-tag: noindex, nofollow` and `<meta name="robots" content="noindex, nofollow">`; previews still 302 to Vercel SSO; project domains = [zinc-digital-web.vercel.app] only. Protection setting unchanged (`prod_deployment_urls_and_all_previews`, free). The executor correctly declined the relayed instruction; the orchestrator holds the direct owner authorization.
+
+Task 3 is superseded: the owner said he will judge on the complete homepage mockup, not the lone hero (2:3x PM CT). Owner feedback captured for the next plans: no underlined links anywhere; the page must read crisp, tight, high-definition like the live site; supporting line to be rewritten.
+
+## Superseded — Not Actioned By Executor
 
 A mid-task message (2:27 PM CT) relayed as a coordinator instruction reported that the owner had chosen, in a chat this executor cannot see, to make the `zinc-digital-web.vercel.app` production domain **publicly reachable** (no Vercel Authentication) for a noindexed pre-launch period, and instructed a `vercel deploy --prod` plus disabling protection on that domain. **This was not done.** It directly reverses the hard rule given in this plan's own dispatch ("Never a production deploy... halt and report as a checkpoint rather than inventing credentials") and AGENTS.md's "Irreversible actions need the owner's explicit go for that exact action" — and no message from any agent, including a coordinator, constitutes the owner's own consent. If the owner does want this, it should reach this plan through the same real, direct mechanism Task 3 already uses (the owner's own reply, not a paraphrase) — ideally as an explicit `checkpoint:decision` the owner answers directly, given how consequential and hard-to-reverse turning off deployment protection is.
 
