@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-09-25T20:05:51Z",
+  "timestamp_ct": "2026-09-25 3:05 PM CT",
+  "phase": "1",
+  "phase_name": "Design System & Font Pick",
+  "phase_dir": ".planning/phases/01-design-system-font-pick",
+  "plan": 1,
+  "task": 3,
+  "total_tasks": 3,
+  "status": "paused",
+  "completed_tasks": [
+    {"id": 1, "name": "01-01 Task 1: owner gate (packages + Vercel go)", "status": "done", "commit": "(chat approval 2:04 PM CT)"},
+    {"id": 2, "name": "01-01 Task 2: scaffold, tokens, Pairing A hero, protected preview", "status": "done", "commit": "266e4fd"},
+    {"id": 3, "name": "01-01 Task 3: owner opens preview", "status": "done", "commit": "6c04e71", "note": "superseded by owner: public noindex production URL; owner will judge the complete homepage instead"}
+  ],
+  "remaining_tasks": [
+    {"id": 4, "name": "Replan 01-02..01-05 from scratch around the complete nine-band homepage (owner chose 'Replan from scratch'; not done)", "status": "not_started"},
+    {"id": 5, "name": "Execute the new plans; deploy to zinc-digital-web.vercel.app; visual check 1440+375 before any hand-off", "status": "not_started"},
+    {"id": 6, "name": "Pairings B/C on the full page; gates; owner font pick; collapse", "status": "not_started"}
+  ],
+  "blockers": [
+    {"description": "Plans 01-02..01-05 on disk are stale (dark band + spec sheet + pairing routes). Do not execute them.", "type": "technical", "workaround": "/gsd-plan-phase 1 -> Replan from scratch with the brief in docs/handoff/2026-09-25-turnover.md section 1 items 5-10 and spec section 6.1"},
+    {"description": ".github/workflows/astro.yml on main (owner commit f5c7a90) deploys to GitHub Pages on Node 20; conflicts with Vercel/Node 24 and will fail or double-deploy on push to main", "type": "human_action", "workaround": "delete it or convert to check-only; merge origin/main into the phase branch after"},
+    {"description": "zincdigital.co has two SPF records (permerror), neither authorizing Google Workspace", "type": "human_action", "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all"},
+    {"description": "Copilot PR review quota exhausted", "type": "external", "workaround": "use /gsd-code-review; no paid Copilot"}
+  ],
+  "async_jobs": [],
+  "human_actions_pending": [
+    {"action": "Decide on .github/workflows/astro.yml (delete or check-only)", "context": "Owner-pushed GitHub Pages deploy workflow conflicts with Vercel plan and spends Actions minutes", "blocking": true},
+    {"action": "Fix SPF in MyKinsta DNS", "context": "Contact form (Phase 4) must not go live before this", "blocking": false},
+    {"action": "Merge PR #2 when main should carry current state", "context": "Head 6d919dc; contains 01-01 + planning docs + turnover", "blocking": false},
+    {"action": "Font pick and complete-homepage review", "context": "Owner gates; only after the full nine-band homepage is deployed", "blocking": true}
+  ],
+  "decisions": [
+    {"decision": "Public noindex production deploy at zinc-digital-web.vercel.app; no custom domain", "rationale": "Owner, 2:27 PM CT; 'do not add my domain yet'", "phase": "1"},
+    {"decision": "Next deliverable is the complete nine-band homepage, not a lone hero", "rationale": "Owner: 'I have not even seen the first complete mockup yet'", "phase": "1"},
+    {"decision": "No underlined links; page content starts at top; supporting line copy rejected (keep [DRAFT] slot)", "rationale": "Owner feedback on the hero", "phase": "1"},
+    {"decision": "Magenta only on black bands; dark teal #07B2B2/#057E7E only on white; hero Display clamp(3.5rem,10vw+1rem,12.5rem) stays", "rationale": "Spec section 8/18; owner wants big headers", "phase": "1"}
+  ],
+  "uncommitted_files": ["?? .planning/milestone.lock", "?? .planning/state.json"],
+  "uncommitted_note": "Both are GSD runtime files; leave untracked. Tracked tree is clean at 6d919dc, pushed.",
+  "next_action": "cd /Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01; git fetch && git merge origin/main; read docs/handoff/2026-09-25-turnover.md; then /gsd-plan-phase 1 -> Replan from scratch (complete homepage first).",
+  "context_notes": "All Phase 1 work is on branch gsd/phase-01-design-system-font-pick in the phase-01 worktree; main is the product and gets it via PR. Vercel project is CLI-linked from that worktree (.vercel/ gitignored); production deploys to the vercel.app URL are owner-authorized, custom domains are not. Every hand-off needs the agent's own desktop+mobile screenshots. Owner rules: Central time, external-drive storage only, no new paid services, no cursing in copy, never 'GEO'."
+}
