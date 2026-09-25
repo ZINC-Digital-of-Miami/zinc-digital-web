@@ -54,7 +54,7 @@
     "ui_review": true,
     "use_worktrees": true,
     "code_review_point": "execute:wave:post",
-    "_auto_chain_active": true
+    "_auto_chain_active": false
   },
   "ship": {
     "pr_body_sections": []
