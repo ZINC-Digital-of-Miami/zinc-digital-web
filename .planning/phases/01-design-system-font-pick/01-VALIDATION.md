@@ -21,7 +21,7 @@ created: "2026-09-25"
 | **Framework** | none — static markup/CSS only; checks are build, type-check, Lighthouse CI, axe, and one small Node script |
 | **Config file** | `lighthouserc.json` (Wave 0 installs) |
 | **Quick run command** | `npx astro build && npx astro check` |
-| **Full suite command** | `npx astro build && npx astro check && node scripts/check-bands.mjs && npx lhci autorun` (against the deployed preview URLs for `/design-preview/{a,b,c}/`) |
+| **Full suite command** | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /design-preview/a/ /design-preview/b/ /design-preview/c/` (after Plan 01-05: `... /`) — build, astro check, check-bands, check-fonts, JS budget, headers, overflow, axe, Lighthouse CI, devtools CLS against the deployed protected preview |
 | **Estimated runtime** | ~30 s quick · ~3 min full |
 
 ---
@@ -41,12 +41,21 @@ created: "2026-09-25"
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 1-xx-xx | xx | 0/1 | DSGN-01 | — | N/A | smoke + UAT | `npx astro build` builds all 3 `/design-preview/*` routes | ❌ W0 | ⬜ pending |
-| 1-xx-xx | xx | 1 | DSGN-02 | — | N/A | automated | `npx axe <preview>/design-preview/a/ --tags wcag2a,wcag2aa` exits 0; `grep` of `src/styles/tokens.css` finds `#0A0A0B #F5F6F7 #FC0781 #07B2B2 #057E7E` | ❌ W0 | ⬜ pending |
-| 1-xx-xx | xx | 1 | DSGN-03 | — | N/A | automated | `node scripts/check-bands.mjs` exits 0 (every `<section>` in `dist/**/*.html` has `data-theme`; no `prefers-color-scheme` rule sets ground tokens) | ❌ W0 | ⬜ pending |
-| 1-xx-xx | xx | 1 | DSGN-04 | — | N/A | automated | woff2 count per pairing ≤ 3 in `dist/`; `npx lhci autorun` asserts CLS = 0 per route | ❌ W0 | ⬜ pending |
-| 1-xx-xx | xx | 1 | DSGN-05 | — | N/A | automated + manual | Lighthouse Best Practices = 100; visual check at 320/768/1440 px | ❌ W0 | ⬜ pending |
-| 1-xx-xx | xx | 1 | — | T-1-01 | Preview gated by Vercel Authentication; `X-Robots-Tag: noindex` present | automated | `curl -sI <preview-url>` returns 401 unauthenticated or `x-robots-tag: noindex` | ❌ W0 | ⬜ pending |
+| 1-01-01 | 01 | 1 | (supply chain) | T-01-SC | Installs only after owner legitimacy check | checkpoint + automated | `npm view astro@7.3.5 repository.url && npm view @astrojs/vercel@11.0.11 repository.url && npm view typescript repository.url` | n/a | ⬜ pending |
+| 1-01-02 | 01 | 1 | DSGN-02, DSGN-03, DSGN-04 | T-01-01..06 | Standard Protection verified before first deploy; unauth 302 to sso-api + `x-robots-tag: noindex` | tracer (build + dist + Vercel) | `npm run build && npx astro check` + dist checks (3 woff2, 1 preload, size-adjust, data-theme, noindex); `vercel project protection ... --format json` assertion; `curl -D` 302/sso-api/noindex | ❌ W0 (created by task) | ⬜ pending |
+| 1-01-03 | 01 | 1 | — | T-01-01 | Owner reaches preview only when logged in | UAT + automated | `curl -D` on `/design-preview/a/` shows 302 | n/a | ⬜ pending |
+| 1-02-01 | 02 | 2 | DSGN-02, DSGN-03 | T-01-09 | Accent placement + alternation enforced | unit (self-test) + automated | `node scripts/check-bands.mjs --self-test && npm run build && node scripts/check-bands.mjs` | ❌ W0 → created | ⬜ pending |
+| 1-02-02 | 02 | 2 | DSGN-05, DSGN-02 | T-01-07 | Brand copies MD5-identical to owner sources | automated | md5 loop; `npm run build && npx astro check && node scripts/check-bands.mjs` + `<picture>` ≥ 3, AVIF, dark band, favicon | ❌ W0 → created | ⬜ pending |
+| 1-02-03 | 02 | 2 | DSGN-03 | — | N/A | automated | build + check-bands; a and stress pages have 3 sections; spec `dl` present; banned abbreviation absent | ❌ W0 → created | ⬜ pending |
+| 1-03-01 | 03 | 2 | DSGN-04 | T-01-10 | No third-party font host | unit (self-test) + automated | `node scripts/check-fonts.mjs --self-test && npm run build && node scripts/check-fonts.mjs --max 3 dist/design-preview/a/index.html` | ❌ W0 → created | ⬜ pending |
+| 1-03-02 | 03 | 2 | DSGN-01, DSGN-04 | — | N/A | automated | build log `Copying fonts (9 files)`, no `No data found`; `check-fonts --max 3 --distinct` a/b/c and `--max 0` index; data-pairing per route | ❌ W0 → created | ⬜ pending |
+| 1-04-01 | 04 | 3 | DSGN-02 (contrast), DSGN-01 (overflow) | — | N/A | unit (self-test) + automated | `node scripts/check-overflow.mjs --self-test`; local server + check-overflow (4 paths × 6 widths) + `npx axe ... --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa --exit` | ❌ W0 → created | ⬜ pending |
+| 1-04-02 | 04 | 3 | DSGN-04, DSGN-05, DSGN-02 | T-01-12..15 | Bypass secret untracked; lhci upload filesystem only; 302 unauth / 200 + noindex with bypass | automated (deployed preview) | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /design-preview/a/ /design-preview/b/ /design-preview/c/` (10 STEP lines, all EXIT=0) | ❌ W0 → created | ⬜ pending |
+| 1-04-03 | 04 | 3 | DSGN-01, DSGN-05 | T-01-14 | Review index not public | UAT (owner pick) + automated | `curl -D` on `/design-preview/` shows 302 | n/a | ⬜ pending |
+| 1-05-01 | 05 | 4 | DSGN-01, DSGN-04 | — | N/A | automated | build + astro check + check-bands + `check-fonts --max 3 dist/index.html`; 3 woff2; no design-preview; 3 font entries; STATE pick bullet | n/a | ⬜ pending |
+| 1-05-02 | 05 | 4 | DSGN-04 | T-01-17, T-01-18 | `/` still protected; no production target, no Git link | automated (deployed preview) | `bash scripts/gate-preview.sh "$(cat .scratch/preview-url.txt)" /` + project-read assertion | n/a | ⬜ pending |
+
+Measured correction (2026-09-25 13:24 CT): an unauthenticated request to a protected deployment on this team returns **302** to `https://vercel.com/sso-api` with `x-robots-tag: noindex`, not 401. The rows above use 302.
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -54,10 +63,13 @@ created: "2026-09-25"
 
 ## Wave 0 Requirements
 
-- [ ] `lighthouserc.json` — mobile form factor; assertions: CLS = 0, Performance/SEO/Accessibility/Best-Practices = 100; URLs `/design-preview/{a,b,c}/`
-- [ ] `scripts/check-bands.mjs` — asserts every rendered `<section>` carries `data-theme`
-- [ ] Dev dependencies: `@lhci/cli`, `@axe-core/cli`, `@astrojs/check`
-- [ ] Font resolve check: all 9 families resolve under the chosen provider before pairing routes are written (research Open Question 1)
+- [ ] `lighthouserc.json` + `lighthouserc.cls.json` (Plan 01-04 Task 2) — mobile; 100 ×4 (`is-crawlable` skipped, noindex asserted separately), LCP ≤ 1200 ms, script ≤ 15 KB, CLS = 0 simulated and devtools-throttled; filesystem upload only
+- [ ] `scripts/check-bands.mjs` (Plan 01-02 Task 1) — `data-theme` on every section, alternation, no nesting, accent-token placement, no OS color-scheme rule
+- [ ] `scripts/check-fonts.mjs` (Plan 01-03 Task 1) — ≤ 3 woff2 per page, subset, size-adjust fallback, one preload, self-hosted, `--distinct`
+- [ ] `scripts/check-overflow.mjs` (Plan 01-04 Task 1) — no horizontal scroll at 320–2560 px, no orphaned hero word ≥ 375 px
+- [ ] `scripts/gate-preview.sh` (Plan 01-04 Task 2) — the full suite as one command
+- [ ] Dev dependencies installed in Plan 01-01 Task 2: `@lhci/cli@0.15.1`, `@axe-core/cli@4.13.0` (with `DETECT_CHROMEDRIVER_VERSION=true`), `@astrojs/check@0.9.10`, `typescript`
+- [x] Font resolve check: all 9 families resolve (Big Shoulders Display via fontsource, other 8 via google) — planner probe 2026-09-25 13:19 CT, `Copying fonts (9 files)`; re-checked at execution by Plan 01-03 Task 2
 
 ---
 

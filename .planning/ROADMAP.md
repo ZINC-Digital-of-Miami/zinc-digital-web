@@ -49,7 +49,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Magenta `#FC0781` appears only on black bands, and dark teal appears only on white bands (`#07B2B2` for display and graphics, `#057E7E` for small text). Every accent use passes WCAG AA contrast for its size
   4. On a throttled mobile load, the chosen pairing arrives in ≤ 3 self-hosted subset files, and the swap from the metric-matched fallback measures CLS 0 on the hero
   5. The circuit-brain mark and the ZINC wordmark render crisply on both grounds at mobile and desktop widths
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Walking skeleton: scaffold, token system, Pairing A hero on a protected Vercel preview (owner gates: package legitimacy + Vercel go; owner opens preview)
+- [ ] 01-02-PLAN.md — Band gate (check-bands), brand mark on both grounds, dark brand band with magenta, spec sheet, stress fixture
+- [ ] 01-03-PLAN.md — Font-budget gate (check-fonts), nine-font config, Pairings B and C, pairing index
+- [ ] 01-04-PLAN.md — Overflow/axe and deployed Lighthouse/CLS gates in one command; Day 1 owner pick (Sat 2026-09-26 CT)
+- [ ] 01-05-PLAN.md — Record the pick, collapse to the chosen pairing on `/`, delete preview scaffolding, re-measure
 **UI hint**: yes
 
 ### Phase 2: Homepage & the Loop

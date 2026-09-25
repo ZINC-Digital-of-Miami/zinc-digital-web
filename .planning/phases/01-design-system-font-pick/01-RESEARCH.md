@@ -364,16 +364,18 @@ This is a real compile-time safety net for DSGN-04/DSGN-01 — a mismatched pair
 
 **If this table is empty:** not applicable — see entries above. All three are low-risk/same-day-fixable if wrong, and none block the phase's architecture.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Do Barlow Condensed, IBM Plex Mono, Oswald, Public Sans, IBM Plex Sans, and Space Mono all resolve cleanly under one of Astro's two font providers?**
    - What we know: `Inter`, `Big Shoulders` (base family), and `Big Shoulders Display` (via `fontsource()`) all resolve correctly; `Big Shoulders Display` specifically fails under `google()`.
    - What's unclear: whether any of the remaining six fonts have a similar naming gap under either provider.
+   - **RESOLVED (2026-09-25 CT, planner measurement):** all nine families resolve — Big Shoulders Display via `fontsource()`, the other eight via `google()`; test build emitted 9 woff2 files and 0 KB JS. Plan 01-03 Task 2 keeps the per-family provider fallback as a guard.
    - Recommendation: Wave 0 of the plan should include a fast per-family resolution check (a throwaway `astro build` with all nine entries, reading the warning log) before writing the three pairing routes' real markup — this converts an open question into a five-minute verification rather than a mid-build surprise.
 
 2. **Is the owner already a member of the `zincdigitalofmiamis-projects` Vercel team with login access, or does Vercel Authentication require a fresh invite?**
    - What we know: `01-CONTEXT.md` states the team is "already paid" and used for hosting.
    - What's unclear: team membership roster wasn't checked in this session (no Vercel MCP/API credential scoped for this task).
+   - **RESOLVED (2026-09-25 CT, Vercel API `list_team_members`):** the owner (`zincmiami@gmail.com`, username `zincdigitalofmiami`) is the team OWNER, confirmed member; no invite needed for Vercel Authentication.
    - Recommendation: confirm before Day 1 (Sat 2026-09-26 CT) — if an invite is needed, send it a day ahead so it isn't a same-day blocker on the review itself.
 
 ## Environment Availability
