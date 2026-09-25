@@ -210,3 +210,14 @@ Each checkpoint has a **date**, not just a name. Example: "Receipts approved by 
 
 *Research completed: 2026-09-25 (CT)*  
 *Ready for roadmap creation: yes*
+
+## Resolved After Synthesis (2026-09-25 CT)
+
+The owner directed "resolve all conflicts" and "use our dark teal on white." Every open decision above is now closed in the spec, §18 (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`), which wins over this summary:
+- 410 → one on-demand catch-all route reading `src/lib/redirects.ts`, verified on a preview deploy.
+- Form email → Nodemailer to smtp.gmail.com:465 with an App Password; Gmail API only if App Passwords are blocked.
+- Rate limiting → Turnstile + honeypot; Vercel WAF rule only at $0 included usage. No Upstash/KV.
+- Accent → magenta on black; dark teal `#07B2B2` (display) / `#057E7E` (small text) on white.
+- No cookie banner; case studies lead with a result strip; form uses progressive steps with a single POST.
+- SPF/DMARC repair is an owner action in Route 53 (exact record in spec §18); the form must not go live before it.
+

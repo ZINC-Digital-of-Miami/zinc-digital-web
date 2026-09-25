@@ -31,7 +31,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 - [ ] `/about/` with all seven team members in random order on every load; Miami HQ, nationwide, Panama City satellite
 - [ ] `/contact/` qualifying form (budget `Under $5k/mo`, `$5–10k`, `$10–25k`, `$25k+`) delivered to `jaymie@zincdigital.co` via Google Workspace, with Turnstile + honeypot + rate limit; text line (786) 575-4837
 - [ ] Blog: 18 live posts migrated to `/blog/<slug>/`, polished in the `zinc-author-voice` lane, filtered by layer
-- [ ] Visual system: editorial condensed-grotesk type (owner picks from three pairings), near-black + cool snow white, magenta `#FC0781` rare and loud
+- [ ] Visual system: editorial condensed-grotesk type (owner picks from three pairings), near-black + cool snow white; accents rare and loud — magenta `#FC0781` on black, dark teal `#07B2B2` / `#057E7E` (small text) on white
 - [ ] Motion system: native CSS scroll-driven animation, view transitions, reduced-motion finished states; no animation library, no WebGL
 - [ ] Full SEO override: new taxonomy, titles/meta, structured data, complete sitemap, `robots.txt`, `llms.txt`, share images, GA4/Ads tags carried over
 - [ ] 301/410 redirect map from every old WordPress URL, tested by script
@@ -74,7 +74,8 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 | Clean slate; V2 prototype and live site are fact sources only | Owner wants fresh eyes | — Pending |
 | Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | — Pending |
 | One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | — Pending |
-| Loop signature + editorial type; black/white alternating; magenta `#FC0781` | Owner direction: big, moving, unexpected, mostly B&W, loud color | — Pending |
+| Loop signature + editorial type; black/white alternating; magenta `#FC0781` on black, dark teal `#07B2B2` on white | Owner direction: big, moving, unexpected, mostly B&W, loud color | — Pending |
+| Research conflicts resolved per spec §18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | — Pending |
 | Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | — Pending |
 | Full SEO override, 18 posts at launch, rest after | Old config untouched for years; speed to launch | — Pending |
 

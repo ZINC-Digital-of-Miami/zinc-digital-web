@@ -53,7 +53,8 @@
     "tdd_mode": false,
     "ui_review": true,
     "use_worktrees": true,
-    "code_review_point": "execute:wave:post"
+    "code_review_point": "execute:wave:post",
+    "_auto_chain_active": true
   },
   "ship": {
     "pr_body_sections": []

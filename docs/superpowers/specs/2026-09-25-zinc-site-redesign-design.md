@@ -100,7 +100,7 @@ Executive rule: bands 1, 3, 4 carry the drama. Bands 2, 6, 8 are still and scann
 
 ### 6.3 Case study (OUABC, U.S. Oil Solutions)
 
-Client name + live link → the situation → the loop with their layers lit → the work, layer by layer → receipts → screenshots in device frames → a real testimonial if one exists → next case.
+Client name + live link → **result strip (receipts first)** → the situation → the loop with their layers lit → the work, layer by layer → screenshots in device frames → a real testimonial if one exists → next case.
 
 Live links go to the client's public sites only. Reporting systems and internal app pages appear as screenshots, never as links.
 
@@ -112,7 +112,7 @@ Team (owner confirmed current and complete): Kirk Musick, MS, MBA (CEO) · Jaymi
 
 ### 6.5 Contact
 
-- Fields: name, company, work email, website URL, services needed (multi-select grouped by layer), monthly budget, timeline, message.
+- Fields: name, company, work email, website URL, services needed (multi-select grouped by layer), monthly budget, timeline, message — shown in short progressive steps, submitted as one POST (works with JavaScript off as a single page).
 - Budget options: `Under $5k/mo` · `$5–10k/mo` · `$10–25k/mo` · `$25k+/mo`.
 - Text line beside the form: (786) 575-4837 (Miami), always available.
 - A "what happens next" line only if it is true.
@@ -132,7 +132,7 @@ The new voice, derived from the core line:
 - Senior and unhurried. No slang, no cursing, no jokes, no exclamation points.
 - Nouns and receipts over adjectives. If a line cannot point to a real client, number, or deliverable, cut it.
 - Plain about what is included, what the client owns, and how it is measured.
-- No sales devices: no stat counters, award badges, guarantees, comparison tables, "free consultation" calls to action, or testimonial carousels.
+- No sales devices: no stat counters, award badges, guarantees, comparison tables, "free consultation" calls to action, testimonial carousels, live chat widgets or chatbots, pop-ups (exit-intent or scroll), or hero background video.
 
 ## 8. Visual system
 
@@ -141,7 +141,11 @@ The new voice, derived from the core line:
   - Black: near-black around `#0A0A0B`.
   - White: cool snow white with a touch of gray, around `#F5F6F7`. **No warm or yellowish whites.**
   - One mid-gray for body text on each ground.
-  - **Magenta `#FC0781`** (the live site's Elementor global secondary, measured 2026-09-25): rare and loud. Pulse, strike, highlight, active states. Never a background band. On white, only at display size or as graphics (fails small-text contrast); small magenta text only on black. Whether magenta gets one partner accent is decided on real screens; the five other live accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
+  - **Two accents, one per ground** (owner, 2026-09-25: "use our dark teal on white"). Rare and loud in both cases: pulse, strike, highlight, active states. Never a background band.
+    - **On black bands: magenta `#FC0781`** (live Elementor global secondary). Contrast 5.17:1 on `#0A0A0B` — passes AA at every size.
+    - **On white bands: ZINC dark teal `#07B2B2`** (live `--primary-color`) for display type and graphics (2.42:1 on `#F5F6F7` — large/non-text only), and **`#057E7E`** (the same hue darkened; 4.52:1 on `#F5F6F7`, 4.89:1 on white) for any small teal text or links on white.
+    - Magenta never appears on white bands (3.54:1 on `#F5F6F7`).
+    - The other live accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
 - **Type:** condensed heavy grotesk for display, precise text sans for body, mono for labels and data. Open-license fonts only, self-hosted, subset, ≤ 3 files. Three pairings rendered in the design phase; the owner picks one. Archivo is excluded (July prototype).
 - **Brand mark:** the black-and-white circuit-brain profile mark and the ZINC wordmark. The mark's circuit traces are the visual source for the loop line.
 
@@ -185,6 +189,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
   - `/zinc-portfolio/`, `/portfolio/*` → `/work/`
   - `/about-us/` → `/about/`; `/team/*` → `/about/`
   - tags, categories, `/current-promos/`: redirect only where Search Console shows traffic or backlinks; otherwise 410.
+- **One source of truth:** `src/lib/redirects.ts` holds the 301 map and the 410 list. 301s go through Astro's native `redirects` config; 410s through one on-demand catch-all route (`prerender = false`) that returns 410 for listed paths and the 404 page otherwise. The same file feeds the redirect test script. Every redirect and 410 is verified on a Vercel preview deploy, not in `astro dev`. No redirects are ever added in the Vercel dashboard.
 - Summit Marine and Las Vegas Safety: logos only; their case pages redirect to `/work/`.
 
 ## 13. Proof and content inputs
@@ -202,7 +207,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 - **Styling:** plain CSS with design tokens (custom properties). No UI framework, no CSS framework.
 - **Runtime:** Node 24.
 - **Hosting:** Vercel, team `zincdigitalofmiamis-projects` (Pro plan active — measured "Pro" subscription line on 2026-09-01; no new plan or add-on).
-- **Form delivery:** one Vercel function → email via the existing Google Workspace domain (MX → Google) to `jaymie@zincdigital.co`. Spam: Cloudflare Turnstile (free) + honeypot + rate limit. Secrets live only in Vercel environment variables, entered by the owner.
+- **Form delivery:** one Vercel Node function → Nodemailer → `smtp.gmail.com:465` authenticated with an App Password on a Workspace mailbox → `jaymie@zincdigital.co`. (Not the IP-allowlisted SMTP relay service, which cannot work from serverless.) Fallback only if Workspace admin blocks App Passwords: Gmail API with a service account. Spam: Cloudflare Turnstile (free, server-verified) + honeypot; a Vercel WAF rate-limit rule on `/api/contact` only if it measures $0 within Pro's included usage — no new store or service. Secrets live only in Vercel environment variables, entered by the owner.
 - **No paid services** beyond current subscriptions.
 
 ## 15. Launch and cutover
@@ -226,3 +231,22 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 - A CMS (posts are edited in the repo).
 - Client portal, logins, or live dashboards on the site.
 - Any change to the live WordPress site before cutover.
+
+## 18. Resolved decisions (2026-09-25, owner: "resolve all conflicts")
+
+| Topic | Decision | Basis |
+|---|---|---|
+| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (§8) |
+| 410 Gone | On-demand catch-all route reading `src/lib/redirects.ts`; verified on preview deploy | Research conflict (vercel.json routes vs function) — one source of truth wins; Astro adapter owns routing output |
+| Form email | Nodemailer → smtp.gmail.com:465 with App Password; Gmail API only if App Passwords are blocked | Vercel allows 465/587; relay IP auth impossible from serverless |
+| Rate limiting | Turnstile + honeypot required; Vercel WAF rule only at $0 included usage | No new paid service |
+| Case study order | Result strip first, then narrative — same content | Senior buyers scan receipts first |
+| Form presentation | Progressive steps, single POST, no-JS fallback | Higher completion, no extra JS weight beyond budget |
+| Extra bans | Chat widgets, pop-ups, hero video | Same "no sales pitch" rule; LCP/JS budget |
+| Cookie banner | None. Privacy page discloses GA4/Ads measurement | U.S. audience; ZINC is below CCPA thresholds; a banner costs CLS and JS |
+| Firefox | Finished-state fallback is designed as a first-class view (Firefox 156 lacks scroll timelines until 159) | Measured browser support |
+| Fonts | Three open-license variable pairings rendered in Phase 1, each with metric-matched fallback (`size-adjust`) to hold CLS 0 | Pitfalls research |
+| Owner review | Dated gates: Day 1 font pick · Days 2–5 copy batches · Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos · Day 6 final approval | Owner review is the critical path |
+
+**Pre-launch dependency on the owner (production DNS, not applied by agents):** `zincdigital.co` publishes two SPF records (a permanent SPF error) and neither authorizes Google Workspace; DMARC is `p=none`. Replace both with one record — `v=spf1 include:_spf.google.com include:one.zoho.com include:user.zohobookings.com include:relay.kinstamailservice.com ~all` (8 DNS lookups, measured) — in Route 53 before the form goes live. Drop the Kinsta include after cutover.
+
