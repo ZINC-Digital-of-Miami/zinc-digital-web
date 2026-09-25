@@ -1,0 +1,48 @@
+{
+  "contract": "1.0.0",
+  "flavor": "core",
+  "milestone": null,
+  "phases": [
+    {
+      "number": "1",
+      "name": "Design System & Font Pick",
+      "status": "pending"
+    },
+    {
+      "number": "2",
+      "name": "Homepage & the Loop",
+      "status": "pending"
+    },
+    {
+      "number": "3",
+      "name": "Services & Proof",
+      "status": "pending"
+    },
+    {
+      "number": "4",
+      "name": "About & Inquiry",
+      "status": "pending"
+    },
+    {
+      "number": "5",
+      "name": "Blog, SEO & Redirects",
+      "status": "pending"
+    },
+    {
+      "number": "6",
+      "name": "Launch Readiness & Owner Approval",
+      "status": "pending"
+    },
+    {
+      "number": "7",
+      "name": "Cutover",
+      "status": "pending"
+    }
+  ],
+  "next": {
+    "command": "/gsd:progress --next",
+    "label": "Advance to the next step",
+    "reason": "Phase 1 of 7 · 0% · executing"
+  },
+  "updated_at": "2026-09-25T19:05:10.064Z"
+}
