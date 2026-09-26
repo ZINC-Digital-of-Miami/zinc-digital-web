@@ -30,7 +30,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 - Hosting: Vercel team `zincdigitalofmiamis-projects` (Pro, already paid). Owner selected the public noindex `zinc-digital-web.vercel.app` URL; custom domains remain unattached. Verify deployment target, protection and noindex after each deploy.
 - Repo: `ZINC-Digital-of-Miami/zinc-digital-web`; work on branch `gsd/phase-01-design-system-font-pick` in worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`; lands on `main` by PR.
 
-### Color (locked — spec §8, §18)
+### Color (locked — spec section 8, section 18)
 - Near-black `#0A0A0B`; cool snow white `#F5F6F7` (no warm/yellow whites); one body gray per ground.
 - Magenta `#FC0781` only on black bands (5.17:1).
 - Dark teal `#07B2B2` on white bands for display type and graphics only (2.42:1); `#057E7E` for any small teal text on white (4.52:1). Magenta never on white.
@@ -40,13 +40,13 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 ### Theming (locked)
 - Each band sets its ground with one `data-theme="dark|light"` attribute; tokens swap per attribute; never tied to `prefers-color-scheme`.
 
-### Type (locked — spec §8; UI-SPEC)
+### Type (locked — spec section 8; UI-SPEC)
 - Editorial "annual report" discipline: heavy condensed grotesk display, precise text sans body, mono labels/data.
 - Hero Display: `clamp(3.5rem, 10vw + 1rem, 12.5rem)` (owner wants big headers).
 - Open-license only, self-hosted, subset, ≤ 3 font files per pairing, metric-matched fallbacks so the swap measures CLS 0.
 - Archivo excluded. Three pairings per `01-UI-SPEC.md` (A Big Shoulders Display / Inter / JetBrains Mono; B Barlow Condensed / Public Sans / IBM Plex Mono; C Oswald / IBM Plex Sans / Space Mono — static-weight caveats recorded in the UI-SPEC).
 
-### Copy (locked — spec §7)
+### Copy (locked — spec section 7)
 - Core line: "Other agencies deliver the scope. ZINC delivers the business."
 - Fresh voice: short declaratives, senior, no slang, no cursing, no exclamation points, nouns and receipts over adjectives; no legacy lines; never "GEO".
 - Mockup body copy is draft and marked [DRAFT]. The rejected hero supporting line remains a [DRAFT] slot. Primary CTA "Start an Inquiry"; text line "Text (786) 575-4837". No underlined links; page content starts at the top; use crisp assets at 2x their displayed dimensions.
@@ -54,7 +54,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 ### Brand mark (locked)
 - Black/white circuit-brain profile mark + ZINC wordmark, from `/Volumes/Satechi Hub/ZINC Digital Agency/Graphics/` and `/Volumes/Satechi Hub/ZINC Digital Agency/docs/context/brand-assets/`. Raster only; on-screen width capped at source ÷ 2.
 
-### Gates that start here (spec §10)
+### Gates that start here (spec section 10)
 - Lighthouse mobile 100 ×4 on the mockup routes; CLS 0 on cold throttled load per pairing; WCAG 2.2 AA contrast; ≤ 15 KB JS (this phase should ship ~0 KB).
 - Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete Pairing A site before expanding B/C or requesting a font pick.
 
@@ -72,7 +72,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Design authority
-- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` — approved spec; §7 voice, §8 visual system, §9 motion, §10 gates, §14 architecture, §18 resolved decisions (wins over research)
+- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` — approved spec; section 7 voice, section 8 visual system, section 9 motion, section 10 gates, section 14 architecture, section 18 resolved decisions (wins over research)
 - `.planning/phases/01-design-system-font-pick/01-UI-SPEC.md` — approved UI design contract (spacing, type scale, color, pairings, UI Considerations)
 
 ### Research

@@ -19,7 +19,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 - **Customer**: established brands nationwide, modeled on Once Upon a Book Club (~$21k/month, almost 3 years, multi-service) and U.S. Oil Solutions (site, SEO, two apps); marketing directors and C-level/CFOs.
 - **Revenue model**: agency retainers and builds across 11 services; no public pricing.
 - **Success metric**: qualified inquiries (form with budget qualifier, or texts to (786) 575-4837) from prospects outside the referral network.
-- **Strategy notes**: spec §1–§3.
+- **Strategy notes**: spec section 1–section 3.
 
 ## Requirements
 
@@ -29,7 +29,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 ### Active
 
-- [ ] Homepage: nine all-white sections per spec §6.1, with the core line hero and the scroll-driven Loop as the signature moment
+- [ ] Homepage: nine all-white sections per spec section 6.1, with the core line hero and the scroll-driven Loop as the signature moment
 - [ ] `/services/` loop page and 11 service pages (Build 3 · Demand 7 · Intelligence 1) at flat `/services/<slug>/` URLs, each with spec sheet, proof, FAQ, and preselected inquiry
 - [ ] `/work/` index with logo wall; case studies for Once Upon a Book Club (flagship) and U.S. Oil Solutions with live links, screenshots, `[RECEIPT: …]` numbers until confirmed
 - [ ] `/about/` with all seven team members in random order on every load; Miami HQ, nationwide, Panama City satellite
@@ -39,7 +39,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 - [ ] Motion system: native CSS scroll-driven animation, view transitions, reduced-motion finished states; no animation library, no WebGL
 - [ ] Full SEO override: new taxonomy, titles/meta, structured data, complete sitemap, `robots.txt`, `llms.txt`, share images, GA4/Ads tags carried over
 - [ ] 301/410 redirect map from every old WordPress URL, tested by script
-- [ ] Launch gates (spec §10): Lighthouse mobile 100×4 per template, LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB JS per page, WCAG 2.2 AA
+- [ ] Launch gates (spec section 10): Lighthouse mobile 100×4 per template, LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB JS per page, WCAG 2.2 AA
 - [ ] Cutover: Route 53 → Vercel on the owner's explicit go; Kinsta kept ~30 days as rollback
 
 ### Out of Scope
@@ -64,10 +64,10 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 ## Constraints
 
 - **Timeline**: live in 5–7 days from 2026-09-25; owner copy review is the critical path.
-- **Performance**: spec §10 gates are launch-blocking on every template.
+- **Performance**: spec section 10 gates are launch-blocking on every template.
 - **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only.
 - **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel.
-- **Copy**: fresh voice (spec §7); no invented numbers; never "GEO" for generative search; no cursing.
+- **Copy**: fresh voice (spec section 7); no invented numbers; never "GEO" for generative search; no cursing.
 - **Owner inputs**: receipts for case studies, real-vs-placeholder testimonials, "How we work" commitments, team-photo acceptance (all seven photo references now exist).
 - **Irreversible actions**: DNS cutover and production secrets need the owner's explicit go.
 
@@ -79,7 +79,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 | Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | — Pending |
 | One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | — Pending |
 | Loop signature + editorial type; initial alternating-band direction superseded by all-white option 3 with side thread | Owner direction: big, moving, unexpected, mostly B&W, loud color | — Pending |
-| Research conflicts resolved per spec §18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | — Pending |
+| Research conflicts resolved per spec section 18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | — Pending |
 | Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | — Pending |
 | Full SEO override, 18 posts at launch, rest after | Old config untouched for years; speed to launch | — Pending |
 
