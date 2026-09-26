@@ -59,13 +59,13 @@ Progress: [░░░░░░░░░░] 0%
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table. Spec §18 resolved decisions win over research.
+Decisions are logged in PROJECT.md Key Decisions table. The spec's "Resolved decisions" win over research.
 Recent decisions affecting current work:
 
 - [Owner correction]: Phase1 must render the entire40-page approved sitemap plus404 before font comparison/pick. Revised01-02..05 independently checked on2026-09-25 CT.
 - [Planning evidence]: Four plan structures pass; automated failure-direction check0 blockers/0 warnings; all5 phase requirement IDs covered. These are plan checks, not runtime acceptance.
 
-- [Roadmap]: Seven phases following the spec §16 sequence. Work moves in with Services ("Services & Proof") so LOOP-03 lands in one phase. About joins Contact ("About & Inquiry")
+- [Roadmap]: Seven phases following the sequence in the spec's "Delivery" heading. Work moves in with Services ("Services & Proof") so LOOP-03 lands in one phase. About joins Contact ("About & Inquiry")
 - [Roadmap]: Components take props and never fetch data themselves. Phases 2–4 build on fixture content while copy review runs
 - [Roadmap]: SERV-05 (preselected inquiry) lives in Phase 4, where the form exists. Service pages link to `/contact/?service=<slug>` in Phase 3
 - [Roadmap]: Day 1 = Sat 2026-09-26 CT. Owner gate calendar is in ROADMAP.md Overview (LNCH-01)
@@ -80,7 +80,7 @@ Owner actions on the critical path (dates CT):
 
 - Day 1, Sat 2026-09-26: font pairing pick (blocks Phase 2 visual work)
 - Day 4, Tue 2026-09-29: SPF record replaced in MyKinsta DNS (owner's current turnover; remeasure before editing). The form stays off for live submissions until one SPF record measures with `_spf.google.com` (LNCH-02)
-- Phase 4: Workspace App Password and Turnstile keys entered by the owner as Vercel env vars. If Workspace admin blocks App Passwords, fall back to the Gmail API (§18)
+- Phase 4: Workspace App Password and Turnstile keys entered by the owner as Vercel env vars. If Workspace admin blocks App Passwords, fall back to the Gmail API (spec, "Resolved decisions")
 - Day 5, Wed 2026-09-30: receipts, "How we work" confirmations, testimonials marked real or placeholder, Jaymie and Wendy photos; DNS TTLs lowered 24–48 h before cutover
 - Day 7, Fri 2026-10-02: cutover only on the owner's explicit go; drop the Kinsta SPF include after cutover
 - Phase 5: the redirect map needs the WordPress REST API export plus a Search Console export (traffic and backlinks for tags, categories and `/current-promos/`)
