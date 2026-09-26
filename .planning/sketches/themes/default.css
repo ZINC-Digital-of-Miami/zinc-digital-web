@@ -1,0 +1,46 @@
+/* ZINC sketch theme: A (The Loop) set in B (The Annual Report) type discipline.
+   Values mirror src/styles/tokens.css so sketches and the site stay in step. */
+:root {
+  /* Grounds */
+  --ink: #0A0A0B;
+  --snow: #F5F6F7;
+  --gray-on-dark: #A6A7AB;
+  --gray-on-light: #5C5D61;
+  --rule-on-light: #0A0A0B;
+  --rule-on-dark: #F5F6F7;
+
+  /* Accents: one per ground */
+  --magenta: #FC0781;   /* black bands: pulse, strike, redaction, active */
+  --teal: #07B2B2;      /* white bands: display-size marks and graphics */
+  --teal-text: #057E7E; /* white bands: small text */
+
+  /* Type: Pairing A (default); Pairing B swaps via [data-pairing="b"] */
+  --f-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --w-display: 800;
+  --f-body: 'Inter', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --t-mega: clamp(3.5rem, 13cqi + 0.5rem, 15rem);
+  --t-display: clamp(3rem, 10cqi + 1rem, 12.5rem);
+  --t-heading: clamp(1.75rem, 3cqi + 1rem, 3.25rem);
+  --t-body: clamp(1rem, 0.3cqi + 0.94rem, 1.125rem);
+  --t-label: 0.8125rem;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+  --gutter: clamp(1rem, 4cqi, 4rem);
+}
+
+[data-pairing="b"] {
+  --f-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --w-display: 900;
+  --f-body: 'Public Sans', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
