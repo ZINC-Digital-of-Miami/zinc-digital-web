@@ -37,6 +37,8 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # Two commits so check-site.mjs can diff HEAD~1..HEAD on push to main.
+          fetch-depth: 2
 
       # actions/checkout fetches only the single commit for the triggering
       # ref by default (only becomes `origin/main` itself when the ref IS

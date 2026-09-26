@@ -495,7 +495,12 @@ const notes = posts.slice(0, 3);
     // under prefers-reduced-motion, applying 340vh math to an unpinned band).
     document.querySelectorAll('.home-toc a[data-layer]').forEach((a) => {
       a.addEventListener('click', (e) => {
-        if (!root.classList.contains('anim')) return;
+        // Intercept only while the Loop scene is actually pinned: motion armed
+        // AND its sticky stage in effect (home.css drops the pin at 750px tall
+        // or less). Otherwise the native anchor lands on the layer heading.
+        const stage = loopBand.querySelector('.home-loop-sticky') as HTMLElement | null;
+        const pinned = root.classList.contains('anim') && !!stage && getComputedStyle(stage).position === 'sticky';
+        if (!pinned) return;
         e.preventDefault();
         const span = loopBand.offsetHeight - innerHeight;
         const layerIndex = Number((a as HTMLElement).dataset.layer);

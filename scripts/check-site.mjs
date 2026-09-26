@@ -120,7 +120,23 @@ function gitLines(args) {
 let changedFiles;
 let usedFallbackScan = false;
 const baseRefCheck = tryGit(['rev-parse', '--verify', 'origin/main']);
-if (baseRefCheck.ok) {
+const headSha = tryGit(['rev-parse', 'HEAD']);
+const mainSha = baseRefCheck.ok ? tryGit(['rev-parse', 'origin/main']) : null;
+if (baseRefCheck.ok && headSha.ok && mainSha && mainSha.ok && headSha.lines[0] === mainSha.lines[0]) {
+  // HEAD is main itself (push-to-main run): diffing against origin/main is
+  // empty, so scan what the landed commit changed against its parent. CI
+  // checks out with fetch-depth 2 so HEAD~1 exists; if it does not, fail
+  // closed by scanning every tracked file.
+  const parent = tryGit(['rev-parse', '--verify', 'HEAD~1']);
+  if (parent.ok) {
+    changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'HEAD~1', 'HEAD']);
+    console.log('check-site.mjs: HEAD is origin/main; scanning files changed by HEAD against HEAD~1.');
+  } else {
+    usedFallbackScan = true;
+    console.warn('check-site.mjs: HEAD is origin/main and HEAD~1 is unavailable; failing closed by scanning every tracked file.');
+    changedFiles = gitLines(['ls-files']);
+  }
+} else if (baseRefCheck.ok) {
   changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'origin/main']);
 } else {
   usedFallbackScan = true;

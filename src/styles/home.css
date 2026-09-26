@@ -33,8 +33,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Without JS: one screen minus an estimated masthead height. */
-  min-height: calc(100svh - 5.5rem);
+  /* Without JS: one screen minus the masthead's measured no-JS height
+   * (77px at desktop; 189px under 900px, where the unscripted nav stays
+   * open). The fit script replaces this with the exact value. */
+  min-height: calc(100svh - 5rem);
+}
+
+@media (max-width: 899px) {
+  .home-hero.band {
+    min-height: calc(100svh - 12rem);
+  }
 }
 
 .home-hero-stage {
@@ -51,7 +59,7 @@
 
 .home-hero-title {
   /* No-JS fallback size; the fit script replaces it before first paint. */
-  font-size: min(clamp(2.5rem, 12cqi + 0.5rem, 15rem), 19svh);
+  font-size: min(clamp(2.5rem, 12cqi + 0.5rem, 15rem), 16svh);
   max-width: none;
   text-wrap: wrap;
   overflow-wrap: normal;
@@ -798,4 +806,9 @@ html.anim [data-team] > *.shuffling {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* Native Contents-link jumps (Loop not pinned) land the layer heading in view. */
+[id^="loop-layer-"] {
+  scroll-margin-top: var(--space-lg);
 }
