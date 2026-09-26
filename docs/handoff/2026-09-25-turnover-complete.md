@@ -1,5 +1,3 @@
-> **Historical handoff — 2026-09-25:** Use `.planning/STATE.md`, `.planning/ROADMAP.md` and `.planning/phases/01-design-system-font-pick/01-RECONCILIATION.md` for current project state and execution. This document records the initial turnover; later owner decisions and merged PRs supersede it. Current PR review uses Codex in GitHub as specified in `AGENTS.md`.
-
 # zinc-digital-web — Complete Turnover
 
 **Written:** 2026-09-25, 3:20 PM CT · **Owner:** Kirk Musick, MS, MBA — ZINC Digital
