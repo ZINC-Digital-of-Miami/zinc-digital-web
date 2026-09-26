@@ -504,6 +504,15 @@ html.anim .home-layer.on .home-layer-list {
 
 .home-shots {
   position: relative;
+  /* ouabc-site.webp's own source (assets/ouabc-site.jpg in the project's
+   * mockup zip) is a 1000px-wide export end to end — confirmed 2026-09-26
+   * against every OUABC image source on this machine, no higher-resolution
+   * original exists to swap in. Capping the rendered width here keeps
+   * naturalWidth at least 2x the rendered CSS width at every breakpoint
+   * (Codex CLI review, confirmed: at 1440 the old 100%-width rule rendered
+   * this ~1000px source at ~735 CSS px, only ~1.36x — soft on 2x screens)
+   * rather than upscaling a soft image further. */
+  max-width: 480px;
 }
 
 .home-shots .desk {
