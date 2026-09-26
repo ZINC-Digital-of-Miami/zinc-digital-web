@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-09-25 CT)
 Phase: 01 (Design System & Font Pick) — EXECUTING
 Plan: 3 of 5
 Status: Executing Phase 01
-Last activity: 2026-09-25 — Complete 40-page A mockup deployed and verified; executing 01-03.
+Last activity: 2026-09-26 — Completed quick task 260926-6g7: all-white A+B site landed on Vercel production (PR #4); no custom domain.
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -90,6 +90,7 @@ Owner actions on the critical path (dates CT):
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260925-ovl | Replace GitHub Pages workflow with Node 24 CI gate (ci.yml, job `build`) | 2026-09-25 | 959adeb | [260925-ovl-replace-github-pages-workflow-with-node-](./quick/260925-ovl-replace-github-pages-workflow-with-node-/) |
+| 260926-6g7 | All-white A+B site with the side circuit thread, headline-only full-screen hero, consistent staff photos, CI static and browser checks (PR #4) | 2026-09-26 | a3f9f28 | [260926-6g7-restyle-every-page-to-the-owner-picked-a](./quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/) |
 
 ## Deferred Items
 
