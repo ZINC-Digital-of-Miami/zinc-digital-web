@@ -73,21 +73,23 @@ Rules:
 
 ## 6. Page designs
 
-### 6.1 Homepage — nine bands, black and white alternating
+### 6.1 Homepage — nine sections on the all-white design
 
-| # | Band | Content | Motion |
+**Owner correction, 2026-09-26 CT:** The owner selected sketch option 3, all white with the side circuit thread, for every page. This supersedes the original alternating black/white grounds and per-band accent directions below. The nine content sections and their motion intent remain; their shared ground is snow white, with near-black type and accents from the selected implementation.
+
+| # | Section | Content | Motion |
 |---|---|---|---|
-| 1 | Hero (white) | The core line, huge. One supporting line. Primary action to Contact; `Text (786) 575-4837` in mono. | Magenta strike through "the scope"; highlighter hit on "the business". |
-| 2 | Logo wall (black) | Porsche, Home Depot, John Deere, YMCA, General Shale, OUABC, U.S. Oil Solutions (+ other current clients). All logos cleared for use by the owner. | Logos flip white → magenta one at a time on hover/tap. |
-| 3 | The Loop (white, pinned) | Build → Demand → Intelligence, each layer listing its services as links. | **Signature moment:** circuit line draws on scroll, a magenta pulse travels the loop, each layer scales up as the pulse reaches it. |
-| 4 | OUABC (black) | Tenure, services ZINC runs (TikTok ads, Shopping ads, Meta ads, blog content, web updates, reporting system), live site link, screenshots, receipts. | Mini loop lights only the layers OUABC uses. |
-| 5 | U.S. Oil (white) | Site → SEO → two apps → next build. | Timeline steps stamp in on scroll. |
-| 6 | How we work (black) | 4–5 positive commitments (e.g., client owns every account, direct access to the people doing the work, reporting tied to revenue). **Each confirmed true by the owner before launch.** | Lines type in, then lock. |
-| 7 | Team (white) | All seven faces, black and white, random order on every load → `/about/`. | Faces reshuffle when the band enters view. |
-| 8 | Latest articles (black) | Three newest posts. | None — calm. |
-| 9 | Footer (white) | New closing line (fresh copy — no legacy lines), short form entry, text line, Miami HQ · Panama City satellite · nationwide, socials. | One restrained magenta moment. |
+| 1 | Hero (white) | The core line, huge. One supporting line. Primary action to Contact; `Text (786) 575-4837` in mono. | Selected teal accent strike through "the scope"; highlighter hit on "the business". |
+| 2 | Logo wall (snow white) | Porsche, Home Depot, John Deere, YMCA, General Shale, OUABC, U.S. Oil Solutions (+ other current clients). All logos cleared for use by the owner. | Logos use the selected teal accent on hover/tap. |
+| 3 | The Loop (snow white, pinned) | Build → Demand → Intelligence, each layer listing its services as links. | **Signature moment:** circuit line draws on scroll, the selected accent pulse travels the loop, each layer scales up as the pulse reaches it. |
+| 4 | OUABC (snow white) | Tenure, services ZINC runs (TikTok ads, Shopping ads, Meta ads, blog content, web updates, reporting system), live site link, screenshots, receipts. | Mini loop lights only the layers OUABC uses. |
+| 5 | U.S. Oil (snow white) | Site → SEO → two apps → next build. | Timeline steps stamp in on scroll. |
+| 6 | How we work (snow white) | 4–5 positive commitments (e.g., client owns every account, direct access to the people doing the work, reporting tied to revenue). **Each confirmed true by the owner before launch.** | Lines type in, then lock. |
+| 7 | Team (snow white) | All seven faces, black and white, random order on every load → `/about/`. | Faces reshuffle when the band enters view. |
+| 8 | Latest articles (snow white) | Three newest posts. | None — calm. |
+| 9 | Footer (snow white) | New closing line (fresh copy — no legacy lines), short form entry, text line, Miami HQ · Panama City satellite · nationwide, socials. | One restrained moment using the selected accent. |
 
-Executive rule: bands 1, 3, 4 carry the drama. Bands 2, 6, 8 are still and scannable. A CFO can read the whole page in 60 seconds without waiting on any animation.
+Executive rule: sections 1, 3, 4 carry the drama. Sections 2, 6, 8 are still and scannable. All nine sections share the snow-white ground. A CFO can read the whole page in 60 seconds without waiting on any animation.
 
 ### 6.2 Service page (×11)
 
@@ -136,17 +138,13 @@ The new voice, derived from the core line:
 
 ## 8. Visual system
 
-- **Direction:** the Loop as the signature, set in editorial ("annual report") type discipline. Huge headers, big moving parts, unexpected interactions. Black and white alternate by band.
+- **Direction:** the Loop as the signature, set in editorial ("annual report") type discipline. Huge headers, big moving parts, unexpected interactions. The owner selected the all-white option 3 for every page on 2026-09-26; near-black type sits on the cool snow-white ground.
 - **Color:**
   - Black: near-black around `#0A0A0B`.
   - White: cool snow white with a touch of gray, around `#F5F6F7`. **No warm or yellowish whites.**
   - One mid-gray for body text on each ground.
-  - **Two accents, one per ground** (owner, 2026-09-25: "use our dark teal on white"). Rare and loud in both cases: pulse, strike, highlight, active states. Never a background band.
-    - **On black bands: magenta `#FC0781`** (live Elementor global secondary). Contrast 5.17:1 on `#0A0A0B` — passes AA at every size.
-    - **On white bands: ZINC dark teal `#07B2B2`** (live `--primary-color`) for display type and graphics (2.42:1 on `#F5F6F7` — large/non-text only), and **`#057E7E`** (the same hue darkened; 4.52:1 on `#F5F6F7`, 4.89:1 on white) for any small teal text or links on white.
-    - Magenta never appears on white bands (3.54:1 on `#F5F6F7`).
-    - The other live accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
-- **Type:** condensed heavy grotesk for display, precise text sans for body, mono for labels and data. Open-license fonts only, self-hosted, subset, ≤ 3 files. Three pairings rendered in the design phase; the owner picks one. Archivo is excluded (July prototype).
+  - **Accent:** selected teal `#07B2B2` for display and graphics and `#057E7E` for small text on snow white; preserve contrast for each role. Magenta `#FC0781` marks the moving dot on the page-long side thread. Other prototype accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
+- **Type:** condensed heavy grotesk for display, precise text sans for body, mono for labels and data. Open-license fonts only, self-hosted, subset, ≤ 3 files. The owner-selected Pairing A is Big Shoulders Display / Inter / JetBrains Mono; the font choice is settled. Archivo is excluded (July prototype).
 - **Brand mark:** the black-and-white circuit-brain profile mark and the ZINC wordmark. The mark's circuit traces are the visual source for the loop line.
 
 ## 9. Motion system
@@ -220,8 +218,8 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 ## 16. Delivery
 
 - **Target:** live in 5–7 days. The owner's copy review turnaround is the critical path.
-- **Indicative sequence:** (1) design system + font pick · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
-- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Copilot review per PR, GSD code review / verifier / UI review at the configured points.
+- **Indicative sequence:** (1) design system + full-site acceptance in the selected design · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
+- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Codex review on every GitHub PR, triggered when opened or marked ready, or with `@codex review`; resolve its findings before landing. Copilot is not a review gate. GSD code review / verifier / UI review remain at configured points.
 - **Repo rules:** `main` is the product; work branches merge to `main` and are deleted. All times shown to the owner are America/Chicago (CT).
 
 ## 17. Out of scope
@@ -232,11 +230,13 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 - Client portal, logins, or live dashboards on the site.
 - Any change to the live WordPress site before cutover.
 
-## 18. Resolved decisions (2026-09-25, owner: "resolve all conflicts")
+## 18. Resolved decisions (2026-09-25 and owner corrections through 2026-09-26)
 
 | Topic | Decision | Basis |
 |---|---|---|
-| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (§8) |
+| Page design | All-white option 3 with the side circuit thread across every page; supersedes alternating dark and light bands | Owner selection recorded 2026-09-26 in quick task 260926-6g7 |
+| Fonts | Pairing A: Big Shoulders Display / Inter / JetBrains Mono; selection is settled | Owner selection recorded 2026-09-26 in quick task 260926-6g7 |
+| Accent colors | Teal `#07B2B2` for display/graphics and `#057E7E` for small text on white; magenta `#FC0781` for the side-thread dot | Selected implementation in `src/styles/tokens.css`, `src/styles/themes.css` and `src/components/CircuitThread.astro` |
 | 410 Gone | On-demand catch-all route reading `src/lib/redirects.ts`; verified on preview deploy | Research conflict (vercel.json routes vs function) — one source of truth wins; Astro adapter owns routing output |
 | Form email | Nodemailer → smtp.gmail.com:465 with App Password; Gmail API only if App Passwords are blocked | Vercel allows 465/587; relay IP auth impossible from serverless |
 | Rate limiting | Turnstile + honeypot required; Vercel WAF rule only at $0 included usage | No new paid service |
@@ -245,8 +245,10 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | Extra bans | Chat widgets, pop-ups, hero video | Same "no sales pitch" rule; LCP/JS budget |
 | Cookie banner | None. Privacy page discloses GA4/Ads measurement | U.S. audience; ZINC is below CCPA thresholds; a banner costs CLS and JS |
 | Firefox | Finished-state fallback is designed as a first-class view (Firefox 156 lacks scroll timelines until 159) | Measured browser support |
-| Fonts | Three open-license variable pairings rendered in Phase 1, each with metric-matched fallback (`size-adjust`) to hold CLS 0 | Pitfalls research |
-| Owner review | Dated gates: Day 1 font pick · Days 2–5 copy batches · Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos · Day 6 final approval | Owner review is the critical path |
+| Preview copy | Remove draft banners while retaining receipt and owner-confirmation markers; this does not grant copy or result approval | Owner task recorded 2026-09-26 in quick task 260926-d0r |
+| GitHub reviews | Codex reviews every PR in GitHub; Copilot is not a review gate | Owner correction 2026-09-26; repository Codex review is configured and observed on PR #6 |
+| Font loading quality | Measure font requests and CLS for the selected Pairing A; retain the performance gate | Launch quality requirement; not waived by selecting the family |
+| Owner review | Dated gates: Day 1 selected site direction · Days 2–5 copy batches · Day 5 receipts, "How we work", testimonials, team-photo approval · Day 6 final approval | Owner review is the critical path |
 
 **Pre-launch dependency on the owner (production DNS, not applied by agents):** `zincdigital.co` publishes two SPF records (a permanent SPF error) and neither authorizes Google Workspace; DMARC is `p=none`. DNS is managed in MyKinsta (Kinsta DNS runs on Route 53). Zoho is no longer used (owner, 2026-09-25). Replace both records with one — `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all` (2 DNS lookups) — before the form goes live. After cutover, drop the Kinsta include: `v=spf1 include:_spf.google.com ~all`.
 

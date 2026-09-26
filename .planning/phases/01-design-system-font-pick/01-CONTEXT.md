@@ -1,4 +1,4 @@
-# Phase 1: Design System & Font Pick - Context
+# Phase 1: Design System & Full-Site Acceptance - Context
 
 **Gathered:** 2026-09-25 (CT)
 **Status:** Replanning remaining acceptance; selected design already deployed
@@ -6,7 +6,7 @@
 
 ## Superseding checkpoint — 2026-09-26 CT
 
-Read [01-RECONCILIATION.md](./01-RECONCILIATION.md) first. The historical interview below is retained for provenance. Its A/B/C comparison, dark-band, draft-banner, old-worktree and no-CI directions are superseded: selected Pairing A/all-white option 3, shared side thread, draft-label removal and repository CI are on main through PRs #3–#5. Do not recreate comparison routes or ask for another font pick. The older UI-SPEC is historical wherever it conflicts with these later decisions. Retain every unfulfilled quality, full-site and truthful-content gate.
+Read [01-RECONCILIATION.md](./01-RECONCILIATION.md) first. The historical interview below is retained for provenance. Its A/B/C comparison, dark-band, repeat font-pick, draft-banner, old-worktree and no-CI directions are superseded: selected Pairing A/all-white option 3, shared side thread, draft-label removal and repository CI are on main through PRs #3–#5. Do not recreate comparison routes or ask for another font pick. The older UI-SPEC is historical wherever it conflicts with these later decisions. Retain every unfulfilled quality, full-site and truthful-content gate.
 
 Current action: replace paused 01-03/04/05 with acceptance work using `$gsd-plan-phase 01`, preserving completed 01-01/02 history. Use a new task branch/worktree from current main. Do not use the merged phase-01 branch as the next execution checkout.
 
@@ -30,11 +30,11 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 - Hosting: Vercel team `zincdigitalofmiamis-projects` (Pro, already paid). Owner selected the public noindex `zinc-digital-web.vercel.app` URL; custom domains remain unattached. Verify deployment target, protection and noindex after each deploy.
 - Repo: `ZINC-Digital-of-Miami/zinc-digital-web`; work on branch `gsd/phase-01-design-system-font-pick` in worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`; lands on `main` by PR.
 
-### Color (locked — spec section 8, section 18)
+### Historical color direction (superseded by the 2026-09-26 all-white selection)
 - Near-black `#0A0A0B`; cool snow white `#F5F6F7` (no warm/yellow whites); one body gray per ground.
-- Magenta `#FC0781` only on black bands (5.17:1).
-- Dark teal `#07B2B2` on white bands for display type and graphics only (2.42:1); `#057E7E` for any small teal text on white (4.52:1). Magenta never on white.
-- The hero is a white band, so its strike/highlight marks are teal, not magenta.
+- The selected site uses the snow-white ground throughout. Teal is used for display/graphics and accessible teal text; magenta is used on the side-thread dot.
+- `#07B2B2` is the display/graphics accent; `#057E7E` is used for small teal text. Preserve contrast for the selected role.
+- The hero is on the shared snow-white ground; its accent treatment follows the selected all-white design.
 - Other live-site accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are excluded.
 
 ### Theming (locked)
@@ -56,7 +56,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 
 ### Gates that start here (spec section 10)
 - Lighthouse mobile 100 ×4 on the mockup routes; CLS 0 on cold throttled load per pairing; WCAG 2.2 AA contrast; ≤ 15 KB JS (this phase should ship ~0 KB).
-- Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete Pairing A site before expanding B/C or requesting a font pick.
+- Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete selected-design site for owner acceptance; comparison routes and another font pick are not in scope.
 
 ### Claude's Discretion
 - Directory layout and token file names (follow `.planning/research/ARCHITECTURE.md`).

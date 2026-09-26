@@ -14,11 +14,11 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 
 ### Design System (DSGN)
 
-- [ ] **DSGN-01**: Owner can navigate the entire approved sitemap and accept the selected Pairing A/all-white design across the full site. The repeated three-pairing selection task is superseded by the owner direction recorded in quick task 260926-6g7; full-site acceptance remains open.
+- [ ] **DSGN-01**: Owner accepts the complete approved sitemap in the deployed selected Pairing A/all-white design. Full-site acceptance evidence remains open; no further font choice is required.
 - [ ] **DSGN-02**: Every page uses the selected snow-white ground, near-black type and shared token system; teal decoration and accessible text variants preserve contrast for their role. Preserve the selected side-thread accent treatment. Current token values are in src/styles/tokens.css; do not reinstate the superseded black-band accent rules.
-- [ ] **DSGN-03**: The selected all-white theme remains consistent on every page and independent of OS color scheme; alternating dark bands are superseded by quick task 260926-6g7.
+- [ ] **DSGN-03**: The selected all-white theme remains consistent on every page and independent of OS color scheme.
 - [ ] **DSGN-04**: Display type loads self-hosted, subset, ≤ 3 font files, with metric-matched fallbacks so the font swap causes zero layout shift (section 8, section 18)
-- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply at mobile and desktop widths on the selected site ground.
+- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply at mobile and desktop widths on the selected snow-white site ground.
 
 ### Motion (MOTN)
 
@@ -36,7 +36,7 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 ### Homepage (HOME)
 
 - [ ] **HOME-01**: Hero shows "Other agencies deliver the scope. ZINC delivers the business." with the strike and highlight hits, a contact action, and `Text (786) 575-4837` (section 6.1)
-- [ ] **HOME-02**: Logo wall shows Porsche, Home Depot, John Deere, YMCA, General Shale, Once Upon a Book Club, U.S. Oil Solutions; logos flip to the band's accent on hover/tap (section 6.1)
+- [ ] **HOME-02**: Logo wall shows Porsche, Home Depot, John Deere, YMCA, General Shale, Once Upon a Book Club, U.S. Oil Solutions; logos respond with the selected teal accent on hover/tap (section 6.1)
 - [ ] **HOME-03**: OUABC band shows tenure, services run, live link, screenshots, and receipts (section 6.1)
 - [ ] **HOME-04**: U.S. Oil band shows site → SEO → two apps → next build as a stamped timeline (section 6.1)
 - [ ] **HOME-05**: "How we work" band shows 4–5 commitments, each confirmed true by the owner (section 6.1, section 13)
@@ -106,7 +106,7 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 
 ### Launch (LNCH)
 
-- [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 font pick; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos; Day 6 final approval (section 18)
+- [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 selected-site direction; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, team-photo approval; Day 6 final approval (section 18)
 - [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the section 18 record in MyKinsta DNS) (section 18)
 - [ ] **LNCH-03**: DNS TTLs are lowered 24–48 h ahead; on the owner's explicit go, Route 53 web records point to Vercel with mail records untouched (section 15)
 - [ ] **LNCH-04**: After cutover on the live domain: every redirect passes, sitemap submitted in Search Console, GA4 receives hits, a test inquiry reaches Jaymie, Lighthouse gates re-run (section 15)

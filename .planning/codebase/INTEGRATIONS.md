@@ -61,7 +61,7 @@
 
 **CI Pipeline:**
 - No tracked `.github/workflows/` pipeline or other CI configuration is present in the repository inventory. `package.json` provides `build` and `check` commands but no CI orchestration or test command.
-- `AGENTS.md` requires PR delivery and Copilot review; this policy does not establish that remote branch protection or review automation is configured.
+- `AGENTS.md` requires PR delivery and Codex GitHub review. PR #6 confirms Codex review automation is enabled; the main branch ruleset still requires the `build` check and does not require an approving review.
 
 ## Environment Configuration
 

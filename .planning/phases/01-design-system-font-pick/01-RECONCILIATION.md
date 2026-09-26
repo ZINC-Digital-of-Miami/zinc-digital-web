@@ -4,9 +4,13 @@
 
 Planning reconciliation, not a fresh application audit or phase acceptance. Read current source to identify implemented scope and preserve unmeasured requirements. No application, design, deployment configuration, DNS, credentials or runtime behavior changes are authorized by this record.
 
-Baseline measured 2026-09-26 CT: remote main `1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368`; Vercel production `dpl_ExH9Ab1txt5fFnQngMuBetKDrPL5` is READY at that same SHA. PRs #4 and #5 are merged. The public vercel.app alias returns 200 with noindex/nofollow; www.zincdigital.co still returns WordPress/Elementor. These are dated observations, not future release claims.
+Baseline measured 2026-09-26 CT: remote main `1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368`; Vercel production `dpl_ExH9Ab1txt5fFnQngMuBetKDrPL5` is READY at that same SHA. PRs #4 and #5 are merged. The reachable main commits are `f79517446b98ec5d888d20223cf2efb996feba3b` for #4 and `1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368` for #5. The public vercel.app alias returns 200 with noindex/nofollow; www.zincdigital.co still returns WordPress/Elementor. These are dated observations, not future release claims.
 
 Reproduce: `git ls-remote origin main`; `vercel api /v13/deployments/zinc-digital-web.vercel.app --method GET`; `curl -sSI https://zinc-digital-web.vercel.app/`. Read each new deployment SHA separately.
+
+## Review on GitHub
+
+Codex GitHub review is enabled for this repository. PRs trigger review when opened or marked ready; use `@codex review` to request a fresh review on the current head. Confirm the Codex review summary covers the current SHA and address findings before landing. Do not use Copilot as the PR reviewer. Keep GSD code-review, verifier and UI-review steps where their configured checkpoints call for them. PR #6 has already shown this integration responding; its initial findings are being incorporated here.
 
 ## Effective direction and original evidence
 
