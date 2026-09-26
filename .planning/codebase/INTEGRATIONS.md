@@ -59,9 +59,10 @@
 - `.vercelignore` excludes documentation, planning, scratch, environment files, dependencies, and generated directories from upload.
 - Source configuration does not establish the live deployment commit, Git integration, active domains, build environment, or actual response headers; these were not measured.
 
-**CI Pipeline:**
-- No tracked `.github/workflows/` pipeline or other CI configuration is present in the repository inventory. `package.json` provides `build` and `check` commands but no CI orchestration or test command.
-- `AGENTS.md` requires PR delivery and Codex GitHub review. PR #6 confirms Codex review automation is enabled; the main branch ruleset still requires the `build` check and does not require an approving review.
+**CI Pipeline (rechecked 2026-09-26):**
+- `.github/workflows/ci.yml` is tracked. It runs on pull requests and pushes to `main`, merge queue events, and manual dispatch. Its required `build` job sets up Node 24, runs `npm ci`, `npm run check`, `npm run build`, and `node scripts/check-site.mjs`.
+- `browser-verify` runs the quick Selenium/Chrome smoke check after a successful build. The workflow marks it as not required.
+- Active main ruleset `24024093` requires the `build` status check, allows squash merge, and requires zero approving reviews. Separately, `AGENTS.md` requires Codex review for each GitHub PR; PR #6 confirms the Codex review integration is enabled. Copilot is not a review gate.
 
 ## Environment Configuration
 
@@ -85,4 +86,4 @@
 
 ---
 
-*Integration audit: 2026-09-25*
+*Integration inventory: 2026-09-25; CI and review policy rechecked: 2026-09-26*
