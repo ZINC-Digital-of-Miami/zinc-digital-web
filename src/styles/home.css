@@ -334,7 +334,7 @@ html.anim .home-layer-title {
 
 html.anim .home-layer.on .home-layer-title {
   transform: scale(1);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .home-layer-list {
@@ -546,7 +546,10 @@ html.anim .home-stamp:not(.in) {
 }
 
 .home-stamp--next .home-stamp-k {
-  color: var(--color-teal);
+  /* Text use of the accent must be --accent-text (about 4.52:1 on --bg),
+   * not the raw --color-teal token (about 2.42:1) — teal itself stays
+   * decoration-only (SVG fill/stroke, the typing-cursor bar). */
+  color: var(--accent-text);
 }
 
 @container (max-width: 820px) {
