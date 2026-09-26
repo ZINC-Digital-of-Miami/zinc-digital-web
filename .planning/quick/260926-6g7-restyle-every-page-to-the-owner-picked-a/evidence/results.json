@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T11:09:45.838Z",
+  "generatedAt": "2026-09-26T11:37:39.024Z",
   "pages": [
     {
       "slug": "home",
@@ -22,6 +22,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -58,6 +63,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 9,
@@ -86,6 +96,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -122,6 +137,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 2,
@@ -150,6 +170,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -186,6 +211,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 5,
@@ -214,6 +244,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -250,6 +285,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 2,
@@ -278,6 +318,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -314,6 +359,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 2,
@@ -342,6 +392,11 @@
         "dotStayedPutAfterScroll": true
       },
       "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
         "checked": true,
         "violationCount": 0,
         "violations": []
@@ -378,6 +433,11 @@
         "violationCount": 0,
         "violations": []
       },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
       "images": {
         "checked": true,
         "count": 2,
@@ -392,7 +452,35 @@
     "allKinIn": true,
     "kinCount": 4,
     "allTypedFull": true,
-    "typedCount": 3
+    "typedCount": 3,
+    "hiddenBehindAnim": {
+      "stamps": {
+        "selector": ".home-stamp",
+        "count": 5,
+        "failCount": 0,
+        "sample": []
+      },
+      "kinLetters": {
+        "selector": ".kin .w > i",
+        "count": 20,
+        "failCount": 0,
+        "sample": []
+      },
+      "typedText": {
+        "selector": ".home-commit-typed",
+        "count": 3,
+        "failCount": 0,
+        "sample": []
+      },
+      "teamCards": {
+        "selector": "[data-team] > *",
+        "count": 7,
+        "failCount": 0,
+        "sample": []
+      }
+    },
+    "strikeDrawn": true,
+    "hitDrawn": true
   },
   "noJsTest": {
     "layerCount": 3,

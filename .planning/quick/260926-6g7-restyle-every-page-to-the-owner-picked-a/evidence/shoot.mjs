@@ -132,6 +132,26 @@ async function main() {
             }
           }
 
+          // Dead keyboard stops: any tabindex="0" element must itself be an
+          // interactive control (link with href, button, form control), or
+          // carry a role/aria-label declaring what it is (e.g. a scroll
+          // region). A bare tabindex="0" <div>/<span> with none of those is
+          // a stop a keyboard user reaches that does nothing.
+          const tabindexViolations = [];
+          for (const el of document.querySelectorAll('[tabindex="0"]')) {
+            const tag = el.tagName.toLowerCase();
+            const isFormControl = ['button', 'input', 'select', 'textarea'].includes(tag);
+            const isLink = tag === 'a' && el.hasAttribute('href');
+            const hasRole = el.hasAttribute('role');
+            const hasAriaLabel = el.hasAttribute('aria-label') || el.hasAttribute('aria-labelledby');
+            if (isFormControl || isLink || hasRole || hasAriaLabel) continue;
+            tabindexViolations.push({
+              tag: el.tagName,
+              text: (el.textContent || '').trim().slice(0, 40),
+              className: el.className,
+            });
+          }
+
           const haloPad = matchMedia('(min-width: 821px)').matches ? 6 : 4;
           const dotClearOfContent =
             !dot || !firstBandInner
@@ -150,6 +170,7 @@ async function main() {
             dotClearOfContent,
             dotTopBefore,
             tapTargetViolations: violations,
+            tabindexViolations,
           };
         });
 
@@ -188,6 +209,11 @@ async function main() {
             checked: true,
             violationCount: metrics.tapTargetViolations.length,
             violations: metrics.tapTargetViolations,
+          },
+          tabindexZero: {
+            checked: true,
+            violationCount: metrics.tabindexViolations.length,
+            violations: metrics.tabindexViolations,
           },
           images: {
             checked: true,
@@ -237,11 +263,70 @@ async function main() {
         // fall through; the after-snapshot below records whatever state exists
       }
 
+      // The U.S. Oil stamps stagger in ~220ms apart (5 stamps => ~1.1s) and
+      // the team shuffle clears its 'shuffling' class on its own per-card
+      // timers — wait for both explicitly for the same reason as above.
+      try {
+        await page.waitForFunction(
+          () => Array.from(document.querySelectorAll('.home-stamp')).every((el) => el.classList.contains('in')),
+          { timeout: 4000 }
+        );
+      } catch {
+        // fall through — recorded as a violation below if still not .in
+      }
+      try {
+        await page.waitForFunction(
+          () => {
+            const grid = document.querySelector('[data-team]');
+            return !grid || Array.from(grid.children).every((el) => !el.classList.contains('shuffling'));
+          },
+          { timeout: 4000 }
+        );
+      } catch {
+        // fall through
+      }
+
       const after = await page.evaluate(() => {
         const dot = document.getElementById('thread-dot');
         const pulse = document.getElementById('pulse');
         const kinEls = Array.from(document.querySelectorAll('.kin'));
         const typedEls = Array.from(document.querySelectorAll('.typed'));
+
+        // Generic "still stuck behind html.anim" scan. Any element gated by
+        // an `html.anim ...:not(.in)` / `.shuffling` rule in home.css must,
+        // once its band has scrolled past, report full opacity and not be
+        // display:none/visibility:hidden. This is the check that would have
+        // caught the U.S. Oil stamps never reaching `.in` (#P1).
+        function visible(el) {
+          const s = getComputedStyle(el);
+          return parseFloat(s.opacity) >= 0.99 && s.display !== 'none' && s.visibility !== 'hidden';
+        }
+        function hiddenScan(selector) {
+          const els = Array.from(document.querySelectorAll(selector));
+          const failing = els.filter((el) => !visible(el));
+          return {
+            selector,
+            count: els.length,
+            failCount: failing.length,
+            sample: failing.slice(0, 3).map((el) => (el.textContent || '').trim().slice(0, 30)),
+          };
+        }
+
+        const stampScan = hiddenScan('.home-stamp');
+        const kinLetterScan = hiddenScan('.kin .w > i');
+        const typedTextScan = hiddenScan('.home-commit-typed');
+        const teamCardScan = hiddenScan('[data-team] > *');
+
+        // Strike/highlighter are pseudo-elements (::before/::after) driven by
+        // transform + height, not opacity — read their pseudo computed style
+        // directly rather than via the opacity-only helper above.
+        const markStrike = document.querySelector('.mark-strike');
+        const markHit = document.querySelector('.mark-hit');
+        const strikeTransform = markStrike ? getComputedStyle(markStrike, '::after').transform : null;
+        const hitTransform = markHit ? getComputedStyle(markHit, '::before').transform : null;
+        const strikeDrawn = !markStrike || (strikeTransform !== null && !/matrix\(0,/.test(strikeTransform));
+        const hitDrawn = !markHit || (hitTransform !== null && !/matrix\(0,/.test(hitTransform));
+
         return {
           dotTop: dot ? getComputedStyle(dot).top : null,
           pulse: pulse ? { cx: pulse.getAttribute('cx'), cy: pulse.getAttribute('cy') } : null,
@@ -249,6 +334,12 @@ async function main() {
           kinCount: kinEls.length,
           typedAllFull: typedEls.length > 0 && typedEls.every((el) => el.textContent === el.getAttribute('data-text')),
           typedCount: typedEls.length,
+          stampScan,
+          kinLetterScan,
+          typedTextScan,
+          teamCardScan,
+          strikeDrawn,
+          hitDrawn,
         };
       });
 
@@ -259,6 +350,14 @@ async function main() {
         kinCount: after.kinCount,
         allTypedFull: after.typedAllFull,
         typedCount: after.typedCount,
+        hiddenBehindAnim: {
+          stamps: after.stampScan,
+          kinLetters: after.kinLetterScan,
+          typedText: after.typedTextScan,
+          teamCards: after.teamCardScan,
+        },
+        strikeDrawn: after.strikeDrawn,
+        hitDrawn: after.hitDrawn,
       };
       await page.close();
     }
@@ -321,6 +420,7 @@ async function main() {
     if (p.thread.dotClearOfContent === false) violations.push(p.route + ' @' + p.width + ': thread dot + halo overlaps first band content');
     if (!p.thread.dotStayedPutAfterScroll) violations.push(p.route + ' @' + p.width + ': thread dot moved under prefers-reduced-motion: reduce');
     if (p.tapTargets.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tapTargets.violationCount + ' tap target(s) under 44x44: ' + JSON.stringify(p.tapTargets.violations));
+    if (p.tabindexZero.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tabindexZero.violationCount + ' dead tabindex="0" stop(s): ' + JSON.stringify(p.tabindexZero.violations));
     if (p.images.failed.length > 0) violations.push(p.route + ' @' + p.width + ': ' + p.images.failed.length + ' image(s) failed to load: ' + JSON.stringify(p.images.failed));
   }
   if (results.motionScrollTest) {
@@ -329,6 +429,16 @@ async function main() {
     if (!m.pulseMoved) violations.push('motion scroll test: #pulse did not move');
     if (!m.allKinIn) violations.push('motion scroll test: not every .kin reached .in (count ' + m.kinCount + ')');
     if (!m.allTypedFull) violations.push('motion scroll test: not every .typed reached its full text (count ' + m.typedCount + ')');
+    for (const [label, scan] of Object.entries(m.hiddenBehindAnim)) {
+      if (scan.failCount > 0) {
+        violations.push(
+          'motion scroll test: ' + scan.failCount + '/' + scan.count + ' ' + scan.selector +
+            ' (' + label + ') still hidden behind html.anim after scroll-through: ' + JSON.stringify(scan.sample)
+        );
+      }
+    }
+    if (!m.strikeDrawn) violations.push('motion scroll test: .mark-strike::after never drew in (scaleX still 0)');
+    if (!m.hitDrawn) violations.push('motion scroll test: .mark-hit::before never drew in (scaleX still 0)');
   }
   if (results.noJsTest) {
     const n = results.noJsTest;
