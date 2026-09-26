@@ -10,7 +10,8 @@
     "dev": "astro dev",
     "build": "node -e \"require('fs').rmSync('node_modules/.astro/fonts',{recursive:true,force:true})\" && astro build",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "verify": "astro build && node scripts/check-site.mjs && node scripts/verify-mockup.mjs --mode quick"
   },
   "dependencies": {
     "@astrojs/vercel": "11.0.11",

@@ -25,6 +25,10 @@ const out=path.join(root,'.scratch/phase01-mockup');
 const posts=JSON.parse(await fs.readFile('src/data/posts.preview.json','utf8')).posts;
 const slugs=['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const routeRecords=[['/','home'],['/services/','services'],...slugs.map(s=>['/services/'+s+'/','service']),['/work/','work'],['/work/once-upon-a-book-club/','case'],['/work/us-oil-solutions/','case'],['/about/','about'],['/contact/','contact'],['/thanks/','thanks'],['/blog/','blog'],...posts.map(p=>['/blog/'+p.slug+'/','article']),['/privacy/','privacy'],['/terms/','terms']];
+// Same literal order as scripts/check-site.mjs's HOME_BAND_ORDER (owner,
+// 2026-09-26 CT) -- the retired sequence this replaced alternated
+// light/dark; there is no dark band anywhere now.
+const HOME_BAND_ORDER=['hero','clients','loop','once-upon-a-book-club','us-oil-solutions','commitments','team','articles','footer'];
 const inventory=routeRecords;
 export function validateObservation(o){
   assert.equal(o.status,o.expectedStatus??200,'HTTP status');
@@ -87,13 +91,28 @@ async function capture(route,template,width,state='default'){
 }
 async function viewport(width){await driver.sendAndGetDevToolsCommand('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:2,mobile:false});}
 async function settle(){await driver.executeAsyncScript('const done=arguments[arguments.length-1]; document.fonts.ready.then(()=>Promise.all(Array.from(document.images).map(i=>{i.loading="eager";return i.decode().catch(()=>{});}))).then(()=>requestAnimationFrame(()=>requestAnimationFrame(done)));');}
-async function observation(){return driver.executeScript(function(){
+// All-white design (owner, 2026-09-26 CT: "land option 3, all white ... keep
+// the white, that dark was C"; src/styles/themes.css carries the same note).
+// There is exactly one ground -- the snow canvas painted on <body> -- and
+// every band either paints that identical snow opaquely via
+// [data-theme="light"] or paints nothing and lets the canvas show through
+// (measured live on this build: home bands compute backgroundColor
+// "rgba(0, 0, 0, 0)" with no data-theme attribute at all; MockupPage bands
+// compute "rgb(245, 246, 247)" with data-theme="light"). A band is invalid
+// only if it is explicitly dark, nests another band, paints ink text in
+// anything but the one ink color, or paints an opaque ground that is not
+// that exact snow.
+const SNOW_RGB='rgb(245, 246, 247)';
+const INK_RGB='rgb(10, 10, 11)';
+const TRANSPARENT_RGBA='rgba(0, 0, 0, 0)';
+async function observation(){return driver.executeScript(function(SNOW_RGB,INK_RGB,TRANSPARENT_RGBA){
   const visible=el=>el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden';
   const anchors=Array.from(document.querySelectorAll('a')).filter(visible);
   const images=Array.from(document.images).filter(visible).map(img=>{const b=img.getBoundingClientRect();return{src:img.currentSrc,width:b.width,height:b.height,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,ratio:Math.abs(b.width/b.height-img.naturalWidth/img.naturalHeight),reserved:img.hasAttribute('width')&&img.hasAttribute('height')};});
-  const bands=Array.from(document.querySelectorAll('.band')).map(el=>({theme:el.getAttribute('data-theme'),ground:getComputedStyle(el).backgroundColor,rect:{top:el.getBoundingClientRect().top+scrollY,bottom:el.getBoundingClientRect().bottom+scrollY},nested:!!el.querySelector('.band[data-theme]')}));
-  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||i.ratio>.02),images,overflow:document.documentElement.scrollWidth>innerWidth+1,invalidTheme:bands.filter(b=>!['dark','light'].includes(b.theme)||b.nested).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-theme')),text:document.body.innerText};
-});}
+  const canvas=getComputedStyle(document.body).backgroundColor;
+  const bands=Array.from(document.querySelectorAll('.band')).map(el=>({theme:el.getAttribute('data-theme'),ground:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color,rect:{top:el.getBoundingClientRect().top+scrollY,bottom:el.getBoundingClientRect().bottom+scrollY},nested:!!el.parentElement?.closest('.band')}));
+  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||i.ratio>.02),images,overflow:document.documentElement.scrollWidth>innerWidth+1,canvas,invalidTheme:bands.filter(b=>b.theme==='dark'||b.nested||b.color!==INK_RGB||(b.ground!==TRANSPARENT_RGBA&&b.ground!==SNOW_RGB)).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-home-band')),text:document.body.innerText};
+},SNOW_RGB,INK_RGB,TRANSPARENT_RGBA);}
 
 const expectedFonts=['Big Shoulders Display','Inter','JetBrains Mono',800];
 async function fontObservation(route,width){
@@ -140,7 +159,22 @@ try{
   assert.equal(missing.length,0,'requested routes absent: '+JSON.stringify(missing));
   const options=new chrome.Options().addArguments('--headless=new','--no-first-run','--disable-background-networking','--user-data-dir='+path.join(out,'verify-browser'));
   const preferences=new logging.Preferences();preferences.setLevel(logging.Type.PERFORMANCE,logging.Level.ALL);options.setLoggingPrefs(preferences);
-  driver=await new Builder().forBrowser('chrome').setChromeOptions(options).setChromeService(new chrome.ServiceBuilder(path.join(root,'node_modules/chromedriver/lib/chromedriver/chromedriver'))).build();
+  // GitHub-hosted Ubuntu runners preinstall Chrome and a version-paired
+  // ChromeDriver together in the same runner-image release (see
+  // actions/runner-images images/ubuntu/Ubuntu2404-Readme.md, "Environment
+  // Variables": CHROMEWEBDRIVER points at that paired driver directory). The
+  // npm `chromedriver` package tracks Chrome-for-Testing's newest release on
+  // every install ("chromedriver":"latest" behind @axe-core/cli) independent
+  // of whatever Chrome build is actually on the machine, so it drifts out of
+  // sync with a fixed or auto-updating browser (measured locally: installed
+  // Chrome 153.0.8010.49 vs npm chromedriver 154.0.8037.57 -> SessionNotCreatedError).
+  // Prefer the platform-paired driver when the runner provides one; allow an
+  // explicit CHROMEDRIVER_PATH override for local proof/debugging; otherwise
+  // keep the previous npm-bundled-binary default.
+  const chromedriverPath=process.env.CHROMEDRIVER_PATH
+    ||(process.env.CHROMEWEBDRIVER?path.join(process.env.CHROMEWEBDRIVER,'chromedriver'):null)
+    ||path.join(root,'node_modules/chromedriver/lib/chromedriver/chromedriver');
+  driver=await new Builder().forBrowser('chrome').setChromeOptions(options).setChromeService(new chrome.ServiceBuilder(chromedriverPath)).build();
   await driver.sendAndGetDevToolsCommand('Page.addScriptToEvaluateOnNewDocument',{source:`window.__fontShifts=[];window.__fontFirstPaint=null;new PerformanceObserver(list=>{for(const e of list.getEntries())window.__fontShifts.push({value:e.value,hadRecentInput:e.hadRecentInput,time:e.startTime,sources:e.sources.map(s=>({tag:s.node?.tagName,text:s.node?.textContent?.slice(0,90),previous:s.previousRect,current:s.currentRect}))});}).observe({type:'layout-shift',buffered:true});document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{window.__fontFirstPaint={fontStatus:document.fonts.status,time:performance.now(),heading:document.querySelector('h1')?.getBoundingClientRect().toJSON()};})));`});
   if(mode==='full'){
     fontProxy=createServer(async(req,res)=>{try{const font=req.url.includes('.woff2');if(font){fontRequests.push({url:req.url,policy:fontPolicy});if(fontPolicy==='delayed')await new Promise(resolve=>setTimeout(resolve,1000));if(fontPolicy==='blocked'){res.writeHead(503,{'cache-control':'no-store'});res.end('Controlled font failure');return;}}const response=await fetch(base+req.url);res.writeHead(response.status,{'content-type':response.headers.get('content-type')||'application/octet-stream','cache-control':'no-store'});res.end(Buffer.from(await response.arrayBuffer()));}catch(error){res.writeHead(502);res.end(String(error));}});
@@ -172,8 +206,8 @@ try{
     for(const width of mode==='full'?[1440,375]:[375]){
       if(mode==='full' && template==='404')for(const policy of ['cold','delayed','blocked'])await observeFontLoad(prefix+route,width,policy);
       await load(route,width);await fontObservation(currentPrefix+route,width);const obs=await observation();result.browserChecks++;result.images+=obs.images.length;
-      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.invalidTheme===0,route+' invalid/nested band theme');check(obs.h1Top<250,route+' content starts at top');
-      if(route==='/'){check(obs.homeBands.join(',')==='light,dark,light,dark,light,dark,light,dark,light','home band order');for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').includes('Other agencies deliver the scope. ZINC delivers the business.'),'decoded core line');}
+      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.canvas===SNOW_RGB,route+' body canvas is not the one snow ground: '+obs.canvas);check(obs.invalidTheme===0,route+' invalid/nested band theme');check(obs.h1Top<250,route+' content starts at top');
+      if(route==='/'){check(obs.homeBands.join(',')===HOME_BAND_ORDER.join(','),'home band order: got '+obs.homeBands.join(','));for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').includes('Other agencies deliver the scope. ZINC delivers the business.'),'decoded core line');}
       await driver.executeScript(axeSource);const audit=await driver.executeAsyncScript('const done=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>done({violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})),passes:r.passes.length}));');
       result.axe.push({route:currentPrefix+route,width,...audit});check(audit.violations.length===0,route+' axe '+JSON.stringify(audit.violations));
       if(mode==='full')await capture(route,template,width);
