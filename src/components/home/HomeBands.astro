@@ -59,7 +59,7 @@ const notes = posts.slice(0, 3);
     <p class="t-label">// Who's trusted us <span class="draft-tag">[LOGO FILES PENDING &mdash; NAMES SET AS WORDMARKS]</span></p>
     <div class="home-logos-grid">
       {clients.map((name) => (
-        <div class="home-logo-cell display" tabindex="0"><span>{name}</span></div>
+        <div class="home-logo-cell display"><span>{name}</span></div>
       ))}
       <div class="home-logo-cell" aria-hidden="true">&nbsp;</div>
     </div>
@@ -260,13 +260,16 @@ const notes = posts.slice(0, 3);
         if (band === 'clients') flipLogos();
         if (band === 'commitments') typeLines();
         if (band === 'team') shuffleTeam(true);
+        if (band === 'us-oil-solutions') revealStamps();
         io.unobserve(target);
       });
     },
     { threshold: 0.25 }
   );
   document
-    .querySelectorAll('.kin, [data-home-band="clients"], [data-home-band="commitments"], [data-home-band="team"]')
+    .querySelectorAll(
+      '.kin, [data-home-band="clients"], [data-home-band="commitments"], [data-home-band="team"], [data-home-band="us-oil-solutions"]'
+    )
     .forEach((el) => io.observe(el));
 
   if (reduce) {
@@ -285,6 +288,21 @@ const notes = posts.slice(0, 3);
     cells.forEach((c, k) => {
       setTimeout(() => c.classList.add('flip'), k * 180);
       setTimeout(() => c.classList.remove('flip'), k * 180 + 420);
+    });
+  }
+
+  // ---- U.S. Oil timeline: stagger the stamps in on entry ------------------
+  // Mirrors the sketch's usoil handler (.planning/sketches/001-a-plus-b-homepage/index.html
+  // lines 438-446): under reduced motion every stamp gets `.in` immediately;
+  // otherwise each stamp arrives ~220ms after the last.
+  function revealStamps() {
+    const stamps = Array.from(document.querySelectorAll('.home-stamp'));
+    stamps.forEach((s, k) => {
+      if (reduce) {
+        s.classList.add('in');
+      } else {
+        setTimeout(() => s.classList.add('in'), k * 220);
+      }
     });
   }
 
