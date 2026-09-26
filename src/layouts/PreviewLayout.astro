@@ -30,7 +30,6 @@ const link=(path:string)=>toSitePath(path);
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="frame">
-      <CircuitThread />
       <header class="site-header">
         <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
         <span class="draft-tag nav-draft">PUBLIC DESIGN DRAFT</span>
@@ -39,6 +38,7 @@ const link=(path:string)=>toSitePath(path);
         <a class="btn" href={link('/contact/')}>Start an inquiry</a>
       </header>
       <main id="main">
+        <CircuitThread />
         <slot />
       </main>
       <SiteFooter />
@@ -55,5 +55,17 @@ const link=(path:string)=>toSitePath(path);
     position: relative;
     container-type: inline-size;
     overflow-x: clip;
+  }
+
+  /* #thread / #thread-dot are absolutely positioned relative to the
+   * nearest positioned ancestor. Scoping that to #main (not .frame) means
+   * top: 0 lands just below the masthead instead of at the very top of
+   * the page, where it used to sit on top of the wordmark and nav links
+   * at scroll position 0 (owner-measured overlap, 2026-09-26). The thread
+   * still spans the full height of the page's scrollable content (main
+   * holds every band except the masthead and footer), so scroll-progress
+   * semantics are unchanged. */
+  #main {
+    position: relative;
   }
 </style>

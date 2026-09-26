@@ -14,8 +14,21 @@
 
 /* ---------- 1 hero ---------------------------------------------------- */
 
-.home-hero {
-  padding-top: var(--space-2xl);
+/* Owner, 2026-09-26, verbatim, on a screenshot of the headline running past
+ * the bottom of the screen: "I want this hero to be contained in viewport or
+ * 100vh full screen. I do not want it flowing over." Every vertical
+ * dimension below (padding, margins, headline size) now scales by svh
+ * (viewport height, toolbar-safe — unlike vh it already excludes the
+ * mobile browser chrome that would otherwise push the hero past the fold)
+ * in addition to the existing width-based (cqi) scale, so the hero never
+ * exceeds the first viewport on a short screen instead of only ever
+ * growing on a wide one. It may fill the screen but never spill past it. */
+.home-hero.band {
+  padding-block: clamp(0.5rem, 2.4svh, var(--space-2xl));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
 }
 
 .home-meta-row {
@@ -23,12 +36,15 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--space-sm) var(--space-xl);
-  padding-bottom: var(--space-md);
+  padding-bottom: clamp(0.25rem, 1svh, var(--space-md));
 }
 
 .home-hero-title {
-  font-size: var(--t-mega);
-  margin: var(--space-2xl) 0 var(--space-3xl);
+  /* min() of a width-based clamp and a height-based (svh) clamp: the
+   * headline is always the SMALLER of "as big as the width allows" and
+   * "as big as the height allows", so four lines always fit both ways. */
+  font-size: min(clamp(2.5rem, 12cqi + 0.5rem, 13rem), clamp(1.3rem, 8.4svh, 13rem));
+  margin: clamp(0.6rem, 2.2svh, var(--space-2xl)) 0 clamp(0.75rem, 2.4svh, var(--space-3xl));
 }
 
 .home-hero-title .line {
@@ -73,14 +89,26 @@ html.anim .home-hero:not(.in) .mark-hit::before {
 .home-hero-foot {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: var(--space-3xl);
+  gap: clamp(1rem, 3svh, var(--space-3xl));
   align-items: start;
 }
 
 .home-hero-foot .lede {
-  margin: 0 0 var(--space-xl);
+  margin: 0 0 clamp(0.4rem, 1svh, var(--space-xl));
   max-width: 34ch;
 }
+
+/* Owner-approved carve-out (plan step: "If the Contents list cannot fit
+ * with 44px tap rows on the shortest phone sizes, you may place it
+ * directly below the hero on those sizes only"): the headline, lede and
+ * "Start an inquiry"/"Text" actions above always fit inside the first
+ * viewport at every measured size (see 260926-6g7-REVIEW-hero.md). The
+ * four Contents rows below them have a 44px tap-target floor that cannot
+ * itself shrink; at the shortest phone heights (375x667, 667x375, and
+ * partially 375x812) that floor pushes the Contents list itself past the
+ * fold. It stays exactly where the sketch puts it — directly below the
+ * hero's actions row, already stacked under the @container rule two rules
+ * down on any container this narrow — nothing is removed or hidden. */
 
 .home-toc {
   margin: 0;

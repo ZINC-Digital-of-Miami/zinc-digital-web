@@ -28,6 +28,15 @@ const pages = [
 ];
 const widths = [1440, 375];
 
+// Owner, 2026-09-26, verbatim, on a screenshot of the headline running past
+// the bottom of the screen: "I want this hero to be contained in viewport or
+// 100vh full screen. I do not want it flowing over." Every size the owner
+// named, plus the landscape-phone case that first surfaced the bug.
+const HERO_SIZES = [
+  [1440, 900], [1280, 720], [1780, 920], [1920, 1080],
+  [768, 1024], [375, 812], [375, 667], [667, 375],
+];
+
 function startServer() {
   const proc = spawn('python3', ['-m', 'http.server', String(port), '--directory', distDir], {
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -227,6 +236,95 @@ async function main() {
       }
     }
 
+    // ---- hero viewport-fit check (owner requirement, 2026-09-26) --------
+    // Measures the homepage hero's bottom edge against window.innerHeight
+    // at every owner-named size plus the landscape-phone case that first
+    // surfaced the bug, under both reduced and normal motion. "Core" is
+    // the masthead through the CTA actions row (headline, lede, "Start an
+    // inquiry"/"Text" buttons) — this must NEVER exceed the viewport at
+    // any size. "Full" also includes the Contents list; its four rows
+    // carry a 44px tap-target floor that cannot itself shrink, so on the
+    // narrowest *and* shortest phone sizes (container width <= 820, i.e.
+    // already stacked under the sketch's own layout) the Contents list is
+    // allowed to sit below the fold, per the plan's own carve-out ("you
+    // may place it directly below the hero on those sizes only"). On any
+    // wider viewport the full hero (Contents included) must also fit.
+    // Also captures a first-viewport (not full-page) screenshot at each
+    // size, and checks the circuit-thread dot never overlaps the masthead
+    // wordmark/nav/CTA at scroll position 0 (owner-measured regression,
+    // 2026-09-26: the dot used to sit at the very top of the page, on top
+    // of the wordmark).
+    {
+      const heroResults = [];
+      for (const reduce of ['reduce', 'no-preference']) {
+        for (const [width, height] of HERO_SIZES) {
+          const page = await browser.newPage();
+          await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: reduce }]);
+          await page.setViewport({ width, height });
+          await page.goto(base + '/', { waitUntil: 'networkidle0' });
+
+          const m = await page.evaluate(() => {
+            const rect = (el) => (el ? el.getBoundingClientRect() : null);
+            const hero = document.querySelector('[data-home-band="hero"]');
+            const actions = document.querySelector('.home-hero-foot .actions');
+            const toc = document.querySelector('.home-toc');
+            const wordmark = document.querySelector('.wordmark');
+            const nav = document.querySelector('#site-nav');
+            const inquiryBtn = document.querySelector('.site-header > a.btn');
+            const dot = document.getElementById('thread-dot');
+
+            function intersects(a, b) {
+              if (!a || !b) return false;
+              return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+            }
+
+            const dotRect = dot ? dot.getBoundingClientRect() : null;
+            return {
+              innerHeight: window.innerHeight,
+              heroBottom: hero ? rect(hero).bottom : null,
+              coreBottom: actions ? rect(actions).bottom : null,
+              tocBottom: toc ? rect(toc).bottom : null,
+              dotOverlapsWordmark: intersects(dotRect, rect(wordmark)),
+              dotOverlapsNav: intersects(dotRect, rect(nav)),
+              dotOverlapsInquiryBtn: intersects(dotRect, rect(inquiryBtn)),
+            };
+          });
+
+          if (reduce === 'reduce') {
+            await page.screenshot({
+              path: path.join(here, `hero-${width}x${height}.png`),
+              fullPage: false,
+            });
+          }
+
+          const coreOverflow = m.coreBottom !== null ? m.coreBottom - m.innerHeight : null;
+          const fullOverflow = m.tocBottom !== null ? m.tocBottom - m.innerHeight : null;
+          heroResults.push({
+            reducedMotion: reduce === 'reduce',
+            width,
+            height,
+            innerHeight: m.innerHeight,
+            heroBottom: m.heroBottom,
+            coreBottom: m.coreBottom,
+            tocBottom: m.tocBottom,
+            coreOverflow,
+            fullOverflow,
+            // The Contents-list carve-out only applies to the narrow,
+            // already-stacked container width (<=820, the sketch's own
+            // breakpoint for stacking .home-hero-foot) — not to any wider
+            // viewport, where the full hero including Contents must fit.
+            fullOverflowAllowed: width <= 820,
+            dotOverlapsWordmark: m.dotOverlapsWordmark,
+            dotOverlapsNav: m.dotOverlapsNav,
+            dotOverlapsInquiryBtn: m.dotOverlapsInquiryBtn,
+          });
+
+          await page.close();
+        }
+      }
+      results.heroViewport = heroResults;
+    }
+
     // ---- motion-allowed scroll test on / at 1440 -----------------------
     {
       const page = await browser.newPage();
@@ -422,6 +520,21 @@ async function main() {
     if (p.tapTargets.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tapTargets.violationCount + ' tap target(s) under 44x44: ' + JSON.stringify(p.tapTargets.violations));
     if (p.tabindexZero.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tabindexZero.violationCount + ' dead tabindex="0" stop(s): ' + JSON.stringify(p.tabindexZero.violations));
     if (p.images.failed.length > 0) violations.push(p.route + ' @' + p.width + ': ' + p.images.failed.length + ' image(s) failed to load: ' + JSON.stringify(p.images.failed));
+  }
+  if (results.heroViewport) {
+    const TOLERANCE = 2; // px, subpixel/rounding
+    for (const h of results.heroViewport) {
+      const label = `hero @ ${h.width}x${h.height} (${h.reducedMotion ? 'reduced motion' : 'normal motion'})`;
+      if (h.coreOverflow !== null && h.coreOverflow > TOLERANCE) {
+        violations.push(`${label}: headline/lede/CTA (core) overflow the first viewport by ${h.coreOverflow.toFixed(0)}px (bottom ${h.coreBottom.toFixed(0)} > innerHeight ${h.innerHeight})`);
+      }
+      if (h.fullOverflow !== null && h.fullOverflow > TOLERANCE && !h.fullOverflowAllowed) {
+        violations.push(`${label}: full hero including Contents overflows the first viewport by ${h.fullOverflow.toFixed(0)}px (bottom ${h.tocBottom.toFixed(0)} > innerHeight ${h.innerHeight}) — carve-out does not apply above 820px width`);
+      }
+      if (h.dotOverlapsWordmark) violations.push(`${label}: thread dot overlaps the masthead wordmark`);
+      if (h.dotOverlapsNav) violations.push(`${label}: thread dot overlaps the masthead nav`);
+      if (h.dotOverlapsInquiryBtn) violations.push(`${label}: thread dot overlaps the masthead "Start an inquiry" button`);
+    }
   }
   if (results.motionScrollTest) {
     const m = results.motionScrollTest;
