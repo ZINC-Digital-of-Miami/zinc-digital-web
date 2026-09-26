@@ -42,7 +42,7 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 - [ ] **HOME-05**: "How we work" band shows 4–5 commitments, each confirmed true by the owner (section 6.1, section 13)
 - [ ] **HOME-06**: Team band shows all seven faces in black and white, reshuffled on every load and on entering view (section 6.1)
 - [ ] **HOME-07**: Latest-articles band shows the three newest posts (section 6.1)
-- [ ] **HOME-08**: Footer shows a new closing line, short form entry, text line, Miami HQ · Panama City satellite · nationwide, and socials (section 6.1)
+- [ ] **HOME-08**: Footer shows a new closing line, inquiry action, text line, Miami HQ · Panama City satellite · nationwide, and socials (section 6.1)
 
 ### Services (SERV)
 
@@ -69,7 +69,7 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 - [ ] **CONT-01**: Visitor can submit name, company, work email, website, services (grouped by layer), budget (`Under $5k/mo`, `$5–10k/mo`, `$10–25k/mo`, `$25k+/mo`), timeline, and message in short progressive steps; the form still works as one page with JavaScript off (section 6.5, section 18)
 - [ ] **CONT-02**: A valid submission is emailed to `jaymie@zincdigital.co` via Nodemailer → smtp.gmail.com:465 with a Workspace App Password, and the visitor lands on `/thanks/` (section 14, section 18)
 - [ ] **CONT-03**: Submissions failing Turnstile server verification or filling the honeypot are rejected without sending email (section 14)
-- [ ] **CONT-04**: The text line (786) 575-4837 appears beside the form and in the hero and footer (section 6.5)
+- [ ] **CONT-04**: The text line (786) 575-4837 appears beside the Contact form, in the homepage intro band, and in the shared footer (section 6.1, section 6.5)
 - [ ] **CONT-05**: No public pricing appears anywhere on the site (section 6.5)
 
 ### Blog (BLOG)

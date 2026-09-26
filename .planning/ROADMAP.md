@@ -141,7 +141,7 @@ Plans:
      - how an engagement runs.
   2. A visitor can complete the form in short progressive steps, or as one page with JavaScript off. The form asks for services grouped by layer and the four budget tiers. Following any service page's inquiry action opens `/contact/?service=<slug>` with that service preselected
   3. A valid submission from the preview deploy arrives at `jaymie@zincdigital.co` through Nodemailer and smtp.gmail.com:465, and the visitor lands on `/thanks/`. A submission that fails Turnstile or fills the honeypot is rejected, and no email is sent
-  4. (786) 575-4837 appears beside the form, in the hero and in the footer. A site-wide scan finds no public pricing
+  4. (786) 575-4837 appears beside the Contact form, in the homepage intro band and in the shared footer. A site-wide scan finds no public pricing
   5. The form stays off for live submissions until SPF is repaired. The repair is measured when `dig +short TXT zincdigital.co` returns exactly one SPF record, and it includes `_spf.google.com` (the owner applies it in Route 53, LNCH-02). The App Password and Turnstile secrets exist only as Vercel environment variables, entered by the owner
 
 **Plans**: TBD
