@@ -267,7 +267,7 @@ const HOME_COMMITMENTS = [
   'Direct access to the people doing the work.',
   'Reporting tied to revenue, not impressions.',
 ];
-const HOME_BAND_ORDER = ['hero', 'clients', 'loop', 'once-upon-a-book-club', 'us-oil-solutions', 'commitments', 'team', 'articles', 'footer'];
+const HOME_BAND_ORDER = ['hero', 'intro', 'clients', 'loop', 'once-upon-a-book-club', 'us-oil-solutions', 'commitments', 'team', 'articles', 'footer'];
 
 const indexPage = pages.find((p) => p.relativePath === 'index.html');
 if (!indexPage) {

@@ -20,18 +20,65 @@ const notes = posts.slice(0, 3);
 ---
 
 <!-- 1 HERO -->
+<!-- 1 HERO: the headline alone, filling the screen below the masthead.
+     Owner, 2026-09-26: "from the first word to the last, it takes up the users
+     screen, nothing else". Everything else the sketch stacked here is band 2. -->
 <section class="band home-hero" data-home-band="hero">
-  <div class="band__inner">
-    <div class="home-meta-row t-label">
-      <span>ZINC Digital</span><span>Operating report</span><span>Miami HQ &middot; Working nationwide</span><span>Build &middot; Demand &middot; Intelligence</span>
-    </div>
-    <hr class="rule" />
+  <div class="band__inner home-hero-stage">
     <h1 class="display page-title kin home-hero-title">
       <span class="line">Other agencies deliver</span>
       <span class="line"><span class="mark-strike">the scope.</span></span>
       <span class="line">ZINC delivers</span>
       <span class="line"><span class="mark-hit">the business.</span></span>
     </h1>
+  </div>
+</section>
+<script is:inline>
+  // Size the headline before first paint so its four lines fill the screen
+  // below the masthead: the largest font size at which the headline's height
+  // fits that space and no word overflows the width. Runs again on resize,
+  // once web fonts load, and after the kinetic word wrap (window.__fitHero).
+  (function () {
+    var h = document.querySelector('.home-hero-title');
+    if (!h) return;
+    var band = h.closest('.home-hero');
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+    var lastW = 0, lastH = 0;
+    function fit(force) {
+      var vh = probe.offsetHeight || window.innerHeight;
+      var vw = document.documentElement.clientWidth;
+      if (!force && vw === lastW && vh === lastH) return;
+      lastW = vw; lastH = vh;
+      var header = document.querySelector('.site-header');
+      var top = header ? header.getBoundingClientRect().height : 0;
+      var cs = getComputedStyle(band);
+      var screen = vh - top;
+      band.style.minHeight = screen + 'px';
+      var avail = screen - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - parseFloat(cs.borderTopWidth || '0');
+      var lo = 16, hi = 900;
+      for (var i = 0; i < 20; i++) {
+        var mid = (lo + hi) / 2;
+        h.style.fontSize = mid + 'px';
+        if (h.scrollHeight <= avail && h.scrollWidth <= h.clientWidth + 1) lo = mid; else hi = mid;
+      }
+      h.style.fontSize = Math.floor(lo) + 'px';
+    }
+    fit(true);
+    window.__fitHero = function () { fit(true); };
+    window.addEventListener('resize', function () { fit(false); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(true); });
+  })();
+</script>
+
+<!-- 2 INTRO: annual-report meta row, supporting line, actions, contents -->
+<section class="band home-intro" data-home-band="intro">
+  <div class="band__inner">
+    <div class="home-meta-row t-label">
+      <span>ZINC Digital</span><span>Operating report</span><span>Miami HQ &middot; Working nationwide</span><span>Build &middot; Demand &middot; Intelligence</span>
+    </div>
+    <hr class="rule" />
     <div class="home-hero-foot">
       <div>
         <p class="lede">Supporting line under editorial review. <span class="draft-tag">[DRAFT]</span></p>
@@ -247,6 +294,8 @@ const notes = posts.slice(0, 3);
   const kinEls = Array.from(document.querySelectorAll('.kin'));
   if (!reduce) {
     kinEls.forEach(wrapWords);
+    // The word wrap adds inline-block spans to the hero headline; refit it.
+    (window as unknown as { __fitHero?: () => void }).__fitHero?.();
   }
 
   // ---- reveal on view -----------------------------------------------------

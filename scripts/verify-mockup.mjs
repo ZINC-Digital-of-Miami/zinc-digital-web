@@ -28,7 +28,7 @@ const routeRecords=[['/','home'],['/services/','services'],...slugs.map(s=>['/se
 // Same literal order as scripts/check-site.mjs's HOME_BAND_ORDER (owner,
 // 2026-09-26 CT) -- the retired sequence this replaced alternated
 // light/dark; there is no dark band anywhere now.
-const HOME_BAND_ORDER=['hero','clients','loop','once-upon-a-book-club','us-oil-solutions','commitments','team','articles','footer'];
+const HOME_BAND_ORDER=['hero','intro','clients','loop','once-upon-a-book-club','us-oil-solutions','commitments','team','articles','footer'];
 // 'thanks' and '404' are single-purpose confirmation/error templates, by
 // design one short paragraph (owner, 2026-09-26 CT) -- not a stub. The
 // generic 300-char floor still guards every content template; these two

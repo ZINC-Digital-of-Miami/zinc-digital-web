@@ -23,12 +23,22 @@
  * in addition to the existing width-based (cqi) scale, so the hero never
  * exceeds the first viewport on a short screen instead of only ever
  * growing on a wide one. It may fill the screen but never spill past it. */
+/* Correction, same day: "from the first word to the last, it takes up the
+ * users screen, nothing else". The hero band holds only the headline and is
+ * exactly one screen below the masthead; the inline fit script in
+ * HomeBands.astro sizes the type so the four lines fill it. The meta row,
+ * lede, actions and contents are the next band (.home-intro). */
 .home-hero.band {
-  padding-block: clamp(0.5rem, 2.4svh, var(--space-2xl));
+  padding-block: clamp(0.75rem, 3svh, var(--space-2xl));
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 0;
+  /* Without JS: one screen minus an estimated masthead height. */
+  min-height: calc(100svh - 5.5rem);
+}
+
+.home-hero-stage {
+  width: 100%;
 }
 
 .home-meta-row {
@@ -36,15 +46,37 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--space-sm) var(--space-xl);
-  padding-bottom: clamp(0.25rem, 1svh, var(--space-md));
+  padding-bottom: var(--space-md);
 }
 
 .home-hero-title {
-  /* min() of a width-based clamp and a height-based (svh) clamp: the
-   * headline is always the SMALLER of "as big as the width allows" and
-   * "as big as the height allows", so four lines always fit both ways. */
-  font-size: min(clamp(2.5rem, 12cqi + 0.5rem, 13rem), clamp(1.3rem, 8.4svh, 13rem));
-  margin: clamp(0.6rem, 2.2svh, var(--space-2xl)) 0 clamp(0.75rem, 2.4svh, var(--space-3xl));
+  /* No-JS fallback size; the fit script replaces it before first paint. */
+  font-size: min(clamp(2.5rem, 12cqi + 0.5rem, 15rem), 19svh);
+  max-width: none;
+  text-wrap: wrap;
+  overflow-wrap: normal;
+  margin: 0;
+}
+
+.home-intro .rule {
+  margin-bottom: var(--space-2xl);
+}
+
+/* Narrow screens: the four meta items sit in a clean two-by-two grid
+ * instead of wrapping raggedly across uneven lines. */
+@container (max-width: 820px) {
+  .home-meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm) var(--space-lg);
+  }
+}
+
+@container (max-width: 420px) {
+  .home-meta-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
 }
 
 .home-hero-title .line {
