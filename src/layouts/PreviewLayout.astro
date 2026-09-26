@@ -33,8 +33,8 @@ const link=(path:string)=>toSitePath(path);
       <header class="site-header">
         <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
         <button class="btn menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
-        <nav id="site-nav" aria-label="Main navigation"><a href={link('/work/')}>Work</a><a href={link('/services/')}>Services</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a></nav>
-        <a class="btn" href={link('/contact/')}>Start an inquiry</a>
+        <nav id="site-nav" aria-label="Main navigation"><a href={link('/work/')}>Work</a><a href={link('/services/')}>Services</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a><a class="btn solid nav-cta" href={link('/contact/')}>Start an inquiry &rarr;</a></nav>
+        <a class="btn header-cta" href={link('/contact/')}>Start an inquiry</a>
       </header>
       <div class="thread-scope">
         <CircuitThread />
