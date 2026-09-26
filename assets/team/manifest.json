@@ -1,12 +1,27 @@
 {
-  "generatedAt": "2026-09-26T13:07:07.747Z",
+  "generatedAt": "2026-09-26T13:35:01.277Z",
   "outputSize": {
     "width": 800,
     "height": 1000
   },
   "targets": {
-    "faceWidthFraction": 0.4,
-    "eyeLineFraction": 0.4
+    "faceWidthFraction": 0.6004161039414587,
+    "eyeLineFraction": 0.4,
+    "targetBackgroundLuminance": 246,
+    "targetFaceLuminance": 153.16817708333335
+  },
+  "geometryConstraint": {
+    "rule": "requiredF = OUTPUT_H*(1-EYE_LINE_FRACTION)*face.w / (OUTPUT_W*(sourceHeight-eyeMidY)); shared F = max(requiredF over all 7) * 1.03",
+    "limitingImage": "wendy-funnell",
+    "perPersonRequiredF": {
+      "kirk-musick": 0.5587415672217156,
+      "bethany-mckinzie": 0.23985770496656147,
+      "priya-nahar": 0.5178265168659076,
+      "martin-stewart": 0.1948139800496595,
+      "dr-basset": 0.5723467562100987,
+      "jaymie-wilhoit": 0.31954414390012764,
+      "wendy-funnell": 0.5829282562538434
+    }
   },
   "background": "#F5F6F7",
   "people": [
@@ -32,19 +47,31 @@
           "y": 695.9605793820247
         }
       },
-      "scale": 0.31902587565392254,
+      "scale": 0.47887068329160104,
       "placement": {
-        "left": 71,
-        "top": 176
+        "left": -94,
+        "top": 64,
+        "bottom": 1045,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.41156309843063354,
-        "eyeLineFraction": 0.399629802930927,
-        "faceCenterXFraction": 0.49655231833457947
+        "faceWidthFraction": 0.6131901741027832,
+        "eyeLineFraction": 0.39831601873301253,
+        "faceCenterXFraction": 0.4948149174451828
       },
       "maskHolesFilled": 19,
+      "luminance": {
+        "faceBefore": 89.86996527777778,
+        "faceAfter": 152.67397569444444,
+        "backgroundBefore": 245.97614130069476,
+        "backgroundAfter": 245.97632156234914,
+        "calibration": {
+          "a": 0.5946710455775854,
+          "b": 99.72511086557594
+        }
+      },
       "notes": null
     },
     {
@@ -69,19 +96,31 @@
           "y": 572.5746753951519
         }
       },
-      "scale": 0.5785691237638775,
+      "scale": 0.8684555478778273,
       "placement": {
-        "left": -141,
-        "top": 68
+        "left": -412,
+        "top": -99,
+        "bottom": 1902,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.3999674618244171,
-        "eyeLineFraction": 0.4012124773283177,
-        "faceCenterXFraction": 0.5010022073984146
+        "faceWidthFraction": 0.6063963174819946,
+        "eyeLineFraction": 0.39992885895724817,
+        "faceCenterXFraction": 0.5005480647087097
       },
       "maskHolesFilled": 151313,
+      "luminance": {
+        "faceBefore": 153.16817708333335,
+        "faceAfter": 152.70428819444444,
+        "backgroundBefore": 245.9750480769231,
+        "backgroundAfter": 245.9750480769231,
+        "calibration": {
+          "a": 1.0002688585749069,
+          "b": -0.04118057781170137
+        }
+      },
       "notes": "Source upload is misnamed \"priya 2.png\" but is confirmed as Bethany's photo, not Priya's — it matches the exact [348,100,1160,1450] crop docs/team-photos-status.md records for her (and the face is Bethany's). The prior segmentation also punched ~151k px of holes through her patterned blouse (busy fabric print confused Vision's segmentation); the enclosed-hole fill (see prepare-team-photos.mjs) restored the real fabric texture there."
     },
     {
@@ -106,19 +145,31 @@
           "y": 656.4846446225401
         }
       },
-      "scale": 0.33607539440404677,
+      "scale": 0.5044626973466672,
       "placement": {
-        "left": 48,
-        "top": 175
+        "left": -128,
+        "top": 62,
+        "bottom": 1096,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.4006385803222656,
-        "eyeLineFraction": 0.40118767986647674,
-        "faceCenterXFraction": 0.5008840262889862
+        "faceWidthFraction": 0.5991653203964233,
+        "eyeLineFraction": 0.3998110594666355,
+        "faceCenterXFraction": 0.5011894255876541
       },
       "maskHolesFilled": 25,
+      "luminance": {
+        "faceBefore": 130.90567708333333,
+        "faceAfter": 152.66708333333332,
+        "backgroundBefore": 245.99983193738467,
+        "backgroundAfter": 245.9998250776861,
+        "calibration": {
+          "a": 0.8065728710062199,
+          "b": 47.58320928721608
+        }
+      },
       "notes": null
     },
     {
@@ -143,19 +194,31 @@
           "y": 456.96373270453046
         }
       },
-      "scale": 0.7628920688184266,
+      "scale": 1.1451317092194973,
       "placement": {
-        "left": -296,
-        "top": 56
+        "left": -645,
+        "top": -117,
+        "bottom": 2249,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.3917628228664398,
-        "eyeLineFraction": 0.3987949535206269,
-        "faceCenterXFraction": 0.485847070813179
+        "faceWidthFraction": 0.5872198343276978,
+        "eyeLineFraction": 0.39696244006246045,
+        "faceCenterXFraction": 0.47656023502349854
       },
       "maskHolesFilled": 22931,
+      "luminance": {
+        "faceBefore": 175.93541666666667,
+        "faceAfter": 153.7632986111111,
+        "backgroundBefore": 245.96357478539673,
+        "backgroundAfter": 245.94047229799963,
+        "calibration": {
+          "a": 1.3256356501519553,
+          "b": -80.05808337433848
+        }
+      },
       "notes": "Only source is a profile performance candid (cap, glasses, mic, raised hand) — not a forward studio headshot. Face-box-width scaling keeps his apparent head size consistent with the other six, but pose/attire cannot match without a new photo (flagged already in docs/team-photos-status.md item 3)."
     },
     {
@@ -180,20 +243,32 @@
           "y": 723.1593797528368
         }
       },
-      "scale": 0.31445711751560834,
+      "scale": 0.47201279338845753,
       "placement": {
-        "left": 11,
-        "top": 175
+        "left": -183,
+        "top": 62,
+        "bottom": 1030,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.4103698432445526,
-        "eyeLineFraction": 0.3998209229225412,
-        "faceCenterXFraction": 0.5032593458890915
+        "faceWidthFraction": 0.5804266929626465,
+        "eyeLineFraction": 0.3989488537148496,
+        "faceCenterXFraction": 0.4965074509382248
       },
       "maskHolesFilled": 0,
-      "notes": "Source upload carried a small colored sparkle/upscaler artifact (docs/team-photos-status.md item 2, maxSat 1.0 vs ~0.03 average). The grayscale + normalise pass neutralizes stray color pixels; median(3) denoise softens the residual speck."
+      "luminance": {
+        "faceBefore": 170.65140625,
+        "faceAfter": 154.00855902777778,
+        "backgroundBefore": 245.99468327340492,
+        "backgroundAfter": 245.98936654680983,
+        "calibration": {
+          "a": 1.2321182006435563,
+          "b": -57.0945265227092
+        }
+      },
+      "notes": "Source upload carried a small colored sparkle/upscaler artifact (docs/team-photos-status.md item 2, maxSat 1.0 vs ~0.03 average). The grayscale + levels-calibration pass neutralizes stray color pixels; median(3) denoise softens the residual speck."
     },
     {
       "id": "jaymie-wilhoit",
@@ -217,20 +292,32 @@
           "y": 275.3042429008122
         }
       },
-      "scale": 1.2034418553438762,
+      "scale": 1.8064146752641266,
       "placement": {
-        "left": -587,
-        "top": 68
+        "left": -1081,
+        "top": -98,
+        "bottom": 1528,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.4112456142902374,
-        "eyeLineFraction": 0.40095781048659224,
-        "faceCenterXFraction": 0.5050750523805618
+        "faceWidthFraction": 0.5804574489593506,
+        "eyeLineFraction": 0.39809104015809416,
+        "faceCenterXFraction": 0.5050237625837326
       },
       "maskHolesFilled": 9,
-      "notes": "Original has both arms extended toward the camera (selfie pose). Face-box-width scaling crops to head+upper-shoulders, which places the extended arms outside the fixed output canvas — verified against the contact sheet, not assumed."
+      "luminance": {
+        "faceBefore": 121.62684027777777,
+        "faceAfter": 152.62690972222222,
+        "backgroundBefore": 246.000326425547,
+        "backgroundAfter": 245.000326425547,
+        "calibration": {
+          "a": 0.7463956007984881,
+          "b": 62.386438560979656
+        }
+      },
+      "notes": "Original has both arms extended toward the camera (selfie pose). The shared geometry-derived crop (driven by Wendy, the limiting source — see manifest \"geometryConstraint\") crops well above her arms; verified empirically by rendering her alone at a range of face-width fractions from 0.55 up and inspecting each — arms were already fully outside frame at 0.55, well below the ~0.59 shared value the Wendy constraint requires."
     },
     {
       "id": "wendy-funnell",
@@ -254,19 +341,31 @@
           "y": 353.6647732068493
         }
       },
-      "scale": 0.7448348915825684,
+      "scale": 1.1180271592091613,
       "placement": {
-        "left": -161,
-        "top": 141
+        "left": -441,
+        "top": 12,
+        "bottom": 1018,
+        "reachesFrameBottom": true
       },
       "outputWidth": 800,
       "outputHeight": 1000,
       "achieved": {
-        "faceWidthFraction": 0.4021058976650238,
-        "eyeLineFraction": 0.39909618870434177,
-        "faceCenterXFraction": 0.4996113032102585
+        "faceWidthFraction": 0.5984958410263062,
+        "eyeLineFraction": 0.40090177157163703,
+        "faceCenterXFraction": 0.50044085085392
       },
       "maskHolesFilled": 877,
+      "luminance": {
+        "faceBefore": 173.01288194444444,
+        "faceAfter": 152.88385416666668,
+        "backgroundBefore": 245.9607847562306,
+        "backgroundAfter": 245.9302129644257,
+        "calibration": {
+          "a": 1.272576994518722,
+          "b": -67.0040362345502
+        }
+      },
       "notes": null
     }
   ]
