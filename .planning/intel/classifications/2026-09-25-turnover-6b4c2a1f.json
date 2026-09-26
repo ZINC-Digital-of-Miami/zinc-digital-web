@@ -1,0 +1,32 @@
+{
+  "source_path": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01/docs/handoff/2026-09-25-turnover.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "zinc-digital-web — Turnover",
+  "summary": "Handoff document covering live state, Phase 1 completion, open decisions, and instructions for resumption.",
+  "scope": [
+    "zinc-digital-web",
+    "Astro 7",
+    "Vercel deployment",
+    "GitHub workflow",
+    "design system",
+    "homepage",
+    "contact form"
+  ],
+  "cross_refs": [
+    "docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md",
+    ".planning/milestone.lock",
+    ".planning/state.json",
+    ".planning/STATE.md",
+    ".planning/phases/01-design-system-font-pick/01-01-SUMMARY.md",
+    "AGENTS.md",
+    "src/styles/tokens.css",
+    "src/layouts/PreviewLayout.astro",
+    "src/components/MockupBands.astro",
+    "src/pages/design-preview/a.astro",
+    ".github/workflows/astro.yml"
+  ],
+  "locked": false,
+  "precedence": null
+}

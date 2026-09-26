@@ -1,0 +1,128 @@
+{
+  "kirk-musick": {
+    "src": "/mockup/kirk-musick.webp",
+    "width": 600,
+    "height": 600,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/kirk-musick.png",
+    "sourceWidth": 600,
+    "sourceHeight": 600,
+    "sha256": "3b222c83ee6010d7601a2040a14df581f680c5aa715a898ecbb532a855265576"
+  },
+  "bethany-mckinzie": {
+    "src": "/mockup/bethany-mckinzie.webp",
+    "width": 1160,
+    "height": 1450,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/bethany-mckinzie.png",
+    "sourceWidth": 1160,
+    "sourceHeight": 1450,
+    "sha256": "4e180c8b6a504803731df3168d790330a05a78c884457ea836b4767f6dbd7287"
+  },
+  "priya-nahar": {
+    "src": "/mockup/priya-nahar.webp",
+    "width": 2048,
+    "height": 2050,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/priya-nahar.png",
+    "sourceWidth": 2048,
+    "sourceHeight": 2050,
+    "sha256": "86b64e42e1c6a92a77496fe25cd06e1a9a3ec2062bb35c55c47d7bd29607e084"
+  },
+  "dr-basset": {
+    "src": "/mockup/dr-basset.webp",
+    "width": 2048,
+    "height": 2050,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/dr-basset.png",
+    "sourceWidth": 2048,
+    "sourceHeight": 2050,
+    "sha256": "32dcde4531e7975a4174c8753fb12210b1bc649faa9146ad7b01850dcc97d4c3"
+  },
+  "martin-stewart": {
+    "src": "/mockup/martin-stewart.webp",
+    "width": 1020,
+    "height": 1275,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/martin-stewart.png",
+    "sourceWidth": 1020,
+    "sourceHeight": 1275,
+    "sha256": "44d03c78c8ad60b2825334bc7445e32922ebeba82e3950ee6ac1374dc2a20c1b"
+  },
+  "ouabc-hero": {
+    "src": "/mockup/ouabc-hero.webp",
+    "width": 1415,
+    "height": 867,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-hero.png",
+    "sourceWidth": 1415,
+    "sourceHeight": 867,
+    "sha256": "7b43fc99e56356922fd0db56171fbf8a062047defda79d6b89b76d5043687bba"
+  },
+  "ouabc-site": {
+    "src": "/mockup/ouabc-site.webp",
+    "width": 1000,
+    "height": 4841,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-site.jpg",
+    "sourceWidth": 1000,
+    "sourceHeight": 4841,
+    "sha256": "7b8d661b3eb94263955a6edaa05b500383bf69e706c4a19310874520b3886337"
+  },
+  "ouabc-mobile": {
+    "src": "/mockup/ouabc-mobile.webp",
+    "width": 460,
+    "height": 9940,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-mobile.jpg",
+    "sourceWidth": 460,
+    "sourceHeight": 9940,
+    "sha256": "a99c11763b58fc90b06673c05c3e94dbc4be73d735159506b9e696b1ae5ca11f"
+  },
+  "uos-app-desktop": {
+    "src": "/mockup/uos-app-desktop.webp",
+    "width": 966,
+    "height": 754,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/uos-app-desktop.png",
+    "sourceWidth": 966,
+    "sourceHeight": 754,
+    "sha256": "50e8e9585701dc5e09c0eaf8db01f124e640a02ba9d5ff2c957b1595fdb6ff11"
+  },
+  "uos-app-phone": {
+    "src": "/mockup/uos-app-phone.webp",
+    "width": 430,
+    "height": 866,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/uos-app-phone.png",
+    "sourceWidth": 430,
+    "sourceHeight": 866,
+    "sha256": "244bc10c87a07ae39aa5688c147ab0eb7f4e3209b8dfdac0c54c09a917f0becf"
+  },
+  "mark-black": {
+    "src": "/mockup/mark-black.webp",
+    "width": 2000,
+    "height": 2000,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/Graphics/ZINC Fusion Icons .png",
+    "sourceWidth": 2000,
+    "sourceHeight": 2000,
+    "sha256": "3bd5020c534042ed1198e53d337770c79690d41fadc8d0e65d9fd33f1de0e339"
+  },
+  "mark-white": {
+    "src": "/mockup/mark-white.webp",
+    "width": 2000,
+    "height": 2000,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/Graphics/zinc white fusion icon.png",
+    "sourceWidth": 2000,
+    "sourceHeight": 2000,
+    "sha256": "40878e401441120f0adf9526ba488df6d46ec13e6523a3971804ea67a4ca0473"
+  },
+  "wordmark-black": {
+    "src": "/mockup/wordmark-black.webp",
+    "width": 892,
+    "height": 221,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/docs/context/brand-assets/zinc-logo-primary-black-wordmark-transparent.png",
+    "sourceWidth": 892,
+    "sourceHeight": 221,
+    "sha256": "002e32f2d07ab56e72627df6851d9ca4344a72e9b3c8dc37ffc98df0d3ed11cb"
+  },
+  "wordmark-white": {
+    "src": "/mockup/wordmark-white.webp",
+    "width": 892,
+    "height": 222,
+    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/docs/context/brand-assets/zinc-logo-primary-white-wordmark-transparent.png",
+    "sourceWidth": 892,
+    "sourceHeight": 222,
+    "sha256": "abf43d16f526bc558a51787a6b0b820a227b709ea78e869b9f7f1079a1d86675"
+  }
+}

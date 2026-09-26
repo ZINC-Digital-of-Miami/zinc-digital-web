@@ -1,0 +1,28 @@
+/*
+ * themes.css — [data-theme] semantic token mapping (CONTEXT "Theming (locked)").
+ * Exactly two rule blocks. No media query of any kind — the OS color scheme
+ * never sets a ground. Magenta appears only in the dark block; teal only in
+ * the light block, so "magenta only on black, teal only on white" holds by
+ * construction.
+ */
+[data-theme="dark"] {
+  --bg: var(--color-near-black);
+  --fg: var(--color-snow);
+  --muted: var(--color-gray-on-dark);
+  --accent: var(--color-magenta);
+  --accent-text: var(--color-magenta);
+  background-color: var(--bg);
+  color: var(--fg);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: var(--color-snow);
+  --fg: var(--color-near-black);
+  --muted: var(--color-gray-on-light);
+  --accent: var(--color-teal);
+  --accent-text: var(--color-teal-text);
+  background-color: var(--bg);
+  color: var(--fg);
+  color-scheme: light;
+}

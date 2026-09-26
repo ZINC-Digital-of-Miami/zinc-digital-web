@@ -8,7 +8,7 @@
 
 ### Design System (DSGN)
 
-- [ ] **DSGN-01**: Owner can compare three open-license variable font pairings rendered on the real homepage hero and a service spec sheet, and picks one (§8)
+- [ ] **DSGN-01**: Owner first sees a complete clickable mockup of every destination in the approved sitemap, including all 11 services, both case studies, all nine homepage bands, about, contact/confirmation states, blog index/articles, legal pages and 404; then compares three open-license font pairings on that complete site and picks one (§5, §8; superseding direct owner correction 2026-09-25). Final production content and integrations remain under their existing requirements.
 - [ ] **DSGN-02**: Every page uses one token set: near-black `#0A0A0B`, cool snow white `#F5F6F7`, one body gray per ground, magenta `#FC0781` only on black bands, dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) only on white bands (§8, §18)
 - [ ] **DSGN-03**: Each band sets its ground with one `data-theme` attribute; black and white alternate by band independent of OS color scheme (§8)
 - [ ] **DSGN-04**: Display type loads self-hosted, subset, ≤ 3 font files, with metric-matched fallbacks so the font swap causes zero layout shift (§8, §18)

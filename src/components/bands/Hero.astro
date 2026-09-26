@@ -1,0 +1,79 @@
+---
+interface Props {
+  supporting?: string;
+  ctaHref?: string;
+  draft?: boolean;
+}
+
+const {
+  supporting = 'One team runs the machine, the traffic into it, and the numbers that prove it worked.',
+  ctaHref = '/contact/',
+  draft = true,
+} = Astro.props;
+---
+
+<section data-theme="light" data-home-band="hero" class="band band--hero" aria-labelledby="hero-title">
+  <div class="band__inner">
+    <h1 id="hero-title" class="t-display">
+      <span class="hero-line">Other agencies deliver <span class="mark-strike">the&nbsp;scope</span>.</span>
+      <span class="hero-line">ZINC delivers <span class="mark-hit">the&nbsp;business</span>.</span>
+    </h1>
+    <p class="t-body muted hero-supporting">
+      <span>{supporting}</span>
+      {draft && <span class="draft-tag">[DRAFT]</span>}
+    </p>
+    <div class="hero-actions">
+      <a class="button" href={ctaHref}>Start an Inquiry</a>
+      <a class="t-label hero-phone" href="sms:+17865754837">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2z"></path>
+        </svg>
+        Text (786) 575-4837
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band--hero {
+    padding-top: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .band--hero {
+      padding-top: var(--space-xl);
+    }
+  }
+
+  .hero-line {
+    display: block;
+  }
+
+  .hero-supporting {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .hero-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--accent-text);
+  }
+
+  .hero-phone:hover,
+  .hero-phone:focus-visible {
+    color: var(--fg);
+  }
+</style>

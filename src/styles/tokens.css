@@ -1,0 +1,40 @@
+/*
+ * tokens.css — the one token set (CONTEXT "Color (locked)"; UI-SPEC Color, Spacing Scale, Typography).
+ * The only file in src/ that may contain accent or ground hex values.
+ */
+:root {
+  /* Color */
+  --color-near-black: #0A0A0B;
+  --color-snow: #F5F6F7;
+  --color-gray-on-dark: #A6A7AB; /* 8.24:1 on --color-near-black */
+  --color-gray-on-light: #5C5D61; /* 6.08:1 on --color-snow */
+  --color-magenta: #FC0781; /* dark bands only */
+  --color-teal: #07B2B2; /* light bands: display and graphics only */
+  --color-teal-text: #057E7E; /* light bands: small text only */
+
+  /* Spacing (UI-SPEC Spacing Scale) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+  --touch-min: 44px;
+
+  /* Type (UI-SPEC Typography, exact formulas) */
+  --text-display: clamp(3.5rem, 10vw + 1rem, 12.5rem);
+  --text-heading: clamp(1.75rem, 2vw + 1.25rem, 2.75rem);
+  --text-body: clamp(1rem, 0.3vw + 0.94rem, 1.125rem);
+  --text-label: 0.875rem;
+
+  --leading-display: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.5;
+  --leading-label: 1.4;
+
+  --tracking-display: -0.01em;
+  --tracking-label: 0.04em;
+}

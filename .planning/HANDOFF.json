@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-09-25T21:39:21.799Z",
+  "timestamp_ct": "9/25/26, 4:39 PM CT",
+  "phase": "1",
+  "phase_name": "Design System & Font Pick",
+  "phase_dir": ".planning/phases/01-design-system-font-pick",
+  "plan": 3,
+  "task": 1,
+  "total_tasks": 2,
+  "status": "executing",
+  "completed_tasks": [
+    {
+      "id": 1,
+      "name": "01-01 Task 1: owner gate (packages + Vercel go)",
+      "status": "done",
+      "commit": "(chat approval 2:04 PM CT)"
+    },
+    {
+      "id": 2,
+      "name": "01-01 Task 2: scaffold, tokens, Pairing A hero, protected preview",
+      "status": "done",
+      "commit": "266e4fd"
+    },
+    {
+      "id": 3,
+      "name": "01-01 Task 3: owner opens preview",
+      "status": "done",
+      "commit": "6c04e71",
+      "note": "Historical sample review superseded by the direct owner request for the entire site."
+    }
+  ],
+  "remaining_tasks": [
+    {
+      "id": 4,
+      "name": "Replan 01-02..01-05 for the complete clickable FULL SITE; direct owner correction supersedes the homepage-only turnover brief",
+      "status": "done",
+      "verification": "Independent gsd-plan-checker passed after resolving404SEO and tracer sequencing; all four plan structures pass, 0 failure-direction blockers, 5/5 phase requirements covered."
+    },
+    {
+      "id": 5,
+      "name": "Execute the full-site mockup plan; verify every route/template at 1440 and 375; show the complete site at the public noindex Vercel URL",
+      "status": "done"
+    },
+    {
+      "id": 6,
+      "name": "Compare Pairings B/C across the same complete site; gates; owner font pick; collapse preserving every page",
+      "status": "in_progress"
+    }
+  ],
+  "blockers": [
+    {
+      "description": ".github/workflows/astro.yml on main (owner commit f5c7a90) deploys to GitHub Pages on Node 20; conflicts with Vercel/Node 24 and will fail or double-deploy on push to main",
+      "type": "human_action",
+      "workaround": "Owner decides delete versus check-only. If branch synchronization is needed, rebase onto current main; never merge main into the work branch.",
+      "blocks": "Landing on main; not local full-site mockup execution"
+    },
+    {
+      "description": "zincdigital.co has two SPF records (permerror), neither authorizing Google Workspace",
+      "type": "human_action",
+      "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all",
+      "blocks": "Real inquiry integration; not non-sending mockup"
+    },
+    {
+      "description": "Copilot PR review quota exhausted",
+      "type": "external",
+      "workaround": "use /gsd-code-review; no paid Copilot"
+    }
+  ],
+  "async_jobs": [],
+  "human_actions_pending": [
+    {
+      "action": "Decide on .github/workflows/astro.yml (delete or check-only)",
+      "context": "Owner-pushed GitHub Pages deploy workflow conflicts with Vercel plan and spends Actions minutes; blocks repository landing, not local mockup work.",
+      "blocking": false
+    },
+    {
+      "action": "Fix SPF in MyKinsta DNS",
+      "context": "Contact form (Phase 4) must not go live before this",
+      "blocking": false
+    },
+    {
+      "action": "Merge PR #2 when main should carry current state",
+      "context": "PR #2 carries the phase branch. Re-read current remote head before landing; resolve the Pages workflow decision first.",
+      "blocking": false
+    },
+    {
+      "action": "Font pick and complete-site mockup review",
+      "context": "Only after the complete clickable site and desktop/mobile template evidence are available; future blocking-human checkpoint in 01-04, not a prerequisite for 01-02.",
+      "blocking": false
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Public noindex production deploy at zinc-digital-web.vercel.app; no custom domain",
+      "rationale": "Owner, 2:27 PM CT; 'do not add my domain yet'",
+      "phase": "1"
+    },
+    {
+      "decision": "Complete clickable mockup of the ENTIRE SITE: 40 canonical pages plus genuine404, then identical full-site B/C comparisons.",
+      "rationale": "Direct owner correction supersedes homepage-only Part C in the historical turnover.",
+      "phase": "1"
+    },
+    {
+      "decision": "No underlined links; page content starts at top; supporting line copy rejected (keep [DRAFT] slot)",
+      "rationale": "Owner feedback on the hero",
+      "phase": "1"
+    },
+    {
+      "decision": "Magenta only on black bands; dark teal #07B2B2/#057E7E only on white; hero Display clamp(3.5rem,10vw+1rem,12.5rem) stays",
+      "rationale": "Spec section 8/18; owner wants big headers",
+      "phase": "1"
+    }
+  ],
+  "uncommitted_files": [],
+  "uncommitted_note": "Run git status for current state;01-03 is actively editing app files. Parent owns planning state and commits.",
+  "next_action": "Execute01-03 full-site A/B/C comparisons; close01-REVIEW WR-01/WR-02 before their next gates. Complete A public preview already verified.01-04 font choice remains blocking-human.",
+  "context_notes": "All Phase 1 work is on branch gsd/phase-01-design-system-font-pick in the phase-01 worktree; main is the product and gets it via PR. Vercel project is CLI-linked from that worktree (.vercel/ gitignored); production deploys to the vercel.app URL are owner-authorized, custom domains are not. Every hand-off needs the agent's own desktop+mobile screenshots. Owner rules: Central time, external-drive storage only, no new paid services, no cursing in copy, never 'GEO'.",
+  "turnover_document": "docs/handoff/2026-09-25-turnover-complete.md",
+  "scope_correction": "2026-09-25 CT direct owner: full mockup of ENTIRE SITE. Current 01-CONTEXT.md supersedes homepage-only wording in the complete historical turnover. Preserve completed 01-01.",
+  "graphify": {
+    "status": "built",
+    "nodes": 482,
+    "edges": 449,
+    "communities": 36,
+    "hyperedges": 0,
+    "path": ".planning/graphs",
+    "source_commit": "7250ae6310a534e5480a450b18202503c67201cc",
+    "limitation": "Astro parsing is partial; graph is a navigation hint built before the full-site implementation."
+  },
+  "deployment": {
+    "url": "https://zinc-digital-web.vercel.app",
+    "id": "dpl_AmmbiJccqixqd5szRGFpmxAVAnHj",
+    "source_commit": "ed4c1fad4796549e570a98594ae5072fd1aba964",
+    "verified_routes": 42,
+    "verification": "01-02-SUMMARY.md; independent01-REVIEW.md; ignored accepted-a-local/public evidence"
+  }
+}

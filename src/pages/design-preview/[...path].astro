@@ -1,0 +1,20 @@
+---
+import PreviewLayout from '../../layouts/PreviewLayout.astro';
+import MockupPage from '../../components/MockupPage.astro';
+import {activeRoutes,pairings,type Route,type Pairing} from '../../data/mockup';
+export function getStaticPaths(){return [{params:{path:undefined},props:{pairing:'a',route:null}},...pairings.flatMap(pairing=>activeRoutes.filter(route=>pairing!=='a'||route.path!=='/').map(route=>({params:{path:pairing+(route.path==='/'?'':route.path.replace(/\/$/,''))},props:{pairing,route}})))];}
+interface Props {pairing:Pairing;route:Route|null}
+const {pairing,route}=Astro.props;
+const basePath='/design-preview/'+pairing;
+const choices=[{id:'a',title:'Big Shoulders Display',weight:800,body:'Inter',mono:'JetBrains Mono',note:'Variable source families; the native build serves the selected weights.'},{id:'b',title:'Barlow Condensed',weight:900,body:'Public Sans',mono:'IBM Plex Mono',note:'Barlow Condensed and IBM Plex Mono are static single-weight fonts. Public Sans uses its selected weight.'},{id:'c',title:'Oswald',weight:700,body:'IBM Plex Sans',mono:'Space Mono',note:'Space Mono is a static single-weight font. Oswald and IBM Plex Sans use their selected weights.'}];
+---
+<PreviewLayout pairing={pairing} title={route?route.title+' | ZINC — Pairing '+pairing.toUpperCase():'Choose a font pairing | ZINC'} basePath={route?basePath:''}>
+{route?<MockupPage route={route} pairing={pairing} basePath={basePath}/>:<section class="band" data-theme="light"><div class="band__inner"><p class="t-label eyebrow">Public design draft / Font comparison</p><h1 class="page-title">Same site.<br/>Three voices.</h1><p class="lede">Explore the complete site in each font pairing. Content, imagery, colors and layout stay consistent so the typography can be reviewed on its own. No font pairing has been selected.</p><div class="pairing-options">{choices.map(choice=><article class="pairing-choice"><p class="t-label">Pairing {choice.id.toUpperCase()}</p><h2 class="section-title">{choice.title} {choice.weight}</h2><p>Body: {choice.body} 400.<br/>Labels: {choice.mono} 400.</p><p>{choice.note}</p><p>Latin subsets. Three active local font files. Display font preload only. Native optimized fallback metrics.</p><a class="button" href={'/design-preview/'+choice.id+'/'}>Explore Pairing {choice.id.toUpperCase()} ↗</a></article>)}</div></div></section>}
+</PreviewLayout>
+
+<style>
+  .pairing-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-2xl);margin-top:var(--space-3xl)}
+  .pairing-choice{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-lg);border-top:1px solid var(--fg);padding-top:var(--space-lg)}
+  .pairing-choice .button{margin-top:auto}
+  @media(max-width:899px){.pairing-options{grid-template-columns:1fr}}
+</style>
