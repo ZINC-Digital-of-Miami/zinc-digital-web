@@ -112,16 +112,48 @@ html.anim .kin:not(.in) .w > i {
 
 /* Strike + highlighter draw in only once html.anim's hero band is .in;
  * otherwise (default, and reduced motion via base.css's global rule) the
- * marks from base.css already render as full, static bars. */
-html.anim .home-hero:not(.in) .mark-strike::after {
+ * marks from base.css already render as full, static bars.
+ *
+ * The transition and transform-origin live on the UNCONDITIONAL rule below
+ * (the state each mark transitions INTO), matching the sketch
+ * (.planning/sketches/001-a-plus-b-homepage/index.html:68-73). A CSS
+ * transition takes its timing from the ending computed style; once .in
+ * lands on the hero, `:not(.in)` stops matching, so a transition declared
+ * only on that now-unmatched rule is discarded and the mark jumps straight
+ * to its final state instead of drawing (measured 2026-09-26: every sampled
+ * frame read scaleX(1), never an intermediate value). Geometry (top/height)
+ * also matches the sketch's hero marks — top:43%/.085em strike, .34em
+ * highlighter bar — instead of base.css's generic bottom-anchored bars,
+ * scoped to .home-hero so base.css's own marks elsewhere stay untouched. */
+.home-hero .mark-strike::after {
+  top: 43%;
+  bottom: auto;
+  height: 0.085em;
+}
+
+html.anim .home-hero .mark-strike::after {
+  transform-origin: left;
   transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1) 0.9s;
+}
+
+html.anim .home-hero:not(.in) .mark-strike::after {
   transform: scaleX(0);
 }
 
-html.anim .home-hero:not(.in) .mark-hit::before {
+.home-hero .mark-hit::before {
+  top: auto;
+  bottom: 0.02em;
+  height: 0.34em;
+}
+
+html.anim .home-hero .mark-hit::before {
+  transform-origin: left;
   transition:
     transform 0.45s cubic-bezier(0.7, 0, 0.2, 1) 1.35s,
     height 0.35s ease 1.95s;
+}
+
+html.anim .home-hero:not(.in) .mark-hit::before {
   transform: scaleX(0);
   height: 100%;
 }
