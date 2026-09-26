@@ -43,12 +43,16 @@ jobs:
       # actions/checkout fetches only the single commit for the triggering
       # ref by default (only becomes `origin/main` itself when the ref IS
       # main); scripts/check-site.mjs diffs "changed vs origin/main" for the
-      # U+00A7 scan, which throws "unknown revision" without this. A shallow,
-      # single-ref fetch is enough: git diff --name-only only needs both
-      # commits' trees, not ancestry, so depth=1 here is sufficient even
-      # though the checkout above is also depth=1.
+      # U+00A7 scan, which throws "unknown revision" without this fetch. On a
+      # push to main, HEAD already equals origin/main, so that diff is empty
+      # and check-site.mjs falls back to comparing HEAD against HEAD~1
+      # instead (see the checkout's own fetch-depth: 2 above). A depth=1
+      # fetch of origin/main here marked the fetched commit shallow with no
+      # parent, so HEAD~1 did not resolve and the script fell back further,
+      # failing closed by scanning every tracked file. Fetch depth=2 so
+      # HEAD~1 stays reachable on the push-to-main path too.
       - name: Fetch origin/main (diff base for check-site.mjs)
-        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+        run: git fetch --no-tags --prune --depth=2 origin +refs/heads/main:refs/remotes/origin/main
 
       - name: Detect app
         id: detect

@@ -1,0 +1,1100 @@
+{
+  "generatedAt": "2026-09-26T16:38:16.327Z",
+  "hero": [
+    {
+      "sizeTag": "1440x900",
+      "samples": [
+        {
+          "targetMs": 0,
+          "actualMs": 74,
+          "heroIn": false,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 154.547)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 300,
+          "actualMs": 303,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 28.9991)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 700,
+          "actualMs": 705,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.389536)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1000,
+          "actualMs": 1004,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.000640571, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1200,
+          "actualMs": 1206,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.262675, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1500,
+          "actualMs": 1505,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.997952, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "matrix(0.0187204, 0, 0, 1, 0, 0)",
+          "hitHeight": "191px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1900,
+          "actualMs": 1910,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "none",
+          "hitHeight": "191px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 2600,
+          "actualMs": 2605,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 6.79688px",
+          "hitTransform": "none",
+          "hitHeight": "54.3906px",
+          "wordTransform": "none",
+          "kinCount": 9
+        }
+      ],
+      "frameFiles": {
+        "300": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1440x900-300ms.png",
+        "1500": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1440x900-1500ms.png",
+        "2600": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1440x900-2600ms.png"
+      },
+      "strikeScales": [
+        0,
+        0,
+        0,
+        0.000640571,
+        0.262675,
+        0.997952,
+        1,
+        1
+      ],
+      "hitScales": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0187204,
+        1,
+        1
+      ],
+      "wordTranslates": [
+        154.547,
+        28.9991,
+        0.389536,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "sizeTag": "1280x720",
+      "samples": [
+        {
+          "targetMs": 0,
+          "actualMs": 76,
+          "heroIn": false,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 137.156)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 300,
+          "actualMs": 306,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 25.7322)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 700,
+          "actualMs": 708,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.345078)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1000,
+          "actualMs": 1003,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.000641916, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1200,
+          "actualMs": 1207,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.262597, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1500,
+          "actualMs": 1507,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.997937, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "matrix(0.0186461, 0, 0, 1, 0, 0)",
+          "hitHeight": "170px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1900,
+          "actualMs": 1906,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "none",
+          "hitHeight": "170px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 2600,
+          "actualMs": 2606,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 6.03125px",
+          "hitTransform": "none",
+          "hitHeight": "48.2656px",
+          "wordTransform": "none",
+          "kinCount": 9
+        }
+      ],
+      "frameFiles": {
+        "300": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1280x720-300ms.png",
+        "1500": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1280x720-1500ms.png",
+        "2600": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-1280x720-2600ms.png"
+      },
+      "strikeScales": [
+        0,
+        0,
+        0,
+        0.000641916,
+        0.262597,
+        0.997937,
+        1,
+        1
+      ],
+      "hitScales": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0186461,
+        1,
+        1
+      ],
+      "wordTranslates": [
+        137.156,
+        25.7322,
+        0.345078,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "sizeTag": "390x844",
+      "samples": [
+        {
+          "targetMs": 0,
+          "actualMs": 65,
+          "heroIn": false,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.3125px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "168.859px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 75.3375)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 300,
+          "actualMs": 305,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "196.344px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 14.335)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 700,
+          "actualMs": 708,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "196.344px",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.149052)",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1000,
+          "actualMs": 1003,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.000645246, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "196.344px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1200,
+          "actualMs": 1205,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.26279, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "hitHeight": "196.344px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1500,
+          "actualMs": 1506,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "matrix(0.997943, 0, 0, 1, 0, 0)",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "matrix(0.0186727, 0, 0, 1, 0, 0)",
+          "hitHeight": "196.344px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 1900,
+          "actualMs": 1904,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "none",
+          "hitHeight": "196.344px",
+          "wordTransform": "none",
+          "kinCount": 9
+        },
+        {
+          "targetMs": 2600,
+          "actualMs": 2605,
+          "heroIn": true,
+          "htmlAnim": true,
+          "strikeTransform": "none",
+          "strikeOrigin": "0px 3.86719px",
+          "hitTransform": "none",
+          "hitHeight": "30.9375px",
+          "wordTransform": "none",
+          "kinCount": 9
+        }
+      ],
+      "frameFiles": {
+        "300": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-390x844-300ms.png",
+        "1500": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-390x844-1500ms.png",
+        "2600": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/hero-390x844-2600ms.png"
+      },
+      "strikeScales": [
+        0,
+        0,
+        0,
+        0.000645246,
+        0.26279,
+        0.997943,
+        1,
+        1
+      ],
+      "hitScales": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0186727,
+        1,
+        1
+      ],
+      "wordTranslates": [
+        75.3375,
+        14.335,
+        0.149052,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "loop": [
+    {
+      "sizeTag": "1440x900",
+      "totalLen": 1417.61,
+      "samples": [
+        {
+          "i": 0,
+          "y": 1173.96875,
+          "dashoffset": 1417.61,
+          "pulse": {
+            "cx": "300",
+            "cy": "70"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Scroll to run the loop",
+          "pinned": true
+        },
+        {
+          "i": 1,
+          "y": 1668.96875,
+          "dashoffset": 1417.61,
+          "pulse": {
+            "cx": "300",
+            "cy": "70"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Scroll to run the loop",
+          "pinned": true
+        },
+        {
+          "i": 2,
+          "y": 2163.96875,
+          "dashoffset": 1353.79,
+          "pulse": {
+            "cx": "357.3814697265625",
+            "cy": "82.3287353515625"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": true
+        },
+        {
+          "i": 3,
+          "y": 2658.96875,
+          "dashoffset": 1002.94,
+          "pulse": {
+            "cx": "531.9246826171875",
+            "cy": "340.4364318847656"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": true
+        },
+        {
+          "i": 4,
+          "y": 3153.96875,
+          "dashoffset": 652.077,
+          "pulse": {
+            "cx": "299.97967529296875",
+            "cy": "498.7499694824219"
+          },
+          "activeLayer": 1,
+          "onLayerCount": 1,
+          "onNodeCount": 2,
+          "pctText": "Pulse at Demand",
+          "pinned": true
+        },
+        {
+          "i": 5,
+          "y": 3648.96875,
+          "dashoffset": 301.219,
+          "pulse": {
+            "cx": "68.07845306396484",
+            "cy": "340.39569091796875"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": true
+        },
+        {
+          "i": 6,
+          "y": 4143.96875,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "242.65603637695312",
+            "cy": "82.31277465820312"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": true
+        },
+        {
+          "i": 7,
+          "y": 4638.96875,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": true
+        },
+        {
+          "i": 8,
+          "y": 5133.96875,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": true
+        }
+      ],
+      "frameFiles": {
+        "0": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1440x900-step0.png",
+        "4": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1440x900-step4.png",
+        "8": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1440x900-step8.png"
+      },
+      "pinnedAtStart": true,
+      "pinnedAtMid": true
+    },
+    {
+      "sizeTag": "1280x720",
+      "totalLen": 1417.61,
+      "samples": [
+        {
+          "i": 0,
+          "y": 1173.96875,
+          "dashoffset": 1417.61,
+          "pulse": {
+            "cx": "300",
+            "cy": "70"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Scroll to run the loop",
+          "pinned": false
+        },
+        {
+          "i": 1,
+          "y": 1348.46875,
+          "dashoffset": 1311.67,
+          "pulse": {
+            "cx": "391.5509338378906",
+            "cy": "101.00325012207031"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": false
+        },
+        {
+          "i": 2,
+          "y": 1522.96875,
+          "dashoffset": 1025.61,
+          "pulse": {
+            "cx": "529.3766479492188",
+            "cy": "319.60296630859375"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": false
+        },
+        {
+          "i": 3,
+          "y": 1697.46875,
+          "dashoffset": 739.589,
+          "pulse": {
+            "cx": "380.6841125488281",
+            "cy": "492.5156555175781"
+          },
+          "activeLayer": 1,
+          "onLayerCount": 1,
+          "onNodeCount": 2,
+          "pctText": "Pulse at Demand",
+          "pinned": false
+        },
+        {
+          "i": 4,
+          "y": 1871.96875,
+          "dashoffset": 457.86,
+          "pulse": {
+            "cx": "125.40556335449219",
+            "cy": "463.1681823730469"
+          },
+          "activeLayer": 1,
+          "onLayerCount": 1,
+          "onNodeCount": 2,
+          "pctText": "Pulse at Demand",
+          "pinned": false
+        },
+        {
+          "i": 5,
+          "y": 2046.46875,
+          "dashoffset": 299.088,
+          "pulse": {
+            "cx": "68.24002838134766",
+            "cy": "338.42889404296875"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": false
+        },
+        {
+          "i": 6,
+          "y": 2220.96875,
+          "dashoffset": 40.795,
+          "pulse": {
+            "cx": "173.7036590576172",
+            "cy": "129.0340576171875"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": false
+        },
+        {
+          "i": 7,
+          "y": 2395.46875,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": false
+        },
+        {
+          "i": 8,
+          "y": 2569.96875,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": false
+        }
+      ],
+      "frameFiles": {
+        "0": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1280x720-step0.png",
+        "4": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1280x720-step4.png",
+        "8": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-1280x720-step8.png"
+      },
+      "pinnedAtStart": false,
+      "pinnedAtMid": false
+    },
+    {
+      "sizeTag": "390x844",
+      "totalLen": 1417.61,
+      "samples": [
+        {
+          "i": 0,
+          "y": 1409.65625,
+          "dashoffset": 1417.61,
+          "pulse": {
+            "cx": "300",
+            "cy": "70"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Scroll to run the loop",
+          "pinned": true
+        },
+        {
+          "i": 1,
+          "y": 1873.90625,
+          "dashoffset": 1417.61,
+          "pulse": {
+            "cx": "300",
+            "cy": "70"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Scroll to run the loop",
+          "pinned": true
+        },
+        {
+          "i": 2,
+          "y": 2338.15625,
+          "dashoffset": 1353.87,
+          "pulse": {
+            "cx": "357.3155517578125",
+            "cy": "82.30097961425781"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": true
+        },
+        {
+          "i": 3,
+          "y": 2802.40625,
+          "dashoffset": 1003.23,
+          "pulse": {
+            "cx": "531.9029541015625",
+            "cy": "340.16168212890625"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": true
+        },
+        {
+          "i": 4,
+          "y": 3266.65625,
+          "dashoffset": 651.84,
+          "pulse": {
+            "cx": "299.7596435546875",
+            "cy": "498.749755859375"
+          },
+          "activeLayer": 1,
+          "onLayerCount": 1,
+          "onNodeCount": 2,
+          "pctText": "Pulse at Demand",
+          "pinned": true
+        },
+        {
+          "i": 5,
+          "y": 3730.90625,
+          "dashoffset": 301.202,
+          "pulse": {
+            "cx": "68.07970428466797",
+            "cy": "340.3798522949219"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": true
+        },
+        {
+          "i": 6,
+          "y": 4195.15625,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "242.48275756835938",
+            "cy": "82.38614654541016"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Pulse at Intelligence",
+          "pinned": true
+        },
+        {
+          "i": 7,
+          "y": 4659.40625,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": true
+        },
+        {
+          "i": 8,
+          "y": 5123.65625,
+          "dashoffset": 0,
+          "pulse": {
+            "cx": "298.5823974609375",
+            "cy": "70.00801086425781"
+          },
+          "activeLayer": 2,
+          "onLayerCount": 1,
+          "onNodeCount": 3,
+          "pctText": "Loop complete · Intelligence feeds Build",
+          "pinned": true
+        }
+      ],
+      "frameFiles": {
+        "0": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-390x844-step0.png",
+        "4": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-390x844-step4.png",
+        "8": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/quick-260926-d0r/.scratch/260926-d0r/motion/loop-390x844-step8.png"
+      },
+      "pinnedAtStart": true,
+      "pinnedAtMid": true
+    }
+  ],
+  "bands": [
+    {
+      "sizeTag": "1440x900",
+      "timeline": [
+        {
+          "targetMs": 0,
+          "flipCells": 2,
+          "stampsIn": 1,
+          "stampsTotal": 5,
+          "typed": [
+            4,
+            0,
+            0
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 0,
+          "shuffling": 7
+        },
+        {
+          "targetMs": 200,
+          "flipCells": 3,
+          "stampsIn": 2,
+          "stampsTotal": 5,
+          "typed": [
+            11,
+            0,
+            0
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 0,
+          "shuffling": 7
+        },
+        {
+          "targetMs": 450,
+          "flipCells": 2,
+          "stampsIn": 3,
+          "stampsTotal": 5,
+          "typed": [
+            20,
+            0,
+            0
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 0,
+          "shuffling": 3
+        },
+        {
+          "targetMs": 800,
+          "flipCells": 2,
+          "stampsIn": 5,
+          "stampsTotal": 5,
+          "typed": [
+            33,
+            0,
+            0
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 0,
+          "shuffling": 0
+        },
+        {
+          "targetMs": 1500,
+          "flipCells": 0,
+          "stampsIn": 5,
+          "stampsTotal": 5,
+          "typed": [
+            37,
+            6,
+            0
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 1,
+          "shuffling": 0
+        },
+        {
+          "targetMs": 3000,
+          "flipCells": 0,
+          "stampsIn": 5,
+          "stampsTotal": 5,
+          "typed": [
+            37,
+            43,
+            3
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 2,
+          "shuffling": 0
+        },
+        {
+          "targetMs": 6000,
+          "flipCells": 0,
+          "stampsIn": 5,
+          "stampsTotal": 5,
+          "typed": [
+            37,
+            43,
+            43
+          ],
+          "typedTotal": [
+            37,
+            43,
+            43
+          ],
+          "lockedCount": 3,
+          "shuffling": 0
+        }
+      ]
+    }
+  ],
+  "thread": [
+    {
+      "route": "/",
+      "sizeTag": "1440x900",
+      "results": [
+        {
+          "frac": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 21.796875,
+          "cssTop": "12px"
+        },
+        {
+          "frac": 0.5,
+          "top": 443.03125,
+          "bottom": 457.03125,
+          "left": 21.796875,
+          "cssTop": "5017.05px"
+        },
+        {
+          "frac": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 21.796875,
+          "cssTop": "10098px"
+        }
+      ]
+    },
+    {
+      "route": "/",
+      "sizeTag": "390x844",
+      "results": [
+        {
+          "frac": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "cssTop": "12px"
+        },
+        {
+          "frac": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "cssTop": "5578px"
+        },
+        {
+          "frac": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "cssTop": "11213px"
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "sizeTag": "1440x900",
+      "results": [
+        {
+          "frac": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 21.796875,
+          "cssTop": "12px"
+        },
+        {
+          "frac": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 21.796875,
+          "cssTop": "2092px"
+        },
+        {
+          "frac": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 21.796875,
+          "cssTop": "4249px"
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "sizeTag": "390x844",
+      "results": [
+        {
+          "frac": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "cssTop": "12px"
+        },
+        {
+          "frac": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "cssTop": "3861px"
+        },
+        {
+          "frac": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "cssTop": "7779px"
+        }
+      ]
+    }
+  ],
+  "reducedMotion": {
+    "htmlAnim": false,
+    "strikeTransform": "none",
+    "hitTransform": "none",
+    "hitHeight": "55.0781px",
+    "stampsOk": true,
+    "typedOk": true,
+    "lockedOk": true,
+    "dashoffset": 0,
+    "layersVisible": true,
+    "teamVisible": true
+  },
+  "noJs": {
+    "layersOn": true,
+    "layersVisible": true,
+    "linksVisible": true,
+    "typedFull": true,
+    "lockedOk": true,
+    "stampsVisible": true,
+    "htmlAnim": false,
+    "kinWrapped": false,
+    "strikeTransform": "none",
+    "hitTransform": "none"
+  },
+  "failures": []
+}

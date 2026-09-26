@@ -82,6 +82,103 @@ for (const { relativePath, html } of pages) {
 
 check(!(await pathExists(path.join(distDir, DESIGN_PREVIEW_DIR))), 'dist/' + DESIGN_PREVIEW_DIR + ' still exists');
 
+// ---------------------------------------------------------------------------
+// SECTION: Task 1 (tracer) — no draft copy renders. Owner, 2026-09-26:
+// "remove all draft copy still listed." Guarding markers ([RECEIPT: ...],
+// [OWNER CONFIRM], [LOGO FILES PENDING ...], [LOGO PENDING], the demo
+// disclosures) are NOT part of this pattern and are asserted present
+// elsewhere in this file — they stay. The nine posts.preview.json body-run
+// hits that use "draft" as ordinary English (migrated article prose) are
+// exempted on article routes only, built from the JSON at run time.
+// ---------------------------------------------------------------------------
+const DRAFT_COPY_PATTERN = /\bdraft\b|editorial review|under review|\[\s*draft[^\]]*\]/i;
+
+const NAMED_ENTITIES = {
+  nbsp: ' ',
+  middot: '\u00b7',
+  mdash: '\u2014',
+  ndash: '\u2013',
+  rarr: '\u2192',
+  copy: '\u00a9',
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  quot: '"',
+  apos: "'",
+};
+
+// One pass over the text, so a decoded '&' is never decoded again
+// (&amp;lt; stays the literal text "&lt;", as a browser renders it).
+function decodeHtmlEntities(text) {
+  return text.replace(/&(#x[0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (whole, body) => {
+    if (body[0] === '#') {
+      const code = body[1] === 'x' || body[1] === 'X' ? parseInt(body.slice(2), 16) : Number(body.slice(1));
+      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
+    }
+    const named = NAMED_ENTITIES[body.toLowerCase()];
+    return named === undefined ? whole : named;
+  });
+}
+
+function collapseWhitespace(text) {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function extractScannableText(html) {
+  const stripped = html
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ');
+  const parts = [];
+  for (const match of stripped.matchAll(/<title[^>]*>([\s\S]*?)<\/title>/gi)) parts.push(match[1]);
+  for (const match of stripped.matchAll(/\s(?:content|alt|aria-label|title|placeholder)="([^"]*)"/gi)) parts.push(match[1]);
+  parts.push(stripped.replace(/<[^>]+>/g, ' '));
+  return collapseWhitespace(decodeHtmlEntities(parts.join(' ')));
+}
+
+const postsPreviewPath = path.join(root, 'src/data/posts.preview.json');
+const exemptRunTexts = [];
+const articleSlugs = new Set();
+if (await pathExists(postsPreviewPath)) {
+  const postsPreview = JSON.parse(await readFile(postsPreviewPath, 'utf8'));
+  for (const post of postsPreview.posts || []) {
+    if (post.slug) articleSlugs.add(post.slug);
+    for (const block of post.blocks || []) {
+      const runs = block.runs || (block.items ? block.items.flat() : []);
+      for (const run of runs || []) {
+        if (run && typeof run.text === 'string' && DRAFT_COPY_PATTERN.test(run.text)) {
+          exemptRunTexts.push(collapseWhitespace(run.text));
+        }
+      }
+    }
+  }
+}
+
+let noDraftCopyScanned = 0;
+let exemptRunsMatched = 0;
+for (const { relativePath, html } of pages) {
+  let scannable = extractScannableText(html);
+  const articleMatch = relativePath.match(/^blog[\\/]([^\\/]+)[\\/]index\.html$/);
+  if (articleMatch && articleSlugs.has(articleMatch[1])) {
+    for (const exemptText of exemptRunTexts) {
+      if (exemptText && scannable.includes(exemptText)) {
+        exemptRunsMatched++;
+        scannable = scannable.split(exemptText).join(' ');
+      }
+    }
+  }
+  noDraftCopyScanned++;
+  const match = DRAFT_COPY_PATTERN.exec(scannable);
+  if (match) {
+    const start = Math.max(0, match.index - 30);
+    const context = scannable.slice(start, start + 60);
+    fail(relativePath + ' renders draft copy near: "' + context + '"');
+  }
+}
+console.log(
+  'no-draft-copy scan: ' + noDraftCopyScanned + ' file(s) scanned, ' + exemptRunsMatched + ' exempt run(s) matched',
+);
+
 // U+00A7 (section sign) byte scan of every file changed on this branch versus
 // origin/main plus every untracked file. The needle is built from its UTF-8
 // bytes (0xC2 0xA7) so this file never contains the character itself.

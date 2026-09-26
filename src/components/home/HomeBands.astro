@@ -34,6 +34,32 @@ const notes = posts.slice(0, 3);
   </div>
 </section>
 <script is:inline>
+  // Arm motion here, synchronously, BEFORE first paint — not in the deferred
+  // module script below. A CSS transition only fires on a genuine style
+  // CHANGE from an already-rendered state; if html.anim were added later
+  // (after the browser's first paint has already rendered the hero's marks
+  // in their plain, un-gated state), adding it would itself be the "change"
+  // that the strike/highlighter's own transition fires on — consuming the
+  // transition meant for the LATER reveal (.in) on this unwanted hide step
+  // instead. Measured 2026-09-26: with anim added from the deferred script,
+  // the strike/highlighter never moved across an 8-sample window; adding it
+  // here, before paint, makes scaleX(0) the FIRST-EVER computed style for
+  // those pseudo-elements (nothing to transition from), so the hide is an
+  // instant snap and only the later .in-triggered reveal actually animates —
+  // matching the sketch, whose equivalent script also runs synchronously,
+  // before its first paint (.planning/sketches/001-a-plus-b-homepage/index.html:408-409).
+  var __reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState !== 'visible';
+  if (!__reduceMotion) {
+    document.documentElement.classList.add('anim');
+    // Safety net: if the homepage module never runs (failed load or error),
+    // drop .anim so no content stays hidden behind states only it reveals.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (!window.__homeReady) document.documentElement.classList.remove('anim');
+      }, 3000);
+    });
+  }
+
   // Size the headline before first paint so its four lines fill the screen
   // below the masthead: the largest font size at which the headline's height
   // fits that space and no word overflows the width. Runs again on resize,
@@ -81,7 +107,6 @@ const notes = posts.slice(0, 3);
     <hr class="rule" />
     <div class="home-hero-foot">
       <div>
-        <p class="lede">Supporting line under editorial review. <span class="draft-tag">[DRAFT]</span></p>
         <div class="actions">
           <a class="btn solid" href={link('/contact/')}>Start an inquiry &rarr;</a>
           <a class="sms" href="sms:+17865754837">Text (786) 575-4837</a>
@@ -170,7 +195,7 @@ const notes = posts.slice(0, 3);
           <path class="ring" d="M60 14 C 88 14 115 60 104 84 C 94 105 26 105 16 84 C 5 60 32 14 60 14 Z"></path>
           <circle class="n" cx="60" cy="14" r="7"></circle><circle class="n" cx="104" cy="84" r="7"></circle><circle class="n" cx="16" cy="84" r="7"></circle>
         </svg>
-        <p class="lede">From the storefront to the operating picture. All three layers run here. <span class="draft-tag">[DRAFT]</span></p>
+        <p class="lede">From the storefront to the operating picture. All three layers run here.</p>
       </div>
     </div>
     <div class="home-figures">
@@ -199,7 +224,6 @@ const notes = posts.slice(0, 3);
   <div class="band__inner">
     <p class="t-label">Case 02 &middot; {usoil.title} &middot; Las Vegas</p>
     <h2 class="display section-title kin">A website became the business.</h2>
-    <p class="draft-tag" style="margin-top:.5em">[DRAFT headline]</p>
     <div class="home-tl">
       <div class="home-stamp"><span class="t-label">01</span><span class="home-stamp-k display">Website</span><span class="t-label">Build</span></div>
       <div class="home-stamp"><span class="t-label">02</span><span class="home-stamp-k display">SEO</span><span class="t-label">Demand</span></div>
@@ -254,6 +278,7 @@ const notes = posts.slice(0, 3);
   // adds .anim to <html> (plan invariant, Task 3).
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState !== 'visible';
   const root = document.documentElement;
+  (window as unknown as { __homeReady?: boolean }).__homeReady = true;
 
   if (!reduce) {
     root.classList.add('anim');
@@ -324,8 +349,20 @@ const notes = posts.slice(0, 3);
   if (reduce) {
     typeLines();
   }
+  // Double rAF, not a single one: the hidden (:not(.in)) transform/height
+  // set above via the anim + kin classes must actually be committed to a
+  // rendered frame before .in lands, or no CSS transition is recognized at
+  // all (measured 2026-09-26: a single rAF still fires before the browser's
+  // next style + paint pass, so the hero strike/highlighter jumped straight
+  // to their final state on the very first sampled frame, never scaleX(0)).
+  // The first rAF callback runs at the start of the next frame (before that
+  // frame's style/paint step) and only schedules the second; the browser
+  // paints the hidden state in between, so the second rAF's class add is a
+  // real, transition-eligible style change.
   requestAnimationFrame(() => {
-    document.querySelector('[data-home-band="hero"]')?.classList.add('in');
+    requestAnimationFrame(() => {
+      document.querySelector('[data-home-band="hero"]')?.classList.add('in');
+    });
   });
 
   // ---- logo wall: flip cells one at a time --------------------------------
@@ -461,11 +498,47 @@ const notes = posts.slice(0, 3);
             : 'Pulse at ' + ['Build', 'Demand', 'Intelligence'][active];
     }
 
+    // Whether the Loop scene is actually pinned right now: motion armed AND
+    // its sticky stage in effect. home.css drops the pin at 750px viewport
+    // height or less (and would if any other breakpoint dropped it too) —
+    // read the computed position rather than hard-coding a breakpoint here.
+    function loopPinned() {
+      const stage = loopBand?.querySelector<HTMLElement>('.home-loop-sticky');
+      return !!stage && root.classList.contains('anim') && getComputedStyle(stage).position === 'sticky';
+    }
+
     function onScroll() {
       if (!loopBand) return;
       const rect = loopBand.getBoundingClientRect();
-      const span = loopBand.offsetHeight - innerHeight;
-      const p = reduce || span <= 0 ? 1 : Math.max(0, Math.min(1, -rect.top / span));
+      let p: number;
+      if (reduce) {
+        p = 1;
+      } else if (loopPinned()) {
+        const span = loopBand.offsetHeight - innerHeight;
+        p = span <= 0 ? 1 : Math.max(0, Math.min(1, -rect.top / span));
+      } else {
+        // Not pinned (short viewport, home.css's max-height:750px query):
+        // the scene sits in normal document flow, so drive progress from
+        // the band entering the viewport (its top reaching the viewport's
+        // bottom edge, p=0) to the band fully leaving it (its bottom
+        // reaching that same edge, p=1) — the draw, pulse and layer changes
+        // now happen while the band is actually on screen, instead of the
+        // old pinned-only span math (offsetHeight - innerHeight) going
+        // zero-or-negative the instant the band is shorter than the
+        // viewport and jumping straight to complete (measured 2026-09-26 at
+        // 1280x720: dashoffset stuck at 0, pulse frozen, layer stuck on
+        // Intelligence from first paint).
+        // Codex review (CONFIRMED): ending at "bottom reaches the viewport
+        // bottom" finished the draw while the scene was still in view and
+        // froze it for the rest of the scroll. Run from the band's top at
+        // 85% of the viewport to its bottom at 35%, so the pulse keeps
+        // moving through nearly the whole visible crossing and completes
+        // just before the scene leaves.
+        const height = rect.height || loopBand.offsetHeight;
+        const start = innerHeight * 0.85;
+        const travel = height + innerHeight * 0.5;
+        p = travel <= 0 ? 1 : Math.max(0, Math.min(1, (start - rect.top) / travel));
+      }
       setLoop(p);
     }
 
@@ -495,12 +568,10 @@ const notes = posts.slice(0, 3);
     // under prefers-reduced-motion, applying 340vh math to an unpinned band).
     document.querySelectorAll('.home-toc a[data-layer]').forEach((a) => {
       a.addEventListener('click', (e) => {
-        // Intercept only while the Loop scene is actually pinned: motion armed
-        // AND its sticky stage in effect (home.css drops the pin at 750px tall
-        // or less). Otherwise the native anchor lands on the layer heading.
-        const stage = loopBand.querySelector('.home-loop-sticky') as HTMLElement | null;
-        const pinned = root.classList.contains('anim') && !!stage && getComputedStyle(stage).position === 'sticky';
-        if (!pinned) return;
+        // Intercept only while the Loop scene is actually pinned (see
+        // loopPinned() above). Otherwise the native anchor lands on the
+        // layer heading.
+        if (!loopPinned()) return;
         e.preventDefault();
         const span = loopBand.offsetHeight - innerHeight;
         const layerIndex = Number((a as HTMLElement).dataset.layer);
