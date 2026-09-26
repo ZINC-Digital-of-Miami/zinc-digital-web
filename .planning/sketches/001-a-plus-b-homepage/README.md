@@ -2,7 +2,7 @@
 sketch: 001
 name: a-plus-b-homepage
 question: "How do A (The Loop) and B (The Annual Report) look together on the homepage, and in which fonts?"
-winner: null
+winner: "3"
 tags: [homepage, loop, annual-report, typography, motion]
 ---
 
@@ -16,8 +16,9 @@ open .planning/sketches/001-a-plus-b-homepage/index.html
 (or serve the worktree and open /.planning/sketches/001-a-plus-b-homepage/index.html)
 
 ## Variants
+- **3: All white ★ (owner pick, 2026-09-25 CT)** — every band on white, separated by heavy report rules; teal accents on white. Owner, verbatim: "keep the white, that dark was C".
 - **1: Report-led** — B leads. The Loop band sits on white with a teal pulse; the page reads like an annual report.
-- **2: Loop-led** — A leads. The Loop band is black with the magenta pulse, and a circuit thread with a pulse runs down the whole page.
+- **2: Loop-led (rejected)** — A leads. The Loop band is black with the magenta pulse, and a circuit thread with a pulse runs down the whole page.
 - **Font switch (both variants):** Pairing A (Big Shoulders Display / Inter / JetBrains Mono) or Pairing B (Barlow Condensed / Public Sans / IBM Plex Mono).
 
 ## What to Look For

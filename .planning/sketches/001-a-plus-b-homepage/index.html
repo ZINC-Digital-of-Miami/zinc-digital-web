@@ -175,6 +175,16 @@ body[data-vp="tablet"] #frame{max-width:768px}
 .foot-grid p{margin:.4em 0 0}
 .fine{margin-top:var(--space-3xl);display:flex;justify-content:space-between;gap:var(--space-lg);flex-wrap:wrap}
 
+/* ---------- variant 3: all white (owner 2026-09-25: "keep the white, that dark was C") ---------- */
+body[data-variant="white"] .dark{background:var(--snow);color:var(--ink);--accent:var(--teal);--accent-text:var(--teal-text);--muted:var(--gray-on-light);--rule:var(--rule-on-light)}
+body[data-variant="white"] .band + .band{border-top:3px solid var(--ink)}
+body[data-variant="white"] .loop-band{border-top:3px solid var(--ink)}
+body[data-variant="white"] .logos-grid,body[data-variant="white"] .logo-cell{border-color:color-mix(in srgb,var(--ink) 22%,transparent)}
+body[data-variant="white"] .logo-cell:hover,body[data-variant="white"] .logo-cell.flip{color:var(--teal-text)}
+body[data-variant="white"] .dark .btn:hover{background:var(--ink);color:var(--snow);border-color:var(--ink)}
+body[data-variant="white"] .shots .phone{border-color:var(--ink);box-shadow:0 20px 40px rgba(0,0,0,.18)}
+body[data-variant="white"] .redact{color:var(--ink)}
+
 /* ---------- global circuit thread (variant 2 only) ---------- */
 #thread{display:none;position:absolute;top:0;bottom:0;left:calc(var(--gutter) / 2 - 1px);width:2px;background:var(--snow);mix-blend-mode:difference;z-index:5;pointer-events:none}
 #thread-dot{display:none;position:absolute;left:calc(var(--gutter) / 2 - 7px);width:14px;height:14px;border-radius:50%;background:var(--magenta);z-index:6;box-shadow:0 0 0 6px rgba(252,7,129,.22);pointer-events:none}
@@ -212,12 +222,13 @@ body[data-variant="loop"] #thread,body[data-variant="loop"] #thread-dot{display:
 }
 </style>
 </head>
-<body data-pairing="a" data-variant="report" data-vp="desktop">
+<body data-pairing="a" data-variant="white" data-vp="desktop">
 
 <div id="variant-nav">
   <strong>Sketch 001 · A + B homepage</strong>
-  <button class="vtab active" data-v="report">1 · Report-led: B leads, Loop band on white</button>
-  <button class="vtab" data-v="loop">2 · Loop-led: A leads, Loop on black + circuit thread</button>
+  <button class="vtab active" data-v="white">3 · All white ★</button>
+  <button class="vtab" data-v="report">1 · White + black bands</button>
+  <button class="vtab" data-v="loop">2 · Black Loop (reads as C)</button>
 </div>
 
 <div id="frame">
