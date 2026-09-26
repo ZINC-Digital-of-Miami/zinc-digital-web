@@ -352,12 +352,14 @@ html.anim .home-layer-list {
   max-height: 0;
   overflow: hidden;
   margin-top: 0;
-  transition: max-height 0.45s ease;
+  visibility: hidden;
+  transition: max-height 0.45s ease, visibility 0.45s;
 }
 
 html.anim .home-layer.on .home-layer-list {
   max-height: 12em;
   margin-top: var(--space-sm);
+  visibility: visible;
 }
 
 .home-layer-list li a {
