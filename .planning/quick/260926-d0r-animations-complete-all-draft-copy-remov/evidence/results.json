@@ -1,0 +1,7654 @@
+{
+  "generatedAt": "2026-09-26T16:00:41.797Z",
+  "routes": [
+    "/",
+    "/services/",
+    "/services/shopify/",
+    "/work/",
+    "/work/once-upon-a-book-club/",
+    "/work/us-oil-solutions/",
+    "/about/",
+    "/contact/",
+    "/thanks/",
+    "/blog/",
+    "/blog/ai-search-results-and-generative-search-optimization/",
+    "/blog/shopify-google-merchant-center-checklist/",
+    "/blog/when-web-design-trends-actually-matter/",
+    "/privacy/",
+    "/terms/",
+    "/404.html"
+  ],
+  "sizes": [
+    "1920x1080",
+    "1780x920",
+    "1440x900",
+    "1280x720",
+    "1024x768",
+    "768x1024",
+    "390x844",
+    "375x667",
+    "667x375"
+  ],
+  "pages": [
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 1080,
+        "titleTop": 120.140625,
+        "titleBottom": 1036.859375,
+        "introTop": 1080,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 64,
+          "right": 957
+        },
+        "layersRect": {
+          "left": 1005,
+          "right": 1856
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 920,
+        "titleTop": 164.4375,
+        "titleBottom": 832.5625,
+        "introTop": 920,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 64,
+          "right": 886
+        },
+        "layersRect": {
+          "left": 934,
+          "right": 1716
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 900,
+        "titleTop": 181.34375,
+        "titleBottom": 795.65625,
+        "introTop": 900,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 58,
+          "right": 712
+        },
+        "layersRect": {
+          "left": 760,
+          "right": 1382
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 720,
+        "titleTop": 125.90625,
+        "titleBottom": 671.09375,
+        "introTop": 720,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 51,
+          "right": 630
+        },
+        "layersRect": {
+          "left": 678,
+          "right": 1229
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 355,
+          "bottom": 369,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 768,
+        "titleTop": 108.125,
+        "titleBottom": 736.875,
+        "introTop": 768,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 41,
+          "right": 499
+        },
+        "layersRect": {
+          "left": 547,
+          "right": 983
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 1024,
+        "titleTop": 128.9375,
+        "titleBottom": 964.0625,
+        "introTop": 1024,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 31,
+          "right": 737
+        },
+        "layersRect": {
+          "left": 31,
+          "right": 737
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 844,
+        "titleTop": 107.125,
+        "titleBottom": 805.875,
+        "introTop": 844,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 24,
+          "right": 366
+        },
+        "layersRect": {
+          "left": 24,
+          "right": 366
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 667,
+        "titleTop": 95.4375,
+        "titleBottom": 640.5625,
+        "introTop": 667,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 24,
+          "right": 351
+        },
+        "layersRect": {
+          "left": 24,
+          "right": 351
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 331,
+          "bottom": 341,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 375,
+        "titleTop": 85.71875,
+        "titleBottom": 358.28125,
+        "introTop": 375,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 27,
+          "right": 640
+        },
+        "layersRect": {
+          "left": 27,
+          "right": 640
+        }
+      },
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "services-index",
+      "route": "/services/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "service-shopify",
+      "route": "/services/shopify/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "work-index",
+      "route": "/work/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-ouabc",
+      "route": "/work/once-upon-a-book-club/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "case-usoil",
+      "route": "/work/us-oil-solutions/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "route": "/about/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "route": "/contact/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "thanks",
+      "route": "/thanks/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 147.1875,
+        "vh": 1080,
+        "limit": 384
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 135.421875,
+        "vh": 920,
+        "limit": 330.6666666666667
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 126.578125,
+        "vh": 900,
+        "limit": 324
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 105.984375,
+        "vh": 720,
+        "limit": 264
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 92.140625,
+        "vh": 768,
+        "limit": 280
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 70.953125,
+        "vh": 1024,
+        "limit": 365.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 44.15625,
+        "vh": 844,
+        "limit": 305.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 88.3125,
+        "vh": 667,
+        "limit": 246.33333333333334
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "blog-index",
+      "route": "/blog/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "blog",
+        "height": 55.1875,
+        "vh": 375,
+        "limit": 149
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 357.6875,
+        "vh": 1080,
+        "limit": 384
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 304.6875,
+        "vh": 920,
+        "limit": 330.6666666666667
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 298.0625,
+        "vh": 900,
+        "limit": 324
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 238.4375,
+        "vh": 720,
+        "limit": 264
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 236.625,
+        "vh": 768,
+        "limit": 280
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 184.8125,
+        "vh": 1024,
+        "limit": 365.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 132.4375,
+        "vh": 844,
+        "limit": 305.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 165.546875,
+        "vh": 667,
+        "limit": 246.33333333333334
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-genai",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 124.1875,
+        "vh": 375,
+        "limit": 149
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 268.265625,
+        "vh": 1080,
+        "limit": 384
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 228.515625,
+        "vh": 920,
+        "limit": 330.6666666666667
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 223.546875,
+        "vh": 900,
+        "limit": 324
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 178.828125,
+        "vh": 720,
+        "limit": 264
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 177.46875,
+        "vh": 768,
+        "limit": 280
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 138.609375,
+        "vh": 1024,
+        "limit": 365.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 132.4375,
+        "vh": 844,
+        "limit": 305.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 132.4375,
+        "vh": 667,
+        "limit": 246.33333333333334
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-merchant-center",
+      "route": "/blog/shopify-google-merchant-center-checklist/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 93.140625,
+        "vh": 375,
+        "limit": 149
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 178.84375,
+        "vh": 1080,
+        "limit": 384
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 152.34375,
+        "vh": 920,
+        "limit": 330.6666666666667
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 149.03125,
+        "vh": 900,
+        "limit": 324
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 119.21875,
+        "vh": 720,
+        "limit": 264
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 118.3125,
+        "vh": 768,
+        "limit": 280
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 92.40625,
+        "vh": 1024,
+        "limit": 365.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 66.21875,
+        "vh": 844,
+        "limit": 305.3333333333333
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 66.21875,
+        "vh": 667,
+        "limit": 246.33333333333334
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "article-shortest",
+      "route": "/blog/when-web-design-trends-actually-matter/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": {
+        "template": "article",
+        "height": 62.09375,
+        "vh": 375,
+        "limit": 149
+      },
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "route": "/privacy/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "terms",
+      "route": "/terms/",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "dsf": 1,
+      "vw": 1920,
+      "vh": 1080,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 533,
+          "bottom": 547,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1054,
+          "bottom": 1068,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 1080,
+          "innerWidth": 1920,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "1780x920",
+      "width": 1780,
+      "height": 920,
+      "dsf": 1,
+      "vw": 1780,
+      "vh": 920,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 453,
+          "bottom": 467,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 894,
+          "bottom": 908,
+          "left": 25,
+          "right": 39,
+          "innerHeight": 920,
+          "innerWidth": 1780,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "dsf": 1,
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 443,
+          "bottom": 457,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 874,
+          "bottom": 888,
+          "left": 22,
+          "right": 36,
+          "innerHeight": 900,
+          "innerWidth": 1440,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "1280x720",
+      "width": 1280,
+      "height": 720,
+      "dsf": 1,
+      "vw": 1280,
+      "vh": 720,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 353,
+          "bottom": 367,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 694,
+          "bottom": 708,
+          "left": 19,
+          "right": 33,
+          "innerHeight": 720,
+          "innerWidth": 1280,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "dsf": 1,
+      "vw": 1024,
+      "vh": 768,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 89,
+          "bottom": 103,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 377,
+          "bottom": 391,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 742,
+          "bottom": 756,
+          "left": 13,
+          "right": 27,
+          "innerHeight": 768,
+          "innerWidth": 1024,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "dsf": 2,
+      "vw": 768,
+      "vh": 1024,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 507,
+          "bottom": 517,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 1002,
+          "bottom": 1012,
+          "left": 10,
+          "right": 20,
+          "innerHeight": 1024,
+          "innerWidth": 768,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "390x844",
+      "width": 390,
+      "height": 844,
+      "dsf": 3,
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 417,
+          "bottom": 427,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 822,
+          "bottom": 832,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 844,
+          "innerWidth": 390,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "375x667",
+      "width": 375,
+      "height": 667,
+      "dsf": 2,
+      "vw": 375,
+      "vh": 667,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 329,
+          "bottom": 339,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 645,
+          "bottom": 655,
+          "left": 7,
+          "right": 17,
+          "innerHeight": 667,
+          "innerWidth": 375,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "size": "667x375",
+      "width": 667,
+      "height": 375,
+      "dsf": 2,
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": null,
+      "loopMetrics": null,
+      "titleHeightMetrics": null,
+      "dotSamples": [
+        {
+          "fraction": 0,
+          "top": 81,
+          "bottom": 91,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 0.5,
+          "top": 183,
+          "bottom": 193,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        },
+        {
+          "fraction": 1,
+          "top": 353,
+          "bottom": 363,
+          "left": 8,
+          "right": 18,
+          "innerHeight": 375,
+          "innerWidth": 667,
+          "overlapsContent": false,
+          "overlapSample": null
+        }
+      ]
+    }
+  ],
+  "reducedMotion": [
+    {
+      "route": "/",
+      "size": "1440x900",
+      "vw": 1440,
+      "vh": 900,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 77,
+        "heroBottom": 900,
+        "titleTop": 115.921875,
+        "titleBottom": 861.078125,
+        "introTop": 900,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": true,
+        "svgRect": {
+          "left": 58,
+          "right": 712
+        },
+        "layersRect": {
+          "left": 760,
+          "right": 1382
+        }
+      },
+      "titleHeightMetrics": null
+    },
+    {
+      "route": "/",
+      "size": "390x844",
+      "vw": 390,
+      "vh": 844,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 844,
+        "titleTop": 121.625,
+        "titleBottom": 791.375,
+        "introTop": 844,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 24,
+          "right": 366
+        },
+        "layersRect": {
+          "left": 24,
+          "right": 366
+        }
+      },
+      "titleHeightMetrics": null
+    },
+    {
+      "route": "/",
+      "size": "667x375",
+      "vw": 667,
+      "vh": 375,
+      "horizontalOverflow": false,
+      "violations": [],
+      "heroMetrics": {
+        "headerBottom": 69,
+        "heroBottom": 375,
+        "titleTop": 85.84375,
+        "titleBottom": 358.15625,
+        "introTop": 375,
+        "extras": 0
+      },
+      "loopMetrics": {
+        "sideBySide": false,
+        "svgRect": {
+          "left": 27,
+          "right": 640
+        },
+        "layersRect": {
+          "left": 27,
+          "right": 640
+        }
+      },
+      "titleHeightMetrics": null
+    }
+  ],
+  "violations": []
+}
