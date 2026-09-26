@@ -143,7 +143,7 @@ The new voice, derived from the core line:
   - Black: near-black around `#0A0A0B`.
   - White: cool snow white with a touch of gray, around `#F5F6F7`. **No warm or yellowish whites.**
   - One mid-gray for body text on each ground.
-  - **Accent:** selected teal `#07B2B2` for display and graphics and `#057E7E` for small text on snow white; preserve contrast for each role. Magenta `#FC0781` marks the moving dot on the page-long side thread. Other prototype accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
+  - **Accent:** bright teal `#07B2B2` is for decorative display marks and accents such as the strike and highlighter; it may be a background behind near-black text when that pairing preserves text contrast. At 2.42:1 against `#F5F6F7`, it must not be foreground text or the sole meaningful graphic/control cue on snow white. Use `#057E7E` (4.52:1) for semantic text and links on snow white, and near-black or another contrast-tested color for meaningful graphics and controls. Magenta `#FC0781` marks the moving dot on the page-long side thread. Other prototype accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are out.
 - **Type:** condensed heavy grotesk for display, precise text sans for body, mono for labels and data. Open-license fonts only, self-hosted, subset, ≤ 3 files. The owner-selected Pairing A is Big Shoulders Display / Inter / JetBrains Mono; the font choice is settled. Archivo is excluded (July prototype).
 - **Brand mark:** the black-and-white circuit-brain profile mark and the ZINC wordmark. The mark's circuit traces are the visual source for the loop line.
 
@@ -236,7 +236,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 |---|---|---|
 | Page design | All-white option 3 with the side circuit thread across every page; supersedes alternating dark and light bands | Owner selection recorded 2026-09-26 in quick task 260926-6g7 |
 | Fonts | Pairing A: Big Shoulders Display / Inter / JetBrains Mono; selection is settled | Owner selection recorded 2026-09-26 in quick task 260926-6g7 |
-| Accent colors | Teal `#07B2B2` for display/graphics and `#057E7E` for small text on white; magenta `#FC0781` for the side-thread dot | Selected implementation in `src/styles/tokens.css`, `src/styles/themes.css` and `src/components/CircuitThread.astro` |
+| Accent colors | Bright teal `#07B2B2` for decorative display marks and backgrounds with near-black foregrounds; `#057E7E` for semantic text on snow white and near-black or another contrast-tested color for meaningful graphics; magenta `#FC0781` for the side-thread dot | Selected implementation in `src/styles/tokens.css`, `src/styles/themes.css` and `src/components/CircuitThread.astro`; usage must meet the visual-system contrast roles above |
 | 410 Gone | On-demand catch-all route reading `src/lib/redirects.ts`; verified on preview deploy | Research conflict (vercel.json routes vs function) — one source of truth wins; Astro adapter owns routing output |
 | Form email | Nodemailer → smtp.gmail.com:465 with App Password; Gmail API only if App Passwords are blocked | Vercel allows 465/587; relay IP auth impossible from serverless |
 | Rate limiting | Turnstile + honeypot required; Vercel WAF rule only at $0 included usage | No new paid service |
@@ -251,4 +251,3 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | Owner review | Dated gates: Day 1 selected site direction · Days 2–5 copy batches · Day 5 receipts, "How we work", testimonials, team-photo approval · Day 6 final approval | Owner review is the critical path |
 
 **Pre-launch dependency on the owner (production DNS, not applied by agents):** `zincdigital.co` publishes two SPF records (a permanent SPF error) and neither authorizes Google Workspace; DMARC is `p=none`. DNS is managed in MyKinsta (Kinsta DNS runs on Route 53). Zoho is no longer used (owner, 2026-09-25). Replace both records with one — `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all` (2 DNS lookups) — before the form goes live. After cutover, drop the Kinsta include: `v=spf1 include:_spf.google.com ~all`.
-
