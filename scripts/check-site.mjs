@@ -93,21 +93,31 @@ check(!(await pathExists(path.join(distDir, DESIGN_PREVIEW_DIR))), 'dist/' + DES
 // ---------------------------------------------------------------------------
 const DRAFT_COPY_PATTERN = /\bdraft\b|editorial review|under review|\[\s*draft[^\]]*\]/i;
 
+const NAMED_ENTITIES = {
+  nbsp: ' ',
+  middot: '\u00b7',
+  mdash: '\u2014',
+  ndash: '\u2013',
+  rarr: '\u2192',
+  copy: '\u00a9',
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  quot: '"',
+  apos: "'",
+};
+
+// One pass over the text, so a decoded '&' is never decoded again
+// (&amp;lt; stays the literal text "&lt;", as a browser renders it).
 function decodeHtmlEntities(text) {
-  return text
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&middot;/gi, '·')
-    .replace(/&mdash;/gi, '—')
-    .replace(/&ndash;/gi, '–')
-    .replace(/&rarr;/gi, '→')
-    .replace(/&copy;/gi, '©')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&apos;/gi, "'")
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, code) => String.fromCharCode(parseInt(code, 16)));
+  return text.replace(/&(#x[0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (whole, body) => {
+    if (body[0] === '#') {
+      const code = body[1] === 'x' || body[1] === 'X' ? parseInt(body.slice(2), 16) : Number(body.slice(1));
+      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
+    }
+    const named = NAMED_ENTITIES[body.toLowerCase()];
+    return named === undefined ? whole : named;
+  });
 }
 
 function collapseWhitespace(text) {
@@ -116,8 +126,8 @@ function collapseWhitespace(text) {
 
 function extractScannableText(html) {
   const stripped = html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ');
   const parts = [];
   for (const match of stripped.matchAll(/<title[^>]*>([\s\S]*?)<\/title>/gi)) parts.push(match[1]);
