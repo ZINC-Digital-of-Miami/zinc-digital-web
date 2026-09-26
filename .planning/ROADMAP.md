@@ -1,5 +1,11 @@
 # Roadmap: ZINC Digital Website (zinc-digital-web)
 
+## Reconciled checkpoint — 2026-09-26 CT
+
+[Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) governs resumption. Main already contains the full-site all-white design and subsequent homepage/motion work from PRs #4/#5. The selected fonts are Big Shoulders Display, Inter and JetBrains Mono. No phase is newly accepted here; plan/phase counts track formal acceptance, not amount implemented.
+
+Older success criteria below remain historical where they require A/B/C comparison, alternating dark bands or draft banners. The later recorded owner decisions supersede those presentation instructions. Preserve all quality, truthful-content and integration gates. Replan 01-03/04/05 before execution; do not ask for the already recorded font selection again.
+
 ## Overview
 
 The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site in seven phases over 5–7 days from 2026-09-25 (CT). Per the owner's direct correction, Phase 1 delivers a complete clickable mockup of the entire approved sitemap before the font pick. Phases 2–4 then finish production motion, content/proof and live inquiry integration using those rendered pages. Every band component takes props and never fetches data itself, so the mockup uses clearly marked fixture content while the owner reviews copy. Phase 5 completes the reviewed 18-post migration, full SEO override and old WordPress URL resolution. Phase 6 holds launch gates and final approval. Phase 7 is the DNS cutover, only on the owner's explicit go.
@@ -10,11 +16,11 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 
 | Day | Date (CT) | Owner gate | Phase |
 |-----|-----------|------------|-------|
-| 1 | Sat 2026-09-26 | Font pairing pick from the rendered mockup | 1 |
+| 1 | Sat 2026-09-26 | Selection recorded in quick task 260926-6g7; current acceptance still open | 1 |
 | 2 | Sun 2026-09-27 | Copy batch: homepage bands | 2 |
 | 3 | Mon 2026-09-28 | Copy batch: services and case studies | 3 |
-| 4 | Tue 2026-09-29 | Copy batch: about and contact; SPF record applied in Route 53 (LNCH-02) | 4 |
-| 5 | Wed 2026-09-30 | Copy batch: blog; receipts, "How we work", real-vs-placeholder testimonials, Jaymie and Wendy photos; DNS TTLs lowered | 5 / 6 / 7 |
+| 4 | Tue 2026-09-29 | Copy batch: about and contact; SPF record applied in MyKinsta DNS after live authority check (LNCH-02) | 4 |
+| 5 | Wed 2026-09-30 | Copy batch: blog; receipts, "How we work", real-vs-placeholder testimonials, team-photo acceptance (all seven references present); DNS TTLs lowered | 5 / 6 / 7 |
 | 6 | Thu 2026-10-01 | Final approval | 6 |
 | 7 | Fri 2026-10-02 | Cutover, on the owner's explicit go at that moment | 7 |
 
@@ -29,8 +35,8 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Design System & Font Pick** - Complete clickable full-site mockup with tokens, band theming, self-hosted type and brand mark, followed by three font pairings and the owner's pick
-- [ ] **Phase 2: Homepage & the Loop** - Nine alternating bands on `/`, with the scroll-drawn Loop as the signature and the finished state designed for reduced motion and Firefox
+- [ ] **Phase 1: Design System & Font Pick** - Complete clickable full-site mockup with tokens, band theming, self-hosted type and brand mark, with the selected Pairing A/all-white direction implemented; acceptance outstanding
+- [ ] **Phase 2: Homepage & the Loop** - Nine all-white sections on `/`, with the scroll-drawn Loop as the signature and the finished state designed for reduced motion and Firefox
 - [ ] **Phase 3: Services & Proof** - `/services/`, 11 flat service pages, `/work/` and both case studies, each with the mini loop lit
 - [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on the SPF repair
 - [ ] **Phase 5: Blog, SEO & Redirects** - 18 migrated posts, the full SEO override and analytics, and every old URL resolved to a 301 or 410
@@ -53,7 +59,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. On a throttled mobile load, the chosen pairing arrives in ≤ 3 self-hosted subset files, and the swap from the metric-matched fallback measures CLS 0 on the hero
   5. The circuit-brain mark and the ZINC wordmark render crisply on both grounds at mobile and desktop widths
 
-**Plans**: 2/5 plans executed
+**Plans**: 2/5 historical plans have summaries; remaining three paused for replacement, not completed
 
 Plans:
 **Wave 1**
@@ -66,15 +72,15 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — Wave 3: identical full-site A/B/C comparisons with correct font families, route/content parity, budgets and cold-font evidence
+- [ ] 01-03-PLAN.md — PAUSED; replace before execution. Historical Wave 3: identical full-site A/B/C comparisons with correct font families, route/content parity, budgets and cold-font evidence
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 01-04-PLAN.md — Wave 4: complete route/state/visual/accessibility/performance gates, independent review, then owner's explicit font choice
+- [ ] 01-04-PLAN.md — PAUSED; replace before execution. Historical Wave 4: complete route/state/visual/accessibility/performance gates, independent review, then owner's explicit font choice
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 01-05-PLAN.md — Wave 5: retain chosen pairing across all 40 pages and 404, remove comparison routes only, remeasure and publish the full noindex mockup
+- [ ] 01-05-PLAN.md — PAUSED; replace before execution. Historical Wave 5: retain chosen pairing across all 40 pages and 404, remove comparison routes only, remeasure and publish the full noindex mockup
 
 **UI hint**: yes
 
@@ -205,10 +211,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System & Font Pick | 2/5 | In Progress|  |
-| 2. Homepage & the Loop | 0/TBD | Not started | - |
-| 3. Services & Proof | 0/TBD | Not started | - |
-| 4. About & Inquiry | 0/TBD | Not started | - |
-| 5. Blog, SEO & Redirects | 0/TBD | Not started | - |
-| 6. Launch Readiness & Owner Approval | 0/TBD | Not started | - |
-| 7. Cutover | 0/TBD | Not started | - |
+| 1. Design System & Font Pick | 2/5 historical | Selected design implemented; replan acceptance | - |
+| 2. Homepage & the Loop | 0/TBD | Implementation present; acceptance pending | - |
+| 3. Services & Proof | 0/TBD | Mockup present; production proof pending | - |
+| 4. About & Inquiry | 0/TBD | About/demo present; live inquiry pending | - |
+| 5. Blog, SEO & Redirects | 0/TBD | Blog mockup present; production migration pending | - |
+| 6. Launch Readiness & Owner Approval | 0/TBD | Prior checks exist; formal launch acceptance pending | - |
+| 7. Cutover | 0/TBD | Not started; custom domain remains WordPress | - |

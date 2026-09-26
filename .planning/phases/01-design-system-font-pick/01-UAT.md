@@ -3,30 +3,36 @@ status: testing
 phase: 01-design-system-font-pick
 source: [01-01-SUMMARY.md, 01-02-SUMMARY.md]
 started: 2026-09-25T17:14:03-05:00
-updated: 2026-09-25T17:14:03-05:00
+updated: 2026-09-26T15:03:00-05:00
 ---
+
+## Baseline reset — 2026-09-26 CT
+
+The two automated passes below belong to the September 25 baseline. They are preserved in notes, not counted as acceptance of main 1a2ea8b. Reconciliation resets current-baseline results to pending and updates obsolete draft-label expectations. No owner response or new acceptance is invented. See 01-RECONCILIATION.md.
 
 ## Current Test
 <!-- OVERWRITE each test - shows where we are -->
 
-number: 3
-name: Homepage on desktop
+number: 1
+name: Complete canonical destination and source-body inventory
 expected: |
-  Open https://zinc-digital-web.vercel.app on a laptop/desktop browser. The homepage loads in Pairing A and scrolls through all nine bands top to bottom, ending in a complete footer. Large condensed headlines, snow-white ground, black type, real ZINC mark and wordmark. Nothing overlaps, nothing is cut off, no empty band.
-awaiting: user response
+  Verify every canonical destination, all 18 article bodies and internal links against the current selected-design deployment; record the deployment SHA with results.
+awaiting: automated remeasurement before owner checks
 
 ## Tests
 
 ### 1. Complete canonical destination and source-body inventory
 expected: Every canonical page, all 18 article bodies and every internal link resolve on the public preview.
-result: pass
+result: [pending]
+historical_result: automated pass on September 25 baseline
 source: automated
 coverage_id: D1
 note: "Live re-measured 2026-09-25 17:13 CT: /, /services/, /work/, /about/, /contact/, /blog/, /privacy/, /terms/ return 200; unknown path returns 404; every response carries x-robots-tag noindex, nofollow."
 
 ### 2. Non-sending inquiry states and safe content rendering
 expected: Inquiry demo stores and sends nothing; source article HTML renders as safe structured text.
-result: pass
+result: [pending]
+historical_result: automated pass on September 25 baseline
 source: automated
 coverage_id: D3
 
@@ -47,11 +53,11 @@ expected: The Work page shows both case studies (Once Upon a Book Club, US Oil S
 result: [pending]
 
 ### 7. About and team
-expected: The About page shows all seven people. Missing photos or details appear as honest placeholders marked for your confirmation, not made-up content.
+expected: The About page shows all seven people. All seven photo references are present, including Jaymie and Wendy; check sharpness and identity. Unconfirmed details remain honestly marked.
 result: [pending]
 
 ### 8. Blog, filters and articles
-expected: The Blog page lists all 18 articles, newest first. The filters narrow the list, and an empty filter result offers a way back. Each article opens with its full original text and a visible "Draft migration preview — editorial review pending" flag.
+expected: The Blog page lists all 18 articles, newest first. The filters narrow the list, and an empty filter result offers a way back. Each article opens with its source-backed body. Removed draft banners stay removed; editorial approval is still a separate gate.
 result: [pending]
 
 ### 9. Contact demo
@@ -65,9 +71,9 @@ result: [pending]
 ## Summary
 
 total: 10
-passed: 2
+passed: 0
 issues: 0
-pending: 8
+pending: 10
 skipped: 0
 blocked: 0
 

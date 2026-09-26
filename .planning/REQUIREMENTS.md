@@ -4,15 +4,21 @@
 **Core Value:** The right prospect leaves certain ZINC is the serious option — and sends a qualified inquiry or a text about a specific service — on a site that loads instantly and ranks.
 **Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (§ numbers below). Spec §18 resolved decisions win over research.
 
+## Reconciliation status — 2026-09-26 CT
+
+See [Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) for original-source pointers, implemented scope and outstanding evidence. All 57 requirements remain unchecked: partial implementation does not establish full acceptance. The existing Pending traceability status means acceptance pending, not no implementation. No requirement has been waived.
+
+The later selected all-white design, Pairing A fonts and shared side thread supersede older presentation constraints. Removed draft banners do not approve copy or receipts. Preserve unresolved content markers and all quality/integration gates. Evaluate remaining historical details (including hero CTA placement and section composition) against the selected design during replanning; do not silently restore older UI.
+
 ## v1 Requirements
 
 ### Design System (DSGN)
 
-- [ ] **DSGN-01**: Owner first sees a complete clickable mockup of every destination in the approved sitemap, including all 11 services, both case studies, all nine homepage bands, about, contact/confirmation states, blog index/articles, legal pages and 404; then compares three open-license font pairings on that complete site and picks one (§5, §8; superseding direct owner correction 2026-09-25). Final production content and integrations remain under their existing requirements.
-- [ ] **DSGN-02**: Every page uses one token set: near-black `#0A0A0B`, cool snow white `#F5F6F7`, one body gray per ground, magenta `#FC0781` only on black bands, dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) only on white bands (§8, §18)
-- [ ] **DSGN-03**: Each band sets its ground with one `data-theme` attribute; black and white alternate by band independent of OS color scheme (§8)
+- [ ] **DSGN-01**: Owner can navigate the entire approved sitemap and accept the selected Pairing A/all-white design across the full site. The repeated three-pairing selection task is superseded by the owner direction recorded in quick task 260926-6g7; full-site acceptance remains open.
+- [ ] **DSGN-02**: Every page uses the selected snow-white ground, near-black type and shared token system; teal decoration and accessible text variants preserve contrast for their role. Preserve the selected side-thread accent treatment. Current token values are in src/styles/tokens.css; do not reinstate the superseded black-band accent rules.
+- [ ] **DSGN-03**: The selected all-white theme remains consistent on every page and independent of OS color scheme; alternating dark bands are superseded by quick task 260926-6g7.
 - [ ] **DSGN-04**: Display type loads self-hosted, subset, ≤ 3 font files, with metric-matched fallbacks so the font swap causes zero layout shift (§8, §18)
-- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply on both grounds (§8)
+- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply at mobile and desktop widths on the selected site ground.
 
 ### Motion (MOTN)
 

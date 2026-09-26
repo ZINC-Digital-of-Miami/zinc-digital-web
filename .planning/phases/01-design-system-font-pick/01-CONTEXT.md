@@ -1,8 +1,14 @@
 # Phase 1: Design System & Font Pick - Context
 
 **Gathered:** 2026-09-25 (CT)
-**Status:** Ready for planning
+**Status:** Replanning remaining acceptance; selected design already deployed
 **Source:** PRD Express Path (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`) + owner interview 2026-09-25
+
+## Superseding checkpoint — 2026-09-26 CT
+
+Read [01-RECONCILIATION.md](./01-RECONCILIATION.md) first. The historical interview below is retained for provenance. Its A/B/C comparison, dark-band, draft-banner, old-worktree and no-CI directions are superseded: selected Pairing A/all-white option 3, shared side thread, draft-label removal and repository CI are on main through PRs #3–#5. Do not recreate comparison routes or ask for another font pick. The older UI-SPEC is historical wherever it conflicts with these later decisions. Retain every unfulfilled quality, full-site and truthful-content gate.
+
+Current action: replace paused 01-03/04/05 with acceptance work using `$gsd-plan-phase 01`, preserving completed 01-01/02 history. Use a new task branch/worktree from current main. Do not use the merged phase-01 branch as the next execution checkout.
 
 <domain>
 ## Phase Boundary
