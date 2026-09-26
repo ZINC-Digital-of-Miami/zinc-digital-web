@@ -237,18 +237,13 @@ async function main() {
     }
 
     // ---- hero viewport-fit check (owner requirement, 2026-09-26) --------
-    // Measures the homepage hero's bottom edge against window.innerHeight
-    // at every owner-named size plus the landscape-phone case that first
-    // surfaced the bug, under both reduced and normal motion. "Core" is
-    // the masthead through the CTA actions row (headline, lede, "Start an
-    // inquiry"/"Text" buttons) — this must NEVER exceed the viewport at
-    // any size. "Full" also includes the Contents list; its four rows
-    // carry a 44px tap-target floor that cannot itself shrink, so on the
-    // narrowest *and* shortest phone sizes (container width <= 820, i.e.
-    // already stacked under the sketch's own layout) the Contents list is
-    // allowed to sit below the fold, per the plan's own carve-out ("you
-    // may place it directly below the hero on those sizes only"). On any
-    // wider viewport the full hero (Contents included) must also fit.
+    // The hero band is the headline alone and exactly one screen below the
+    // masthead (owner, 2026-09-26: "from the first word to the last, it takes
+    // up the users screen, nothing else"). At every size, in both motion
+    // modes: the band ends at the fold, the headline sits inside the screen
+    // below the masthead and fills at least 70% of it, nothing else is
+    // visible in the band, the intro band starts at the fold, and there is
+    // no horizontal scroll.
     // Also captures a first-viewport (not full-page) screenshot at each
     // size, and checks the circuit-thread dot never overlaps the masthead
     // wordmark/nav/CTA at scroll position 0 (owner-measured regression,
@@ -263,11 +258,14 @@ async function main() {
           await page.setViewport({ width, height });
           await page.goto(base + '/', { waitUntil: 'networkidle0' });
 
+          // Let the pre-paint fit script's font-load and post-wrap refits settle.
+          await new Promise((r) => setTimeout(r, 1500));
           const m = await page.evaluate(() => {
             const rect = (el) => (el ? el.getBoundingClientRect() : null);
             const hero = document.querySelector('[data-home-band="hero"]');
-            const actions = document.querySelector('.home-hero-foot .actions');
-            const toc = document.querySelector('.home-toc');
+            const title = hero ? hero.querySelector('h1') : null;
+            const intro = document.querySelector('[data-home-band="intro"]');
+            const header = document.querySelector('.site-header');
             const wordmark = document.querySelector('.wordmark');
             const nav = document.querySelector('#site-nav');
             const inquiryBtn = document.querySelector('.site-header > a.btn');
@@ -277,13 +275,21 @@ async function main() {
               if (!a || !b) return false;
               return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
             }
-
+            // Anything visible in the hero band besides the headline breaks
+            // "nothing else" (the thread overlay is page chrome, not band content).
+            const extras = hero
+              ? Array.from(hero.querySelectorAll('*')).filter((el) => !el.closest('h1') && el.tagName !== 'H1' && !el.classList.contains('band__inner') && (el.textContent || '').trim() && el.getBoundingClientRect().height > 0).length
+              : null;
             const dotRect = dot ? dot.getBoundingClientRect() : null;
             return {
               innerHeight: window.innerHeight,
+              headerBottom: header ? rect(header).bottom : 0,
               heroBottom: hero ? rect(hero).bottom : null,
-              coreBottom: actions ? rect(actions).bottom : null,
-              tocBottom: toc ? rect(toc).bottom : null,
+              titleTop: title ? rect(title).top : null,
+              titleBottom: title ? rect(title).bottom : null,
+              introTop: intro ? rect(intro).top : null,
+              extras,
+              horizontalScroll: document.documentElement.scrollWidth > window.innerWidth,
               dotOverlapsWordmark: intersects(dotRect, rect(wordmark)),
               dotOverlapsNav: intersects(dotRect, rect(nav)),
               dotOverlapsInquiryBtn: intersects(dotRect, rect(inquiryBtn)),
@@ -297,26 +303,13 @@ async function main() {
             });
           }
 
-          const coreOverflow = m.coreBottom !== null ? m.coreBottom - m.innerHeight : null;
-          const fullOverflow = m.tocBottom !== null ? m.tocBottom - m.innerHeight : null;
+          const screen = m.innerHeight - m.headerBottom;
           heroResults.push({
             reducedMotion: reduce === 'reduce',
             width,
             height,
-            innerHeight: m.innerHeight,
-            heroBottom: m.heroBottom,
-            coreBottom: m.coreBottom,
-            tocBottom: m.tocBottom,
-            coreOverflow,
-            fullOverflow,
-            // The Contents-list carve-out only applies to the narrow,
-            // already-stacked container width (<=820, the sketch's own
-            // breakpoint for stacking .home-hero-foot) — not to any wider
-            // viewport, where the full hero including Contents must fit.
-            fullOverflowAllowed: width <= 820,
-            dotOverlapsWordmark: m.dotOverlapsWordmark,
-            dotOverlapsNav: m.dotOverlapsNav,
-            dotOverlapsInquiryBtn: m.dotOverlapsInquiryBtn,
+            ...m,
+            fill: m.titleBottom !== null ? (m.titleBottom - m.titleTop) / screen : null,
           });
 
           await page.close();
@@ -525,12 +518,16 @@ async function main() {
     const TOLERANCE = 2; // px, subpixel/rounding
     for (const h of results.heroViewport) {
       const label = `hero @ ${h.width}x${h.height} (${h.reducedMotion ? 'reduced motion' : 'normal motion'})`;
-      if (h.coreOverflow !== null && h.coreOverflow > TOLERANCE) {
-        violations.push(`${label}: headline/lede/CTA (core) overflow the first viewport by ${h.coreOverflow.toFixed(0)}px (bottom ${h.coreBottom.toFixed(0)} > innerHeight ${h.innerHeight})`);
-      }
-      if (h.fullOverflow !== null && h.fullOverflow > TOLERANCE && !h.fullOverflowAllowed) {
-        violations.push(`${label}: full hero including Contents overflows the first viewport by ${h.fullOverflow.toFixed(0)}px (bottom ${h.tocBottom.toFixed(0)} > innerHeight ${h.innerHeight}) — carve-out does not apply above 820px width`);
-      }
+      // Owner, 2026-09-26: "from the first word to the last, it takes up the
+      // users screen, nothing else". The hero band is the headline alone and
+      // exactly one screen below the masthead; the intro band starts at the fold.
+      if (h.heroBottom === null || h.titleTop === null) { violations.push(`${label}: hero band or headline missing`); continue; }
+      if (Math.abs(h.heroBottom - h.innerHeight) > TOLERANCE) violations.push(`${label}: hero band ends at ${h.heroBottom.toFixed(0)}, not at the fold ${h.innerHeight}`);
+      if (h.titleBottom > h.innerHeight + TOLERANCE || h.titleTop < h.headerBottom - TOLERANCE) violations.push(`${label}: headline ${h.titleTop.toFixed(0)}-${h.titleBottom.toFixed(0)} is not inside the screen below the masthead (${h.headerBottom.toFixed(0)}-${h.innerHeight})`);
+      if (h.fill < 0.7) violations.push(`${label}: headline fills only ${(h.fill * 100).toFixed(0)}% of the screen below the masthead (minimum 70%)`);
+      if (h.introTop === null || Math.abs(h.introTop - h.innerHeight) > TOLERANCE) violations.push(`${label}: intro band starts at ${h.introTop}, not at the fold ${h.innerHeight}`);
+      if (h.extras !== 0) violations.push(`${label}: ${h.extras} visible element(s) besides the headline inside the hero band`);
+      if (h.horizontalScroll) violations.push(`${label}: horizontal scroll`);
       if (h.dotOverlapsWordmark) violations.push(`${label}: thread dot overlaps the masthead wordmark`);
       if (h.dotOverlapsNav) violations.push(`${label}: thread dot overlaps the masthead nav`);
       if (h.dotOverlapsInquiryBtn) violations.push(`${label}: thread dot overlaps the masthead "Start an inquiry" button`);
