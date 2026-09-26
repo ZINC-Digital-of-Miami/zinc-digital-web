@@ -49,7 +49,16 @@ const notes = posts.slice(0, 3);
   // matching the sketch, whose equivalent script also runs synchronously,
   // before its first paint (.planning/sketches/001-a-plus-b-homepage/index.html:408-409).
   var __reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState !== 'visible';
-  if (!__reduceMotion) document.documentElement.classList.add('anim');
+  if (!__reduceMotion) {
+    document.documentElement.classList.add('anim');
+    // Safety net: if the homepage module never runs (failed load or error),
+    // drop .anim so no content stays hidden behind states only it reveals.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (!window.__homeReady) document.documentElement.classList.remove('anim');
+      }, 3000);
+    });
+  }
 
   // Size the headline before first paint so its four lines fill the screen
   // below the masthead: the largest font size at which the headline's height
@@ -269,6 +278,7 @@ const notes = posts.slice(0, 3);
   // adds .anim to <html> (plan invariant, Task 3).
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState !== 'visible';
   const root = document.documentElement;
+  (window as unknown as { __homeReady?: boolean }).__homeReady = true;
 
   if (!reduce) {
     root.classList.add('anim');
@@ -518,8 +528,16 @@ const notes = posts.slice(0, 3);
         // viewport and jumping straight to complete (measured 2026-09-26 at
         // 1280x720: dashoffset stuck at 0, pulse frozen, layer stuck on
         // Intelligence from first paint).
+        // Codex review (CONFIRMED): ending at "bottom reaches the viewport
+        // bottom" finished the draw while the scene was still in view and
+        // froze it for the rest of the scroll. Run from the band's top at
+        // 85% of the viewport to its bottom at 35%, so the pulse keeps
+        // moving through nearly the whole visible crossing and completes
+        // just before the scene leaves.
         const height = rect.height || loopBand.offsetHeight;
-        p = height <= 0 ? 1 : Math.max(0, Math.min(1, (innerHeight - rect.top) / height));
+        const start = innerHeight * 0.85;
+        const travel = height + innerHeight * 0.5;
+        p = travel <= 0 ? 1 : Math.max(0, Math.min(1, (start - rect.top) / travel));
       }
       setLoop(p);
     }

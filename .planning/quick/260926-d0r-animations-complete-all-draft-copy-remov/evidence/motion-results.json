@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-09-26T16:22:56.854Z",
+  "generatedAt": "2026-09-26T16:38:16.327Z",
   "hero": [
     {
       "sizeTag": "1440x900",
       "samples": [
         {
           "targetMs": 0,
-          "actualMs": 124,
-          "heroIn": true,
+          "actualMs": 74,
+          "heroIn": false,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.79688px",
@@ -25,7 +25,7 @@
           "strikeOrigin": "0px 6.79688px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "191px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 44.8994)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 28.9991)",
           "kinCount": 9
         },
         {
@@ -37,15 +37,15 @@
           "strikeOrigin": "0px 6.79688px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "191px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.962003)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.389536)",
           "kinCount": 9
         },
         {
           "targetMs": 1000,
-          "actualMs": 1005,
+          "actualMs": 1004,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.000640571, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.79688px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "191px",
@@ -54,10 +54,10 @@
         },
         {
           "targetMs": 1200,
-          "actualMs": 1205,
+          "actualMs": 1206,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.111106, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.262675, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.79688px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "191px",
@@ -66,24 +66,24 @@
         },
         {
           "targetMs": 1500,
-          "actualMs": 1504,
+          "actualMs": 1505,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.985591, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.997952, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.79688px",
-          "hitTransform": "matrix(0.00097272, 0, 0, 1, 0, 0)",
+          "hitTransform": "matrix(0.0187204, 0, 0, 1, 0, 0)",
           "hitHeight": "191px",
           "wordTransform": "none",
           "kinCount": 9
         },
         {
           "targetMs": 1900,
-          "actualMs": 1905,
+          "actualMs": 1910,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "none",
           "strikeOrigin": "0px 6.79688px",
-          "hitTransform": "matrix(0.996868, 0, 0, 1, 0, 0)",
+          "hitTransform": "none",
           "hitHeight": "191px",
           "wordTransform": "none",
           "kinCount": 9
@@ -110,9 +110,9 @@
         0,
         0,
         0,
-        0,
-        0.111106,
-        0.985591,
+        0.000640571,
+        0.262675,
+        0.997952,
         1,
         1
       ],
@@ -122,14 +122,14 @@
         0,
         0,
         0,
-        0.00097272,
-        0.996868,
+        0.0187204,
+        1,
         1
       ],
       "wordTranslates": [
         154.547,
-        44.8994,
-        0.962003,
+        28.9991,
+        0.389536,
         0,
         0,
         0,
@@ -142,7 +142,7 @@
       "samples": [
         {
           "targetMs": 0,
-          "actualMs": 65,
+          "actualMs": 76,
           "heroIn": false,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
@@ -154,34 +154,34 @@
         },
         {
           "targetMs": 300,
-          "actualMs": 303,
+          "actualMs": 306,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.03125px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "170px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 25.7451)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 25.7322)",
           "kinCount": 9
         },
         {
           "targetMs": 700,
-          "actualMs": 707,
+          "actualMs": 708,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.03125px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "170px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.345522)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.345078)",
           "kinCount": 9
         },
         {
           "targetMs": 1000,
-          "actualMs": 1004,
+          "actualMs": 1003,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.000645166, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.000641916, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.03125px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "170px",
@@ -190,10 +190,10 @@
         },
         {
           "targetMs": 1200,
-          "actualMs": 1205,
+          "actualMs": 1207,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.262325, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.262597, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.03125px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "170px",
@@ -202,19 +202,19 @@
         },
         {
           "targetMs": 1500,
-          "actualMs": 1504,
+          "actualMs": 1507,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.997943, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.997937, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 6.03125px",
-          "hitTransform": "matrix(0.0186721, 0, 0, 1, 0, 0)",
+          "hitTransform": "matrix(0.0186461, 0, 0, 1, 0, 0)",
           "hitHeight": "170px",
           "wordTransform": "none",
           "kinCount": 9
         },
         {
           "targetMs": 1900,
-          "actualMs": 1904,
+          "actualMs": 1906,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "none",
@@ -226,7 +226,7 @@
         },
         {
           "targetMs": 2600,
-          "actualMs": 2604,
+          "actualMs": 2606,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "none",
@@ -246,9 +246,9 @@
         0,
         0,
         0,
-        0.000645166,
-        0.262325,
-        0.997943,
+        0.000641916,
+        0.262597,
+        0.997937,
         1,
         1
       ],
@@ -258,14 +258,14 @@
         0,
         0,
         0,
-        0.0186721,
+        0.0186461,
         1,
         1
       ],
       "wordTranslates": [
         137.156,
-        25.7451,
-        0.345522,
+        25.7322,
+        0.345078,
         0,
         0,
         0,
@@ -278,7 +278,7 @@
       "samples": [
         {
           "targetMs": 0,
-          "actualMs": 68,
+          "actualMs": 65,
           "heroIn": false,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
@@ -290,34 +290,34 @@
         },
         {
           "targetMs": 300,
-          "actualMs": 303,
+          "actualMs": 305,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 3.86719px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "196.344px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 16.4812)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 14.335)",
           "kinCount": 9
         },
         {
           "targetMs": 700,
-          "actualMs": 705,
+          "actualMs": 708,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 3.86719px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "196.344px",
-          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.221274)",
+          "wordTransform": "matrix(1, 0, 0, 1, 0, 0.149052)",
           "kinCount": 9
         },
         {
           "targetMs": 1000,
-          "actualMs": 1002,
+          "actualMs": 1003,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.000648027, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.000645246, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 3.86719px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "196.344px",
@@ -329,7 +329,7 @@
           "actualMs": 1205,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.262491, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.26279, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 3.86719px",
           "hitTransform": "matrix(0, 0, 0, 1, 0, 0)",
           "hitHeight": "196.344px",
@@ -338,19 +338,19 @@
         },
         {
           "targetMs": 1500,
-          "actualMs": 1503,
+          "actualMs": 1506,
           "heroIn": true,
           "htmlAnim": true,
-          "strikeTransform": "matrix(0.997947, 0, 0, 1, 0, 0)",
+          "strikeTransform": "matrix(0.997943, 0, 0, 1, 0, 0)",
           "strikeOrigin": "0px 3.86719px",
-          "hitTransform": "matrix(0.018695, 0, 0, 1, 0, 0)",
+          "hitTransform": "matrix(0.0186727, 0, 0, 1, 0, 0)",
           "hitHeight": "196.344px",
           "wordTransform": "none",
           "kinCount": 9
         },
         {
           "targetMs": 1900,
-          "actualMs": 1901,
+          "actualMs": 1904,
           "heroIn": true,
           "htmlAnim": true,
           "strikeTransform": "none",
@@ -382,9 +382,9 @@
         0,
         0,
         0,
-        0.000648027,
-        0.262491,
-        0.997947,
+        0.000645246,
+        0.26279,
+        0.997943,
         1,
         1
       ],
@@ -394,14 +394,14 @@
         0,
         0,
         0,
-        0.018695,
+        0.0186727,
         1,
         1
       ],
       "wordTranslates": [
         75.3375,
-        16.4812,
-        0.221274,
+        14.335,
+        0.149052,
         0,
         0,
         0,
@@ -557,10 +557,10 @@
         {
           "i": 0,
           "y": 1173.96875,
-          "dashoffset": 1417.54,
+          "dashoffset": 1417.61,
           "pulse": {
-            "cx": "300.06646728515625",
-            "cy": "70.00010681152344"
+            "cx": "300",
+            "cy": "70"
           },
           "activeLayer": 0,
           "onLayerCount": 1,
@@ -571,10 +571,10 @@
         {
           "i": 1,
           "y": 1348.46875,
-          "dashoffset": 965.252,
+          "dashoffset": 1311.67,
           "pulse": {
-            "cx": "531.665283203125",
-            "cy": "375.28173828125"
+            "cx": "391.5509338378906",
+            "cy": "101.00325012207031"
           },
           "activeLayer": 0,
           "onLayerCount": 1,
@@ -585,10 +585,24 @@
         {
           "i": 2,
           "y": 1522.96875,
-          "dashoffset": 498.529,
+          "dashoffset": 1025.61,
           "pulse": {
-            "cx": "159.92984008789062",
-            "cy": "478.0919494628906"
+            "cx": "529.3766479492188",
+            "cy": "319.60296630859375"
+          },
+          "activeLayer": 0,
+          "onLayerCount": 1,
+          "onNodeCount": 1,
+          "pctText": "Pulse at Build",
+          "pinned": false
+        },
+        {
+          "i": 3,
+          "y": 1697.46875,
+          "dashoffset": 739.589,
+          "pulse": {
+            "cx": "380.6841125488281",
+            "cy": "492.5156555175781"
           },
           "activeLayer": 1,
           "onLayerCount": 1,
@@ -597,12 +611,26 @@
           "pinned": false
         },
         {
-          "i": 3,
-          "y": 1697.46875,
-          "dashoffset": 46.5373,
+          "i": 4,
+          "y": 1871.96875,
+          "dashoffset": 457.86,
           "pulse": {
-            "cx": "169.87966918945312",
-            "cy": "132.728271484375"
+            "cx": "125.40556335449219",
+            "cy": "463.1681823730469"
+          },
+          "activeLayer": 1,
+          "onLayerCount": 1,
+          "onNodeCount": 2,
+          "pctText": "Pulse at Demand",
+          "pinned": false
+        },
+        {
+          "i": 5,
+          "y": 2046.46875,
+          "dashoffset": 299.088,
+          "pulse": {
+            "cx": "68.24002838134766",
+            "cy": "338.42889404296875"
           },
           "activeLayer": 2,
           "onLayerCount": 1,
@@ -611,45 +639,17 @@
           "pinned": false
         },
         {
-          "i": 4,
-          "y": 1871.96875,
-          "dashoffset": 0,
-          "pulse": {
-            "cx": "298.5823974609375",
-            "cy": "70.00801086425781"
-          },
-          "activeLayer": 2,
-          "onLayerCount": 1,
-          "onNodeCount": 3,
-          "pctText": "Loop complete · Intelligence feeds Build",
-          "pinned": false
-        },
-        {
-          "i": 5,
-          "y": 2046.46875,
-          "dashoffset": 0,
-          "pulse": {
-            "cx": "298.5823974609375",
-            "cy": "70.00801086425781"
-          },
-          "activeLayer": 2,
-          "onLayerCount": 1,
-          "onNodeCount": 3,
-          "pctText": "Loop complete · Intelligence feeds Build",
-          "pinned": false
-        },
-        {
           "i": 6,
           "y": 2220.96875,
-          "dashoffset": 0,
+          "dashoffset": 40.795,
           "pulse": {
-            "cx": "298.5823974609375",
-            "cy": "70.00801086425781"
+            "cx": "173.7036590576172",
+            "cy": "129.0340576171875"
           },
           "activeLayer": 2,
           "onLayerCount": 1,
           "onNodeCount": 3,
-          "pctText": "Loop complete · Intelligence feeds Build",
+          "pctText": "Pulse at Intelligence",
           "pinned": false
         },
         {
