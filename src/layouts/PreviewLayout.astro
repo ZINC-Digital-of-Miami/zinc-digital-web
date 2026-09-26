@@ -4,6 +4,7 @@ import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/base.css';
 import CircuitThread from '../components/CircuitThread.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import {toSitePath,assets} from '../data/mockup';
 
 interface Props {
@@ -30,15 +31,17 @@ const link=(path:string)=>toSitePath(path);
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="frame">
       <CircuitThread />
-      <header data-theme="light" class="site-header">
+      <header class="site-header">
         <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
         <span class="draft-tag nav-draft">PUBLIC DESIGN DRAFT</span>
-        <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
-        <nav id="site-nav" aria-label="Main navigation"><a href={link('/services/')}>Services</a><a href={link('/work/')}>Work</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a><a class="nav-inquiry" href={link('/contact/')}>Start an Inquiry ↗</a></nav>
+        <nav id="site-nav" aria-label="Main navigation"><a href={link('/work/')}>Work</a><a href={link('/services/')}>Services</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a></nav>
+        <button class="btn menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
+        <a class="btn" href={link('/contact/')}>Start an inquiry</a>
       </header>
       <main id="main">
         <slot />
       </main>
+      <SiteFooter />
     </div>
   </body>
 </html>

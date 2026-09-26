@@ -101,7 +101,79 @@ for (const relativePath of scannedFiles) {
 console.log('U+00A7 byte scan: ' + scannedCount + ' file(s) scanned (changed vs origin/main + untracked)');
 
 // ---------------------------------------------------------------------------
-// SECTION: Task 2 appends its assertion group here (design system, links).
+// SECTION: Task 2 — all-white design system, masthead, footer, team band,
+// links (no dark band, no bare '#', link integrity, no underline, banned
+// abbreviation for generative search).
+// ---------------------------------------------------------------------------
+const FOOTER_SMS_HREF = 'href="sms:+17865754837"';
+const CONTACT_HREF = 'href="/contact/"';
+
+function extractHrefs(html) {
+  return Array.from(html.matchAll(/href=["']([^"']+)["']/g), (match) => match[1]);
+}
+
+async function internalHrefResolves(href) {
+  const clean = href.split('#')[0].split('?')[0];
+  if (!clean.startsWith('/')) return true; // external, mailto:, sms:, tel:, in-page anchor
+  if (clean === '/') return pathExists(path.join(distDir, 'index.html'));
+  const rel = clean.replace(/^\/+/, '');
+  const asFile = path.join(distDir, rel);
+  const asIndex = path.join(distDir, rel, 'index.html');
+  return (await pathExists(asFile)) || (await pathExists(asIndex));
+}
+
+for (const { relativePath, html } of pages) {
+  check(!html.includes('data-theme="dark"'), relativePath + ' still contains data-theme="dark" — no band may be ink-filled');
+  check(!html.includes('href="#"'), relativePath + ' contains a bare href="#"');
+  check(html.includes(FOOTER_SMS_HREF), relativePath + ' is missing the footer sms link');
+  check(html.includes(CONTACT_HREF), relativePath + ' is missing a /contact/ link');
+
+  for (const href of extractHrefs(html)) {
+    // eslint-disable-next-line no-await-in-loop
+    const resolved = await internalHrefResolves(href);
+    check(resolved, relativePath + ' links to "' + href + '" which does not resolve in dist/');
+  }
+}
+
+// Built CSS must never carry an underline affordance (property or value).
+async function listFilesWithExt(dir, ext) {
+  const entries = await readdir(dir, { recursive: true }).catch(() => []);
+  return entries.filter((entry) => entry.endsWith(ext)).map((entry) => path.join(dir, entry));
+}
+const astroAssetsDir = path.join(distDir, '_astro');
+if (await pathExists(astroAssetsDir)) {
+  for (const file of await listFilesWithExt(astroAssetsDir, '.css')) {
+    const css = await readFile(file, 'utf8');
+    check(!css.toLowerCase().includes('underline'), path.relative(root, file) + ' contains "underline"');
+  }
+}
+
+// The uppercase three-letter abbreviation for generative search is banned
+// everywhere. Built from character codes so this file's own source never
+// spells it out.
+const BANNED_ABBREVIATION = String.fromCharCode(71, 69, 79);
+const bannedPattern = new RegExp('\\b' + BANNED_ABBREVIATION + '\\b');
+for (const { relativePath, html } of pages) {
+  check(!bannedPattern.test(html), relativePath + ' contains the banned abbreviation for generative search');
+}
+const SRC_TEXT_EXTENSIONS = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
+const srcDir = path.join(root, 'src');
+if (await pathExists(srcDir)) {
+  const srcEntries = await readdir(srcDir, { recursive: true }).catch(() => []);
+  for (const entry of srcEntries) {
+    if (!SRC_TEXT_EXTENSIONS.has(path.extname(entry))) continue;
+    const file = path.join(srcDir, entry);
+    let text;
+    try {
+      text = await readFile(file, 'utf8');
+    } catch {
+      continue;
+    }
+    check(!bannedPattern.test(text), 'src/' + entry + ' contains the banned abbreviation for generative search');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // SECTION: Task 3 appends its assertion group here (homepage, JS budget).
 // ---------------------------------------------------------------------------
 
