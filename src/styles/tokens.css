@@ -8,7 +8,7 @@
   --color-snow: #F5F6F7;
   --color-gray-on-dark: #A6A7AB; /* 8.24:1 on --color-near-black */
   --color-gray-on-light: #5C5D61; /* 6.08:1 on --color-snow */
-  --color-magenta: #FC0781; /* dark bands only */
+  --color-magenta: #FC0781; /* circuit thread dot only */
   --color-teal: #07B2B2; /* light bands: display and graphics only */
   --color-teal-text: #057E7E; /* light bands: small text only */
 
@@ -24,11 +24,22 @@
   --space-5xl: 8rem;
   --touch-min: 44px;
 
+  /* Sketch-parity layout tokens (.planning/sketches/themes/default.css); the
+     gutter minimum is 1.5rem here (the sketch used 1rem) so the circuit
+     thread's dot-plus-halo lane fits inside it at every width. */
+  --gutter: clamp(1.5rem, 4cqi, 4rem);
+  --rule: var(--color-near-black);
+
   /* Type (UI-SPEC Typography, exact formulas) */
   --text-display: clamp(3.5rem, 10vw + 1rem, 12.5rem);
   --text-heading: clamp(1.75rem, 2vw + 1.25rem, 2.75rem);
   --text-body: clamp(1rem, 0.3vw + 0.94rem, 1.125rem);
   --text-label: 0.875rem;
+
+  /* Sketch display scale (default.css); used by home.css bands (Task 3) and
+     any display-face heading that needs the sketch's larger clamp range. */
+  --t-mega: clamp(3.5rem, 13cqi + 0.5rem, 15rem);
+  --t-display: clamp(3rem, 10cqi + 1rem, 12.5rem);
 
   --leading-display: 1.05;
   --leading-heading: 1.15;
@@ -37,4 +48,5 @@
 
   --tracking-display: -0.01em;
   --tracking-label: 0.04em;
+  --weight-heavy: 800;
 }

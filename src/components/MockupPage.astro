@@ -1,15 +1,15 @@
 ---
 import MockupBands from './MockupBands.astro';
-import {services,layers,cases,posts,assets,clients,toSitePath,dateLabel,type Route,type Pairing} from '../data/mockup';
-interface Props {route:Route;pairing:Pairing;basePath?:string}
-const {route,pairing,basePath=''}=Astro.props;
-const link=(path:string,query?:Record<string,string>)=>toSitePath(path,basePath,query);
+import {services,layers,cases,posts,assets,clients,toSitePath,dateLabel,type Route} from '../data/mockup';
+interface Props {route:Route}
+const {route}=Astro.props;
+const link=(path:string,query?:Record<string,string>)=>toSitePath(path,query);
 const service=services.find(s=>s.slug===route.slug);
 const study=cases.find(c=>c.slug===route.slug);
 const post=posts.find(p=>p.slug===route.slug);
 const photo=(key:string)=>assets[key as keyof typeof assets];
 ---
-{route.template==='home' ? <MockupBands pairing={pairing} basePath={basePath}/> : <>
+{route.template==='home' ? <MockupBands /> : <>
 <section class="band page-intro" data-theme="light" data-template={route.template}>
   <div class="band__inner">
     <p class="t-label eyebrow">ZINC / {route.layer || route.template} <span class="draft-tag">[DRAFT]</span></p>
@@ -48,7 +48,7 @@ const photo=(key:string)=>assets[key as keyof typeof assets];
 </>}
 {route.template==='about' && <>
   <section class="band" data-theme="dark"><div class="band__inner split"><h2 class="section-title">The business sets the work.</h2><div><p class="lede">[DRAFT] ZINC brings build, demand and intelligence into one working relationship.</p><p class="muted">The team’s roles span business strategy, content, ecommerce, applications and code. Responsibilities are made explicit for each engagement.</p></div></div></section>
-  <MockupBands pairing={pairing} part="team" basePath={basePath}/>
+  <MockupBands part="team" />
   <section class="band" data-theme="dark"><div class="band__inner split"><div><p class="t-label eyebrow">How an engagement runs / [DRAFT]</p><h2 class="section-title">A clear working sequence.</h2></div><ol class="commitments">{[['Understand','Agree on the business problem, the sources and the people responsible.'],['Define','Set the scope, decision points and measures that will guide the work.'],['Build and review','Bring complete working increments to a shared review.'],['Measure and adjust','Check outcomes and choose the next priorities from evidence.']].map(([name,body])=><li><div><h3 class="t-heading">{name}</h3><p>{body}</p><span class="draft-tag">[OWNER CONFIRM]</span></div></li>)}</ol></div></section>
 </>}
 {route.template==='blog' && <section class="band" data-theme="dark"><div class="band__inner"><div class="filter-bar" data-blog-filters><p class="t-label">Filter by layer</p>{['All',...layers].map((layer,i)=><button type="button" data-filter={layer} aria-pressed={i===0}>{layer}</button>)}</div><p class="t-label result-count" data-result-count aria-live="polite">18 articles</p><p class="draft-notice">Draft migration preview — editorial review pending. Layer assignments are draft editorial groupings.</p><div class="article-grid" data-blog-list>{posts.map(p=><article class="article-card" data-layer={p.layer}><p class="t-label muted">{dateLabel(p.dateGmt)} / {p.layer}</p><h2 class="t-heading"><a href={link('/blog/'+p.slug+'/')}>{p.title}</a></h2><p class="muted">{p.blocks.find(b=>b.type==='p')?.runs?.map(r=>r.text).join('').slice(0,180)}…</p><a class="arrow-link" href={link('/blog/'+p.slug+'/')}>Read the full article ↗</a></article>)}</div><div class="empty-state" data-empty hidden><h2 class="t-heading">No articles in this layer yet.</h2><p>Return to the full archive to continue reading.</p><button class="button" type="button" data-clear-filter>Clear filter</button></div></div></section>}
@@ -88,7 +88,7 @@ const photo=(key:string)=>assets[key as keyof typeof assets];
 </div></section>}
 
 {route.template==='thanks' && <section class="band" data-theme="dark"><div class="band__inner"><p class="t-label eyebrow">Preview complete</p><h2 class="section-title">Demo only — nothing was sent</h2><p class="lede muted">No inquiry was submitted and no form details were saved. You can return to the form or keep exploring the work.</p><div class="hero-actions"><a class="button" href={link('/contact/')}>Return to inquiry</a><a class="arrow-link" href={link('/work/')}>Explore the work ↗</a></div></div></section>}
-<MockupBands pairing={pairing} part="footer" basePath={basePath}/>
+<MockupBands part="footer" />
 </>}
 
 <script>

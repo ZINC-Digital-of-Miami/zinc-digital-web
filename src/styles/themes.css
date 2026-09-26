@@ -1,21 +1,11 @@
 /*
- * themes.css — [data-theme] semantic token mapping (CONTEXT "Theming (locked)").
- * Exactly two rule blocks. No media query of any kind — the OS color scheme
- * never sets a ground. Magenta appears only in the dark block; teal only in
- * the light block, so "magenta only on black, teal only on white" holds by
- * construction.
+ * themes.css — the one light mapping (owner, 2026-09-26 CT: "land option 3,
+ * all white ... keep the white, that dark was C"). No dark band anywhere;
+ * teal is the only accent. Applied to html directly so the canvas is snow
+ * before any component renders, and to [data-theme="light"] for any element
+ * that still carries the attribute explicitly.
  */
-[data-theme="dark"] {
-  --bg: var(--color-near-black);
-  --fg: var(--color-snow);
-  --muted: var(--color-gray-on-dark);
-  --accent: var(--color-magenta);
-  --accent-text: var(--color-magenta);
-  background-color: var(--bg);
-  color: var(--fg);
-  color-scheme: dark;
-}
-
+html,
 [data-theme="light"] {
   --bg: var(--color-snow);
   --fg: var(--color-near-black);
@@ -25,4 +15,9 @@
   background-color: var(--bg);
   color: var(--fg);
   color-scheme: light;
+}
+
+body {
+  background-color: var(--color-snow);
+  color: var(--color-near-black);
 }
