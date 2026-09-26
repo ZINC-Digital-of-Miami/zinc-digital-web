@@ -299,16 +299,26 @@ html.anim .home-loop-svg {
 .home-layer {
   border-top: 1px solid color-mix(in srgb, currentColor 30%, transparent);
   padding: var(--space-md) 0;
-  opacity: 1;
 }
 
+/* Inactive layers stay visibly subordinate via a muted ink color (--muted,
+ * 6.08:1 on --bg) and a fainter border — never opacity on text, which used
+ * to composite to about 2.3:1 (Codex CLI review, confirmed against
+ * home.css:307 pre-fix). The active layer's title returns to full contrast
+ * via --accent-text (see .home-layer.on .home-layer-title, next commit). */
 html.anim .home-layer {
-  opacity: 0.35;
-  transition: opacity 0.35s;
+  transition: border-top-color 0.35s;
 }
 
-html.anim .home-layer.on {
-  opacity: 1;
+html.anim .home-layer:not(.on) {
+  border-top-color: color-mix(in srgb, var(--muted) 45%, transparent);
+}
+
+html.anim .home-layer:not(.on) > .t-label,
+html.anim .home-layer:not(.on) .home-layer-title,
+html.anim .home-layer:not(.on) .home-layer-note {
+  color: var(--muted);
+  transition: color 0.35s;
 }
 
 .home-layer-title {
