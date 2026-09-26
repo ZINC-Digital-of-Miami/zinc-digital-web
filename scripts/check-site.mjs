@@ -164,6 +164,15 @@ for (const { relativePath, html } of pages) {
   check(!bannedPattern.test(html), relativePath + ' contains the banned abbreviation for generative search');
 }
 const SRC_TEXT_EXTENSIONS = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
+// posts.preview.json carries three named provenance fields (sourceTitle,
+// sourceSlug, sourceUrl) that intentionally preserve the original WordPress
+// title/slug/url — including the banned abbreviation when the source post
+// used it. Provenance is never rendered to any page (grep-verified separately);
+// only the lines carrying those three keys are exempt from this scan, so the
+// abbreviation still fails the gate anywhere else in src/ (authored copy) or
+// in any other field of this same file.
+const PROVENANCE_FIELD_LINE = /^\s*"(sourceTitle|sourceSlug|sourceUrl)"\s*:/;
+const PROVENANCE_EXEMPT_FILE = path.join('src', 'data', 'posts.preview.json');
 const srcDir = path.join(root, 'src');
 if (await pathExists(srcDir)) {
   const srcEntries = await readdir(srcDir, { recursive: true }).catch(() => []);
@@ -176,7 +185,16 @@ if (await pathExists(srcDir)) {
     } catch {
       continue;
     }
-    check(!bannedPattern.test(text), 'src/' + entry + ' contains the banned abbreviation for generative search');
+    const relative = path.join('src', entry);
+    if (relative === PROVENANCE_EXEMPT_FILE) {
+      const scannable = text
+        .split('\n')
+        .filter((line) => !PROVENANCE_FIELD_LINE.test(line))
+        .join('\n');
+      check(!bannedPattern.test(scannable), 'src/' + entry + ' contains the banned abbreviation for generative search outside its provenance fields');
+    } else {
+      check(!bannedPattern.test(text), 'src/' + entry + ' contains the banned abbreviation for generative search');
+    }
   }
 }
 
