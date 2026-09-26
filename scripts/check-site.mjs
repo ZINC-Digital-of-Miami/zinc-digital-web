@@ -126,8 +126,8 @@ function collapseWhitespace(text) {
 
 function extractScannableText(html) {
   const stripped = html
-    .replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ')
-    .replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' ')
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ');
   const parts = [];
   for (const match of stripped.matchAll(/<title[^>]*>([\s\S]*?)<\/title>/gi)) parts.push(match[1]);
