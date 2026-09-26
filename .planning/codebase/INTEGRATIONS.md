@@ -2,6 +2,8 @@
 
 **Analysis Date:** 2026-09-25
 
+> **Source baseline:** This application inventory predates PRs #4/#5 and contains historical route/component paths. For current implementation, use the original source and `.planning/phases/01-design-system-font-pick/01-RECONCILIATION.md`; this report's CI/review-policy note below was rechecked on 2026-09-26.
+
 ## APIs & External Services
 
 **Fonts:**

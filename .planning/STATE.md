@@ -2,16 +2,16 @@
 gsd_state_version: "1.0"
 current_phase: 01
 current_phase_name: Design System & Full-Site Acceptance
-status: planning
-stopped_at: Reconciled deployed quick tasks; replace obsolete 01-03 through 01-05 before execution.
-last_updated: "2026-09-26T15:03:00-05:00"
+status: executed
+stopped_at: Both active plans are summarized; Phase 1 verification report is missing.
+last_updated: "2026-09-26T18:48:51-05:00"
 last_activity: 2026-09-26
-last_activity_desc: Reconciled GSD with main 1a2ea8b and matching Vercel deployment; acceptance remains open.
+last_activity_desc: Reconciled GSD against main 1a2ea8b and live DNS; acceptance remains open and no launch date is approved.
 state_head: 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 5
+  total_plans: 2
   completed_plans: 2
   percent: 0
 ---
@@ -23,16 +23,16 @@ progress:
 See .planning/PROJECT.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md.
 
 **Core value:** The right prospect leaves certain ZINC is the serious option, and sends a qualified inquiry or a text about a specific service, on a site that loads instantly and ranks.
-**Current focus:** Phase 01 acceptance replanning against the already deployed selected design.
+**Current focus:** Resume Phase 01 verification against the already deployed selected design.
 
 ## Current Position
 
 Phase: 01 (Design System & Full-Site Acceptance)
-Plan: Replan remaining acceptance; do not resume old comparison plans.
-Status: Ready for planning
+Plan: Both active plans have summaries; no incomplete plan is active.
+Status: Executed; verification pending
 Last activity: 2026-09-26 — Reconciled PRs #4/#5 on main and the matching Vercel deployment.
 
-Progress: 0/7 phases formally accepted; 2/5 historical plans have summaries. This is acceptance bookkeeping, not 0% implemented. Full-site mockup and later homepage/motion work are already on main.
+Progress: 0/7 phases formally accepted; both live plans have summaries, while 01-03/04/05 are superseded history. GSD's 100% active-plan summary ratio is not phase acceptance. This is acceptance bookkeeping, not 0% implemented. Full-site mockup and later homepage/motion work are already on main.
 
 ## Accumulated Context
 
@@ -46,17 +46,17 @@ Progress: 0/7 phases formally accepted; 2/5 historical plans have summaries. Thi
 
 ### Pending Todos
 
-- Run `$gsd-plan-phase 01` to replace paused 01-03/04/05 with current selected-design acceptance work; retain 01-01/02 history.
+- Run `$gsd-execute-phase 01`; GSD progress reports all active plans summarized and verification missing, so this resumes at the verification gates without rerunning 01-01/02. If verification finds gaps, plan only the needed gap-closure work. Keep 01-03/04/05 superseded as history.
 - Complete current-baseline UAT and quality evidence before closing Phase 1.
 - Plan remaining production integrations/content/SEO from the phase inventory; preserve already implemented design.
 
 ### Blockers/Concerns
 
 - No current Phase 1 verification report or completed owner UAT. Real-device, font/CLS and full launch gates remain open.
-- Live inquiry needs POST/email, anti-abuse, no-JS behavior, freshly measured SPF and owner-entered secrets. No secrets or DNS changes authorized by reconciliation.
+- Live inquiry needs POST/email, anti-abuse, no-JS behavior, mail-delivery validation and owner-entered secrets. All four authoritative Route 53 nameservers returned one SPF record including Google Workspace on 2026-09-26; remeasure before live activation. No secrets or DNS changes were authorized by reconciliation.
 - Copy, receipts, commitments, testimonials, legal text and editorial blog approval remain open; image references are no longer a missing-input blocker.
 - Production SEO, analytics and the old-URL redirect map still need implementation/acceptance evidence.
-- Calendar in ROADMAP is a target schedule, not recorded owner signoff. Cutover requires the owner's explicit go at that moment.
+- No launch date is approved; ROADMAP records an undated gate sequence. Cutover requires the owner's explicit go at that moment.
 
 ### Quick Tasks Completed
 
@@ -69,6 +69,6 @@ Progress: 0/7 phases formally accepted; 2/5 historical plans have summaries. Thi
 ## Session Continuity
 
 Last session: 2026-09-26 CT
-Stopped at: Reconciliation complete; obsolete plans paused, acceptance not claimed.
+Stopped at: Reconciliation complete; GSD verification is next, and phase acceptance is not claimed.
 Resume file: .planning/phases/01-design-system-font-pick/.continue-here.md
-Next command: `$gsd-plan-phase 01` using 01-RECONCILIATION.md; no automatic execution of old plans.
+Next command: `$gsd-execute-phase 01` using 01-RECONCILIATION.md; resume at verification gates and do not execute superseded plans.

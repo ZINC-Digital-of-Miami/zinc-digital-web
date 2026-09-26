@@ -276,7 +276,7 @@ This is a marketing site with a fixed, small content surface (11 services, 2 cas
 ### Anti-Pattern 1: Letting `Loop.astro` fetch its own highlight data
 
 **What people do:** have the Loop component call `getCollection('services')` internally to figure out what to highlight, "since it needs the data anyway."
-**Why it's wrong:** breaks the component's reuse across full/mini contexts (case pages want to highlight *only the services that client uses*, not derive it from the full catalog) and makes it untestable/unrenderable against fixture data before content is final — directly conflicts with the fixture-first build order this project needs to hit 5–7 days.
+**Why it's wrong:** breaks the component's reuse across full/mini contexts (case pages want to highlight *only the services that client uses*, not derive it from the full catalog) and makes it untestable/unrenderable against fixture data before content is final. The original 5–7-day target referenced here is superseded; no launch date is approved.
 **Do this instead:** `Loop` takes `highlight?: string[]` (service slugs) as a prop; the calling page/band computes that list from `lib/loop-layers.ts` + whatever entry it already fetched.
 
 ### Anti-Pattern 2: `output: 'server'` "to be safe" for a mostly-static site

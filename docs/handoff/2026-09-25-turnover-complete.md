@@ -1,7 +1,9 @@
 # zinc-digital-web — Complete Turnover
 
 **Written:** 2026-09-25, 3:20 PM CT · **Owner:** Kirk Musick, MS, MBA — ZINC Digital
-**Purpose:** everything a new operator needs, in one document. Part A is the decision register and the build plan. Part B is the approved spec, requirements and roadmap, verbatim. Part C is the exact brief for the next build. Part D is live state, owner actions, and how to resume. No secrets.
+**Purpose:** historical September 25 turnover snapshot. Part A is the decision register and build plan as of that date. Part B preserves the approved spec, requirements and roadmap as recorded at turnover. Part C is the next-build brief as of that date. Part D records the then-current state, owner actions and resume path. Current corrections are called out above; no secrets.
+
+> **Current correction — 2026-09-26:** This is a historical turnover snapshot. GitHub PR reviews use Codex; trigger a review when a PR is ready or with `@codex review`. Copilot is not a review gate. Quota notes below record the condition reported on 2026-09-25 only. No launch date is approved, and the old 5–7-day target and dated gate sequence are superseded. The old SPF repair note is also superseded: all four authoritative Route 53 nameservers currently return one SPF record including Google Workspace and Kinsta; remeasure and validate delivery before live inquiry. GSD code-review, verifier, and UI-review remain separate internal checks.
 
 ---
 
@@ -343,7 +345,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 - **Target:** live in 5–7 days. The owner's copy review turnaround is the critical path.
 - **Indicative sequence:** (1) design system + font pick · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
-- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Copilot review per PR, GSD code review / verifier / UI review at the configured points.
+- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Codex review on every GitHub PR, triggered when opened or marked ready, or with `@codex review`; resolve its findings before landing. Copilot is not a review gate. GSD code review / verifier / UI review remain at configured points.
 - **Repo rules:** `main` is the product; work branches merge to `main` and are deleted. All times shown to the owner are America/Chicago (CT).
 
 ## 17. Out of scope
@@ -596,7 +598,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | GitHub | `ZINC-Digital-of-Miami/zinc-digital-web` (public). `main` = `f5c7a90`. Phase branch `gsd/phase-01-design-system-font-pick` = `e7fb6a5` (pushed). PR #1 merged. **PR #2 open** (owner-opened 2:43 PM CT, head `a8022b2`, mergeable) — see §5. |
 | Local | Main checkout `/Volumes/Satechi Hub/zinc-digital-web` on `main` @ `1256025` (behind origin by the workflow commit). Phase worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`. Two untracked GSD runtime files (`.planning/milestone.lock`, `.planning/state.json`) — leave them. |
 | Email/SPF | `zincdigital.co` publishes **two** SPF records (permerror); neither authorizes Google Workspace. Owner action, in MyKinsta DNS: replace both with `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all` (Zoho is no longer used). DMARC is `p=none`. |
-| Copilot | PR review quota is exhausted on this account (PR #1). Paid Copilot is off the table (no new charges). |
+| Historical review note (2026-09-25) | Copilot PR review quota was reported exhausted on this account (PR #1); paid Copilot was off the table. Superseded as workflow guidance by the 2026-09-26 Codex GitHub review correction above. |
 
 Re-measure:
 ```bash
@@ -631,7 +633,7 @@ Known defects the owner already called out, still open: supporting-line copy rej
 1. **PR #2** (`gsd/phase-01-design-system-font-pick` → `main`, opened by the owner). It contains 01-01 plus all Phase 1 planning docs. If merged now, `main` gets a one-page site plus stale plans; fine as a checkpoint, but the branch also needs the owner's `f5c7a90` merged in first (see next item). Recommended: merge after the workflow question is settled.
 2. **`.github/workflows/astro.yml` on `main`** (owner commit `f5c7a90`, 2:40 PM CT): the stock "Deploy Astro to GitHub Pages" workflow (Node 20, `actions/deploy-pages`). It conflicts with the plan (Vercel hosting, Node 24, the Vercel adapter) and will fail or double-deploy on every push to `main`; it also spends Actions minutes. No runs have fired yet (`gh run list` empty). Decide: delete it, or replace it with a check-only workflow (build + Lighthouse), never a deploy.
 3. **SPF repair** in MyKinsta DNS (§2). The contact form must not go live before this.
-4. **Copilot review** unavailable this period; the repo's AGENTS.md expects it per PR. Use GSD's code-review agent instead until quota resets.
+4. **Historical review note (2026-09-25):** Copilot review was reported unavailable at turnover. Current GitHub PR review is Codex; GSD's code-review, verifier, and UI-review remain internal checks rather than substitutes for the GitHub review.
 5. **Font pick** and **complete-homepage review** are owner gates (Day 1 was planned as Sat 2026-09-26 CT).
 
 ## 6. How to resume (exact path)

@@ -63,7 +63,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 ## Constraints
 
-- **Timeline**: live in 5–7 days from 2026-09-25; owner copy review is the critical path.
+- **Timeline**: no launch date is approved. The owner said on 2026-09-26 that go-live is not near because substantial design work remains. The original 5–7-day framing is superseded; follow the undated gate sequence in ROADMAP.md.
 - **Performance**: spec section 10 gates are launch-blocking on every template.
 - **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only.
 - **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel.
@@ -76,12 +76,12 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Clean slate; V2 prototype and live site are fact sources only | Owner wants fresh eyes | — Pending |
-| Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | — Pending |
-| One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | — Pending |
-| Loop signature + editorial type; initial alternating-band direction superseded by all-white option 3 with side thread | Owner direction: big, moving, unexpected, mostly B&W, loud color | — Pending |
-| Research conflicts resolved per spec section 18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | — Pending |
-| Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | — Pending |
+| Clean slate; V2 prototype and live site are fact sources only | Owner wants fresh eyes | Confirmed boundary |
+| Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | Selected; implementation is on `main` |
+| One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | Selected; acceptance remains open |
+| Loop signature + editorial type; initial alternating-band direction superseded by all-white option 3 with side thread and Pairing A | Owner direction: big, moving, unexpected, mostly B&W, loud color | Selected and implemented in PR #4; formal phase acceptance remains open |
+| Research conflicts resolved per spec section 18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | Decisions recorded; implementation and acceptance remain open |
+| Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | Approved; present in the homepage implementation |
 | Full SEO override, 18 posts at launch, rest after | Old config untouched for years; speed to launch | — Pending |
 
 ## Evolution
@@ -102,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-09-26 after Phase 1 reconciliation*
+*Last updated: 2026-09-26 after GSD and GitHub review-policy reconciliation*

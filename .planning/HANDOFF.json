@@ -1,14 +1,14 @@
 {
   "version": "1.0",
-  "timestamp": "2026-09-26T16:40:00-05:00",
-  "timestamp_ct": "9/26/26, 4:40 PM CT",
+  "timestamp": "2026-09-26T18:48:51-05:00",
+  "timestamp_ct": "9/26/26, 6:48 PM CT",
   "phase": "1",
   "phase_name": "Design System & Full-Site Acceptance",
   "phase_dir": ".planning/phases/01-design-system-font-pick",
   "plan": null,
   "task": null,
   "total_tasks": 0,
-  "status": "planning",
+  "status": "executed",
   "completed_tasks": [
     {
       "id": 1,
@@ -57,9 +57,9 @@
       "blocks": "Nothing."
     },
     {
-      "description": "zincdigital.co has two SPF records (permerror), neither authorizing Google Workspace",
+      "description": "Live inquiry delivery remains unimplemented and unverified; all four authoritative Route 53 nameservers returned one SPF record including Google Workspace on 2026-09-26.",
       "type": "human_action",
-      "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all",
+      "workaround": "Complete the live POST/email, anti-abuse and no-JS path; remeasure authoritative SPF and validate mail delivery before enabling submissions. The current DNS measurement does not call for a DNS change; production secrets remain owner-entered.",
       "blocks": "Real inquiry integration; not non-sending mockup"
     },
     {
@@ -78,9 +78,10 @@
       "status": "superseded"
     },
     {
-      "action": "Fix SPF in MyKinsta DNS",
-      "context": "Contact form (Phase 4) must not go live before this",
-      "blocking": false
+      "action": "Remeasure authoritative SPF and validate mail delivery before enabling live inquiry.",
+      "context": "All four Route 53 authoritative nameservers returned exactly one SPF record including _spf.google.com on 2026-09-26. No DNS mutation is indicated by this measurement.",
+      "blocking": false,
+      "status": "pending"
     },
     {
       "action": "Merge PR #2 when main should carry current state",
@@ -119,7 +120,7 @@
   ],
   "uncommitted_files": [],
   "uncommitted_note": "Historical note from September 25; inspect current git status and .planning/STATE.md.",
-  "next_action": "Replan Phase 1 acceptance against the selected design using 01-RECONCILIATION.md; Codex reviews GitHub PRs. Do not run the old A/B/C plan sequence.",
+  "next_action": "Run $gsd-execute-phase 01; GSD reports both active plans summarized and verification missing, so it resumes at verification gates without rerunning 01-01/02 or executing superseded 01-03/04/05. Codex reviews GitHub PRs.",
   "context_notes": "Current source: main at 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368; PRs #4/#5 landed the selected all-white design and follow-up motion work. Codex GitHub review is configured and observed on PR #6. Read AGENTS.md, .planning/STATE.md and the Phase 1 reconciliation before planning. Old branch and review-quota details elsewhere in this handoff are historical.",
   "turnover_document": "docs/handoff/2026-09-25-turnover-complete.md",
   "scope_correction": "2026-09-25 CT direct owner: full mockup of ENTIRE SITE. Current 01-CONTEXT.md supersedes homepage-only wording in the complete historical turnover. Preserve completed 01-01.",
@@ -152,10 +153,10 @@
   },
   "current_checkpoint": {
     "updated_ct": "2026-09-26",
-    "status": "planning",
-    "phase": "01 \u2014 Design System & Full-Site Acceptance",
+    "status": "executed",
+    "phase": "01 — Design System & Full-Site Acceptance",
     "main_sha": "1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368",
-    "current_plan": "No active plan. Replan Phase 1 acceptance; do not execute historical 01-03/04/05.",
+    "current_plan": "No incomplete active plan. GSD verification is missing; run $gsd-execute-phase 01 to resume at the verification gates. Do not execute superseded 01-03/04/05.",
     "source": ".planning/STATE.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md",
     "active_plan": null,
     "active_task": null

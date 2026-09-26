@@ -5,6 +5,8 @@
 **Researched:** 2026-09-25 (CT)  
 **Confidence:** HIGH (stack verified via npm registry + Context7; architecture via Astro docs; pitfalls via platform docs + web-search best practices)
 
+> **Current disposition — 2026-09-26 CT:** This is the 2026-09-25 research snapshot, not current owner direction or a launch schedule. Pairing A and the all-white design are selected; no launch date is approved. The SPF DNS condition is currently measured and checked as LNCH-02; remeasure and validate mail before enabling inquiry, with no DNS mutation indicated by that measurement. Use `.planning/STATE.md`, `.planning/ROADMAP.md` and the Phase 1 reconciliation for current project status.
+
 ---
 
 ## Executive Summary
@@ -219,5 +221,4 @@ The owner directed "resolve all conflicts" and "use our dark teal on white." Eve
 - Rate limiting → Turnstile + honeypot; Vercel WAF rule only at $0 included usage. No Upstash/KV.
 - Accent → magenta on black; dark teal `#07B2B2` (display) / `#057E7E` (small text) on white.
 - No cookie banner; case studies lead with a result strip; form uses progressive steps with a single POST.
-- SPF/DMARC repair is an owner action in Route 53 (exact record in spec §18); the form must not go live before it.
-
+- SPF/DMARC was an owner action at this research checkpoint. LNCH-02 is now checked from all four authoritative nameservers; remeasure before activation and validate mail delivery. Do not infer a DNS change is needed from the historical research note.

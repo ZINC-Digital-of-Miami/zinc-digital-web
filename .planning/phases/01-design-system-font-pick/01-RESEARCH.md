@@ -4,6 +4,8 @@
 **Domain:** Astro 7 project scaffolding, native Fonts API, Vercel preview deployment protection, Lighthouse/contrast validation
 **Confidence:** HIGH
 
+> **Current disposition — 2026-09-26 CT:** This research is a technical snapshot from before the full-site implementation and owner selection. Keep its verified Astro Fonts API and build findings as technical background, but its three-pairing comparison, homepage-plus-service scope, and Day 1 font-pick recommendations are superseded. Phase 1 now verifies the already deployed Pairing A/all-white full-site design. Read `01-RECONCILIATION.md` and `01-CONTEXT.md` before using this research for planning.
+
 ## Summary
 
 Phase 1 is a scaffold-and-mockup phase: create the Astro project, wire the Vercel adapter, build the plain-CSS token system with `data-theme` banding, and render the homepage hero + one service spec sheet three times (once per font pairing) on protected, noindexed preview routes so the owner can pick a pairing on Day 1. The stack (Astro 7.3.5, `@astrojs/vercel` 11.0.11, Node 24) is unchanged from project-level research and reconfirmed live against the npm registry in this session.

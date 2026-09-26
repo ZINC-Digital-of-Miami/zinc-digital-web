@@ -1,3 +1,5 @@
+> **Current disposition — 2026-09-26 CT:** This is the September 25 ingest snapshot, not a current GSD routing gate. The Pairing A/all-white direction was later selected and landed in PR #4; the reported locked-font blocker and `STATUS: BLOCKED` below are historical and resolved for routing. GSD 1.14.0 currently routes Phase 1 to `$gsd-execute-phase 01` because verification is missing; execute verification before planning any gap closure. No launch date is approved. All four authoritative DNS nameservers currently return one Google/Kinsta SPF record; remeasure and validate delivery before live inquiry. GitHub PR reviews use Codex; see `AGENTS.md` and the Phase 1 reconciliation. Keep the ingest details below as provenance, but use `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/REQUIREMENTS.md` and `.planning/phases/01-design-system-font-pick/01-RECONCILIATION.md` for current work.
+
 > **CORRECTION (2026-09-25 8:09 PM CT), owner, verbatim:** "I never said to remove B." The "Pairing A only, Pairings B and C are dropped" statement below was the orchestrator's misstatement, not an owner decision. It is withdrawn. Font selection stays open; Pairing B is kept. The owner asked for a mockup of A and B together. The BLOCKER built on that premise is void.
 
 # Ingest Synthesis — zinc-digital-web
@@ -37,9 +39,9 @@ Cross-ref graph: no cycles detected (spec has no cross-refs; both DOCs reference
 
 2 source documents, 15 topic entries total in `context.md`, plus one dedicated "Owner corrections postdating every ingested doc" topic (5 corrections, individually cross-checked against every other source) and one "existing GSD project state" cross-reference topic (read-only, not modified).
 
-## Conflicts
+## Conflicts at the 2026-09-25 ingest checkpoint (historical)
 
-**1 blocker, 1 warning, 5 auto-resolved (info).** Full detail in `../INGEST-CONFLICTS.md`.
+**At ingest time: 1 blocker, 1 warning, 5 auto-resolved (info).** These counts describe that checkpoint only. Full historical detail is in `../INGEST-CONFLICTS.md`.
 
 - BLOCKER: the font pairing pick. An out-of-band owner correction (Pairing A only, chosen ~5:30 PM CT) contradicts a *locked* decision in the existing `.planning/phases/01-design-system-font-pick/01-CONTEXT.md`, the existing `.planning/REQUIREMENTS.md` DSGN-01 wording, and the existing `.planning/STATE.md`'s in-flight execution of "01-03 complete-site font comparisons." This is not auto-resolved — GSD's own rule against picking a winner between two locked decisions applies. Needs explicit owner/operator confirmation before any further Phase 1 work proceeds, because work may currently be in flight on now-superseded pairings B/C.
 - WARNING: the owner has forbidden the section-sign character (U+00A7) project-wide; it is pervasive in the existing `.planning/PROJECT.md` and `.planning/REQUIREMENTS.md` as well as every ingested source. This synthesis avoids it throughout, but the existing files were not edited by this agent and still need a heading-name remap.
@@ -53,6 +55,6 @@ Cross-ref graph: no cycles detected (spec has no cross-refs; both DOCs reference
 - `context.md` — DOC-derived topics + owner corrections + existing-state cross-reference
 - `../INGEST-CONFLICTS.md` — full conflict report (1 blocker / 1 warning / 5 info)
 
-## Status for routing
+## Historical status for routing during ingest
 
-**STATUS: BLOCKED** — one BLOCKER exists (font-pairing LOCKED-vs-LOCKED contradiction). Per the doc-conflict-engine safety gate, do not write any destination file (`PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`) until the blocker is resolved with the owner, regardless of the WARNING/INFO counts.
+**STATUS AT INGEST: BLOCKED** — the reported font-pairing LOCKED-vs-LOCKED contradiction blocked routing at the time. Later owner direction and PR #4 superseded that blocker, as recorded in the current-source correction above. This historical status no longer gates planning or execution.

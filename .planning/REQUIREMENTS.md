@@ -2,11 +2,11 @@
 
 **Defined:** 2026-09-25 (CT)
 **Core Value:** The right prospect leaves certain ZINC is the serious option — and sends a qualified inquiry or a text about a specific service — on a site that loads instantly and ranks.
-**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (section  numbers below). Spec section 18 resolved decisions win over research.
+**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (section numbers below). Spec section 18 resolved decisions win over research.
 
 ## Reconciliation status — 2026-09-26 CT
 
-See [Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) for original-source pointers, implemented scope and outstanding evidence. All 57 requirements remain unchecked: partial implementation does not establish full acceptance. The existing Pending traceability status means acceptance pending, not no implementation. No requirement has been waived.
+See [Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) for original-source pointers, implemented scope and outstanding evidence. LNCH-02 is currently verified against all four authoritative nameservers; 56 of 57 requirements remain open. Partial implementation does not establish full phase acceptance. The existing Pending traceability status means acceptance pending, not no implementation. No requirement has been waived.
 
 The later selected all-white design, Pairing A fonts and shared side thread supersede older presentation constraints. Removed draft banners do not approve copy or receipts. Preserve unresolved content markers and all quality/integration gates. Evaluate remaining historical details (including hero CTA placement and section composition) against the selected design during replanning; do not silently restore older UI.
 
@@ -106,8 +106,8 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 
 ### Launch (LNCH)
 
-- [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 selected-site direction; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, team-photo approval; Day 6 final approval (section 18)
-- [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the section 18 record in MyKinsta DNS) (section 18)
+- [ ] **LNCH-01**: Owner reviews the selected-site direction, copy batches, receipts, "How we work", testimonials, team photos and final launch gates; the sequence has no dates because no launch date is approved (section 18)
+- [x] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace. All four authoritative Route 53 nameservers returned exactly one such record on 2026-09-26; remeasure before live submissions are enabled (section 18)
 - [ ] **LNCH-03**: DNS TTLs are lowered 24–48 h ahead; on the owner's explicit go, Route 53 web records point to Vercel with mail records untouched (section 15)
 - [ ] **LNCH-04**: After cutover on the live domain: every redirect passes, sitemap submitted in Search Console, GA4 receives hits, a test inquiry reaches Jaymie, Lighthouse gates re-run (section 15)
 
@@ -204,4 +204,4 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 
 ---
 *Requirements defined: 2026-09-25*
-*Last updated: 2026-09-25 (CT) after roadmap creation (traceability filled)*
+*Last updated: 2026-09-26 (CT) after GSD source reconciliation*

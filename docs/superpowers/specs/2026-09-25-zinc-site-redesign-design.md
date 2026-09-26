@@ -217,7 +217,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 ## 16. Delivery
 
-- **Target:** live in 5–7 days. The owner's copy review turnaround is the critical path.
+- **Target:** no launch date is approved. The original 5–7-day target is superseded by the owner's 2026-09-26 correction that go-live is not near because substantial design work remains. Follow the undated gate sequence in `.planning/ROADMAP.md`.
 - **Indicative sequence:** (1) design system + full-site acceptance in the selected design · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
 - **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Codex review on every GitHub PR, triggered when opened or marked ready, or with `@codex review`; resolve its findings before landing. Copilot is not a review gate. GSD code review / verifier / UI review remain at configured points.
 - **Repo rules:** `main` is the product; work branches merge to `main` and are deleted. All times shown to the owner are America/Chicago (CT).
@@ -248,6 +248,6 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | Preview copy | Remove draft banners while retaining receipt and owner-confirmation markers; this does not grant copy or result approval | Owner task recorded 2026-09-26 in quick task 260926-d0r |
 | GitHub reviews | Codex reviews every PR in GitHub; Copilot is not a review gate | Owner correction 2026-09-26; repository Codex review is configured and observed on PR #6 |
 | Font loading quality | Measure font requests and CLS for the selected Pairing A; retain the performance gate | Launch quality requirement; not waived by selecting the family |
-| Owner review | Dated gates: Day 1 selected site direction · Days 2–5 copy batches · Day 5 receipts, "How we work", testimonials, team-photo approval · Day 6 final approval | Owner review is the critical path |
+| Owner review | Undated gates: selected site direction · copy batches · receipts, "How we work", testimonials and team-photo approval · final approval | No launch date is approved; see `.planning/ROADMAP.md` |
 
-**Pre-launch dependency on the owner (production DNS, not applied by agents):** `zincdigital.co` publishes two SPF records (a permanent SPF error) and neither authorizes Google Workspace; DMARC is `p=none`. DNS is managed in MyKinsta (Kinsta DNS runs on Route 53). Zoho is no longer used (owner, 2026-09-25). Replace both records with one — `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all` (2 DNS lookups) — before the form goes live. After cutover, drop the Kinsta include: `v=spf1 include:_spf.google.com ~all`.
+**Pre-launch mail dependency (production DNS, not changed by this reconciliation):** On 2026-09-26 all four authoritative Route 53 nameservers returned exactly one SPF record for `zincdigital.co`: `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all`. This satisfies the current one-record/Google Workspace DNS condition; remeasure it and validate mail delivery before enabling live form submissions. No DNS change is indicated by the current measurement. DMARC is `p=none`; Zoho is no longer used (owner, 2026-09-25). Preserve mail records at cutover; any later SPF change needs fresh source measurement and the owner's explicit go.

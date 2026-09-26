@@ -10,7 +10,7 @@ Reproduce: `git ls-remote origin main`; `vercel api /v13/deployments/zinc-digita
 
 ## Review on GitHub
 
-Codex GitHub review is enabled for this repository. PRs trigger review when opened or marked ready; use `@codex review` to request a fresh review on the current head. Confirm the Codex review summary covers the current SHA and address findings before landing. Do not use Copilot as the PR reviewer. Keep GSD code-review, verifier and UI-review steps where their configured checkpoints call for them. PR #6 has already shown this integration responding; its initial findings are being incorporated here.
+Codex GitHub review is enabled for this repository. PRs trigger review when opened or marked ready; use `@codex review` to request a fresh review on the current head. Confirm the Codex review summary covers the current SHA and address findings before landing. Do not use Copilot as the PR reviewer. Keep GSD code-review, verifier and UI-review steps where their configured checkpoints call for them. PR #6 demonstrated the integration responding. For each landing, verify the review summary and inline comments against the exact final PR head; this reconciliation record does not substitute for that review.
 
 ## Effective direction and original evidence
 
@@ -27,20 +27,20 @@ Codex GitHub review is enabled for this repository. PRs trigger review when open
 |---|---|---|
 | 01-01 | Existing completed summary retained | Historical execution record |
 | 01-02 | Existing completed summary retained | Historical execution record; remeasure changed behavior |
-| 01-03 | Superseded comparison scope; paused | Do not rebuild A/B/C or invent a completion summary |
-| 01-04 | Font-choice task superseded; quality gates outstanding | Replan the remaining checks against selected design |
-| 01-05 | Selected fonts and removal of comparison routes already implemented through PR #4; acceptance not closed | Replan remaining verification; do not repeat implementation |
+| 01-03 | Superseded comparison scope; excluded from GSD progress routing | Do not rebuild A/B/C or invent a completion summary |
+| 01-04 | Font-choice task superseded; quality gates outstanding; excluded from GSD progress routing | Resume native verification route; plan gap closure only if verification finds a gap |
+| 01-05 | Selected fonts and removal of comparison routes already implemented through PR #4; acceptance not closed; excluded from GSD progress routing | Resume native verification route; do not repeat implementation |
 
-There are still only two formal plan summaries and zero formally accepted phases. These counts measure workflow acceptance, not implementation percentage. No requirement checkbox is marked complete by this reconciliation.
+There are still only two formal plan summaries and zero formally accepted phases. These counts measure workflow acceptance, not implementation percentage. LNCH-02 alone is checked after all four authoritative Route 53 nameservers returned one SPF record including `_spf.google.com` on 2026-09-26. This measures the current DNS condition only; recheck it and validate mail delivery before enabling live submissions. Fifty-six of 57 requirements remain open, and no phase is accepted.
 
 ## Phase inventory and remaining work
 
 | Phase | Current implementation | Remaining acceptance or implementation |
 |---|---|---|
-| 1 | Full-site mockup, selected type, all-white styling and shared side thread are implemented | Replan obsolete 03–05; current font-load/CLS, full template gates and owner UAT; no phase verification report yet |
+| 1 | Full-site mockup, selected type, all-white styling and shared side thread are implemented | Run `$gsd-execute-phase 01` for current font-load/CLS, full-template gates and owner UAT; plan gap closure only if verification finds a gap |
 | 2 | HomeBands, home.css and CircuitThread implement homepage and motion work landed in #4/#5 | Verify against revised design, finished-state fallback, real iPhone Safari, performance and owner copy acceptance; do not rebuild homepage from old alternating-band plan |
 | 3 | Service/work/case templates and source records exist | Receipts, service claims, final proof and structured-data acceptance |
-| 4 | About/team and progressive non-sending inquiry demo exist | Live POST/email, Turnstile/honeypot, no-JS submission, SPF measurement and owner-entered secrets; no test email authorized here |
+| 4 | About/team and progressive non-sending inquiry demo exist | Live POST/email, Turnstile/honeypot, no-JS submission, fresh SPF recheck before activation, mail-delivery validation and owner-entered secrets; no test email authorized here |
 | 5 | Blog index/article templates and imported preview records exist | Editorial approval, production metadata/schema, analytics, taxonomy, sitemap/robots/llms and complete 301/410 migration evidence |
 | 6 | Prior quick-task checks and screenshots exist | Fresh all-template launch evidence and owner approval; historical summaries alone cannot close this phase |
 | 7 | Vercel alias deployed; public domain remains WordPress | TTL/zone evidence, explicit cutover go, mail-record parity and live acceptance |
@@ -49,8 +49,8 @@ There are still only two formal plan summaries and zero formally accepted phases
 
 Current main CI run 36256848093 reports 0 type errors, 0 warnings and static checks passing across 41 HTML files. This does not certify Lighthouse 100x4, LCP, CLS, INP, real iPhone behavior, full accessibility, editorial approval, mail or redirects. No new full browser/launch audit was run in this reconciliation.
 
-Next: `$gsd-plan-phase 01` with explicit scope to replace paused 01-03/04/05 with selected-design acceptance work, retaining completed 01-01/02 and accounting for the quick tasks. Read this record before planning. Do not blindly run `$gsd-execute-phase 01` against the old plans. After Phase 1 acceptance, plan only remaining production work in phases 2–5; keep Phase 6 and Phase 7 gates intact.
+GSD 1.14.0 reports both live plans summarized, Phase 1 verification missing and all ten UAT checks pending. The native progress route is `$gsd-execute-phase 01`; it resumes at the verification gates without rerunning summarized plans. Plans 01-03/04/05 carry `status: superseded`, which the GSD scanner excludes from incomplete-plan routing; their source text remains as history. If verification identifies gaps, plan only the necessary gap-closure work. Read this record first. After Phase 1 acceptance, plan remaining production work in phases 2–5; keep Phase 6 and Phase 7 gates intact.
 
-Historical UAT passes remain in notes but all ten checks require current-baseline acceptance. Do not fabricate owner responses. Owner calendar dates are targets, not recorded approvals. Confirm current DNS authority before any separately authorized DNS action.
+Historical UAT passes remain in notes but all ten checks require current-baseline acceptance. Do not fabricate owner responses. No launch date is approved; the roadmap gates are undated. Cutover still requires the owner's explicit go. The current SPF record was measured on all four authoritative nameservers, but it must be rechecked before live inquiry is enabled.
 
-The old merged phase-01 worktree has untracked `.gsd/` content and remains untouched. GSD health reports W027 for it and W019 for INGEST-CONFLICTS.md; neither warning justifies deletion or an unrelated config repair.
+The GSD runtime identified as `@opengsd/gsd-core` 1.14.0. `query find-phase 1` reports 2 live plans, 2 summaries, 5 physical plan files; the three unsummarized comparison plans are excluded by their `status: superseded` frontmatter. `query init.progress` reports Phase 1 as executed with verification missing; `query verification.status .planning/phases/01-design-system-font-pick` independently confirms the missing report and returns `$gsd-execute-phase 01`. `query audit-uat` reports 10 pending checks and no parse gaps. The GSD health result is `degraded`, with zero errors and two warnings: W027 flags the old `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01` worktree as stale; a fresh status check returns `?? .gsd/`, so it is preserved. W019 flags the existing root `.planning/INGEST-CONFLICTS.md` as a noncanonical GSD artifact; it is retained as the generated ingestion history with a current-disposition note. No repairable warnings were reported. All four authoritative Route 53 nameservers returned exactly one SPF record, `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all`; remeasure and validate delivery before live inquiry. No application, DNS, credential or deployment changes were made.
