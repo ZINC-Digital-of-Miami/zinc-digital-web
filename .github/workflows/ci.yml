@@ -38,6 +38,16 @@ jobs:
         with:
           persist-credentials: false
 
+      # actions/checkout fetches only the single commit for the triggering
+      # ref by default (only becomes `origin/main` itself when the ref IS
+      # main); scripts/check-site.mjs diffs "changed vs origin/main" for the
+      # U+00A7 scan, which throws "unknown revision" without this. A shallow,
+      # single-ref fetch is enough: git diff --name-only only needs both
+      # commits' trees, not ancestry, so depth=1 here is sufficient even
+      # though the checkout above is also depth=1.
+      - name: Fetch origin/main (diff base for check-site.mjs)
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+
       - name: Detect app
         id: detect
         run: |
@@ -77,3 +87,67 @@ jobs:
       - name: Build (astro build)
         if: steps.detect.outputs.present == 'true'
         run: npm run build
+
+      - name: Static site check (check-site.mjs)
+        if: steps.detect.outputs.present == 'true'
+        run: node scripts/check-site.mjs
+
+  # NOT a required check (branch ruleset 24024093 only requires "build").
+  # Selenium/ChromeDriver smoke check of the built site. GitHub's own
+  # ubuntu-latest runner-image docs (actions/runner-images,
+  # images/ubuntu/Ubuntu2404-Readme.md, "Installed Software" /
+  # "Environment Variables") document Chrome and a matching ChromeDriver
+  # preinstalled together in every runner-image release, with $CHROMEWEBDRIVER
+  # pointing at that paired driver's directory. scripts/verify-mockup.mjs
+  # prefers that driver via $CHROMEWEBDRIVER (falling back to the npm
+  # `chromedriver` package's own bundled binary only when unset) specifically
+  # because that npm package tracks Chrome-for-Testing's newest release on
+  # every install ("chromedriver":"latest" behind @axe-core/cli) independent
+  # of whatever Chrome build is actually present -- measured locally, this
+  # produced a real version-skew failure (SessionNotCreatedError: Chrome 153
+  # vs ChromeDriver 154) that the runner-provided, version-paired driver does
+  # not have. This job's first live run should still be watched: the fix is
+  # evidence-based (official docs + a locally reproduced matched-pair run)
+  # but has not been observed on the actual runner in this session.
+  browser-verify:
+    name: browser-verify (Selenium/Chrome smoke check, not required)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+    if: needs.build.result == 'success'
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Detect app
+        id: detect
+        run: |
+          if [ -f package.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=No app yet::package.json is not on this ref; browser verify skipped."
+          fi
+
+      - name: Set up Node 24
+        if: steps.detect.outputs.present == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.detect.outputs.present == 'true'
+        run: npm ci
+
+      - name: Build (astro build)
+        if: steps.detect.outputs.present == 'true'
+        run: npm run build
+
+      - name: Browser verify (quick mode, runner-paired Chrome+ChromeDriver)
+        if: steps.detect.outputs.present == 'true'
+        run: node scripts/verify-mockup.mjs --mode quick
