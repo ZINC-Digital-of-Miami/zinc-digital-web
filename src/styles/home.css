@@ -400,6 +400,39 @@ html.anim .home-layer.on .home-layer-list {
   }
 }
 
+/* Short-height fallback (Codex CLI review, confirmed by measurement at
+ * motion-enabled 375x667 and 667x375: the pinned home-loop-sticky's
+ * height:100svh + overflow:hidden clips the head + SVG + three-layer list
+ * once the viewport itself is this short — there simply isn't 100svh worth
+ * of room for content sized for a taller screen). Below this height, drop
+ * the pin and let the scene flow in normal document order instead: nothing
+ * is ever fixed to a height smaller than its content, so nothing clips.
+ * The scroll-driven draw becomes coarser here, which is an acceptable
+ * trade against clipped, unreadable content. */
+@media (max-height: 750px) {
+  html.anim .home-loop-band {
+    height: auto;
+  }
+
+  html.anim .home-loop-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding: var(--space-lg) var(--gutter) var(--space-2xl);
+  }
+
+  html.anim .home-loop-sticky .home-loop-head {
+    position: static;
+    flex-direction: column;
+    gap: 0.3em;
+    margin-bottom: var(--space-md);
+  }
+
+  html.anim .home-loop-svg {
+    max-height: 22rem;
+  }
+}
+
 /* ---------- 4 OUABC ----------------------------------------------------- */
 
 .home-case-top {
