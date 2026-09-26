@@ -437,3 +437,16 @@ a,button,input,textarea,select { -webkit-tap-highlight-color:transparent; }
 .person img {height:auto!important;width:100%;max-height:none!important;max-width:min(100%,calc(var(--portrait-height) * var(--portrait-ratio,1)));}
 @media(max-width:1100px){.person {--portrait-height:240px;}}
 @media(max-width:600px){.person {--portrait-height:160px;}}
+
+/* Blog titles (owner, 2026-09-26: "blog page gets the hero size treatment, or
+ * maybe even smaller. blog titles crush the entire page right now"). Sized by
+ * both width and screen height so a title never takes more than about half a
+ * screen; article titles run long, so they sit a step smaller still. */
+.page-intro[data-template="blog"] .page-title {
+  font-size: min(clamp(3rem, 9cqi + 0.5rem, 10rem), 16svh);
+}
+
+.page-intro[data-template="article"] .page-title {
+  font-size: min(clamp(2.25rem, 5.5cqi + 0.5rem, 6.5rem), 9svh);
+  max-width: 22ch;
+}

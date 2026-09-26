@@ -37,11 +37,13 @@ const link=(path:string)=>toSitePath(path);
         <nav id="site-nav" aria-label="Main navigation"><a href={link('/work/')}>Work</a><a href={link('/services/')}>Services</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a></nav>
         <a class="btn" href={link('/contact/')}>Start an inquiry</a>
       </header>
-      <main id="main">
+      <div class="thread-scope">
         <CircuitThread />
-        <slot />
-      </main>
-      <SiteFooter />
+        <main id="main">
+          <slot />
+        </main>
+        <SiteFooter />
+      </div>
     </div>
   </body>
 </html>
@@ -57,15 +59,11 @@ const link=(path:string)=>toSitePath(path);
     overflow-x: clip;
   }
 
-  /* #thread / #thread-dot are absolutely positioned relative to the
-   * nearest positioned ancestor. Scoping that to #main (not .frame) means
-   * top: 0 lands just below the masthead instead of at the very top of
-   * the page, where it used to sit on top of the wordmark and nav links
-   * at scroll position 0 (owner-measured overlap, 2026-09-26). The thread
-   * still spans the full height of the page's scrollable content (main
-   * holds every band except the masthead and footer), so scroll-progress
-   * semantics are unchanged. */
-  #main {
+  /* The thread runs the entire page below the masthead: every band and the
+   * footer (owner, 2026-09-26: "I want that line on the side to follow
+   * intire page"). Scoped below the masthead so the dot never sits on the
+   * wordmark or nav at scroll 0. */
+  .thread-scope {
     position: relative;
   }
 </style>

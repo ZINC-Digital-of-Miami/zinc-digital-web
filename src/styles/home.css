@@ -288,6 +288,10 @@ html.anim .home-loop-sticky {
   justify-content: space-between;
   gap: var(--space-lg);
   margin-bottom: var(--space-lg);
+  /* When not pinned (short screens, reduced motion, no JS) the head is in
+   * flow: it must span the whole row so the circuit stays left and the
+   * layers right, side by side as in the approved sketch. */
+  grid-column: 1 / -1;
 }
 
 html.anim .home-loop-sticky .home-loop-head {

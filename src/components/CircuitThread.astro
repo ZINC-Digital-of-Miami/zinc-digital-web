@@ -52,13 +52,24 @@
   if (dot && frame && !reduce) {
     let ticking = false;
 
+    // The dot always stays on screen and on the line: at the top of the
+    // page it sits just under the masthead; as the reader scrolls it slides
+    // down the visible part of the line in step with overall progress, and
+    // at the end of the page it rests near the bottom of the screen, on the
+    // footer's stretch of the line.
     const update = () => {
       ticking = false;
-      const frameHeight = frame.offsetHeight;
       const dotSize = dot.getBoundingClientRect().height || 10;
+      const scopeTop = frame.getBoundingClientRect().top + window.scrollY;
+      const scopeHeight = frame.offsetHeight;
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
-      dot.style.top = progress * Math.max(0, frameHeight - dotSize) + 'px';
+      const pad = 12;
+      const upper = Math.max(0, scopeTop - window.scrollY) + pad;
+      const lower = window.innerHeight - pad - dotSize;
+      const viewportY = upper + progress * Math.max(0, lower - upper);
+      const top = window.scrollY + viewportY - scopeTop;
+      dot.style.top = Math.min(Math.max(0, top), Math.max(0, scopeHeight - dotSize)) + 'px';
     };
 
     const request = () => {
