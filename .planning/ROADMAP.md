@@ -4,6 +4,8 @@
 
 [Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) governs resumption. Main already contains the full-site all-white design and subsequent homepage/motion work from PRs #4/#5. The selected fonts are Big Shoulders Display, Inter and JetBrains Mono. No phase is newly accepted here; plan/phase counts track formal acceptance, not amount implemented.
 
+The completed 01-02 row below preserves its September 25 plan and summary: nine alternating bands, with the owner's design and font choice still open. PR #4 later introduced the current all-white ten-band homepage with a headline-only hero and separate intro; PR #5 added follow-on animation and responsive work. See the distinct quick-task entries in STATE.md. Do not use the 01-02 record as evidence for the later selected design.
+
 Older success criteria below remain historical where they require A/B/C comparison, alternating dark bands or draft banners. The later recorded owner decisions supersede those presentation instructions. Preserve all quality, truthful-content and integration gates. Replan 01-03/04/05 before execution; do not ask for the already recorded font selection again.
 
 ## Overview
@@ -68,7 +70,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [x] 01-02-PLAN.md — Wave 2: complete clickable selected-design site — 40 sitemap pages plus 404, all ten homepage bands, including the headline-only hero and separate intro, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
+- [x] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site per its historical plan — 40 sitemap pages plus 404, nine homepage bands in alternating light/dark order, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence. The owner’s design and font choice remained open at this checkpoint.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 

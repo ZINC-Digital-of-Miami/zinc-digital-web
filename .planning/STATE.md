@@ -63,7 +63,7 @@ Progress: 0/7 phases formally accepted; 2/5 historical plans have summaries. Thi
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260925-ovl | Replace GitHub Pages workflow with Node 24 CI gate (ci.yml, job `build`) | 2026-09-25 | 959adeb | [260925-ovl-replace-github-pages-workflow-with-node-](./quick/260925-ovl-replace-github-pages-workflow-with-node-/) |
-| 260926-6g7 | All-white A+B site with the side circuit thread, headline-only full-screen hero, consistent staff photos, CI static and browser checks (PR #4) | 2026-09-26 | f79517446b98ec5d888d20223cf2efb996feba3b | [260926-6g7-restyle-every-page-to-the-owner-picked-a](./quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/) |
+| 260926-6g7 | All-white A+B site with the side circuit thread, ten homepage bands, headline-only full-screen hero and separate intro for actions/text/contents, consistent staff photos, CI static and browser checks (PR #4) | 2026-09-26 | f79517446b98ec5d888d20223cf2efb996feba3b | [260926-6g7-restyle-every-page-to-the-owner-picked-a](./quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/) |
 | 260926-d0r | Every sketch animation drawing (hero strike and highlighter, Loop on short screens), all draft copy removed, responsive review at 9 sizes, main CI fetch fix (PR #5) | 2026-09-26 | 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368 | [260926-d0r-animations-complete-all-draft-copy-remov](./quick/260926-d0r-animations-complete-all-draft-copy-remov/) |
 
 ## Session Continuity
