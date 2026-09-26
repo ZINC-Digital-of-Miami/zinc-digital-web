@@ -1,17 +1,23 @@
-# Phase 1: Design System & Font Pick - Context
+# Phase 1: Design System & Full-Site Acceptance - Context
 
 **Gathered:** 2026-09-25 (CT)
-**Status:** Ready for planning
+**Status:** Implemented plans are summarized; Phase 1 verification is pending
 **Source:** PRD Express Path (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`) + owner interview 2026-09-25
+
+## Superseding checkpoint — 2026-09-26 CT
+
+Read [01-RECONCILIATION.md](./01-RECONCILIATION.md) first. The historical interview below is retained for provenance. Its A/B/C comparison, dark-band, repeat font-pick, draft-banner, old-worktree and no-CI directions are superseded: selected Pairing A/all-white option 3, shared side thread, draft-label removal and repository CI are on main through PRs #3–#5. Do not recreate comparison routes or ask for another font pick. The older UI-SPEC is historical wherever it conflicts with these later decisions. Retain every unfulfilled quality, full-site and truthful-content gate.
+
+Current action: GSD 1.14.0 progress sees two active plans with summaries and no verification report, so it routes to `$gsd-execute-phase 01` to resume at the verification gates. It does not rerun summarized plans. Plans 01-03/04/05 are marked `status: superseded` and excluded from GSD progress routing; keep their source text as history. If verification identifies gaps, plan only the needed gap-closure work. Use a new task branch/worktree from freshly read main; do not use the merged phase-01 branch or this reconciliation checkout for follow-on work.
 
 <domain>
 ## Phase Boundary
 
-Deliver a complete, clickable mockup of the ENTIRE approved site before asking the owner to judge fonts or approve the design. The completed 01-01 scaffold is retained. Replace the unexecuted 01-02..01-05 plans from scratch. The first remaining build deliverable must cover every sitemap destination: the nine-band homepage; services index and all 11 service pages; work index and both case studies; about; contact and its demo confirmation; blog index and article pages; privacy; terms; and 404. Navigation, service preselection, blog filtering and form preview states must work locally. Unconfirmed copy, receipts, photos and legal text must be visibly marked; a mockup submission must not send mail or collect live inquiries. Production integrations and final content approval remain later-phase work.
+Phase 1 now verifies owner acceptance and current-baseline evidence for the selected, already implemented full-site design. Main contains the clickable sitemap, ten all-white homepage bands with a headline-only hero and separate intro, Pairing A type, and the shared side thread; see `01-RECONCILIATION.md` for the measured baseline and open evidence. Do not rebuild the mockup, reopen font selection, add comparison routes, or infer acceptance from implementation or old summaries. Preserve font/CLS, accessibility, truthful-content, every-template and owner-UAT gates. The demo remains non-sending; live inquiry, production integrations, final content approval and cutover remain later work.
 
 **Superseding owner correction, 2026-09-25 CT:** "this is supposed to be a fucking full mockup of entire site!" followed by the explicit `$gsd-plan-phase` command and "CONTINUE". This direct correction supersedes the homepage-only next-build interpretation in `docs/handoff/2026-09-25-turnover-complete.md` Part C and every older hero/spec-sheet-only phase boundary. The turnover remains the source for the approved sitemap, assets, design decisions and historical state. Do not narrow this deliverable back to a homepage.
 
-Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
+The next GSD action is verification, not another design-selection plan. Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 
 </domain>
 
@@ -22,41 +28,41 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 - Astro 7.3.5, `@astrojs/vercel` 11.0.11, TypeScript (version pinned by `create-astro`), Node 24. `output: 'static'`.
 - Plain CSS with custom-property tokens. No CSS framework, no UI framework, no animation library, no component registry.
 - Hosting: Vercel team `zincdigitalofmiamis-projects` (Pro, already paid). Owner selected the public noindex `zinc-digital-web.vercel.app` URL; custom domains remain unattached. Verify deployment target, protection and noindex after each deploy.
-- Repo: `ZINC-Digital-of-Miami/zinc-digital-web`; work on branch `gsd/phase-01-design-system-font-pick` in worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`; lands on `main` by PR.
+- Repo: `ZINC-Digital-of-Miami/zinc-digital-web`; `main` stays on main. Each follow-on task uses its own branch and worktree from freshly read main, lands by PR, then its branch is deleted after the merged commit is deployed and measured.
 
-### Color (locked — spec §8, §18)
+### Historical color direction (superseded by the 2026-09-26 all-white selection)
 - Near-black `#0A0A0B`; cool snow white `#F5F6F7` (no warm/yellow whites); one body gray per ground.
-- Magenta `#FC0781` only on black bands (5.17:1).
-- Dark teal `#07B2B2` on white bands for display type and graphics only (2.42:1); `#057E7E` for any small teal text on white (4.52:1). Magenta never on white.
-- The hero is a white band, so its strike/highlight marks are teal, not magenta.
+- The selected site uses the snow-white ground throughout. Teal is used for display/graphics and accessible teal text; magenta is used on the side-thread dot.
+- `#07B2B2` is the display/graphics accent; `#057E7E` is used for small teal text. Preserve contrast for the selected role.
+- The hero is on the shared snow-white ground; its accent treatment follows the selected all-white design.
 - Other live-site accents (`#0BD3D3`, `#C6FF00`, `#FF7A00`, `#FFC107`, `#00F5D4`) are excluded.
 
 ### Theming (locked)
-- Each band sets its ground with one `data-theme="dark|light"` attribute; tokens swap per attribute; never tied to `prefers-color-scheme`.
+- The selected design uses the snow-white ground throughout with the shared token system; never switch the selected presentation based on `prefers-color-scheme`.
 
-### Type (locked — spec §8; UI-SPEC)
+### Type (locked — spec section 8; UI-SPEC)
 - Editorial "annual report" discipline: heavy condensed grotesk display, precise text sans body, mono labels/data.
 - Hero Display: `clamp(3.5rem, 10vw + 1rem, 12.5rem)` (owner wants big headers).
-- Open-license only, self-hosted, subset, ≤ 3 font files per pairing, metric-matched fallbacks so the swap measures CLS 0.
-- Archivo excluded. Three pairings per `01-UI-SPEC.md` (A Big Shoulders Display / Inter / JetBrains Mono; B Barlow Condensed / Public Sans / IBM Plex Mono; C Oswald / IBM Plex Sans / Space Mono — static-weight caveats recorded in the UI-SPEC).
+- Pairing A is selected: Big Shoulders Display / Inter / JetBrains Mono. Keep the open-license, self-hosting, subset, three-file ceiling, metric-matched fallback and zero-CLS gates.
+- Barlow Condensed / Public Sans / IBM Plex Mono and Oswald / IBM Plex Sans / Space Mono are historical alternatives only. Do not compare them or reopen font selection.
 
-### Copy (locked — spec §7)
+### Copy (locked — spec section 7)
 - Core line: "Other agencies deliver the scope. ZINC delivers the business."
 - Fresh voice: short declaratives, senior, no slang, no cursing, no exclamation points, nouns and receipts over adjectives; no legacy lines; never "GEO".
-- Mockup body copy is draft and marked [DRAFT]. The rejected hero supporting line remains a [DRAFT] slot. Primary CTA "Start an Inquiry"; text line "Text (786) 575-4837". No underlined links; page content starts at the top; use crisp assets at 2x their displayed dimensions.
+- Copy remains unapproved where owner review is open, but PR #5 removed draft banners. Keep `[RECEIPT: …]` and owner-confirmation markers for unconfirmed claims; their removal does not approve copy. The homepage hero is headline-only with a separate intro band. Preserve the selected CTA, phone/text actions, no-underlined-link rule, top-starting content and crisp-asset limits from the current spec.
 
 ### Brand mark (locked)
 - Black/white circuit-brain profile mark + ZINC wordmark, from `/Volumes/Satechi Hub/ZINC Digital Agency/Graphics/` and `/Volumes/Satechi Hub/ZINC Digital Agency/docs/context/brand-assets/`. Raster only; on-screen width capped at source ÷ 2.
 
-### Gates that start here (spec §10)
-- Lighthouse mobile 100 ×4 on the mockup routes; CLS 0 on cold throttled load per pairing; WCAG 2.2 AA contrast; ≤ 15 KB JS (this phase should ship ~0 KB).
-- Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete Pairing A site before expanding B/C or requesting a font pick.
+### Gates that start here (spec section 10)
+- Lighthouse mobile 100 ×4 on the preview templates; measure Pairing A font loading and cold-load CLS; WCAG 2.2 AA contrast; ≤ 15 KB JS per page.
+- Before any visual handoff: agent-owned 1440px and 375px screenshots across every template, a crawl of all local destinations, and computed-style checks for link decoration, top-of-page content and image sharpness. Show the complete selected-design site for owner acceptance; comparison routes and another font pick are not in scope.
 
 ### Claude's Discretion
 - Directory layout and token file names (follow `.planning/research/ARCHITECTURE.md`).
 - Font subsetting tool and fallback-metric generation method.
-- How the pairing index page is laid out (it is throwaway, deleted after the pick).
-- CI: none required this phase; local build + preview-deploy checks suffice. Any GitHub Actions workflow must stay within free minutes on this public repo.
+- No comparison or pairing-index page is in scope; the font pick is complete.
+- Use the existing Node 24 CI build and repository checks. Do not add paid services or a second deployment workflow.
 
 </decisions>
 
@@ -65,15 +71,15 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 
 **Downstream agents MUST read these before planning or implementing.**
 
+Read `01-RECONCILIATION.md` first for current sources, implementation status, open evidence and the GSD verification route.
+
 ### Design authority
-- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` — approved spec; §7 voice, §8 visual system, §9 motion, §10 gates, §14 architecture, §18 resolved decisions (wins over research)
-- `.planning/phases/01-design-system-font-pick/01-UI-SPEC.md` — approved UI design contract (spacing, type scale, color, pairings, UI Considerations)
+- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` — approved design and copy authority; read with the later decisions summarized in `01-RECONCILIATION.md`
+- `.planning/phases/01-design-system-font-pick/01-UI-SPEC.md` — historical UI design contract; use only where it agrees with the selected design spec and 2026-09-26 reconciliation
 
 ### Research
-- `.planning/research/STACK.md` — versions, font pairings, subsetting workflow
-- `.planning/research/ARCHITECTURE.md` — directory layout, token/theming architecture
-- `.planning/research/PITFALLS.md` — font CLS, contrast, preview protection
-- `.planning/research/SUMMARY.md` — incl. "Resolved After Synthesis"
+- `.planning/research/STACK.md`, `ARCHITECTURE.md`, `PITFALLS.md` and `SUMMARY.md` — 2026-09-25 technical background only; their old launch dates, owner actions and unselected design directions are superseded by the current reconciliation.
+- `.planning/phases/01-design-system-font-pick/01-RESEARCH.md` — historical technical research; retain verified Astro font findings, not its three-pairing or Day 1 plan.
 
 ### Project
 - `.planning/REQUIREMENTS.md` — DSGN-01..05
@@ -84,7 +90,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 <specifics>
 ## Specific Ideas
 
-- The owner explicitly asked to see a mockup before any production build; this phase is that mockup.
+- The full-site mockup and selected design are implemented. This phase records current-baseline verification and owner acceptance; do not reopen the completed font/design selection.
 - Owner quotes: "big headers, big moving parts, unexpected actions, white and black, little color but when it's used I want it loud"; "no yellowish whites, if anything have a snow or touch of gray in the white"; "use our dark teal on white".
 
 </specifics>
@@ -92,7 +98,7 @@ Requirements: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05.
 <deferred>
 ## Deferred Ideas
 
-- Later phases complete production motion/performance, final copy and receipts, mail delivery/anti-abuse, reviewed blog migration, SEO/redirects, and launch/cutover. Their visible page designs and interactive mockup states are included in Phase 1 now; do not defer the full-site mockup itself.
+- Remaining work includes owner UAT and quality evidence, final copy and receipts, live inquiry/mail/anti-abuse, reviewed blog migration, production SEO/redirects, and launch/cutover. The selected design and homepage motion are already implemented; do not schedule a rebuild as Phase 1 work.
 
 </deferred>
 

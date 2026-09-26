@@ -1,24 +1,32 @@
 # Roadmap: ZINC Digital Website (zinc-digital-web)
 
+## Reconciled checkpoint — 2026-09-26 CT
+
+[Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) governs resumption. Main already contains the full-site all-white design and subsequent homepage/motion work from PRs #4/#5. The selected fonts are Big Shoulders Display, Inter and JetBrains Mono. No phase is newly accepted here; plan/phase counts track formal acceptance, not amount implemented.
+
+The completed 01-02 row below preserves its September 25 plan and summary: nine alternating bands, with the owner's design and font choice still open. PR #4 later introduced the current all-white ten-band homepage with a headline-only hero and separate intro; PR #5 added follow-on animation and responsive work. See the distinct quick-task entries in STATE.md. Do not use the 01-02 record as evidence for the later selected design.
+
+Older success criteria below remain historical where they require A/B/C comparison, alternating dark bands or draft banners. The later recorded owner decisions supersede those presentation instructions. Plans 01-03/04/05 are marked `status: superseded`; GSD excludes them from progress routing. Both live plans have summaries and no Phase 1 verification exists, so GSD's next route is `$gsd-execute-phase 01` to resume at the verification gates. Do not ask for the already recorded font selection again.
+
 ## Overview
 
-The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site in seven phases over 5–7 days from 2026-09-25 (CT). Per the owner's direct correction, Phase 1 delivers a complete clickable mockup of the entire approved sitemap before the font pick. Phases 2–4 then finish production motion, content/proof and live inquiry integration using those rendered pages. Every band component takes props and never fetches data itself, so the mockup uses clearly marked fixture content while the owner reviews copy. Phase 5 completes the reviewed 18-post migration, full SEO override and old WordPress URL resolution. Phase 6 holds launch gates and final approval. Phase 7 is the DNS cutover, only on the owner's explicit go.
+The selected full-site design and homepage motion are already implemented on `main`; the seven phases track acceptance and remaining production work. No launch date is approved. The owner said on 2026-09-26 that go-live is not near because substantial design work remains, superseding the original 5–7-day framing. Continue through the gates below without calendar targets. Phase 1 acceptance, copy/proof review, live inquiry integration, the 18-post migration, SEO and old-WordPress URL resolution remain open. Phase 6 holds launch gates and final approval. Phase 7 is the DNS cutover, only on the owner's explicit go.
 
-**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`. The spec's §18 resolved decisions win over research.
+**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`. The spec's section 18 resolved decisions win over research.
 
-**Owner review calendar (LNCH-01; all dates CT, Day 1 = Sat 2026-09-26):**
+**Owner review gates (LNCH-01; ordered, with no dates):**
 
-| Day | Date (CT) | Owner gate | Phase |
-|-----|-----------|------------|-------|
-| 1 | Sat 2026-09-26 | Font pairing pick from the rendered mockup | 1 |
-| 2 | Sun 2026-09-27 | Copy batch: homepage bands | 2 |
-| 3 | Mon 2026-09-28 | Copy batch: services and case studies | 3 |
-| 4 | Tue 2026-09-29 | Copy batch: about and contact; SPF record applied in Route 53 (LNCH-02) | 4 |
-| 5 | Wed 2026-09-30 | Copy batch: blog; receipts, "How we work", real-vs-placeholder testimonials, Jaymie and Wendy photos; DNS TTLs lowered | 5 / 6 / 7 |
-| 6 | Thu 2026-10-01 | Final approval | 6 |
-| 7 | Fri 2026-10-02 | Cutover, on the owner's explicit go at that moment | 7 |
+| Order | Owner gate | Phase |
+|-------|------------|-------|
+| 1 | Review the selected full-site direction and current implementation; acceptance remains open | 1 |
+| 2 | Review homepage copy | 2 |
+| 3 | Review service and case-study copy | 3 |
+| 4 | Review About and Contact; remeasure authoritative SPF and validate mail delivery before enabling live submissions | 4 |
+| 5 | Review blog copy, receipts, "How we work", testimonial status and team photos | 5 |
+| 6 | Complete the final review and approve all launch gates | 6 |
+| 7 | Cut over DNS only on the owner's explicit go at that time | 7 |
 
-**Budgets carried by every UI phase:** each phase checks its own templates against the §10 budgets on its Vercel preview (Lighthouse mobile 100×4, LCP ≤ 1.2 s, CLS 0, ≤ 15 KB gzip JS). Phase 6 is the formal gate across all templates.
+**Budgets carried by every UI phase:** each phase checks its own templates against the section 10 budgets on its Vercel preview (Lighthouse mobile 100×4, LCP ≤ 1.2 s, CLS 0, ≤ 15 KB gzip JS). Phase 6 is the formal gate across all templates.
 
 ## Phases
 
@@ -29,70 +37,70 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Design System & Font Pick** - Complete clickable full-site mockup with tokens, band theming, self-hosted type and brand mark, followed by three font pairings and the owner's pick
-- [ ] **Phase 2: Homepage & the Loop** - Nine alternating bands on `/`, with the scroll-drawn Loop as the signature and the finished state designed for reduced motion and Firefox
+- [ ] **Phase 1: Design System & Full-Site Acceptance** - Complete clickable full-site mockup with tokens, selected all-white design, Pairing A type and brand mark; acceptance outstanding
+- [ ] **Phase 2: Homepage Motion & the Loop** - Ten all-white bands on `/`, with a headline-only hero and separate intro, the scroll-drawn Loop as the signature, and finished states for reduced motion and Firefox
 - [ ] **Phase 3: Services & Proof** - `/services/`, 11 flat service pages, `/work/` and both case studies, each with the mini loop lit
-- [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on the SPF repair
+- [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on fresh SPF verification and mail-delivery validation
 - [ ] **Phase 5: Blog, SEO & Redirects** - 18 migrated posts, the full SEO override and analytics, and every old URL resolved to a 301 or 410
-- [ ] **Phase 6: Launch Readiness & Owner Approval** - Every template passes the §10 gates, all copy is clean and approved, and the owner gives final approval
+- [ ] **Phase 6: Launch Readiness & Owner Approval** - Every template passes the section 10 gates, all copy is clean and approved, and the owner gives final approval
 - [ ] **Phase 7: Cutover** - Route 53 points to Vercel on the owner's go, with mail untouched, live checks run and Kinsta kept for rollback
 
 ## Phase Details
 
-### Phase 1: Design System & Font Pick
+### Phase 1: Design System & Full-Site Acceptance
 
-**Goal**: The owner sees a complete clickable mockup of the entire approved site, then picks the font pairing used across every page
+**Goal**: The owner accepts the complete clickable site in the already selected Pairing A and all-white design
 **Mode:** mvp
 **Depends on**: Nothing (first phase)
 **Requirements**: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05
 **Success Criteria** (what must be TRUE):
 
-  1. Before the font gate, the owner can navigate the full site: nine-band homepage, services index plus all 11 service pages, work index plus both cases, about, contact and demo confirmation, blog index and article pages, privacy, terms and 404. The Pairing A mockup is shown first at the public noindex Vercel URL with 1440px and 375px visual evidence for every template; B/C use the same full site afterward. Drafts and unconfirmed content remain clearly marked, and the demo form sends no mail. The owner's font pick is then recorded.
-  2. The mockup alternates near-black `#0A0A0B` and snow-white `#F5F6F7` bands, each set by one `data-theme` attribute, and the bands do not change when the OS switches between light and dark mode
-  3. Magenta `#FC0781` appears only on black bands. On white, bright teal `#07B2B2` is decorative only; its 2.42:1 contrast does not pass AA for large text or meaningful graphics. Information uses ink or `#057E7E`, with WCAG AA contrast for its role.
-  4. On a throttled mobile load, the chosen pairing arrives in ≤ 3 self-hosted subset files, and the swap from the metric-matched fallback measures CLS 0 on the hero
-  5. The circuit-brain mark and the ZINC wordmark render crisply on both grounds at mobile and desktop widths
+  1. The owner can navigate all 40 approved destinations and the genuine 404 on the public noindex Vercel URL: ten homepage bands, including the headline-only hero and separate intro, services index and all 11 services, work index and both cases, about, contact/demo confirmation, blog index and 18 articles, privacy, terms and 404. Internal links, blog filters, service preselection and non-sending demo confirmation work.
+  2. All pages use the selected Pairing A (Big Shoulders Display / Inter / JetBrains Mono) and the owner-selected all-white option 3 with the side circuit thread. No A/B/C comparison or repeat font-pick gate remains.
+  3. Desktop and mobile evidence covers every page template and relevant state. The owner accepts the deployed full-site design; unresolved content remains clearly identified through receipt/owner-confirmation markers. The demo form stores and sends nothing.
+  4. The selected type is self-hosted in the deployed output with no more than three font files. Cold/throttled font loading and CLS are measured; the zero-CLS gate passes.
+  5. The circuit-brain mark and ZINC wordmark render crisply at mobile and desktop widths. All Phase 1 quality results record route, deployment SHA, viewport and evidence; no result is inferred from plan completion.
 
-**Plans**: 2/5 plans executed
+**Plans**: Both live plans have summaries; 01-03/04/05 remain as superseded historical files so GSD does not resume them. Verification is pending; gap-closure plans follow only if verification identifies gaps.
 
 Plans:
 **Wave 1**
 
-- [x] 01-01-PLAN.md — Walking skeleton: scaffold, token system, Pairing A hero on a protected Vercel preview (owner gates: package legitimacy + Vercel go; owner opens preview)
+- [x] 01-01-PLAN.md — Walking skeleton: scaffold, token system, selected-design hero on a protected Vercel preview (owner gates: package legitimacy + Vercel go; owner opens preview)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [x] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site — 40 sitemap pages plus 404, all nine home bands, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
+- [x] 01-02-PLAN.md — Wave 2: complete clickable Pairing A site per its historical plan — 40 sitemap pages plus 404, nine homepage bands in alternating light/dark order, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence. The owner’s design and font choice remained open at this checkpoint.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — Wave 3: identical full-site A/B/C comparisons with correct font families, route/content parity, budgets and cold-font evidence
+- [ ] 01-03-PLAN.md — SUPERSEDED; do not execute. Historical Wave 3: identical full-site A/B/C comparisons with correct font families, route/content parity, budgets and cold-font evidence
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 01-04-PLAN.md — Wave 4: complete route/state/visual/accessibility/performance gates, independent review, then owner's explicit font choice
+- [ ] 01-04-PLAN.md — SUPERSEDED; do not execute. Historical Wave 4: complete route/state/visual/accessibility/performance gates, independent review, then owner's explicit font choice
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 01-05-PLAN.md — Wave 5: retain chosen pairing across all 40 pages and 404, remove comparison routes only, remeasure and publish the full noindex mockup
+- [ ] 01-05-PLAN.md — SUPERSEDED; do not execute. Historical Wave 5: retain chosen pairing across all 40 pages and 404, remove comparison routes only, remeasure and publish the full noindex mockup
 
 **UI hint**: yes
 
-### Phase 2: Homepage & the Loop
+### Phase 2: Homepage Motion & the Loop
 
-**Goal**: A visitor to `/` reads the whole ZINC story in nine alternating bands, and the Loop drawing itself on scroll is the moment they remember
+**Goal**: A visitor to `/` reads the whole ZINC story across ten all-white bands, and the Loop drawing itself on scroll is the moment they remember
 **Mode:** mvp
 **Depends on**: Phase 1
 **Requirements**: LOOP-01, LOOP-02, MOTN-01, MOTN-02, MOTN-03, MOTN-04, HOME-01, HOME-02, HOME-03, HOME-04, HOME-05, HOME-06, HOME-07, HOME-08
 **Success Criteria** (what must be TRUE):
 
-  1. A visitor sees the nine bands in spec order:
-     - the hero core line with the magenta strike, the highlight, a contact action and `Text (786) 575-4837`;
-     - the logo wall, with each logo flipping to the band's accent on hover or tap;
-     - the Loop, OUABC, the U.S. Oil timeline, How we work, the team and latest articles;
-     - the footer, with its closing line, text line, locations and socials.
-  2. In Chrome and Safari 26+, scrolling the pinned Loop band draws the circuit line and sends the pulse around Build → Demand → Intelligence. Each layer scales up as the pulse reaches it, and every service is listed as a link. All of this runs on native CSS only, with no animation library and no WebGL
-  3. With reduced motion on, and in Firefox 156, every band shows its designed finished state with no content missing, and the owner has approved the finished Loop state
+  1. A visitor sees the ten snow-white bands in the selected content order:
+     - a screen-filling headline-only hero with the core line, teal strike and highlighter;
+     - a separate intro band with metadata, supporting line, inquiry and text actions, and contents navigation;
+     - the logo wall, Loop, OUABC, U.S. Oil, How we work, team and latest articles;
+     - the footer with its closing line, inquiry action, text line, locations and socials.
+  2. In supported browsers, scrolling the pinned Loop band draws the circuit line and sends the pulse around Build → Demand → Intelligence. Each layer scales up as the pulse reaches it, and every service is listed as a link. All of this runs on native CSS only, with no animation library and no WebGL
+  3. With reduced motion on, and in Firefox, every section shows its designed finished state with no content missing, and the owner has approved the finished Loop state
   4. On a real iPhone in Safari, the pinned Loop holds steady as the toolbar collapses and expands. Moving from `/` to another page uses a native view transition where supported and a plain navigation elsewhere
   5. The team band shows all seven black-and-white faces in a new order on each load and when it enters view. Commitments and receipts the owner has not confirmed show as visible pending or `[RECEIPT: …]` markers
 
@@ -135,8 +143,8 @@ Plans:
      - how an engagement runs.
   2. A visitor can complete the form in short progressive steps, or as one page with JavaScript off. The form asks for services grouped by layer and the four budget tiers. Following any service page's inquiry action opens `/contact/?service=<slug>` with that service preselected
   3. A valid submission from the preview deploy arrives at `jaymie@zincdigital.co` through Nodemailer and smtp.gmail.com:465, and the visitor lands on `/thanks/`. A submission that fails Turnstile or fills the honeypot is rejected, and no email is sent
-  4. (786) 575-4837 appears beside the form, in the hero and in the footer. A site-wide scan finds no public pricing
-  5. The form stays off for live submissions until SPF is repaired. The repair is measured when `dig +short TXT zincdigital.co` returns exactly one SPF record, and it includes `_spf.google.com` (the owner applies it in Route 53, LNCH-02). The App Password and Turnstile secrets exist only as Vercel environment variables, entered by the owner
+  4. (786) 575-4837 appears beside the Contact form, in the homepage intro band and in the shared footer. A site-wide scan finds no public pricing
+  5. The form stays off for live submissions until a fresh authoritative DNS check returns exactly one SPF record including `_spf.google.com`, and live mail delivery is validated. All four Route 53 nameservers returned one such record on 2026-09-26; recheck before activation. No DNS change is requested by this criterion. The App Password and Turnstile secrets exist only as Vercel environment variables, entered by the owner
 
 **Plans**: TBD
 **UI hint**: yes
@@ -175,7 +183,7 @@ Plans:
      - no legacy line, no "GEO", no cursing and no sales device;
      - no leftover `[RECEIPT: …]` or placeholder text;
      - only testimonials the owner marked real, each beside the work it describes.
-  4. The owner has reviewed desktop and mobile screenshots of every template and signed each dated gate: the Day 1 font pick, the Day 2–5 copy batches, the Day 5 inputs (receipts, How we work, testimonials, Jaymie and Wendy photos) and the Day 6 final approval (Thu 2026-10-01 CT)
+  4. The owner has reviewed desktop and mobile screenshots of every template and approved the selected full-site direction, copy batches, receipts, "How we work", testimonials, team photos and final launch gates. No dates are assigned until the owner sets a launch schedule
 
 **Plans**: TBD
 **UI hint**: yes
@@ -184,11 +192,11 @@ Plans:
 
 **Goal**: `www.zincdigital.co` serves the new site from Vercel, with mail untouched and Kinsta kept as the rollback path
 **Mode:** mvp
-**Depends on**: Phase 6 (final approval), with the LNCH-02 SPF repair measured in Phase 4
+**Depends on**: Phase 6 (final approval) and LNCH-02; remeasure SPF and validate mail delivery before enabling live inquiry
 **Requirements**: LNCH-03, LNCH-04
 **Success Criteria** (what must be TRUE):
 
-  1. The Route 53 web-record TTLs were lowered 24–48 h before cutover (owner-applied, target Wed 2026-09-30 CT, confirmed with `dig`), and a full zone export is saved for comparison and rollback
+  1. The owner lowers the Route 53 web-record TTLs 24–48 h before cutover, confirms them with `dig`, and saves a full zone export for comparison and rollback. No target date is assigned
   2. On the owner's explicit go, `zincdigital.co` and `www` resolve to Vercel and serve the new site over HTTPS. MX, SPF, DKIM and DMARC records match the pre-cutover export exactly, and Kinsta stays up as the rollback path for about 30 days
   3. On the live domain:
      - the redirect script passes 100%, and the Lighthouse gates re-run green;
@@ -205,10 +213,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System & Font Pick | 2/5 | In Progress|  |
-| 2. Homepage & the Loop | 0/TBD | Not started | - |
-| 3. Services & Proof | 0/TBD | Not started | - |
-| 4. About & Inquiry | 0/TBD | Not started | - |
-| 5. Blog, SEO & Redirects | 0/TBD | Not started | - |
-| 6. Launch Readiness & Owner Approval | 0/TBD | Not started | - |
-| 7. Cutover | 0/TBD | Not started | - |
+| 1. Design System & Full-Site Acceptance | 2/2 live | Selected design implemented; verification pending | - |
+| 2. Homepage & the Loop | 0/TBD | Implementation present; acceptance pending | - |
+| 3. Services & Proof | 0/TBD | Mockup present; production proof pending | - |
+| 4. About & Inquiry | 0/TBD | About/demo present; live inquiry pending | - |
+| 5. Blog, SEO & Redirects | 0/TBD | Blog mockup present; production migration pending | - |
+| 6. Launch Readiness & Owner Approval | 0/TBD | Prior checks exist; formal launch acceptance pending | - |
+| 7. Cutover | 0/TBD | Not started; custom domain remains WordPress | - |

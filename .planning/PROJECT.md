@@ -1,5 +1,9 @@
 # ZINC Digital Website (zinc-digital-web)
 
+## Current checkpoint — 2026-09-26 CT
+
+[Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) records the deployed implementation and remaining work. The selected all-white design, Pairing A fonts and shared side thread supersede the initial alternating-band/comparison direction below. Main and Vercel were measured at 1a2ea8b; the custom domain still serves WordPress. All seven team photo references exist. Formal phase acceptance, final content and production integrations remain open. GitHub PR reviews use Codex; follow the current-head review checkpoint in the Phase 1 reconciliation. Initial context counts and DNS descriptions below are historical; remeasure before using them operationally.
+
 ## What This Is
 
 The new `www.zincdigital.co`: a custom, static-first Astro site on Vercel replacing ZINC Digital's WordPress/Elementor/Mouno site on Kinsta. It presents ZINC as one operating system in three layers (Build · Demand · Intelligence) for established, nationwide brands — ecommerce first — whose marketing directors and CFOs need to see that ZINC is the serious option.
@@ -15,7 +19,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 - **Customer**: established brands nationwide, modeled on Once Upon a Book Club (~$21k/month, almost 3 years, multi-service) and U.S. Oil Solutions (site, SEO, two apps); marketing directors and C-level/CFOs.
 - **Revenue model**: agency retainers and builds across 11 services; no public pricing.
 - **Success metric**: qualified inquiries (form with budget qualifier, or texts to (786) 575-4837) from prospects outside the referral network.
-- **Strategy notes**: spec §1–§3.
+- **Strategy notes**: spec section 1–section 3.
 
 ## Requirements
 
@@ -25,17 +29,17 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 ### Active
 
-- [ ] Homepage: nine alternating black/white bands per spec §6.1, with the core line hero and the scroll-driven Loop as the signature moment
+- [ ] Homepage: ten all-white bands per spec section 6.1, with a headline-only screen-filling hero, a separate intro band for actions and contents navigation, and the scroll-driven Loop as the signature moment
 - [ ] `/services/` loop page and 11 service pages (Build 3 · Demand 7 · Intelligence 1) at flat `/services/<slug>/` URLs, each with spec sheet, proof, FAQ, and preselected inquiry
 - [ ] `/work/` index with logo wall; case studies for Once Upon a Book Club (flagship) and U.S. Oil Solutions with live links, screenshots, `[RECEIPT: …]` numbers until confirmed
 - [ ] `/about/` with all seven team members in random order on every load; Miami HQ, nationwide, Panama City satellite
 - [ ] `/contact/` qualifying form (budget `Under $5k/mo`, `$5–10k`, `$10–25k`, `$25k+`) delivered to `jaymie@zincdigital.co` via Google Workspace, with Turnstile + honeypot + rate limit; text line (786) 575-4837
 - [ ] Blog: 18 live posts migrated to `/blog/<slug>/`, polished in the `zinc-author-voice` lane, filtered by layer
-- [ ] Visual system: editorial condensed-grotesk type (owner picks from three pairings), near-black + cool snow white; accents rare and loud — magenta `#FC0781` on black, dark teal `#07B2B2` / `#057E7E` (small text) on white
+- [ ] Visual system: editorial condensed-grotesk type (selected Pairing A: Big Shoulders Display / Inter / JetBrains Mono), near-black type on cool snow white; teal accents with accessible text treatment and the selected side-thread accent
 - [ ] Motion system: native CSS scroll-driven animation, view transitions, reduced-motion finished states; no animation library, no WebGL
 - [ ] Full SEO override: new taxonomy, titles/meta, structured data, complete sitemap, `robots.txt`, `llms.txt`, share images, GA4/Ads tags carried over
 - [ ] 301/410 redirect map from every old WordPress URL, tested by script
-- [ ] Launch gates (spec §10): Lighthouse mobile 100×4 per template, LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB JS per page, WCAG 2.2 AA
+- [ ] Launch gates (spec section 10): Lighthouse mobile 100×4 per template, LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB JS per page, WCAG 2.2 AA
 - [ ] Cutover: Route 53 → Vercel on the owner's explicit go; Kinsta kept ~30 days as rollback
 
 ### Out of Scope
@@ -59,24 +63,25 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 ## Constraints
 
-- **Timeline**: live in 5–7 days from 2026-09-25; owner copy review is the critical path.
-- **Performance**: spec §10 gates are launch-blocking on every template.
+- **Timeline**: no launch date is approved. The owner said on 2026-09-26 that go-live is not near because substantial design work remains. The original 5–7-day framing is superseded; follow the undated gate sequence in ROADMAP.md.
+- **Performance**: spec section 10 gates are launch-blocking on every template.
 - **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only.
 - **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel.
-- **Copy**: fresh voice (spec §7); no invented numbers; never "GEO" for generative search; no cursing.
-- **Owner inputs**: receipts for case studies, real-vs-placeholder testimonials, "How we work" commitments, Jaymie and Wendy photos.
+- **Git and reviews**: `main` is the product. Deliver through a work branch and GitHub PR; Codex reviews each PR when opened or marked ready, or after `@codex review`. Resolve findings for the current PR head before landing. Keep GSD code review, verification and UI review at their configured checkpoints.
+- **Copy**: fresh voice (spec section 7); no invented numbers; never "GEO" for generative search; no cursing.
+- **Owner inputs**: receipts for case studies, real-vs-placeholder testimonials, "How we work" commitments, team-photo acceptance (all seven photo references now exist).
 - **Irreversible actions**: DNS cutover and production secrets need the owner's explicit go.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Clean slate; V2 prototype and live site are fact sources only | Owner wants fresh eyes | — Pending |
-| Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | — Pending |
-| One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | — Pending |
-| Loop signature + editorial type; black/white alternating; magenta `#FC0781` on black, dark teal `#07B2B2` on white | Owner direction: big, moving, unexpected, mostly B&W, loud color | — Pending |
-| Research conflicts resolved per spec §18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | — Pending |
-| Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | — Pending |
+| Clean slate; V2 prototype and live site are fact sources only | Owner wants fresh eyes | Confirmed boundary |
+| Astro on Vercel in `zinc-digital-web` | Static-first speed + SEO; Vercel Pro already paid | Selected; implementation is on `main` |
+| One system, three layers (Build · Demand · Intelligence) with flat service URLs | Sells the connected relationship; flat URLs rank | Selected; acceptance remains open |
+| Loop signature + editorial type; initial alternating-band direction superseded by all-white option 3 with side thread and Pairing A | Owner direction: big, moving, unexpected, mostly B&W, loud color | Selected and implemented in PR #4; formal phase acceptance remains open |
+| Research conflicts resolved per spec section 18 (410 route, form email, rate limit, cookie banner, case order, form steps) | Owner: "resolve all conflicts" | Decisions recorded; implementation and acceptance remain open |
+| Core line: "Other agencies deliver the scope. ZINC delivers the business." | Approved by owner | Approved; present in the homepage implementation |
 | Full SEO override, 18 posts at launch, rest after | Old config untouched for years; speed to launch | — Pending |
 
 ## Evolution
@@ -97,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-09-25 after initialization*
+*Last updated: 2026-09-26 after GSD and GitHub review-policy reconciliation*

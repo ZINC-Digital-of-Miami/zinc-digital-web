@@ -1,7 +1,9 @@
 # zinc-digital-web — Complete Turnover
 
 **Written:** 2026-09-25, 3:20 PM CT · **Owner:** Kirk Musick, MS, MBA — ZINC Digital
-**Purpose:** everything a new operator needs, in one document. Part A is the decision register and the build plan. Part B is the approved spec, requirements and roadmap, verbatim. Part C is the exact brief for the next build. Part D is live state, owner actions, and how to resume. No secrets.
+**Purpose:** historical September 25 turnover snapshot. Part A is the decision register and build plan as of that date. Part B preserves the approved spec, requirements and roadmap as recorded at turnover. Part C is the next-build brief as of that date. Part D records the then-current state, owner actions and resume path. Current corrections are called out above; no secrets.
+
+> **Current correction — 2026-09-26:** This is a historical turnover snapshot. GitHub PR reviews use Codex; trigger a review when a PR is ready or with `@codex review`. Copilot is not a review gate. Quota notes below record the condition reported on 2026-09-25 only. No launch date is approved, and the old 5–7-day target and dated gate sequence are superseded. The old SPF repair note is also superseded: all four authoritative Route 53 nameservers currently return one SPF record including Google Workspace and Kinsta; remeasure and validate delivery before live inquiry. GSD code-review, verifier, and UI-review remain separate internal checks.
 
 ---
 
@@ -27,7 +29,7 @@
 | 16 | Blog & SEO | 18 live posts at launch, polished; recovered queue continues after. Full SEO override (new taxonomy, titles, structured data, complete sitemap, llms.txt, GA4/Ads tags carried). |
 | 17 | Timeline | No fixed date; sooner the better; 5–7 days. |
 | 18 | Case studies | OUABC is the flagship (TikTok ads, Shopping ads, blog content, Meta ads, web updates, reporting system). U.S. Oil second. Draft with best available; every unconfirmed number is a `[RECEIPT: …]` marker. |
-| 19 | Research conflicts | "Resolve all conflicts" → spec §18: 410 via one catch-all route; form email Nodemailer→smtp.gmail.com:465 App Password; rate limit Turnstile+honeypot (+Vercel WAF only at $0); case studies lead with a result strip; form in progressive steps, single POST; no cookie banner; Firefox finished-state is first-class. Zoho is no longer used (SPF record simplified). |
+| 19 | Research conflicts | "Resolve all conflicts" → spec section 18: 410 via one catch-all route; form email Nodemailer→smtp.gmail.com:465 App Password; rate limit Turnstile+honeypot (+Vercel WAF only at $0); case studies lead with a result strip; form in progressive steps, single POST; no cookie banner; Firefox finished-state is first-class. Zoho is no longer used (SPF record simplified). |
 | 20 | Process | GSD adaptive profile, every piece of work reviewed by a fresh agent, phases in worktrees, PR to `main`. Owner then cut the ceremony: "get this together this week." |
 | 21 | Deployment | Public production URL `zinc-digital-web.vercel.app`, noindex until launch. **Do not add the domain yet.** Custom domain on Pro costs $0 extra when it is added. |
 | 22 | Visual QA | "Start doing a visual check before you stop" — every hand-off carries the agent's own 1440 + 375 screenshots. |
@@ -36,7 +38,7 @@
 
 ---
 
-## B1. Site map (spec §5)
+## B1. Site map (spec section 5)
 
 ```
 /                               Home (nine bands)
@@ -54,7 +56,7 @@
 /privacy/  /terms/  /thanks/  404
 ```
 
-## B2. Homepage — nine bands (spec §6.1)
+## B2. Homepage — nine bands (spec section 6.1)
 
 | # | Band | Ground | Content | Motion |
 |---|---|---|---|---|
@@ -77,7 +79,7 @@
 | 3 Services & Proof | 11 service pages + OUABC and U.S. Oil case studies | SERV-01..04, LOOP-03, WORK-01..05 |
 | 4 About & Inquiry | Team page; qualifying form reaching Jaymie; text line | ABOU-01, CONT-01..05, SERV-05, LNCH-02 |
 | 5 Blog, SEO & Redirects | 18 posts live; full SEO layer; every old URL 301 or 410 | BLOG-01..03, SEO-01..05, MIGR-01..02 |
-| 6 Launch Readiness & Owner Approval | Every template passes §10 gates; copy clean; owner signs | QUAL-01..05, COPY-01..02, LNCH-01 |
+| 6 Launch Readiness & Owner Approval | Every template passes section 10 gates; copy clean; owner signs | QUAL-01..05, COPY-01..02, LNCH-01 |
 | 7 Cutover | Route 53 (MyKinsta DNS) → Vercel on the owner's go; mail untouched; Kinsta kept ~30 days | LNCH-03..04 |
 
 **Phase 1 status:** plan 01-01 complete (scaffold, tokens, fonts, Pairing A hero, public noindex URL). Plans 01-02..01-05 are stale and must be replaced by Part C.
@@ -343,7 +345,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 - **Target:** live in 5–7 days. The owner's copy review turnaround is the critical path.
 - **Indicative sequence:** (1) design system + font pick · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
-- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Copilot review per PR, GSD code review / verifier / UI review at the configured points.
+- **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Codex review on every GitHub PR, triggered when opened or marked ready, or with `@codex review`; resolve its findings before landing. Copilot is not a review gate. GSD code review / verifier / UI review remain at configured points.
 - **Repo rules:** `main` is the product; work branches merge to `main` and are deleted. All times shown to the owner are America/Chicago (CT).
 
 ## 17. Out of scope
@@ -358,7 +360,7 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 | Topic | Decision | Basis |
 |---|---|---|
-| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (§8) |
+| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (section 8) |
 | 410 Gone | On-demand catch-all route reading `src/lib/redirects.ts`; verified on preview deploy | Research conflict (vercel.json routes vs function) — one source of truth wins; Astro adapter owns routing output |
 | Form email | Nodemailer → smtp.gmail.com:465 with App Password; Gmail API only if App Passwords are blocked | Vercel allows 465/587; relay IP auth impossible from serverless |
 | Rate limiting | Turnstile + honeypot required; Vercel WAF rule only at $0 included usage | No new paid service |
@@ -382,108 +384,108 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 **Defined:** 2026-09-25 (CT)
 **Core Value:** The right prospect leaves certain ZINC is the serious option — and sends a qualified inquiry or a text about a specific service — on a site that loads instantly and ranks.
-**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (§ numbers below). Spec §18 resolved decisions win over research.
+**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (section numbers below). Spec section 18 resolved decisions win over research.
 
 ## v1 Requirements
 
 ### Design System (DSGN)
 
-- [ ] **DSGN-01**: Owner can compare three open-license variable font pairings rendered on the real homepage hero and a service spec sheet, and picks one (§8)
-- [ ] **DSGN-02**: Every page uses one token set: near-black `#0A0A0B`, cool snow white `#F5F6F7`, one body gray per ground, magenta `#FC0781` only on black bands, dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) only on white bands (§8, §18)
-- [ ] **DSGN-03**: Each band sets its ground with one `data-theme` attribute; black and white alternate by band independent of OS color scheme (§8)
-- [ ] **DSGN-04**: Display type loads self-hosted, subset, ≤ 3 font files, with metric-matched fallbacks so the font swap causes zero layout shift (§8, §18)
-- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply on both grounds (§8)
+- [ ] **DSGN-01**: Owner can compare three open-license variable font pairings rendered on the real homepage hero and a service spec sheet, and picks one (section 8)
+- [ ] **DSGN-02**: Every page uses one token set: near-black `#0A0A0B`, cool snow white `#F5F6F7`, one body gray per ground, magenta `#FC0781` only on black bands, dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) only on white bands (section 8, section 18)
+- [ ] **DSGN-03**: Each band sets its ground with one `data-theme` attribute; black and white alternate by band independent of OS color scheme (section 8)
+- [ ] **DSGN-04**: Display type loads self-hosted, subset, ≤ 3 font files, with metric-matched fallbacks so the font swap causes zero layout shift (section 8, section 18)
+- [ ] **DSGN-05**: The circuit-brain mark and ZINC wordmark render crisply on both grounds (section 8)
 
 ### Motion (MOTN)
 
-- [ ] **MOTN-01**: In browsers with scroll timelines, scenes animate on scroll using native CSS only — no animation library, no WebGL (§9)
-- [ ] **MOTN-02**: With reduced motion on, or in a browser without scroll timelines (Firefox 156), every scene shows a designed finished state with no content missing (§9, §18)
-- [ ] **MOTN-03**: Page-to-page navigation uses native view transitions where supported and plain navigation elsewhere (§9)
-- [ ] **MOTN-04**: Pinned scenes hold steady on a real iPhone (Safari) without jumps from the dynamic toolbar (§9)
+- [ ] **MOTN-01**: In browsers with scroll timelines, scenes animate on scroll using native CSS only — no animation library, no WebGL (section 9)
+- [ ] **MOTN-02**: With reduced motion on, or in a browser without scroll timelines (Firefox 156), every scene shows a designed finished state with no content missing (section 9, section 18)
+- [ ] **MOTN-03**: Page-to-page navigation uses native view transitions where supported and plain navigation elsewhere (section 9)
+- [ ] **MOTN-04**: Pinned scenes hold steady on a real iPhone (Safari) without jumps from the dynamic toolbar (section 9)
 
 ### The Loop (LOOP)
 
-- [ ] **LOOP-01**: Visitor sees Build → Demand → Intelligence as one loop, each layer listing its services as links (§4, §6.1)
-- [ ] **LOOP-02**: On the homepage, the circuit line draws as the visitor scrolls, a pulse travels the loop, and each layer scales up when the pulse reaches it (§6.1)
-- [ ] **LOOP-03**: A mini loop on each service page and case study lights only the layers that apply (§6.2, §6.3)
+- [ ] **LOOP-01**: Visitor sees Build → Demand → Intelligence as one loop, each layer listing its services as links (section 4, section 6.1)
+- [ ] **LOOP-02**: On the homepage, the circuit line draws as the visitor scrolls, a pulse travels the loop, and each layer scales up when the pulse reaches it (section 6.1)
+- [ ] **LOOP-03**: A mini loop on each service page and case study lights only the layers that apply (section 6.2, section 6.3)
 
 ### Homepage (HOME)
 
-- [ ] **HOME-01**: Hero shows "Other agencies deliver the scope. ZINC delivers the business." with the strike and highlight hits, a contact action, and `Text (786) 575-4837` (§6.1)
-- [ ] **HOME-02**: Logo wall shows Porsche, Home Depot, John Deere, YMCA, General Shale, Once Upon a Book Club, U.S. Oil Solutions; logos flip to the band's accent on hover/tap (§6.1)
-- [ ] **HOME-03**: OUABC band shows tenure, services run, live link, screenshots, and receipts (§6.1)
-- [ ] **HOME-04**: U.S. Oil band shows site → SEO → two apps → next build as a stamped timeline (§6.1)
-- [ ] **HOME-05**: "How we work" band shows 4–5 commitments, each confirmed true by the owner (§6.1, §13)
-- [ ] **HOME-06**: Team band shows all seven faces in black and white, reshuffled on every load and on entering view (§6.1)
-- [ ] **HOME-07**: Latest-articles band shows the three newest posts (§6.1)
-- [ ] **HOME-08**: Footer shows a new closing line, short form entry, text line, Miami HQ · Panama City satellite · nationwide, and socials (§6.1)
+- [ ] **HOME-01**: Hero shows "Other agencies deliver the scope. ZINC delivers the business." with the strike and highlight hits, a contact action, and `Text (786) 575-4837` (section 6.1)
+- [ ] **HOME-02**: Logo wall shows Porsche, Home Depot, John Deere, YMCA, General Shale, Once Upon a Book Club, U.S. Oil Solutions; logos flip to the band's accent on hover/tap (section 6.1)
+- [ ] **HOME-03**: OUABC band shows tenure, services run, live link, screenshots, and receipts (section 6.1)
+- [ ] **HOME-04**: U.S. Oil band shows site → SEO → two apps → next build as a stamped timeline (section 6.1)
+- [ ] **HOME-05**: "How we work" band shows 4–5 commitments, each confirmed true by the owner (section 6.1, section 13)
+- [ ] **HOME-06**: Team band shows all seven faces in black and white, reshuffled on every load and on entering view (section 6.1)
+- [ ] **HOME-07**: Latest-articles band shows the three newest posts (section 6.1)
+- [ ] **HOME-08**: Footer shows a new closing line, short form entry, text line, Miami HQ · Panama City satellite · nationwide, and socials (section 6.1)
 
 ### Services (SERV)
 
-- [ ] **SERV-01**: `/services/` presents the three-layer loop with every service linked (§5)
-- [ ] **SERV-02**: Eleven service pages exist at flat `/services/<slug>/` URLs — shopify, web-design, apps, seo, local-seo, ai-search-optimization, google-search-ads, shopping-ads, social-ads, tiktok-ads, business-intelligence (§4)
-- [ ] **SERV-03**: Each service page shows the name, a plain line on what it does, a spec sheet (deliverables, cadence, what the client owns, how it's reported), and proof (§6.2)
-- [ ] **SERV-04**: Each service page answers 4–6 real buyer questions with FAQ structured data (§6.2)
-- [ ] **SERV-05**: Each service page's inquiry action opens `/contact/?service=<slug>` with that service preselected (§6.2)
+- [ ] **SERV-01**: `/services/` presents the three-layer loop with every service linked (section 5)
+- [ ] **SERV-02**: Eleven service pages exist at flat `/services/<slug>/` URLs — shopify, web-design, apps, seo, local-seo, ai-search-optimization, google-search-ads, shopping-ads, social-ads, tiktok-ads, business-intelligence (section 4)
+- [ ] **SERV-03**: Each service page shows the name, a plain line on what it does, a spec sheet (deliverables, cadence, what the client owns, how it's reported), and proof (section 6.2)
+- [ ] **SERV-04**: Each service page answers 4–6 real buyer questions with FAQ structured data (section 6.2)
+- [ ] **SERV-05**: Each service page's inquiry action opens `/contact/?service=<slug>` with that service preselected (section 6.2)
 
 ### Work (WORK)
 
-- [ ] **WORK-01**: `/work/` shows the logo wall and both case studies (§5)
-- [ ] **WORK-02**: `/work/once-upon-a-book-club/` leads with a result strip, then situation, lit loop, work by layer, screenshots, and a real testimonial if one exists (§6.3, §18)
-- [ ] **WORK-03**: `/work/us-oil-solutions/` follows the same structure (§6.3)
-- [ ] **WORK-04**: Every unconfirmed number renders as a visible `[RECEIPT: …]` placeholder and blocks launch until confirmed (§13)
-- [ ] **WORK-05**: Reporting systems and internal app pages appear only as screenshots, never as links (§6.3)
+- [ ] **WORK-01**: `/work/` shows the logo wall and both case studies (section 5)
+- [ ] **WORK-02**: `/work/once-upon-a-book-club/` leads with a result strip, then situation, lit loop, work by layer, screenshots, and a real testimonial if one exists (section 6.3, section 18)
+- [ ] **WORK-03**: `/work/us-oil-solutions/` follows the same structure (section 6.3)
+- [ ] **WORK-04**: Every unconfirmed number renders as a visible `[RECEIPT: …]` placeholder and blocks launch until confirmed (section 13)
+- [ ] **WORK-05**: Reporting systems and internal app pages appear only as screenshots, never as links (section 6.3)
 
 ### About (ABOU)
 
-- [ ] **ABOU-01**: `/about/` shows an opening statement, all seven team members in random order on each load, locations, and how an engagement runs (§6.4)
+- [ ] **ABOU-01**: `/about/` shows an opening statement, all seven team members in random order on each load, locations, and how an engagement runs (section 6.4)
 
 ### Contact (CONT)
 
-- [ ] **CONT-01**: Visitor can submit name, company, work email, website, services (grouped by layer), budget (`Under $5k/mo`, `$5–10k/mo`, `$10–25k/mo`, `$25k+/mo`), timeline, and message in short progressive steps; the form still works as one page with JavaScript off (§6.5, §18)
-- [ ] **CONT-02**: A valid submission is emailed to `jaymie@zincdigital.co` via Nodemailer → smtp.gmail.com:465 with a Workspace App Password, and the visitor lands on `/thanks/` (§14, §18)
-- [ ] **CONT-03**: Submissions failing Turnstile server verification or filling the honeypot are rejected without sending email (§14)
-- [ ] **CONT-04**: The text line (786) 575-4837 appears beside the form and in the hero and footer (§6.5)
-- [ ] **CONT-05**: No public pricing appears anywhere on the site (§6.5)
+- [ ] **CONT-01**: Visitor can submit name, company, work email, website, services (grouped by layer), budget (`Under $5k/mo`, `$5–10k/mo`, `$10–25k/mo`, `$25k+/mo`), timeline, and message in short progressive steps; the form still works as one page with JavaScript off (section 6.5, section 18)
+- [ ] **CONT-02**: A valid submission is emailed to `jaymie@zincdigital.co` via Nodemailer → smtp.gmail.com:465 with a Workspace App Password, and the visitor lands on `/thanks/` (section 14, section 18)
+- [ ] **CONT-03**: Submissions failing Turnstile server verification or filling the honeypot are rejected without sending email (section 14)
+- [ ] **CONT-04**: The text line (786) 575-4837 appears beside the form and in the hero and footer (section 6.5)
+- [ ] **CONT-05**: No public pricing appears anywhere on the site (section 6.5)
 
 ### Blog (BLOG)
 
-- [ ] **BLOG-01**: All 18 live posts are published at `/blog/<slug>/`, polished in the `zinc-author-voice` lane (§12)
-- [ ] **BLOG-02**: `/blog/` lists posts filterable by layer (§6.6)
-- [ ] **BLOG-03**: Each article shows author card, related services, and Article structured data (§6.6)
+- [ ] **BLOG-01**: All 18 live posts are published at `/blog/<slug>/`, polished in the `zinc-author-voice` lane (section 12)
+- [ ] **BLOG-02**: `/blog/` lists posts filterable by layer (section 6.6)
+- [ ] **BLOG-03**: Each article shows author card, related services, and Article structured data (section 6.6)
 
 ### Copy (COPY)
 
-- [ ] **COPY-01**: All site copy is new, in the §7 voice, with no legacy lines, no cursing, no sales devices, and never "GEO" (§7)
-- [ ] **COPY-02**: Only real, attributable testimonials ship, each beside the work it describes (§13)
+- [ ] **COPY-01**: All site copy is new, in the section 7 voice, with no legacy lines, no cursing, no sales devices, and never "GEO" (section 7)
+- [ ] **COPY-02**: Only real, attributable testimonials ship, each beside the work it describes (section 13)
 
 ### SEO (SEO)
 
-- [ ] **SEO-01**: Every page has a unique title, meta description, canonical URL, and share image (§11)
-- [ ] **SEO-02**: Structured data validates: Organization, LocalBusiness (Miami), Service, Article, FAQPage, BreadcrumbList (§11)
-- [ ] **SEO-03**: The sitemap lists every indexable page including every post; `robots.txt` and `llms.txt` are served (§11)
-- [ ] **SEO-04**: New categories and tags are built around the three layers; no WordPress taxonomy carries over by default (§11)
-- [ ] **SEO-05**: Google tag `GT-NNZRWNCF` (GA4 `G-BV43HRVJ18`, Ads `AW-17071018445`) fires on every page without breaking the JS budget; the privacy page discloses it; no cookie banner (§11, §18)
+- [ ] **SEO-01**: Every page has a unique title, meta description, canonical URL, and share image (section 11)
+- [ ] **SEO-02**: Structured data validates: Organization, LocalBusiness (Miami), Service, Article, FAQPage, BreadcrumbList (section 11)
+- [ ] **SEO-03**: The sitemap lists every indexable page including every post; `robots.txt` and `llms.txt` are served (section 11)
+- [ ] **SEO-04**: New categories and tags are built around the three layers; no WordPress taxonomy carries over by default (section 11)
+- [ ] **SEO-05**: Google tag `GT-NNZRWNCF` (GA4 `G-BV43HRVJ18`, Ads `AW-17071018445`) fires on every page without breaking the JS budget; the privacy page discloses it; no cookie banner (section 11, section 18)
 
 ### Migration (MIGR)
 
-- [ ] **MIGR-01**: Every old WordPress URL (from the REST API and Search Console) either 301s to its mapped target or returns 410, from one source file (§12, §18)
-- [ ] **MIGR-02**: A script checks every old URL against the preview deploy and fails on any miss (§12, §10)
+- [ ] **MIGR-01**: Every old WordPress URL (from the REST API and Search Console) either 301s to its mapped target or returns 410, from one source file (section 12, section 18)
+- [ ] **MIGR-02**: A script checks every old URL against the preview deploy and fails on any miss (section 12, section 10)
 
 ### Quality Gates (QUAL)
 
-- [ ] **QUAL-01**: Every template scores Lighthouse mobile 100 on Performance, SEO, Accessibility, Best Practices (§10)
-- [ ] **QUAL-02**: LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB gzip JS per page (§10)
-- [ ] **QUAL-03**: WCAG 2.2 AA contrast and full keyboard access on every template (§10)
-- [ ] **QUAL-04**: Zero broken internal links (§10)
-- [ ] **QUAL-05**: Desktop and mobile screenshots of every template are reviewed by the owner (§10)
+- [ ] **QUAL-01**: Every template scores Lighthouse mobile 100 on Performance, SEO, Accessibility, Best Practices (section 10)
+- [ ] **QUAL-02**: LCP ≤ 1.2 s, CLS 0, INP < 100 ms, ≤ 15 KB gzip JS per page (section 10)
+- [ ] **QUAL-03**: WCAG 2.2 AA contrast and full keyboard access on every template (section 10)
+- [ ] **QUAL-04**: Zero broken internal links (section 10)
+- [ ] **QUAL-05**: Desktop and mobile screenshots of every template are reviewed by the owner (section 10)
 
 ### Launch (LNCH)
 
-- [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 font pick; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos; Day 6 final approval (§18)
-- [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the §18 record in MyKinsta DNS) (§18)
-- [ ] **LNCH-03**: DNS TTLs are lowered 24–48 h ahead; on the owner's explicit go, Route 53 web records point to Vercel with mail records untouched (§15)
-- [ ] **LNCH-04**: After cutover on the live domain: every redirect passes, sitemap submitted in Search Console, GA4 receives hits, a test inquiry reaches Jaymie, Lighthouse gates re-run (§15)
+- [ ] **LNCH-01**: Owner review gates are held on dated checkpoints: Day 1 font pick; Days 2–5 copy batches; Day 5 receipts, "How we work", testimonials, Jaymie/Wendy photos; Day 6 final approval (section 18)
+- [ ] **LNCH-02**: Before the form goes live, `zincdigital.co` has one SPF record authorizing Google Workspace (owner applies the section 18 record in MyKinsta DNS) (section 18)
+- [ ] **LNCH-03**: DNS TTLs are lowered 24–48 h ahead; on the owner's explicit go, Route 53 web records point to Vercel with mail records untouched (section 15)
+- [ ] **LNCH-04**: After cutover on the live domain: every redirect passes, sitemap submitted in Search Console, GA4 receives hits, a test inquiry reaches Jaymie, Lighthouse gates re-run (section 15)
 
 ## v2 Requirements
 
@@ -503,8 +505,8 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | CMS | Posts live in git |
 | Client portal, logins, live dashboards | Not the site's job |
 | Testimonial carousels, stat counters, award badges, guarantees, comparison tables, "free consultation" CTAs | Owner: no sales pitch |
-| Live chat / chatbots, pop-ups, hero background video | Same rule; JS and LCP budget (§18) |
-| Cookie banner | U.S. audience, below CCPA thresholds (§18) |
+| Live chat / chatbots, pop-ups, hero background video | Same rule; JS and LCP budget (section 18) |
+| Cookie banner | U.S. audience, below CCPA thresholds (section 18) |
 | 3D / WebGL, animation libraries | Performance gate |
 | Site search, dark-mode toggle, personalization | Not needed at this content volume; conflicts with fixed band theming |
 | Changes to the live WordPress site before cutover | Protect the live site |
@@ -593,10 +595,10 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 | Public site | https://zinc-digital-web.vercel.app → 301 → `/design-preview/a/` (HTTP 200). One page: the Pairing A hero only. `x-robots-tag: noindex, nofollow` on every path + `<meta name="robots" content="noindex, nofollow">`. |
 | Vercel project | `zinc-digital-web`, team `zincdigitalofmiamis-projects` (`team_OBen4n9i3PybGdYsjENnrv1S`), Pro plan already paid, **no Git connection** (CLI-linked from the phase worktree via `.vercel/project.json`, gitignored). Protection `prod_deployment_urls_and_all_previews` via Vercel Authentication (free). No Password Protection. Domains: `zinc-digital-web.vercel.app` only. 3 deployments: 1 Production (`bqxgp8uvb`), 2 Preview. |
 | zincdigital.co | Untouched. Still WordPress on Kinsta behind Cloudflare. DNS managed in MyKinsta (Route 53 nameservers). Registrar GoDaddy. |
-| GitHub | `ZINC-Digital-of-Miami/zinc-digital-web` (public). `main` = `f5c7a90`. Phase branch `gsd/phase-01-design-system-font-pick` = `e7fb6a5` (pushed). PR #1 merged. **PR #2 open** (owner-opened 2:43 PM CT, head `a8022b2`, mergeable) — see §5. |
+| GitHub | `ZINC-Digital-of-Miami/zinc-digital-web` (public). `main` = `f5c7a90`. Phase branch `gsd/phase-01-design-system-font-pick` = `e7fb6a5` (pushed). PR #1 merged. **PR #2 open** (owner-opened 2:43 PM CT, head `a8022b2`, mergeable) — see section 5. |
 | Local | Main checkout `/Volumes/Satechi Hub/zinc-digital-web` on `main` @ `1256025` (behind origin by the workflow commit). Phase worktree `/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01`. Two untracked GSD runtime files (`.planning/milestone.lock`, `.planning/state.json`) — leave them. |
 | Email/SPF | `zincdigital.co` publishes **two** SPF records (permerror); neither authorizes Google Workspace. Owner action, in MyKinsta DNS: replace both with `v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all` (Zoho is no longer used). DMARC is `p=none`. |
-| Copilot | PR review quota is exhausted on this account (PR #1). Paid Copilot is off the table (no new charges). |
+| Historical review note (2026-09-25) | Copilot PR review quota was reported exhausted on this account (PR #1); paid Copilot was off the table. Superseded as workflow guidance by the 2026-09-26 Codex GitHub review correction above. |
 
 Re-measure:
 ```bash
@@ -622,7 +624,7 @@ Known defects the owner already called out, still open: supporting-line copy rej
 
 ## 4. What is NOT done
 
-- **Plans 01-02..01-05 are stale.** Committed versions build a dark band + spec sheet + pairing routes + gates. The owner rejected that shape: the next deliverable must be the complete nine-band homepage (spec §6.1) at `/`, in Pairing A, deployed to the vercel.app URL, then Pairings B/C on that full page, then gates + font pick, then collapse. An interrupted partial rewrite of 01-02 was moved to `/Volumes/Satechi Hub/_TRASH_ZINC_CLEANUP/2026-09-25/interrupted-replan/`; the working tree is clean.
+- **Plans 01-02..01-05 are stale.** Committed versions build a dark band + spec sheet + pairing routes + gates. The owner rejected that shape: the next deliverable must be the complete nine-band homepage (spec section 6.1) at `/`, in Pairing A, deployed to the vercel.app URL, then Pairings B/C on that full page, then gates + font pick, then collapse. An interrupted partial rewrite of 01-02 was moved to `/Volumes/Satechi Hub/_TRASH_ZINC_CLEANUP/2026-09-25/interrupted-replan/`; the working tree is clean.
 - Phases 2–7 (Loop animation, services, work, about, contact form, blog/SEO/redirects, launch gates, cutover): not started.
 - Owner inputs still needed: real testimonials (which are real vs placeholder), case-study receipts, "How we work" commitments, Jaymie + Wendy photos, logo permission is granted for all listed clients.
 
@@ -630,8 +632,8 @@ Known defects the owner already called out, still open: supporting-line copy rej
 
 1. **PR #2** (`gsd/phase-01-design-system-font-pick` → `main`, opened by the owner). It contains 01-01 plus all Phase 1 planning docs. If merged now, `main` gets a one-page site plus stale plans; fine as a checkpoint, but the branch also needs the owner's `f5c7a90` merged in first (see next item). Recommended: merge after the workflow question is settled.
 2. **`.github/workflows/astro.yml` on `main`** (owner commit `f5c7a90`, 2:40 PM CT): the stock "Deploy Astro to GitHub Pages" workflow (Node 20, `actions/deploy-pages`). It conflicts with the plan (Vercel hosting, Node 24, the Vercel adapter) and will fail or double-deploy on every push to `main`; it also spends Actions minutes. No runs have fired yet (`gh run list` empty). Decide: delete it, or replace it with a check-only workflow (build + Lighthouse), never a deploy.
-3. **SPF repair** in MyKinsta DNS (§2). The contact form must not go live before this.
-4. **Copilot review** unavailable this period; the repo's AGENTS.md expects it per PR. Use GSD's code-review agent instead until quota resets.
+3. **SPF repair** in MyKinsta DNS (section 2). The contact form must not go live before this.
+4. **Historical review note (2026-09-25):** Copilot review was reported unavailable at turnover. Current GitHub PR review is Codex; GSD's code-review, verifier, and UI-review remain internal checks rather than substitutes for the GitHub review.
 5. **Font pick** and **complete-homepage review** are owner gates (Day 1 was planned as Sat 2026-09-26 CT).
 
 ## 6. How to resume (exact path)
@@ -642,7 +644,7 @@ git fetch origin && git merge origin/main                       # bring in f5c7a
 export npm_config_cache='/Volumes/Satechi Hub/zinc-digital-web-worktrees/.npm-cache'
 npm ci && npm run build && npx astro check
 ```
-1. Replan: `/gsd-plan-phase 1` → choose **Replan from scratch** → give the planner §1 items 5–10 and spec §6.1 as the brief (the brief text is preserved in `.planning/STATE.md` session notes and in this file). Do not run the stale plans.
+1. Replan: `/gsd-plan-phase 1` → choose **Replan from scratch** → give the planner section 1 items 5–10 and spec section 6.1 as the brief (the brief text is preserved in `.planning/STATE.md` session notes and in this file). Do not run the stale plans.
 2. Execute: `/gsd-execute-phase 1`. Deploy with `vercel deploy --prod --scope zincdigitalofmiamis-projects` from the worktree (production on the vercel.app URL is owner-authorized; a custom domain is not).
 3. Before showing the owner anything: build, screenshot 1440 and 375 (local `python3 -m http.server --directory dist` or the live URL), check no underlined links, content starts at top, retina-sharp images.
 4. Land: PR to `main`, then delete the branch and worktree. `main` is the product.
@@ -658,5 +660,5 @@ Rules that bind every agent here: `AGENTS.md` (repo), the owner's global rules (
 
 ## 8. Incident log (for the record)
 
-- **2:0x PM CT** — First deploy to the new, Git-disconnected Vercel project auto-promoted to Production and the draft hero was publicly reachable at `zinc-digital-web.vercel.app` three times for seconds each (draft copy only; no secrets; not zincdigital.co). The executor removed those deployments and changed protection to `prod_deployment_urls_and_all_previews`. Root cause and timestamps: `.planning/phases/01-design-system-font-pick/01-01-SUMMARY.md` § Deviations.
+- **2:0x PM CT** — First deploy to the new, Git-disconnected Vercel project auto-promoted to Production and the draft hero was publicly reachable at `zinc-digital-web.vercel.app` three times for seconds each (draft copy only; no secrets; not zincdigital.co). The executor removed those deployments and changed protection to `prod_deployment_urls_and_all_previews`. Root cause and timestamps: the “Deviations” heading in `.planning/phases/01-design-system-font-pick/01-01-SUMMARY.md`.
 - **2:27 PM CT** — Owner chose a public noindex production URL; applied in `6c04e71`.

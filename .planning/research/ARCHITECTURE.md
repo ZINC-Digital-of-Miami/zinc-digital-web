@@ -276,19 +276,19 @@ This is a marketing site with a fixed, small content surface (11 services, 2 cas
 ### Anti-Pattern 1: Letting `Loop.astro` fetch its own highlight data
 
 **What people do:** have the Loop component call `getCollection('services')` internally to figure out what to highlight, "since it needs the data anyway."
-**Why it's wrong:** breaks the component's reuse across full/mini contexts (case pages want to highlight *only the services that client uses*, not derive it from the full catalog) and makes it untestable/unrenderable against fixture data before content is final — directly conflicts with the fixture-first build order this project needs to hit 5–7 days.
+**Why it's wrong:** breaks the component's reuse across full/mini contexts (case pages want to highlight *only the services that client uses*, not derive it from the full catalog) and makes it untestable/unrenderable against fixture data before content is final. The original 5–7-day target referenced here is superseded; no launch date is approved.
 **Do this instead:** `Loop` takes `highlight?: string[]` (service slugs) as a prop; the calling page/band computes that list from `lib/loop-layers.ts` + whatever entry it already fetched.
 
 ### Anti-Pattern 2: `output: 'server'` "to be safe" for a mostly-static site
 
 **What people do:** default to `output: 'server'` + adapter because "the form needs SSR anyway," then mark everything else `prerender = true` to compensate.
-**Why it's wrong:** inverts the correct default, adds a cold-start/function-invocation cost to every page unless every single route remembers to opt back into prerendering, and works against the LCP/Lighthouse-100 launch gates (spec §10) which are much easier to hit when the CDN serves plain static HTML.
+**Why it's wrong:** inverts the correct default, adds a cold-start/function-invocation cost to every page unless every single route remembers to opt back into prerendering, and works against the LCP/Lighthouse-100 launch gates (spec section 10) which are much easier to hit when the CDN serves plain static HTML.
 **Do this instead:** `output: 'static'` (default), opt the two routes that truly need it *out* with `prerender = false`. Astro v5 explicitly recommends starting static and opting out per-route rather than the reverse (confirmed in Astro's on-demand-rendering guide).
 
 ### Anti-Pattern 3: A second redirect list living in `vercel.json` or duplicated in code comments
 
 **What people do:** once the 301 map exists in `astro.config.mjs`, someone adds a couple more one-off redirects directly in Vercel's dashboard/`vercel.json` for convenience during launch week.
-**Why it's wrong:** the launch gate requires "every old URL resolves to its mapped target or 410" verified by a script (spec §10) — that script can only be authoritative if there is exactly one source of truth. A second list drifts immediately and the test script can't see it.
+**Why it's wrong:** the launch gate requires "every old URL resolves to its mapped target or 410" verified by a script (spec section 10) — that script can only be authoritative if there is exactly one source of truth. A second list drifts immediately and the test script can't see it.
 **Do this instead:** every redirect and every 410, including "quick launch-week ones," goes into `src/lib/redirects.ts` first. Nothing else consumes routing data independently.
 
 ## Integration Points
@@ -320,7 +320,7 @@ This is a marketing site with a fixed, small content surface (11 services, 2 cas
 - Astro docs: Vercel adapter guide (`includeFiles`, `middlewareMode: 'edge'`, serverless vs static entrypoints, adapter-support-output-mismatch error reference confirming `@astrojs/vercel/static` vs `@astrojs/vercel/serverless`) — HIGH confidence.
 - Astro docs: configuration reference (`redirects` config — string or `{status, destination}` object shape, confirming no built-in 410 variant) — HIGH confidence.
 - Astro docs: view-transitions guide + `astro-transitions` module reference (`<ClientRouter />`, built-in `prefers-reduced-motion` handling) — HIGH confidence.
-- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (this project's approved design spec — project-specific authority for site map, bands, motion, SEO, redirects, form, architecture §14) — project source, not external.
+- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (this project's approved design spec — project-specific authority for site map, bands, motion, SEO, redirects, form, architecture section 14) — project source, not external.
 - `.planning/PROJECT.md` — project-specific constraints (timeline, stack, owner-gated inputs) — project source, not external.
 
 ---

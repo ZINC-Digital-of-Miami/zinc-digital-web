@@ -1,14 +1,14 @@
 {
   "version": "1.0",
-  "timestamp": "2026-09-25T21:39:21.799Z",
-  "timestamp_ct": "9/25/26, 4:39 PM CT",
+  "timestamp": "2026-09-26T18:54:46-05:00",
+  "timestamp_ct": "9/26/26, 6:54 PM CT",
   "phase": "1",
-  "phase_name": "Design System & Font Pick",
+  "phase_name": "Design System & Full-Site Acceptance",
   "phase_dir": ".planning/phases/01-design-system-font-pick",
-  "plan": 3,
-  "task": 1,
-  "total_tasks": 2,
-  "status": "executing",
+  "plan": null,
+  "task": null,
+  "total_tasks": 0,
+  "status": "executed",
   "completed_tasks": [
     {
       "id": 1,
@@ -45,49 +45,55 @@
     {
       "id": 6,
       "name": "Compare Pairings B/C across the same complete site; gates; owner font pick; collapse preserving every page",
-      "status": "in_progress"
+      "status": "superseded",
+      "verification": "Owner selected Pairing A and the all-white design; do not reopen this comparison. See the current checkpoint and Phase 1 reconciliation."
     }
   ],
   "blockers": [
     {
-      "description": ".github/workflows/astro.yml on main (owner commit f5c7a90) deploys to GitHub Pages on Node 20; conflicts with Vercel/Node 24 and will fail or double-deploy on push to main",
-      "type": "human_action",
-      "workaround": "Owner decides delete versus check-only. If branch synchronization is needed, rebase onto current main; never merge main into the work branch.",
-      "blocks": "Landing on main; not local full-site mockup execution"
+      "description": "Historical workflow concern; Node 24 CI is on main through PR #3.",
+      "type": "resolved",
+      "workaround": "See current .github/workflows/ci.yml.",
+      "blocks": "Nothing."
     },
     {
-      "description": "zincdigital.co has two SPF records (permerror), neither authorizing Google Workspace",
+      "description": "Live inquiry delivery remains unimplemented and unverified; all four authoritative Route 53 nameservers returned one SPF record including Google Workspace on 2026-09-26.",
       "type": "human_action",
-      "workaround": "MyKinsta DNS: one record v=spf1 include:_spf.google.com include:relay.kinstamailservice.com ~all",
+      "workaround": "Complete the live POST/email, anti-abuse and no-JS path; remeasure authoritative SPF and validate mail delivery before enabling submissions. The current DNS measurement does not call for a DNS change; production secrets remain owner-entered.",
       "blocks": "Real inquiry integration; not non-sending mockup"
     },
     {
-      "description": "Copilot PR review quota exhausted",
-      "type": "external",
-      "workaround": "use /gsd-code-review; no paid Copilot"
+      "description": "Historical review quota note from September 25; superseded by the current Codex GitHub review policy.",
+      "type": "resolved",
+      "workaround": "Review each GitHub PR with Codex; see AGENTS.md and current_review_policy.",
+      "blocks": "Nothing."
     }
   ],
   "async_jobs": [],
   "human_actions_pending": [
     {
       "action": "Decide on .github/workflows/astro.yml (delete or check-only)",
-      "context": "Owner-pushed GitHub Pages deploy workflow conflicts with Vercel plan and spends Actions minutes; blocks repository landing, not local mockup work.",
-      "blocking": false
+      "context": "Resolved by PR #3; current Node 24 workflow is .github/workflows/ci.yml.",
+      "blocking": false,
+      "status": "superseded"
     },
     {
-      "action": "Fix SPF in MyKinsta DNS",
-      "context": "Contact form (Phase 4) must not go live before this",
-      "blocking": false
+      "action": "Remeasure authoritative SPF and validate mail delivery before enabling live inquiry.",
+      "context": "All four Route 53 authoritative nameservers returned exactly one SPF record including _spf.google.com on 2026-09-26. No DNS mutation is indicated by this measurement.",
+      "blocking": false,
+      "status": "pending"
     },
     {
       "action": "Merge PR #2 when main should carry current state",
-      "context": "PR #2 carries the phase branch. Re-read current remote head before landing; resolve the Pages workflow decision first.",
-      "blocking": false
+      "context": "PR #2 is merged; current main SHA is recorded in .planning/STATE.md.",
+      "blocking": false,
+      "status": "superseded"
     },
     {
-      "action": "Font pick and complete-site mockup review",
-      "context": "Only after the complete clickable site and desktop/mobile template evidence are available; future blocking-human checkpoint in 01-04, not a prerequisite for 01-02.",
-      "blocking": false
+      "action": "Accept current full-site selected-design preview after fresh UAT.",
+      "context": "Pairing A and all-white option 3 are already selected; review acceptance and current-baseline evidence remain open.",
+      "blocking": false,
+      "status": "pending"
     }
   ],
   "decisions": [
@@ -97,25 +103,25 @@
       "phase": "1"
     },
     {
-      "decision": "Complete clickable mockup of the ENTIRE SITE: 40 canonical pages plus genuine404, then identical full-site B/C comparisons.",
-      "rationale": "Direct owner correction supersedes homepage-only Part C in the historical turnover.",
+      "decision": "Complete clickable mockup of the entire approved site in the selected all-white option 3 and Pairing A.",
+      "rationale": "The owner-selected design is recorded in PR #4; do not repeat font comparisons.",
       "phase": "1"
     },
     {
-      "decision": "No underlined links; page content starts at top; supporting line copy rejected (keep [DRAFT] slot)",
-      "rationale": "Owner feedback on the hero",
+      "decision": "No underlined links; content begins at the top; draft banners removed while receipt and owner-confirmation markers remain.",
+      "rationale": "Later owner direction and PR #5; copy approval is still pending.",
       "phase": "1"
     },
     {
-      "decision": "Magenta only on black bands; dark teal #07B2B2/#057E7E only on white; hero Display clamp(3.5rem,10vw+1rem,12.5rem) stays",
-      "rationale": "Spec section 8/18; owner wants big headers",
+      "decision": "Selected all-white option 3 with the side circuit thread on all pages; Pairing A is Big Shoulders Display / Inter / JetBrains Mono.",
+      "rationale": "Owner selection recorded in PR #4 and quick task 260926-6g7; see current Phase 1 reconciliation.",
       "phase": "1"
     }
   ],
   "uncommitted_files": [],
-  "uncommitted_note": "Run git status for current state;01-03 is actively editing app files. Parent owns planning state and commits.",
-  "next_action": "Execute01-03 full-site A/B/C comparisons; close01-REVIEW WR-01/WR-02 before their next gates. Complete A public preview already verified.01-04 font choice remains blocking-human.",
-  "context_notes": "All Phase 1 work is on branch gsd/phase-01-design-system-font-pick in the phase-01 worktree; main is the product and gets it via PR. Vercel project is CLI-linked from that worktree (.vercel/ gitignored); production deploys to the vercel.app URL are owner-authorized, custom domains are not. Every hand-off needs the agent's own desktop+mobile screenshots. Owner rules: Central time, external-drive storage only, no new paid services, no cursing in copy, never 'GEO'.",
+  "uncommitted_note": "Historical note from September 25; inspect current git status and .planning/STATE.md.",
+  "next_action": "Run $gsd-execute-phase 01; GSD reports both active plans summarized and verification missing, so it resumes at verification gates without rerunning 01-01/02 or executing superseded 01-03/04/05. Codex reviews GitHub PRs.",
+  "context_notes": "Current source: main at 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368; PRs #4/#5 landed the selected all-white design and follow-up motion work. Codex GitHub review is configured and observed on PR #6. Read AGENTS.md, .planning/STATE.md and the Phase 1 reconciliation before planning. Old branch and review-quota details elsewhere in this handoff are historical.",
   "turnover_document": "docs/handoff/2026-09-25-turnover-complete.md",
   "scope_correction": "2026-09-25 CT direct owner: full mockup of ENTIRE SITE. Current 01-CONTEXT.md supersedes homepage-only wording in the complete historical turnover. Preserve completed 01-01.",
   "graphify": {
@@ -129,6 +135,33 @@
     "limitation": "Astro parsing is partial; graph is a navigation hint built before the full-site implementation."
   },
   "deployment": {
+    "url": "https://zinc-digital-web.vercel.app",
+    "id": "dpl_ExH9Ab1txt5fFnQngMuBetKDrPL5",
+    "source_commit": "1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368",
+    "target": "production",
+    "ready_state": "READY",
+    "measured_ct": "2026-09-26",
+    "verification": "Vercel inspect matched main SHA; homepage returned HTTP 200 with x-robots-tag noindex, nofollow. A full route inventory was not rerun for this checkpoint."
+  },
+  "current_review_policy": {
+    "updated_ct": "2026-09-26",
+    "provider": "Codex GitHub PR review",
+    "trigger": "Opening or marking a pull request ready; comment @codex review to request a fresh review",
+    "acceptance": "Confirm the GitHub Codex review completed for the current PR head and resolve findings before landing.",
+    "copilot_required": false,
+    "evidence": "Codex review and review summary observed on PR #6"
+  },
+  "current_checkpoint": {
+    "updated_ct": "2026-09-26",
+    "status": "executed",
+    "phase": "01 — Design System & Full-Site Acceptance",
+    "main_sha": "1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368",
+    "current_plan": "No incomplete active plan. GSD verification is missing; run $gsd-execute-phase 01 to resume at the verification gates. Do not execute superseded 01-03/04/05.",
+    "source": ".planning/STATE.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md",
+    "active_plan": null,
+    "active_task": null
+  },
+  "historical_deployment": {
     "url": "https://zinc-digital-web.vercel.app",
     "id": "dpl_AmmbiJccqixqd5szRGFpmxAVAnHj",
     "source_commit": "ed4c1fad4796549e570a98594ae5072fd1aba964",

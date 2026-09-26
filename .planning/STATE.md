@@ -1,17 +1,17 @@
 ---
 gsd_state_version: "1.0"
 current_phase: 01
-current_phase_name: Design System & Font Pick
-status: executing
-stopped_at: 01-02 complete and publicly verified at ed4c1fa; executing 01-03 complete-site font comparisons.
-last_updated: "2026-09-25T21:38:05.127Z"
-last_activity: 2026-09-25
-last_activity_desc: Complete 40-page A mockup deployed and verified; executing 01-03.
-state_head: c54d31ee2feaed59e791963571efc30244e31a83
+current_phase_name: Design System & Full-Site Acceptance
+status: executed
+stopped_at: Both active plans are summarized; Phase 1 verification report is missing.
+last_updated: "2026-09-26T18:54:46-05:00"
+last_activity: 2026-09-26
+last_activity_desc: Reconciled GSD against main 1a2ea8b and live DNS; acceptance remains open and no launch date is approved.
+state_head: 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 5
+  total_plans: 2
   completed_plans: 2
   percent: 0
 ---
@@ -20,89 +20,55 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-09-25 CT)
+See .planning/PROJECT.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md.
 
 **Core value:** The right prospect leaves certain ZINC is the serious option, and sends a qualified inquiry or a text about a specific service, on a site that loads instantly and ranks.
-**Current focus:** Phase 01 — Design System & Font Pick
+**Current focus:** Resume Phase 01 verification against the already deployed selected design.
 
 ## Current Position
 
-Phase: 01 (Design System & Font Pick) — EXECUTING
-Plan: 3 of 5
-Status: Executing Phase 01
-Last activity: 2026-09-26 — Completed quick task 260926-d0r: animations, draft copy removed, responsive review, CI fix (PR #5); no custom domain.
+Phase: 01 (Design System & Full-Site Acceptance)
+Plan: Both active plans have summaries; no incomplete plan is active.
+Status: Executed; verification pending
+Last activity: 2026-09-26 — Reconciled PRs #4/#5 on main and the matching Vercel deployment.
 
-Progress: [░░░░░░░░░░] 0%
-
-## Performance Metrics
-
-**Velocity:**
-
-- Total plans completed: 2
-- Average duration: -
-- Total execution time: 0.0 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-
-- Last 5 plans: -
-- Trend: -
-
-*Updated after each plan completion*
+Progress: 0/7 phases formally accepted; both live plans have summaries, while 01-03/04/05 are superseded history. GSD's 100% active-plan summary ratio is not phase acceptance. This is acceptance bookkeeping, not 0% implemented. Full-site mockup and later homepage/motion work are already on main.
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table. The spec's "Resolved decisions" win over research.
-Recent decisions affecting current work:
-
-- [Owner correction]: Phase1 must render the entire40-page approved sitemap plus404 before font comparison/pick. Revised01-02..05 independently checked on2026-09-25 CT.
-- [Planning evidence]: Four plan structures pass; automated failure-direction check0 blockers/0 warnings; all5 phase requirement IDs covered. These are plan checks, not runtime acceptance.
-
-- [Roadmap]: Seven phases following the sequence in the spec's "Delivery" heading. Work moves in with Services ("Services & Proof") so LOOP-03 lands in one phase. About joins Contact ("About & Inquiry")
-- [Roadmap]: Components take props and never fetch data themselves. Phases 2–4 build on fixture content while copy review runs
-- [Roadmap]: SERV-05 (preselected inquiry) lives in Phase 4, where the form exists. Service pages link to `/contact/?service=<slug>` in Phase 3
-- [Roadmap]: Day 1 = Sat 2026-09-26 CT. Owner gate calendar is in ROADMAP.md Overview (LNCH-01)
+- All-white option 3, Pairing A fonts and page-long side thread replace alternating dark bands and the unchosen A/B/C comparison workflow. See the reconciliation record for source and decision provenance.
+- Draft labels were removed in PR #5; receipts and owner-confirmation markers still guard unapproved claims. Removing labels did not approve the copy.
+- Seven team photo references exist, including Jaymie and Wendy. Their visual acceptance remains open.
+- No custom domain cutover. The vercel.app site stays noindex; contact remains a non-sending demo.
+- Historical plans, screenshots and reports are leads, not current acceptance evidence.
 
 ### Pending Todos
 
-None yet.
+- Run `$gsd-execute-phase 01`; GSD progress reports all active plans summarized and verification missing, so this resumes at the verification gates without rerunning 01-01/02. If verification finds gaps, plan only the needed gap-closure work. Keep 01-03/04/05 superseded as history.
+- Complete current-baseline UAT and quality evidence before closing Phase 1.
+- Plan remaining production integrations/content/SEO from the phase inventory; preserve already implemented design.
 
 ### Blockers/Concerns
 
-Owner actions on the critical path (dates CT):
-
-- Day 1, Sat 2026-09-26: font pairing pick (blocks Phase 2 visual work)
-- Day 4, Tue 2026-09-29: SPF record replaced in MyKinsta DNS (owner's current turnover; remeasure before editing). The form stays off for live submissions until one SPF record measures with `_spf.google.com` (LNCH-02)
-- Phase 4: Workspace App Password and Turnstile keys entered by the owner as Vercel env vars. If Workspace admin blocks App Passwords, fall back to the Gmail API (spec, "Resolved decisions")
-- Day 5, Wed 2026-09-30: receipts, "How we work" confirmations, testimonials marked real or placeholder, Jaymie and Wendy photos; DNS TTLs lowered 24–48 h before cutover
-- Day 7, Fri 2026-10-02: cutover only on the owner's explicit go; drop the Kinsta SPF include after cutover
-- Phase 5: the redirect map needs the WordPress REST API export plus a Search Console export (traffic and backlinks for tags, categories and `/current-promos/`)
+- No current Phase 1 verification report or completed owner UAT. Real-device, font/CLS and full launch gates remain open.
+- Live inquiry needs POST/email, anti-abuse, no-JS behavior, mail-delivery validation and owner-entered secrets. All four authoritative Route 53 nameservers returned one SPF record including Google Workspace on 2026-09-26; remeasure before live activation. No secrets or DNS changes were authorized by reconciliation.
+- Copy, receipts, commitments, testimonials, legal text and editorial blog approval remain open; image references are no longer a missing-input blocker.
+- Production SEO, analytics and the old-URL redirect map still need implementation/acceptance evidence.
+- No launch date is approved; ROADMAP records an undated gate sequence. Cutover requires the owner's explicit go at that moment.
 
 ### Quick Tasks Completed
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260925-ovl | Replace GitHub Pages workflow with Node 24 CI gate (ci.yml, job `build`) | 2026-09-25 | 959adeb | [260925-ovl-replace-github-pages-workflow-with-node-](./quick/260925-ovl-replace-github-pages-workflow-with-node-/) |
-| 260926-6g7 | All-white A+B site with the side circuit thread, headline-only full-screen hero, consistent staff photos, CI static and browser checks (PR #4) | 2026-09-26 | a3f9f28 | [260926-6g7-restyle-every-page-to-the-owner-picked-a](./quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/) |
-| 260926-d0r | Every sketch animation drawing (hero strike and highlighter, Loop on short screens), all draft copy removed, responsive review at 9 sizes, main CI fetch fix (PR #5) | 2026-09-26 | 10a60cc | [260926-d0r-animations-complete-all-draft-copy-remov](./quick/260926-d0r-animations-complete-all-draft-copy-remov/) |
-
-## Deferred Items
-
-Items acknowledged and deferred at milestone close, most recent first:
-
-| Category | Item | Status | Deferred At | Milestone |
-|----------|------|--------|-------------|-----------|
-| *(none)* | | | | |
+| 260926-6g7 | All-white A+B site with the side circuit thread, ten homepage bands, headline-only full-screen hero and separate intro for actions/text/contents, consistent staff photos, CI static and browser checks (PR #4) | 2026-09-26 | f79517446b98ec5d888d20223cf2efb996feba3b | [260926-6g7-restyle-every-page-to-the-owner-picked-a](./quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/) |
+| 260926-d0r | Every sketch animation drawing (hero strike and highlighter, Loop on short screens), all draft copy removed, responsive review at 9 sizes, main CI fetch fix (PR #5) | 2026-09-26 | 1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368 | [260926-d0r-animations-complete-all-draft-copy-remov](./quick/260926-d0r-animations-complete-all-draft-copy-remov/) |
 
 ## Session Continuity
 
-Last session: 2026-09-25T20:04:45.480Z
-Stopped at: 01-02 complete and publicly verified at ed4c1fa; executing 01-03 complete-site font comparisons.
+Last session: 2026-09-26 CT
+Stopped at: Reconciliation complete; GSD verification is next, and phase acceptance is not claimed.
 Resume file: .planning/phases/01-design-system-font-pick/.continue-here.md
+Next command: `$gsd-execute-phase 01` using 01-RECONCILIATION.md; resume at verification gates and do not execute superseded plans.

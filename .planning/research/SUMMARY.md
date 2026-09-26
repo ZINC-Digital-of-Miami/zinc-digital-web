@@ -5,6 +5,8 @@
 **Researched:** 2026-09-25 (CT)  
 **Confidence:** HIGH (stack verified via npm registry + Context7; architecture via Astro docs; pitfalls via platform docs + web-search best practices)
 
+> **Current disposition — 2026-09-26 CT:** This is the 2026-09-25 research snapshot, not current owner direction or a launch schedule. Pairing A and the all-white design are selected; no launch date is approved. The SPF DNS condition is currently measured and checked as LNCH-02; remeasure and validate mail before enabling inquiry, with no DNS mutation indicated by that measurement. Use `.planning/STATE.md`, `.planning/ROADMAP.md` and the Phase 1 reconciliation for current project status.
+
 ---
 
 ## Executive Summary
@@ -213,11 +215,10 @@ Each checkpoint has a **date**, not just a name. Example: "Receipts approved by 
 
 ## Resolved After Synthesis (2026-09-25 CT)
 
-The owner directed "resolve all conflicts" and "use our dark teal on white." Every open decision above is now closed in the spec, §18 (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`), which wins over this summary:
+The owner directed "resolve all conflicts" and "use our dark teal on white." Every open decision above is now closed in the spec, section 18 (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`), which wins over this summary:
 - 410 → one on-demand catch-all route reading `src/lib/redirects.ts`, verified on a preview deploy.
 - Form email → Nodemailer to smtp.gmail.com:465 with an App Password; Gmail API only if App Passwords are blocked.
 - Rate limiting → Turnstile + honeypot; Vercel WAF rule only at $0 included usage. No Upstash/KV.
 - Accent → magenta on black; dark teal `#07B2B2` (display) / `#057E7E` (small text) on white.
 - No cookie banner; case studies lead with a result strip; form uses progressive steps with a single POST.
-- SPF/DMARC repair is an owner action in Route 53 (exact record in spec §18); the form must not go live before it.
-
+- SPF/DMARC was an owner action at this research checkpoint. LNCH-02 is now checked from all four authoritative nameservers; remeasure before activation and validate mail delivery. Do not infer a DNS change is needed from the historical research note.
