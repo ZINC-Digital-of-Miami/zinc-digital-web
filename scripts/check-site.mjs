@@ -60,8 +60,24 @@ for (const { relativePath, html } of pages) {
   const preloads = Array.from(html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g));
   check(preloads.length === 1, relativePath + ' has ' + preloads.length + ' font preloads, expected exactly 1');
 
-  const woff2Sources = new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2)"\)/g), (match) => match[1]));
+  // Vercel appends `?dpl=<deployment id>` to font URLs in the HTML it serves
+  // (astro.config.mjs's own build:done hook already strips this same query
+  // before reading the file from disk — mirror that pattern here so this gate
+  // is not fooled into over- or under-counting distinct fonts). The capture
+  // group stops at the first `?` or the closing quote, so a plain build-time
+  // URL (no query at all) and a Vercel-served one (with `?dpl=...`) both
+  // resolve to the same underlying path.
+  const woff2Sources = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (match) => match[1]));
   check(woff2Sources.size === 3, relativePath + ' has ' + woff2Sources.size + ' distinct woff2 sources, expected exactly 3: ' + JSON.stringify([...woff2Sources]));
+  for (const source of woff2Sources) {
+    const absolute = path.join(distDir, source.replace(/^\/+/, ''));
+    if (!(await pathExists(absolute))) {
+      fail(relativePath + ' references woff2 source ' + source + ' which does not exist in dist/');
+      continue;
+    }
+    const bytes = await readFile(absolute);
+    check(bytes.toString('ascii', 0, 4) === 'wOF2', relativePath + ' woff2 source ' + source + ' is not a valid wOFF2 file (bad magic bytes)');
+  }
 }
 
 check(!(await pathExists(path.join(distDir, DESIGN_PREVIEW_DIR))), 'dist/' + DESIGN_PREVIEW_DIR + ' still exists');
@@ -70,18 +86,50 @@ check(!(await pathExists(path.join(distDir, DESIGN_PREVIEW_DIR))), 'dist/' + DES
 // origin/main plus every untracked file. The needle is built from its UTF-8
 // bytes (0xC2 0xA7) so this file never contains the character itself.
 const sectionSignNeedle = Buffer.from([0xc2, 0xa7]);
-function gitLines(args) {
+function tryGit(args) {
   try {
-    return execFileSync('git', args, { cwd: root, encoding: 'utf8' })
-      .split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean);
+    return {
+      ok: true,
+      lines: execFileSync('git', args, { cwd: root, encoding: 'utf8' })
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean),
+    };
   } catch (error) {
-    fail('git command failed: git ' + args.join(' ') + ' — ' + error.message);
-    return [];
+    return { ok: false, error };
   }
 }
-const changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'origin/main']);
+function gitLines(args) {
+  const result = tryGit(args);
+  if (!result.ok) {
+    fail('git command failed: git ' + args.join(' ') + ' — ' + result.error.message);
+    return [];
+  }
+  return result.lines;
+}
+// actions/checkout fetches only the single commit for the triggering ref by
+// default (github.com/actions/checkout README, "Only a single commit is
+// fetched by default... Set fetch-depth: 0 to fetch all history for all
+// branches and tags") — `origin/main` has no local ref at all on that path,
+// so `git diff ... origin/main` throws "unknown revision" and this scan would
+// silently cover zero files. ci.yml now fetches `origin/main` explicitly
+// right after checkout so the normal path below always resolves; this is the
+// fail-closed backstop for any trigger/checkout combination that still
+// leaves it missing (e.g. a future workflow change, or a local shallow clone)
+// — scan every tracked file rather than quietly scanning nothing.
+let changedFiles;
+let usedFallbackScan = false;
+const baseRefCheck = tryGit(['rev-parse', '--verify', 'origin/main']);
+if (baseRefCheck.ok) {
+  changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'origin/main']);
+} else {
+  usedFallbackScan = true;
+  console.warn(
+    'check-site.mjs: origin/main did not resolve (' + baseRefCheck.error.message.trim().split('\n')[0] +
+      ') — failing closed by scanning every tracked file instead of the changed-vs-main diff.',
+  );
+  changedFiles = gitLines(['ls-files']);
+}
 const untrackedFiles = gitLines(['ls-files', '--others', '--exclude-standard']);
 const scannedFiles = [...new Set([...changedFiles, ...untrackedFiles])];
 // The U+00A7 policy is about authored text (source, copy) never spelling the
@@ -105,7 +153,11 @@ for (const relativePath of scannedFiles) {
     fail(relativePath + ' contains the U+00A7 section-sign character');
   }
 }
-console.log('U+00A7 byte scan: ' + scannedCount + ' file(s) scanned (changed vs origin/main + untracked)');
+console.log(
+  'U+00A7 byte scan: ' + scannedCount + ' file(s) scanned (' +
+    (usedFallbackScan ? 'all tracked (origin/main unavailable, fail-closed)' : 'changed vs origin/main') +
+    ' + untracked)',
+);
 
 // ---------------------------------------------------------------------------
 // SECTION: Task 2 — all-white design system, masthead, footer, team band,
