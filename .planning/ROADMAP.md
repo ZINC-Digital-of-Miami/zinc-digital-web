@@ -53,7 +53,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Requirements**: DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05
 **Success Criteria** (what must be TRUE):
 
-  1. The owner can navigate all 40 approved destinations and the genuine 404 on the public noindex Vercel URL: nine homepage sections, services index and all 11 services, work index and both cases, about, contact/demo confirmation, blog index and 18 articles, privacy, terms and 404. Internal links, blog filters, service preselection and non-sending demo confirmation work.
+  1. The owner can navigate all 40 approved destinations and the genuine 404 on the public noindex Vercel URL: ten homepage bands, including the headline-only hero and separate intro, services index and all 11 services, work index and both cases, about, contact/demo confirmation, blog index and 18 articles, privacy, terms and 404. Internal links, blog filters, service preselection and non-sending demo confirmation work.
   2. All pages use the selected Pairing A (Big Shoulders Display / Inter / JetBrains Mono) and the owner-selected all-white option 3 with the side circuit thread. No A/B/C comparison or repeat font-pick gate remains.
   3. Desktop and mobile evidence covers every page template and relevant state. The owner accepts the deployed full-site design; unresolved content remains clearly identified through receipt/owner-confirmation markers. The demo form stores and sends nothing.
   4. The selected type is self-hosted in the deployed output with no more than three font files. Cold/throttled font loading and CLS are measured; the zero-CLS gate passes.
@@ -68,7 +68,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [x] 01-02-PLAN.md — Wave 2: complete clickable selected-design site — 40 sitemap pages plus 404, all nine homepage sections, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
+- [x] 01-02-PLAN.md — Wave 2: complete clickable selected-design site — 40 sitemap pages plus 404, all ten homepage bands, including the headline-only hero and separate intro, 11 services, both cases, 18 article previews, non-sending contact, every-template 1440/375 evidence
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -86,18 +86,18 @@ Plans:
 
 ### Phase 2: Homepage Motion & the Loop
 
-**Goal**: A visitor to `/` reads the whole ZINC story across nine all-white sections, and the Loop drawing itself on scroll is the moment they remember
+**Goal**: A visitor to `/` reads the whole ZINC story across ten all-white bands, and the Loop drawing itself on scroll is the moment they remember
 **Mode:** mvp
 **Depends on**: Phase 1
 **Requirements**: LOOP-01, LOOP-02, MOTN-01, MOTN-02, MOTN-03, MOTN-04, HOME-01, HOME-02, HOME-03, HOME-04, HOME-05, HOME-06, HOME-07, HOME-08
 **Success Criteria** (what must be TRUE):
 
-  1. A visitor sees the nine snow-white sections in the selected content order:
-     - the hero core line with the selected accent strike and highlight, and its current approved action and `Text (786) 575-4837`;
-     - the logo wall, with each logo responding to interaction in the selected teal accent;
-     - the Loop, OUABC, the U.S. Oil timeline, How we work, the team and latest articles;
-     - the footer, with its closing line, text line, locations and socials.
-  2. In Chrome and Safari 26+, scrolling the pinned Loop band draws the circuit line and sends the pulse around Build → Demand → Intelligence. Each layer scales up as the pulse reaches it, and every service is listed as a link. All of this runs on native CSS only, with no animation library and no WebGL
+  1. A visitor sees the ten snow-white bands in the selected content order:
+     - a screen-filling headline-only hero with the core line, teal strike and highlighter;
+     - a separate intro band with metadata, supporting line, inquiry and text actions, and contents navigation;
+     - the logo wall, Loop, OUABC, U.S. Oil, How we work, team and latest articles;
+     - the footer with its closing line, inquiry action, text line, locations and socials.
+  2. In supported browsers, scrolling the pinned Loop band draws the circuit line and sends the pulse around Build → Demand → Intelligence. Each layer scales up as the pulse reaches it, and every service is listed as a link. All of this runs on native CSS only, with no animation library and no WebGL
   3. With reduced motion on, and in Firefox, every section shows its designed finished state with no content missing, and the owner has approved the finished Loop state
   4. On a real iPhone in Safari, the pinned Loop holds steady as the toolbar collapses and expands. Moving from `/` to another page uses a native view transition where supported and a plain navigation elsewhere
   5. The team band shows all seven black-and-white faces in a new order on each load and when it enters view. Commitments and receipts the owner has not confirmed show as visible pending or `[RECEIPT: …]` markers

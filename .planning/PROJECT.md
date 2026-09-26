@@ -2,7 +2,7 @@
 
 ## Current checkpoint — 2026-09-26 CT
 
-[Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) records the deployed implementation and remaining work. The selected all-white design, Pairing A fonts and shared side thread supersede the initial alternating-band/comparison direction below. Main and Vercel were measured at 1a2ea8b; the custom domain still serves WordPress. All seven team photo references exist. Formal phase acceptance, final content and production integrations remain open. Initial context counts and DNS descriptions below are historical; remeasure before using them operationally.
+[Phase 1 reconciliation](./phases/01-design-system-font-pick/01-RECONCILIATION.md) records the deployed implementation and remaining work. The selected all-white design, Pairing A fonts and shared side thread supersede the initial alternating-band/comparison direction below. Main and Vercel were measured at 1a2ea8b; the custom domain still serves WordPress. All seven team photo references exist. Formal phase acceptance, final content and production integrations remain open. GitHub PR reviews use Codex; follow the current-head review checkpoint in the Phase 1 reconciliation. Initial context counts and DNS descriptions below are historical; remeasure before using them operationally.
 
 ## What This Is
 
@@ -29,7 +29,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 
 ### Active
 
-- [ ] Homepage: nine all-white sections per spec section 6.1, with the core line hero and the scroll-driven Loop as the signature moment
+- [ ] Homepage: ten all-white bands per spec section 6.1, with a headline-only screen-filling hero, a separate intro band for actions and contents navigation, and the scroll-driven Loop as the signature moment
 - [ ] `/services/` loop page and 11 service pages (Build 3 · Demand 7 · Intelligence 1) at flat `/services/<slug>/` URLs, each with spec sheet, proof, FAQ, and preselected inquiry
 - [ ] `/work/` index with logo wall; case studies for Once Upon a Book Club (flagship) and U.S. Oil Solutions with live links, screenshots, `[RECEIPT: …]` numbers until confirmed
 - [ ] `/about/` with all seven team members in random order on every load; Miami HQ, nationwide, Panama City satellite
@@ -67,6 +67,7 @@ The right prospect leaves certain ZINC is the serious option — and sends a qua
 - **Performance**: spec section 10 gates are launch-blocking on every template.
 - **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only.
 - **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel.
+- **Git and reviews**: `main` is the product. Deliver through a work branch and GitHub PR; Codex reviews each PR when opened or marked ready, or after `@codex review`. Resolve findings for the current PR head before landing. Keep GSD code review, verification and UI review at their configured checkpoints.
 - **Copy**: fresh voice (spec section 7); no invented numbers; never "GEO" for generative search; no cursing.
 - **Owner inputs**: receipts for case studies, real-vs-placeholder testimonials, "How we work" commitments, team-photo acceptance (all seven photo references now exist).
 - **Irreversible actions**: DNS cutover and production secrets need the owner's explicit go.
@@ -101,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-09-25 after initialization*
+*Last updated: 2026-09-26 after Phase 1 reconciliation*

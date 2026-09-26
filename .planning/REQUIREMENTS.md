@@ -35,7 +35,7 @@ The later selected all-white design, Pairing A fonts and shared side thread supe
 
 ### Homepage (HOME)
 
-- [ ] **HOME-01**: Hero shows "Other agencies deliver the scope. ZINC delivers the business." with the strike and highlight hits, a contact action, and `Text (786) 575-4837` (section 6.1)
+- [ ] **HOME-01**: Hero shows only "Other agencies deliver the scope. ZINC delivers the business." with the strike and highlight hits, filling the screen below the masthead; the inquiry and text actions are in the separate intro band (section 6.1)
 - [ ] **HOME-02**: Logo wall shows Porsche, Home Depot, John Deere, YMCA, General Shale, Once Upon a Book Club, U.S. Oil Solutions; logos respond with the selected teal accent on hover/tap (section 6.1)
 - [ ] **HOME-03**: OUABC band shows tenure, services run, live link, screenshots, and receipts (section 6.1)
 - [ ] **HOME-04**: U.S. Oil band shows site → SEO → two apps → next build as a stamped timeline (section 6.1)

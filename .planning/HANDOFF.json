@@ -1,13 +1,13 @@
 {
   "version": "1.0",
-  "timestamp": "2026-09-26T15:35:00-05:00",
-  "timestamp_ct": "9/26/26, 3:35 PM CT",
+  "timestamp": "2026-09-26T16:40:00-05:00",
+  "timestamp_ct": "9/26/26, 4:40 PM CT",
   "phase": "1",
   "phase_name": "Design System & Full-Site Acceptance",
   "phase_dir": ".planning/phases/01-design-system-font-pick",
-  "plan": 3,
-  "task": 1,
-  "total_tasks": 2,
+  "plan": null,
+  "task": null,
+  "total_tasks": 0,
   "status": "planning",
   "completed_tasks": [
     {
@@ -135,10 +135,12 @@
   },
   "deployment": {
     "url": "https://zinc-digital-web.vercel.app",
-    "id": "dpl_AmmbiJccqixqd5szRGFpmxAVAnHj",
-    "source_commit": "ed4c1fad4796549e570a98594ae5072fd1aba964",
-    "verified_routes": 42,
-    "verification": "01-02-SUMMARY.md; independent01-REVIEW.md; ignored accepted-a-local/public evidence"
+    "id": "dpl_ExH9Ab1txt5fFnQngMuBetKDrPL5",
+    "source_commit": "1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368",
+    "target": "production",
+    "ready_state": "READY",
+    "measured_ct": "2026-09-26",
+    "verification": "Vercel inspect matched main SHA; homepage returned HTTP 200 with x-robots-tag noindex, nofollow. A full route inventory was not rerun for this checkpoint."
   },
   "current_review_policy": {
     "updated_ct": "2026-09-26",
@@ -153,7 +155,16 @@
     "status": "planning",
     "phase": "01 \u2014 Design System & Full-Site Acceptance",
     "main_sha": "1a2ea8b6c33aa5fbb726a953d2e16c9d15fb4368",
-    "current_plan": "Replan acceptance; do not execute the old 01-03/04/05 plans.",
-    "source": " .planning/STATE.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md"
+    "current_plan": "No active plan. Replan Phase 1 acceptance; do not execute historical 01-03/04/05.",
+    "source": ".planning/STATE.md and .planning/phases/01-design-system-font-pick/01-RECONCILIATION.md",
+    "active_plan": null,
+    "active_task": null
+  },
+  "historical_deployment": {
+    "url": "https://zinc-digital-web.vercel.app",
+    "id": "dpl_AmmbiJccqixqd5szRGFpmxAVAnHj",
+    "source_commit": "ed4c1fad4796549e570a98594ae5072fd1aba964",
+    "verified_routes": 42,
+    "verification": "01-02-SUMMARY.md; independent01-REVIEW.md; ignored accepted-a-local/public evidence"
   }
 }

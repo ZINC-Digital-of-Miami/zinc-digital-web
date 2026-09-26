@@ -73,24 +73,24 @@ Rules:
 
 ## 6. Page designs
 
-### 6.1 Homepage — nine sections on the all-white design
+### 6.1 Homepage — ten sections on the all-white design
 
-**Owner correction, 2026-09-26 CT:** The owner selected sketch option 3, all white with the side circuit thread, for every page. This supersedes the original alternating black/white grounds and per-band accent directions below. The nine content sections and their motion intent remain; their shared ground is snow white, with near-black type and accents from the selected implementation.
+**Owner correction, 2026-09-26 CT:** The owner selected sketch option 3, all white with the side circuit thread, for every page. This supersedes the original alternating black/white grounds and per-band accent directions below. The homepage has ten bands because the hero is headline-only and the metadata, inquiry actions and contents move to a separate intro band. All bands share the snow-white ground.
 
 | # | Section | Content | Motion |
 |---|---|---|---|
-| 1 | Hero (white) | The core line, huge. One supporting line. Primary action to Contact; `Text (786) 575-4837` in mono. | Selected teal accent strike through "the scope"; highlighter hit on "the business". |
-| 2 | Logo wall (snow white) | Porsche, Home Depot, John Deere, YMCA, General Shale, OUABC, U.S. Oil Solutions (+ other current clients). All logos cleared for use by the owner. | Logos use the selected teal accent on hover/tap. |
-| 3 | The Loop (snow white, pinned) | Build → Demand → Intelligence, each layer listing its services as links. | **Signature moment:** circuit line draws on scroll, the selected accent pulse travels the loop, each layer scales up as the pulse reaches it. |
-| 4 | OUABC (snow white) | Tenure, services ZINC runs (TikTok ads, Shopping ads, Meta ads, blog content, web updates, reporting system), live site link, screenshots, receipts. | Mini loop lights only the layers OUABC uses. |
-| 5 | U.S. Oil (snow white) | Site → SEO → two apps → next build. | Timeline steps stamp in on scroll. |
-| 6 | How we work (snow white) | 4–5 positive commitments (e.g., client owns every account, direct access to the people doing the work, reporting tied to revenue). **Each confirmed true by the owner before launch.** | Lines type in, then lock. |
-| 7 | Team (snow white) | All seven faces, black and white, random order on every load → `/about/`. | Faces reshuffle when the band enters view. |
-| 8 | Latest articles (snow white) | Three newest posts. | None — calm. |
-| 9 | Footer (snow white) | New closing line (fresh copy — no legacy lines), short form entry, text line, Miami HQ · Panama City satellite · nationwide, socials. | One restrained moment using the selected accent. |
+| 1 | Hero (snow white) | The core line, headline only, filling the screen below the masthead. | Teal strike through "the scope"; highlighter hit on "the business". |
+| 2 | Intro (snow white) | Operating-report metadata, supporting line, contact action, text line and contents navigation. | Still and scannable. |
+| 3 | Logo wall (snow white) | Porsche, Home Depot, John Deere, YMCA, General Shale, OUABC, U.S. Oil Solutions (+ other current clients). | Logos use the selected teal accent on hover/tap. |
+| 4 | The Loop (snow white, pinned) | Build → Demand → Intelligence, each layer listing its services as links. | **Signature moment:** circuit line draws on scroll, the selected accent pulse travels the loop, each layer scales up as the pulse reaches it. |
+| 5 | OUABC (snow white) | Tenure, services ZINC runs (TikTok ads, Shopping ads, Meta ads, blog content, web updates, reporting system), live site link, screenshots, receipts. | Mini loop lights only the layers OUABC uses. |
+| 6 | U.S. Oil (snow white) | Site → SEO → two apps → next build. | Timeline steps stamp in on scroll. |
+| 7 | How we work (snow white) | 4–5 positive commitments (e.g., client owns every account, direct access to the people doing the work, reporting tied to revenue). **Each confirmed true by the owner before launch.** | Lines type in, then lock. |
+| 8 | Team (snow white) | All seven faces, black and white, random order on every load → `/about/`. | Faces reshuffle when the band enters view. |
+| 9 | Latest articles (snow white) | Three newest posts. | None — calm. |
+| 10 | Footer (snow white) | New closing line (fresh copy — no legacy lines), inquiry action, text line, Miami HQ · Panama City satellite · nationwide, socials. | One restrained moment using the selected accent. |
 
-Executive rule: sections 1, 3, 4 carry the drama. Sections 2, 6, 8 are still and scannable. All nine sections share the snow-white ground. A CFO can read the whole page in 60 seconds without waiting on any animation.
-
+Executive rule: sections 1, 4 and 5 carry the drama. Sections 2, 3, 7 and 9 stay still and scannable. A CFO can read the whole page in 60 seconds without waiting on animation. The shared site footer also appears after page content on other routes.
 ### 6.2 Service page (×11)
 
 1. Service name, huge, and one plain line on what the service does.

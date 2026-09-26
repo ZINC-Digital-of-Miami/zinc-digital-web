@@ -37,7 +37,7 @@ source: automated
 coverage_id: D3
 
 ### 3. Homepage on desktop
-expected: Open https://zinc-digital-web.vercel.app on a laptop/desktop browser. The homepage loads in Pairing A and scrolls through all nine bands top to bottom, ending in a complete footer. Large condensed headlines, snow-white ground, black type, real ZINC mark and wordmark. Nothing overlaps, nothing is cut off, no empty band.
+expected: Open https://zinc-digital-web.vercel.app on a laptop/desktop browser. The homepage loads in selected Pairing A and scrolls through all ten snow-white bands, including the headline-only screen-filling hero and separate intro with inquiry/text actions, ending in a complete footer. Large condensed headlines, near-black type, real ZINC mark and wordmark. Nothing overlaps, nothing is cut off, no empty band.
 result: [pending]
 
 ### 4. Phone view and menu
