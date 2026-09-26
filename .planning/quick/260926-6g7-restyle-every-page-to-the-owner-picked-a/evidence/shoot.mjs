@@ -48,6 +48,41 @@ async function waitForServer(retries = 40) {
   throw new Error('local static server on ' + base + ' never became reachable');
 }
 
+// Native `loading="lazy"` images (the site's own attribute, left untouched)
+// only begin fetching once the browser judges them close enough to the
+// viewport. A single full-page screenshot taken from the top of a tall page
+// does not by itself guarantee every below-the-fold image has been asked to
+// load. Scroll the real page through in steps — the same signal a real
+// visitor's scroll gives the browser — then wait until every <img> reports
+// complete with a real decoded width before the screenshot is taken.
+async function ensureImagesLoaded(page) {
+  const scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  const steps = 12;
+  for (let i = 1; i <= steps; i++) {
+    await page.evaluate((y) => window.scrollTo(0, y), Math.round((scrollHeight * i) / steps));
+    await new Promise((r) => setTimeout(r, 120));
+  }
+  await page.evaluate(() => window.scrollTo(0, 0));
+
+  try {
+    await page.waitForFunction(
+      () => Array.from(document.querySelectorAll('img')).every((img) => img.complete),
+      { timeout: 8000 }
+    );
+  } catch {
+    // fall through — the per-image report below records exactly which
+    // image(s) never reached `complete` rather than throwing here.
+  }
+
+  return page.evaluate(() =>
+    Array.from(document.querySelectorAll('img')).map((img) => ({
+      src: img.currentSrc || img.src,
+      complete: img.complete,
+      naturalWidth: img.naturalWidth,
+    }))
+  );
+}
+
 async function main() {
   const { default: puppeteer } = await import('puppeteer-core');
   await mkdir(here, { recursive: true });
@@ -67,6 +102,9 @@ async function main() {
         await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
         await page.setViewport({ width, height: 1000 });
         await page.goto(base + route, { waitUntil: 'networkidle0' });
+
+        const imageReport = await ensureImagesLoaded(page);
+        const failedImages = imageReport.filter((img) => !img.complete || img.naturalWidth <= 0);
 
         const metrics = await page.evaluate(() => {
           const html = document.documentElement;
@@ -150,6 +188,12 @@ async function main() {
             checked: true,
             violationCount: metrics.tapTargetViolations.length,
             violations: metrics.tapTargetViolations,
+          },
+          images: {
+            checked: true,
+            count: imageReport.length,
+            loadedCount: imageReport.length - failedImages.length,
+            failed: failedImages.map((img) => ({ route, width, src: img.src })),
           },
         });
 
@@ -277,6 +321,7 @@ async function main() {
     if (p.thread.dotClearOfContent === false) violations.push(p.route + ' @' + p.width + ': thread dot + halo overlaps first band content');
     if (!p.thread.dotStayedPutAfterScroll) violations.push(p.route + ' @' + p.width + ': thread dot moved under prefers-reduced-motion: reduce');
     if (p.tapTargets.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tapTargets.violationCount + ' tap target(s) under 44x44: ' + JSON.stringify(p.tapTargets.violations));
+    if (p.images.failed.length > 0) violations.push(p.route + ' @' + p.width + ': ' + p.images.failed.length + ' image(s) failed to load: ' + JSON.stringify(p.images.failed));
   }
   if (results.motionScrollTest) {
     const m = results.motionScrollTest;
