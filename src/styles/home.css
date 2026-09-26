@@ -568,16 +568,19 @@ html.anim .home-layer.on .home-layer-list {
 
 .home-stamp {
   padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
-  opacity: 1;
   transform: none;
 }
 
 html.anim .home-stamp {
-  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Transform-only reveal: text stays at opacity 1 the whole time (a
+ * transparent-text state is real content an axe/WCAG color-contrast run
+ * treats as present-but-imperceptible, since it is below the fold rather
+ * than genuinely removed -- owner, 2026-09-26 CT). Position/rotation/scale
+ * still animates in on scroll entry under normal motion. */
 html.anim .home-stamp:not(.in) {
-  opacity: 0;
   transform: translateY(24px) rotate(-3deg) scale(0.96);
 }
 
