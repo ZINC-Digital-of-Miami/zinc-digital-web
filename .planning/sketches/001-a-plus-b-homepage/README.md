@@ -8,6 +8,9 @@ tags: [homepage, loop, annual-report, typography, motion]
 
 # Sketch 001: A + B homepage
 
+## Owner decision
+2026-09-25 8:28 PM CT, owner, verbatim: "I want this: http://127.0.0.1:4317/.planning/sketches/001-a-plus-b-homepage/index.html" (variant 3, all white, is the default view at that address). Font pairing A vs B still to confirm.
+
 ## Design Question
 Owner-approved direction (2026-09-25, 12:08 PM CT): "A's loop as the signature, set in B's type discipline. Black and white alternate section by section." This sketch shows that blend on the nine homepage bands so the owner can judge it on screen.
 

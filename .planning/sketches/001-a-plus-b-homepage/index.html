@@ -45,8 +45,8 @@ body[data-vp="tablet"] #frame{max-width:768px}
 
 /* kinetic headlines (B): words rise into place */
 .kin .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.04em}
-.kin .w > i{display:inline-block;font-style:normal;transform:translateY(105%);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.kin.in .w > i{transform:none}
+.kin .w > i{display:inline-block;font-style:normal;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.anim .kin:not(.in) .w > i{transform:translateY(105%)}
 
 /* ---------- header ---------- */
 .masthead{display:flex;justify-content:space-between;align-items:center;gap:var(--space-lg);padding:var(--space-lg) var(--gutter);background:var(--snow)}
@@ -66,11 +66,11 @@ body[data-vp="tablet"] #frame{max-width:768px}
 .hero h1{font-size:var(--t-mega);margin:var(--space-2xl) 0 var(--space-3xl)}
 .hero h1 .line{display:block}
 .strike,.hl{position:relative;display:inline-block}
-.strike::after{content:"";position:absolute;left:-.02em;right:-.02em;top:43%;height:.085em;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.7,0,.2,1) .9s}
+.strike::after{content:"";position:absolute;left:-.02em;right:-.02em;top:43%;height:.085em;background:var(--accent);transform-origin:left;transition:transform .55s cubic-bezier(.7,0,.2,1) .9s}
+.anim .hero:not(.in) .strike::after{transform:scaleX(0)}
 .hl{z-index:0}
-.hl::before{content:"";position:absolute;z-index:-1;left:-.06em;right:-.06em;bottom:.02em;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.7,0,.2,1) 1.35s,height .35s ease 1.95s}
-.hero.in .strike::after{transform:scaleX(1)}
-.hero.in .hl::before{transform:scaleX(1);height:.34em}
+.hl::before{content:"";position:absolute;z-index:-1;left:-.06em;right:-.06em;bottom:.02em;height:.34em;background:var(--accent);transform-origin:left;transition:transform .45s cubic-bezier(.7,0,.2,1) 1.35s,height .35s ease 1.95s}
+.anim .hero:not(.in) .hl::before{transform:scaleX(0);height:100%}
 .hero-foot{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--space-3xl);align-items:start}
 .hero-foot p{margin:0 0 var(--space-xl);max-width:34ch}
 .actions{display:flex;flex-wrap:wrap;gap:var(--space-lg);align-items:center}
@@ -137,8 +137,8 @@ body[data-vp="tablet"] #frame{max-width:768px}
 
 /* ---------- 5 U.S. Oil timeline ---------- */
 .tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:var(--space-3xl);border-top:3px solid var(--rule);counter-reset:s}
-.stamp{padding:var(--space-lg) var(--space-md) var(--space-lg) 0;opacity:0;transform:translateY(24px) rotate(-3deg) scale(.96);transition:opacity .4s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
-.stamp.in{opacity:1;transform:none}
+.stamp{padding:var(--space-lg) var(--space-md) var(--space-lg) 0;transition:opacity .4s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.anim .stamp:not(.in){opacity:0;transform:translateY(24px) rotate(-3deg) scale(.96)}
 .stamp .k{font-family:var(--f-display);font-weight:var(--w-display);font-size:clamp(1.8rem,3.6cqi,3.4rem);line-height:.95;text-transform:uppercase;display:block;margin:.3em 0}
 .stamp.next .k{color:var(--accent)}
 
@@ -405,7 +405,8 @@ body[data-variant="loop"] #thread,body[data-variant="loop"] #thread-dot{display:
 </div>
 
 <script>
-const body=document.body, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const body=document.body, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState!=='visible';
+if(!reduce) document.documentElement.classList.add('anim');
 
 /* sketch chrome */
 document.querySelectorAll('.vtab').forEach(b=>b.addEventListener('click',()=>{
@@ -443,6 +444,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting)retur
   io.unobserve(t);
 }),{threshold:.25});
 document.querySelectorAll('.kin,#usoil,#how,#team,#logos').forEach(el=>io.observe(el));
+if(reduce) typeLines();
 requestAnimationFrame(()=>document.getElementById('hero').classList.add('in'));
 
 /* logo wall: flip to accent one at a time */
