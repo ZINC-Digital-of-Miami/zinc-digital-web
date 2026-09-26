@@ -29,6 +29,12 @@ const routeRecords=[['/','home'],['/services/','services'],...slugs.map(s=>['/se
 // 2026-09-26 CT) -- the retired sequence this replaced alternated
 // light/dark; there is no dark band anywhere now.
 const HOME_BAND_ORDER=['hero','clients','loop','once-upon-a-book-club','us-oil-solutions','commitments','team','articles','footer'];
+// 'thanks' and '404' are single-purpose confirmation/error templates, by
+// design one short paragraph (owner, 2026-09-26 CT) -- not a stub. The
+// generic 300-char floor still guards every content template; these two
+// get a lower floor that still fails a genuinely empty/broken page.
+const SHORT_BODY_TEMPLATES=new Set(['thanks','404']);
+const MIN_BODY_CHARS=(template)=>SHORT_BODY_TEMPLATES.has(template)?100:300;
 const inventory=routeRecords;
 export function validateObservation(o){
   assert.equal(o.status,o.expectedStatus??200,'HTTP status');
@@ -108,10 +114,10 @@ const TRANSPARENT_RGBA='rgba(0, 0, 0, 0)';
 async function observation(){return driver.executeScript(function(SNOW_RGB,INK_RGB,TRANSPARENT_RGBA){
   const visible=el=>el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden';
   const anchors=Array.from(document.querySelectorAll('a')).filter(visible);
-  const images=Array.from(document.images).filter(visible).map(img=>{const b=img.getBoundingClientRect();return{src:img.currentSrc,width:b.width,height:b.height,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,ratio:Math.abs(b.width/b.height-img.naturalWidth/img.naturalHeight),reserved:img.hasAttribute('width')&&img.hasAttribute('height')};});
+  const images=Array.from(document.images).filter(visible).map(img=>{const b=img.getBoundingClientRect();return{src:img.currentSrc,width:b.width,height:b.height,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,ratio:Math.abs(b.width/b.height-img.naturalWidth/img.naturalHeight),reserved:img.hasAttribute('width')&&img.hasAttribute('height'),objectFit:getComputedStyle(img).objectFit};});
   const canvas=getComputedStyle(document.body).backgroundColor;
   const bands=Array.from(document.querySelectorAll('.band')).map(el=>({theme:el.getAttribute('data-theme'),ground:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color,rect:{top:el.getBoundingClientRect().top+scrollY,bottom:el.getBoundingClientRect().bottom+scrollY},nested:!!el.parentElement?.closest('.band')}));
-  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||i.ratio>.02),images,overflow:document.documentElement.scrollWidth>innerWidth+1,canvas,invalidTheme:bands.filter(b=>b.theme==='dark'||b.nested||b.color!==INK_RGB||(b.ground!==TRANSPARENT_RGBA&&b.ground!==SNOW_RGB)).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-home-band')),text:document.body.innerText};
+  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||(i.objectFit!=='cover'&&i.ratio>.02)),images,overflow:document.documentElement.scrollWidth>innerWidth+1,canvas,invalidTheme:bands.filter(b=>b.theme==='dark'||b.nested||b.color!==INK_RGB||(b.ground!==TRANSPARENT_RGBA&&b.ground!==SNOW_RGB)).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-home-band')),text:document.body.innerText};
 },SNOW_RGB,INK_RGB,TRANSPARENT_RGBA);}
 
 const expectedFonts=['Big Shoulders Display','Inter','JetBrains Mono',800];
@@ -186,7 +192,7 @@ try{
     const response=await fetch(base+route);const html=await response.text();
     const data=await driver.executeScript(function(html){const doc=new DOMParser().parseFromString(html,'text/html');const body=doc.querySelector('main')?.cloneNode(true);body?.querySelectorAll('script,style').forEach(el=>el.remove());return{title:doc.title,h1:doc.querySelector('h1')?.textContent,main:body?.textContent||'',semantic:body?.innerHTML||'',meta:doc.querySelector('meta[name="robots"]')?.getAttribute('content'),links:Array.from(doc.querySelectorAll('a[href]')).map(a=>a.getAttribute('href')),ids:Array.from(doc.querySelectorAll('[id]')).map(e=>e.id),blocks:doc.querySelector('[data-source-blocks]')?.getAttribute('data-source-blocks'),inline:Array.from(doc.querySelectorAll('script:not([src])')).map(s=>s.textContent).join('\n'),scripts:Array.from(doc.querySelectorAll('script[src]')).map(s=>s.getAttribute('src'))};},html);
     check(response.status===(template==='404'?404:200),route+' status '+response.status);
-    check(!!data.h1&&data.main.length>300,route+' meaningful page body');
+    check(!!data.h1&&data.main.length>MIN_BODY_CHARS(template),route+' meaningful page body ('+data.main.length+' chars, needs >'+MIN_BODY_CHARS(template)+')');
     check(data.meta==='noindex, nofollow',route+' noindex meta');
     if(suppliedBase)check(/noindex.*nofollow/.test(response.headers.get('x-robots-tag')||''),route+' noindex header');
     const canonical=route;const post=posts.find(p=>canonical==='/blog/'+p.slug+'/');
@@ -206,8 +212,18 @@ try{
     for(const width of mode==='full'?[1440,375]:[375]){
       if(mode==='full' && template==='404')for(const policy of ['cold','delayed','blocked'])await observeFontLoad(prefix+route,width,policy);
       await load(route,width);await fontObservation(currentPrefix+route,width);const obs=await observation();result.browserChecks++;result.images+=obs.images.length;
-      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.canvas===SNOW_RGB,route+' body canvas is not the one snow ground: '+obs.canvas);check(obs.invalidTheme===0,route+' invalid/nested band theme');check(obs.h1Top<250,route+' content starts at top');
-      if(route==='/'){check(obs.homeBands.join(',')===HOME_BAND_ORDER.join(','),'home band order: got '+obs.homeBands.join(','));for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').includes('Other agencies deliver the scope. ZINC delivers the business.'),'decoded core line');}
+      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.canvas===SNOW_RGB,route+' body canvas is not the one snow ground: '+obs.canvas);check(obs.invalidTheme===0,route+' invalid/nested band theme');
+      // Measures the FIRST BAND's top offset, not the h1's -- the approved
+      // sketch stacks a masthead, a meta/label row and a 3px rule above
+      // every hero h1 (owner, 2026-09-26 CT), so h1Top varies legitimately
+      // by how many meta lines a template wraps to at this width (measured:
+      // home 318.78px at 375px wide vs 207.59px on service/contact/blog,
+      // same masthead). The masthead itself is the one thing that must
+      // never grow unboundedly, so gate on where real page content (the
+      // first .band) begins, which is masthead height alone (measured 129px
+      // across every sampled template) regardless of meta-row wrapping.
+      check(!!obs.bands[0]&&obs.bands[0].rect.top<150,route+' first band starts right after the masthead (top='+obs.bands[0]?.rect.top+')');
+      if(route==='/'){check(obs.homeBands.join(',')===HOME_BAND_ORDER.join(','),'home band order: got '+obs.homeBands.join(','));for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').toLowerCase().includes('other agencies deliver the scope. zinc delivers the business.'),'decoded core line');}
       await driver.executeScript(axeSource);const audit=await driver.executeAsyncScript('const done=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>done({violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})),passes:r.passes.length}));');
       result.axe.push({route:currentPrefix+route,width,...audit});check(audit.violations.length===0,route+' axe '+JSON.stringify(audit.violations));
       if(mode==='full')await capture(route,template,width);
@@ -231,12 +247,12 @@ try{
   for(const [id,value] of [['name','Demo Reviewer'],['company','Sample Company'],['email','reviewer@example.test'],['website','https://example.test']])await driver.findElement(By.id('inquiry-'+id)).sendKeys(value);
   await driver.findElement(By.css('[data-next]')).click();if(mode==='full')await capture('/contact/','contact',375,'services');
   await driver.executeScript('document.getElementById("inquiry-budget").selectedIndex=2;document.getElementById("inquiry-timeline").selectedIndex=1');await driver.findElement(By.css('[data-next]')).click();if(mode==='full')await capture('/contact/','contact',375,'message');
-  await driver.findElement(By.id('inquiry-message')).sendKeys('Sample inquiry for local review only.');await driver.findElement(By.css('[data-next]')).click();await settle();check(await driver.getCurrentUrl()===base+currentPrefix+'/thanks/','safe confirmation URL');check((await driver.findElement(By.css('main')).getText()).includes('Demo only — nothing was sent'),'honest thanks');
+  await driver.findElement(By.id('inquiry-message')).sendKeys('Sample inquiry for local review only.');await driver.findElement(By.css('[data-next]')).click();await settle();check(await driver.getCurrentUrl()===base+currentPrefix+'/thanks/','safe confirmation URL');check((await driver.findElement(By.css('main')).getText()).toLowerCase().includes('demo only — nothing was sent'),'honest thanks');
   const requests=(await driver.manage().logs().get(logging.Type.PERFORMANCE)).map(l=>JSON.parse(l.message).message).filter(m=>m.method==='Network.requestWillBeSent').map(m=>m.params.request);
   check(requests.every(r=>r.method==='GET'&&!r.postData&&!/Demo%20Reviewer|reviewer%40|Sample%20Company/.test(r.url)),'contact network PII or submission');
   const finalStorage=await driver.executeScript('return {local:localStorage.length,session:sessionStorage.length,cookie:document.cookie}');check(JSON.stringify(initialStorage)===JSON.stringify(finalStorage),'contact storage unchanged');result.states.push({name:'contact-demo',prefix:currentPrefix,requests:requests.map(r=>({method:r.method,url:r.url})),storageUnchanged:JSON.stringify(initialStorage)===JSON.stringify(finalStorage),preselections:14});
   await load('/blog/',375);for(const layer of ['Build','Demand','Intelligence','All']){await driver.findElement(By.css('[data-filter="'+layer+'"]')).click();const state=await driver.executeScript('return {count:document.querySelector("[data-result-count]").textContent,visible:Array.from(document.querySelectorAll("[data-blog-list] article")).filter(x=>!x.hidden).map(x=>x.dataset.layer)}');check(state.visible.every(l=>layer==='All'||l===layer),'blog filter '+layer);result.states.push({name:'filter-'+layer,prefix:currentPrefix,...state});}
-  await driver.executeScript('document.querySelector("[data-filter=Build]").dataset.filter="Empty"');await driver.findElement(By.css('[data-filter="Empty"]')).click();check(await driver.findElement(By.css('[data-empty]')).isDisplayed(),'empty recovery visible');if(mode==='full')await capture('/blog/','blog',375,'empty');await driver.findElement(By.css('[data-clear-filter]')).click();check((await driver.findElement(By.css('[data-result-count]')).getText())==='18 articles','clear filter recovers');
+  await driver.executeScript('document.querySelector("[data-filter=Build]").dataset.filter="Empty"');await driver.findElement(By.css('[data-filter="Empty"]')).click();check(await driver.findElement(By.css('[data-empty]')).isDisplayed(),'empty recovery visible');if(mode==='full')await capture('/blog/','blog',375,'empty');await driver.findElement(By.css('[data-clear-filter]')).click();check((await driver.findElement(By.css('[data-result-count]')).getText()).toLowerCase()==='18 articles','clear filter recovers');
   if(mode==='full'){
     await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:true});await driver.get(base+currentPrefix+'/contact/?service=shopify');const fallback=await driver.findElements(By.css('fieldset'));check((await Promise.all(fallback.map(f=>f.isDisplayed()))).every(Boolean),'noJS all fields');check(await driver.findElement(By.css('noscript a')).isDisplayed(),'noJS confirmation link');await capture('/contact/','contact',375,'no-js');await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:false});
   }
