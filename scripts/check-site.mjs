@@ -5,6 +5,7 @@
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { gzipSync } from 'node:zlib';
 
 const root = process.cwd();
 const distDir = path.join(root, 'dist');
@@ -83,8 +84,14 @@ function gitLines(args) {
 const changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'origin/main']);
 const untrackedFiles = gitLines(['ls-files', '--others', '--exclude-standard']);
 const scannedFiles = [...new Set([...changedFiles, ...untrackedFiles])];
+// The U+00A7 policy is about authored text (source, copy) never spelling the
+// character out. Binary evidence files (Task 3's screenshots) are opaque
+// compressed pixel data, not authored text — scanning their bytes for an
+// incidental two-byte match is a false-positive generator, not a real check.
+const BINARY_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico', '.woff', '.woff2', '.pdf']);
 let scannedCount = 0;
 for (const relativePath of scannedFiles) {
+  if (BINARY_EXTENSIONS.has(path.extname(relativePath).toLowerCase())) continue;
   const absolute = path.join(root, relativePath);
   if (!(await pathExists(absolute))) continue;
   let bytes;
@@ -174,8 +181,110 @@ if (await pathExists(srcDir)) {
 }
 
 // ---------------------------------------------------------------------------
-// SECTION: Task 3 appends its assertion group here (homepage, JS budget).
+// SECTION: Task 3 — homepage nine bands and per-page JS budget.
 // ---------------------------------------------------------------------------
+
+// mockup.ts is TypeScript and this script runs as plain Node ESM, so the
+// expected home-band content is a deliberate, literal duplicate of the data
+// file here — this gate exists precisely to catch drift between the two.
+const HOME_SERVICE_SLUGS = [
+  'shopify', 'web-design', 'apps',
+  'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads',
+  'business-intelligence',
+];
+const HOME_COMMITMENTS = [
+  'You own your accounts, data and code.',
+  'Direct access to the people doing the work.',
+  'Reporting tied to revenue, not impressions.',
+];
+const HOME_BAND_ORDER = ['hero', 'clients', 'loop', 'once-upon-a-book-club', 'us-oil-solutions', 'commitments', 'team', 'articles', 'footer'];
+
+const indexPage = pages.find((p) => p.relativePath === 'index.html');
+if (!indexPage) {
+  fail('dist/index.html does not exist');
+} else {
+  const html = indexPage.html;
+  const bandPositions = HOME_BAND_ORDER.map((band) => ({ band, index: html.indexOf('data-home-band="' + band + '"') }));
+  check(bandPositions.every((b) => b.index !== -1), 'dist/index.html is missing one of the home bands: ' + bandPositions.filter((b) => b.index === -1).map((b) => b.band).join(', '));
+  const inOrder = bandPositions.every((b, i) => i === 0 || b.index === -1 || bandPositions[i - 1].index === -1 || b.index > bandPositions[i - 1].index);
+  check(inOrder, 'dist/index.html home bands are out of order, expected: ' + HOME_BAND_ORDER.join(', '));
+
+  check(html.includes('href="sms:+17865754837"'), 'dist/index.html is missing the sms link');
+  check(html.includes('[LOGO FILES PENDING'), 'dist/index.html is missing the [LOGO FILES PENDING marker');
+  check(html.includes('[OWNER CONFIRMS EACH LINE]'), 'dist/index.html is missing the [OWNER CONFIRMS EACH LINE] marker');
+  check(html.includes('[RECEIPT:'), 'dist/index.html is missing a [RECEIPT: marker');
+  check(html.includes('[PHOTO PENDING]'), 'dist/index.html is missing the [PHOTO PENDING] marker');
+  for (const text of HOME_COMMITMENTS) {
+    check(html.includes(text), 'dist/index.html is missing the how-we-work line: ' + text);
+  }
+  for (const slug of HOME_SERVICE_SLUGS) {
+    check(html.includes('href="/services/' + slug + '/"'), 'dist/index.html is missing a link to /services/' + slug + '/');
+  }
+}
+
+// Per-page JS budget: every external module script it references (followed
+// through static imports, deduped) plus every inline script, gzipped and
+// summed, must be at most 15360 bytes. No library ships here, so this is
+// mostly a guard against regressions growing HomeBands' own script.
+const jsCache = new Map();
+async function readJsFile(relativeSrc) {
+  const clean = relativeSrc.split('?')[0];
+  if (jsCache.has(clean)) return jsCache.get(clean);
+  const absolute = path.join(distDir, clean.replace(/^\//, ''));
+  let text = null;
+  try {
+    text = await readFile(absolute, 'utf8');
+  } catch {
+    text = null;
+  }
+  jsCache.set(clean, text);
+  return text;
+}
+
+async function collectScriptBytes(html, pageLabel) {
+  const seen = new Set();
+  const chunks = [];
+
+  // Inline module/no-src scripts (Astro emits component scripts as external
+  // modules by default; this also covers any is:inline script that ships).
+  for (const match of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
+    const body = match[1].trim();
+    if (body) chunks.push(Buffer.from(body, 'utf8'));
+  }
+
+  // External module scripts, followed through their own static imports.
+  const queue = Array.from(html.matchAll(/<script[^>]+src="([^"]+)"[^>]*>/g), (m) => m[1]).filter((src) => src.startsWith('/'));
+  while (queue.length) {
+    const src = queue.shift();
+    const clean = src.split('?')[0];
+    if (seen.has(clean)) continue;
+    seen.add(clean);
+    const text = await readJsFile(clean);
+    if (text == null) {
+      fail(pageLabel + ' references script "' + src + '" which does not exist in dist/');
+      continue;
+    }
+    chunks.push(Buffer.from(text, 'utf8'));
+    const dir = path.posix.dirname(clean);
+    for (const imp of text.matchAll(/import\s*(?:[^'"]*?from\s*)?["']([^"']+)["']/g)) {
+      const spec = imp[1];
+      if (!spec.startsWith('.') && !spec.startsWith('/')) continue; // bare specifier: no library ships, so nothing to resolve
+      const resolved = spec.startsWith('/') ? spec : path.posix.normalize(path.posix.join(dir, spec));
+      queue.push(resolved);
+    }
+  }
+
+  return chunks.reduce((sum, chunk) => sum + gzipSync(chunk).length, 0);
+}
+
+const JS_BUDGET_BYTES = 15360;
+let largestPage = { relativePath: '', bytes: 0 };
+for (const { relativePath, html } of pages) {
+  const bytes = await collectScriptBytes(html, relativePath);
+  if (bytes > largestPage.bytes) largestPage = { relativePath, bytes };
+  check(bytes <= JS_BUDGET_BYTES, relativePath + ' ships ' + bytes + ' gzip bytes of script, over the ' + JS_BUDGET_BYTES + ' byte budget');
+}
+console.log('JS budget: largest page is ' + largestPage.relativePath + ' at ' + largestPage.bytes + ' gzip bytes (budget ' + JS_BUDGET_BYTES + ')');
 
 if (failures.length) {
   console.error('check-site.mjs: ' + failures.length + ' failure(s):');

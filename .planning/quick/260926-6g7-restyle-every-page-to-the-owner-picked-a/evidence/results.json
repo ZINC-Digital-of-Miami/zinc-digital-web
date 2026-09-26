@@ -1,0 +1,332 @@
+{
+  "generatedAt": "2026-09-26T10:46:16.435Z",
+  "pages": [
+    {
+      "slug": "home",
+      "route": "/",
+      "width": 1440,
+      "file": "home-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "width": 375,
+      "file": "home-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "service",
+      "route": "/services/shopify/",
+      "width": 1440,
+      "file": "service-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "service",
+      "route": "/services/shopify/",
+      "width": 375,
+      "file": "service-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "case",
+      "route": "/work/once-upon-a-book-club/",
+      "width": 1440,
+      "file": "case-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "case",
+      "route": "/work/once-upon-a-book-club/",
+      "width": 375,
+      "file": "case-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "blog",
+      "route": "/blog/",
+      "width": 1440,
+      "file": "blog-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "blog",
+      "route": "/blog/",
+      "width": 375,
+      "file": "blog-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "article",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "width": 1440,
+      "file": "article-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "article",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "width": 375,
+      "file": "article-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "width": 1440,
+      "file": "404-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "width": 375,
+      "file": "404-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      }
+    }
+  ],
+  "motionScrollTest": {
+    "dotMoved": true,
+    "pulseMoved": true,
+    "allKinIn": true,
+    "kinCount": 4,
+    "allTypedFull": true,
+    "typedCount": 3
+  },
+  "noJsTest": {
+    "layerCount": 3,
+    "layersVisible": true,
+    "serviceLinkCount": 11,
+    "serviceLinksVisible": true,
+    "commitmentsPresent": true
+  }
+}

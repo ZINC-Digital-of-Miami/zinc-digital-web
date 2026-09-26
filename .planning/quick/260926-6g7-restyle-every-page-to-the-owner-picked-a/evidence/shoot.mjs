@@ -1,0 +1,305 @@
+#!/usr/bin/env node
+// Evidence capture for quick task 260926-6g7 Task 3 (plan step 5). Serves
+// the built dist/ over a throwaway local static server, drives it with the
+// Chrome binary already on this machine via the puppeteer-core already
+// present in node_modules (transitive; never ships in the site build), and
+// records screenshots plus a machine-checkable results.json. Re-run after
+// any base.css/home.css fix until results.json shows zero violations.
+import { spawn } from 'node:child_process';
+import { writeFile, mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(here, '../../../../');
+const distDir = path.join(repoRoot, 'dist');
+const port = 4322;
+const base = 'http://127.0.0.1:' + port;
+
+const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+
+const pages = [
+  { slug: 'home', route: '/' },
+  { slug: 'service', route: '/services/shopify/' },
+  { slug: 'case', route: '/work/once-upon-a-book-club/' },
+  { slug: 'blog', route: '/blog/' },
+  { slug: 'article', route: '/blog/ai-search-results-and-generative-search-optimization/' },
+  { slug: '404', route: '/404.html' },
+];
+const widths = [1440, 375];
+
+function startServer() {
+  const proc = spawn('python3', ['-m', 'http.server', String(port), '--directory', distDir], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  return proc;
+}
+
+async function waitForServer(retries = 40) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(base + '/');
+      if (res.ok || res.status === 404) return true;
+    } catch {
+      // not up yet
+    }
+    await new Promise((r) => setTimeout(r, 150));
+  }
+  throw new Error('local static server on ' + base + ' never became reachable');
+}
+
+async function main() {
+  const { default: puppeteer } = await import('puppeteer-core');
+  await mkdir(here, { recursive: true });
+
+  const server = startServer();
+  let browser;
+  const results = { generatedAt: new Date().toISOString(), pages: [], motionScrollTest: null, noJsTest: null };
+
+  try {
+    await waitForServer();
+    browser = await puppeteer.launch({ executablePath: CHROME_PATH, headless: true });
+
+    // ---- per-page, per-width capture (reduced motion = the finished state) --
+    for (const { slug, route } of pages) {
+      for (const width of widths) {
+        const page = await browser.newPage();
+        await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+        await page.setViewport({ width, height: 1000 });
+        await page.goto(base + route, { waitUntil: 'networkidle0' });
+
+        const metrics = await page.evaluate(() => {
+          const html = document.documentElement;
+          const body = document.body;
+          const thread = document.getElementById('thread');
+          const dot = document.getElementById('thread-dot');
+          const firstBandInner = document.querySelector('.band__inner');
+          const dotRectBefore = dot ? dot.getBoundingClientRect() : null;
+          const dotTopBefore = dot ? getComputedStyle(dot).top : null;
+
+          const violations = [];
+          for (const el of document.querySelectorAll('a, button, summary, input, select, textarea')) {
+            if (el.closest('.prose')) continue;
+            const style = getComputedStyle(el);
+            if (style.display === 'none' || style.visibility === 'hidden') continue;
+            const rect = el.getBoundingClientRect();
+            if (rect.width === 0 && rect.height === 0) continue;
+            if (rect.width < 44 || rect.height < 44) {
+              violations.push({
+                tag: el.tagName,
+                text: (el.textContent || '').trim().slice(0, 40),
+                width: Math.round(rect.width * 100) / 100,
+                height: Math.round(rect.height * 100) / 100,
+              });
+            }
+          }
+
+          const haloPad = matchMedia('(min-width: 821px)').matches ? 6 : 4;
+          const dotClearOfContent =
+            !dot || !firstBandInner
+              ? null
+              : dotRectBefore.right + haloPad < firstBandInner.getBoundingClientRect().left;
+
+          return {
+            scrollWidth: html.scrollWidth,
+            innerWidth: window.innerWidth,
+            htmlBg: getComputedStyle(html).backgroundColor,
+            bodyBg: getComputedStyle(body).backgroundColor,
+            threadPresent: !!thread,
+            dotPresent: !!dot,
+            threadPointerEvents: thread ? getComputedStyle(thread).pointerEvents : null,
+            dotPointerEvents: dot ? getComputedStyle(dot).pointerEvents : null,
+            dotClearOfContent,
+            dotTopBefore,
+            tapTargetViolations: violations,
+          };
+        });
+
+        // Dot-stays-put check: scroll to bottom under reduced motion, confirm
+        // the dot's CSS top did not change (CircuitThread's script never runs
+        // any motion under prefers-reduced-motion: reduce).
+        await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+        await new Promise((r) => setTimeout(r, 150));
+        const dotTopAfter = await page.evaluate(() => {
+          const dot = document.getElementById('thread-dot');
+          return dot ? getComputedStyle(dot).top : null;
+        });
+        await page.evaluate(() => window.scrollTo(0, 0));
+
+        const file = `${slug}-${width}.png`;
+        await page.screenshot({ path: path.join(here, file), fullPage: true });
+
+        results.pages.push({
+          slug,
+          route,
+          width,
+          file,
+          scrollWidth: metrics.scrollWidth,
+          viewportWidth: metrics.innerWidth,
+          horizontalScroll: metrics.scrollWidth > metrics.innerWidth,
+          background: { html: metrics.htmlBg, body: metrics.bodyBg },
+          thread: {
+            present: metrics.threadPresent,
+            dotPresent: metrics.dotPresent,
+            threadPointerEventsNone: metrics.threadPointerEvents === 'none',
+            dotPointerEventsNone: metrics.dotPointerEvents === 'none',
+            dotClearOfContent: metrics.dotClearOfContent,
+            dotStayedPutAfterScroll: metrics.dotTopBefore === dotTopAfter,
+          },
+          tapTargets: {
+            checked: true,
+            violationCount: metrics.tapTargetViolations.length,
+            violations: metrics.tapTargetViolations,
+          },
+        });
+
+        await page.close();
+      }
+    }
+
+    // ---- motion-allowed scroll test on / at 1440 -----------------------
+    {
+      const page = await browser.newPage();
+      await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'no-preference' }]);
+      await page.setViewport({ width: 1440, height: 1000 });
+      await page.goto(base + '/', { waitUntil: 'networkidle0' });
+      await new Promise((r) => setTimeout(r, 200));
+
+      const before = await page.evaluate(() => {
+        const dot = document.getElementById('thread-dot');
+        const pulse = document.getElementById('pulse');
+        return {
+          dotTop: dot ? getComputedStyle(dot).top : null,
+          pulse: pulse ? { cx: pulse.getAttribute('cx'), cy: pulse.getAttribute('cy') } : null,
+        };
+      });
+
+      const scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+      const steps = 24;
+      for (let i = 1; i <= steps; i++) {
+        await page.evaluate((y) => window.scrollTo(0, y), Math.round((scrollHeight * i) / steps));
+        await new Promise((r) => setTimeout(r, 90));
+      }
+      // The how-we-work band's type-then-lock sequence runs on its own
+      // timers once it enters view (about 4.5s for all three lines) and can
+      // still be finishing after the scroll pass above completes — wait for
+      // it explicitly rather than guessing a fixed delay.
+      try {
+        await page.waitForFunction(
+          () => Array.from(document.querySelectorAll('.typed')).every((el) => el.textContent === el.getAttribute('data-text')),
+          { timeout: 8000 }
+        );
+      } catch {
+        // fall through; the after-snapshot below records whatever state exists
+      }
+
+      const after = await page.evaluate(() => {
+        const dot = document.getElementById('thread-dot');
+        const pulse = document.getElementById('pulse');
+        const kinEls = Array.from(document.querySelectorAll('.kin'));
+        const typedEls = Array.from(document.querySelectorAll('.typed'));
+        return {
+          dotTop: dot ? getComputedStyle(dot).top : null,
+          pulse: pulse ? { cx: pulse.getAttribute('cx'), cy: pulse.getAttribute('cy') } : null,
+          kinAllIn: kinEls.length > 0 && kinEls.every((el) => el.classList.contains('in')),
+          kinCount: kinEls.length,
+          typedAllFull: typedEls.length > 0 && typedEls.every((el) => el.textContent === el.getAttribute('data-text')),
+          typedCount: typedEls.length,
+        };
+      });
+
+      results.motionScrollTest = {
+        dotMoved: before.dotTop !== after.dotTop,
+        pulseMoved: JSON.stringify(before.pulse) !== JSON.stringify(after.pulse),
+        allKinIn: after.kinAllIn,
+        kinCount: after.kinCount,
+        allTypedFull: after.typedAllFull,
+        typedCount: after.typedCount,
+      };
+      await page.close();
+    }
+
+    // ---- JS-disabled test on / at 375 ------------------------------------
+    {
+      const page = await browser.newPage();
+      await page.setJavaScriptEnabled(false);
+      await page.setViewport({ width: 375, height: 1000 });
+      await page.goto(base + '/', { waitUntil: 'load' });
+
+      const noJs = await page.evaluate(() => {
+        const layers = Array.from(document.querySelectorAll('.home-layer'));
+        const layerOk = layers.length === 3 && layers.every((el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && getComputedStyle(el).opacity === '1';
+        });
+        const serviceLinks = Array.from(document.querySelectorAll('.home-layer-list a'));
+        const linksOk = serviceLinks.length > 0 && serviceLinks.every((el) => {
+          const rect = el.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0 && getComputedStyle(el).opacity === '1';
+        });
+        // textContent, not innerText: the display-face .typed spans are
+        // uppercased by CSS (text-transform), and innerText reflects the
+        // rendered case while textContent is the literal DOM text the
+        // no-JS visitor actually receives.
+        const bodyText = document.body.textContent || '';
+        const commitments = [
+          'You own your accounts, data and code.',
+          'Direct access to the people doing the work.',
+          'Reporting tied to revenue, not impressions.',
+        ];
+        const commitmentsPresent = commitments.every((line) => bodyText.includes(line));
+        return {
+          layerCount: layers.length,
+          layersVisible: layerOk,
+          serviceLinkCount: serviceLinks.length,
+          serviceLinksVisible: linksOk,
+          commitmentsPresent,
+        };
+      });
+
+      results.noJsTest = noJs;
+      await page.close();
+    }
+  } finally {
+    if (browser) await browser.close();
+    server.kill();
+  }
+
+  await writeFile(path.join(here, 'results.json'), JSON.stringify(results, null, 2) + '\n');
+
+  const violations = [];
+  for (const p of results.pages) {
+    if (p.width === 375 && p.horizontalScroll) violations.push(p.route + ' @375: horizontal scroll (scrollWidth ' + p.scrollWidth + ' > ' + p.viewportWidth + ')');
+    if (p.background.html !== 'rgb(245, 246, 247)') violations.push(p.route + ' @' + p.width + ': html background is ' + p.background.html + ', expected rgb(245, 246, 247)');
+    if (p.background.body !== 'rgb(245, 246, 247)') violations.push(p.route + ' @' + p.width + ': body background is ' + p.background.body + ', expected rgb(245, 246, 247)');
+    if (!p.thread.present || !p.thread.dotPresent) violations.push(p.route + ' @' + p.width + ': thread or dot missing');
+    if (!p.thread.threadPointerEventsNone || !p.thread.dotPointerEventsNone) violations.push(p.route + ' @' + p.width + ': thread/dot pointer-events is not none');
+    if (p.thread.dotClearOfContent === false) violations.push(p.route + ' @' + p.width + ': thread dot + halo overlaps first band content');
+    if (!p.thread.dotStayedPutAfterScroll) violations.push(p.route + ' @' + p.width + ': thread dot moved under prefers-reduced-motion: reduce');
+    if (p.tapTargets.violationCount > 0) violations.push(p.route + ' @' + p.width + ': ' + p.tapTargets.violationCount + ' tap target(s) under 44x44: ' + JSON.stringify(p.tapTargets.violations));
+  }
+  if (results.motionScrollTest) {
+    const m = results.motionScrollTest;
+    if (!m.dotMoved) violations.push('motion scroll test: thread dot did not move');
+    if (!m.pulseMoved) violations.push('motion scroll test: #pulse did not move');
+    if (!m.allKinIn) violations.push('motion scroll test: not every .kin reached .in (count ' + m.kinCount + ')');
+    if (!m.allTypedFull) violations.push('motion scroll test: not every .typed reached its full text (count ' + m.typedCount + ')');
+  }
+  if (results.noJsTest) {
+    const n = results.noJsTest;
+    if (!n.layersVisible) violations.push('no-JS test: Loop layers not fully visible (count ' + n.layerCount + ')');
+    if (!n.serviceLinksVisible) violations.push('no-JS test: service links not fully visible (count ' + n.serviceLinkCount + ')');
+    if (!n.commitmentsPresent) violations.push('no-JS test: not all three commitments text present');
+  }
+
+  console.log('shoot.mjs: captured ' + results.pages.length + ' screenshot(s), wrote results.json');
+  if (violations.length) {
+    console.error('shoot.mjs: ' + violations.length + ' violation(s):');
+    for (const v of violations) console.error('  - ' + v);
+    process.exitCode = 1;
+  } else {
+    console.log('shoot.mjs: zero violations');
+  }
+}
+
+await main();

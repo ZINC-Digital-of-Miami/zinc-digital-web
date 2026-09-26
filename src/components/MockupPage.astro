@@ -1,5 +1,5 @@
 ---
-import MockupBands from './MockupBands.astro';
+import HomeBands from './home/HomeBands.astro';
 import TeamBand from './TeamBand.astro';
 import {services,layers,cases,posts,assets,clients,toSitePath,dateLabel,type Route} from '../data/mockup';
 interface Props {route:Route}
@@ -10,7 +10,7 @@ const study=cases.find(c=>c.slug===route.slug);
 const post=posts.find(p=>p.slug===route.slug);
 const photo=(key:string)=>assets[key as keyof typeof assets];
 ---
-{route.template==='home' ? <MockupBands /> : <>
+{route.template==='home' ? <HomeBands /> : <>
 <section class="band page-intro" data-theme="light" data-template={route.template}>
   <div class="band__inner">
     <p class="t-label eyebrow">ZINC / {route.layer || route.template} <span class="draft-tag">[DRAFT]</span></p>

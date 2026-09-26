@@ -7,9 +7,14 @@ import { team, assets } from '../data/mockup';
 
 interface Props {
   heading?: string;
+  homeBand?: string;
 }
 
-const { heading = 'The people doing the work' } = Astro.props;
+// homeBand is undefined on the About page (no attribute rendered, unchanged
+// behavior) and 'team' when called from the homepage (Task 3), so the
+// homepage script has a stable hook to shuffle this grid on scroll-entry and
+// check-site.mjs can assert the nine home bands render in order.
+const { heading = 'The people doing the work', homeBand } = Astro.props;
 
 // Jaymie and Wendy have no photo yet (mockup.ts team[].photo === null); the
 // sketch shows their initials in the tile in addition to the existing
@@ -20,10 +25,10 @@ const initials: Record<string, string> = {
 };
 ---
 
-<section class="band team-band">
+<section class="band team-band" data-home-band={homeBand}>
   <div class="band__inner">
     <p class="t-label eyebrow">{heading}</p>
-    <div class="team-band-grid">
+    <div class="team-band-grid" data-team>
       {team.map((person) => (
         <article class="team-band-person">
           {person.photo ? (

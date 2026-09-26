@@ -1,0 +1,432 @@
+---
+// Homepage nine bands from the owner-picked sketch (.planning/sketches/001-a-plus-b-homepage/index.html,
+// variant 3 "All white"). The footer band comes from PreviewLayout's shared
+// SiteFooter (one footer, not two — see plan brief for Task 3). Content is
+// server-rendered complete; the script below only ever ADDS motion, never
+// hides anything that isn't already gated behind html.anim in home.css.
+import TeamBand from '../TeamBand.astro';
+import { services, cases, posts, assets, clients, homeCommitments, toSitePath, dateLabel } from '../../data/mockup';
+import '../../styles/home.css';
+
+const link = (path: string) => toSitePath(path);
+const asset = (key: string) => assets[key as keyof typeof assets];
+
+const buildServices = services.filter((s) => s.layer === 'Build');
+const demandServices = services.filter((s) => s.layer === 'Demand');
+const intelServices = services.filter((s) => s.layer === 'Intelligence');
+const ouabc = cases.find((c) => c.slug === 'once-upon-a-book-club')!;
+const usoil = cases.find((c) => c.slug === 'us-oil-solutions')!;
+const notes = posts.slice(0, 3);
+---
+
+<!-- 1 HERO -->
+<section class="band home-hero" data-home-band="hero">
+  <div class="band__inner">
+    <div class="home-meta-row t-label">
+      <span>ZINC Digital</span><span>Operating report</span><span>Miami HQ &middot; Working nationwide</span><span>Build &middot; Demand &middot; Intelligence</span>
+    </div>
+    <hr class="rule" />
+    <h1 class="display page-title kin home-hero-title">
+      <span class="line">Other agencies deliver</span>
+      <span class="line"><span class="mark-strike">the scope.</span></span>
+      <span class="line">ZINC delivers</span>
+      <span class="line"><span class="mark-hit">the business.</span></span>
+    </h1>
+    <div class="home-hero-foot">
+      <div>
+        <p class="lede">Supporting line under editorial review. <span class="draft-tag">[DRAFT]</span></p>
+        <div class="actions">
+          <a class="btn solid" href={link('/contact/')}>Start an inquiry &rarr;</a>
+          <a class="sms" href="sms:+17865754837">Text (786) 575-4837</a>
+        </div>
+      </div>
+      <div>
+        <p class="t-label" style="margin-bottom:.8em">Contents</p>
+        <ol class="home-toc">
+          <li><a href="#loop" data-layer="0"><span class="n">01</span><span class="t display">Build</span><span class="dots"></span><span>{buildServices.length} services</span></a></li>
+          <li><a href="#loop" data-layer="1"><span class="n">02</span><span class="t display">Demand</span><span class="dots"></span><span>{demandServices.length} services</span></a></li>
+          <li><a href="#loop" data-layer="2"><span class="n">03</span><span class="t display">Intelligence</span><span class="dots"></span><span>{intelServices.length} service{intelServices.length === 1 ? '' : 's'}</span></a></li>
+          <li><a href="#work"><span class="n">04</span><span class="t display">The work</span><span class="dots"></span><span>{cases.length} cases</span></a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 LOGO WALL -->
+<section class="band home-logos" data-home-band="clients">
+  <div class="band__inner">
+    <p class="t-label">// Who's trusted us <span class="draft-tag">[LOGO FILES PENDING &mdash; NAMES SET AS WORDMARKS]</span></p>
+    <div class="home-logos-grid">
+      {clients.map((name) => (
+        <div class="home-logo-cell display" tabindex="0"><span>{name}</span></div>
+      ))}
+      <div class="home-logo-cell" aria-hidden="true">&nbsp;</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 THE LOOP -->
+<section class="band home-loop-band" id="loop" data-home-band="loop">
+  <div class="home-loop-sticky">
+    <div class="home-loop-head t-label"><span>One system, three layers</span><span id="loop-pct">Loop complete &middot; Intelligence feeds Build</span></div>
+    <svg class="home-loop-svg" viewBox="0 0 600 540" role="img" aria-label="Build, Demand and Intelligence connected in a loop">
+      <path class="trace" d="M300 70 V20 H40 V120"></path><path class="trace" d="M520 420 H585 V250"></path><path class="trace" d="M80 420 V515 H300"></path>
+      <path class="track" d="M300 70 C 440 70 575 300 520 420 C 470 525 130 525 80 420 C 25 300 160 70 300 70 Z"></path>
+      <path id="loop-path" class="draw" d="M300 70 C 440 70 575 300 520 420 C 470 525 130 525 80 420 C 25 300 160 70 300 70 Z"></path>
+      <circle class="node on" data-i="0" cx="300" cy="70" r="15"></circle>
+      <circle class="node on" data-i="1" cx="520" cy="420" r="15"></circle>
+      <circle class="node on" data-i="2" cx="80" cy="420" r="15"></circle>
+      <text class="nlabel" x="300" y="42" text-anchor="middle">Build</text>
+      <text class="nlabel" x="520" y="462" text-anchor="middle">Demand</text>
+      <text class="nlabel" x="80" y="462" text-anchor="middle">Intelligence</text>
+      <circle id="glow" class="glow" r="22" cx="80" cy="420"></circle>
+      <circle id="pulse" class="pulse" r="8" cx="80" cy="420"></circle>
+    </svg>
+    <ol class="home-layers">
+      <li class="home-layer on" data-i="0">
+        <p class="t-label">01 &middot; The machine the customer touches</p>
+        <h3 class="display home-layer-title">Build</h3>
+        <ul class="home-layer-list">
+          {buildServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
+        </ul>
+      </li>
+      <li class="home-layer on" data-i="1">
+        <p class="t-label">02 &middot; Traffic into it</p>
+        <h3 class="display home-layer-title">Demand</h3>
+        <ul class="home-layer-list">
+          {demandServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
+        </ul>
+      </li>
+      <li class="home-layer on" data-i="2">
+        <p class="t-label">03 &middot; The truth about what's working</p>
+        <h3 class="display home-layer-title">Intelligence</h3>
+        <ul class="home-layer-list">
+          {intelServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
+          <li class="home-layer-note t-label">Reporting that feeds Build and Demand</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4 OUABC -->
+<section class="band home-case" id="work" data-home-band="once-upon-a-book-club">
+  <div class="band__inner">
+    <div class="home-case-top">
+      <div>
+        <p class="t-label">Case 01 &middot; {ouabc.title}</p>
+        <h2 class="display section-title kin">Almost three years.</h2>
+      </div>
+      <div>
+        <svg class="home-mini" viewBox="0 0 120 110" role="img" aria-label="All three layers lit">
+          <path class="ring" d="M60 14 C 88 14 115 60 104 84 C 94 105 26 105 16 84 C 5 60 32 14 60 14 Z"></path>
+          <circle class="n" cx="60" cy="14" r="7"></circle><circle class="n" cx="104" cy="84" r="7"></circle><circle class="n" cx="16" cy="84" r="7"></circle>
+        </svg>
+        <p class="lede">From the storefront to the operating picture. All three layers run here. <span class="draft-tag">[DRAFT]</span></p>
+      </div>
+    </div>
+    <div class="home-figures">
+      <div class="home-fig"><p class="t-label">Engagement</p><p class="home-fig-value display"><span class="redact">Receipt pending</span></p><p class="draft-tag">[RECEIPT: confirmed tenure]</p></div>
+      <div class="home-fig"><p class="t-label">Revenue outcome</p><p class="home-fig-value display"><span class="redact">Receipt pending</span></p><p class="draft-tag">[RECEIPT: approved outcome]</p></div>
+      <div class="home-fig"><p class="t-label">Reporting</p><p class="home-fig-value display"><span class="redact">Receipt pending</span></p><p class="draft-tag">[RECEIPT: reporting impact]</p></div>
+    </div>
+    <div class="home-case-body">
+      <div>
+        <p class="t-label">Layers ZINC runs</p>
+        <ul class="home-svc t-label">
+          <li>TikTok Ads</li><li>Shopping Ads</li><li>Meta Ads</li><li>Blog content</li><li>Web updates</li><li>Business Intelligence</li>
+        </ul>
+        <p style="margin-top:var(--space-xl)"><a class="btn" href={link('/work/' + ouabc.slug + '/')}>Read the case &rarr;</a></p>
+      </div>
+      <div class="home-shots">
+        <img class="desk" src={asset('ouabc-site').src} width={asset('ouabc-site').width} height={asset('ouabc-site').height} alt="Once Upon a Book Club storefront" loading="lazy" />
+        <img class="phone" src={asset('ouabc-mobile').src} width={asset('ouabc-mobile').width} height={asset('ouabc-mobile').height} alt="Once Upon a Book Club on mobile" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 U.S. OIL -->
+<section class="band home-usoil" data-home-band="us-oil-solutions">
+  <div class="band__inner">
+    <p class="t-label">Case 02 &middot; {usoil.title} &middot; Las Vegas</p>
+    <h2 class="display section-title kin">A website became the business.</h2>
+    <p class="draft-tag" style="margin-top:.5em">[DRAFT headline]</p>
+    <div class="home-tl">
+      <div class="home-stamp"><span class="t-label">01</span><span class="home-stamp-k display">Website</span><span class="t-label">Build</span></div>
+      <div class="home-stamp"><span class="t-label">02</span><span class="home-stamp-k display">SEO</span><span class="t-label">Demand</span></div>
+      <div class="home-stamp"><span class="t-label">03</span><span class="home-stamp-k display">App one</span><span class="t-label">Build</span></div>
+      <div class="home-stamp"><span class="t-label">04</span><span class="home-stamp-k display">App two</span><span class="t-label">Build</span></div>
+      <div class="home-stamp home-stamp--next"><span class="t-label">05</span><span class="home-stamp-k display">Next build</span><span class="t-label">Being scoped</span></div>
+    </div>
+    <p style="margin-top:var(--space-xl)"><a class="btn" href={link('/work/' + usoil.slug + '/')}>Read the case &rarr;</a></p>
+  </div>
+</section>
+
+<!-- 6 HOW WE WORK -->
+<section class="band home-how" data-home-band="commitments">
+  <div class="band__inner">
+    <p class="t-label">How we work <span class="draft-tag">[OWNER CONFIRMS EACH LINE]</span></p>
+    <ol class="home-commit">
+      {homeCommitments.map((text, i) => (
+        <li class="locked">
+          <span class="t-label">0{i + 1}</span>
+          <span class="typed home-commit-typed display" data-text={text}>{text}</span>
+          <span class="home-lock t-label">&#9632; Locked</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- 7 TEAM -->
+<TeamBand heading="The people behind the work · Order shuffles on every visit" homeBand="team" />
+
+<!-- 8 FIELD NOTES -->
+<section class="band home-notes" data-home-band="articles">
+  <div class="band__inner">
+    <p class="t-label">Field notes</p>
+    <div class="home-notes-grid">
+      {notes.map((post) => (
+        <a class="home-note" href={link('/blog/' + post.slug + '/')}>
+          <span class="t-label">{dateLabel(post.dateGmt)} &middot; {post.layer}</span>
+          <h3>{post.title}</h3>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Progressive enhancement only. Every piece of content above is already
+  // complete in the server-rendered HTML; this script only ever ADDS motion
+  // (word wraps, typing cursor, team reshuffle, the Loop's scroll-driven
+  // draw). It never hides content that isn't already gated behind the
+  // html.anim class in home.css. This is the ONLY script on the site that
+  // adds .anim to <html> (plan invariant, Task 3).
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || document.visibilityState !== 'visible';
+  const root = document.documentElement;
+
+  if (!reduce) {
+    root.classList.add('anim');
+  }
+
+  // ---- kinetic headline word wrap (hero, OUABC, U.S. Oil, footer) --------
+  function wrapWords(el: Element) {
+    const walk = (node: Node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          const text = child.textContent || '';
+          const frag = document.createDocumentFragment();
+          text.split(/(\s+)/).forEach((piece) => {
+            if (!piece) return;
+            if (/^\s+$/.test(piece)) {
+              frag.appendChild(document.createTextNode(piece));
+              return;
+            }
+            const w = document.createElement('span');
+            w.className = 'w';
+            const i = document.createElement('i');
+            i.textContent = piece;
+            w.appendChild(i);
+            frag.appendChild(w);
+          });
+          child.replaceWith(frag);
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+    el.querySelectorAll('.w > i').forEach((i, k) => {
+      (i as HTMLElement).style.transitionDelay = k * 70 + 'ms';
+    });
+  }
+
+  const kinEls = Array.from(document.querySelectorAll('.kin'));
+  if (!reduce) {
+    kinEls.forEach(wrapWords);
+  }
+
+  // ---- reveal on view -----------------------------------------------------
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target as HTMLElement;
+        target.classList.add('in');
+        const band = target.dataset.homeBand;
+        if (band === 'clients') flipLogos();
+        if (band === 'commitments') typeLines();
+        if (band === 'team') shuffleTeam(true);
+        io.unobserve(target);
+      });
+    },
+    { threshold: 0.25 }
+  );
+  document
+    .querySelectorAll('.kin, [data-home-band="clients"], [data-home-band="commitments"], [data-home-band="team"]')
+    .forEach((el) => io.observe(el));
+
+  if (reduce) {
+    typeLines();
+  }
+  requestAnimationFrame(() => {
+    document.querySelector('[data-home-band="hero"]')?.classList.add('in');
+  });
+
+  // ---- logo wall: flip cells one at a time --------------------------------
+  function flipLogos() {
+    if (reduce) return;
+    const cells = Array.from(document.querySelectorAll('.home-logo-cell')).filter(
+      (c) => (c.textContent || '').trim()
+    );
+    cells.forEach((c, k) => {
+      setTimeout(() => c.classList.add('flip'), k * 180);
+      setTimeout(() => c.classList.remove('flip'), k * 180 + 420);
+    });
+  }
+
+  // ---- how we work: clear, type, lock -------------------------------------
+  function typeLines() {
+    const items = Array.from(document.querySelectorAll('.home-commit li'));
+    let delay = 0;
+    items.forEach((li) => {
+      const el = li.querySelector<HTMLElement>('.typed');
+      if (!el) return;
+      const text = el.dataset.text || el.textContent || '';
+      if (reduce) {
+        el.textContent = text;
+        li.classList.add('locked');
+        return;
+      }
+      el.textContent = '';
+      li.classList.remove('locked');
+      for (let k = 0; k < text.length; k++) {
+        setTimeout(() => {
+          el.textContent = text.slice(0, k + 1);
+        }, delay + k * 28);
+      }
+      delay += text.length * 28 + 250;
+      setTimeout(() => li.classList.add('locked'), delay);
+      delay += 150;
+    });
+  }
+
+  // ---- team: shuffle order on entry ----------------------------------------
+  function shuffleTeam(animate: boolean) {
+    const grid = document.querySelector<HTMLElement>('[data-team]');
+    if (!grid) return;
+    if (grid.contains(document.activeElement)) return;
+    const cards = Array.from(grid.children);
+    const doShuffle = () => {
+      cards.sort(() => Math.random() - 0.5).forEach((card) => grid.append(card));
+    };
+    if (animate && !reduce) {
+      cards.forEach((c) => c.classList.add('shuffling'));
+      setTimeout(() => {
+        doShuffle();
+        cards.forEach((c, k) => setTimeout(() => c.classList.remove('shuffling'), k * 60));
+      }, 300);
+    } else {
+      doShuffle();
+    }
+  }
+
+  // ---- the Loop: draw on scroll, pulse travels, layers scale --------------
+  const path = document.getElementById('loop-path') as SVGPathElement | null;
+  const pulse = document.getElementById('pulse');
+  const glow = document.getElementById('glow');
+  const loopBand = document.querySelector<HTMLElement>('[data-home-band="loop"]');
+  const loopPct = document.getElementById('loop-pct');
+  const nodes = Array.from(document.querySelectorAll('.home-loop-svg .node'));
+  const layerItems = Array.from(document.querySelectorAll('.home-layer'));
+
+  if (path && pulse && glow && loopBand && loopPct && nodes.length === 3 && layerItems.length === 3) {
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = String(len);
+
+    const nodeAt: [number, number, number] = [0, 0, 0];
+    (function measure() {
+      const targets = nodes.map((n) => [
+        Number(n.getAttribute('cx')),
+        Number(n.getAttribute('cy')),
+      ]);
+      const best = [1e9, 1e9, 1e9];
+      for (let s = 0; s <= 400; s++) {
+        const L = (len * s) / 400;
+        const p = path.getPointAtLength(L);
+        targets.forEach((t, i) => {
+          const d = (p.x - t[0]) ** 2 + (p.y - t[1]) ** 2;
+          if (d < best[i]) {
+            best[i] = d;
+            nodeAt[i] = s / 400;
+          }
+        });
+      }
+      nodeAt[0] = 0;
+    })();
+
+    function setLoop(p: number) {
+      if (!path || !pulse || !glow || !loopPct) return;
+      const drawn = Math.min(p * 1.08, 1);
+      path.style.strokeDashoffset = String(len * (1 - drawn));
+      const pt = path.getPointAtLength(len * (p % 1 === 0 && p >= 1 ? 0.999 : p % 1));
+      pulse.setAttribute('cx', String(pt.x));
+      pulse.setAttribute('cy', String(pt.y));
+      glow.setAttribute('cx', String(pt.x));
+      glow.setAttribute('cy', String(pt.y));
+      let active = 0;
+      nodeAt.forEach((a, i) => {
+        if (p % 1 >= a - 0.001) active = i;
+      });
+      if (p >= 0.999) active = 2;
+      nodes.forEach((n, i) => {
+        n.classList.toggle('on', (drawn >= nodeAt[i] - 0.001 && i <= active) || p >= 0.999);
+      });
+      layerItems.forEach((l, i) => l.classList.toggle('on', i === active));
+      loopPct.textContent =
+        p < 0.02
+          ? 'Scroll to run the loop'
+          : p >= 0.999
+            ? 'Loop complete · Intelligence feeds Build'
+            : 'Pulse at ' + ['Build', 'Demand', 'Intelligence'][active];
+    }
+
+    function onScroll() {
+      if (!loopBand) return;
+      const rect = loopBand.getBoundingClientRect();
+      const span = loopBand.offsetHeight - innerHeight;
+      const p = reduce || span <= 0 ? 1 : Math.max(0, Math.min(1, -rect.top / span));
+      setLoop(p);
+    }
+
+    let ticking = false;
+    const request = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          onScroll();
+        });
+      }
+    };
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', request);
+    onScroll();
+
+    document.querySelectorAll('.home-toc a[data-layer]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const span = loopBand.offsetHeight - innerHeight;
+        const layerIndex = Number((a as HTMLElement).dataset.layer);
+        const target = [0.05, 0.4, 0.72][layerIndex] ?? 0;
+        scrollTo({
+          top: loopBand.offsetTop + target * span + 10,
+          behavior: reduce ? 'auto' : 'smooth',
+        });
+      });
+    });
+  }
+</script>

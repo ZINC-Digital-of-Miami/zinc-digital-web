@@ -248,6 +248,18 @@ textarea:focus-visible {
   background: var(--accent);
 }
 
+/* Redaction bar (sketch 001 line 127): a receipt-pending figure value sits
+ * on a solid accent bar until the owner supplies the real number. Ink text
+ * on the bar keeps it readable on the light ground (sketch's
+ * variant-3 override, line 186). */
+.redact {
+  background: var(--accent);
+  color: var(--fg);
+  padding: 0 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 /* Complete preview templates share the same flat grounds and type system. */
 @view-transition { navigation: auto; }
 html { background: var(--color-snow); color: var(--color-near-black); }
@@ -265,7 +277,7 @@ a,button,input,textarea,select { -webkit-tap-highlight-color:transparent; }
 .wordmark img { height:26px;width:auto; }
 .nav-draft { font-size:10px;max-width:130px; }
 .site-header nav { margin-left:auto;display:flex;align-items:center;gap:28px;font-family:var(--font-mono, monospace);font-size:var(--text-label);letter-spacing:.06em;text-transform:uppercase; }
-.site-header nav a { display:flex;align-items:center;min-height:44px; }
+.site-header nav a { display:flex;align-items:center;justify-content:center;min-height:44px;min-width:44px; }
 .menu-toggle { display:none; }
 .page-intro { padding-top:32px;padding-bottom:64px; }
 .display,.page-title,.case-title,.section-title,.layer-title {font-family:var(--font-display);font-weight:var(--weight-heavy);line-height:.92;letter-spacing:-.012em;text-transform:uppercase;overflow-wrap:anywhere;margin:0;}
