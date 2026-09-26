@@ -47,7 +47,12 @@ const completeFonts = {name:'zinc-complete-font-output',hooks:{'astro:build:done
     const flat=html.replaceAll('"','');
     const missingFamilies=fontFamilies.filter(font=>!flat.includes(font.cssVariable+':'+font.name+'-'));
     if(missingFamilies.length)throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' is missing declared families: '+missingFamilies.map(f=>f.name).join(', '));
-    const sources=new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2)"\)/g),match=>match[1]));
+    // Vercel's own build/deployment platform appends a `?dpl=<deployment-id>`
+    // skew-protection query string to these asset URLs (confirmed via a
+    // build-log head dump — never happens in local or CI builds, only on
+    // Vercel's actual infrastructure). The capture group excludes any such
+    // query so `sources` holds the real on-disk path either way.
+    const sources=new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g),match=>match[1]));
     const preloads=Array.from(html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g));
     for(const source of sources){const bytes=await readFile(new URL(source.replace(/^\//,''),dir));if(bytes.toString('ascii',0,4)!=='wOF2')throw new Error('FONT_OUTPUT_INCOMPLETE: invalid font file '+source+' in '+entry+' (first four bytes were not wOF2)');}
     const preload=preloads[0]?.[0].match(/href="([^"]+)"/)?.[1];
@@ -56,15 +61,7 @@ const completeFonts = {name:'zinc-complete-font-output',hooks:{'astro:build:done
     // and cache state can reorder blocks even when the fonts themselves are correct).
     const displayFacePattern=new RegExp('@font-face\\{font-family:"?'+displayFamily.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'-[^"}]*"?;src:url\\("([^"]+)"\\)');
     const displaySource=html.match(displayFacePattern)?.[1];
-    if(sources.size!==fontFamilies.length){
-      // TEMP DIAGNOSTIC (removed once the Vercel-only failure is root-caused):
-      // local `npm run build` and `npx vercel build` both pass; only Vercel's
-      // remote build machine produces this. Dump the actual <head> so the
-      // next failing deployment's log shows what's really in the file there.
-      const headMatch=html.match(/<head[^>]*>[\s\S]*?<\/head>/);
-      console.error('FONT_DIAGNOSTIC '+entry+' head dump:\n'+(headMatch?.[0]??'(no <head> found)').slice(0,4000));
-      throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' has '+sources.size+' active woff2 sources, expected '+fontFamilies.length+'. sources='+JSON.stringify([...sources]));
-    }
+    if(sources.size!==fontFamilies.length)throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' has '+sources.size+' active woff2 sources, expected '+fontFamilies.length+'. sources='+JSON.stringify([...sources]));
     if(preloads.length!==1)throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' has '+preloads.length+' font preloads, expected 1. preloads='+JSON.stringify(preloads.map(p=>p[0])));
     if(!displaySource)throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' has no @font-face for the display family "'+displayFamily.name+'"');
     if(preload!==displaySource)throw new Error('FONT_OUTPUT_INCOMPLETE: '+entry+' preload href ('+preload+') does not match the display family @font-face src ('+displaySource+')');
