@@ -2,14 +2,20 @@ import snapshot from './posts.preview.json';
 import assetData from './assets.preview.json';
 
 export type Layer = 'Build' | 'Demand' | 'Intelligence';
-export type Pairing = 'a';
+export type Pairing = 'a' | 'b' | 'c';
+export const pairings: Pairing[] = ['a','b','c'];
 export const layers: Layer[] = ['Build','Demand','Intelligence'];
 export const assets = assetData;
 export const source = 'docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md';
 export const draft = '[DRAFT]';
 export function toSitePath(path: string, basePath = '', query?: Record<string,string>, fragment?: string) {
-  const route = (basePath.replace(/\/$/,'') + '/' + path.replace(/^\//,'')).replace(/\/{2,}/g,'/');
-  return route + (query ? '?' + new URLSearchParams(query) : '') + (fragment ? '#'+encodeURIComponent(fragment) : '');
+  const prefix = /^\/design-preview\/[abc]$/.test(basePath) ? basePath : '';
+  const parsed = new URL(path, 'https://preview.invalid');
+  const pathname = parsed.origin === 'https://preview.invalid' && activeRoutes.some(r=>r.path===parsed.pathname) ? parsed.pathname : '/';
+  const value = query?.service ?? (parsed.searchParams.getAll('service').length===1 ? parsed.searchParams.get('service') : null);
+  const search = pathname==='/contact/' && services.some(s=>s.slug===value) ? '?'+new URLSearchParams({service:value!}) : '';
+  const hash = fragment ? '#'+encodeURIComponent(fragment) : parsed.hash;
+  return prefix + pathname + search + hash;
 }
 type Service = {slug:string; title:string; layer:Layer; line:string; deliverables:string[]; cadence:string; owns:string; reported:string; questions:[string,string][]; related:string[]; caseSlug:string; source:string; status:'draft'};
 const serviceInputs: Omit<Service,'source'|'status'>[] = [

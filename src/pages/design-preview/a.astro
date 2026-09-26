@@ -1,8 +1,7 @@
 ---
 import PreviewLayout from '../../layouts/PreviewLayout.astro';
-import MockupBands from '../../components/MockupBands.astro';
+import MockupPage from '../../components/MockupPage.astro';
+import {activeRoutes} from '../../data/mockup';
+const route=activeRoutes.find(r=>r.path==='/')!;
 ---
-
-<PreviewLayout pairing="a" title="ZINC design preview: Pairing A [DRAFT]">
-  <MockupBands />
-</PreviewLayout>
+<PreviewLayout pairing="a" title={route.title+' | ZINC — Pairing A'} basePath="/design-preview/a"><MockupPage route={route} pairing="a" basePath="/design-preview/a" /></PreviewLayout>
