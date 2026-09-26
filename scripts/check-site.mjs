@@ -283,7 +283,7 @@ if (!indexPage) {
   check(html.includes('[LOGO FILES PENDING'), 'dist/index.html is missing the [LOGO FILES PENDING marker');
   check(html.includes('[OWNER CONFIRMS EACH LINE]'), 'dist/index.html is missing the [OWNER CONFIRMS EACH LINE] marker');
   check(html.includes('[RECEIPT:'), 'dist/index.html is missing a [RECEIPT: marker');
-  check(html.includes('[PHOTO PENDING]'), 'dist/index.html is missing the [PHOTO PENDING] marker');
+  check(!html.includes('[PHOTO PENDING]') && (html.match(/class="team-band-photo"/g) || []).length === 7, 'dist/index.html must render all 7 team members with a real photo and no [PHOTO PENDING] marker');
   for (const text of HOME_COMMITMENTS) {
     check(html.includes(text), 'dist/index.html is missing the how-we-work line: ' + text);
   }

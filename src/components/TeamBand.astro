@@ -16,13 +16,11 @@ interface Props {
 // check-site.mjs can assert the nine home bands render in order.
 const { heading = 'The people doing the work', homeBand } = Astro.props;
 
-// Jaymie and Wendy have no photo yet (mockup.ts team[].photo === null); the
-// sketch shows their initials in the tile in addition to the existing
-// [PHOTO PENDING] marker.
-const initials: Record<string, string> = {
-  'jaymie-wilhoit': 'JW',
-  'wendy-funnell': 'WF',
-};
+// Quick task 260926-6g7 "team" sub-task: Jaymie and Wendy now have photos
+// (mockup.ts team[].photo), so this map is empty — kept for any future hire
+// who joins without a photo yet, matching the sketch's [PHOTO PENDING]
+// pattern.
+const initials: Record<string, string> = {};
 ---
 
 <section class="band team-band" data-home-band={homeBand}>

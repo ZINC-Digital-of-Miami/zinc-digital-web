@@ -29,15 +29,20 @@ const serviceInputs: Omit<Service,'source'|'status'>[] = [
   {slug:'business-intelligence',title:'Business Intelligence',layer:'Intelligence',line:'A common view of the numbers behind the next decision.',deliverables:['Source and metric definition','Data ingestion and reconciliation','Dashboards and reporting workflows','Freshness and exception checks'],cadence:'Refresh schedules matched to source availability and decision needs. [OWNER CONFIRM]',owns:'Agreed reporting code, metric definitions and business data. [OWNER CONFIRM]',reported:'Source lineage, freshness and reconciled business measures with known gaps visible.',questions:[['Can you combine our platforms?','[DRAFT] Start with source access, data grain and compatible definitions.'],['Why do platform totals differ?','[DRAFT] Attribution windows, timing, currencies and event definitions can differ. The report must show those limits.'],['Will the dashboard be live?','[DRAFT] Freshness is defined per source; a recent screen refresh is not proof of recent data.'],['Who decides which metrics matter?','[DRAFT] Define the decisions and owners first, then the measures needed to support them.']],related:['apps','shopify','shopping-ads'],caseSlug:'once-upon-a-book-club'},
 ];
 export const services: Service[] = serviceInputs.map(s=>({...s,source,status:'draft'}));
-export const team = [
+// photo is declared string|null (not inferred via `as const` literals) so a
+// future hire without a photo yet doesn't collapse TeamBand.astro's
+// [PHOTO PENDING] branch to `never` — every current entry has a photo, but
+// the type still allows one to be absent (quick task 260926-6g7 "team").
+export type TeamMember = {id:string;name:string;role:string;photo:string|null};
+export const team: TeamMember[] = [
   {id:'kirk-musick',name:'Kirk Musick, MS, MBA',role:'CEO',photo:'kirk-musick'},
-  {id:'jaymie-wilhoit',name:'Jaymie Wilhoit',role:'Managing Partner',photo:null},
-  {id:'wendy-funnell',name:'Wendy Funnell',role:'Chief Content Officer',photo:null},
+  {id:'jaymie-wilhoit',name:'Jaymie Wilhoit',role:'Managing Partner',photo:'jaymie-wilhoit'},
+  {id:'wendy-funnell',name:'Wendy Funnell',role:'Chief Content Officer',photo:'wendy-funnell'},
   {id:'bethany-mckinzie',name:'Bethany McKinzie',role:'Business Strategy & HR',photo:'bethany-mckinzie'},
   {id:'priya-nahar',name:'Priya Nahar, MBA',role:'Shopify Developer',photo:'priya-nahar'},
   {id:'martin-stewart',name:'Martin Stewart',role:'Glide Expert & App Developer',photo:'martin-stewart'},
   {id:'dr-basset',name:'Dr. Basset',role:'Code',photo:'dr-basset'},
-] as const;
+];
 export const clients = ['Porsche','Home Depot','John Deere','YMCA','General Shale','Once Upon a Book Club','U.S. Oil Solutions'];
 export const commitments = ['The client keeps ownership of business accounts.','The people doing the work are accessible.','Reporting connects work to business outcomes.','Priorities respond to evidence.','Scope, decisions and responsibilities stay visible.'];
 // Homepage "How we work" band (sketch 001 lines 358-362): three lines only,

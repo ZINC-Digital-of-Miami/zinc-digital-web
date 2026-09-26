@@ -1,0 +1,372 @@
+{
+  "generatedAt": "2026-09-26T13:35:01.277Z",
+  "outputSize": {
+    "width": 800,
+    "height": 1000
+  },
+  "targets": {
+    "faceWidthFraction": 0.6004161039414587,
+    "eyeLineFraction": 0.4,
+    "targetBackgroundLuminance": 246,
+    "targetFaceLuminance": 153.16817708333335
+  },
+  "geometryConstraint": {
+    "rule": "requiredF = OUTPUT_H*(1-EYE_LINE_FRACTION)*face.w / (OUTPUT_W*(sourceHeight-eyeMidY)); shared F = max(requiredF over all 7) * 1.03",
+    "limitingImage": "wendy-funnell",
+    "perPersonRequiredF": {
+      "kirk-musick": 0.5587415672217156,
+      "bethany-mckinzie": 0.23985770496656147,
+      "priya-nahar": 0.5178265168659076,
+      "martin-stewart": 0.1948139800496595,
+      "dr-basset": 0.5723467562100987,
+      "jaymie-wilhoit": 0.31954414390012764,
+      "wendy-funnell": 0.5829282562538434
+    }
+  },
+  "background": "#F5F6F7",
+  "people": [
+    {
+      "id": "kirk-musick",
+      "label": "Kirk Musick",
+      "provenance": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#uploads/kirkmusick.png",
+      "sourceWidth": 2046,
+      "sourceHeight": 2048,
+      "detectedFace": {
+        "x": 530.8661400675774,
+        "y": 427.5162353515625,
+        "w": 1003.0534336566925,
+        "h": 1003.0534057617188
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 860.1813958424128,
+          "y": 707.23788454038
+        },
+        "rightEye": {
+          "x": 1208.8380891873592,
+          "y": 695.9605793820247
+        }
+      },
+      "scale": 0.47887068329160104,
+      "placement": {
+        "left": -94,
+        "top": 64,
+        "bottom": 1045,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.6131901741027832,
+        "eyeLineFraction": 0.39831601873301253,
+        "faceCenterXFraction": 0.4948149174451828
+      },
+      "maskHolesFilled": 19,
+      "luminance": {
+        "faceBefore": 89.86996527777778,
+        "faceAfter": 152.67397569444444,
+        "backgroundBefore": 245.97614130069476,
+        "backgroundAfter": 245.97632156234914,
+        "calibration": {
+          "a": 0.5946710455775854,
+          "b": 99.72511086557594
+        }
+      },
+      "notes": null
+    },
+    {
+      "id": "bethany-mckinzie",
+      "label": "Bethany McKinzie",
+      "provenance": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#uploads/priya 2.png",
+      "sourceWidth": 1856,
+      "sourceHeight": 2304,
+      "detectedFace": {
+        "x": 658.762882232666,
+        "y": 416.53914642333984,
+        "w": 553.088623046875,
+        "h": 553.0886306762695
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 833.0681492413393,
+          "y": 576.5706895787539
+        },
+        "rightEye": {
+          "x": 1030.8824157747538,
+          "y": 572.5746753951519
+        }
+      },
+      "scale": 0.8684555478778273,
+      "placement": {
+        "left": -412,
+        "top": -99,
+        "bottom": 1902,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.6063963174819946,
+        "eyeLineFraction": 0.39992885895724817,
+        "faceCenterXFraction": 0.5005480647087097
+      },
+      "maskHolesFilled": 151313,
+      "luminance": {
+        "faceBefore": 153.16817708333335,
+        "faceAfter": 152.70428819444444,
+        "backgroundBefore": 245.9750480769231,
+        "backgroundAfter": 245.9750480769231,
+        "calibration": {
+          "a": 1.0002688585749069,
+          "b": -0.04118057781170137
+        }
+      },
+      "notes": "Source upload is misnamed \"priya 2.png\" but is confirmed as Bethany's photo, not Priya's — it matches the exact [348,100,1160,1450] crop docs/team-photos-status.md records for her (and the face is Bethany's). The prior segmentation also punched ~151k px of holes through her patterned blouse (busy fabric print confused Vision's segmentation); the enclosed-hole fill (see prepare-team-photos.mjs) restored the real fabric texture there."
+    },
+    {
+      "id": "priya-nahar",
+      "label": "Priya Nahar",
+      "provenance": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#uploads/Priya-ac3b8f75.png",
+      "sourceWidth": 2048,
+      "sourceHeight": 2050,
+      "detectedFace": {
+        "x": 570.12841796875,
+        "y": 392.80772656202316,
+        "w": 952.1672973632812,
+        "h": 952.1672859787941
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 859.8505162384358,
+          "y": 685.350411084407
+        },
+        "rightEye": {
+          "x": 1198.8298386913193,
+          "y": 656.4846446225401
+        }
+      },
+      "scale": 0.5044626973466672,
+      "placement": {
+        "left": -128,
+        "top": 62,
+        "bottom": 1096,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.5991653203964233,
+        "eyeLineFraction": 0.3998110594666355,
+        "faceCenterXFraction": 0.5011894255876541
+      },
+      "maskHolesFilled": 25,
+      "luminance": {
+        "faceBefore": 130.90567708333333,
+        "faceAfter": 152.66708333333332,
+        "backgroundBefore": 245.99983193738467,
+        "backgroundAfter": 245.9998250776861,
+        "calibration": {
+          "a": 0.8065728710062199,
+          "b": 47.58320928721608
+        }
+      },
+      "notes": null
+    },
+    {
+      "id": "martin-stewart",
+      "label": "Martin Stewart",
+      "provenance": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#uploads/MartinStaff.png",
+      "sourceWidth": 2048,
+      "sourceHeight": 2066,
+      "detectedFace": {
+        "x": 702.4916381835938,
+        "y": 316.8045281767845,
+        "w": 419.4564514160156,
+        "h": 419.4564501643181
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 904.8704491040608,
+          "y": 445.3672416760572
+        },
+        "rightEye": {
+          "x": 992.8451713325849,
+          "y": 456.96373270453046
+        }
+      },
+      "scale": 1.1451317092194973,
+      "placement": {
+        "left": -645,
+        "top": -117,
+        "bottom": 2249,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.5872198343276978,
+        "eyeLineFraction": 0.39696244006246045,
+        "faceCenterXFraction": 0.47656023502349854
+      },
+      "maskHolesFilled": 22931,
+      "luminance": {
+        "faceBefore": 175.93541666666667,
+        "faceAfter": 153.7632986111111,
+        "backgroundBefore": 245.96357478539673,
+        "backgroundAfter": 245.94047229799963,
+        "calibration": {
+          "a": 1.3256356501519553,
+          "b": -80.05808337433848
+        }
+      },
+      "notes": "Only source is a profile performance candid (cap, glasses, mic, raised hand) — not a forward studio headshot. Face-box-width scaling keeps his apparent head size consistent with the other six, but pose/attire cannot match without a new photo (flagged already in docs/team-photos-status.md item 3)."
+    },
+    {
+      "id": "dr-basset",
+      "label": "Dr. Basset",
+      "provenance": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#uploads/DrBasset.png",
+      "sourceWidth": 2048,
+      "sourceHeight": 2050,
+      "detectedFace": {
+        "x": 727.09765625,
+        "y": 439.15451765060425,
+        "w": 1017.6268310546875,
+        "h": 1017.6268398761749
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 1079.7388949364952,
+          "y": 709.8555626404049
+        },
+        "rightEye": {
+          "x": 1436.0686725341354,
+          "y": 723.1593797528368
+        }
+      },
+      "scale": 0.47201279338845753,
+      "placement": {
+        "left": -183,
+        "top": 62,
+        "bottom": 1030,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.5804266929626465,
+        "eyeLineFraction": 0.3989488537148496,
+        "faceCenterXFraction": 0.4965074509382248
+      },
+      "maskHolesFilled": 0,
+      "luminance": {
+        "faceBefore": 170.65140625,
+        "faceAfter": 154.00855902777778,
+        "backgroundBefore": 245.99468327340492,
+        "backgroundAfter": 245.98936654680983,
+        "calibration": {
+          "a": 1.2321182006435563,
+          "b": -57.0945265227092
+        }
+      },
+      "notes": "Source upload carried a small colored sparkle/upscaler artifact (docs/team-photos-status.md item 2, maxSat 1.0 vs ~0.03 average). The grayscale + levels-calibration pass neutralizes stray color pixels; median(3) denoise softens the residual speck."
+    },
+    {
+      "id": "jaymie-wilhoit",
+      "label": "Jaymie Wilhoit",
+      "provenance": "assets/team/originals/jaymie-wilhoit-original.webp",
+      "sourceWidth": 1600,
+      "sourceHeight": 900,
+      "detectedFace": {
+        "x": 686.8630409240723,
+        "y": 205.09811639785767,
+        "w": 265.90399742126465,
+        "h": 265.90398252010345
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 769.5839270815572,
+          "y": 276.492641048474
+        },
+        "rightEye": {
+          "x": 867.1348470544507,
+          "y": 275.3042429008122
+        }
+      },
+      "scale": 1.8064146752641266,
+      "placement": {
+        "left": -1081,
+        "top": -98,
+        "bottom": 1528,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.5804574489593506,
+        "eyeLineFraction": 0.39809104015809416,
+        "faceCenterXFraction": 0.5050237625837326
+      },
+      "maskHolesFilled": 9,
+      "luminance": {
+        "faceBefore": 121.62684027777777,
+        "faceAfter": 152.62690972222222,
+        "backgroundBefore": 246.000326425547,
+        "backgroundAfter": 245.000326425547,
+        "calibration": {
+          "a": 0.7463956007984881,
+          "b": 62.386438560979656
+        }
+      },
+      "notes": "Original has both arms extended toward the camera (selfie pose). The shared geometry-derived crop (driven by Wendy, the limiting source — see manifest \"geometryConstraint\") crops well above her arms; verified empirically by rendering her alone at a range of face-width fractions from 0.55 up and inspecting each — arms were already fully outside frame at 0.55, well below the ~0.59 shared value the Wendy constraint requires."
+    },
+    {
+      "id": "wendy-funnell",
+      "label": "Wendy Funnell",
+      "provenance": "assets/team/originals/wendy-funnell-original.webp",
+      "sourceWidth": 1600,
+      "sourceHeight": 900,
+      "detectedFace": {
+        "x": 537.8371715545654,
+        "y": 229.80069816112518,
+        "w": 429.62541580200195,
+        "h": 429.62543070316315
+      },
+      "detectedEyes": {
+        "leftEye": {
+          "x": 677.3961962320385,
+          "y": 340.8164656261258
+        },
+        "rightEye": {
+          "x": 833.2077775901079,
+          "y": 353.6647732068493
+        }
+      },
+      "scale": 1.1180271592091613,
+      "placement": {
+        "left": -441,
+        "top": 12,
+        "bottom": 1018,
+        "reachesFrameBottom": true
+      },
+      "outputWidth": 800,
+      "outputHeight": 1000,
+      "achieved": {
+        "faceWidthFraction": 0.5984958410263062,
+        "eyeLineFraction": 0.40090177157163703,
+        "faceCenterXFraction": 0.50044085085392
+      },
+      "maskHolesFilled": 877,
+      "luminance": {
+        "faceBefore": 173.01288194444444,
+        "faceAfter": 152.88385416666668,
+        "backgroundBefore": 245.9607847562306,
+        "backgroundAfter": 245.9302129644257,
+        "calibration": {
+          "a": 1.272576994518722,
+          "b": -67.0040362345502
+        }
+      },
+      "notes": null
+    }
+  ]
+}
