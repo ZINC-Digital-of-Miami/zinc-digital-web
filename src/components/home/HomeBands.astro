@@ -43,9 +43,9 @@ const notes = posts.slice(0, 3);
       <div>
         <p class="t-label" style="margin-bottom:.8em">Contents</p>
         <ol class="home-toc">
-          <li><a href="#loop" data-layer="0"><span class="n">01</span><span class="t display">Build</span><span class="dots"></span><span>{buildServices.length} services</span></a></li>
-          <li><a href="#loop" data-layer="1"><span class="n">02</span><span class="t display">Demand</span><span class="dots"></span><span>{demandServices.length} services</span></a></li>
-          <li><a href="#loop" data-layer="2"><span class="n">03</span><span class="t display">Intelligence</span><span class="dots"></span><span>{intelServices.length} service{intelServices.length === 1 ? '' : 's'}</span></a></li>
+          <li><a href="#loop-layer-0" data-layer="0"><span class="n">01</span><span class="t display">Build</span><span class="dots"></span><span>{buildServices.length} services</span></a></li>
+          <li><a href="#loop-layer-1" data-layer="1"><span class="n">02</span><span class="t display">Demand</span><span class="dots"></span><span>{demandServices.length} services</span></a></li>
+          <li><a href="#loop-layer-2" data-layer="2"><span class="n">03</span><span class="t display">Intelligence</span><span class="dots"></span><span>{intelServices.length} service{intelServices.length === 1 ? '' : 's'}</span></a></li>
           <li><a href="#work"><span class="n">04</span><span class="t display">The work</span><span class="dots"></span><span>{cases.length} cases</span></a></li>
         </ol>
       </div>
@@ -84,23 +84,23 @@ const notes = posts.slice(0, 3);
       <circle id="pulse" class="pulse" r="8" cx="80" cy="420"></circle>
     </svg>
     <ol class="home-layers">
-      <li class="home-layer on" data-i="0">
+      <li class="home-layer on" id="loop-layer-0" data-i="0">
         <p class="t-label">01 &middot; The machine the customer touches</p>
-        <h3 class="display home-layer-title">Build</h3>
+        <h2 class="display home-layer-title">Build</h2>
         <ul class="home-layer-list">
           {buildServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
         </ul>
       </li>
-      <li class="home-layer on" data-i="1">
+      <li class="home-layer on" id="loop-layer-1" data-i="1">
         <p class="t-label">02 &middot; Traffic into it</p>
-        <h3 class="display home-layer-title">Demand</h3>
+        <h2 class="display home-layer-title">Demand</h2>
         <ul class="home-layer-list">
           {demandServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
         </ul>
       </li>
-      <li class="home-layer on" data-i="2">
+      <li class="home-layer on" id="loop-layer-2" data-i="2">
         <p class="t-label">03 &middot; The truth about what's working</p>
-        <h3 class="display home-layer-title">Intelligence</h3>
+        <h2 class="display home-layer-title">Intelligence</h2>
         <ul class="home-layer-list">
           {intelServices.map((s) => <li><a href={link('/services/' + s.slug + '/')}>{s.title}</a></li>)}
           <li class="home-layer-note t-label">Reporting that feeds Build and Demand</li>
@@ -434,15 +434,26 @@ const notes = posts.slice(0, 3);
     addEventListener('resize', request);
     onScroll();
 
+    // Each TOC link's href already targets its own layer's id
+    // (#loop-layer-0/1/2) directly — plain browser anchor navigation lands
+    // on the right layer with zero JS. Only intercept the click to run the
+    // 340vh progress math when the pinned scene is actually armed
+    // (html.anim present, i.e. motion allowed and the tab is visible);
+    // otherwise the Loop isn't pinned at all (home.css keeps every layer
+    // expanded and in flow by default), so let the native anchor jump
+    // happen instead of computing an offset against a scene that was never
+    // built (Codex CLI review, confirmed: this fired unconditionally even
+    // under prefers-reduced-motion, applying 340vh math to an unpinned band).
     document.querySelectorAll('.home-toc a[data-layer]').forEach((a) => {
       a.addEventListener('click', (e) => {
+        if (!root.classList.contains('anim')) return;
         e.preventDefault();
         const span = loopBand.offsetHeight - innerHeight;
         const layerIndex = Number((a as HTMLElement).dataset.layer);
         const target = [0.05, 0.4, 0.72][layerIndex] ?? 0;
         scrollTo({
           top: loopBand.offsetTop + target * span + 10,
-          behavior: reduce ? 'auto' : 'smooth',
+          behavior: 'smooth',
         });
       });
     });
