@@ -1,0 +1,22 @@
+{
+  "source_path": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01/docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md",
+  "type": "SPEC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "ZINC Digital — Site Redesign Design Spec",
+  "summary": "Technical specification for static-first Astro site with performance gates, visual system, SEO, and architecture defining every template.",
+  "scope": [
+    "static-first Astro site",
+    "Vercel deployment",
+    "performance metrics",
+    "visual design tokens",
+    "content collections",
+    "service pages",
+    "form handling",
+    "URL redirects",
+    "SEO and structured data"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null
+}

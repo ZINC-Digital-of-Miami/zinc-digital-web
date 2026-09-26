@@ -1,0 +1,32 @@
+{
+  "source_path": "/Volumes/Satechi Hub/zinc-digital-web-worktrees/phase-01/docs/handoff/2026-09-25-turnover-complete.md",
+  "type": "DOC",
+  "confidence": "medium",
+  "manifest_override": false,
+  "title": "zinc-digital-web — Complete Turnover",
+  "summary": "Project handoff snapshot containing decision register, approved design spec, requirements with traceability, build brief, live state, and resumption instructions.",
+  "scope": [
+    "ZINC Digital website",
+    "Astro site rebuild",
+    "homepage nine-band layout",
+    "eleven service pages",
+    "case studies OUABC and U.S. Oil",
+    "blog migration",
+    "contact form",
+    "team page",
+    "performance gates",
+    "DNS migration",
+    "Vercel deployment",
+    "redirect map"
+  ],
+  "cross_refs": [
+    "docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md",
+    ".planning/phases/01-design-system-font-pick/01-01-SUMMARY.md",
+    ".planning/STATE.md",
+    "/Volumes/Satechi Hub/_TRASH_ZINC_CLEANUP/2026-09-25/interrupted-replan/",
+    "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Hybrid operational document combining decision register (Part A), embedded approved design spec and requirements (Parts B1–B3), build brief (Part C), and operational runbook (Part D). Classified as DOC because primary purpose is handoff and team resumption, not requirements specification or implementation contract. Embedded specifications and requirements reflect already-approved, frozen design state per owner decision 2026-09-25."
+}
