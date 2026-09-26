@@ -188,6 +188,12 @@ textarea:focus-visible {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--accent-text);
+}
+
+/* Short inline markers (masthead badge) stay on one line where they fit;
+ * long marker text (article sidebar, footer facts) wraps instead of
+ * clipping against .frame's overflow-x: clip (PR #4 review, base.css#191). */
+.nav-draft {
   white-space: nowrap;
 }
 
