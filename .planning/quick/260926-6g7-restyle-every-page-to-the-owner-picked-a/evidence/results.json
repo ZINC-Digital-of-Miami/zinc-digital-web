@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T10:59:07.217Z",
+  "generatedAt": "2026-09-26T11:09:45.838Z",
   "pages": [
     {
       "slug": "home",
@@ -25,6 +25,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 9,
+        "loadedCount": 9,
+        "failed": []
       }
     },
     {
@@ -51,6 +57,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 9,
+        "loadedCount": 9,
+        "failed": []
       }
     },
     {
@@ -77,6 +89,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -103,6 +121,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -129,6 +153,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 5,
+        "loadedCount": 5,
+        "failed": []
       }
     },
     {
@@ -155,6 +185,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 5,
+        "loadedCount": 5,
+        "failed": []
       }
     },
     {
@@ -181,6 +217,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -207,6 +249,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -233,6 +281,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -259,6 +313,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -285,6 +345,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     },
     {
@@ -311,6 +377,12 @@
         "checked": true,
         "violationCount": 0,
         "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
       }
     }
   ],
