@@ -215,7 +215,7 @@ Each checkpoint has a **date**, not just a name. Example: "Receipts approved by 
 
 ## Resolved After Synthesis (2026-09-25 CT)
 
-The owner directed "resolve all conflicts" and "use our dark teal on white." Every open decision above is now closed in the spec, §18 (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`), which wins over this summary:
+The owner directed "resolve all conflicts" and "use our dark teal on white." Every open decision above is now closed in the spec, section 18 (`docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`), which wins over this summary:
 - 410 → one on-demand catch-all route reading `src/lib/redirects.ts`, verified on a preview deploy.
 - Form email → Nodemailer to smtp.gmail.com:465 with an App Password; Gmail API only if App Passwords are blocked.
 - Rate limiting → Turnstile + honeypot; Vercel WAF rule only at $0 included usage. No Upstash/KV.
