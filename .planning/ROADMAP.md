@@ -36,7 +36,7 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Design System & Full-Site Acceptance** - Complete clickable full-site mockup with tokens, selected all-white design, Pairing A type and brand mark; acceptance outstanding
-- [ ] **Phase 2: Homepage Motion & the Loop** - Nine all-white sections on `/`, with the scroll-drawn Loop as the signature and the finished state designed for reduced motion and Firefox
+- [ ] **Phase 2: Homepage Motion & the Loop** - Ten all-white bands on `/`, with a headline-only hero and separate intro, the scroll-drawn Loop as the signature, and finished states for reduced motion and Firefox
 - [ ] **Phase 3: Services & Proof** - `/services/`, 11 flat service pages, `/work/` and both case studies, each with the mini loop lit
 - [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on the SPF repair
 - [ ] **Phase 5: Blog, SEO & Redirects** - 18 migrated posts, the full SEO override and analytics, and every old URL resolved to a 301 or 410
