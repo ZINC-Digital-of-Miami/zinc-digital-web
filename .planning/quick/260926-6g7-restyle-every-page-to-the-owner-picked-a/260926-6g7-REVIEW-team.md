@@ -91,6 +91,12 @@ Before ranged 0.166-0.497 (a ~3x spread — the raw sources were never
 consistently framed); after, every one of the seven lands in
 0.392-0.412 (faceWidthFraction) and 0.399-0.401 (eyeLineFraction).
 
+**Superseded by round 2 below** — this table used the initial fixed
+0.40 target, which the orchestrator's review correctly flagged as leaving
+several crops short of the frame's bottom edge. See "Round 2" for the
+final, geometry-derived 0.60 shared value and its own achieved
+measurements.
+
 ### Bugs found and fixed while building the pipeline
 
 - **sharp does not reliably apply `.grayscale()`/`.normalise()`/`.median()`
@@ -150,54 +156,164 @@ the exact same position/shape in Kirk's "reference, grade untouched" photo
 too, so it's an intentional branding mark baked into that studio session,
 not something to remove.
 
-## Gate
+## Round 2 — orchestrator review fixes
+
+The orchestrator reviewed the round-1 contact sheet by eye and found three
+real defects. All three, plus a `scripts/check-site.mjs` update, addressed
+in this round.
+
+### 1. Floating cut / empty snow below the torso
+
+Kirk, Wendy, Priya and Dr. Basset's round-1 crops (faceWidthFraction 0.40)
+scaled their sources down enough that the scaled image's own bottom edge
+landed short of the 1000px output frame (measured: bottom edge at
+829-864px), leaving 130-190px of bare canvas below the torso — a floating
+horizontal cut. Fixed by deriving a single shared, tighter
+`FACE_WIDTH_FRACTION` from actual geometry instead of a fixed 0.40:
+
+```
+requiredF = OUTPUT_H*(1-EYE_LINE_FRACTION)*face.w / (OUTPUT_W*(sourceHeight-eyeMidY))
+```
+
+— the minimum face-width fraction each source needs so its own scaled
+bottom edge reaches the frame's bottom edge. Computed for all seven
+(`assets/team/manifest.json` → `geometryConstraint.perPersonRequiredF`),
+the limiting (most shallow-below-the-eyes) source was **Wendy Funnell**
+(required 0.5829), so the shared value is hers, plus a 3% rounding margin:
+**0.6004**. Every source's placed bottom edge now measures **>=1000px**
+(`manifest.json` → `people[].placement.{bottom,reachesFrameBottom}`):
+Kirk 1045, Wendy 1018, Priya 1096, Dr. Basset 1030, Bethany 1902, Martin
+2249, Jaymie 1528. No canvas was extended and no body was invented — the
+fix is entirely a tighter, shared scale factor, derived from the one
+source (Wendy) that actually needs it.
+
+### 2. Jaymie's arm still visible
+
+At the old 0.40 fraction her extended arms were outside the geometric
+crop already in most of the frame, but a rounded sleeve-cuff shape was
+still visible near the bottom corners. The round-2 tighter, shared crop
+(0.6004, driven by Wendy, not a special case for Jaymie) crops
+considerably closer, and empirically excludes the arms entirely — verified
+both against the full render and a 2x-zoomed crop of the frame's bottom
+200px (`y=800-1000`): only collar and neck are visible, no arm, hand or
+cuff content anywhere in frame.
+
+### 3. Kirk's face/background mismatch
+
+Measured directly on the plain grayscale composite (before any
+correction): Kirk's face-region mean luminance was **89.9** against a
+cross-person median of **153.2** — the single biggest outlier of the
+seven (others ranged 121.6-176.0 before correction) — confirming the
+"darker/harsher" read was real, not a color-management illusion. His
+background read correctly uniform once the mask-based background sampling
+bug (below) was fixed. Fixed with a two-point linear levels calibration
+per image (`sharp().linear(a,b)`, not independent per-image
+`.normalise()`, which the round-1 pipeline used and which does not
+guarantee cross-image consistency): map
+`(backgroundLuminanceBefore -> targetBackgroundLuminance)` and
+`(faceLuminanceBefore -> targetFaceLuminance)`, where the background
+target is the literal canvas color's own grayscale value (246.0) and the
+face target is the cross-person median (153.17, computed from all seven,
+not picked arbitrarily). Measured after: all seven land in
+**faceAfter 152.6-154.0**, **backgroundAfter 245.0-246.0** — see the table
+below and `manifest.json` → `people[].luminance` for full before/after +
+the exact `{a,b}` used per image.
+
+| Person | faceBefore | faceAfter | backgroundBefore | backgroundAfter |
+|---|---|---|---|---|
+| Kirk Musick | 89.9 | 152.7 | 246.0 | 246.0 |
+| Bethany McKinzie | 153.2 | 152.7 | 246.0 | 246.0 |
+| Priya Nahar | 130.9 | 152.7 | 246.0 | 246.0 |
+| Martin Stewart | 175.9 | 153.8 | 246.0 | 245.9 |
+| Dr. Basset | 170.7 | 154.0 | 246.0 | 246.0 |
+| Jaymie Wilhoit | 121.6 | 152.6 | 246.0 | 245.0 |
+| Wendy Funnell | 173.0 | 152.9 | 246.0 | 245.9 |
+
+### Two more pipeline bugs found and fixed while building the luminance measurement
+
+- **Fixed corner patches are not always background.** The first attempt
+  measured background luminance from four fixed 50x50 corner patches.
+  Once the geometry fix (above) made the shared crop considerably tighter,
+  Dr. Basset's suit and Wendy's hair reached into a canvas corner,
+  corrupting the "background" reading (measured 154-192 instead of ~246)
+  and, after calibration tried to push that wrong dark reading up to the
+  target, blowing out both images to near-white. Fixed by sampling
+  background luminance from every canvas pixel the *placed segmentation
+  mask itself* calls background (`backgroundMeanFromMask`), never an
+  assumed position.
+- **`sharp.joinChannel()` doesn't do what it looks like it does.** The
+  mask-as-alpha compositing step (`ensureAlpha().joinChannel(mask)`) was
+  producing corrupted composites: pixels that should have read as pure
+  background (245,245,245 at alpha 0) read as (0,0,0,0) instead — a real
+  rendering defect (visible as unexplained dark regions in `bgLum`
+  readings around 150-190 instead of 246), not just a measurement bug.
+  Root cause, isolated with a minimal reproduction: sharp's PNG encoder
+  silently expands a single-channel (grayscale) raw buffer to 3-channel
+  RGB on any encode/decode round-trip
+  (`sharp(buf,{raw:{channels:1}}).png().toBuffer()` decodes as 3
+  channels), so the mask buffer fed to `joinChannel` was actually 3
+  channels, not 1 — `joinChannel` appended all 3 to the already-4-channel
+  (RGBA) base image, producing a 7-channel image that corrupted on
+  re-encode. Fixed by reading both the scaled color image and the scaled
+  mask as true single-stride raw buffers and interleaving them into the
+  RGBA buffer by hand (`Buffer.alloc` + manual byte copy), bypassing
+  `joinChannel` and the PNG-encoder bug entirely. Verified with an
+  isolated repro before and after the fix (documented in the script's
+  inline comments) and by re-inspecting every one of the seven final
+  composites for dark artifacts — none found.
+
+### scripts/check-site.mjs:286
+
+Per this round's explicit permission, updated the one assertion:
+
+```diff
+- check(html.includes('[PHOTO PENDING]'), 'dist/index.html is missing the [PHOTO PENDING] marker');
++ check(!html.includes('[PHOTO PENDING]') && (html.match(/class="team-band-photo"/g) || []).length === 7, 'dist/index.html must render all 7 team members with a real photo and no [PHOTO PENDING] marker');
+```
+
+Proved the new assertion actually catches a regression, not just that it
+reads plausibly: set `jaymie-wilhoit`'s `photo` back to `null` in
+`mockup.ts`, rebuilt, ran `check-site.mjs` → **EXIT=1**,
+`check-site.mjs: 1 failure(s): - dist/index.html must render all 7 team
+members with a real photo and no [PHOTO PENDING] marker`. Reverted
+`mockup.ts` from a pre-mutation backup (`git diff --stat` showed no
+diff after revert), rebuilt, re-ran → **EXIT=0** again.
+
+## Gate (final, after round 2)
 
 Run from the worktree, each command's own exit code:
 
 ```
 npm run check              EXIT=0
-npm run build               EXIT=0
-node scripts/check-site.mjs EXIT=1  (see below — not a regression I can fix in scope)
+npm run build              EXIT=0
+node scripts/check-site.mjs EXIT=0
 ```
 
-Logs: `/private/tmp/claude-501/-Volumes-Satechi-Hub-zinc-digital-web/4d63e2c8-f06b-433f-b6af-2afc7f083cb8/scratchpad/team-check2.log`,
-`team-build.log`, `team-checksite.log`.
-
-**`check-site.mjs` failure is expected and out of my edit scope.**
-`scripts/check-site.mjs:286` asserts
-`check(html.includes('[PHOTO PENDING]'), ...)` against the built homepage —
-written when Jaymie and Wendy had no photo. Now that both have real photos
-(the actual goal of this sub-task), that marker legitimately does not
-appear anywhere in the built site anymore; this is not a bug I introduced,
-it's a stale assertion the check-site owner needs to relax (e.g. drop the
-assertion, since draft-honesty markers elsewhere — `[OWNER CONFIRM]`,
-`[RECEIPT:`, `[LOGO FILES PENDING` — still pass unchanged). I did not edit
-`scripts/check-site.mjs` because it is not in my granted edit scope for
-this sub-task (only `public/mockup/*`, `assets/team/**`,
-`src/data/mockup.ts` team fields, `src/data/assets.preview.json` team
-entries, `src/components/TeamBand.astro`, and `scripts/prepare-team-photos.*`
-were granted) — flagging for the orchestrator instead of touching a file
-another wave may own.
+`npm run check` was 0 errors/0 warnings/3 hints (unused-variable hints in
+my own `prepare-team-photos.mjs`) after round 1; cleaned up in round 2 —
+now 0 errors/0 warnings/0 hints.
 
 ## Screenshot evidence
 
 Served `dist/` locally (`python3 -m http.server`, stopped after capture),
 drove it with `puppeteer-core` + the system Chrome, screenshotted
 `.team-band` on `/` and `/about/` at 1440 and 375 CSS px, and read every
-image. All four renders show seven consistent grayscale headshots, correct
-names/roles, no `[PHOTO PENDING]` markers, no visible halos or holes at
-render size.
+image at 2x zoom. All four renders show seven consistent grayscale
+headshots, correct names/roles, no `[PHOTO PENDING]` markers, no floating
+cuts, no visible halos, holes or dark-artifact regions at render size or
+at 2x zoom.
 
 Contact sheet (all seven at rendered size, 176x220 CSS px, measured via
 `getBoundingClientRect()` on `.team-band-photo` at 1440 width — actual
-measured box was 175.53x219.41):
+measured box was 175.53x219.41, unchanged by the framing fix since CSS
+layout doesn't depend on image intrinsic size):
 `.planning/quick/260926-6g7-restyle-every-page-to-the-owner-picked-a/evidence/team-contact-sheet.png`
 
-Output size: 800x1000 (4:5), ~4.56x the largest measured rendered box
-(175.53x219.41 CSS px @1440) — comfortably over the "at least 2x" floor,
-with margin for retina displays.
+Output size: 800x1000 (4:5), ~4.56x the largest measured rendered box —
+comfortably over the "at least 2x" floor, with margin for retina displays.
 
 ## Face measurements (raw numbers)
 
-Full per-image detected face box, eye landmarks, scale, placement, and
-achieved measurements: `assets/team/manifest.json`.
+Full per-image detected face box, eye landmarks, scale, placement,
+achieved face position, luminance before/after, and calibration
+coefficients: `assets/team/manifest.json`.
