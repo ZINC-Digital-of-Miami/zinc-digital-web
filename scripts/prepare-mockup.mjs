@@ -36,7 +36,7 @@ if (args.includes('--verify-tracer') || args.includes('--verify-site')) {
     }
     for (const post of posts.posts) {
       const html = await htmlAt('blog/'+post.slug);
-      assert.ok(html.includes('Draft migration preview'), 'article draft '+post.slug);
+      assert.ok(!html.includes('Draft migration preview'), 'article draft notice removed '+post.slug);
       assert.ok(html.includes('data-source-id="'+post.id+'"'), 'article identity '+post.id);
       assert.ok(post.blocks.length > 0 && post.plainTextLength > 100, 'source body '+post.id);
     }
