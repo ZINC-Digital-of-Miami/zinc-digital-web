@@ -1,0 +1,766 @@
+{
+  "generatedAt": "2026-09-26T13:59:15.122Z",
+  "pages": [
+    {
+      "slug": "home",
+      "route": "/",
+      "width": 1440,
+      "file": "home-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 11,
+        "loadedCount": 11,
+        "failed": []
+      }
+    },
+    {
+      "slug": "home",
+      "route": "/",
+      "width": 375,
+      "file": "home-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 11,
+        "loadedCount": 11,
+        "failed": []
+      }
+    },
+    {
+      "slug": "service",
+      "route": "/services/shopify/",
+      "width": 1440,
+      "file": "service-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "service",
+      "route": "/services/shopify/",
+      "width": 375,
+      "file": "service-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "case",
+      "route": "/work/once-upon-a-book-club/",
+      "width": 1440,
+      "file": "case-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 5,
+        "loadedCount": 5,
+        "failed": []
+      }
+    },
+    {
+      "slug": "case",
+      "route": "/work/once-upon-a-book-club/",
+      "width": 375,
+      "file": "case-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 5,
+        "loadedCount": 5,
+        "failed": []
+      }
+    },
+    {
+      "slug": "blog",
+      "route": "/blog/",
+      "width": 1440,
+      "file": "blog-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "blog",
+      "route": "/blog/",
+      "width": 375,
+      "file": "blog-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "article",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "width": 1440,
+      "file": "article-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "article",
+      "route": "/blog/ai-search-results-and-generative-search-optimization/",
+      "width": 375,
+      "file": "article-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "width": 1440,
+      "file": "404-1440.png",
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    },
+    {
+      "slug": "404",
+      "route": "/404.html",
+      "width": 375,
+      "file": "404-375.png",
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "horizontalScroll": false,
+      "background": {
+        "html": "rgb(245, 246, 247)",
+        "body": "rgb(245, 246, 247)"
+      },
+      "thread": {
+        "present": true,
+        "dotPresent": true,
+        "threadPointerEventsNone": true,
+        "dotPointerEventsNone": true,
+        "dotClearOfContent": true,
+        "dotStayedPutAfterScroll": true
+      },
+      "tapTargets": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "tabindexZero": {
+        "checked": true,
+        "violationCount": 0,
+        "violations": []
+      },
+      "images": {
+        "checked": true,
+        "count": 2,
+        "loadedCount": 2,
+        "failed": []
+      }
+    }
+  ],
+  "motionScrollTest": {
+    "dotMoved": true,
+    "pulseMoved": true,
+    "allKinIn": true,
+    "kinCount": 4,
+    "allTypedFull": true,
+    "typedCount": 3,
+    "hiddenBehindAnim": {
+      "stamps": {
+        "selector": ".home-stamp",
+        "count": 5,
+        "failCount": 0,
+        "sample": []
+      },
+      "kinLetters": {
+        "selector": ".kin .w > i",
+        "count": 20,
+        "failCount": 0,
+        "sample": []
+      },
+      "typedText": {
+        "selector": ".home-commit-typed",
+        "count": 3,
+        "failCount": 0,
+        "sample": []
+      },
+      "teamCards": {
+        "selector": "[data-team] > *",
+        "count": 7,
+        "failCount": 0,
+        "sample": []
+      }
+    },
+    "strikeDrawn": true,
+    "hitDrawn": true
+  },
+  "noJsTest": {
+    "layerCount": 3,
+    "layersVisible": true,
+    "serviceLinkCount": 11,
+    "serviceLinksVisible": true,
+    "commitmentsPresent": true
+  },
+  "heroViewport": [
+    {
+      "reducedMotion": true,
+      "width": 1440,
+      "height": 900,
+      "innerHeight": 900,
+      "headerBottom": 77,
+      "heroBottom": 900,
+      "titleTop": 115.921875,
+      "titleBottom": 861.078125,
+      "introTop": 900,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.9054146415552855
+    },
+    {
+      "reducedMotion": true,
+      "width": 1280,
+      "height": 720,
+      "innerHeight": 720,
+      "headerBottom": 77,
+      "heroBottom": 720,
+      "titleTop": 137.25,
+      "titleBottom": 659.75,
+      "introTop": 720,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.812597200622084
+    },
+    {
+      "reducedMotion": true,
+      "width": 1780,
+      "height": 920,
+      "innerHeight": 920,
+      "headerBottom": 77,
+      "heroBottom": 920,
+      "titleTop": 178.34375,
+      "titleBottom": 818.65625,
+      "introTop": 920,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.7595640569395018
+    },
+    {
+      "reducedMotion": true,
+      "width": 1920,
+      "height": 1080,
+      "innerHeight": 1080,
+      "headerBottom": 77,
+      "heroBottom": 1080,
+      "titleTop": 123.109375,
+      "titleBottom": 1033.890625,
+      "introTop": 1080,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.9080570787637089
+    },
+    {
+      "reducedMotion": true,
+      "width": 768,
+      "height": 1024,
+      "innerHeight": 1024,
+      "headerBottom": 69,
+      "heroBottom": 1024,
+      "titleTop": 146.328125,
+      "titleBottom": 946.671875,
+      "introTop": 1024,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8380562827225131
+    },
+    {
+      "reducedMotion": true,
+      "width": 375,
+      "height": 812,
+      "innerHeight": 812,
+      "headerBottom": 129,
+      "heroBottom": 812,
+      "titleTop": 161.4375,
+      "titleBottom": 779.5625,
+      "introTop": 812,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.9050146412884333
+    },
+    {
+      "reducedMotion": true,
+      "width": 375,
+      "height": 667,
+      "innerHeight": 667,
+      "headerBottom": 129,
+      "heroBottom": 667,
+      "titleTop": 179.078125,
+      "titleBottom": 616.90625,
+      "introTop": 667,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8138069237918215
+    },
+    {
+      "reducedMotion": true,
+      "width": 667,
+      "height": 375,
+      "innerHeight": 375,
+      "headerBottom": 69,
+      "heroBottom": 375,
+      "titleTop": 85.84375,
+      "titleBottom": 358.15625,
+      "introTop": 375,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8899101307189542
+    },
+    {
+      "reducedMotion": false,
+      "width": 1440,
+      "height": 900,
+      "innerHeight": 900,
+      "headerBottom": 77,
+      "heroBottom": 900,
+      "titleTop": 181.34375,
+      "titleBottom": 795.65625,
+      "introTop": 900,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.7464307411907655
+    },
+    {
+      "reducedMotion": false,
+      "width": 1280,
+      "height": 720,
+      "innerHeight": 720,
+      "headerBottom": 77,
+      "heroBottom": 720,
+      "titleTop": 125.90625,
+      "titleBottom": 671.09375,
+      "introTop": 720,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8478810264385692
+    },
+    {
+      "reducedMotion": false,
+      "width": 1780,
+      "height": 920,
+      "innerHeight": 920,
+      "headerBottom": 77,
+      "heroBottom": 920,
+      "titleTop": 164.4375,
+      "titleBottom": 832.5625,
+      "introTop": 920,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.7925563463819691
+    },
+    {
+      "reducedMotion": false,
+      "width": 1920,
+      "height": 1080,
+      "innerHeight": 1080,
+      "headerBottom": 77,
+      "heroBottom": 1080,
+      "titleTop": 120.140625,
+      "titleBottom": 1036.859375,
+      "introTop": 1080,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.9139768195413759
+    },
+    {
+      "reducedMotion": false,
+      "width": 768,
+      "height": 1024,
+      "innerHeight": 1024,
+      "headerBottom": 69,
+      "heroBottom": 1024,
+      "titleTop": 128.9375,
+      "titleBottom": 964.0625,
+      "introTop": 1024,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8744764397905759
+    },
+    {
+      "reducedMotion": false,
+      "width": 375,
+      "height": 812,
+      "innerHeight": 812,
+      "headerBottom": 129,
+      "heroBottom": 812,
+      "titleTop": 159.5,
+      "titleBottom": 781.5,
+      "introTop": 812,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.9106881405563689
+    },
+    {
+      "reducedMotion": false,
+      "width": 375,
+      "height": 667,
+      "innerHeight": 667,
+      "headerBottom": 129,
+      "heroBottom": 667,
+      "titleTop": 169.5625,
+      "titleBottom": 626.421875,
+      "introTop": 667,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8491809944237918
+    },
+    {
+      "reducedMotion": false,
+      "width": 667,
+      "height": 375,
+      "innerHeight": 375,
+      "headerBottom": 69,
+      "heroBottom": 375,
+      "titleTop": 85.71875,
+      "titleBottom": 358.28125,
+      "introTop": 375,
+      "extras": 0,
+      "horizontalScroll": false,
+      "dotOverlapsWordmark": false,
+      "dotOverlapsNav": false,
+      "dotOverlapsInquiryBtn": false,
+      "fill": 0.8907271241830066
+    }
+  ]
+}

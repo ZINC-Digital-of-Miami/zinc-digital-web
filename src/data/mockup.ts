@@ -2,20 +2,17 @@ import snapshot from './posts.preview.json';
 import assetData from './assets.preview.json';
 
 export type Layer = 'Build' | 'Demand' | 'Intelligence';
-export type Pairing = 'a' | 'b' | 'c';
-export const pairings: Pairing[] = ['a','b','c'];
 export const layers: Layer[] = ['Build','Demand','Intelligence'];
 export const assets = assetData;
 export const source = 'docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md';
 export const draft = '[DRAFT]';
-export function toSitePath(path: string, basePath = '', query?: Record<string,string>, fragment?: string) {
-  const prefix = /^\/design-preview\/[abc]$/.test(basePath) ? basePath : '';
+export function toSitePath(path: string, query?: Record<string,string>, fragment?: string) {
   const parsed = new URL(path, 'https://preview.invalid');
   const pathname = parsed.origin === 'https://preview.invalid' && activeRoutes.some(r=>r.path===parsed.pathname) ? parsed.pathname : '/';
   const value = query?.service ?? (parsed.searchParams.getAll('service').length===1 ? parsed.searchParams.get('service') : null);
   const search = pathname==='/contact/' && services.some(s=>s.slug===value) ? '?'+new URLSearchParams({service:value!}) : '';
   const hash = fragment ? '#'+encodeURIComponent(fragment) : parsed.hash;
-  return prefix + pathname + search + hash;
+  return pathname + search + hash;
 }
 type Service = {slug:string; title:string; layer:Layer; line:string; deliverables:string[]; cadence:string; owns:string; reported:string; questions:[string,string][]; related:string[]; caseSlug:string; source:string; status:'draft'};
 const serviceInputs: Omit<Service,'source'|'status'>[] = [
@@ -32,17 +29,25 @@ const serviceInputs: Omit<Service,'source'|'status'>[] = [
   {slug:'business-intelligence',title:'Business Intelligence',layer:'Intelligence',line:'A common view of the numbers behind the next decision.',deliverables:['Source and metric definition','Data ingestion and reconciliation','Dashboards and reporting workflows','Freshness and exception checks'],cadence:'Refresh schedules matched to source availability and decision needs. [OWNER CONFIRM]',owns:'Agreed reporting code, metric definitions and business data. [OWNER CONFIRM]',reported:'Source lineage, freshness and reconciled business measures with known gaps visible.',questions:[['Can you combine our platforms?','[DRAFT] Start with source access, data grain and compatible definitions.'],['Why do platform totals differ?','[DRAFT] Attribution windows, timing, currencies and event definitions can differ. The report must show those limits.'],['Will the dashboard be live?','[DRAFT] Freshness is defined per source; a recent screen refresh is not proof of recent data.'],['Who decides which metrics matter?','[DRAFT] Define the decisions and owners first, then the measures needed to support them.']],related:['apps','shopify','shopping-ads'],caseSlug:'once-upon-a-book-club'},
 ];
 export const services: Service[] = serviceInputs.map(s=>({...s,source,status:'draft'}));
-export const team = [
+// photo is declared string|null (not inferred via `as const` literals) so a
+// future hire without a photo yet doesn't collapse TeamBand.astro's
+// [PHOTO PENDING] branch to `never` — every current entry has a photo, but
+// the type still allows one to be absent (quick task 260926-6g7 "team").
+export type TeamMember = {id:string;name:string;role:string;photo:string|null};
+export const team: TeamMember[] = [
   {id:'kirk-musick',name:'Kirk Musick, MS, MBA',role:'CEO',photo:'kirk-musick'},
-  {id:'jaymie-wilhoit',name:'Jaymie Wilhoit',role:'Managing Partner',photo:null},
-  {id:'wendy-funnell',name:'Wendy Funnell',role:'Chief Content Officer',photo:null},
+  {id:'jaymie-wilhoit',name:'Jaymie Wilhoit',role:'Managing Partner',photo:'jaymie-wilhoit'},
+  {id:'wendy-funnell',name:'Wendy Funnell',role:'Chief Content Officer',photo:'wendy-funnell'},
   {id:'bethany-mckinzie',name:'Bethany McKinzie',role:'Business Strategy & HR',photo:'bethany-mckinzie'},
   {id:'priya-nahar',name:'Priya Nahar, MBA',role:'Shopify Developer',photo:'priya-nahar'},
   {id:'martin-stewart',name:'Martin Stewart',role:'Glide Expert & App Developer',photo:'martin-stewart'},
   {id:'dr-basset',name:'Dr. Basset',role:'Code',photo:'dr-basset'},
-] as const;
+];
 export const clients = ['Porsche','Home Depot','John Deere','YMCA','General Shale','Once Upon a Book Club','U.S. Oil Solutions'];
 export const commitments = ['The client keeps ownership of business accounts.','The people doing the work are accessible.','Reporting connects work to business outcomes.','Priorities respond to evidence.','Scope, decisions and responsibilities stay visible.'];
+// Homepage "How we work" band (sketch 001 lines 358-362): three lines only,
+// distinct from the About page's five-item `commitments` list above.
+export const homeCommitments = ['You own your accounts, data and code.','Direct access to the people doing the work.','Reporting tied to revenue, not impressions.'];
 export const cases = [
  {slug:'once-upon-a-book-club',title:'Once Upon a Book Club',short:'OUABC',line:'From the storefront to the operating picture.',url:'https://www.onceuponabookclub.com/',layers:['Build','Demand','Intelligence'] as Layer[],situation:'[DRAFT] An ecommerce brand with a subscription and product business needed coordinated support across its store, paid channels, content and reporting. The work expanded across those connected needs.',receipts:['[RECEIPT: confirmed engagement tenure]','[RECEIPT: approved revenue outcome]','[RECEIPT: reporting impact]'],work:[['Build','Web updates support the store and its changing product calendar.'],['Demand','TikTok, Shopping and Meta ads run alongside blog content.'],['Intelligence','A reporting system brings the business measures into view.']],images:['ouabc-hero','ouabc-site','ouabc-mobile'],services:['shopify','shopping-ads','social-ads','tiktok-ads','business-intelligence'],next:'us-oil-solutions'},
  {slug:'us-oil-solutions',title:'U.S. Oil Solutions',short:'U.S. Oil',line:'A website became a broader working relationship.',url:'https://usoilsolutions.com/',layers:['Build','Demand'] as Layer[],situation:'[DRAFT] U.S. Oil Solutions in Las Vegas began with a website. The relationship expanded into SEO and two applications, with further work being scoped.',receipts:['[RECEIPT: website outcome]','[RECEIPT: organic search outcome]','[RECEIPT: app workflow impact]'],work:[['Build','The website and two apps support distinct customer and operational needs.'],['Demand','SEO supports discoverability for the services the business provides.'],['Intelligence','[OWNER CONFIRM] Confirm the reporting scope before describing it as an active layer.']],images:['uos-app-desktop','uos-app-phone'],services:['web-design','seo','apps'],next:'once-upon-a-book-club'},

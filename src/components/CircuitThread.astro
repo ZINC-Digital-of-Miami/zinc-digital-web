@@ -1,0 +1,86 @@
+---
+---
+<div id="thread" aria-hidden="true"></div>
+<div id="thread-dot" aria-hidden="true"></div>
+
+<style>
+  #thread {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gutter) / 2 - 1px);
+    width: 2px;
+    background: var(--color-snow);
+    mix-blend-mode: difference;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  #thread-dot {
+    position: absolute;
+    top: 0;
+    left: calc(var(--gutter) / 2 - 5px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-magenta);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-magenta) 22%, transparent);
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  @container (min-width: 821px) {
+    #thread-dot {
+      left: calc(var(--gutter) / 2 - 7px);
+      width: 14px;
+      height: 14px;
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-magenta) 22%, transparent);
+    }
+  }
+</style>
+
+<script>
+  // Progressive enhancement only: under prefers-reduced-motion (or with no JS
+  // at all) the dot stays at the CSS default of top: 0, at the head of the
+  // thread. This script never adds the .anim class — only the homepage
+  // script (Task 3) arms motion.
+  const thread = document.getElementById('thread');
+  const dot = document.getElementById('thread-dot');
+  const frame = thread?.parentElement as HTMLElement | null;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (dot && frame && !reduce) {
+    let ticking = false;
+
+    // The dot always stays on screen and on the line: at the top of the
+    // page it sits just under the masthead; as the reader scrolls it slides
+    // down the visible part of the line in step with overall progress, and
+    // at the end of the page it rests near the bottom of the screen, on the
+    // footer's stretch of the line.
+    const update = () => {
+      ticking = false;
+      const dotSize = dot.getBoundingClientRect().height || 10;
+      const scopeTop = frame.getBoundingClientRect().top + window.scrollY;
+      const scopeHeight = frame.offsetHeight;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      const pad = 12;
+      const upper = Math.max(0, scopeTop - window.scrollY) + pad;
+      const lower = window.innerHeight - pad - dotSize;
+      const viewportY = upper + progress * Math.max(0, lower - upper);
+      const top = window.scrollY + viewportY - scopeTop;
+      dot.style.top = Math.min(Math.max(0, top), Math.max(0, scopeHeight - dotSize)) + 'px';
+    };
+
+    const request = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', request, { passive: true });
+    update();
+  }
+</script>

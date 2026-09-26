@@ -8,6 +8,6 @@ export function getStaticPaths() {
 interface Props {route:Route}
 const {route}=Astro.props;
 ---
-<PreviewLayout pairing="a" title={route.title+' | ZINC'}>
-  <MockupPage route={route} pairing="a" basePath="" />
+<PreviewLayout title={route.title+' | ZINC'}>
+  <MockupPage route={route} />
 </PreviewLayout>

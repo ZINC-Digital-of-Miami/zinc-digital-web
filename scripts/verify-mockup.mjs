@@ -8,8 +8,8 @@ import {createServer} from 'node:http';
 import {gzipSync} from 'node:zlib';
 
 const args=process.argv.slice(2);
-const valueFlags=new Set(['--mode','--pairings','--base']);
-const booleanFlags=new Set(['--self-test','--tracer','--parity','--selected']);
+const valueFlags=new Set(['--mode','--base']);
+const booleanFlags=new Set(['--self-test']);
 for(let i=0;i<args.length;i++){
   assert.ok(valueFlags.has(args[i])||booleanFlags.has(args[i]),'unknown option: '+args[i]);
   if(valueFlags.has(args[i])){assert.ok(args[i+1]&&!args[i+1].startsWith('--'),'missing value: '+args[i]);i++;}
@@ -18,18 +18,24 @@ assert.equal(new Set(args.filter(a=>a.startsWith('--'))).size,args.filter(a=>a.s
 const option=(name,fallback)=>args.includes(name)?args[args.indexOf(name)+1]:fallback;
 const mode=option('--mode','quick');
 assert.ok(['quick','full'].includes(mode),'mode must be quick or full');
-assert.ok(!(args.includes('--selected')&&args.includes('--parity')),'selected site has no comparison aliases');
-const pairings=option('--pairings','a').split(',');
-assert.ok(pairings.length && pairings.every(p=>['a','b','c'].includes(p)) && new Set(pairings).size===pairings.length,'pairings must be a unique comma-separated selection of a,b,c');
-assert.ok(!args.includes('--selected')||pairings.length===1,'selected mode requires exactly one pairing');
-const prefixes=args.includes('--selected')?['']:['',...pairings.filter(p=>!args.includes('--tracer')||p!=='a').map(p=>'/design-preview/'+p)];
+// One site, one font pairing: no comparison prefixes remain.
+const prefixes=[''];
 const root=process.cwd();
 const out=path.join(root,'.scratch/phase01-mockup');
 const posts=JSON.parse(await fs.readFile('src/data/posts.preview.json','utf8')).posts;
 const slugs=['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const routeRecords=[['/','home'],['/services/','services'],...slugs.map(s=>['/services/'+s+'/','service']),['/work/','work'],['/work/once-upon-a-book-club/','case'],['/work/us-oil-solutions/','case'],['/about/','about'],['/contact/','contact'],['/thanks/','thanks'],['/blog/','blog'],...posts.map(p=>['/blog/'+p.slug+'/','article']),['/privacy/','privacy'],['/terms/','terms']];
-const tracerPaths=new Set(['/','/services/shopify/','/contact/','/thanks/']);
-const inventory=args.includes('--tracer')?routeRecords.filter(([route])=>tracerPaths.has(route)):routeRecords;
+// Same literal order as scripts/check-site.mjs's HOME_BAND_ORDER (owner,
+// 2026-09-26 CT) -- the retired sequence this replaced alternated
+// light/dark; there is no dark band anywhere now.
+const HOME_BAND_ORDER=['hero','intro','clients','loop','once-upon-a-book-club','us-oil-solutions','commitments','team','articles','footer'];
+// 'thanks' and '404' are single-purpose confirmation/error templates, by
+// design one short paragraph (owner, 2026-09-26 CT) -- not a stub. The
+// generic 300-char floor still guards every content template; these two
+// get a lower floor that still fails a genuinely empty/broken page.
+const SHORT_BODY_TEMPLATES=new Set(['thanks','404']);
+const MIN_BODY_CHARS=(template)=>SHORT_BODY_TEMPLATES.has(template)?100:300;
+const inventory=routeRecords;
 export function validateObservation(o){
   assert.equal(o.status,o.expectedStatus??200,'HTTP status');
   assert.ok(o.body,'route has complete body');
@@ -68,7 +74,7 @@ const save=(name,value)=>fs.writeFile(path.join(out,name),JSON.stringify(value,n
 let server;let driver;let fontProxy;let fontPolicy='cold';let fontRequests=[];let proxyBase='';
 const suppliedBase=option('--base','');
 const base=suppliedBase||'http://127.0.0.1:4329';
-const result={mode,base,pairings,tracer:args.includes('--tracer'),selected:args.includes('--selected'),parity:args.includes('--parity'),fonts:[],fontLoads:[],startedAt:new Date().toISOString(),routes:[],links:0,images:0,browserChecks:0,axe:[],screenshots:[],states:[],failures:[]};
+const result={mode,base,fonts:[],fontLoads:[],startedAt:new Date().toISOString(),routes:[],links:0,images:0,browserChecks:0,axe:[],screenshots:[],states:[],failures:[]};
 const check=(condition,message)=>{if(!condition)result.failures.push(message);};
 async function waitReady(){for(let i=0;i<80;i++){try{if((await fetch(base)).ok)return;}catch{}await new Promise(r=>setTimeout(r,100));}throw Error('preview did not become ready');}
 let currentPrefix='';
@@ -87,28 +93,41 @@ async function capture(route,template,width,state='default'){
     await fs.writeFile(path.join(out,'screenshots',partName),Buffer.from(screenshot.data,'base64'));
     artifacts.push({artifact:'screenshots/'+partName,y,height:partHeight});
   }
-  const entry={route,template,width,height,pairing:route.match(/^\/design-preview\/([abc])(?:\/|$)/)?.[1]||'a',state,dpr:2,artifact:artifacts[0].artifact,artifacts};result.screenshots.push(entry);return entry;
+  const entry={route,template,width,height,state,dpr:2,artifact:artifacts[0].artifact,artifacts};result.screenshots.push(entry);return entry;
 }
 async function viewport(width){await driver.sendAndGetDevToolsCommand('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:2,mobile:false});}
 async function settle(){await driver.executeAsyncScript('const done=arguments[arguments.length-1]; document.fonts.ready.then(()=>Promise.all(Array.from(document.images).map(i=>{i.loading="eager";return i.decode().catch(()=>{});}))).then(()=>requestAnimationFrame(()=>requestAnimationFrame(done)));');}
-async function observation(){return driver.executeScript(function(){
+// All-white design (owner, 2026-09-26 CT: "land option 3, all white ... keep
+// the white, that dark was C"; src/styles/themes.css carries the same note).
+// There is exactly one ground -- the snow canvas painted on <body> -- and
+// every band either paints that identical snow opaquely via
+// [data-theme="light"] or paints nothing and lets the canvas show through
+// (measured live on this build: home bands compute backgroundColor
+// "rgba(0, 0, 0, 0)" with no data-theme attribute at all; MockupPage bands
+// compute "rgb(245, 246, 247)" with data-theme="light"). A band is invalid
+// only if it is explicitly dark, nests another band, paints ink text in
+// anything but the one ink color, or paints an opaque ground that is not
+// that exact snow.
+const SNOW_RGB='rgb(245, 246, 247)';
+const INK_RGB='rgb(10, 10, 11)';
+const TRANSPARENT_RGBA='rgba(0, 0, 0, 0)';
+async function observation(){return driver.executeScript(function(SNOW_RGB,INK_RGB,TRANSPARENT_RGBA){
   const visible=el=>el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden';
   const anchors=Array.from(document.querySelectorAll('a')).filter(visible);
-  const images=Array.from(document.images).filter(visible).map(img=>{const b=img.getBoundingClientRect();return{src:img.currentSrc,width:b.width,height:b.height,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,ratio:Math.abs(b.width/b.height-img.naturalWidth/img.naturalHeight),reserved:img.hasAttribute('width')&&img.hasAttribute('height')};});
-  const bands=Array.from(document.querySelectorAll('.band')).map(el=>({theme:el.getAttribute('data-theme'),ground:getComputedStyle(el).backgroundColor,rect:{top:el.getBoundingClientRect().top+scrollY,bottom:el.getBoundingClientRect().bottom+scrollY},nested:!!el.querySelector('.band[data-theme]')}));
-  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||i.ratio>.02),images,overflow:document.documentElement.scrollWidth>innerWidth+1,invalidTheme:bands.filter(b=>!['dark','light'].includes(b.theme)||b.nested).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-theme')),text:document.body.innerText};
-});}
+  const images=Array.from(document.images).filter(visible).map(img=>{const b=img.getBoundingClientRect();return{src:img.currentSrc,width:b.width,height:b.height,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,ratio:Math.abs(b.width/b.height-img.naturalWidth/img.naturalHeight),reserved:img.hasAttribute('width')&&img.hasAttribute('height'),objectFit:getComputedStyle(img).objectFit};});
+  const canvas=getComputedStyle(document.body).backgroundColor;
+  const bands=Array.from(document.querySelectorAll('.band')).map(el=>({theme:el.getAttribute('data-theme'),ground:getComputedStyle(el).backgroundColor,color:getComputedStyle(el).color,rect:{top:el.getBoundingClientRect().top+scrollY,bottom:el.getBoundingClientRect().bottom+scrollY},nested:!!el.parentElement?.closest('.band')}));
+  const h=document.querySelector('h1');return{body:!!h,underlines:anchors.filter(el=>getComputedStyle(el).textDecorationLine!=='none').length,blurredImages:images.filter(i=>i.naturalWidth+1<i.width*2||i.naturalHeight+1<i.height*2||!i.reserved||(i.objectFit!=='cover'&&i.ratio>.02)),images,overflow:document.documentElement.scrollWidth>innerWidth+1,canvas,invalidTheme:bands.filter(b=>b.theme==='dark'||b.nested||b.color!==INK_RGB||(b.ground!==TRANSPARENT_RGBA&&b.ground!==SNOW_RGB)).length,bands,h1Top:h?.getBoundingClientRect().top+scrollY,homeBands:Array.from(document.querySelectorAll('[data-home-band]')).map(el=>el.getAttribute('data-home-band')),text:document.body.innerText};
+},SNOW_RGB,INK_RGB,TRANSPARENT_RGBA);}
 
-const expectedFonts={a:['Big Shoulders Display','Inter','JetBrains Mono',800],b:['Barlow Condensed','Public Sans','IBM Plex Mono',900],c:['Oswald','IBM Plex Sans','Space Mono',700]};
+const expectedFonts=['Big Shoulders Display','Inter','JetBrains Mono',800];
 async function fontObservation(route,width){
   const data=await driver.executeScript(function(){
     const style=(element)=>({family:getComputedStyle(element).fontFamily,weight:getComputedStyle(element).fontWeight});
     const css=Array.from(document.querySelectorAll('style')).map(s=>s.textContent).join('');
-    return {pairing:document.documentElement.dataset.pairing,display:style(document.querySelector('h1')),body:style(document.body),mono:style(document.querySelector('.t-label')||document.querySelector('.pairing-selector')),preloads:Array.from(document.querySelectorAll('link[rel=preload][as=font]')).map(el=>el.href),requests:performance.getEntriesByType('resource').filter(r=>/\.woff2(?:$|\?)/.test(r.name)).map(r=>({url:r.name,transferSize:r.transferSize,duration:r.duration})),faces:Array.from(document.fonts).map(f=>({family:f.family,weight:f.weight,status:f.status})),fallbacks:['size-adjust','ascent-override','descent-override','line-gap-override'].map(property=>({property,count:css.split(property+':').length-1})),displaySource:css.match(/@font-face\{[^}]+src:url\("([^"]+)"/)?.[1]};
+    return {display:style(document.querySelector('h1')),body:style(document.body),mono:style(document.querySelector('.t-label')),preloads:Array.from(document.querySelectorAll('link[rel=preload][as=font]')).map(el=>el.href),requests:performance.getEntriesByType('resource').filter(r=>/\.woff2(?:$|\?)/.test(r.name)).map(r=>({url:r.name,transferSize:r.transferSize,duration:r.duration})),faces:Array.from(document.fonts).map(f=>({family:f.family,weight:f.weight,status:f.status})),fallbacks:['size-adjust','ascent-override','descent-override','line-gap-override'].map(property=>({property,count:css.split(property+':').length-1})),displaySource:css.match(/@font-face\{[^}]+src:url\("([^"]+)"/)?.[1]};
   });
-  const targetPairing=route.match(/^\/design-preview\/([abc])(?:\/|$)/)?.[1]||(args.includes('--selected')?pairings[0]:'a');
-  check(data.pairing===targetPairing,route+' requested pairing identity');
-  const expected=expectedFonts[data.pairing];
+  const expected=expectedFonts;
   for(const [index,role] of ['display','body','mono'].entries()){check(data[role].family.includes(expected[index]),route+' computed '+role+' font');check(Number(data[role].weight)===(index===0?expected[3]:400),route+' computed '+role+' weight');}
   const urls=[...new Set(data.requests.map(r=>r.url))];
   check(urls.length===3&&urls.every(url=>new URL(url).origin===new URL(base).origin),route+' exactly three same-origin active fonts: '+JSON.stringify(urls));
@@ -146,7 +165,22 @@ try{
   assert.equal(missing.length,0,'requested routes absent: '+JSON.stringify(missing));
   const options=new chrome.Options().addArguments('--headless=new','--no-first-run','--disable-background-networking','--user-data-dir='+path.join(out,'verify-browser'));
   const preferences=new logging.Preferences();preferences.setLevel(logging.Type.PERFORMANCE,logging.Level.ALL);options.setLoggingPrefs(preferences);
-  driver=await new Builder().forBrowser('chrome').setChromeOptions(options).setChromeService(new chrome.ServiceBuilder(path.join(root,'node_modules/chromedriver/lib/chromedriver/chromedriver'))).build();
+  // GitHub-hosted Ubuntu runners preinstall Chrome and a version-paired
+  // ChromeDriver together in the same runner-image release (see
+  // actions/runner-images images/ubuntu/Ubuntu2404-Readme.md, "Environment
+  // Variables": CHROMEWEBDRIVER points at that paired driver directory). The
+  // npm `chromedriver` package tracks Chrome-for-Testing's newest release on
+  // every install ("chromedriver":"latest" behind @axe-core/cli) independent
+  // of whatever Chrome build is actually on the machine, so it drifts out of
+  // sync with a fixed or auto-updating browser (measured locally: installed
+  // Chrome 153.0.8010.49 vs npm chromedriver 154.0.8037.57 -> SessionNotCreatedError).
+  // Prefer the platform-paired driver when the runner provides one; allow an
+  // explicit CHROMEDRIVER_PATH override for local proof/debugging; otherwise
+  // keep the previous npm-bundled-binary default.
+  const chromedriverPath=process.env.CHROMEDRIVER_PATH
+    ||(process.env.CHROMEWEBDRIVER?path.join(process.env.CHROMEWEBDRIVER,'chromedriver'):null)
+    ||path.join(root,'node_modules/chromedriver/lib/chromedriver/chromedriver');
+  driver=await new Builder().forBrowser('chrome').setChromeOptions(options).setChromeService(new chrome.ServiceBuilder(chromedriverPath)).build();
   await driver.sendAndGetDevToolsCommand('Page.addScriptToEvaluateOnNewDocument',{source:`window.__fontShifts=[];window.__fontFirstPaint=null;new PerformanceObserver(list=>{for(const e of list.getEntries())window.__fontShifts.push({value:e.value,hadRecentInput:e.hadRecentInput,time:e.startTime,sources:e.sources.map(s=>({tag:s.node?.tagName,text:s.node?.textContent?.slice(0,90),previous:s.previousRect,current:s.currentRect}))});}).observe({type:'layout-shift',buffered:true});document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{window.__fontFirstPaint={fontStatus:document.fonts.status,time:performance.now(),heading:document.querySelector('h1')?.getBoundingClientRect().toJSON()};})));`});
   if(mode==='full'){
     fontProxy=createServer(async(req,res)=>{try{const font=req.url.includes('.woff2');if(font){fontRequests.push({url:req.url,policy:fontPolicy});if(fontPolicy==='delayed')await new Promise(resolve=>setTimeout(resolve,1000));if(fontPolicy==='blocked'){res.writeHead(503,{'cache-control':'no-store'});res.end('Controlled font failure');return;}}const response=await fetch(base+req.url);res.writeHead(response.status,{'content-type':response.headers.get('content-type')||'application/octet-stream','cache-control':'no-store'});res.end(Buffer.from(await response.arrayBuffer()));}catch(error){res.writeHead(502);res.end(String(error));}});
@@ -154,33 +188,42 @@ try{
   }
   await driver.get('about:blank');
   const htmlMap=new Map();
-  for(const [route,template] of [...requested,...(!args.includes('--selected')&&!args.includes('--tracer')?[['/design-preview/','chooser']]:[]),['/not-a-real-page/','404']]){
+  for(const [route,template] of [...requested,['/not-a-real-page/','404']]){
     const response=await fetch(base+route);const html=await response.text();
     const data=await driver.executeScript(function(html){const doc=new DOMParser().parseFromString(html,'text/html');const body=doc.querySelector('main')?.cloneNode(true);body?.querySelectorAll('script,style').forEach(el=>el.remove());return{title:doc.title,h1:doc.querySelector('h1')?.textContent,main:body?.textContent||'',semantic:body?.innerHTML||'',meta:doc.querySelector('meta[name="robots"]')?.getAttribute('content'),links:Array.from(doc.querySelectorAll('a[href]')).map(a=>a.getAttribute('href')),ids:Array.from(doc.querySelectorAll('[id]')).map(e=>e.id),blocks:doc.querySelector('[data-source-blocks]')?.getAttribute('data-source-blocks'),inline:Array.from(doc.querySelectorAll('script:not([src])')).map(s=>s.textContent).join('\n'),scripts:Array.from(doc.querySelectorAll('script[src]')).map(s=>s.getAttribute('src'))};},html);
     check(response.status===(template==='404'?404:200),route+' status '+response.status);
-    check(!!data.h1&&data.main.length>300,route+' meaningful page body');
+    check(!!data.h1&&data.main.length>MIN_BODY_CHARS(template),route+' meaningful page body ('+data.main.length+' chars, needs >'+MIN_BODY_CHARS(template)+')');
     check(data.meta==='noindex, nofollow',route+' noindex meta');
     if(suppliedBase)check(/noindex.*nofollow/.test(response.headers.get('x-robots-tag')||''),route+' noindex header');
-    const canonical=route.replace(/^\/design-preview\/[abc](?=\/)/,'');const post=posts.find(p=>canonical==='/blog/'+p.slug+'/');
+    const canonical=route;const post=posts.find(p=>canonical==='/blog/'+p.slug+'/');
     if(post){check(Number(data.blocks)===post.blocks.length,route+' complete article block inventory');for(const block of post.blocks){const text=(block.runs||block.items?.flat()||[]).map(r=>r.text).join('');if(text.trim())check(data.main.includes(text),route+' source text missing '+text.slice(0,55));}}
     const scripts=new Map();for(const script of data.scripts){const url=new URL(script,base).href;if(!scripts.has(url)){const response=await fetch(url);check(response.ok,route+' script HTTP '+response.status);scripts.set(url,await response.text());}}
     const budget=scriptBudget(scripts,data.inline);
     check(budget.externalGzip+budget.inlineGzip<=15*1024,route+' external plus inline JS gzip budget');
     htmlMap.set(route,data);result.routes.push({route,template,status:response.status,bodyCharacters:data.main.length,...budget,externalScripts:[...scripts.keys()]});
   }
-  if(args.includes('--parity'))for(const pairing of pairings)for(const [route] of inventory){const normalize=text=>text.replace(/Pairing [ABC]/g,'Pairing').replace(/\s+/g,' ');check(normalize(htmlMap.get(route).semantic)===normalize(htmlMap.get('/design-preview/'+pairing+route).semantic.replaceAll('/design-preview/'+pairing+'/','/')),pairing+route+' full content parity');}
   const checked=new Set();
   for(const [route,data] of htmlMap)for(const href of data.links){const url=new URL(href,base+route);if(url.origin!==new URL(base).origin)continue;result.links++;const key=url.pathname+url.hash;if(checked.has(key))continue;checked.add(key);let target=htmlMap.get(url.pathname);if(!target){const res=await fetch(url);check(res.ok,route+' broken link '+href);const text=await res.text();target={ids:Array.from(text.matchAll(/\bid="([^"]+)"/g),m=>m[1])};}if(url.hash)check(target.ids.includes(decodeURIComponent(url.hash.slice(1))),route+' missing fragment '+href);}
   const templates=[...new Map(inventory.map(r=>[r[1],r])).values()];
-  const samples=[...templates,['/services/ai-search-optimization/','service-long'],['/services/shopping-ads/','service-long'],['/work/once-upon-a-book-club/','case-ouabc'],['/not-a-real-page/','404'],['/design-preview/','chooser']];
+  const samples=[...templates,['/services/ai-search-optimization/','service-long'],['/services/shopping-ads/','service-long'],['/work/once-upon-a-book-club/','case-ouabc'],['/not-a-real-page/','404']];
   const axeSource=await fs.readFile('node_modules/axe-core/axe.min.js','utf8');
   for(const prefix of prefixes){currentPrefix=prefix;
-  for(const [route,template] of (mode==='full'?samples.filter(r=>(!prefix||!['404','chooser'].includes(r[1]))&&(!args.includes('--selected')||r[1]!=='chooser')):[['/','home'],['/services/shopify/','service'],['/contact/','contact'],[args.includes('--tracer')?'/thanks/':'/blog/',args.includes('--tracer')?'thanks':'blog']])){
+  for(const [route,template] of (mode==='full'?samples:[['/','home'],['/services/shopify/','service'],['/contact/','contact'],['/blog/','blog']])){
     for(const width of mode==='full'?[1440,375]:[375]){
-      if(mode==='full' && (prefix||args.includes('--selected')||['404','chooser'].includes(template)))for(const policy of ['cold','delayed','blocked'])await observeFontLoad(prefix+route,width,policy);
+      if(mode==='full' && template==='404')for(const policy of ['cold','delayed','blocked'])await observeFontLoad(prefix+route,width,policy);
       await load(route,width);await fontObservation(currentPrefix+route,width);const obs=await observation();result.browserChecks++;result.images+=obs.images.length;
-      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.invalidTheme===0,route+' invalid/nested band theme');check(obs.h1Top<250,route+' content starts at top');
-      if(route==='/'){check(obs.homeBands.join(',')==='light,dark,light,dark,light,dark,light,dark,light','home band order');for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').includes('Other agencies deliver the scope. ZINC delivers the business.'),'decoded core line');}
+      check(!obs.overflow,route+' overflow at '+width);check(obs.underlines===0,route+' underlines at '+width);check(obs.blurredImages.length===0,route+' image2x/ratio '+JSON.stringify(obs.blurredImages));check(obs.canvas===SNOW_RGB,route+' body canvas is not the one snow ground: '+obs.canvas);check(obs.invalidTheme===0,route+' invalid/nested band theme');
+      // Measures the FIRST BAND's top offset, not the h1's -- the approved
+      // sketch stacks a masthead, a meta/label row and a 3px rule above
+      // every hero h1 (owner, 2026-09-26 CT), so h1Top varies legitimately
+      // by how many meta lines a template wraps to at this width (measured:
+      // home 318.78px at 375px wide vs 207.59px on service/contact/blog,
+      // same masthead). The masthead itself is the one thing that must
+      // never grow unboundedly, so gate on where real page content (the
+      // first .band) begins, which is masthead height alone (measured 129px
+      // across every sampled template) regardless of meta-row wrapping.
+      check(!!obs.bands[0]&&obs.bands[0].rect.top<150,route+' first band starts right after the masthead (top='+obs.bands[0]?.rect.top+')');
+      if(route==='/'){check(obs.homeBands.join(',')===HOME_BAND_ORDER.join(','),'home band order: got '+obs.homeBands.join(','));for(let i=1;i<obs.bands.length;i++)check(Math.abs(obs.bands[i].rect.top-obs.bands[i-1].rect.bottom)<1,'home gap/overlap');check(obs.text.replace(/\s+/g,' ').toLowerCase().includes('other agencies deliver the scope. zinc delivers the business.'),'decoded core line');}
       await driver.executeScript(axeSource);const audit=await driver.executeAsyncScript('const done=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>done({violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)})),passes:r.passes.length}));');
       result.axe.push({route:currentPrefix+route,width,...audit});check(audit.violations.length===0,route+' axe '+JSON.stringify(audit.violations));
       if(mode==='full')await capture(route,template,width);
@@ -194,8 +237,6 @@ try{
     await load('/',375);await driver.sendAndGetDevToolsCommand('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await driver.navigate().refresh();await settle();await capture('/','home',375,'reduced-motion');await driver.sendAndGetDevToolsCommand('Emulation.setEmulatedMedia',{features:[]});
     await load('/',375);const toggle=await driver.findElement(By.css('.menu-toggle'));await toggle.click();check(await toggle.getAttribute('aria-expanded')==='true','menu opens');await toggle.sendKeys(Key.ESCAPE);check(await toggle.getAttribute('aria-expanded')==='false','menu Escape closes');
   }
-  // Switching preserves only an allowlisted service selection and the same route.
-  for(const canonical of ['/services/shopify/','/contact/?service=shopify','/contact/?service=unknown','/contact/?service=shopify&service=seo']){await load(canonical,375);const links=await driver.executeScript('return Array.from(document.querySelectorAll("[data-pairing-link]")).map(a=>({pairing:a.dataset.pairingLink,href:a.getAttribute("href")}))');for(const link of links){const url=new URL(link.href,base);const wanted=canonical.split('?')[0];check(url.pathname==='/design-preview/'+link.pairing+wanted,'pairing switch keeps route '+currentPrefix+canonical);check(url.search===(canonical==='/contact/?service=shopify'?'?service=shopify':''),'pairing switch allowlisted query '+canonical);}}
   for(const slug of [...slugs,'unknown','<img src=x onerror=alert(1)>','shopify&service=seo']){
     const query=slug==='shopify&service=seo'?slug:encodeURIComponent(slug);await load('/contact/?service='+query,375);const selected=await driver.executeScript('return Array.from(document.querySelectorAll("[data-service]:checked")).map(x=>x.value)');check(JSON.stringify(selected)===JSON.stringify(slugs.includes(slug)?[slug]:[]),'service preselection '+slug);
   }
@@ -206,12 +247,12 @@ try{
   for(const [id,value] of [['name','Demo Reviewer'],['company','Sample Company'],['email','reviewer@example.test'],['website','https://example.test']])await driver.findElement(By.id('inquiry-'+id)).sendKeys(value);
   await driver.findElement(By.css('[data-next]')).click();if(mode==='full')await capture('/contact/','contact',375,'services');
   await driver.executeScript('document.getElementById("inquiry-budget").selectedIndex=2;document.getElementById("inquiry-timeline").selectedIndex=1');await driver.findElement(By.css('[data-next]')).click();if(mode==='full')await capture('/contact/','contact',375,'message');
-  await driver.findElement(By.id('inquiry-message')).sendKeys('Sample inquiry for local review only.');await driver.findElement(By.css('[data-next]')).click();await settle();check(await driver.getCurrentUrl()===base+currentPrefix+'/thanks/','safe confirmation URL');check((await driver.findElement(By.css('main')).getText()).includes('Demo only — nothing was sent'),'honest thanks');
+  await driver.findElement(By.id('inquiry-message')).sendKeys('Sample inquiry for local review only.');await driver.findElement(By.css('[data-next]')).click();await settle();check(await driver.getCurrentUrl()===base+currentPrefix+'/thanks/','safe confirmation URL');check((await driver.findElement(By.css('main')).getText()).toLowerCase().includes('demo only — nothing was sent'),'honest thanks');
   const requests=(await driver.manage().logs().get(logging.Type.PERFORMANCE)).map(l=>JSON.parse(l.message).message).filter(m=>m.method==='Network.requestWillBeSent').map(m=>m.params.request);
   check(requests.every(r=>r.method==='GET'&&!r.postData&&!/Demo%20Reviewer|reviewer%40|Sample%20Company/.test(r.url)),'contact network PII or submission');
   const finalStorage=await driver.executeScript('return {local:localStorage.length,session:sessionStorage.length,cookie:document.cookie}');check(JSON.stringify(initialStorage)===JSON.stringify(finalStorage),'contact storage unchanged');result.states.push({name:'contact-demo',prefix:currentPrefix,requests:requests.map(r=>({method:r.method,url:r.url})),storageUnchanged:JSON.stringify(initialStorage)===JSON.stringify(finalStorage),preselections:14});
   await load('/blog/',375);for(const layer of ['Build','Demand','Intelligence','All']){await driver.findElement(By.css('[data-filter="'+layer+'"]')).click();const state=await driver.executeScript('return {count:document.querySelector("[data-result-count]").textContent,visible:Array.from(document.querySelectorAll("[data-blog-list] article")).filter(x=>!x.hidden).map(x=>x.dataset.layer)}');check(state.visible.every(l=>layer==='All'||l===layer),'blog filter '+layer);result.states.push({name:'filter-'+layer,prefix:currentPrefix,...state});}
-  await driver.executeScript('document.querySelector("[data-filter=Build]").dataset.filter="Empty"');await driver.findElement(By.css('[data-filter="Empty"]')).click();check(await driver.findElement(By.css('[data-empty]')).isDisplayed(),'empty recovery visible');if(mode==='full')await capture('/blog/','blog',375,'empty');await driver.findElement(By.css('[data-clear-filter]')).click();check((await driver.findElement(By.css('[data-result-count]')).getText())==='18 articles','clear filter recovers');
+  await driver.executeScript('document.querySelector("[data-filter=Build]").dataset.filter="Empty"');await driver.findElement(By.css('[data-filter="Empty"]')).click();check(await driver.findElement(By.css('[data-empty]')).isDisplayed(),'empty recovery visible');if(mode==='full')await capture('/blog/','blog',375,'empty');await driver.findElement(By.css('[data-clear-filter]')).click();check((await driver.findElement(By.css('[data-result-count]')).getText()).toLowerCase()==='18 articles','clear filter recovers');
   if(mode==='full'){
     await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:true});await driver.get(base+currentPrefix+'/contact/?service=shopify');const fallback=await driver.findElements(By.css('fieldset'));check((await Promise.all(fallback.map(f=>f.isDisplayed()))).every(Boolean),'noJS all fields');check(await driver.findElement(By.css('noscript a')).isDisplayed(),'noJS confirmation link');await capture('/contact/','contact',375,'no-js');await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:false});
   }

@@ -3,21 +3,19 @@ import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/base.css';
-import '../styles/pairings.css';
-import {toSitePath,assets,pairings,services,type Pairing} from '../data/mockup';
+import CircuitThread from '../components/CircuitThread.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import {toSitePath,assets} from '../data/mockup';
 
 interface Props {
-  pairing: Pairing;
   title: string;
-  basePath?: string;
 }
 
-const { pairing, title,basePath='' } = Astro.props;
-const link=(path:string)=>toSitePath(path,basePath);
-const canonicalPath=Astro.url.pathname.replace(/^\/design-preview\/[abc](?=\/|$)/,'') || '/';
+const { title } = Astro.props;
+const link=(path:string)=>toSitePath(path);
 ---
 
-<html lang="en" data-pairing={pairing}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,44 +23,47 @@ const canonicalPath=Astro.url.pathname.replace(/^\/design-preview\/[abc](?=\/|$)
     <meta name="description" content={'Public design draft: '+title+'. Full-site review; content and legal approval pending.'} />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    {pairing === 'a' && (
-      <>
-        <Font cssVariable="--font-display-a" preload />
-        <Font cssVariable="--font-body-a" />
-        <Font cssVariable="--font-mono-a" />
-      </>
-    )}
-    {pairing === 'b' && <><Font cssVariable="--font-display-b" preload /><Font cssVariable="--font-body-b" /><Font cssVariable="--font-mono-b" /></>}
-    {pairing === 'c' && <><Font cssVariable="--font-display-c" preload /><Font cssVariable="--font-body-c" /><Font cssVariable="--font-mono-c" /></>}
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" />
+    <Font cssVariable="--font-mono" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <aside class="pairing-selector" data-pairing-selector aria-label="Font comparison" data-service-slugs={services.map(s=>s.slug).join(',')}><a href="/design-preview/">Font comparison</a><span>Pairing {pairing.toUpperCase()}</span><nav aria-label="Choose font pairing">{pairings.map(p=><a data-pairing-link={p} href={toSitePath(canonicalPath,'/design-preview/'+p)} aria-current={p===pairing?'page':undefined}>{p.toUpperCase()}</a>)}</nav></aside>
-    <header data-theme="light" class="site-header">
-      <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
-      <span class="draft-tag nav-draft">PUBLIC DESIGN DRAFT / {pairing.toUpperCase()}</span>
-      <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
-      <nav id="site-nav" aria-label="Main navigation"><a href={link('/services/')}>Services</a><a href={link('/work/')}>Work</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a><a class="nav-inquiry" href={link('/contact/')}>Start an Inquiry ↗</a></nav>
-    </header>
-    <main id="main">
-      <slot />
-    </main>
+    <div class="frame">
+      <header class="site-header">
+        <a class="wordmark" href={link('/')} aria-label="ZINC home"><img src={assets['wordmark-black'].src} width={892} height={221} alt="ZINC"/></a>
+        <span class="draft-tag nav-draft">PUBLIC DESIGN DRAFT</span>
+        <button class="btn menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" hidden>Menu</button>
+        <nav id="site-nav" aria-label="Main navigation"><a href={link('/work/')}>Work</a><a href={link('/services/')}>Services</a><a href={link('/about/')}>About</a><a href={link('/blog/')}>Articles</a></nav>
+        <a class="btn" href={link('/contact/')}>Start an inquiry</a>
+      </header>
+      <div class="thread-scope">
+        <CircuitThread />
+        <main id="main">
+          <slot />
+        </main>
+        <SiteFooter />
+      </div>
+    </div>
   </body>
 </html>
-<style>
-  .pairing-selector {display:flex;align-items:center;justify-content:flex-end;gap:1rem;padding:.25rem clamp(1rem,3vw,3rem);min-height:36px;background:var(--color-snow);color:var(--color-near-black);font:12px var(--font-mono);}
-  .pairing-selector nav{display:flex;gap:.25rem}.pairing-selector nav a{display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid transparent}.pairing-selector [aria-current]{border-color:currentColor}.pairing-selector>span{margin-left:auto}
-  @media(max-width:420px){.pairing-selector{gap:.25rem;font-size:10px}.pairing-selector nav a{min-width:44px}}
-</style>
 <script>
-  const selector=document.querySelector<HTMLElement>('[data-pairing-selector]');
-  const params=new URLSearchParams(location.search);
-  const selectedService=params.getAll('service');
-  if(selector && /\/contact\/$/.test(location.pathname) && selectedService.length===1 && selector.dataset.serviceSlugs?.split(',').includes(selectedService[0])){
-    selector.querySelectorAll<HTMLAnchorElement>('[data-pairing-link]').forEach(a=>{const url=new URL(a.href);url.searchParams.set('service',selectedService[0]);a.href=url.href;});
-  }
-
   const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
   const nav=document.querySelector<HTMLElement>('#site-nav');
   if(toggle&&nav){toggle.hidden=false;document.documentElement.classList.add('nav-ready');const close=()=>{toggle.setAttribute('aria-expanded','false');nav.classList.remove('is-open');};toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('is-open',open);});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus();}});matchMedia('(min-width: 900px)').addEventListener('change',close);}
 </script>
+<style>
+  .frame {
+    position: relative;
+    container-type: inline-size;
+    overflow-x: clip;
+  }
+
+  /* The thread runs the entire page below the masthead: every band and the
+   * footer (owner, 2026-09-26: "I want that line on the side to follow
+   * intire page"). Scoped below the masthead so the dot never sits on the
+   * wordmark or nav at scroll 0. */
+  .thread-scope {
+    position: relative;
+  }
+</style>
