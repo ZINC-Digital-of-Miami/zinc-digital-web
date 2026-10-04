@@ -1,6 +1,6 @@
 # Lessons ledger
 
-One line per lesson. Read this index before working in an area; open only the lessons whose area **and** kind of work match. Record a lesson as soon as a diagnosis turns out wrong, a check misses a real defect or a tool misleads, and add its index line in the same commit.
+Kiro steering: lessons from earlier milestones, one line each. Before working in an area, check the lines whose area **and** kind of work match. Record a new lesson, with its index line, in the same commit as the fix that taught it.
 
 | Lesson | Touches | Kind of work | Hook |
 |---|---|---|---|

@@ -11,8 +11,6 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 - `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` and `.planning/` are historical. Rules they state that were superseded are marked inline.
 - They remain the source only for non-visual decisions the Kiro spec reuses.
 
-**Lessons:** read `docs/lessons/INDEX.md` before working in an area, and open only the lessons whose area and kind of work match. Record a new lesson, with its index line, in the same commit as the fix that taught it.
-
 ## Invariants
 
 - **Identity:** ZINC Digital's own site only. The live WordPress site, the July 2026 "Website V2" prototype and the `Zinc_Digital_Agency` repo are sources of facts and assets, never of design, copy or configuration.
