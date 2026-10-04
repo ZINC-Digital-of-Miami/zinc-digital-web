@@ -52,7 +52,7 @@ export function initForm() {
     back.hidden = step === 0;
     next.textContent = step === 2 ? (LIVE ? 'Send inquiry' : 'Preview demo confirmation') : 'Continue';
     label.textContent = 'Step ' + (step + 1) + ' of 3';
-    error.textContent = '';
+    if (focus) error.textContent = ''; // keep a server-rendered error (/contact/send/) on first paint
     if (focus) steps[step].querySelector<HTMLElement>('input,select,textarea')?.focus();
   };
   const advance = () => {
@@ -63,7 +63,9 @@ export function initForm() {
     if (step < 2) { step++; show(true); return; }
     if (!LIVE) { location.assign(form.dataset.thanks || '/thanks/'); return; }
     next.disabled = true; next.textContent = 'Sending…';
-    fetch(form.action, { method: 'POST', headers: { accept: 'application/json' }, body: new FormData(form) })
+    const body: Record<string, string | string[]> = { service: [] };
+    new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });
+    fetch(form.dataset.endpoint || '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
       .then(async (r) => { if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Send failed'); location.assign(form.dataset.thanks || '/thanks/'); })
       .catch((e) => { next.disabled = false; next.textContent = 'Send inquiry'; error.textContent = e.message + '. Text us instead and we will pick it up.'; });
   };

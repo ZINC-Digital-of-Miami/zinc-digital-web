@@ -120,7 +120,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
     - **Verify:** JSON-LD parses on every article; `robots.txt` content matches; a U+00A7 scan of `src/` finds nothing; a live-mode build contains none of "design preview", "Inquiry preview", "Demo inquiry" or "sample information".
     - _Requirements: R2.4, R2.5, R14.1, R14.2_
-  - [ ] 3.5 Rework the contact form for no-JS use:
+  - [x] 3.5 Rework the contact form for no-JS use:
     - extract `src/components/ContactForm.astro`;
     - add `src/pages/contact/send.astro` (`prerender = false`) as the no-JS form target, which re-renders the form with escaped values and the error (status 422);
     - add `src/lib/inquiry.ts` with `validate()` and demo-mode handling;

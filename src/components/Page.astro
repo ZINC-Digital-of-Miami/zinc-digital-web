@@ -1,10 +1,12 @@
 ---
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
-import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, SMS, PHONE_LABEL, INQUIRY_MODE, type Route, type Layer } from '../data/site';
+import ContactForm from './ContactForm.astro';
+import type { Inquiry } from '../lib/inquiry';
+import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, INQUIRY_MODE, type Route, type Layer } from '../data/site';
 const live = INQUIRY_MODE === 'live';
-interface Props { route: Route }
-const { route } = Astro.props;
+interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
+const { route, form } = Astro.props;
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
 const study = t === 'case' ? caseBy(route.slug!) : null;
@@ -122,21 +124,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal">{!live && <aside class="p-aside rv"><p class="p-muted">This public design preview does not present an approved legal policy. Production terms and disclosures require review before launch.</p></aside>}<div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
-{t === 'contact' && <section class="p-band"><div class="wrap p-contact">
-  <aside class="p-aside rv"><span class="kick">{live ? 'Inquiry' : 'Inquiry preview'}</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2>{!live && <p class="p-demo" id="demo-notice"><span class="mdot"></span>Demo inquiry — no message will be sent</p>}<p class="p-muted">{live ? 'Three short steps. We read every inquiry and reply from hello@zincdigital.co.' : 'Use sample information to explore this form. Nothing is submitted or stored.'}</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
-  <form class="p-form rv" id="inqForm" data-demo-form data-mode={INQUIRY_MODE} data-thanks="/thanks/" method="post" action={live ? '/api/inquiries' : undefined} aria-describedby={live ? undefined : 'demo-notice'} novalidate>
-    <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
-    <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
-    <fieldset data-step="0"><legend>01 / Your business</legend><div class="p-fields"><label>Name<input id="inquiry-name" name="name" autocomplete="name" required maxlength="120" /></label><label>Company<input id="inquiry-company" name="company" autocomplete="organization" required maxlength="160" /></label><label>Work email<input id="inquiry-email" name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>Website URL<input id="inquiry-website" name="website" type="url" autocomplete="url" placeholder="https://" required maxlength="500" /></label></div></fieldset>
-    <fieldset data-step="1"><legend>02 / What you need</legend>{layers.map((layer) => <div class="p-svcgroup"><span class="lab">{layer}</span><div class="p-checks">{services.filter((s) => s.layer === layer).map((s) => <label class="p-check"><input type="checkbox" name="service" value={s.slug} data-service />{s.title}</label>)}</div></div>)}<div class="p-fields"><label>Monthly budget<select id="inquiry-budget" name="budget" required><option value="">Choose a range</option>{['Under $5k/mo', '$5–10k/mo', '$10–25k/mo', '$25k+/mo'].map((x) => <option>{x}</option>)}</select></label><label>Timeline<select id="inquiry-timeline" name="timeline" required><option value="">Choose a timeline</option>{['As soon as practical', 'Within three months', 'Three to six months', 'Exploring options'].map((x) => <option>{x}</option>)}</select></label></div></fieldset>
-    <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000"></textarea></label></div><p class="p-muted" style="margin:14px 0 0">{live ? 'Sending adds your inquiry to our board and emails the team. Nothing else is shared.' : 'Demo only. The next screen previews the confirmation; it does not contact ZINC.'}</p></fieldset>
-    <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value="/contact/" />
-    <p class="p-err" role="alert" data-form-error></p>
-    <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>← Back</button></div>
-    <p class="p-muted" data-nojs-note style="margin:14px 0 0">{live ? 'Without JavaScript the three steps show as one page; the button below submits.' : 'Without JavaScript the three steps show as one page. This is a non-sending demo; the link below previews the confirmation.'}</p>
-    {live ? <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button> : <a class="btn fill" href="/thanks/" data-nojs-submit>Preview demo confirmation</a>}
-  </form>
-</div></section>}
+{t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={form?.values} error={form?.error} /></div></section>}
 
 {t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/contact/">Return to inquiry</a><a class="arrow" href="/work/" style="margin-top:0">Explore the work ↗</a></div></div></section>}
 

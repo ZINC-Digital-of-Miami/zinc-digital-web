@@ -1,0 +1,29 @@
+---
+// /contact/send/ — the contact form's no-JavaScript target (live mode). Accepted posts get a 303 to /thanks/;
+// a rejected post re-renders the contact page with the visitor's values (Astro escapes them) and the error,
+// status 422. Honeypot and demo-mode posts also go to /thanks/ with nothing stored or sent.
+export const prerender = false;
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Page from '../../components/Page.astro';
+import { routes, INQUIRY_MODE } from '../../data/site';
+import { intake, readBody, formValues, type Inquiry } from '../../lib/inquiry';
+import { accept } from '../api/inquiries';
+
+const route = routes.find((r) => r.path === '/contact/')!;
+Astro.response.headers.set('cache-control', 'no-store');
+if (Astro.request.method !== 'POST') return Astro.redirect('/contact/', 303);
+let form: { values?: Partial<Inquiry>; error?: string } = {};
+const read = await readBody(Astro.request);
+if (!read.ok) { Astro.response.status = read.status; form = { error: read.error }; }
+else {
+  const r = intake(read.body, INQUIRY_MODE);
+  if (r.kind === 'ignore') return Astro.redirect('/thanks/', 303);
+  if (r.kind === 'invalid') { Astro.response.status = 422; form = { values: formValues(read.body), error: r.error }; }
+  else {
+    const out = await accept(r.value);
+    if (out.ok) return Astro.redirect('/thanks/', 303);
+    Astro.response.status = out.status; form = { values: r.value, error: out.error };
+  }
+}
+---
+<SiteLayout route={route}><Page route={route} form={form} /></SiteLayout>
