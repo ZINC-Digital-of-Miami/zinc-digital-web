@@ -13,7 +13,7 @@ interface Props { route: Route }
 const { route } = Astro.props;
 const t = route.template;
 const path = route.path;
-const title = t === 'home' ? route.title : route.title + ' | ZINC';
+const title = route.title + ' | ZINC';
 const desc = describe(route);
 const canonical = SITE + path;
 const ogImg = SITE + '/og/' + ogKind(route) + '.png';
