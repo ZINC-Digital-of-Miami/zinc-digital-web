@@ -173,7 +173,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - _Requirements: R1.9_
 
 - [ ] 5. Public visual review rounds
-  - [ ] 5.1 Write `scripts/capture.mjs`. It captures every public template and its Design reference, rendered from `current-design/` served on 127.0.0.1 via each file's hash route, in light and dark at 375, 768 and 1440 px. It also captures the interaction states. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m2/round-<n>/`.
+  - [x] 5.1 Write `scripts/capture.mjs`. It captures every public template and its Design reference, rendered from `current-design/` served on 127.0.0.1 via each file's hash route, in light and dark at 375, 768 and 1440 px. It also captures the interaction states. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m2/round-<n>/`.
     - **Verify:** round 1 contains every template × theme × width pair.
     - _Requirements: R17.6_
   - [ ] 5.2 Run review rounds until one finds no mistakes.
@@ -182,8 +182,8 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - **Verify:** the final round's `findings.md` reads "No mistakes found". Earlier rounds list every fixed item.
     - _Requirements: R2.3, R3.5, R17.6_
 
-- [ ] 6. Lighthouse after M2
-  - [ ] 6.1 Write `scripts/lighthouse.mjs` (mobile preset, one URL per public template) and run it on the M2 preview.
+- [x] 6. Lighthouse after M2
+  - [x] 6.1 Write `scripts/lighthouse.mjs` (mobile preset, one URL per public template) and run it on the M2 preview.
     - Review the reported issues and fix the real defects.
     - **Verify:** the report is saved under `/Volumes/Satechi Hub/zinc-digital-web-review/lighthouse/m2/`. Scores are reported and nothing fails on them.
     - _Requirements: R16.3_

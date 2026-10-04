@@ -40,7 +40,8 @@ try {
   }
 } finally { await chrome.kill(); server?.kill('SIGTERM'); }
 const md = ['# Lighthouse ' + run, '', 'Base: ' + base + ' · mobile preset · ' + new Date().toISOString(), '', '| Template | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |', '|---|---|---|---|---|---|---|---|',
-  ...rows.map((r) => `| ${r.template} (${r.path}) | ${r.performance} | ${r.accessibility} | ${r.bestPractices} | ${r.seo} | ${r.lcpMs} ms | ${r.cls} | ${r.tbtMs} ms |`), '',
+  ...rows.map((r) => (r.runtimeError ? `| ${r.template} (${r.path}) | not scored: ${r.runtimeError} |||||||` : `| ${r.template} (${r.path}) | ${r.performance} | ${r.accessibility} | ${r.bestPractices} | ${r.seo} | ${r.lcpMs} ms | ${r.cls} | ${r.tbtMs} ms |`)), '',
+  'Lighthouse does not score pages that answer with an error status, so the 404 template is listed without scores.', '',
   '## Audits below full score', '', ...rows.flatMap((r) => (r.failing.length ? ['**' + r.template + '**', ...r.failing.map((f) => '- ' + f), ''] : []))];
 await writeFile(path.join(out, 'summary.md'), md.join('\n') + '\n');
 await writeFile(path.join(out, 'summary.json'), JSON.stringify(rows, null, 2) + '\n');

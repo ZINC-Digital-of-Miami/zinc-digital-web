@@ -30,7 +30,7 @@ const TEMPLATES = [
 ].filter(([t]) => !opt('--only') || opt('--only').split(',').includes(t));
 const WIDTHS = [[375, 812], [768, 1024], [1440, 900]];
 const THEMES = ['light', 'dark'];
-const MAX_FRAMES = { 375: 22, 768: 16, 1440: 14 };
+const MAX_FRAMES = { 375: 34, 768: 28, 1440: 28 };
 const designUrl = (base, t) => (t[2] ? base + '/' + encodeURIComponent(t[2]) : base + '/' + encodeURIComponent('ZINC Site.dc.html') + '#' + t[1]);
 
 // Interaction states, captured at 375 and 1440 in light: [template, name, steps]. Selectors and labels are the ones
@@ -81,7 +81,8 @@ const open = async (src, t, w, h, theme) => {
   await d.get(url.split('#')[0]);
   await d.executeScript('localStorage.setItem("zinc-theme", arguments[0])', theme);
   await d.get(url); await d.navigate().refresh();
-  await d.executeAsyncScript('const done = arguments[arguments.length - 1]; (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(done, 700))');
+  // The Design's runtime keeps restyling for a moment after fonts load; give it longer than the static site.
+  await d.executeAsyncScript('const done = arguments[arguments.length - 1]; (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(done, arguments[0]))', src === 'site' ? 700 : 2500);
   await d.executeScript(FREEZE);
 };
 const frames = async (prefix, w, h) => {

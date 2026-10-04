@@ -59,6 +59,8 @@ export default defineConfig({
   site: 'https://www.zincdigital.co',
   output: 'static',
   trailingSlash: 'always',
+  // Inline the page CSS: two render-blocking stylesheet requests delayed first paint and LCP on mobile.
+  build: { inlineStylesheets: 'always' },
   integrations: [completeFonts, vercelRedirects],
   adapter: vercel(),
   fonts: fontFamilies,

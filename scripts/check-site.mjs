@@ -61,7 +61,7 @@ if (robots !== null) {
   check(!lines.some((l) => /^Disallow:\s*\/thanks\//.test(l)), 'robots.txt must not disallow /thanks/ (it is noindex instead)');
   check(!lines.some((l) => /^Disallow:\s*\/\s*$/.test(l)), 'robots.txt disallows the whole site');
 }
-for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','brand/zinc-badge.png','logos/general-shale.png','logos/ouabc.webp','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
+for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','logos/general-shale.png','logos/ouabc.webp','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
 // Case images live in src/assets/work/ (fetched by scripts/fetch-live-assets.mjs) and ship through astro:assets.
 const siteAssets = JSON.parse(await readFile(path.join(root, 'src/data/assets.site.json'), 'utf8'));
 for (const [key, a] of Object.entries(siteAssets)) if (a.source) check(await exists(path.join(root, 'src/assets', a.src)), 'src/assets' + a.src + ' missing for ' + key + ' (run npm run assets)');
@@ -160,6 +160,8 @@ for (const [from, to] of Object.entries(caseAliases)) for (const p of ['/work/' 
 // ---- built CSS: no underline affordance, no stray color literals outside tokens is a src concern (see below) ----
 const astroDir = path.join(distDir, '_astro');
 if (await exists(astroDir)) for (const f of (await readdir(astroDir, { recursive: true })).filter((e) => e.endsWith('.css'))) check(!(await readFile(path.join(astroDir, f), 'utf8')).toLowerCase().includes('underline'), '_astro/' + f + ' contains "underline"');
+// Page CSS is inlined (build.inlineStylesheets), so scan the <style> blocks too.
+for (const { rel, html } of pages) for (const m of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) check(!m[1].toLowerCase().includes('underline'), rel + ' has inline CSS containing "underline"');
 // ---- src scans: banned abbreviation, section sign ----
 const SRC_EXT = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
 const PROVENANCE = /^\s*"(sourceTitle|sourceSlug|sourceUrl)"\s*:/;

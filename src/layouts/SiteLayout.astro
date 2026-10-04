@@ -3,6 +3,7 @@
 // Head: title, description, canonical, OG/Twitter, JSON-LD — all server-rendered.
 // Body: header with theme toggle, mobile nav row, <slot/>, CTA band, footer,
 // then the shell script (theme, cursor, grain, progress, reveal, pins, magnetic).
+import Img from '../components/Img.astro';
 import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/themes.css';
@@ -70,7 +71,8 @@ const showCta = t !== 'home' && t !== 'contact';
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="zs-grain" aria-hidden="true"></div>
     <div class="zs-cur" id="zsCur" aria-hidden="true"></div>
-    <div class="zb" id="zsRoot" data-layer={route.layer || ''} data-template={t}>
+    {/* #zsRoot scopes the Design's inner-page rules in site.css; its homepage has no such root. */}
+    <div class="zb" id={t === 'home' ? undefined : 'zsRoot'} data-layer={route.layer || ''} data-template={t}>
       <header class="nav">
         <div class="wrap nav-in">
           <i class="sprog" id="zsProg" aria-hidden="true"></i>
@@ -104,7 +106,7 @@ const showCta = t !== 'home' && t !== 'contact';
               <h2 class="disp cta-h rv" style="margin-top:18px">Start an <span class="hit">inquiry.</span></h2>
               <div class="p-related rv" style="margin-top:36px"><a class="btn fill" href="/contact/">Open the form</a><a class="btn ghost" href={SMS}>Text {PHONE_LABEL}</a></div>
             </div>
-            <div class="rv" style="width:clamp(160px,18vw,260px);aspect-ratio:1"><div class="badge"><div class="bring2"></div><img class="bimg" src={asset('zinc-badge').src} alt="" width={asset('zinc-badge').width} height={asset('zinc-badge').height} loading="lazy" /><div class="bring"></div><div class="borbit"><div class="bdot"></div></div></div></div>
+            <div class="rv" style="width:clamp(160px,18vw,260px);aspect-ratio:1"><div class="badge"><div class="bring2"></div><Img k="zinc-badge" class="bimg" alt="" sizes="260px" /><div class="bring"></div><div class="borbit"><div class="bdot"></div></div></div></div>
           </div>
         </section>
       )}
@@ -114,8 +116,8 @@ const showCta = t !== 'home' && t !== 'contact';
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
-            {STUDIOS.map((s) => <div><h4>{s.name}</h4><div class="fmeta">{s.street}<br />{s.city}, FL {s.zip}</div></div>)}
-            <div><h4>Contact</h4><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
+            {STUDIOS.map((s) => <div><h3>{s.name}</h3><div class="fmeta">{s.street}<br />{s.city}, FL {s.zip}</div></div>)}
+            <div><h3>Contact</h3><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
           </div>
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>

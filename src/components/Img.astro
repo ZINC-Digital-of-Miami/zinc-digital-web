@@ -1,6 +1,6 @@
 ---
-// Renders a site asset by key. Case images kept in src/assets/work/ go through astro:assets and
-// ship as responsive AVIF/WebP; every other asset is a dimensioned <img> served from public/.
+// Renders a site asset by key. Images kept under src/assets/ (case images, the brand badge) go through
+// astro:assets and ship as responsive AVIF/WebP; every other asset is a dimensioned <img> from public/.
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { asset } from '../data/site';
@@ -15,10 +15,10 @@ interface Props {
   sizes?: string;
 }
 
-const local = import.meta.glob<{ default: ImageMetadata }>('../assets/work/*.png', { eager: true });
+const local = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.png', { eager: true });
 const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw' } = Astro.props;
 const a = asset(k);
-const file = local['../assets/work/' + a.src.split('/').pop()]?.default;
+const file = local['../assets' + a.src]?.default;
 const widths = file ? [...new Set([480, 960, 1440, 1920, file.width].filter((w) => w <= file.width))] : [];
 ---
 {file ? (
