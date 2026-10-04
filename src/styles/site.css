@@ -227,27 +227,39 @@ html.js .rv-stag > *{opacity:0;transform:translateY(22px);transition:opacity .9s
 html.js .rv-stag.in > *{opacity:1;transform:none}
 .rv-stag.in > :nth-child(2){transition-delay:.07s}.rv-stag.in > :nth-child(3){transition-delay:.14s}.rv-stag.in > :nth-child(4){transition-delay:.21s}.rv-stag.in > :nth-child(5){transition-delay:.28s}.rv-stag.in > :nth-child(6){transition-delay:.35s}.rv-stag.in > :nth-child(7){transition-delay:.42s}.rv-stag.in > :nth-child(8){transition-delay:.49s}.rv-stag.in > :nth-child(n+9){transition-delay:.56s}
 .mnav{display:none}
-.c-open{position:relative;height:190vh;border-top:3px solid var(--ink)}
-.c-open-pin{position:sticky;top:76px;height:calc(100vh - 76px);overflow:hidden;display:grid;align-items:end}
+.c-open{position:relative;border-top:3px solid var(--ink)}
+.c-open-pin{position:relative;min-height:calc(100vh - 76px);overflow:hidden;display:grid;align-items:end}
 .c-open-img{position:absolute;inset:0;overflow:hidden}
 .c-open-img img{width:100%;height:124%;object-fit:cover;object-position:top;display:block;will-change:transform;transform-origin:center top}
 .c-open-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(245,246,247,.15) 0%,rgba(245,246,247,.6) 40%,var(--bg) 72%)}
 .c-open-txt{position:relative;z-index:2;width:100%;padding-bottom:clamp(28px,6vh,72px);will-change:transform,opacity}
 .c-open-no{font-size:clamp(110px,20vw,320px);line-height:.8;color:transparent;-webkit-text-stroke:1.6px var(--ink);margin-top:18px}
 .c-open-h{font-size:clamp(44px,7vw,128px);max-width:14ch;margin-top:8px}
-.ba{position:relative;height:230vh;border-top:1px solid var(--line)}
-.ba-pin{position:sticky;top:76px;height:calc(100vh - 76px);display:grid;grid-template-rows:auto minmax(0,1fr);gap:22px;padding-top:28px;padding-bottom:28px}
+.ba{position:relative;border-top:1px solid var(--line)}
+.ba-pin{height:calc(100vh - 76px);display:grid;grid-template-rows:auto minmax(0,1fr);gap:22px;padding-top:28px;padding-bottom:28px}
 .ba-head{display:flex;justify-content:space-between;align-items:end;gap:16px 40px;flex-wrap:wrap}
-.ba-stage{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--pn);border-radius:14px;--ba:100%}
+.ba-stage{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--pn);border-radius:14px;--ba:50%}
 .ba-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 .ba-before{filter:grayscale(1) contrast(.8) brightness(1.06);opacity:.55}
 .ba-after{clip-path:inset(0 0 0 var(--ba))}
 .ba-bar{position:absolute;top:0;bottom:0;left:var(--ba);width:2px;background:var(--ink);transform:translateX(-1px)}
 .ba-bar i{position:absolute;top:50%;left:50%;translate:-50% -50%;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--fm);font-size:14px;font-style:normal}
 .ba-tag{position:absolute;top:16px;font-family:var(--fm);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;z-index:2}
-.c-hz{position:relative;height:240vh;border-top:1px solid var(--line)}
-.c-hz-pin{position:sticky;top:76px;height:calc(100vh - 76px);overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-.c-hz-track{display:flex;gap:36px;align-items:center;padding:0 clamp(24px,4vw,64px);will-change:transform}
+.c-hz{position:relative;border-top:1px solid var(--line)}
+.c-hz-pin{padding:clamp(56px,9vh,110px) 0}
+.c-hz-track{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start;padding:0 clamp(24px,4vw,64px)}
+/* Pinned, scroll-driven scenes only with JS and motion allowed (shell.ts drives them). Otherwise the
+   opener, before/after and screenshot track sit in normal flow, and the before/after rests at 50%. */
+@media(prefers-reduced-motion:no-preference){
+html.js .c-open{height:190vh}
+html.js .c-open-pin{position:sticky;top:76px;height:calc(100vh - 76px);min-height:0}
+html.js .ba{height:230vh}
+html.js .ba-pin{position:sticky;top:76px}
+html.js .c-hz{height:240vh}
+html.js .c-hz-pin{position:sticky;top:76px;height:calc(100vh - 76px);overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:0}
+html.js .c-hz-track{flex-wrap:nowrap;align-items:center;will-change:transform}
+}
+@media(prefers-reduced-motion:no-preference) and (max-width:900px){html.js .c-open{height:150vh}html.js .ba{height:170vh}html.js .c-hz{height:180vh}}
 .c-hz-intro{flex:none;width:min(480px,78vw);padding-right:24px}
 .c-hz-shot{flex:none;width:min(820px,82vw);margin:0}
 .c-hz-shot.phone{width:min(300px,62vw)}
@@ -301,9 +313,9 @@ html.js .rv-stag.in > *{opacity:1;transform:none}
 .p-intro{padding:28px 0 48px}.p-title{font-size:clamp(40px,12vw,64px);margin-top:18px}.p-title.long{font-size:clamp(32px,8.6vw,48px)}.p-lede{font-size:18px;margin-top:20px}
 .p-band{padding:56px 0}.p-sec{font-size:clamp(34px,9vw,56px)}.p-body{font-size:17px}
 .p-case-no{font-size:96px}.p-layer{padding:22px 0}.p-layer-mot{top:18px;right:0}
-.c-open{height:150vh}.c-open-no{font-size:clamp(90px,24vw,140px)}.c-open-h{font-size:clamp(36px,10vw,56px)}
-.ba{height:170vh}.ba-pin{gap:14px}.ba-head .lab{display:none}
-.c-hz{height:180vh}.c-hz-track{gap:20px}
+.c-open-no{font-size:clamp(90px,24vw,140px)}.c-open-h{font-size:clamp(36px,10vw,56px)}
+.ba-pin{gap:14px}.ba-head .lab{display:none}
+.c-hz-track{gap:20px}
 .s-open{padding:48px 0}.s-open-in{grid-template-columns:1fr;gap:36px}.s-vis{max-width:320px;justify-self:start}
 .s-readout > div{grid-template-columns:1fr;gap:8px;padding:14px 16px}
 .p-feat{grid-template-columns:1fr;gap:20px;padding:22px}

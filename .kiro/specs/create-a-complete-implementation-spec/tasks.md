@@ -101,7 +101,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
   - [x] 3.1 Add `[hidden]{display:none !important}` to `site.css` and `home.css`.
     - **Verify:** in the browser, a blog layer filter hides non-matching cards; the empty state appears only at zero results; step controls follow their `hidden` state with and without JavaScript.
     - _Requirements: R3.4_
-  - [ ] 3.2 Make pinned and scroll-driven sections fall back to normal flow. Move the sticky and clip rules under `html.js`, `prefers-reduced-motion: no-preference` and support for scroll timelines or the script class. Set the before/after default to `--ba:50%`.
+  - [x] 3.2 Make pinned and scroll-driven sections fall back to normal flow. Move the sticky and clip rules under `html.js`, `prefers-reduced-motion: no-preference` and support for scroll timelines or the script class. Set the before/after default to `--ba:50%`.
     - **Verify:** with reduced motion and with JavaScript off, at 375 and 1440 px, every case screenshot, homepage layer panel, U.S. Oil stamp and loop service list is reachable, and both before/after images show.
     - _Requirements: R3.3_
   - [ ] 3.3 Correct the port toward the Design:
