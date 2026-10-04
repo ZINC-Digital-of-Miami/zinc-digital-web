@@ -28,6 +28,9 @@ export function initBlog() {
   if (want && ['Build', 'Demand', 'Intelligence'].includes(want)) { layer = want; apply(); }
 }
 
+// Build-time mode, so a live bundle carries none of the demo strings (and the reverse).
+const LIVE = import.meta.env.PUBLIC_INQUIRY_MODE === 'live';
+
 export function initForm() {
   const form = document.querySelector<HTMLFormElement>('[data-demo-form]');
   if (!form) return;
@@ -47,7 +50,7 @@ export function initForm() {
     steps.forEach((el, i) => { el.hidden = i !== step; });
     bars.forEach((b, i) => b.classList.toggle('on', i <= step));
     back.hidden = step === 0;
-    next.textContent = step === 2 ? (form.dataset.mode === 'live' ? 'Send inquiry' : 'Preview demo confirmation') : 'Continue';
+    next.textContent = step === 2 ? (LIVE ? 'Send inquiry' : 'Preview demo confirmation') : 'Continue';
     label.textContent = 'Step ' + (step + 1) + ' of 3';
     error.textContent = '';
     if (focus) steps[step].querySelector<HTMLElement>('input,select,textarea')?.focus();
@@ -55,10 +58,10 @@ export function initForm() {
   const advance = () => {
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
-    if (bad) { error.textContent = 'Complete the required fields with valid sample information.'; bad.reportValidity(); return; }
+    if (bad) { error.textContent = LIVE ? 'Complete the required fields.' : 'Complete the required fields with valid sample information.'; bad.reportValidity(); return; }
     if (step === 1 && !form.querySelector<HTMLInputElement>('[data-service]:checked')) { error.textContent = 'Choose at least one service to continue.'; return; }
     if (step < 2) { step++; show(true); return; }
-    if (form.dataset.mode !== 'live') { location.assign(form.dataset.thanks || '/thanks/'); return; }
+    if (!LIVE) { location.assign(form.dataset.thanks || '/thanks/'); return; }
     next.disabled = true; next.textContent = 'Sending…';
     fetch(form.action, { method: 'POST', headers: { accept: 'application/json' }, body: new FormData(form) })
       .then(async (r) => { if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Send failed'); location.assign(form.dataset.thanks || '/thanks/'); })

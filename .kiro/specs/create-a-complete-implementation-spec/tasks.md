@@ -112,7 +112,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
     - **Verify:** the strings match the Design source, and the screenshots for task 5 show it.
     - _Requirements: R2.3, R4.3_
-  - [ ] 3.4 Fix the remaining content defects:
+  - [x] 3.4 Fix the remaining content defects:
     - JSON-LD authors: `Person` with name only; `Organization` for "Team ZINC"; no `jobTitle`;
     - `robots.txt`: disallow `/admin/` and `/api/`; remove the `/thanks/` disallow;
     - rewrite the `admin/index.astro` comment without the section-sign character;

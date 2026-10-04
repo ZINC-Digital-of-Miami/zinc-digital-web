@@ -184,6 +184,7 @@ picture{display:contents}
 .p-prose .first{font-size:clamp(22px,2vw,28px);line-height:1.45}
 .p-bodynote{border:1px dashed var(--line);padding:22px 24px;font-family:var(--fm);font-size:13px;line-height:1.6;color:var(--muted);margin-top:32px}
 .p-legal{display:grid;grid-template-columns:280px minmax(0,1fr);gap:72px;align-items:start}
+.p-legal > :only-child{grid-column:1 / -1}
 .p-legal section{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:4rem 1fr;gap:16px}
 .p-legal h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,2.4vw,36px);text-transform:uppercase;line-height:1;margin:0}
 .p-legal section p{margin:12px 0 0;color:var(--muted);max-width:62ch}
