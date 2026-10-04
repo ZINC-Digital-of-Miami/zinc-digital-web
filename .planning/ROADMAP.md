@@ -1,10 +1,12 @@
 # Roadmap: ZINC Digital Website (zinc-digital-web)
 
+> **Superseded (owner, 4 Oct 2026):** this GSD file is history. Claude Design is the authority for visuals, copy, pages and interactions, and `.kiro/specs/create-a-complete-implementation-spec/` (Kiro flow) is the execution plan. Phases, dates and status below no longer drive work.
+
 ## Overview
 
 The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site in seven phases over 5–7 days from 2026-09-25 (CT). Per the owner's direct correction, Phase 1 delivers a complete clickable mockup of the entire approved sitemap before the font pick. Phases 2–4 then finish production motion, content/proof and live inquiry integration using those rendered pages. Every band component takes props and never fetches data itself, so the mockup uses clearly marked fixture content while the owner reviews copy. Phase 5 completes the reviewed 18-post migration, full SEO override and old WordPress URL resolution. Phase 6 holds launch gates and final approval. Phase 7 is the DNS cutover, only on the owner's explicit go.
 
-**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`. The spec's §18 resolved decisions win over research.
+**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`. The spec's section 18 resolved decisions win over research.
 
 **Owner review calendar (LNCH-01; all dates CT, Day 1 = Sat 2026-09-26):**
 
@@ -18,7 +20,7 @@ The new `www.zincdigital.co` goes from an empty Astro repo to a live Vercel site
 | 6 | Thu 2026-10-01 | Final approval | 6 |
 | 7 | Fri 2026-10-02 | Cutover, on the owner's explicit go at that moment | 7 |
 
-**Budgets carried by every UI phase:** each phase checks its own templates against the §10 budgets on its Vercel preview (Lighthouse mobile 100×4, LCP ≤ 1.2 s, CLS 0, ≤ 15 KB gzip JS). Phase 6 is the formal gate across all templates.
+**Budgets carried by every UI phase:** each phase checks its own templates against the section 10 budgets on its Vercel preview (Lighthouse mobile 100×4, LCP ≤ 1.2 s, CLS 0, ≤ 15 KB gzip JS). Phase 6 is the formal gate across all templates.
 
 ## Phases
 
@@ -34,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: Services & Proof** - `/services/`, 11 flat service pages, `/work/` and both case studies, each with the mini loop lit
 - [ ] **Phase 4: About & Inquiry** - `/about/` team page and the qualifying contact form delivering to Jaymie, gated on the SPF repair
 - [ ] **Phase 5: Blog, SEO & Redirects** - 18 migrated posts, the full SEO override and analytics, and every old URL resolved to a 301 or 410
-- [ ] **Phase 6: Launch Readiness & Owner Approval** - Every template passes the §10 gates, all copy is clean and approved, and the owner gives final approval
+- [ ] **Phase 6: Launch Readiness & Owner Approval** - Every template passes the section 10 gates, all copy is clean and approved, and the owner gives final approval
 - [ ] **Phase 7: Cutover** - Route 53 points to Vercel on the owner's go, with mail untouched, live checks run and Kinsta kept for rollback
 
 ## Phase Details

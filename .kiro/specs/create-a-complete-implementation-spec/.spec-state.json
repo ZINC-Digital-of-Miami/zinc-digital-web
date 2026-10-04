@@ -1,0 +1,93 @@
+{
+  "phase": "tasks",
+  "decisions": [
+    {
+      "id": "od1-publishing-path",
+      "title": "How do admin content edits reach the static site?",
+      "options": [
+        "Git-backed publish: owner's Publish opens a PR, CI gates, preview, owner merges",
+        "Build reads published rows from Supabase; owner-only deploy hook",
+        "Read-only admin content at launch; edits via repo PRs"
+      ],
+      "recommended": "Build reads published rows from Supabase; owner-only deploy hook",
+      "answer": "Build reads published rows from Supabase; owner-only deploy hook"
+    },
+    {
+      "id": "od2-research-providers",
+      "title": "Which AI and search providers may the research workspace use?",
+      "options": [
+        "No paid providers: Postgres full-text retrieval; Codex bridge only after isolation passes; Claude/OpenAI/SERP off until approved",
+        "Approve metered OpenAI embeddings, Anthropic and a SERP API now with a monthly cap",
+        "Defer research chat and SERP; build projects, sources, notes, files and safe URL ingestion only"
+      ],
+      "recommended": "No paid providers: Postgres full-text retrieval; Codex bridge only after isolation passes; Claude/OpenAI/SERP off until approved",
+      "answer": "Simplified per owner direction: full-text retrieval, direct Anthropic/OpenAI calls enabled only when the owner sets each key, no Codex bridge"
+    },
+    {
+      "id": "od3-launch-gate",
+      "title": "Which modules must be finished before DNS cutover?",
+      "options": [
+        "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1–19, 28–36); Req 20–27 may follow, disabled until verified",
+        "Everything, including pages/posts, SEO panel, dashboard, stats, backend and research (Req 1–36)"
+      ],
+      "recommended": "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1–19, 28–36); Req 20–27 may follow, disabled until verified",
+      "answer": "Superseded by revision 2; re-asked as d2-launch-gate"
+    },
+    {
+      "id": "d1-third-party-scripts",
+      "title": "How should the Google tag count against the 15 KB JavaScript budget?",
+      "options": [
+        "Load it async and count it separately from the 15 KB first-party budget (recorded exception)",
+        "Count it inside the 15 KB budget (server-side analytics only)",
+        "Launch without client analytics"
+      ],
+      "recommended": "Load it async and count it separately from the 15 KB first-party budget (recorded exception)",
+      "answer": "Load it async and count it separately from the 15 KB first-party budget (recorded exception)"
+    },
+    {
+      "id": "d2-launch-gate",
+      "title": "What must be done before DNS cutover?",
+      "options": [
+        "R1–R10 and R14–R17; R11–R13 may finish after launch, shown as not enabled",
+        "Everything (R1–R18) before cutover"
+      ],
+      "recommended": "R1–R10 and R14–R17; R11–R13 may finish after launch, shown as not enabled",
+      "answer": "Everything (R1–R18) before cutover"
+    },
+    {
+      "id": "d3-pr6-branches",
+      "title": "PR #6 and branch naming",
+      "options": [
+        "Close PR #6 as superseded by R1 (keep its Codex-review and SPF notes); use codex/ task branches",
+        "Merge PR #6 first, then reconcile on top; use codex/ task branches",
+        "Close PR #6 as superseded; use the GSD branch templates"
+      ],
+      "recommended": "Close PR #6 as superseded by R1 (keep its Codex-review and SPF notes); use codex/ task branches",
+      "answer": "Close PR #6 as superseded by R1 (keep its Codex-review and SPF notes); use codex/ task branches"
+    },
+    {
+      "id": "d4-kiro-branches",
+      "title": "Branch naming for implementation (re-opened: codex/ came from the intake and is not enforced by the repo)",
+      "options": [
+        "Kiro convention: one spec/<slug> branch per milestone in its own zinc-digital-web-wt-<slug> worktree",
+        "Keep codex/<task> branches"
+      ],
+      "recommended": "Kiro convention: one spec/<slug> branch per milestone in its own zinc-digital-web-wt-<slug> worktree",
+      "answer": "Kiro convention: one spec/<slug> branch per milestone in its own zinc-digital-web-wt-<slug> worktree"
+    },
+    {
+      "id": "d5-kiro-flow",
+      "title": "Kiro flow: milestones as task groups on the one Kiro spec branch — how do milestones reach main? (re-opened: per-milestone worktrees were not the native Kiro flow)",
+      "options": [
+        "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge",
+        "B: One PR for the whole spec at the end"
+      ],
+      "recommended": "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge",
+      "answer": "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge"
+    }
+  ],
+  "blocking": "tasks.md is drafted; waiting for the owner to review it before hand-off to execution.",
+  "context": {
+    "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec…) applied over the existing zinc-digital-web Astro 7.3.5 repository"
+  }
+}

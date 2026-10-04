@@ -1,4 +1,11 @@
 {
+  "superseded": "Owner, 4 Oct 2026: this GSD handoff is history. Claude Design is the authority for visuals, copy, pages and interactions, and .kiro/specs/create-a-complete-implementation-spec/ (Kiro flow) is the execution plan.",
+  "current_review_policy": {
+    "provider": "Codex GitHub PR review",
+    "trigger": "Opening or marking a pull request ready; comment @codex review to request a fresh review",
+    "acceptance": "Confirm the Codex review completed for the final PR head and resolve findings before landing; at most two review rounds per PR.",
+    "source": "Carried over from PR #6 (closed as superseded by the Kiro spec M1 PR)"
+  },
   "version": "1.0",
   "timestamp": "2026-09-25T21:39:21.799Z",
   "timestamp_ct": "9/25/26, 4:39 PM CT",
