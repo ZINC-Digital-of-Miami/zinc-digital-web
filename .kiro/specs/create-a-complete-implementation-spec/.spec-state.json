@@ -84,9 +84,19 @@
       ],
       "recommended": "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge",
       "answer": "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge"
+    },
+    {
+      "id": "d6-agents-merge-rule",
+      "title": "AGENTS.md still requires the owner's go to merge to main; the owner has since said milestone merges are automatic",
+      "options": [
+        "Update AGENTS.md: milestone merges are automatic",
+        "Leave AGENTS.md as it is"
+      ],
+      "recommended": "Update AGENTS.md: milestone merges are automatic",
+      "answer": null
     }
   ],
-  "blocking": "tasks.md is drafted; waiting for the owner to review it before hand-off to execution.",
+  "blocking": "Executing M2: visual review round 3 and a new-user usability review, then the M2 PR (task 7.1).",
   "context": {
     "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec…) applied over the existing zinc-digital-web Astro 7.3.5 repository"
   }
