@@ -140,7 +140,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - _Requirements: R15.1, R15.2_
 
 - [ ] 4. Checks and CI
-  - [ ] 4.1 Update `scripts/check-site.mjs` to the Design contracts and the fixes in design section 4.2:
+  - [x] 4.1 Update `scripts/check-site.mjs` to the Design contracts and the fixes in design section 4.2:
     - the Summit alias;
     - the wider placeholder scan;
     - JSON-LD parsing;

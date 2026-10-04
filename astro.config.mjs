@@ -1,6 +1,6 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import vercel from '@astrojs/vercel';
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { caseAliases } from './src/data/redirects.ts';
 
 const fontFamilies = [
@@ -36,11 +36,30 @@ const completeFonts = { name: 'zinc-complete-font-output', hooks: { 'astro:build
   }
 } } };
 
+// @astrojs/vercel writes each redirect as `^/path$` after its own 308 to the slashed URL, so with
+// trailingSlash 'always' the 308 wins and the redirect never matches (known Astro/Vercel issue). The adapter
+// runs its build:done hook first, so rewrite its redirect routes here: match with or without the trailing
+// slash, ahead of the 308. check-site.mjs replays the route table to prove each alias lands in one hop.
+let projectRoot;
+const vercelRedirects = { name: 'zinc-vercel-redirects', hooks: {
+  'astro:config:done': ({ config }) => { projectRoot = config.root; },
+  'astro:build:done': async () => {
+    const file = new URL('.vercel/output/config.json', projectRoot);
+    const cfg = JSON.parse(await readFile(file, 'utf8'));
+    const isRedirect = (r) => r.status >= 301 && r.status <= 308 && r.headers?.Location && /^\^\/[^()]*\$$/.test(r.src);
+    const redirects = cfg.routes.filter(isRedirect).map((r) => ({ ...r, src: r.src.replace(/\/?\$$/, '/?$') }));
+    const rest = cfg.routes.filter((r) => !isRedirect(r));
+    const at = rest.findIndex((r) => r.status === 308);
+    rest.splice(at < 0 ? 0 : at, 0, ...redirects);
+    await writeFile(file, JSON.stringify({ ...cfg, routes: rest }, null, 2));
+  },
+} };
+
 export default defineConfig({
   site: 'https://www.zincdigital.co',
   output: 'static',
   trailingSlash: 'always',
-  integrations: [completeFonts],
+  integrations: [completeFonts, vercelRedirects],
   adapter: vercel(),
   fonts: fontFamilies,
   // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style

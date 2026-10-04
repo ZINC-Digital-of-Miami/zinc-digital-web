@@ -3,7 +3,8 @@
 // Replaces the preview-era assertions (thread ids, noindex everywhere, [RECEIPT]/
 // [OWNER CONFIRM] markers, data-theme="dark" ban, data-home-band order) with the
 // launch set: real SEO head on every page, no placeholder markers, dark theme
-// allowed, link integrity, font output, JS budget.
+// allowed, link integrity, font output, JS budget, JSON-LD, sitemap/robots,
+// redirect routes, CSP meta and a secret scan.
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
@@ -38,10 +39,28 @@ const expected = [
   ...POST_SLUGS.map((s) => 'blog/' + s + '/index.html'),
 ];
 for (const e of expected) check(htmlFiles.includes(e) || htmlFiles.includes(e.replace('404/index.html', '404.html')), 'missing built page: ' + e);
-const extra = htmlFiles.filter((f) => !expected.includes(f) && f !== '404.html');
+const { caseAliases } = await import(new URL('../src/data/redirects.ts', import.meta.url).href);
+const ALIAS_FILES = Object.keys(caseAliases).map((a) => 'work/' + a + '/index.html');
+const extra = htmlFiles.filter((f) => !expected.includes(f) && f !== '404.html' && !ALIAS_FILES.includes(f));
 check(extra.length === 0, 'unexpected built pages: ' + extra.join(', '));
-check(await exists(path.join(distDir, 'sitemap.xml')), 'dist/sitemap.xml missing');
-check(await exists(path.join(distDir, 'robots.txt')), 'dist/robots.txt missing');
+const SITE = 'https://www.zincdigital.co';
+const NOINDEX_PAGES = ['thanks/index.html', '404/index.html'];
+const readText = async (rel) => { try { return await readFile(path.join(distDir, rel), 'utf8'); } catch { return null; } };
+const sitemap = await readText('sitemap.xml');
+check(sitemap !== null, 'dist/sitemap.xml missing');
+if (sitemap !== null) {
+  const locs = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]).sort();
+  const want = expected.filter((e) => !NOINDEX_PAGES.includes(e)).map((e) => SITE + '/' + e.replace(/index\.html$/, '')).sort();
+  check(JSON.stringify(locs) === JSON.stringify(want), 'sitemap.xml should list exactly the ' + want.length + ' indexable pages; missing: ' + want.filter((u) => !locs.includes(u)).join(', ') + '; extra: ' + locs.filter((u) => !want.includes(u)).join(', '));
+}
+const robots = await readText('robots.txt');
+check(robots !== null, 'dist/robots.txt missing');
+if (robots !== null) {
+  const lines = robots.split('\n').map((l) => l.trim()).filter(Boolean);
+  for (const l of ['User-agent: *', 'Disallow: /admin/', 'Disallow: /api/', 'Sitemap: ' + SITE + '/sitemap.xml']) check(lines.includes(l), 'robots.txt lacks "' + l + '"');
+  check(!lines.some((l) => /^Disallow:\s*\/thanks\//.test(l)), 'robots.txt must not disallow /thanks/ (it is noindex instead)');
+  check(!lines.some((l) => /^Disallow:\s*\/\s*$/.test(l)), 'robots.txt disallows the whole site');
+}
 for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','brand/zinc-badge.png','logos/general-shale.png','logos/ouabc.webp','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
 // Case images live in src/assets/work/ (fetched by scripts/fetch-live-assets.mjs) and ship through astro:assets.
 const siteAssets = JSON.parse(await readFile(path.join(root, 'src/data/assets.site.json'), 'utf8'));
@@ -49,7 +68,10 @@ for (const [key, a] of Object.entries(siteAssets)) if (a.source) check(await exi
 
 // ---- per page ----
 const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html']);
-const PLACEHOLDER = /\[(RECEIPT|OWNER CONFIRM|LOGO|PHOTO PENDING)[^\]]*\]|Receipt pending|receipt pending|\bTBD\b|lorem ipsum/i;
+const PLACEHOLDER = /\[(RECEIPT|OWNER CONFIRM|LOGO|PHOTO PENDING|PLACEHOLDER|TODO)[^\]]*\]|Receipt pending|\bTBD\b|\bTODO\b|\bFIXME\b|lorem ipsum|coming soon|placeholder text/i;
+// Live builds (contact form data-mode="live") must carry none of the demo or preview wording.
+const LIVE = /data-mode="live"/.test((await readText('contact/index.html')) || '');
+const PREVIEW_WORDING = /design preview|mockup|Demo inquiry|sample information|Inquiry preview|Demo confirmation|Marked preview|non-sending demo/i;
 const BANNED_ABBREVIATION = new RegExp('\\b' + String.fromCharCode(71, 69, 79) + '\\b');
 const text = (html) => html.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ');
 const hrefs = (html) => Array.from(html.matchAll(/href=["']([^"']+)["']/g), (m) => m[1]);
@@ -69,7 +91,11 @@ for (const { rel, html } of pages) {
   check(/<meta name="description" content="[^"]{20,}"/.test(html), rel + ' has no usable meta description');
   check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\/[^"]*"/.test(html), rel + ' has no canonical');
   check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), rel + ' has no og:image');
-  check(/<script type="application\/ld\+json">/.test(html), rel + ' has no JSON-LD');
+  const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
+  const types = ld.map((x) => x['@type']);
+  check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
+  if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
+  if (rel.startsWith('blog/') && rel !== 'blog/index.html') { const a = ld.find((x) => x['@type'] === 'Article'); check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && Object.keys(a.author).every((k) => k === '@type' || k === 'name') && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' Article JSON-LD author must be a Person (name only), or an Organization for Team ZINC: ' + JSON.stringify(a?.author)); }
   const hasNoindex = /<meta name="robots" content="[^"]*noindex/.test(html);
   check(hasNoindex === NOINDEX_OK.has(rel), rel + (hasNoindex ? ' is noindex but should be indexable' : ' must be noindex'));
   check(html.includes('id="themeToggle"') && /<span data-theme-label>Dark mode<\/span>/.test(html), rel + ' is missing the light/dark toggle with its "Dark mode" label');
@@ -88,6 +114,9 @@ for (const { rel, html } of pages) {
   const t = text(html);
   const m = PLACEHOLDER.exec(t);
   check(!m, rel + ' renders a placeholder marker: "' + (m && m[0]) + '"');
+  // Site copy only: migrated article bodies may use these words in their own sense ("mockup" in a design article).
+  const pw = LIVE && PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
+  check(!pw, rel + ' renders demo or preview wording in a live build: "' + (pw && pw[0]) + '"');
   for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
   const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (m) => m[1]));
   check(woff2.size === 3, rel + ' has ' + woff2.size + ' woff2 sources, expected 3');
@@ -118,8 +147,16 @@ for (const s of POST_SLUGS) { const p = pages.find((x) => x.rel === 'blog/' + s 
 // ---- contact ----
 const contact = pages.find((p) => p.rel === 'contact/index.html');
 if (contact) { check(contact.html.includes('data-demo-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }
-// ---- redirects: the alias must not be a real page and must appear in Vercel config output ----
-check(!htmlFiles.includes('work/summit-marine/index.html') || (await readFile(path.join(distDir, 'work/summit-marine/index.html'), 'utf8')).includes('http-equiv="refresh"'), 'work/summit-marine should be a redirect, not a page');
+// ---- redirects: an alias is never a real page (a redirect output file is allowed), and Vercel's route table,
+// replayed in order up to the filesystem handler, answers it with one 301 to the case, with or without the slash ----
+for (const f of ALIAS_FILES) if (htmlFiles.includes(f)) check((await readText(f)).includes('http-equiv="refresh"'), f + ' should be a redirect file, not a page');
+const vercelConfig = JSON.parse((await readFile(path.join(root, '.vercel/output/config.json'), 'utf8').catch(() => 'null')) || 'null');
+check(!!vercelConfig, '.vercel/output/config.json missing — build with the Vercel adapter first');
+const firstRoute = (p) => { for (const r of vercelConfig?.routes || []) { if (r.handle) return null; if (!r.continue && r.src && new RegExp(r.src).test(p)) return r; } return null; };
+for (const [from, to] of Object.entries(caseAliases)) for (const p of ['/work/' + from + '/', '/work/' + from]) {
+  const r = firstRoute(p);
+  check(r?.status === 301 && r.headers?.Location === '/work/' + to + '/', 'Vercel routes answer ' + p + ' with ' + (r ? r.status + ' ' + (r.headers?.Location || r.dest || '') : 'nothing before the filesystem') + ', expected 301 /work/' + to + '/');
+}
 // ---- built CSS: no underline affordance, no stray color literals outside tokens is a src concern (see below) ----
 const astroDir = path.join(distDir, '_astro');
 if (await exists(astroDir)) for (const f of (await readdir(astroDir, { recursive: true })).filter((e) => e.endsWith('.css'))) check(!(await readFile(path.join(astroDir, f), 'utf8')).toLowerCase().includes('underline'), '_astro/' + f + ' contains "underline"');
@@ -137,7 +174,7 @@ for (const e of await readdir(path.join(root, 'src'), { recursive: true })) {
   if (e !== path.join('styles', 'tokens.css') && e.endsWith('.css')) { /* colors allowed in site.css/home.css for shadows/alpha; tokens hold the palette */ }
 }
 // ---- JS budget: 15 KB gzip per page, unchanged from the preview gate (external + inline, de-duplicated) ----
-const JS_BUDGET = 15 * 1024; const cache = new Map();
+const JS_BUDGET = 15360; const cache = new Map(); // first-party only: external scripts (e.g. googletagmanager.com) are not counted
 const readJs = async (src) => { const c = src.split('?')[0]; if (cache.has(c)) return cache.get(c); let t = null; try { t = await readFile(path.join(distDir, c.replace(/^\//, '')), 'utf8'); } catch {} cache.set(c, t); return t; };
 for (const { rel, html } of pages) {
   const chunks = []; const seen = new Set();
