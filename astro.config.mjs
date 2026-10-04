@@ -43,5 +43,9 @@ export default defineConfig({
   integrations: [completeFonts],
   adapter: vercel(),
   fonts: fontFamilies,
+  // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style
+  // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header
+  // (vercel.json), since browsers ignore it in a meta policy. Analytics origins join in task 28.1.
+  security: { csp: { styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
   redirects: Object.fromEntries(Object.entries(caseAliases).map(([from, to]) => ['/work/' + from + '/', { status: 301, destination: '/work/' + to + '/' }])),
 });

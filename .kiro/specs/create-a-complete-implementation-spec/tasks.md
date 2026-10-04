@@ -97,7 +97,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - **Verify:** the script reports `failed 0`; the built HTML has no `wp-content` URL; every case image has width and height.
     - _Requirements: R4.1, R4.2_
 
-- [ ] 3. Fix the public-site defects (design section 4.2)
+- [x] 3. Fix the public-site defects (design section 4.2)
   - [x] 3.1 Add `[hidden]{display:none !important}` to `site.css` and `home.css`.
     - **Verify:** in the browser, a blog layer filter hides non-matching cards; the empty state appears only at zero results; step controls follow their `hidden` state with and without JavaScript.
     - _Requirements: R3.4_
@@ -131,7 +131,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - with JavaScript off, a bad submission shows the error with the values kept;
       - in demo mode nothing is sent.
     - _Requirements: R5.1, R5.2, R5.3, R5.5_
-  - [ ] 3.6 Add the response headers:
+  - [x] 3.6 Add the response headers:
     - security headers in `vercel.json`: `nosniff`, Referrer-Policy, Permissions-Policy, `frame-ancestors 'none'`;
     - Astro `security.csp` with the origins in design section 10;
     - a secret-pattern scan of the static output in `check-site.mjs`.

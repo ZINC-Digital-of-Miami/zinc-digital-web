@@ -148,5 +148,31 @@ for (const { rel, html } of pages) {
   check(bytes <= JS_BUDGET, rel + ' ships ' + bytes + ' gzip bytes of script, over ' + JS_BUDGET);
 }
 
+// ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
+for (const { rel, html } of pages) check(/<meta http-equiv="content-security-policy" content="[^"]*script-src 'self' 'sha256-/.test(html), rel + ' lacks the hashed content-security-policy meta tag');
+
+// ---- secrets (R15.2): nothing in the static output may look like a credential ----
+// A Supabase JWT is a secret unless its role is anon (the anon key is public by design).
+const SECRET_PATTERNS = [
+  ['private key', /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
+  ['Supabase secret key', /\bsb_secret_[A-Za-z0-9_-]{16,}/],
+  ['Anthropic API key', /\bsk-ant-[A-Za-z0-9_-]{20,}/],
+  ['OpenAI API key', /\bsk-(?:proj-|svcacct-|admin-)?[A-Za-z0-9_-]{32,}/],
+  ['Resend API key', /\bre_[A-Za-z0-9]{8,}_[A-Za-z0-9]{16,}/],
+  ['Google API key', /\bAIza[0-9A-Za-z_-]{35}/],
+  ['Google OAuth client secret', /\bGOCSPX-[A-Za-z0-9_-]{20,}/],
+  ['AWS access key', /\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/],
+  ['GitHub token', /\b(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{50,})/],
+  ['Slack token', /\bxox[abprs]-[A-Za-z0-9-]{10,}/],
+  ['secret variable with a value', /\b(?:SUPABASE_SERVICE_ROLE|SMTP_PASS|INQUIRY_HASH_SALT|OPENAI_API_KEY|ANTHROPIC_API_KEY|RESEND_API_KEY|CODEX_BRIDGE_TOKEN|VERCEL_BYPASS_SECRET)["']?\s*[:=]\s*["']?[A-Za-z0-9_\-./+]{12,}/],
+];
+const jwtRole = (payload) => { try { return JSON.parse(Buffer.from(payload, 'base64url').toString('utf8')).role; } catch { return undefined; } };
+const TEXT_FILE = /\.(?:html|js|mjs|cjs|css|json|txt|xml|svg|map|webmanifest)$/;
+for (const rel of (await readdir(distDir, { recursive: true })).filter((f) => TEXT_FILE.test(f)).sort()) {
+  const body = await readFile(path.join(distDir, rel), 'utf8');
+  for (const [name, re] of SECRET_PATTERNS) if (re.test(body)) fail('dist/client/' + rel + ' contains what looks like a secret (' + name + ')');
+  for (const m of body.matchAll(/\beyJ[A-Za-z0-9_-]{8,}\.(eyJ[A-Za-z0-9_-]{8,})\.[A-Za-z0-9_-]{8,}/g)) if (jwtRole(m[1]) !== 'anon') fail('dist/client/' + rel + ' contains a JWT with role ' + (jwtRole(m[1]) ?? 'unknown') + ' (only the anon key may ship)');
+}
+
 if (failures.length) { console.error('check-site.mjs: ' + failures.length + ' failure(s):'); for (const f of failures) console.error('  - ' + f); process.exitCode = 1; }
 else console.log('check-site.mjs: all checks passed across ' + htmlFiles.length + ' HTML file(s)');
