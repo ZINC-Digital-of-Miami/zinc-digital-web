@@ -1,0 +1,9 @@
+---
+// The homepage has its own route file so home.css ships only here: Astro bundles the CSS of every component a
+// route file imports, so rendering HomeBands from [...path].astro loaded home.css on every inner page.
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomeBands from '../components/home/HomeBands.astro';
+import { routes } from '../data/site';
+const route = routes.find((r) => r.template === 'home')!;
+---
+<SiteLayout route={route}><HomeBands /></SiteLayout>

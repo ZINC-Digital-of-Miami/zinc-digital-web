@@ -31,6 +31,8 @@ body{margin:0;background:var(--bg)}
 #zsRoot .btn{will-change:transform}#zsRoot .logo-c{transition:background .35s,color .35s}#zsRoot .logo-c:hover{background:var(--ink);color:var(--bg)}#zsRoot .logo-c:hover img{filter:grayscale(1) invert(1) brightness(1.4)}
 #zsRoot .person img{filter:grayscale(1);transition:filter .5s}#zsRoot .person:hover img{filter:grayscale(0)}
 #zsRoot .p-frame,#zsRoot .p-shot{perspective:1200px}#zsRoot .p-frame img,#zsRoot .p-shot .vp{transition:transform .5s cubic-bezier(.2,.8,.2,1)}.nav-in .btn,.nav-in .theme-t{white-space:nowrap;flex:none}
+/* At phone widths the CTA wraps to two lines, as on the Design's homepage, instead of running past the edge. */
+@media(max-width:480px){.nav-in .btn{white-space:normal;flex:0 1 auto;line-height:1.25}}
 .nav-logo{display:flex;align-items:center;height:100%;padding:0;margin:0}
 .nav-logo img{height:36px;display:block}
 .nlinks{margin-left:auto;display:flex;gap:28px;font-family:var(--fm);font-size:14px;letter-spacing:.06em;text-transform:uppercase}

@@ -71,8 +71,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const shot = async () => Buffer.from((await d.sendAndGetDevToolsCommand('Page.captureScreenshot', { format: 'png' })).data, 'base64');
 // Finished state for capture: no transitions, every reveal/scroll-in element in, cursor and grain off.
 const FREEZE = `if (!document.getElementById('cap-freeze')) { const s = document.createElement('style'); s.id = 'cap-freeze'; s.textContent = '*,*::before,*::after{transition:none!important;caret-color:transparent!important}.zs-cur,.cur,.zs-grain,.grain{display:none!important}'; document.head.appendChild(s); }
-  document.querySelectorAll('.rv,.rv-stag,.stamp,.commit li,.hero,.reveal').forEach((e) => e.classList.add('in'));`;
+  document.querySelectorAll('.rv,.rv-stag,.stamp,.commit li,.hero,.reveal').forEach((e) => e.classList.add('in'));
+  document.getAnimations().forEach((a) => { if (a instanceof CSSTransition) a.finish(); });`;
+// The site's CSP meta policy would block the freeze <style> above, so CSP is bypassed for capture only.
 const open = async (src, t, w, h, theme) => {
+  await d.sendAndGetDevToolsCommand('Page.setBypassCSP', { enabled: true });
   await d.sendAndGetDevToolsCommand('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile: w < 700 });
   const url = src === 'site' ? SITE + t[1] : designUrl(DES, t);
   await d.get(url.split('#')[0]);

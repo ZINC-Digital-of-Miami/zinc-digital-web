@@ -1,14 +1,12 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import HomeBands from '../components/home/HomeBands.astro';
 import Page from '../components/Page.astro';
 import { routes, type Route } from '../data/site';
+// Every route except the homepage, which src/pages/index.astro renders with its own stylesheet.
 export function getStaticPaths() {
-  return routes.map((route) => ({ params: { path: route.path === '/' ? undefined : route.path.replace(/^\/|\/$/g, '') }, props: { route } }));
+  return routes.filter((route) => route.template !== 'home').map((route) => ({ params: { path: route.path.replace(/^\/|\/$/g, '') }, props: { route } }));
 }
 interface Props { route: Route }
 const { route } = Astro.props;
 ---
-<SiteLayout route={route}>
-  {route.template === 'home' ? <HomeBands /> : <Page route={route} />}
-</SiteLayout>
+<SiteLayout route={route}><Page route={route} /></SiteLayout>
