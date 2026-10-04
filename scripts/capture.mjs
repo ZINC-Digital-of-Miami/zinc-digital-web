@@ -86,10 +86,13 @@ const open = async (src, t, w, h, theme) => {
   await d.executeScript(FREEZE);
 };
 const frames = async (prefix, w, h) => {
-  const files = []; const total = await d.executeScript('return document.documentElement.scrollHeight');
+  // Re-measure the page height after every scroll: lazy images and finished scenes can make it taller than at load.
+  const height = () => d.executeScript('return document.documentElement.scrollHeight');
+  const files = []; let total = await height();
   for (let k = 0, y = 0; k < MAX_FRAMES[w] && y < total; k++, y += Math.round(h * 0.9)) {
     await d.executeScript('scrollTo(0, arguments[0])', y); await sleep(160); await d.executeScript(FREEZE);
     const f = path.join(out, 'frames', prefix + '--' + String(k).padStart(2, '0') + '.png'); await writeFile(f, await shot()); files.push(f);
+    total = await height();
   }
   return { files, total };
 };

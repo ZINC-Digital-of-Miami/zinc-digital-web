@@ -24,7 +24,7 @@ export const SOCIAL = [
 ] as const;
 export const STUDIOS = [
   { id: 'miami', name: 'Miami HQ', street: '1900 N Bayshore Dr', city: 'Miami', zip: '33132' },
-  { id: 'panama-city', name: 'Panama City satellite', street: '97 Oak Ave, Suite 7', city: 'Panama City', zip: '32401' },
+  { id: 'panama-city', name: 'Panama City satellite', street: '97 Oak Ave, Suite 7', streetLabel: '97 Oak Ave Suite 7', city: 'Panama City', zip: '32401' },
 ] as const;
 
 export type Layer = 'Build' | 'Demand' | 'Intelligence';

@@ -116,7 +116,7 @@ const showCta = t !== 'home' && t !== 'contact';
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
-            {STUDIOS.map((s) => <div><h3>{s.name}</h3><div class="fmeta">{s.street}<br />{s.city}, FL {s.zip}</div></div>)}
+            {STUDIOS.map((s) => <div><h3>{s.name}</h3><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
             <div><h3>Contact</h3><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
           </div>
           <div class="fbot">

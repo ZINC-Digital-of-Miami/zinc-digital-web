@@ -119,7 +119,8 @@ html[data-theme="dark"] .logo-c:hover img{filter:invert(1) brightness(1.3)}
 .chips li{border:1px solid rgba(10,10,11,.4);padding:7px 12px;font-family:var(--fm);font-size:13px;transition:background .25s,color .25s}
 .chips li:hover{background:var(--ink);color:var(--bg)}
 .arrow{font-family:var(--fm);font-size:14px;display:inline-flex;margin-top:28px;border-bottom:2px solid var(--ink);padding-bottom:4px}
-.shots{position:relative;max-width:620px;margin-left:auto}
+/* Definite width: with only max-width and margin-left:auto the box shrank to its lazy images (2 px) and grew 440 px when they loaded. */
+.shots{position:relative;width:100%;max-width:620px;margin-left:auto}
 .shots .desk{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border:1px solid var(--line);display:block}
 .shots .phone{position:absolute;right:-3%;bottom:-10%;width:24%;height:auto;aspect-ratio:9/19;object-fit:cover;object-position:top;border:4px solid var(--ink);border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,.18);background:var(--bg)}
 .mini{position:absolute;left:-40px;top:-40px;width:96px;height:96px}

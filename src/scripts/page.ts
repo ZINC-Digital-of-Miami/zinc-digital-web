@@ -58,7 +58,7 @@ export function initForm() {
   const advance = () => {
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
-    if (bad) { error.textContent = LIVE ? 'Complete the required fields.' : 'Complete the required fields with valid sample information.'; bad.reportValidity(); return; }
+    if (bad) { error.textContent = LIVE ? 'Complete the required fields.' : 'Complete the required fields with valid sample information.'; bad.scrollIntoView({ block: 'center' }); bad.reportValidity(); return; } // centre the field so the sticky header cannot cover it or its bubble
     if (step === 1 && !form.querySelector<HTMLInputElement>('[data-service]:checked')) { error.textContent = 'Choose at least one service to continue.'; return; }
     if (step < 2) { step++; show(true); return; }
     if (!LIVE) { location.assign(form.dataset.thanks || '/thanks/'); return; }
