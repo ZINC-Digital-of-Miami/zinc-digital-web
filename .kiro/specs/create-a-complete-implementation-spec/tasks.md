@@ -35,7 +35,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
 ## M1 — Authority
 
-- [ ] 1. Reconcile repository instructions with the approved authority
+- [x] 1. Reconcile repository instructions with the approved authority
   - [x] 1.1 Update `AGENTS.md`, `CLAUDE.md` and `.claude/CLAUDE.md`. They must:
     - state the authority order;
     - name this spec as the execution plan;
@@ -55,7 +55,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - Run the existing gate locally: `npm ci && npm run check && npm run build && node scripts/check-site.mjs`.
     - **Verify:** every command exits 0. The U+00A7 and banned-abbreviation scans pass on the changed files.
     - _Requirements: R1.1–R1.3_
-  - [ ] 1.4 Open the M1 PR and get it merged.
+  - [x] 1.4 Open the M1 PR and get it merged.
     1. Push: `git push origin spec/create-a-complete-implementation-spec`.
     2. Open the PR to `main` and request one Codex review on the final head.
     3. **Owner go:** merge after the required `build` check passes.
