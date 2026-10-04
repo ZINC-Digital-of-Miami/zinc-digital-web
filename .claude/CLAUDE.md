@@ -6,25 +6,35 @@
 
 The new `www.zincdigital.co`: a custom, static-first Astro site on Vercel replacing ZINC Digital's WordPress/Elementor/Mouno site on Kinsta. It presents ZINC as one operating system in three layers (Build · Demand · Intelligence) for established, nationwide brands — ecommerce first — whose marketing directors and CFOs need to see that ZINC is the serious option.
 
-Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` (the authority for every requirement below).
+**Authority (owner, 4 Oct 2026):** see `AGENTS.md`.
+- Claude Design is the visual, copy and interaction authority.
+- `.kiro/specs/create-a-complete-implementation-spec/` is the execution plan.
+- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` is historical. Its superseded rules are marked inline, and it remains the source only for non-visual decisions the Kiro spec reuses.
 
 **Core Value:** The right prospect leaves certain ZINC is the serious option — and sends a qualified inquiry or a text about a specific service — on a site that loads instantly and ranks.
 
 ### Constraints
 
-- **Timeline**: live in 5–7 days from 2026-09-25; owner copy review is the critical path.
-- **Performance**: spec §10 gates are launch-blocking on every template.
-- **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only.
-- **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel.
-- **Copy**: fresh voice (spec §7); no invented numbers; never "GEO" for generative search; no cursing.
-- **Owner inputs**: receipts for case studies, real-vs-placeholder testimonials, "How we work" commitments, Jaymie and Wendy photos.
-- **Irreversible actions**: DNS cutover and production secrets need the owner's explicit go.
+- **Timeline**: superseded (owner, 4 Oct 2026). Launch follows the Kiro spec's milestones and the owner's cutover go; there is no fixed date.
+- **Performance**: LCP ≤ 1.2 s, CLS 0, INP < 100 ms and at most 15 KB gzip first-party JavaScript per public template. Lighthouse runs and reports, but scores below 100 never fail (owner, 4 Oct 2026).
+- **Budget**: no paid services beyond current subscriptions (Vercel Pro, Google Workspace); open-license fonts only. No Cloudflare, no Docker. Paid AI and search providers stay off until the owner sets their keys.
+- **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel, Supabase (Auth and Postgres).
+- **Copy**: the Design's copy and voice; no invented numbers; never "GEO" for generative search; no cursing.
+- **Owner inputs**: case results and receipts, client logo files and permission, legal copy, live contact copy, initial staff list.
+- **Irreversible actions**: DNS cutover, production secrets, database migrations, Auth settings, merges to `main` and deletions need the owner's explicit go.
 
 <!-- GSD:project-end -->
 
 <!-- GSD:stack-start source:research/STACK.md -->
 
 ## Technology Stack
+
+> Historical research (25 Sept 2026). Where it conflicts with `.kiro/specs/create-a-complete-implementation-spec/design.md`, the design wins. Examples:
+> - Supabase is now part of the stack.
+> - Turnstile and Cloudflare are dropped.
+> - The sitemap is a generated endpoint.
+> - 410s come from one on-demand route.
+> - Lighthouse scores are reported, not gated.
 
 ## Recommended Stack
 
@@ -37,7 +47,7 @@ Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-desi
 | Node.js | `24.x` (LTS) | Build + Vercel Function runtime | Spec-mandated. Vercel's Node.js runtime is required (not Edge) for the SMTP form function — Edge lacks the `net`/`tls` sockets SMTP needs. |
 | `@astrojs/vercel` | `11.0.11` (npm-verified) | Deployment adapter | Even for a **static** site, you need this adapter to compile the one on-demand form route into a Vercel Function. Add via `npx astro add vercel`. Astro 5+ merged the old `output: 'hybrid'` into `output: 'static'` (default) — you no longer set `output: 'hybrid'`; you set `output: 'static'` (or omit it, it's the default) and opt individual routes into on-demand rendering. |
 | `@astrojs/mdx` | `8.0.2` (npm-verified) | MDX support for content collections | Spec requires MDX for `posts`, `cases`, and rich service pages (embedded components inside prose — FAQ blocks, receipt callouts). |
-| `@astrojs/sitemap` | `3.7.4` (npm-verified) | XML sitemap generation | Spec §11 requires "complete XML sitemap including every post" — the current Rank Math sitemap on the live site misses all 18 posts; this integration walks the full route manifest, not a manually curated list, so it can't repeat that failure. |
+| `@astrojs/sitemap` | `3.7.4` (npm-verified) | XML sitemap generation | Spec section 11 requires "complete XML sitemap including every post" — the current Rank Math sitemap on the live site misses all 18 posts; this integration walks the full route manifest, not a manually curated list, so it can't repeat that failure. |
 | `sharp` | `0.35.4` (npm-verified) | Image transform engine behind `astro:assets` | Astro's default image service. Required (not optional) for AVIF/WebP output at build time — Vercel's runtime Image Optimization API is a separate, unrelated paid-adjacent feature the spec doesn't need since output is fully static. |
 
 ### Supporting Libraries
@@ -56,7 +66,7 @@ Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-desi
 | `fonttools` (Python, `pyftsubset`) | Subset + convert the three self-hosted variable fonts to WOFF2 | Industry-standard subsetter (same one Google Fonts and most foundries use). Run once per font at build/prep time, not per-request. Subset to Latin + Latin-1 Supplement (`U+0000-00FF`) unless the site needs extended Latin diacritics; keep `kern`, `liga`, `clig` in `--layout-features`; output `--flavor=woff2` (needs Brotli, installed alongside fonttools). Variable-font subsetting correctly strips unused glyph outlines while preserving the weight/width variation axes for the glyphs you keep. |
 | `@lhci/cli` | Lighthouse CI runner + budget assertion | `0.15.1` (npm-verified). Use directly (not only the `treosh/lighthouse-ci-action` wrapper) so budgets and assertions live in a versioned `lighthouserc.json`/`.cjs` in the repo, portable outside GitHub Actions too. |
 | `lychee` + `lycheeverse/lychee-action` | Broken internal/external link checking in CI | Rust-based, async, fast (whole-site scans in ~1 min per public benchmarks). Point it at the built `dist/` output (not live URLs) for the 301/410 redirect-map verification step, and separately at the deployed preview URL for external link rot. |
-| Google **Schema Markup Validator** + **Rich Results Test** | Structured-data validation | Two different Google tools, used together: Rich Results Test checks eligibility for search *features* (FAQ rich snippets etc.); Schema Markup Validator (the successor to the deprecated Structured Data Testing Tool) checks generic Schema.org conformance for Organization/LocalBusiness/Service/Article/FAQPage/BreadcrumbList. Run both per template before launch (spec §10's "structured data validates on every template" gate). |
+| Google **Schema Markup Validator** + **Rich Results Test** | Structured-data validation | Two different Google tools, used together: Rich Results Test checks eligibility for search *features* (FAQ rich snippets etc.); Schema Markup Validator (the successor to the deprecated Structured Data Testing Tool) checks generic Schema.org conformance for Organization/LocalBusiness/Service/Article/FAQPage/BreadcrumbList. Run both per template before launch (spec section 10's "structured data validates on every template" gate). |
 
 ## Installation
 
@@ -76,8 +86,8 @@ Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-desi
 |-------------|-------------|-------------------------|
 | Astro static + one Vercel Function (`@astrojs/vercel`, `output: 'static'`, `prerender = false` on one route) | Next.js App Router | Never for this project — Next ships a much heavier client runtime baseline and fights the ≤15 KB JS gate; Astro's zero-JS-by-default model is the entire reason it's spec-mandated. |
 | `nodemailer` SMTP with a Workspace App Password | Gmail API with OAuth2 | Use OAuth2/Gmail API only if a Workspace admin later disables App Passwords org-wide (some Workspace security policies block them), or if Google throttles/flags the SMTP relay — Gmail API needs a Google Cloud project, OAuth consent screen, and refresh-token storage in Vercel env vars, which is real setup overhead for a form that fires a handful of times a day. Start with SMTP; keep Gmail API as the documented fallback, not the default. |
-| `vercel.json` `routes` array (`{"src": "/old-slug", "status": 410}`) for Gone URLs | A Vercel Node Function that returns 410 for a path list | Only if the 410 list needs to grow dynamically post-launch without a redeploy (it won't — the redirect/410 map is built once from the WordPress REST API + Search Console per spec §12 and is static). |
-| Astro's built-in `redirects` config (`astro.config.mjs`) for the bulk of 301s | `vercel.json` `redirects` array | Use `vercel.json` only for edge cases Astro's config can't express (conditional `has`/`missing` matching on headers/cookies/query — not needed here) or for >a few hundred entries where `bulkRedirectsPath` (CSV/JSON import) is materially easier to generate from the WordPress export than hand-writing `astro.config.mjs` entries. For this project's redirect map (spec §12, a bounded list from one WordPress export), Astro's native `redirects` is simpler and avoids the documented Astro↔Vercel-adapter redirect-matching bugs below. |
+| `vercel.json` `routes` array (`{"src": "/old-slug", "status": 410}`) for Gone URLs | A Vercel Node Function that returns 410 for a path list | Only if the 410 list needs to grow dynamically post-launch without a redeploy (it won't — the redirect/410 map is built once from the WordPress REST API + Search Console per spec section 12 and is static). |
+| Astro's built-in `redirects` config (`astro.config.mjs`) for the bulk of 301s | `vercel.json` `redirects` array | Use `vercel.json` only for edge cases Astro's config can't express (conditional `has`/`missing` matching on headers/cookies/query — not needed here) or for >a few hundred entries where `bulkRedirectsPath` (CSV/JSON import) is materially easier to generate from the WordPress export than hand-writing `astro.config.mjs` entries. For this project's redirect map (spec section 12, a bounded list from one WordPress export), Astro's native `redirects` is simpler and avoids the documented Astro↔Vercel-adapter redirect-matching bugs below. |
 | Google Schema Markup Validator + Rich Results Test | Third-party bulk schema checkers (Sitebulb, etc.) | Only if you need to validate hundreds of pages in one bulk pass — this site ships ~35 templates/pages at launch, well within manual per-template checks. |
 
 ## What NOT to Use
@@ -86,7 +96,7 @@ Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-desi
 |-------|-----|-------------|
 | Any animation library (GSAP, Framer Motion, Lenis, ScrollTrigger) | Spec explicitly bans it ("no animation library"); also each adds 20–80 KB gzip minimum, blowing the ≤15 KB JS/page budget on its own | Native CSS `animation-timeline: scroll()` / `view()`, with `prefers-reduced-motion` and a static finished-state fallback for browsers that don't support it yet (see Browser Support below) |
 | WebGL / any 3D library (Three.js, etc.) | Spec explicitly bans it; also incompatible with the CFO's "read the whole page in 60 seconds" requirement and the performance gates | Plain SVG for the Loop graphic, animated via `stroke-dashoffset` + scroll-timeline CSS |
-| Any CSS framework (Tailwind, Bootstrap) or UI framework (React, Vue, Svelte islands) for this build | Spec explicitly bans both ("plain CSS with design tokens," "no UI framework, no CSS framework") | Plain `.css` with custom properties (design tokens) per PROJECT.md/spec §14 |
+| Any CSS framework (Tailwind, Bootstrap) or UI framework (React, Vue, Svelte islands) for this build | Spec explicitly bans both ("plain CSS with design tokens," "no UI framework, no CSS framework") | Plain `.css` with custom properties (design tokens) per PROJECT.md/spec section 14 |
 | `vercel.json` for URL rewrites/redirects on a static Astro + Vercel-adapter project as the primary mechanism | Documented, filed bugs (withastro/astro #9259, #9260, #13900, #18073) where `vercel.json`-driven or adapter-generated redirects on a **static**-output Astro project return 404 in production despite working in `astro dev`, and interact badly with `trailingSlash: 'always'` | Astro's own `redirects` config in `astro.config.mjs` — Vercel's own guidance is that redirects/rewrites should go through the framework's native mechanism, not `vercel.json`, on framework-detected projects |
 | Gmail SMTP with a **personal** Gmail account, or "less secure app access" | Google permanently removed "less secure app" access in 2022; personal Gmail is not built for transactional/relay traffic and gets rate-limited/flagged fast | Google Workspace SMTP relay (`smtp.gmail.com:465`) authenticated with an **App Password** tied to the Workspace mailbox that actually receives the mail (`jaymie@zincdigital.co` or a dedicated sender alias), which is what the spec's "existing Google Workspace domain" already provides for free |
 | Port 25 for outbound SMTP from the Vercel Function | Vercel blocks outbound port 25 platform-wide to prevent spam-relay abuse — this is a hard platform limit, not a config option | Port 465 (implicit TLS) or 587 (STARTTLS) — both open on Vercel's Node.js runtime, both supported directly by `nodemailer`'s Gmail/SMTP transport with no extra config |
@@ -117,7 +127,7 @@ Full approved design: `docs/superpowers/specs/2026-09-25-zinc-site-redesign-desi
 ## Email delivery — SMTP vs Gmail API decision
 
 - Vercel's own Knowledge Base confirms: port 25 is blocked platform-wide (anti-spam-relay policy); ports 465 (implicit TLS) and 587 (STARTTLS) are open and work with Nodemailer's SMTP transport with no extra Vercel-side configuration; only the **Node.js runtime** has the raw socket access (`net`/`tls`) SMTP needs — Edge functions cannot do this at all.
-- Because Google retired "less secure app" access in 2022, the credential must be a **2-Step-Verification App Password** generated for the Workspace mailbox, stored only in Vercel environment variables (per spec §14) — never a plain account password.
+- Because Google retired "less secure app" access in 2022, the credential must be a **2-Step-Verification App Password** generated for the Workspace mailbox, stored only in Vercel environment variables (per spec section 14) — never a plain account password.
 - **Await the send before returning the response**, or explicitly extend the function's lifetime (`waitUntil`) — Vercel functions can pause background work immediately after responding, which can truncate an in-flight SMTP exchange if you fire-and-forget the mail send.
 - **Gmail API (OAuth2)** is the documented, more resilient alternative — it survives if a Workspace admin ever disables App Passwords org-wide via the Admin Console, and it decouples you from raw SMTP entirely — but it requires a Google Cloud project, OAuth consent screen, and refresh-token issuance/storage, which is disproportionate setup for a low-volume qualifying-contact form. Document it as the fallback, not the v1 build.
 - Do **not** reach for Resend/Postmark/SendGrid/AWS SES — all are outside "no paid services beyond current subscriptions," and none are necessary given Workspace SMTP already works on Vercel's Node runtime.
@@ -177,17 +187,9 @@ No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skill
 
 <!-- GSD:workflow-start source:GSD defaults -->
 
-## GSD Workflow Enforcement
+## Workflow (Kiro flow, owner 4 Oct 2026)
 
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
-
-Use these entry points:
-
-- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd-debug` for investigation and bug fixing
-- `/gsd-execute-phase` for planned phase work
-
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+Work in this repository runs through the Kiro spec at `.kiro/specs/create-a-complete-implementation-spec/`, executed in order from `tasks.md` in the spec's Kiro worktree and branch. GSD commands are no longer the execution path for this work. `.planning/` is kept as history.
 <!-- GSD:workflow-end -->
 
 <!-- GSD:profile-start -->

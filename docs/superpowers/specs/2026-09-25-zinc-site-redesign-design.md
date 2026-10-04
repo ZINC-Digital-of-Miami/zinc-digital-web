@@ -3,6 +3,8 @@
 **Date:** 2026-09-25 (CT)
 **Owner:** Kirk Musick, MS, MBA — ZINC Digital
 **Status:** Approved in brainstorming interview, 2026-09-25. Source for `/gsd-new-project`.
+
+> **Superseded in part (owner, 4 Oct 2026):** Claude Design is the authority for visuals, copy, pages and interactions, and `.kiro/specs/create-a-complete-implementation-spec/` is the execution plan. Sections marked "Superseded" below no longer apply; unmarked non-visual decisions remain in force where the Kiro spec reuses them.
 **Repo:** `ZINC-Digital-of-Miami/zinc-digital-web` (this repo). Clean start — nothing is inherited from the live WordPress site, the July 2026 "Website V2" prototype, or the May 2026 Framer brainstorm except the facts listed under Content inputs.
 
 ---
@@ -75,6 +77,8 @@ Rules:
 
 ### 6.1 Homepage — nine bands, black and white alternating
 
+> **Superseded (owner, 4 Oct 2026):** the homepage follows Claude Design (`ZINC Home Blend.dc.html`); the nine-band, black/white alternating contract no longer applies.
+
 | # | Band | Content | Motion |
 |---|---|---|---|
 | 1 | Hero (white) | The core line, huge. One supporting line. Primary action to Contact; `Text (786) 575-4837` in mono. | Magenta strike through "the scope"; highlighter hit on "the business". |
@@ -136,6 +140,8 @@ The new voice, derived from the core line:
 
 ## 8. Visual system
 
+> **Superseded (owner, 4 Oct 2026):** visuals, colour, type and theming follow Claude Design (light default with a stored light/dark toggle; fonts Big Shoulders Display 800, Inter 400, JetBrains Mono 400). The alternating grounds, accent rules and font-pairing comparison below are historical.
+
 - **Direction:** the Loop as the signature, set in editorial ("annual report") type discipline. Huge headers, big moving parts, unexpected interactions. Black and white alternate by band.
 - **Color:**
   - Black: near-black around `#0A0A0B`.
@@ -151,6 +157,8 @@ The new voice, derived from the core line:
 
 ## 9. Motion system
 
+> **Superseded (owner, 4 Oct 2026):** motion follows Claude Design (cursor, grain, progress hairline, reveals, pins), with reduced-motion and no-JS finished states. The scroll-drawn loop and view-transition rules below are historical.
+
 - Native CSS scroll-driven animations first; no animation library. No 3D / WebGL.
 - The loop is a single SVG; line-draw and pulse are tied to scroll position.
 - Page-to-page: native view transitions.
@@ -158,6 +166,8 @@ The new voice, derived from the core line:
 - `prefers-reduced-motion` and browsers without scroll-timeline support get each scene's finished state with no content loss.
 
 ## 10. Performance and quality gates (launch-blocking)
+
+> **Superseded (owner, 4 Oct 2026):** LCP ≤ 1.2 s, CLS 0, INP < 100 ms and the 15 KB first-party JavaScript budget remain. Lighthouse runs and reports, but scores below 100 no longer fail. The Google tag is counted separately (D1 in the Kiro spec).
 
 - Lighthouse mobile: Performance, SEO, Accessibility, Best Practices all 100 on every template.
 - LCP ≤ 1.2 s, CLS 0, INP < 100 ms.
@@ -180,6 +190,8 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 ## 12. Content migration
 
+> **Superseded (owner, 4 Oct 2026):** Claude Design ships four case pages, so Summit Marine and Las Vegas Safety keep their pages instead of redirecting to `/work/`. The 301/410 approach otherwise continues in the Kiro spec (R14).
+
 - **Blog at launch:** the 18 live posts (WordPress REST API count, 2026-09-25), polished or updated as needed, moved to `/blog/<slug>/`.
 - **After launch:** the remaining recovered posts (queue in `ZINC-Digital-of-Miami/Zinc_Digital_Agency` → `docs/recovery/`) keep publishing into this site.
 - **Redirects:** 301 map built from the WordPress REST API and Search Console:
@@ -194,6 +206,8 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 ## 13. Proof and content inputs
 
+> **Superseded (owner, 4 Oct 2026):** `[RECEIPT: …]` and other placeholder markers no longer appear in page copy; content waiting on the owner renders nothing until confirmed.
+
 - **Case studies:** OUABC (flagship) and U.S. Oil Solutions. Drafted from the best available material. Every number is a `[RECEIPT: …]` placeholder until the owner confirms it; nothing is invented.
 - **Testimonials:** only real, attributable quotes placed beside the work they describe. The live-site set is part real, part placeholder; each quote is marked real or placeholder by the owner, and only real ones ship.
 - **"How we work" commitments:** drafted, each confirmed by the owner before launch.
@@ -201,6 +215,8 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 - **Facts carried over (verified with the owner):** Miami HQ 1900 N Bayshore Dr, Miami, FL 33132; Panama City satellite 97 Oak Ave Suite 7, Panama City, FL 32401; `hello@zincdigital.co`; socials (Facebook /zincdigitalofmiami, Instagram @zincdigitalofmiami, X @zinc_of, YouTube, LinkedIn /company/zinc-digital-of-miami).
 
 ## 14. Architecture
+
+> **Superseded (owner, 4 Oct 2026):** the architecture is now one Astro/Vercel project with prerendered public pages, a private invite-only staff admin and Supabase Auth and data (Kiro spec design). Workspace SMTP form delivery remains; Cloudflare Turnstile is dropped (no Cloudflare).
 
 - **Framework:** Astro (current stable, confirmed against the docs at build time), TypeScript, static output with one server function for the form.
 - **Content:** Astro content collections — `services`, `cases`, `team`, `posts`, `clients` — typed schemas; Markdown/MDX in git.
@@ -219,12 +235,16 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 ## 16. Delivery
 
+> **Superseded (owner, 4 Oct 2026):** the 5–7-day target and GSD process are replaced by the Kiro spec milestones and the Kiro flow; there is no launch date. GitHub PRs get one Codex review on the final head.
+
 - **Target:** live in 5–7 days. The owner's copy review turnaround is the critical path.
 - **Indicative sequence:** (1) design system + font pick · (2) home + loop · (3) service pages · (4) work, about, contact, form · (5) blog migration, SEO, redirects · (6) QA and owner review · (7) cutover.
 - **Process:** GSD (`/gsd-new-project` from this spec). Phases in worktrees on GSD-computed branches, merged to `main` through PRs, Copilot review per PR, GSD code review / verifier / UI review at the configured points.
 - **Repo rules:** `main` is the product; work branches merge to `main` and are deleted. All times shown to the owner are America/Chicago (CT).
 
 ## 17. Out of scope
+
+> **Superseded (owner, 4 Oct 2026):** "A CMS" and "logins" are superseded by the private staff admin (inquiries, pages/posts SEO and publishing, research). Client portals and visitor accounts remain out of scope.
 
 - Branding / graphic design as a service.
 - Public pricing.
@@ -234,9 +254,11 @@ Full override — nothing inherited from the WordPress/Rank Math configuration.
 
 ## 18. Resolved decisions (2026-09-25, owner: "resolve all conflicts")
 
+> **Superseded (owner, 4 Oct 2026):** rows on accent colours, Turnstile rate limiting and the three font pairings are superseded as described above; the other rows remain in force where the Kiro spec reuses them.
+
 | Topic | Decision | Basis |
 |---|---|---|
-| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (§8) |
+| Accent colors | Magenta `#FC0781` on black; dark teal `#07B2B2` (display/graphics) and `#057E7E` (small text) on white | Owner instruction; contrast measured (section 8) |
 | 410 Gone | On-demand catch-all route reading `src/lib/redirects.ts`; verified on preview deploy | Research conflict (vercel.json routes vs function) — one source of truth wins; Astro adapter owns routing output |
 | Form email | Nodemailer → smtp.gmail.com:465 with App Password; Gmail API only if App Passwords are blocked | Vercel allows 465/587; relay IP auth impossible from serverless |
 | Rate limiting | Turnstile + honeypot required; Vercel WAF rule only at $0 included usage | No new paid service |

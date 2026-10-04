@@ -1,0 +1,505 @@
+# Tasks — Finish and launch the ZINC Digital website
+
+Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 2026 (CT) · Implements requirements.md R1–R18 using design.md
+
+## How these tasks run
+
+**Kiro flow (D5):**
+- Every task runs in `/Volumes/Satechi Hub/zinc-digital-web-wt-create-a-complete-implementation-spec` on branch `spec/create-a-complete-implementation-spec`, in order.
+- Each milestone (M1–M6) ends with a PR to `main`.
+- After the merge, the branch is reset to `main` (design section 2) before the next milestone starts.
+
+**Node 24:**
+- Every command runs with `PATH="/opt/homebrew/opt/node@24/bin:$PATH"`. The machine default is Node 26.
+- Each milestone's first task confirms that `node --version` prints v24.
+
+**Live preview (R18.2):**
+- From task 2.3 on, `npx astro dev --host 127.0.0.1 --port 4321` stays running in the background.
+- The dashboard Browser panel shows it.
+- Restart it after dependency or config changes.
+
+**Evidence:**
+- Each task ends with its **Verify** step.
+- Commands and exit codes are recorded in the milestone PR description.
+- Local, CI, preview and production results are listed separately.
+- Times are in CT.
+
+**Owner go:**
+- Steps marked **Owner go** stop and wait for the owner's explicit approval of that exact action.
+- These include: applying migrations, pushing Auth config, merging to `main`, closing PR #6, deleting files and DNS cutover.
+- Secret values are entered by the owner only.
+
+**Scratch:** screenshots, reports and temporary files go under `/Volumes/Satechi Hub/zinc-digital-web-review/`, never the home directory.
+
+---
+
+## M1 — Authority
+
+- [ ] 1. Reconcile repository instructions with the approved authority
+  - [x] 1.1 Update `AGENTS.md`, `CLAUDE.md` and `.claude/CLAUDE.md`. They must:
+    - state the authority order;
+    - name this spec as the execution plan;
+    - describe the Kiro flow (D5);
+    - keep the operational invariants: Node 24, performance targets, external drive, no paid services, owner go for irreversible actions, CT times.
+    - **Verify:** `grep -n -i "all-white\|circuit\|RECEIPT\|noindex, nofollow on every page" AGENTS.md CLAUDE.md .claude/CLAUDE.md` shows no superseded rule stated as active.
+    - _Requirements: R1.1_
+  - [x] 1.2 Add dated "Superseded (owner, 4 Oct 2026)" notes. Delete no files. Notes go in:
+    - `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md`, sections 6.1, 8, 9, 12 (Summit/LVS), 13 (markers) and 16–17;
+    - `.planning/REQUIREMENTS.md` for DSGN-01..03, HOME-01..08, LOOP-02, WORK-04 and the dark-toggle exclusion;
+    - `.planning/ROADMAP.md`, `.planning/STATE.md` and `.planning/HANDOFF.json`.
+
+    Also carry over PR #6's Codex GitHub review rule and its SPF measurement note.
+    - **Verify:** each listed item carries a superseded note. `git diff --stat` shows only documentation files.
+    - _Requirements: R1.2, R1.3_
+  - [x] 1.3 Commit the spec (`.kiro/specs/create-a-complete-implementation-spec/`) and the reconciliation.
+    - Run the existing gate locally: `npm ci && npm run check && npm run build && node scripts/check-site.mjs`.
+    - **Verify:** every command exits 0. The U+00A7 and banned-abbreviation scans pass on the changed files.
+    - _Requirements: R1.1–R1.3_
+  - [ ] 1.4 Open the M1 PR and get it merged.
+    1. Push: `git push origin spec/create-a-complete-implementation-spec`.
+    2. Open the PR to `main` and request one Codex review on the final head.
+    3. **Owner go:** merge after the required `build` check passes.
+    4. **Owner go:** close PR #6 with a comment linking the merged PR.
+    5. Reset the Kiro branch to `main` (design section 2).
+
+    - **Verify:** PR merged; PR #6 closed; `git diff origin/main spec/create-a-complete-implementation-spec` was empty before the reset.
+    - _Requirements: R1.4, R18.1_
+
+---
+
+## M2 — Public site
+
+- [ ] 2. Integrate the Design package and the build foundation
+  - [ ] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
+    1. Confirm the source archive's SHA-256 is `a624cfec…d42d0`.
+    2. Copy the files in PORT.md section 5.1 (add) and 5.2 (replace).
+    3. Rename `src/pages/-...path-.astro` to `src/pages/[...path].astro`, replacing the existing file.
+    4. Add `.nvmrc` containing `24`.
+    5. Keep all old preview files.
+    6. Record the per-file mapping (added, replaced, adapted or not taken, with the reason) in `docs/port-integration.md`.
+
+    - **Verify:** `npm ci` exits 0 and `git status` shows no `package-lock.json` change.
+    - _Requirements: R1.5, R1.6, R1.7_
+  - [ ] 2.2 Make the type check and the build pass.
+    - Fix every `astro check` error.
+    - Record where the build writes static pages and the function (design section 4.1). Point `check-site.mjs` at the actual static directory.
+    - **Verify:** `npm run check` exits 0 with 0 errors; `npm run build` exits 0; the font guard passes.
+    - _Requirements: R1.8, R4.3_
+  - [ ] 2.3 Start the live preview and keep it running (`npx astro dev --host 127.0.0.1 --port 4321`), then point the dashboard Browser panel at it.
+    - **Verify:** `curl -sI http://127.0.0.1:4321/` returns 200.
+    - _Requirements: R18.2_
+  - [ ] 2.4 Fetch and serve the 17 WordPress case images.
+    1. Run `npm run assets`.
+    2. Check every file against the dimensions in `assets.site.json`.
+    3. Move the images into `src/assets/work/` and render them with `<Picture formats={['avif','webp']}>`, with width, height, alt and lazy loading below the fold.
+    4. Commit them.
+
+    - **Verify:** the script reports `failed 0`; the built HTML has no `wp-content` URL; every case image has width and height.
+    - _Requirements: R4.1, R4.2_
+
+- [ ] 3. Fix the public-site defects (design section 4.2)
+  - [ ] 3.1 Add `[hidden]{display:none !important}` to `site.css` and `home.css`.
+    - **Verify:** in the browser, a blog layer filter hides non-matching cards; the empty state appears only at zero results; step controls follow their `hidden` state with and without JavaScript.
+    - _Requirements: R3.4_
+  - [ ] 3.2 Make pinned and scroll-driven sections fall back to normal flow. Move the sticky and clip rules under `html.js`, `prefers-reduced-motion: no-preference` and support for scroll timelines or the script class. Set the before/after default to `--ba:50%`.
+    - **Verify:** with reduced motion and with JavaScript off, at 375 and 1440 px, every case screenshot, homepage layer panel, U.S. Oil stamp and loop service list is reachable, and both before/after images show.
+    - _Requirements: R3.3_
+  - [ ] 3.3 Correct the port toward the Design:
+    - the `local-seo` and `google-search-ads` case links (`ZINC Site.dc.html:411,413`);
+    - the homepage contents line (`ZINC Home Blend.dc.html:289`);
+    - the homepage title;
+    - `.c-quote` set in upright Inter 400.
+
+    - **Verify:** the strings match the Design source, and the screenshots for task 5 show it.
+    - _Requirements: R2.3, R4.3_
+  - [ ] 3.4 Fix the remaining content defects:
+    - JSON-LD authors: `Person` with name only; `Organization` for "Team ZINC"; no `jobTitle`;
+    - `robots.txt`: disallow `/admin/` and `/api/`; remove the `/thanks/` disallow;
+    - rewrite the `admin/index.astro` comment without the section-sign character;
+    - live-mode copy from owner-approved text, with demo strings only in demo mode.
+
+    - **Verify:** JSON-LD parses on every article; `robots.txt` content matches; a U+00A7 scan of `src/` finds nothing; a live-mode build contains none of "design preview", "Inquiry preview", "Demo inquiry" or "sample information".
+    - _Requirements: R2.4, R2.5, R14.1, R14.2_
+  - [ ] 3.5 Rework the contact form for no-JS use:
+    - extract `src/components/ContactForm.astro`;
+    - add `src/pages/contact/send.astro` (`prerender = false`) as the no-JS form target, which re-renders the form with escaped values and the error (status 422);
+    - add `src/lib/inquiry.ts` with `validate()` and demo-mode handling;
+    - remove all Turnstile code and variables.
+
+    - **Verify:**
+      - `tests/inquiry-validate.test.ts` covers every field limit, the 11 slugs, the 4 budgets and the 4 timelines;
+      - with JavaScript off, a bad submission shows the error with the values kept;
+      - in demo mode nothing is sent.
+    - _Requirements: R5.1, R5.2, R5.3, R5.5_
+  - [ ] 3.6 Add the response headers:
+    - security headers in `vercel.json`: `nosniff`, Referrer-Policy, Permissions-Policy, `frame-ancestors 'none'`;
+    - Astro `security.csp` with the origins in design section 10;
+    - a secret-pattern scan of the static output in `check-site.mjs`.
+
+    - **Verify:** the built HTML carries the CSP meta tag; the scan fails on a planted test string and passes when it is removed.
+    - _Requirements: R15.1, R15.2_
+
+- [ ] 4. Checks and CI
+  - [ ] 4.1 Update `scripts/check-site.mjs` to the Design contracts and the fixes in design section 4.2:
+    - the Summit alias;
+    - the wider placeholder scan;
+    - JSON-LD parsing;
+    - sitemap and robots content;
+    - the secret scan;
+    - the 15,360-byte gzip first-party JavaScript budget;
+    - the 43-page set.
+
+    - **Verify:** `node scripts/check-site.mjs` exits 0 on the build and fails when one page is removed.
+    - _Requirements: R2.1, R16.2, R17.1_
+  - [ ] 4.2 Update `scripts/verify-site.mjs` and add `scripts/serve-static.mjs` (Node static server on 127.0.0.1). Apply these fixes:
+    - decode entities before comparing text;
+    - skip `/admin/` and `/api/` in the crawl;
+    - check what is actually displayed instead of the `hidden` property;
+    - a real before/after assertion;
+    - reduced-motion checks at 375 and 1440 px;
+    - Event Timing INP measurement;
+    - the matched-chromedriver install.
+
+    - **Verify:** `--mode quick` and `--mode full` both exit 0. The full run covers the 320–2560 px overflow sweep, no-JS, reduced motion, axe in both themes, and INP under 100 ms.
+    - _Requirements: R3.1–R3.6, R16.1, R16.5, R17.2_
+  - [ ] 4.3 Add a `test` script running `node --test tests/`.
+    - **Verify:** `npm test` exits 0.
+    - _Requirements: R17.3_
+  - [ ] 4.4 Update `.github/workflows/ci.yml`:
+    - keep the `build` job and add `npm test`;
+    - `browser-verify` runs `node scripts/verify-site.mjs --mode quick`.
+
+    - **Verify:** both jobs pass on the M2 PR.
+    - _Requirements: R1.9_
+
+- [ ] 5. Public visual review rounds
+  - [ ] 5.1 Write `scripts/capture.mjs`. It captures every public template and its Design reference, rendered from `current-design/` served on 127.0.0.1 via each file's hash route, in light and dark at 375, 768 and 1440 px. It also captures the interaction states. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m2/round-<n>/`.
+    - **Verify:** round 1 contains every template × theme × width pair.
+    - _Requirements: R17.6_
+  - [ ] 5.2 Run review rounds until one finds no mistakes.
+    - Round 1 is reviewed by the implementer. Every later round is reviewed by a fresh reviewer agent given only the screenshot pairs, the Design files and the checklist.
+    - Each round writes `findings.md`; each mistake is fixed and re-captured.
+    - **Verify:** the final round's `findings.md` reads "No mistakes found". Earlier rounds list every fixed item.
+    - _Requirements: R2.3, R3.5, R17.6_
+
+- [ ] 6. Lighthouse after M2
+  - [ ] 6.1 Write `scripts/lighthouse.mjs` (mobile preset, one URL per public template) and run it on the M2 preview.
+    - Review the reported issues and fix the real defects.
+    - **Verify:** the report is saved under `/Volumes/Satechi Hub/zinc-digital-web-review/lighthouse/m2/`. Scores are reported and nothing fails on them.
+    - _Requirements: R16.3_
+
+- [ ] 7. M2 PR
+  - [ ] 7.1 Push, open the PR and request one Codex review. **Owner go:** merge after CI passes. Then reset the Kiro branch.
+    - **Verify:** PR merged; branch reset after an empty diff check.
+    - _Requirements: R18.1_
+
+---
+
+## M3 — Data, auth, contact
+
+- [ ] 8. Database baseline, tests and the first migration
+  - [ ] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
+    - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
+    - _Requirements: R9.1_
+  - [ ] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.
+    - **Verify:** run against the current schema, the tests report the known gaps in requirements 1.2 as failures, and the rehearsal leaves no change behind (re-check with `list_tables`).
+    - _Requirements: R17.4_
+  - [ ] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
+    - **Verify:** all permission tests pass inside the rehearsal.
+    - _Requirements: R6.2, R9.2, R9.3_
+  - [ ] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
+    - **Verify:** read-only SQL confirms on the live database:
+      - the new columns;
+      - the dropped policy and the new grants;
+      - `staff_role()`;
+      - the `security_invoker` view.
+
+      `get_advisors` (security) returns nothing. `supabase gen types --project-id zeetlqskfvsfbllrhzre` regenerates `src/lib/database.types.ts`, and `npm run check` exits 0.
+    - _Requirements: R9.2, R9.4_
+
+- [ ] 9. Auth configuration
+  - [ ] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
+    - **Owner go:** run `supabase config push`.
+    - **Verify:**
+      - the Management API read-back shows signup disabled, the redirect URLs, the templates and SMTP;
+      - a sign-in attempt for an uninvited address creates no user (checked with read-only SQL on `auth.users`).
+    - _Requirements: R7.1, R7.5_
+
+- [ ] 10. Server foundations
+  - [ ] 10.1 Add the dependencies `@supabase/supabase-js` and `@supabase/ssr`, with the lockfile in the same commit.
+  - [ ] 10.2 Write the helpers and middleware:
+    - `src/lib/env.ts`;
+    - `src/lib/supabase.ts` (server client plus admin client);
+    - `src/lib/auth.ts` (`requireStaff`, `safeNext`);
+    - `src/middleware.ts`: session refresh, `locals.staff` from `staff_role`, and the headers in design section 6.3;
+    - `src/data/private-routes.ts`.
+
+    - **Verify:** `tests/auth.test.ts` covers `safeNext` with `//evil`, `/\evil`, `%2f`, `:` and valid admin paths; `npm run check` exits 0.
+    - _Requirements: R7.8, R8.1–R8.8_
+
+- [ ] 11. Sign-in, sign-out and the first owner
+  - [ ] 11.1 Build the auth routes:
+    - `src/pages/admin/login.astro`: no enumeration, the `zinc-next` cookie, and a rate limit;
+    - `src/pages/admin/auth/confirm.astro` (`verifyOtp`);
+    - `POST /api/admin/signout`;
+    - remove the old callback page and the localStorage token code.
+
+    - **Verify:** on local dev, a staff sign-in sets HttpOnly session cookies; sign-out clears them; a link opened in a second browser lands on `/admin/`.
+    - _Requirements: R7.5, R7.6, R7.7_
+  - [ ] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
+    - **Verify:** the owner signs in on the preview and `staff_role()` returns `owner` for them.
+    - _Requirements: R7.4_
+
+- [ ] 12. Live contact path
+  - [ ] 12.1 Add the `nodemailer` dependency. Write `src/lib/mail.ts` and complete `src/lib/inquiry.ts`: rate-limit count, insert, `notify()` with an 8-second timeout, and the status update.
+    - Wire them into `/api/inquiries` and `/contact/send/`.
+    - Remove the Resend and `api/inquiries/email.ts` code.
+    - **Verify:** `tests/inquiry.test.ts`, with fake database and mailer, covers:
+      - validation, the size limit, the origin check and the honeypot;
+      - the rate limit (5 per 10 minutes, 20 per day);
+      - database failure, which returns a retryable error and sends no email;
+      - email failure, which keeps the inquiry and marks it `failed`;
+      - no-JS 303 and error paths.
+    - _Requirements: R5.4–R5.7, R6.1, R6.3–R6.5, R15.3_
+  - [ ] 12.2 Add `POST /api/admin/notify` (Resend notification).
+    - **Verify:** a unit test shows a `failed` row becoming `sent` and `notify_attempts` incrementing.
+    - _Requirements: R6.6_
+
+- [ ] 13. Deployment checks and the live smoke test
+  - [ ] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
+    - **Verify:**
+      - pages and unknown-path statuses as expected;
+      - admin pages 302 and staff APIs 401 without a session;
+      - noindex, `no-store` and `frame-ancestors` headers;
+      - the function runs on Node 24.
+    - _Requirements: R8.1, R8.2, R8.7, R17.4_
+  - [ ] 13.2 **Owner go:** the owner enters the Vercel environment variables:
+    - Supabase keys;
+    - SMTP user, App Password and notification recipient;
+    - hash salt;
+    - `PUBLIC_INQUIRY_MODE=live` on one protected preview only.
+
+    Then submit one smoke inquiry.
+    - **Verify:** the email arrives at the recipient; the row shows `sent`; the test row is removed afterwards with the owner's go.
+    - _Requirements: R6.4, R18.6_
+  - [ ] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
+    - **Verify:** one SPF record includes `_spf.google.com`, and the DKIM selector record resolves.
+    - _Requirements: R6.7_
+
+- [ ] 14. M3 PR
+  - [ ] 14.1 Push, open the PR and request one Codex review. **Owner go:** merge. Then reset the Kiro branch.
+    - **Verify:** PR merged; branch reset after an empty diff check.
+    - _Requirements: R18.1_
+
+---
+
+## M4 — Admin
+
+- [ ] 15. Admin migration
+  - [ ] 15.1 Write `0003_admin.sql` per design section 7.2 and rehearse it with `db-test.mjs`. **Owner go:** apply it.
+    - **Verify:** read-only SQL confirms the `live` columns, `publish_all`, `admin_cache` and the foreign-key changes; the advisors return nothing; generated types updated; `npm run check` exits 0.
+    - _Requirements: R9.3, R9.4_
+
+- [ ] 16. Admin shell
+  - [ ] 16.1 Port `ZINC Admin.dc.html` into:
+    - `AdminLayout.astro` and `src/components/admin/*`;
+    - `admin.css`;
+    - `src/scripts/admin/{shell,drawer,toast,board}.ts`.
+
+    It includes the sidebar (8 views with live counts), the theme toggle, View site, the connection-status chip, sign-out, a URL per view, and loading, empty and error states.
+    - **Verify:**
+      - axe passes in both themes at 375 and 1440 px;
+      - the drawer closes with Escape and returns focus;
+      - the toast's Undo works by keyboard;
+      - nothing shows sample or invented figures.
+    - _Requirements: R3.1, R3.6, R10.1–R10.4_
+
+- [ ] 17. Inquiries and Staff
+  - [ ] 17.1 Build the Inquiries view and its APIs:
+    - the four stages with counts;
+    - cards showing notification status;
+    - the drawer: stage chips, notes, next step, Email (SMTP or `mailto:`), Archive with Undo, Restore, Resend;
+    - refresh on focus and every 60 seconds.
+
+    - **Verify:** on the preview, an inquiry moves through all stages, archives and restores, and each change appears in `inquiry_events` with the actor.
+    - _Requirements: R10.6–R10.9, R6.6_
+  - [ ] 17.2 Build the Staff view and its APIs: list, invite, resend, revoke, role change and offboard (owner only).
+    - **Verify:**
+      - an editor gets 401/403 on owner actions;
+      - removing the last owner is blocked;
+      - an offboarded test user's next request is denied while their token is still valid;
+      - test users are deleted afterwards.
+    - _Requirements: R7.2, R7.3, R7.9, R8.5, R10.5_
+
+- [ ] 18. Pages, Posts, SEO and publishing
+  - [ ] 18.1 Build the Pages, Posts and SEO views and the content APIs:
+    - `src/lib/seo-score.ts`, ported from `ZINC Admin.dc.html:140`;
+    - New post (title, slug, layer, excerpt, Markdown body).
+
+    - **Verify:** a saved edit persists, and the live site does not change.
+    - _Requirements: R11.1–R11.4_
+  - [ ] 18.2 Add the `marked` dependency and write `src/lib/content.ts`, which loads published content at build (design section 7.3). Render published admin posts in the article layout.
+    - **Verify:** a build with a published test post produces its page and sitemap entry; a build with a deliberately wrong key fails.
+    - _Requirements: R11.3, R11.6, R2.1_
+  - [ ] 18.3 Build `src/lib/vercel.ts` and the Publish route (owner only): `publish_all`, then the deploy hook, then publish status in the admin.
+    - **Owner go:** run the first real Publish.
+    - **Verify:** the published change is live on the production alias after the triggered deployment; the admin shows the publish time and result.
+    - _Requirements: R11.5, R8.5_
+
+- [ ] 19. Dashboard, Stats and Backend
+  - [ ] 19.1 Build `src/lib/google.ts` (service-account JWT via `node:crypto`; GA4 and Search Console) and `/api/admin/metrics` with `admin_cache`. Use them in the Dashboard and Stats views.
+    - **Verify:** with the owner-provided service account, the KPIs match the GA4 and Search Console interfaces for the same range; without it, the cards say what is needed; "AI citations" shows "No data source".
+    - _Requirements: R12.1, R12.2, R12.5_
+  - [ ] 19.2 Build the Backend view: deployments, publish status, the contact form card, and Redeploy (owner only, with confirmation).
+    - **Verify:** the deployment list matches `vercel ls`; Redeploy creates a production deployment.
+    - _Requirements: R12.3, R12.4_
+
+- [ ] 20. Admin visual review and checks
+  - [ ] 20.1 Run capture and review rounds for every admin view (as in task 5) until a round finds no mistakes. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m4/`.
+    - **Verify:** the final round reads "No mistakes found".
+    - _Requirements: R17.6_
+  - [ ] 20.2 Re-run `db-test.mjs` and `check-deploy.mjs` on the M4 preview.
+    - **Verify:** both exit 0.
+    - _Requirements: R17.4_
+
+- [ ] 21. M4 PR
+  - [ ] 21.1 Push, open the PR and request one Codex review. **Owner go:** merge. Then reset the Kiro branch.
+    - _Requirements: R18.1_
+
+---
+
+## M5 — Research
+
+- [ ] 22. Research migration
+  - [ ] 22.1 Write `0004_research.sql` per design section 7.2: the `tsv` column and index, `search_chunks`, and the private `research` bucket with its policies. Rehearse it. **Owner go:** apply it.
+    - **Verify:** read-only SQL confirms the column, index, function and bucket; the advisors return nothing; `npm run check` exits 0.
+    - _Requirements: R9.3, R9.4_
+
+- [ ] 23. Projects, sources and ingestion
+  - [ ] 23.1 Build the Research view and its APIs:
+    - projects;
+    - sources with status;
+    - Note ingestion (up to 200,000 characters), with `chunk()` producing at most 120 chunks.
+
+    - **Verify:** a note becomes `ready` with chunks; a blank project name shows a message; an anonymous user cannot read research tables (`db-test.mjs`).
+    - _Requirements: R13.1–R13.3, R13.9_
+  - [ ] 23.2 Write `src/lib/research/fetch.ts` (design section 9), with `RESEARCH_URL_ENABLED` off until the tests pass.
+    - **Verify:** `tests/research-fetch.test.ts` rejects every case in requirement R17.5 and accepts a public test page through the stub resolver. The flag is turned on in the same commit as the passing tests.
+    - _Requirements: R13.4, R17.5_
+  - [ ] 23.3 Add the `unpdf` and `mammoth` dependencies. Build the signed upload-URL route, the browser upload script and file extraction.
+    - **Verify:** fixture PDF, DOCX, TXT and MD files become `ready`; an encrypted PDF and an 11 MB file end in `error`.
+    - _Requirements: R13.2, R13.3_
+  - [ ] 23.4 Build SERP ingestion through SerpAPI (`SERPAPI_KEY`), disabled while the key is unset.
+    - **Verify:** a mocked response stores the top 20 results; without the key, the source option shows "not enabled".
+    - _Requirements: R13.2, R15.4_
+
+- [ ] 24. Chat
+  - [ ] 24.1 Build `src/lib/research/chat.ts` and the chat route:
+    - retrieval through `search_chunks`;
+    - numbered, quoted sources;
+    - Anthropic and OpenAI streaming adapters with no tools;
+    - citation mapping;
+    - message persistence and a per-staff rate limit.
+
+    - **Verify:** `tests/chat.test.ts` with mocked providers covers streaming, `[n]` mapped only to supplied sources, invented numbers dropped, the `error` status, and the 8,000-character limit.
+    - _Requirements: R13.5, R13.6, R13.8_
+  - [ ] 24.2 Build the chat client script: streaming log, Send disabled while streaming, Cmd/Ctrl+Enter, auto-scroll, a model picker with disabled states, and source chips.
+    - **Verify:** with no keys set, every model shows its "Needs …" reason; with a mocked stream in dev, the UI behaves as specified.
+    - _Requirements: R13.5, R13.7_
+
+- [ ] 25. Research visual review
+  - [ ] 25.1 Run capture and review rounds for the research view, including the empty, loading, streaming and error states, until a round finds no mistakes.
+    - **Verify:** the final round reads "No mistakes found".
+    - _Requirements: R17.6_
+
+- [ ] 26. M5 PR
+  - [ ] 26.1 Push, open the PR and request one Codex review. **Owner go:** merge. Then reset the Kiro branch.
+    - _Requirements: R18.1_
+
+---
+
+## M6 — Launch
+
+- [ ] 27. Redirects and 410
+  - [ ] 27.1 Write `scripts/redirect-map.mjs` and generate the proposed map from:
+    - the WordPress REST API (paginated);
+    - the live sitemaps;
+    - Search Console pages (16 months).
+
+    The output is `/Volumes/Satechi Hub/zinc-digital-web-review/redirects/proposed.json`.
+    - **Owner go:** the owner reviews the map.
+    - **Verify:** every inventoried old URL has a 301 target or is marked 410.
+    - _Requirements: R14.4_
+  - [ ] 27.2 Commit `src/data/redirects.ts`. Add the 301s to the Astro config and the `src/pages/[...gone].astro` handler. Rewrite internal links inside the migrated posts.
+    - **Verify:** `scripts/check-redirects.mjs` on the preview passes for every entry (single hop, correct status and `Location`) and for 20 unknown paths (404).
+    - _Requirements: R14.5, R17.7, R2.2_
+
+- [ ] 28. Analytics, `llms.txt` and indexing
+  - [ ] 28.1 Add the Google tag (`GT-NNZRWNCF`, `G-BV43HRVJ18`, `AW-17071018445`), loaded asynchronously, Production only, with the `generate_lead` event. Exclude it from the first-party budget (D1). Add the `llms.txt` endpoint and the privacy disclosure (owner copy).
+    - **Verify:** the tag appears only in Production builds; the budget check stays under 15,360 bytes; `/llms.txt` returns 200.
+    - _Requirements: R14.2, R14.3_
+  - [ ] 28.2 Add the `X-Robots-Tag: noindex, nofollow` rule for `*.vercel.app` hosts in `vercel.json`. Confirm Deployment Protection is on for previews.
+    - **Verify:** a preview and `zinc-digital-web.vercel.app` both send the header; an unauthenticated preview request is challenged.
+    - _Requirements: R14.6, R14.7_
+
+- [ ] 29. Release candidate
+  - [ ] 29.1 Run the full set on the release-candidate preview:
+    - `verify-site.mjs --mode full`;
+    - `check-deploy.mjs`;
+    - `db-test.mjs`;
+    - `lighthouse.mjs` on every public template.
+
+    Fix any LCP, CLS or INP miss.
+    - **Verify:** every script exits 0; LCP ≤ 1.2 s, CLS 0 and INP < 100 ms on every public template; the Lighthouse report is saved.
+    - _Requirements: R16.1–R16.4, R17.1–R17.4_
+  - [ ] 29.2 Run a final full-site visual round over every public template and admin view until a round finds no mistakes. Deliver the screenshot set and the fixed-mistakes list to the owner.
+    - **Verify:** the final round reads "No mistakes found"; the owner has the folder path.
+    - _Requirements: R17.6_
+
+- [ ] 30. Retirement
+  - [ ] 30.1 List the obsolete preview files and scripts (design section 2 and PORT.md section 5.4) with their reasons, as a PR comment.
+    - **Owner go:** approve the list. Then delete exactly the approved files.
+    - **Verify:** CI passes after deletion; `check-site.mjs` and `verify-site.mjs` pass.
+    - _Requirements: R18.3, R18.4_
+
+- [ ] 31. Launch readiness
+  - [ ] 31.1 Record the launch checklist in the M6 PR:
+    - owner content approvals (results, logos, legal copy, live copy, authors, SMS number);
+    - live mode approved and set on Production;
+    - smoke inquiry received;
+    - SPF and DKIM verified;
+    - owner staff accounts present.
+
+    - **Verify:** every item is checked, with evidence or the owner's written approval.
+    - _Requirements: R2.7, R18.5, R18.6_
+  - [ ] 31.2 Push, open the M6 PR and request one Codex review. **Owner go:** merge.
+    - _Requirements: R18.1_
+
+- [ ] 32. Cutover
+  - [ ] 32.1 **Owner go:** cut over DNS.
+    1. Confirm the DNS host for `zincdigital.co` and `www`.
+    2. Lower the TTLs a day ahead.
+    3. Add the domain to the Vercel project.
+    4. Switch the records, leaving mail records unchanged.
+    5. Add HSTS for `www.zincdigital.co` in a follow-up commit to `main` (PR, **Owner go:** merge).
+
+    - **Verify:** `dig` shows Vercel targets, and TLS is valid.
+    - _Requirements: R18.7, R15.1_
+  - [ ] 32.2 Within one hour, run the checks on the live domain:
+    - `check-redirects.mjs` and `check-deploy.mjs`;
+    - submit the sitemap in Search Console;
+    - GA4 real-time hit;
+    - a test inquiry delivered and visible in the admin;
+    - `lighthouse.mjs` and the Web Vitals;
+    - staff sign-in.
+
+    - **Verify:** every check passes and the results are reported to the owner in CT.
+    - _Requirements: R18.8, R16.3_
+  - [ ] 32.3 Record the rollback (repoint DNS to the WordPress host within the lowered TTL) and leave WordPress running for about 30 days.
+    - **Verify:** the rollback steps and the WordPress retirement date are in `docs/launch.md`.
+    - _Requirements: R18.9_
+
+- [ ] 33. Cleanup
+  - [ ] 33.1 After the last merge, remove the Kiro worktree and branch, and the scratch folder `/Volumes/Satechi Hub/zinc-spec-scratch/` (**Owner go:** for deletion). Keep the review evidence under `zinc-digital-web-review/`.
+    - **Verify:** `git worktree list` no longer shows the spec worktree; a report of what was kept and removed is sent to the owner.
+    - _Requirements: R18.1_

@@ -1,17 +1,39 @@
 # AGENTS.md — zinc-digital-web
 
-The new `www.zincdigital.co`: a custom Astro site on Vercel that replaces the WordPress/Elementor/Kinsta site.
+The new `www.zincdigital.co`: one Astro project on Vercel that replaces the WordPress/Elementor/Kinsta site. Public pages are prerendered, visitors send inquiries without accounts, and invited ZINC staff use a private admin backed by Supabase.
 
-**Authority:** `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` is the approved design. `.planning/` (GSD) governs execution. The newest direct owner correction wins.
+**Authority (owner, 4 Oct 2026):**
+1. The newest direct owner instruction.
+2. Claude Design (the "Zinc Digital redesign" project; packaged export admitted 4 Oct 2026, Astro archive SHA-256 `a624cfec…d42d0`) for visuals, copy, pages and interactions. Where the code differs from the Design, the code is the defect.
+3. The invariants below.
+
+**Execution plan:** `.kiro/specs/create-a-complete-implementation-spec/` (`requirements.md`, `design.md`, `tasks.md`), run with the Kiro flow.
+- `docs/superpowers/specs/2026-09-25-zinc-site-redesign-design.md` and `.planning/` are historical. Rules they state that were superseded are marked inline.
+- They remain the source only for non-visual decisions the Kiro spec reuses.
 
 ## Invariants
 
-- **Identity:** ZINC Digital's own site only. The live WordPress site, the July 2026 "Website V2" prototype, and the `Zinc_Digital_Agency` repo are sources of facts and assets, never of design, copy, or configuration.
-- **Copy:** fresh site voice per spec §7. No `kirk-voice` phrasing, no legacy lines, no cursing, no sales devices, no invented numbers (`[RECEIPT: …]` until the owner confirms). Never "GEO" for generative search.
-- **Performance is launch-blocking:** spec §10 gates on every template.
-- **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace).
-- **Git:** `main` is the product. One work branch per task, in its own worktree, merged to `main` by PR, then deleted. Copilot reviews each PR.
-- **Irreversible actions** (DNS cutover, production env secrets, deleting anything) need the owner's explicit go for that exact action.
-- **Runtime:** Node 24.
+- **Identity:** ZINC Digital's own site only. The live WordPress site, the July 2026 "Website V2" prototype and the `Zinc_Digital_Agency` repo are sources of facts and assets, never of design, copy or configuration.
+- **Copy:** the Design's copy and voice.
+  - No `kirk-voice` phrasing, no cursing, no sales devices.
+  - No invented numbers. Content waiting on the owner renders nothing; no placeholder markers in pages.
+  - Never "GEO" for generative search.
+- **Performance:** LCP ≤ 1.2 s, CLS 0, INP < 100 ms, and at most 15 KB gzip first-party JavaScript per page.
+  - Lighthouse runs and reports, but a score below 100 never fails a check.
+  - The Google tag loads asynchronously and is counted separately (owner, 4 Oct 2026).
+  - Accessibility: WCAG 2.2 AA.
+- **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace). No Cloudflare and no Docker. Paid AI and search providers stay off until the owner sets their keys.
+- **Git (Kiro flow):**
+  - Work runs in the spec's Kiro worktree on its `spec/<spec-slug>` branch. Milestones are the task groups in `tasks.md`.
+  - Each milestone reaches `main` by squash-merged PR once checks pass, with one Codex GitHub review requested on the final head and at most two review rounds. The branch is then reset to `main`.
+  - Pushes always name the branch.
+- **Irreversible or production actions** need the owner's explicit go for that exact action:
+  - DNS cutover;
+  - production secrets;
+  - applying database migrations or Auth settings;
+  - merging to `main`;
+  - closing PRs;
+  - deleting anything.
+- **Runtime:** Node 24. This Mac's default `node` is 26, so run commands with `/opt/homebrew/opt/node@24/bin` first on `PATH`.
 - **Time:** everything shown to the owner is America/Chicago (CT).
 - **Storage:** all work, scratch and worktrees stay under `/Volumes/Satechi Hub/`.

@@ -16,6 +16,8 @@ progress:
   percent: 0
 ---
 
+> **Superseded (owner, 4 Oct 2026):** this GSD file is history. Claude Design is the authority for visuals, copy, pages and interactions, and `.kiro/specs/create-a-complete-implementation-spec/` (Kiro flow) is the execution plan. Phases, dates and status below no longer drive work.
+
 # Project State
 
 ## Project Reference
