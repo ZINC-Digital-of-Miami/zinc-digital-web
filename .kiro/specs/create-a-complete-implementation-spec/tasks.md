@@ -69,7 +69,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
 ## M2 — Public site
 
-- [ ] 2. Integrate the Design package and the build foundation
+- [x] 2. Integrate the Design package and the build foundation
   - [x] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
     1. Confirm the source archive's SHA-256 is `a624cfec…d42d0`.
     2. Copy the files in PORT.md section 5.1 (add) and 5.2 (replace).
