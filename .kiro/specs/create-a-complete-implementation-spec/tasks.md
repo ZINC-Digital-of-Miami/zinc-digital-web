@@ -70,7 +70,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 ## M2 — Public site
 
 - [ ] 2. Integrate the Design package and the build foundation
-  - [ ] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
+  - [x] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
     1. Confirm the source archive's SHA-256 is `a624cfec…d42d0`.
     2. Copy the files in PORT.md section 5.1 (add) and 5.2 (replace).
     3. Rename `src/pages/-...path-.astro` to `src/pages/[...path].astro`, replacing the existing file.
@@ -80,15 +80,15 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
     - **Verify:** `npm ci` exits 0 and `git status` shows no `package-lock.json` change.
     - _Requirements: R1.5, R1.6, R1.7_
-  - [ ] 2.2 Make the type check and the build pass.
+  - [x] 2.2 Make the type check and the build pass.
     - Fix every `astro check` error.
     - Record where the build writes static pages and the function (design section 4.1). Point `check-site.mjs` at the actual static directory.
     - **Verify:** `npm run check` exits 0 with 0 errors; `npm run build` exits 0; the font guard passes.
     - _Requirements: R1.8, R4.3_
-  - [ ] 2.3 Start the live preview and keep it running (`npx astro dev --host 127.0.0.1 --port 4321`), then point the dashboard Browser panel at it.
+  - [x] 2.3 Start the live preview and keep it running (`npx astro dev --host 127.0.0.1 --port 4321`), then point the dashboard Browser panel at it.
     - **Verify:** `curl -sI http://127.0.0.1:4321/` returns 200.
     - _Requirements: R18.2_
-  - [ ] 2.4 Fetch and serve the 17 WordPress case images.
+  - [x] 2.4 Fetch and serve the 17 WordPress case images.
     1. Run `npm run assets`.
     2. Check every file against the dimensions in `assets.site.json`.
     3. Move the images into `src/assets/work/` and render them with `<Picture formats={['avif','webp']}>`, with width, height, alt and lazy loading below the fold.

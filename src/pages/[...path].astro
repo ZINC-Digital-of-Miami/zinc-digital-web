@@ -1,13 +1,14 @@
 ---
-import PreviewLayout from '../layouts/PreviewLayout.astro';
-import MockupPage from '../components/MockupPage.astro';
-import { activeRoutes, type Route } from '../data/mockup';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomeBands from '../components/home/HomeBands.astro';
+import Page from '../components/Page.astro';
+import { routes, type Route } from '../data/site';
 export function getStaticPaths() {
-  return activeRoutes.map(route => ({params:{path:route.path==='/'?undefined:route.path.replace(/^\/|\/$/g,'')},props:{route}}));
+  return routes.map((route) => ({ params: { path: route.path === '/' ? undefined : route.path.replace(/^\/|\/$/g, '') }, props: { route } }));
 }
-interface Props {route:Route}
-const {route}=Astro.props;
+interface Props { route: Route }
+const { route } = Astro.props;
 ---
-<PreviewLayout title={route.title+' | ZINC'}>
-  <MockupPage route={route} />
-</PreviewLayout>
+<SiteLayout route={route}>
+  {route.template === 'home' ? <HomeBands /> : <Page route={route} />}
+</SiteLayout>

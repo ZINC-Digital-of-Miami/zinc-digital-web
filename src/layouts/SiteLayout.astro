@@ -1,0 +1,134 @@
+---
+// SiteLayout.astro — one shell for every route (home included).
+// Head: title, description, canonical, OG/Twitter, JSON-LD — all server-rendered.
+// Body: header with theme toggle, mobile nav row, <slot/>, CTA band, footer,
+// then the shell script (theme, cursor, grain, progress, reveal, pins, magnetic).
+import { Font } from 'astro:assets';
+import '../styles/tokens.css';
+import '../styles/themes.css';
+import '../styles/site.css';
+import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, posts, excerpt, noindexPaths, type Route } from '../data/site';
+
+interface Props { route: Route }
+const { route } = Astro.props;
+const t = route.template;
+const path = route.path;
+const title = t === 'home' ? route.title : route.title + ' | ZINC';
+const desc = describe(route);
+const canonical = SITE + path;
+const ogImg = SITE + '/og/' + ogKind(route) + '.png';
+const noindex = noindexPaths.has(path);
+const wordmark = asset('wordmark-black');
+
+// ---- JSON-LD ----
+const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, telephone: PHONE, sameAs: SOCIAL.map(([, u]) => u) };
+const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name.replace(' satellite', ''), parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/', telephone: PHONE, image: ogImg, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
+const seg = path.split('/').filter(Boolean);
+const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
+const crumbs = [{ name: 'Home', url: SITE + '/' }, ...seg.map((s, i) => ({ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }))];
+const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital', publisher: { '@id': SITE + '/#org' } }, { '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
+if (t === 'article') { const p = posts.find((x) => x.slug === route.slug)!; graph.push({ '@type': 'Article', headline: p.title, description: excerpt(p, 155), datePublished: p.dateGmt.slice(0, 10), image: ogImg, author: { '@type': 'Person', name: p.author.name, jobTitle: 'CEO' }, publisher: { '@id': SITE + '/#org' }, mainEntityOfPage: canonical }); }
+if (t === 'service') { const s = svcBy(route.slug!); graph.push({ '@type': 'Service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: 'US', url: canonical }, { '@type': 'FAQPage', mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
+if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: { '@type': 'Organization', name: c.title, url: c.url } }); }
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+
+const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
+const showCta = t !== 'home' && t !== 'contact';
+---
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta property="og:site_name" content="ZINC Digital" />
+    <meta property="og:title" content={route.title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={t === 'article' ? 'article' : 'website'} />
+    <meta property="og:image" content={ogImg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={route.title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImg} />
+    <meta name="theme-color" content="#F5F6F7" />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" />
+    <Font cssVariable="--font-mono" />
+    <script is:inline>
+      // Design default is light; only a stored choice switches to dark (no OS-preference drift).
+      (function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('zinc-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+    </script>
+    <script type="application/ld+json" set:html={ld} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="zs-grain" aria-hidden="true"></div>
+    <div class="zs-cur" id="zsCur" aria-hidden="true"></div>
+    <div class="zb" id="zsRoot" data-layer={route.layer || ''} data-template={t}>
+      <header class="nav">
+        <div class="wrap nav-in">
+          <i class="sprog" id="zsProg" aria-hidden="true"></i>
+          <a class="nav-logo" href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} fetchpriority="high" /></a>
+          <nav class="nlinks" aria-label="Main navigation">
+            <a class={navOn('work')} href="/work/" aria-current={t === 'work' ? 'page' : undefined}>Work</a>
+            <a class={navOn('services')} href="/services/" aria-current={t === 'services' ? 'page' : undefined}>Services</a>
+            <a class={navOn('about')} href="/about/" aria-current={t === 'about' ? 'page' : undefined}>About</a>
+            <a class={navOn('blog')} href="/blog/" aria-current={t === 'blog' ? 'page' : undefined}>Articles</a>
+          </nav>
+          <button type="button" class="theme-t" id="themeToggle" aria-label="Switch between light and dark"><span class="ic"></span><span data-theme-label>Dark mode</span></button>
+          <a class="btn fill" href="/contact/" style="min-height:44px;padding:0 18px">Start an inquiry</a>
+        </div>
+      </header>
+      <nav class="mnav" aria-label="Main navigation (mobile)">
+        <a class={navOn('work')} href="/work/">Work</a>
+        <a class={navOn('services')} href="/services/">Services</a>
+        <a class={navOn('about')} href="/about/">About</a>
+        <a class={navOn('blog')} href="/blog/">Articles</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+
+      <main id="main"><slot /></main>
+
+      {showCta && (
+        <section class="band cta">
+          <div class="sph" data-par="0.06" style="width:520px;height:520px;left:-140px;top:-80px;animation:float2 12s ease-in-out infinite"></div>
+          <div class="wrap cta-grid">
+            <div>
+              <span class="kick rv"><span class="mdot"></span> Work with ZINC</span>
+              <h2 class="disp cta-h rv" style="margin-top:18px">Start an <span class="hit">inquiry.</span></h2>
+              <div class="p-related rv" style="margin-top:36px"><a class="btn fill" href="/contact/">Open the form</a><a class="btn ghost" href={SMS}>Text {PHONE_LABEL}</a></div>
+            </div>
+            <div class="rv" style="width:clamp(160px,18vw,260px);aspect-ratio:1"><div class="badge"><div class="bring2"></div><img class="bimg" src={asset('zinc-badge').src} alt="" width={asset('zinc-badge').width} height={asset('zinc-badge').height} loading="lazy" /><div class="bring"></div><div class="borbit"><div class="bdot"></div></div></div></div>
+          </div>
+        </section>
+      )}
+
+      <footer class="foot">
+        <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>
+        <div class="wrap">
+          {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
+          <div class="fgrid">
+            {STUDIOS.map((s) => <div><h4>{s.name}</h4><div class="fmeta">{s.street}<br />{s.city}, FL {s.zip}</div></div>)}
+            <div><h4>Contact</h4><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
+          </div>
+          <div class="fbot">
+            <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
+            <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>{ADMIN_PATH && <> · <a href={ADMIN_PATH}>Admin</a></>}</span>
+            <span><span class="mdot" style="margin-right:10px"></span>Coded in Miami. With cafecitos.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      import { initShell } from '../scripts/shell';
+      initShell();
+    </script>
+  </body>
+</html>

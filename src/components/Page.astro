@@ -1,0 +1,149 @@
+---
+// Page.astro — every non-home template, ported from ZINC Site.dc.html.
+import Img from './Img.astro';
+import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, SMS, PHONE_LABEL, INQUIRY_MODE, type Route, type Layer } from '../data/site';
+const live = INQUIRY_MODE === 'live';
+interface Props { route: Route }
+const { route } = Astro.props;
+const t = route.template;
+const svc = t === 'service' ? svcBy(route.slug!) : null;
+const study = t === 'case' ? caseBy(route.slug!) : null;
+const post = t === 'article' ? posts.find((p) => p.slug === route.slug)! : null;
+const urlLabel = 'zincdigital.co' + route.path;
+const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as Record<string, string>)[t] || t);
+const pageLede = svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
+const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
+const titleCls = route.title.length > 34 ? 'long' : '';
+const layerGrid = layers.map((layer, i) => ({ layer, on: svc ? svc.layer === layer : true, label: pad(i) + ' / ' + (svc && svc.layer === layer ? 'Current layer' : 'Connected layer'), services: services.filter((s) => s.layer === layer) }));
+const dots = Array.from({ length: 144 }, (_, i) => ({ cls: (i * 7) % 13 === 0 ? 't' : '', delay: ((i % 12) * 0.12 + Math.floor(i / 12) * 0.08).toFixed(2) + 's' }));
+// case section numbering counts only rendered sections
+let sec: Record<string, string> = {};
+if (study) { let n = 0; const nx = () => pad(n++); sec = { sit: nx(), app: nx() }; if (study.before) sec.ba = nx(); sec.layers = nx(); sec.shots = nx(); if (study.brand.length) sec.brand = nx(); if (study.results.length) sec.results = nx(); if (study.quote) sec.quote = nx(); }
+const isPhone = (k: string) => /phone|mobile/.test(k);
+const cap = (k: string) => k.replace(/-/g, ' ');
+const feat = posts[0];
+const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
+const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
+type Run = { text: string; href?: string };
+const runsOf = (b: { runs?: Run[] }) => b.runs || [];
+---
+{t !== 'case' && (
+  <section class="p-intro">
+    <div class="sph" data-par="0.07" style="width:560px;height:560px;right:-150px;top:-60px;animation:float1 11s ease-in-out infinite"></div>
+    <div class="wrap">
+      <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span><span>{urlLabel}</span></div>
+      <hr class="rule" />
+      <h1 class:list={['disp p-title rv', titleCls]}>{route.title}</h1>
+      {pageLede && <p class="p-lede rv">{pageLede}</p>}
+      {meta && <p class="lab rv" style="margin:28px 0 0">{meta}</p>}
+    </div>
+  </section>
+)}
+
+{svc && (<>
+  <section class="s-open"><div class="wrap s-open-in">
+    <div class="rv"><span class="kick">{layerMeta[svc.layer].kick}</span><h2 class="disp p-sec">{layerMeta[svc.layer].line}</h2><p class="p-body p-muted" style="margin-top:22px">{layerMeta[svc.layer].body}</p></div>
+    <div class="s-vis rv">
+      {svc.layer === 'Build' && <div class="s-wire"><i style="grid-area:1/1/2/7"></i><i style="grid-area:2/1/5/5"></i><i style="grid-area:2/5/4/7"></i><i style="grid-area:4/5/5/7"></i><i style="grid-area:5/1/7/3"></i><i style="grid-area:5/3/7/5"></i><i style="grid-area:5/5/7/7;background:var(--teal);border-color:var(--teal)"></i></div>}
+      {svc.layer === 'Demand' && <div class="s-curve"><svg viewBox="0 0 400 400" aria-hidden="true"><line x1="20" y1="360" x2="380" y2="360" stroke="var(--line)" stroke-width="1.5"></line><line x1="20" y1="40" x2="20" y2="360" stroke="var(--line)" stroke-width="1.5"></line><path class="fillp" d="M20 356 C120 350 180 300 230 200 S330 60 380 40 L380 360 L20 360 Z"></path><path class="ln" pathLength="1" d="M20 356 C120 350 180 300 230 200 S330 60 380 40"></path><circle class="pt" cx="380" cy="40" r="7" fill="#FC0781"></circle></svg><div class="s-ax lab"><span>Low intent</span><span>Ready to buy</span></div></div>}
+      {svc.layer === 'Intelligence' && <div class="s-dots" aria-hidden="true">{dots.map((d) => <i class={d.cls} style={'animation-delay:' + d.delay}></i>)}</div>}
+    </div>
+  </div></section>
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">{layerMeta[svc.layer].second}</span><h2 class="disp p-sec rv">{layerMeta[svc.layer].secondTitle}</h2>
+    {svc.layer === 'Build' && <ol class="s-blocks rv-stag">{svc.deliverables.map((d, i) => <li><span class="lab">Slice {pad(i)}</span><p>{d}</p></li>)}</ol>}
+    {svc.layer === 'Demand' && <div class="s-blocks rv-stag">{contract.map(([k, v]) => <div><span class="lab">{k}</span><p>{v}</p></div>)}</div>}
+    {svc.layer === 'Intelligence' && <dl class="s-readout rv">{readout.map(([k, v]) => <div><dt><span class="mdot"></span>{k}</dt><dd>{v}</dd></div>)}</dl>}
+  </div></section>
+  <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>
+    <dl class="p-spec rv rv-stag"><div><dt class="lab">Deliverables</dt><dd><ul>{svc.deliverables.map((d, i) => <li><i>{pad(i)}</i><span>{d}</span></li>)}</ul></dd></div><div><dt class="lab">Cadence</dt><dd>{svc.cadence}</dd></div><div><dt class="lab">Client owns</dt><dd>{svc.owns}</dd></div><div><dt class="lab">Reported</dt><dd>{svc.reported}</dd></div></dl>
+  </div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Related work / scope varies by service</span><h2 class="disp p-sec">{caseBy(svc.caseSlug).title}</h2></div><div class="rv"><p class="p-body p-muted">See how this service ran inside a real engagement, alongside the connected work.</p><a class="arrow" href={'/work/' + svc.caseSlug + '/'}>Read the case study ↗</a></div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Before the work begins</span><h2 class="disp p-sec">Useful questions.</h2></div><div class="p-faq rv">{svc.questions.map(([qq, a]) => <details><summary>{qq}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></div></section>
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">Connect the next part</span><h2 class="disp p-sec rv">Start with {svc.title.toLowerCase()}.</h2><div class="p-related rv"><a class="btn fill" href={link('/contact/', { service: svc.slug })}>Start an Inquiry</a><span class="brk"></span>{svc.related.map((s) => <a href={'/services/' + s + '/'}>{svcBy(s).title} ↗</a>)}</div></div></section>
+</>)}
+
+{(t === 'services' || svc) && (
+  <section class="p-band"><div class="wrap"><span class="kick rv">The connected system</span><h2 class="disp p-sec rv">Build. Demand. Intelligence.</h2>
+    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div class:list={['p-layer', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3><ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>)}</div>
+  </div></section>
+)}
+
+{t === 'work' && (<>
+  {cases.map((c, i) => <section class="p-band thin"><div class="wrap p-case"><div class="rv"><div class="disp p-case-no" aria-hidden="true">{pad(i)}</div><span class="kick" style="margin-top:22px">Case study / {pad(i)}</span><h2 class="disp p-sec">{c.title}</h2><p class="p-body" style="margin-top:20px">{c.line}</p><p class="lab" style="margin:14px 0 0">{c.layers.join(' / ')}</p><a class="arrow" href={'/work/' + c.slug + '/'}>Read the case study ↗</a></div><figure class="p-frame rv"><Img k={c.hero} alt={c.title + ' source screenshot'} sizes="(max-width: 900px) 100vw, 50vw" /></figure></div></section>)}
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">Selected client relationships</span><div class="logos rv rv-stag">{clients.map((c) => <div class="logo-c">{c.logo ? <Img class={asset(c.logo).width === asset(c.logo).height ? 'sq' : ''} k={c.logo} alt={c.name} sizes="240px" /> : <span>{c.name}</span>}</div>)}</div></div></section>
+</>)}
+
+{study && (<>
+  <section class="c-open" id="cOpen"><div class="c-open-pin"><div class="c-open-img"><Img id="cOpenImg" k={study.hero} alt={study.title + ' — current site'} loading="eager" fetchpriority="high" /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{urlLabel}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">Layers in use / {study.layers.join(' · ')}</p></div></div></section>
+  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">Client</span><p>{study.title}</p></div><div><span class="lab">Location</span><p>{study.location}</p></div><div><span class="lab">Timeline</span><p>{study.timeline}</p></div><div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
+    {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
+    <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">Visit the public client site ↗</a></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.sit} / The situation</span><h2 class="disp p-sec">What they arrived with.</h2></div><div class="rv"><p class="p-body">{study.situation}</p><ol class="c-list rv-stag">{study.challenge.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.app} / The approach</span><h2 class="disp p-sec">What ZINC did.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.approach.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>
+  {study.before && <section class="ba" id="ba"><div class="wrap ba-pin"><div class="ba-head"><div><span class="kick">{sec.ba} / Before and after</span><h2 class="disp p-sec">Then and now.</h2></div><p class="lab" style="max-width:38ch;margin:0">Scroll to wipe between the site the client arrived with and the site ZINC shipped.</p></div><div class="ba-stage" id="baStage"><Img class="ba-before" k={study.before} alt={study.title + ' — site before the engagement'} /><Img class="ba-after" k={study.hero} alt={study.title + ' — current site'} /><div class="ba-bar" aria-hidden="true"><i>⇔</i></div><span class="ba-tag" style="left:16px">Before / prior site</span><span class="ba-tag" style="right:16px">After / current</span></div></div></section>}
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.layers} / The connected work</span><h2 class="disp p-sec rv">The layers in use.</h2>
+    <div class="p-layers rv rv-stag">{layers.map((layer, i) => { const on = study.layers.includes(layer); return <div class:list={['p-layer', { on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{pad(i)} / {on ? 'Active layer' : 'Scope to confirm'}</span><h3 class="disp p-layer-h">{layer}</h3><p class="p-muted" style="margin:0 0 18px">{study.work[layer as Layer]}</p><ul class="p-links">{services.filter((s) => study.services.includes(s.slug) && s.layer === layer).map((s) => <li><a href={'/services/' + s.slug + '/'}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>; })}</div>
+  </div></section>
+  <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">Built for the work.</h2><p class="p-muted" style="margin:18px 0 0">Source screenshots. Keep scrolling to move through them.</p></div>
+    {study.images.map((k) => <figure class:list={['c-hz-shot', { phone: isPhone(k) }]}><div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div><div class="vp"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></div><figcaption class="lab">{cap(k)} / original capture</figcaption></figure>)}
+  </div></div></section>
+  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{study.brand.map((k) => <figure class:list={['c-brand-tile', { dark: /brand-|product-/.test(k) }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
+  {study.results.length > 0 && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.results} / The results</span><h2 class="disp p-sec">What changed.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.results.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>}
+  {study.quote && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.quote} / In their words</span><h2 class="disp p-sec">{study.quote.who}</h2><p class="lab" style="margin:10px 0 0">{study.quote.org}</p></div><div class="rv"><blockquote class="p-body c-quote" style="margin:0">“{study.quote.text}”</blockquote></div></div></section>}
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{caseBy(study.next).title}</h2></div><div class="rv" style="align-self:end"><a class="arrow" href={'/work/' + study.next + '/'}>Continue through the work ↗</a></div></div></section>
+</>)}
+
+{t === 'about' && (<>
+  <section class="p-band"><div class="wrap p-split"><h2 class="disp p-sec rv" style="margin:0">The business sets the work.</h2><div class="rv"><p class="p-body">ZINC brings build, demand and intelligence into one working relationship.</p><p class="p-muted" style="margin:20px 0 0;max-width:52ch">The team’s roles span business strategy, content, ecommerce, applications and code. Responsibilities are made explicit for each engagement.</p></div></div></section>
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">The people doing the work · Order shuffles on every visit</span><div class="team" data-team>{team.map((p) => <div class="person rv"><div class="person-ph"><img src={asset(p.photo).src} alt={p.name} width={asset(p.photo).width} height={asset(p.photo).height} loading="lazy" decoding="async" /></div><div class="person-n">{p.name}</div><div class="lab" style="margin-top:6px">{p.role}</div></div>)}</div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">How an engagement runs</span><h2 class="disp p-sec">A clear working sequence.</h2></div><ol class="p-seq rv rv-stag">{sequence.map(([name, body], i) => <li><span class="lab">{pad(i)}</span><div><h3 class="disp">{name}</h3><p>{body}</p></div></li>)}</ol></div></section>
+</>)}
+
+{t === 'blog' && (<>
+  <section class="p-band"><div class="wrap"><a class="p-feat rv" href={'/blog/' + feat.slug + '/'}><div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2></div><div><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article ↗</span></div></a></div></section>
+  <section class="p-band thin"><div class="wrap" data-blog>
+    <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
+    <div class="p-filter rv" style="margin-top:14px" data-blog-topics><span class="lab" style="margin-right:10px">Topic</span><button type="button" class="p-chip sm on" data-topic="All" aria-pressed="true">All topics</button>{topics.map((s) => <button type="button" class="p-chip sm" data-topic={s.slug} aria-pressed="false">{s.title}</button>)}</div>
+    <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{posts.length - 1} articles</p>
+    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.related.join(' ')}><span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><a class="arrow" href={'/blog/' + p.slug + '/'}>Read the full article ↗</a></article>)}</div>
+    <div class="p-empty" data-empty hidden><h2 class="disp p-sec">No articles in this view yet.</h2><p class="p-muted">Clear the filters to see the full archive.</p><button class="btn fill" type="button" data-clear-filter>Clear filters</button></div>
+  </div></section>
+</>)}
+
+{post && (<>
+  <section class="p-band"><div class="wrap p-article">
+    <aside class="p-aside rv"><p class="lab">Source article / {post.id}</p><p class="p-muted">Originally published {dateLabel(post.dateGmt)}.</p><a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
+    <article class="p-prose rv" data-source-id={post.id}>
+      {post.blocks.map((block, i) => block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</p>)}
+    </article>
+  </div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Source author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
+</>)}
+
+{legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><aside class="p-aside rv"><p class="p-muted">This public design preview does not present an approved legal policy. Production terms and disclosures require review before launch.</p></aside><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
+
+{t === 'contact' && <section class="p-band"><div class="wrap p-contact">
+  <aside class="p-aside rv"><span class="kick">{live ? 'Inquiry' : 'Inquiry preview'}</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2>{!live && <p class="p-demo" id="demo-notice"><span class="mdot"></span>Demo inquiry — no message will be sent</p>}<p class="p-muted">{live ? 'Three short steps. We read every inquiry and reply from hello@zincdigital.co.' : 'Use sample information to explore this form. Nothing is submitted or stored.'}</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
+  <form class="p-form rv" id="inqForm" data-demo-form data-mode={INQUIRY_MODE} data-thanks="/thanks/" method="post" action={live ? '/api/inquiries' : undefined} aria-describedby={live ? undefined : 'demo-notice'} novalidate>
+    <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
+    <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
+    <fieldset data-step="0"><legend>01 / Your business</legend><div class="p-fields"><label>Name<input id="inquiry-name" name="name" autocomplete="name" required maxlength="120" /></label><label>Company<input id="inquiry-company" name="company" autocomplete="organization" required maxlength="160" /></label><label>Work email<input id="inquiry-email" name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>Website URL<input id="inquiry-website" name="website" type="url" autocomplete="url" placeholder="https://" required maxlength="500" /></label></div></fieldset>
+    <fieldset data-step="1"><legend>02 / What you need</legend>{layers.map((layer) => <div class="p-svcgroup"><span class="lab">{layer}</span><div class="p-checks">{services.filter((s) => s.layer === layer).map((s) => <label class="p-check"><input type="checkbox" name="service" value={s.slug} data-service />{s.title}</label>)}</div></div>)}<div class="p-fields"><label>Monthly budget<select id="inquiry-budget" name="budget" required><option value="">Choose a range</option>{['Under $5k/mo', '$5–10k/mo', '$10–25k/mo', '$25k+/mo'].map((x) => <option>{x}</option>)}</select></label><label>Timeline<select id="inquiry-timeline" name="timeline" required><option value="">Choose a timeline</option>{['As soon as practical', 'Within three months', 'Three to six months', 'Exploring options'].map((x) => <option>{x}</option>)}</select></label></div></fieldset>
+    <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000"></textarea></label></div><p class="p-muted" style="margin:14px 0 0">{live ? 'Sending adds your inquiry to our board and emails the team. Nothing else is shared.' : 'Demo only. The next screen previews the confirmation; it does not contact ZINC.'}</p></fieldset>
+    <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value="/contact/" />
+    <p class="p-err" role="alert" data-form-error></p>
+    <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>← Back</button></div>
+    <p class="p-muted" data-nojs-note style="margin:14px 0 0">{live ? 'Without JavaScript the three steps show as one page; the button below submits.' : 'Without JavaScript the three steps show as one page. This is a non-sending demo; the link below previews the confirmation.'}</p>
+    {live ? <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button> : <a class="btn fill" href="/thanks/" data-nojs-submit>Preview demo confirmation</a>}
+  </form>
+</div></section>}
+
+{t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/contact/">Return to inquiry</a><a class="arrow" href="/work/" style="margin-top:0">Explore the work ↗</a></div></div></section>}
+
+{t === '404' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/">Home</a><a href="/services/">Services ↗</a><a href="/contact/">Contact ↗</a></div></div></section>}
+
+<script>
+  // Both initialisers return immediately when their root element is absent.
+  import { initBlog, initForm } from '../scripts/page';
+  initBlog(); initForm();
+</script>
