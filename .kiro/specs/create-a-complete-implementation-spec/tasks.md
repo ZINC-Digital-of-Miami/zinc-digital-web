@@ -151,7 +151,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
     - **Verify:** `node scripts/check-site.mjs` exits 0 on the build and fails when one page is removed.
     - _Requirements: R2.1, R16.2, R17.1_
-  - [ ] 4.2 Update `scripts/verify-site.mjs` and add `scripts/serve-static.mjs` (Node static server on 127.0.0.1). Apply these fixes:
+  - [x] 4.2 Update `scripts/verify-site.mjs` and add `scripts/serve-static.mjs` (Node static server on 127.0.0.1). Apply these fixes:
     - decode entities before comparing text;
     - skip `/admin/` and `/api/` in the crawl;
     - check what is actually displayed instead of the `hidden` property;
@@ -162,7 +162,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
     - **Verify:** `--mode quick` and `--mode full` both exit 0. The full run covers the 320–2560 px overflow sweep, no-JS, reduced motion, axe in both themes, and INP under 100 ms.
     - _Requirements: R3.1–R3.6, R16.1, R16.5, R17.2_
-  - [ ] 4.3 Add a `test` script running `node --test tests/`.
+  - [x] 4.3 Add a `test` script running `node --test tests/`.
     - **Verify:** `npm test` exits 0.
     - _Requirements: R17.3_
   - [ ] 4.4 Update `.github/workflows/ci.yml`:
