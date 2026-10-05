@@ -187,8 +187,8 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
       - **Verify:** read-only SQL confirms on the live database the new columns, the dropped policy and the new grants, `staff_role()` and the `security_invoker` view; `get_advisors` (security) returns nothing; `supabase gen types --project-id zeetlqskfvsfbllrhzre` regenerates `src/lib/database.types.ts`, and `npm run check` exits 0.
       - _Requirements: R9.2, R9.4_
-  - [ ] 9. Auth configuration
-    - [ ] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
+  - [x] 9. Auth configuration
+    - [x] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
       - **Owner go:** run `supabase config push`.
       - **Verify:** the Management API read-back shows signup disabled, the redirect URLs, the templates and SMTP; a sign-in attempt for an uninvited address creates no user (checked with read-only SQL on `auth.users`).
       - _Requirements: R7.1, R7.5_
