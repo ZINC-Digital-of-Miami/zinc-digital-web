@@ -188,7 +188,7 @@ export async function renotify(
 }
 
 export type Outcome =
-  | { kind: 'ok' } // saved, or a honeypot post that stores and sends nothing
+  | { kind: 'ok'; lead?: true } // lead is present only after storage; honeypots remain an untracked success
   | { kind: 'reject'; status: 400 | 403 | 413 | 422 | 429 | 502 | 503; error: string; field?: Field; values?: Partial<Inquiry>; retryAfter?: number };
 
 /** Every contact submission, from either route: size, honeypot, origin, validation, then submit(). */
@@ -205,7 +205,7 @@ export async function handle(request: Request, clientAddress: string, opts: { si
   const out = await submit(r.value, clientAddress, deps);
   if (out.kind === 'rate') return { kind: 'reject', status: 429, error: SUBMIT_MESSAGES.rate, retryAfter: out.retryAfter, values };
   if (out.kind === 'error') return { kind: 'reject', status: out.status, error: out.error, values };
-  return { kind: 'ok' }; // the visitor sees success whether or not the notification went out (R6.5)
+  return { kind: 'ok', lead: true }; // the visitor sees success whether or not the notification went out (R6.5)
 }
 
 const rejectHeaders = (o: Extract<Outcome, { kind: 'reject' }>): Record<string, string> => (o.retryAfter ? { 'retry-after': String(o.retryAfter) } : {});
@@ -213,7 +213,7 @@ const rejectHeaders = (o: Extract<Outcome, { kind: 'reject' }>): Record<string, 
 /** POST /api/inquiries/ answers in JSON, never cached. */
 export function jsonAnswer(o: Outcome): Response {
   const headers = { 'content-type': 'application/json', 'cache-control': 'no-store', ...(o.kind === 'reject' ? rejectHeaders(o) : {}) };
-  if (o.kind === 'ok') return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
+  if (o.kind === 'ok') return new Response(JSON.stringify({ ok: true, ...(o.lead ? { lead: true } : {}) }), { status: 200, headers });
   return new Response(JSON.stringify(o.field ? { error: o.error, field: o.field } : { error: o.error }), { status: o.status, headers });
 }
 

@@ -3,6 +3,11 @@ import vercel from '@astrojs/vercel';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { caseAliases } from './src/data/redirects.ts';
 import { adminThemeHash } from './src/lib/admin-theme.ts';
+import {analyticsEnabled, googleTagScript} from './src/lib/analytics.ts';
+import {createHash} from 'node:crypto';
+
+const analytics = analyticsEnabled(process.env.PUBLIC_ANALYTICS, process.env.VERCEL_ENV);
+const analyticsHash = 'sha256-' + createHash('sha256').update(googleTagScript(process.env.PUBLIC_ADS_CONVERSION_LABEL)).digest('base64');
 
 const fontFamilies = [
   { name: 'Big Shoulders Display', cssVariable: '--font-display', provider: fontProviders.fontsource(), weights: [800], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
@@ -67,7 +72,7 @@ export default defineConfig({
   fonts: fontFamilies,
   // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style
   // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header
-  // (vercel.json), since browsers ignore it in a meta policy. Analytics origins join in task 28.1.
-  security: { csp: { scriptDirective: { hashes: [adminThemeHash] }, styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
+  // (vercel.json), since browsers ignore it in a meta policy. Register hashes before SSR headers stream.
+  security: { csp: { scriptDirective: { hashes: [adminThemeHash, ...(analytics ? [analyticsHash] : [])], resources: ["'self'", ...(analytics ? ['https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.google.com'] : [])] }, styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
   redirects: Object.fromEntries(Object.entries(caseAliases).map(([from, to]) => ['/work/' + from + '/', { status: 301, destination: '/work/' + to + '/' }])),
 });

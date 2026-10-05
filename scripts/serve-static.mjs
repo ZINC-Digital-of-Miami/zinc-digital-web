@@ -22,7 +22,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; ch
 const preRoutes = []; for (const r of vercelConfig.routes) { if (r.handle) break; if (r.src) preRoutes.push(r); }
 // Routes after it that point at the function: on-demand pages this server cannot render.
 const fnRoutes = vercelConfig.routes.filter((r) => r.dest && !r.dest.startsWith('/') && r.src).map((r) => new RegExp(r.src));
-const headerRules = (vercelJson.headers || []).map((h) => ({ re: new RegExp('^' + h.source + '$'), headers: h.headers }));
+const headerRules = (vercelJson.headers || []).map((h) => ({ re: new RegExp('^' + h.source + '$'), has: h.has || [], headers: h.headers }));
 // Compress text responses the way Vercel's edge does, so Lighthouse sees realistic transfer sizes.
 const COMPRESSIBLE = /^(text\/|application\/(json|xml|manifest)|image\/svg)/;
 const send = (req, res, status, headers, body) => {
@@ -39,7 +39,8 @@ http.createServer(async (req, res) => {
   const url = new URL(req.url || '/', 'http://127.0.0.1');
   const pathname = decodeURIComponent(url.pathname);
   const headers = {};
-  for (const rule of headerRules) if (rule.re.test(pathname)) for (const h of rule.headers) headers[h.key] = h.value;
+  const host = (req.headers.host || '').split(':')[0];
+  for (const rule of headerRules) if (rule.re.test(pathname) && rule.has.every(condition => condition.type === 'host' && new RegExp('^' + condition.value + '$').test(host))) for (const h of rule.headers) headers[h.key] = h.value;
   for (const r of preRoutes) {
     const m = new RegExp(r.src).exec(pathname); if (!m) continue;
     if (r.continue) { Object.assign(headers, r.headers); continue; }

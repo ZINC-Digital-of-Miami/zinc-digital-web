@@ -1,4 +1,5 @@
 // page.ts — blog filters (layer + topic) and the three-step inquiry form.
+import {trackLead} from '../lib/analytics';
 export function initBlog() {
   const root = document.querySelector<HTMLElement>('[data-blog]');
   if (!root) return;
@@ -53,6 +54,7 @@ export function initForm() {
     if (focus) steps[step].querySelector<HTMLElement>('input,select,textarea')?.focus();
   };
   const advance = () => {
+    if (next.disabled) return;
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
     if (bad) { error.textContent = 'Complete the required fields.'; bad.scrollIntoView({ block: 'center' }); bad.reportValidity(); return; } // centre the field so the sticky header cannot cover it or its bubble
@@ -62,7 +64,7 @@ export function initForm() {
     const body: Record<string, string | string[]> = { service: [] };
     new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });
     fetch(form.dataset.endpoint || '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
-      .then(async (r) => { if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Send failed'); location.assign(form.dataset.thanks || '/thanks/'); })
+      .then(async (r) => { const result = await r.json().catch(() => ({})); if (!r.ok || result.ok !== true) throw new Error(result.error || 'Send failed'); await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/'); })
       .catch((e) => { next.disabled = false; next.textContent = 'Send inquiry'; error.textContent = e.message + '. Text us instead and we will pick it up.'; });
   };
   next.addEventListener('click', advance);

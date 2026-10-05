@@ -53,6 +53,25 @@ if (sitemap !== null) {
   const want = expected.filter((e) => !NOINDEX_PAGES.includes(e)).map((e) => SITE + '/' + e.replace(/index\.html$/, '')).sort();
   check(JSON.stringify(locs) === JSON.stringify(want), 'sitemap.xml should list exactly the ' + want.length + ' indexable pages; missing: ' + want.filter((u) => !locs.includes(u)).join(', ') + '; extra: ' + locs.filter((u) => !want.includes(u)).join(', '));
 }
+const llms = await readText('llms.txt');
+check(llms !== null && llms.startsWith('# ZINC Digital\n') && llms.includes(SITE + '/contact/'), 'llms.txt must describe ZINC and link to its public contact page');
+if (llms) check(!/\/admin\/|\/api\//.test(llms), 'llms.txt must not advertise private routes');
+
+// Vercel aliases stay noindex; the live domain must not inherit that header at cutover.
+const projectHeaders = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
+const robotsRules = projectHeaders.headers.filter(rule => rule.headers.some(header => header.key.toLowerCase() === 'x-robots-tag'));
+check(robotsRules.length === 1 && robotsRules[0].has?.some(condition => condition.type === 'host' && new RegExp('^' + condition.value + '$').test('zinc-digital-web.vercel.app') && !new RegExp('^' + condition.value + '$').test('www.zincdigital.co')), 'X-Robots-Tag must match Vercel hosts without blocking www.zincdigital.co');
+
+const expectAnalytics = process.argv.includes('--analytics=on');
+for (const {rel, html} of pages) {
+  const tags = Array.from(html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=GT-NNZRWNCF/g));
+  check(tags.length === (expectAnalytics ? 1 : 0), rel + ' has an unexpected Google tag count for this build');
+  if (expectAnalytics) {
+    check(html.includes('tag.async=true'), rel + ' Google tag must be asynchronous');
+    check(html.includes("'G-BV43HRVJ18'") && html.includes("'AW-17071018445'"), rel + ' must configure the existing Google destinations');
+    check(html.includes('https://*.google-analytics.com') && html.includes('https://www.googletagmanager.com'), rel + ' CSP must allow the Google tag and collection');
+  }
+}
 const robots = await readText('robots.txt');
 check(robots !== null, 'dist/robots.txt missing');
 if (robots !== null) {
@@ -187,7 +206,11 @@ for (const { rel, html } of pages) {
 }
 
 // ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
-for (const { rel, html } of pages) check(/<meta http-equiv="content-security-policy" content="[^"]*script-src 'self' 'sha256-/.test(html), rel + ' lacks the hashed content-security-policy meta tag');
+for (const { rel, html } of pages) {
+  const policy = html.match(/<meta http-equiv="content-security-policy" content="([^"]*)"/)?.[1] || '';
+  const scripts = policy.match(/(?:^|;)\s*script-src ([^;]+)/)?.[1] || '';
+  check(scripts.includes("'self'") && scripts.includes("'sha256-") && !/'unsafe-inline'|'unsafe-eval'/.test(scripts), rel + ' lacks a hashed script policy without unsafe-inline or unsafe-eval');
+}
 
 // ---- secrets (R15.2): nothing in the static output may look like a credential ----
 // A Supabase JWT is a secret unless its role is anon (the anon key is public by design).

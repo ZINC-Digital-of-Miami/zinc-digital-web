@@ -348,6 +348,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Owner go:** the owner reviews the map.
       - **Verify:** every inventoried old URL has a 301 target or is marked 410.
       - _Requirements: R14.4_
+      - 5 Oct CT: read-only script completed against live WordPress, live sitemaps and the existing Google connection (5 Jun 2025–5 Oct 2026). Inventory: 425 paths, 3 unchanged canonicals, 18 proposed article redirects matched by WordPress post ID, 404 paths awaiting classification/review. No old URL was retired or routing applied. Task remains open until the complete map is reviewed.
     - [ ] 27.2 Commit `src/data/redirects.ts`. Add the 301s to the Astro config and the `src/pages/[...gone].astro` handler. Rewrite internal links inside the migrated posts.
       - **Verify:** `scripts/check-redirects.mjs` on the preview passes for every entry (single hop, correct status and `Location`) and for 20 unknown paths (404).
       - _Requirements: R14.5, R17.7, R2.2_
@@ -355,6 +356,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 28.1 Add the Google tag (`GT-NNZRWNCF`, `G-BV43HRVJ18`, `AW-17071018445`), loaded asynchronously, Production only, with the `generate_lead` event. Exclude it from the first-party budget (D1). Add the `llms.txt` endpoint and the privacy disclosure (owner copy).
       - **Verify:** the tag appears only in Production builds; the budget check stays under 15,360 bytes; `/llms.txt` returns 200.
       - _Requirements: R14.2, R14.3_
+      - 5 Oct CT: tracking, saved-inquiry lead event, optional explicit Ads conversion label, CSP resources and `llms.txt` implemented. The loader is asynchronous and checks the live hostname before loading, so Production's Vercel aliases do not collect test visits. Production `PUBLIC_ANALYTICS=on` configured. Preview/Production static checks and the real Google library browser check pass; test collection was blocked. Privacy/Terms remain empty pending owner-approved copy; task is not complete.
     - [ ] 28.2 Add the `X-Robots-Tag: noindex, nofollow` rule for `*.vercel.app` hosts in `vercel.json`. Confirm Deployment Protection is on for previews.
       - **Verify:** a preview and `zinc-digital-web.vercel.app` both send the header; an unauthenticated preview request is challenged.
       - _Requirements: R14.6, R14.7_

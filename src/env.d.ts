@@ -1,5 +1,10 @@
 /// <reference types="astro/client" />
 
+interface Window {
+  gtag?: (command: string, name: string, options: Record<string, unknown>) => void;
+  zincAdsConversionLabel?: string;
+}
+
 declare namespace App {
   interface Locals {
     /** The signed-in Supabase user on admin and API requests, else null. */
