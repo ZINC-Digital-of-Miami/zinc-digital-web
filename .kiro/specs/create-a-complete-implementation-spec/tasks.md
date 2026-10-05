@@ -173,7 +173,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
-- [ ] M3 — Data, auth, contact
+- [x] M3 — Data, auth, contact · merged as #9 (`98d2fdf`)
   - [x] 8. Database baseline, tests and the first migration
     - [x] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
       - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
@@ -239,8 +239,8 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
       - **Verify:** one SPF record includes `_spf.google.com`, and the DKIM selector record resolves.
       - _Requirements: R6.7_
-  - [ ] 14. M3 PR
-    - [ ] 14.1 Run the milestone PR steps.
+  - [x] 14. M3 PR
+    - [x] 14.1 Run the milestone PR steps.
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
