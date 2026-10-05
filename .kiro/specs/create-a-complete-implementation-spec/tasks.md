@@ -225,7 +225,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** a unit test shows a `failed` row becoming `sent` and `notify_attempts` incrementing.
       - _Requirements: R6.6_
   - [ ] 13. Deployment checks and the live smoke test
-    - [ ] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
+    - [x] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
       - **Verify:** pages and unknown-path statuses as expected; admin pages 302 and staff APIs 401 without a session; noindex, `no-store` and `frame-ancestors` headers; the function runs on Node 24.
       - _Requirements: R8.1, R8.2, R8.7, R17.4_
     - [ ] 13.2 **Owner go:** the owner enters the Vercel environment variables, then one smoke inquiry is submitted:

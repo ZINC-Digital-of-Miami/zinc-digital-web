@@ -96,7 +96,7 @@
       "answer": null
     }
   ],
-  "blocking": "M3 code is written and pushed (head 8287b98): 10, 12 and 13.3 are done; 8.2, 8.3, 11.1, 11.2 and 13.1 are written. Waiting on the owner: SUPABASE_DB_URL in the git-ignored .env (8.1 baseline, then the live 8.2/8.3 rehearsal); PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY and SUPABASE_SECRET_KEY in .env (11.1 local sign-in check); VERCEL_BYPASS_SECRET in .env (13.1 run on the protected preview); then the owner go for 8.4 (apply 0002), 9.1 (supabase config push), 11.2 (bootstrap-owner) and 13.2 (Vercel env vars and the smoke inquiry).",
+  "blocking": "M3 head a3503d5: 10, 12, 13.1 and 13.3 are done; 8.2, 8.3, 11.1 and 11.2 are written. Supabase keys, salt and the bypass secret are in .env. Waiting on the owner: SUPABASE_DB_URL in .env (8.1 baseline, then the live 8.2/8.3 rehearsal); then the owner go for 8.4 (apply 0002), 9.1 (supabase config push) and 11.2 (bootstrap-owner, which the 11.1 sign-in check also needs); SMTP_USER/SMTP_PASS and the Vercel env vars for 13.2.",
   "context": {
     "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec\u2026) applied over the existing zinc-digital-web Astro 7.3.5 repository"
   }
