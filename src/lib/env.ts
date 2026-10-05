@@ -20,6 +20,6 @@ export function isConfigured(feature: Feature): boolean {
   switch (feature) {
     case 'supabase': return !!env.supabaseUrl() && !!env.supabasePublishableKey();
     case 'admin': return isConfigured('supabase') && !!env.supabaseSecretKey();
-    case 'smtp': { const s = env.smtp(); return !!s.user && !!s.pass && !!s.to; }
+    case 'smtp': { const s = env.smtp(); return !!s.user && !!s.pass; } // INQUIRY_NOTIFY_TO has a default
   }
 }

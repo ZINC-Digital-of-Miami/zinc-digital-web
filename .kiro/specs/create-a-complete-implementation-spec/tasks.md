@@ -215,13 +215,13 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
       - **Verify:** the owner signs in on the preview and `staff_role()` returns `owner` for them.
       - _Requirements: R7.4_
-  - [ ] 12. Live contact path
-    - [ ] 12.1 Add the `nodemailer` dependency. Write `src/lib/mail.ts` and complete `src/lib/inquiry.ts`: rate-limit count, insert, `notify()` with an 8-second timeout, and the status update.
+  - [x] 12. Live contact path
+    - [x] 12.1 Add the `nodemailer` dependency. Write `src/lib/mail.ts` and complete `src/lib/inquiry.ts`: rate-limit count, insert, `notify()` with an 8-second timeout, and the status update.
       - Wire them into `/api/inquiries/` and `/contact/send/`.
       - Remove the Resend and `api/inquiries/email.ts` code.
       - **Verify:** `tests/inquiry.test.ts`, with fake database and mailer, covers validation, the size limit, the origin check and the honeypot; the rate limit (5 per 10 minutes, 20 per day); database failure, which returns a retryable error and sends no email; email failure, which keeps the inquiry and marks it `failed`; and the no-JS 303 and error paths.
       - _Requirements: R5.4–R5.7, R6.1, R6.3–R6.5, R15.3_
-    - [ ] 12.2 Add `POST /api/admin/notify`, which re-sends a failed inquiry notification through `src/lib/mail.ts`.
+    - [x] 12.2 Add `POST /api/admin/notify`, which re-sends a failed inquiry notification through `src/lib/mail.ts`.
       - **Verify:** a unit test shows a `failed` row becoming `sent` and `notify_attempts` incrementing.
       - _Requirements: R6.6_
   - [ ] 13. Deployment checks and the live smoke test

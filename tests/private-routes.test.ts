@@ -10,7 +10,7 @@ const walk = (dir: string): string[] => readdirSync(dir).flatMap((f) => { const 
 const routeOf = (file: string) => '/' + file.replace(/^src\/pages\//, '').replace(/\.(astro|ts)$/, '').replace(/(^|\/)index$/, '') + '/';
 
 test('every admin page and staff API is listed and calls requireStaff', () => {
-  const files = [...walk('src/pages/admin'), ...['src/pages/api/admin', 'src/pages/api/research'].flatMap((d) => { try { return walk(d); } catch { return []; } }), 'src/pages/api/inquiries/email.ts']
+  const files = [...walk('src/pages/admin'), ...['src/pages/api/admin', 'src/pages/api/research'].flatMap((d) => { try { return walk(d); } catch { return []; } })]
     .filter((f) => /\.(astro|ts)$/.test(f));
   const listed = new Set(PRIVATE_ROUTES.map((r) => r.file));
   for (const f of files) {
@@ -24,7 +24,7 @@ test('every admin page and staff API is listed and calls requireStaff', () => {
 
 test('public paths stay public', () => {
   for (const p of ['/', '/contact/', '/api/inquiries/', '/contact/send/', '/admin/login/', '/admin/auth/confirm/', '/api/admin/signout/']) assert.equal(isPrivatePath(p), false, p);
-  for (const p of ['/admin/', '/admin/staff/', '/api/admin/staff/', '/api/research/chat/', '/api/inquiries/email/']) assert.equal(isPrivatePath(p), true, p);
+  for (const p of ['/admin/', '/admin/staff/', '/api/admin/staff/', '/api/research/chat/', '/api/admin/notify/']) assert.equal(isPrivatePath(p), true, p);
 });
 
 test('only the named modules import createAdminClient', () => {

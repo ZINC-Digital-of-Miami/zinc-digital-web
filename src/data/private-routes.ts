@@ -9,13 +9,13 @@ export type PrivateRoute = { path: string; kind: 'page' | 'api'; role: Role; fil
 export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/api/admin/signout/'];
 
 /** Path prefixes that need a staff session. */
-export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/', '/api/inquiries/email/'];
+export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/'];
 
 export const PRIVATE_ROUTES: PrivateRoute[] = [
   { path: '/admin/', kind: 'page', role: 'editor', file: 'src/pages/admin/index.astro' },
+  { path: '/api/admin/notify/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/notify.ts' },
   { path: '/api/research/chat/', kind: 'api', role: 'editor', file: 'src/pages/api/research/chat.ts' },
   { path: '/api/research/ingest/', kind: 'api', role: 'editor', file: 'src/pages/api/research/ingest.ts' },
-  { path: '/api/inquiries/email/', kind: 'api', role: 'editor', file: 'src/pages/api/inquiries/email.ts' },
 ];
 
 export const isPublicAdmin = (path: string) => PUBLIC_ADMIN_PATHS.includes(path);
