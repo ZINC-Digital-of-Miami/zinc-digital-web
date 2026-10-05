@@ -65,7 +65,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** PR merged; PR #6 closed; `git diff origin/main spec/create-a-complete-implementation-spec` was empty before the reset.
       - _Requirements: R1.4, R18.1_
 
-- [ ] M2 — Public site · in progress
+- [x] M2 — Public site · merged as #8 (`0c0718c`)
   - [x] 2. Integrate the Design package and the build foundation
     - [x] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
       - Confirm the source archive's SHA-256 is `a624cfec…d42d0`.
@@ -125,7 +125,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - a secret-pattern scan of the static output in `check-site.mjs`.
       - **Verify:** the built HTML carries the CSP meta tag; the scan fails on a planted test string and passes when it is removed.
       - _Requirements: R15.1, R15.2_
-  - [ ] 4. Checks and CI
+  - [x] 4. Checks and CI
     - [x] 4.1 Update `scripts/check-site.mjs` to the Design contracts and the fixes in design section 4.2:
       - the Summit alias;
       - the wider placeholder scan;
@@ -149,7 +149,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 4.3 Add a `test` script running `node --test 'tests/*.test.ts'` (the quoted glob; `node --test tests/` finds no `.ts` files).
       - **Verify:** `npm test` exits 0.
       - _Requirements: R17.3_
-    - [ ] 4.4 Update `.github/workflows/ci.yml`:
+    - [x] 4.4 Update `.github/workflows/ci.yml`:
       - keep the `build` job and add `npm test`;
       - `browser-verify` runs `node scripts/verify-site.mjs --mode quick`.
       - **Verify:** both jobs pass on the M2 PR (ticked during task 7.1).
@@ -168,8 +168,8 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - Review the reported issues and fix the real defects.
       - **Verify:** the report is saved under `/Volumes/Satechi Hub/zinc-digital-web-review/lighthouse/m2/`. Scores are reported and nothing fails on them.
       - _Requirements: R16.3_
-  - [ ] 7. M2 PR
-    - [ ] 7.1 Run `node scripts/verify-site.mjs --mode full`, then the milestone PR steps. Tick 4.4 when `build` and `browser-verify` pass on the PR.
+  - [x] 7. M2 PR
+    - [x] 7.1 Run `node scripts/verify-site.mjs --mode full`, then the milestone PR steps. Tick 4.4 when `build` and `browser-verify` pass on the PR.
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 

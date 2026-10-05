@@ -96,7 +96,7 @@
       "answer": null
     }
   ],
-  "blocking": "Executing M2: visual review round 3 and a new-user usability review, then the M2 PR (task 7.1).",
+  "blocking": "M2 merged as #8. M3 starts with task 8.1, which needs the owner to put SUPABASE_DB_URL in the git-ignored .env.",
   "context": {
     "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec…) applied over the existing zinc-digital-web Astro 7.3.5 repository"
   }
