@@ -12,7 +12,7 @@ export const GET:APIRoute=async ctx=>{
   const [analytics,search]=await Promise.allSettled([verifyGoogleService('ga4',settings),googleSites()]);
   const sites=search.status==='fulfilled'?search.value:[];
   return reply({settings,account:googleAccountEmail(),sites,
-   ga4:{connected:analytics.status==='fulfilled',error:analytics.status==='rejected'?'Grant Viewer access to the website account, then verify GA4.':''},
+   ga4:{connected:analytics.status==='fulfilled',error:analytics.status==='rejected'?'Google Analytics access could not be verified for this property.':''},
    gsc:{connected:!!settings.site&&sites.includes(settings.site),error:search.status==='rejected'?'Google Search Console access could not be checked.':''}});
  }
  catch(e){return reply({error:e instanceof Error?e.message:'Google access could not be checked.'},502);}

@@ -1,9 +1,10 @@
 ---
-import {googleAccountEmail,savedGoogleSettings} from '../../lib/google';
+import {googleAccountEmail,googleUsesExistingLogin,savedGoogleSettings} from '../../lib/google';
 import {createServerClient} from '../../lib/supabase';
 import {requireStaff} from '../../lib/auth';
 const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
 const account=googleAccountEmail();
+const existingLogin=googleUsesExistingLogin();
 let settings={property:'',site:''},error='';
 try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){error=(e as Error).message;}
 ---
@@ -11,14 +12,14 @@ try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){erro
  <h2 class="a-heading">Google connections</h2>
  {error&&<p class="a-error">{error}</p>}
  {account?<>
- <p class="a-muted">Give the website account access in Google, then verify each connection here.</p>
- <label class="a-field a-section"><span>Website account</span><input class="a-input" data-google-account value={account} readonly aria-label="Website service-account address"/></label>
- <button type="button" class="a-button a-section" data-copy-google-account>Copy account address</button>
+ <p class="a-muted">{existingLogin?'Using your existing Google connection for ZINC. Verify the selected properties below.':'Give the website account access in Google, then verify each connection here.'}</p>
+ <label class="a-field a-section"><span>{existingLogin?'Connected Google account':'Website account'}</span><input class="a-input" data-google-account value={account} readonly aria-label="Connected Google account address"/></label>
+ {!existingLogin&&<button type="button" class="a-button a-section" data-copy-google-account>Copy account address</button>}
  <p class="a-muted" data-google-status role="status" aria-live="polite"></p>
  <div class="a-grid a-section">
   <div>
    <h3 class="a-heading">Google Analytics 4</h3>
-   <p class="a-muted">In Admin → Property access management, add the website account as a Viewer. Turn off the invitation email.</p>
+   {!existingLogin&&<p class="a-muted">In Admin → Property access management, add the website account as a Viewer. Turn off the invitation email.</p>}
    <a class="a-button a-section" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Connect GA4 ↗</a>
    <form class="a-form a-section" data-google-form data-kind="ga4">
     <label class="a-field"><span>Property ID</span><input class="a-input" name="property" inputmode="numeric" pattern="[0-9]{1,20}" maxlength="20" required value={settings.property} readonly={staff.role!=='owner'}/></label>
@@ -29,7 +30,7 @@ try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){erro
   </div>
   <div>
    <h3 class="a-heading">Search Console</h3>
-   <p class="a-muted">In Settings → Users and permissions, add the website account as a Full user. Return here to load your accessible property.</p>
+   {!existingLogin&&<p class="a-muted">In Settings → Users and permissions, add the website account as a Full user. Return here to load your accessible property.</p>}
    <a class="a-button a-section" href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">Connect Search Console ↗</a>
    <button type="button" class="a-button a-section" data-google-discover>Check available properties</button>
    <form class="a-form a-section" data-google-form data-kind="gsc">
@@ -40,6 +41,6 @@ try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){erro
    <a class="a-link" href="https://support.google.com/webmasters/answer/7687615" target="_blank" rel="noopener noreferrer">Google’s access instructions</a>
   </div>
  </div>
- </>:<p class="a-notice">The website’s Google service account has not been configured.</p>}
+ </>:<p class="a-notice">The website’s Google connection has not been configured.</p>}
 </section>
 <script>import '../../scripts/admin/google';</script>
