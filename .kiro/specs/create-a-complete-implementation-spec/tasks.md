@@ -175,7 +175,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 
 - [ ] M3 — Data, auth, contact
   - [ ] 8. Database baseline, tests and the first migration
-    - [ ] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
+    - [x] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
       - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
       - _Requirements: R9.1_
     - [ ] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.

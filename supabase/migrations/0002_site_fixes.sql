@@ -72,6 +72,8 @@ grant execute on function private.is_owner() to authenticated;
 create function private.keep_one_owner() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
+  -- Lock surviving owners so concurrent removals cannot both observe another owner.
+  perform 1 from public.staff where role = 'owner' order by user_id for update;
   if exists (select 1 from old_rows where role = 'owner') and not exists (select 1 from public.staff where role = 'owner') then
     raise exception 'the last owner cannot be removed or demoted';
   end if;
