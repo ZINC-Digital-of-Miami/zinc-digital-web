@@ -19,3 +19,5 @@ Kiro steering: lessons from earlier milestones, one line each. Before working in
 | [chrome-needs-no-sandbox-locally](chrome-needs-no-sandbox-locally.md) | browser scripts on this Mac | tooling | Headless Chrome tabs crash locally unless `CHROME_NO_SANDBOX=1` |
 | [branch-reset-after-squash-without-force-push](branch-reset-after-squash-without-force-push.md) | Kiro spec branch, milestone PRs | release flow | Force push is blocked; rebuild on `main` and merge the old head so the push fast-forwards |
 | [keep-destructive-steps-out-of-chains](keep-destructive-steps-out-of-chains.md) | shell commands | tooling | One blocked step (rm -rf, amend+push) denies the whole chained command |
+| [picture-contents-hides-sources](picture-contents-hides-sources.md) | `site.css` picture rule, `Img.astro` | CSS layout | `picture{display:contents}` makes its `<source>` elements layout items; hide them |
+| [cover-images-need-height-sizes](cover-images-need-height-sizes.md) | `Img.astro` cover prop, case images | images | Cover images in tall boxes need `sizes` from their height, not `100vw` |

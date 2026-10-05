@@ -143,6 +143,8 @@ html.js .rv.in{opacity:1;transform:none}
 .p-pending{display:block;font-family:var(--fm);font-weight:400;font-size:11px;letter-spacing:.06em;color:var(--muted);margin-top:10px}
 .p-case{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:center}
 picture{display:contents}
+/* With picture as display:contents, its <source> elements would become grid or flex items and take a share of the free space. */
+picture>source{display:none}
 .p-frame{border:1px solid var(--line);background:#fff;overflow:hidden;margin:0}
 .p-frame img{width:100%;height:auto;display:block;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .p-frame:hover img{transform:scale(1.03)}
