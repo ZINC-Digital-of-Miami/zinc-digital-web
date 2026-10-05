@@ -107,9 +107,8 @@ export interface Deps {
   now(): number;
   /** HMAC-SHA256(INQUIRY_HASH_SALT, clientAddress). */
   hash(clientAddress: string): string;
-  /** created_at of this client's inquiries since the given time. */
-  recent(clientHash: string, sinceIso: string): Promise<string[]>;
-  insert(row: Record<string, unknown>): Promise<{ id: string }>;
+  /** Rate check and insert in one step under a per-client lock (public.submit_inquiry, limits from RATE). */
+  reserve(v: Inquiry, clientHash: string): Promise<{ id: string } | { retryAfter: number }>;
   send(mail: Mail): Promise<void>;
   update(id: string, patch: Record<string, unknown>): Promise<void>;
   notifyTo: string;
@@ -171,20 +170,13 @@ export async function notify(id: string, v: Inquiry, deps: Pick<Deps, 'send' | '
   return status;
 }
 
-/** Rate limit, then insert (notify_status pending), then notify. A failed insert sends no email. */
+/** Rate check and insert in one step (notify_status pending), then notify. A failed insert sends no email. */
 export async function submit(v: Inquiry, clientAddress: string, deps: Deps): Promise<Submit> {
-  const clientHash = deps.hash(clientAddress);
-  const now = deps.now();
-  let times: number[];
-  try { times = (await deps.recent(clientHash, new Date(now - RATE.dayMs).toISOString())).map(Date.parse).filter(Number.isFinite); }
-  catch { console.warn('inquiry rate check failed: database'); return { kind: 'error', status: 502, error: SUBMIT_MESSAGES.failed }; }
-  const short = times.filter((t) => now - t < RATE.shortMs);
-  if (short.length >= RATE.short) return { kind: 'rate', retryAfter: Math.max(1, Math.ceil((Math.min(...short) + RATE.shortMs - now) / 1000)) };
-  if (times.length >= RATE.day) return { kind: 'rate', retryAfter: Math.max(1, Math.ceil((Math.min(...times) + RATE.dayMs - now) / 1000)) };
-  let id: string;
-  try { ({ id } = await deps.insert({ ...v, stage: 'new', client_hash: clientHash })); }
+  let r: { id: string } | { retryAfter: number };
+  try { r = await deps.reserve(v, deps.hash(clientAddress)); }
   catch { console.warn('inquiry insert failed: database'); return { kind: 'error', status: 502, error: SUBMIT_MESSAGES.failed }; }
-  return { kind: 'saved', id, notified: await notify(id, v, deps, 0) };
+  if ('retryAfter' in r) return { kind: 'rate', retryAfter: r.retryAfter };
+  return { kind: 'saved', id: r.id, notified: await notify(r.id, v, deps, 0) };
 }
 
 /** Staff re-send of a notification (POST /api/admin/notify/). Returns null when the inquiry does not exist. */
@@ -242,15 +234,16 @@ export async function liveDeps(): Promise<Deps | null> {
   return {
     now: () => Date.now(),
     hash: (addr) => createHmac('sha256', salt).update(addr).digest('hex'),
-    recent: async (hash, since) => {
-      const { data, error } = await sb.from('inquiries').select('created_at').eq('client_hash', hash).gte('created_at', since);
+    reserve: async (v, hash) => {
+      const { data, error } = await sb.rpc('submit_inquiry', {
+        p_inquiry: v, p_client_hash: hash,
+        p_short: RATE.short, p_short_secs: RATE.shortMs / 1000, p_day: RATE.day, p_day_secs: RATE.dayMs / 1000,
+      });
       if (error) throw error;
-      return (data || []).map((r: { created_at: string }) => r.created_at);
-    },
-    insert: async (row) => {
-      const { data, error } = await sb.from('inquiries').insert(row).select('id').single();
-      if (error || !data) throw error || new Error('no row');
-      return { id: (data as { id: string }).id };
+      const r = (data || {}) as { id?: string; retry_after?: number };
+      if (r.retry_after) return { retryAfter: r.retry_after };
+      if (!r.id) throw new Error('no id');
+      return { id: r.id };
     },
     send: sendMail,
     update: async (id, patch) => { const { error } = await sb.from('inquiries').update(patch).eq('id', id); if (error) throw error; },

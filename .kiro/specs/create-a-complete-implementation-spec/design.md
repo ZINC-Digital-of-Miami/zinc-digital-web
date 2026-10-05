@@ -202,8 +202,7 @@ sequenceDiagram
 
 **Rate limit:**
 - `client_hash = HMAC-SHA256(INQUIRY_HASH_SALT, clientAddress)` is stored on each inquiry.
-- Before inserting, count rows with the same hash from the last 10 minutes (limit 5) and the last 24 hours (limit 20).
-- One query with the secret key against the existing table. No extra store.
+- `public.submit_inquiry` (`0002b`, service_role only) takes a per-client advisory lock, counts rows with the same hash from the last 10 minutes (limit 5) and the last 24 hours (limit 20), and inserts in the same call, so parallel requests cannot all pass. No extra store.
 
 **Email:**
 - Nodemailer runs over `smtp.gmail.com:465` with `SMTP_USER` / `SMTP_PASS` (App Password).

@@ -1,9 +1,10 @@
 // node --test. Covers the live contact path in src/lib/inquiry.ts (tasks 12.1 and 12.2) with a fake database
-// and mailer: size, origin, honeypot, validation, the rate limit, database and email failures, the JSON and
-// no-JavaScript answers, and the staff re-send.
+// and mailer: size, origin, honeypot, validation, a refused reservation, database and email failures, the JSON
+// and no-JavaScript answers, and the staff re-send. The limits themselves are counted in the database
+// (public.submit_inquiry) and tested by supabase/tests/70_rate_limit.sql.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handle, jsonAnswer, formAnswer, renotify, mailErrorClass, BUDGETS, TIMELINES, MAX_BODY_BYTES, RATE, NOTIFY_TIMEOUT_MS, SUBMIT_MESSAGES, type Deps, type Mail, type Outcome } from '../src/lib/inquiry.ts';
+import { handle, jsonAnswer, formAnswer, renotify, mailErrorClass, BUDGETS, TIMELINES, MAX_BODY_BYTES, NOTIFY_TIMEOUT_MS, SUBMIT_MESSAGES, type Deps, type Mail, type Outcome } from '../src/lib/inquiry.ts';
 
 const SITE = 'https://www.zincdigital.co';
 const NOW = Date.parse('2026-10-05T15:00:00Z');
@@ -15,18 +16,22 @@ const post = (body: unknown, headers: Record<string, string> = {}, url = SITE + 
   new Request(url, { method: 'POST', headers: { origin: SITE, 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) });
 
 type Fake = Deps & { rows: Record<string, unknown>[]; sent: Mail[]; updates: { id: string; patch: Record<string, unknown> }[]; calls: string[] };
-function fake(over: Partial<Deps> & { times?: number[] } = {}): Fake {
+function fake(over: Partial<Deps> & { retryAfter?: number } = {}): Fake {
   const f: Fake = {
     rows: [], sent: [], updates: [], calls: [],
     now: () => NOW,
     hash: (addr) => 'hmac-' + addr.length,
-    recent: async () => { f.calls.push('recent'); return (over.times || []).map((t) => new Date(t).toISOString()); },
-    insert: async (row) => { f.calls.push('insert'); f.rows.push(row); return { id: '00000000-0000-4000-8000-000000000001' }; },
+    reserve: async (v, clientHash) => {
+      f.calls.push('reserve');
+      if (over.retryAfter) return { retryAfter: over.retryAfter };
+      f.rows.push({ ...v, client_hash: clientHash });
+      return { id: '00000000-0000-4000-8000-000000000001' };
+    },
     send: async (mail) => { f.calls.push('send'); f.sent.push(mail); },
     update: async (id, patch) => { f.calls.push('update'); f.updates.push({ id, patch }); },
     notifyTo: 'jaymie@zincdigital.co',
   };
-  const { times: _t, ...rest } = over;
+  const { retryAfter: _r, ...rest } = over;
   return Object.assign(f, rest);
 }
 const run = (req: Request, deps: Fake | null, mode: 'live' | 'demo' = 'live') => handle(req, '203.0.113.9', { mode, siteOrigin: SITE, deps: async () => deps });
@@ -35,8 +40,7 @@ const rejected = (o: Outcome, status: number) => { assert.equal(o.kind, 'reject'
 test('a valid inquiry is stored with the client hash, then the notification is sent and recorded', async () => {
   const f = fake();
   assert.deepEqual(await run(post(good()), f), { kind: 'ok' });
-  assert.deepEqual(f.calls, ['recent', 'insert', 'send', 'update']);
-  assert.equal(f.rows[0].stage, 'new');
+  assert.deepEqual(f.calls, ['reserve', 'send', 'update']);
   assert.equal(f.rows[0].client_hash, 'hmac-11');
   assert.ok(!JSON.stringify(f.rows[0]).includes('203.0.113.9'), 'the raw address is not stored');
   assert.deepEqual(f.sent[0], { ...f.sent[0], to: 'jaymie@zincdigital.co', replyTo: 'ana@ruizsupply.com', subject: 'New inquiry · Ruiz Supply' });
@@ -77,32 +81,20 @@ test('a filled honeypot and demo mode answer success and store or send nothing',
   assert.deepEqual(f.calls, []);
 });
 
-test('the rate limit allows 4 in ten minutes and refuses the 5th, with Retry-After', async () => {
-  assert.equal((await run(post(good()), fake({ times: [1, 2, 3, 4].map((m) => NOW - m * 60_000) }))).kind, 'ok');
-  const f = fake({ times: [1, 2, 3, 4, 9].map((m) => NOW - m * 60_000) });
+test('a reservation refused by the rate limit answers 429 with Retry-After and sends nothing', async () => {
+  const f = fake({ retryAfter: 60 });
   const o = rejected(await run(post(good()), f), 429);
   assert.equal(o.error, SUBMIT_MESSAGES.rate);
-  assert.equal(o.retryAfter, 60); // the oldest of the five (9 minutes ago) leaves the window in one minute
-  assert.deepEqual(f.calls, ['recent']);
-});
-
-test('the rate limit allows 19 in a day and refuses the 20th', async () => {
-  const hours = (n: number) => Array.from({ length: n }, (_, i) => NOW - (i + 1) * 60 * 60_000);
-  assert.equal((await run(post(good()), fake({ times: hours(19) }))).kind, 'ok');
-  const f = fake({ times: hours(20) });
-  const o = rejected(await run(post(good()), f), 429);
-  assert.equal(o.retryAfter, Math.ceil((NOW - 20 * 60 * 60_000 + RATE.dayMs - NOW) / 1000));
-  assert.deepEqual(f.calls, ['recent']);
+  assert.equal(o.retryAfter, 60);
+  assert.deepEqual(f.calls, ['reserve']);
+  assert.equal(f.rows.length, 0);
 });
 
 test('a database failure answers a retryable 502 and sends no email', async () => {
-  const insertFails = fake({ insert: async () => { throw new Error('db down'); } });
-  const o = rejected(await run(post(good()), insertFails), 502);
+  const f = fake({ reserve: async () => { throw new Error('db down'); } });
+  const o = rejected(await run(post(good()), f), 502);
   assert.equal(o.error, SUBMIT_MESSAGES.failed);
-  assert.equal(insertFails.sent.length, 0);
-  const countFails = fake({ recent: async () => { throw new Error('db down'); } });
-  rejected(await run(post(good()), countFails), 502);
-  assert.equal(countFails.sent.length, 0);
+  assert.equal(f.sent.length, 0);
 });
 
 test('without database or salt configuration the route answers 503', async () => {
@@ -120,7 +112,7 @@ test('a mail send that hangs is cut off at the timeout and recorded as a timeout
   t.mock.timers.enable({ apis: ['setTimeout'] });
   const f = fake({ send: () => new Promise(() => {}) });
   const pending = run(post(good()), f);
-  while (!f.calls.includes('insert')) await new Promise<void>((r) => setImmediate(r));
+  while (!f.calls.includes('reserve')) await new Promise<void>((r) => setImmediate(r));
   await new Promise<void>((r) => setImmediate(r));
   t.mock.timers.tick(NOTIFY_TIMEOUT_MS);
   assert.deepEqual(await pending, { kind: 'ok' });
@@ -157,9 +149,9 @@ test('the no-JavaScript answer is a 303 to /thanks/ on success and a re-render w
   const invalid = formAnswer(await run(form({ ...fields, website: 'ftp://x' }), fake()));
   assert.ok(!('redirect' in invalid));
   if (!('redirect' in invalid)) { assert.equal(invalid.status, 422); assert.equal(invalid.form.values?.name, 'Ana Ruiz'); assert.deepEqual(invalid.headers, {}); }
-  const rate = formAnswer(await run(form(fields), fake({ times: [1, 2, 3, 4, 5].map((m) => NOW - m * 60_000) })));
+  const rate = formAnswer(await run(form(fields), fake({ retryAfter: 300 })));
   if (!('redirect' in rate)) { assert.equal(rate.status, 429); assert.equal(rate.headers['retry-after'], '300'); assert.equal(rate.form.error, SUBMIT_MESSAGES.rate); } else assert.fail('expected 429');
-  const down = formAnswer(await run(form(fields), fake({ insert: async () => { throw new Error('db'); } })));
+  const down = formAnswer(await run(form(fields), fake({ reserve: async () => { throw new Error('db'); } })));
   if (!('redirect' in down)) { assert.equal(down.status, 502); assert.equal(down.form.values?.company, 'Ruiz Supply'); } else assert.fail('expected 502');
 });
 
