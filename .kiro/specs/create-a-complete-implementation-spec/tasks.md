@@ -205,7 +205,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** `tests/auth.test.ts` covers `safeNext` with `//evil`, `/\evil`, `%2f`, `:` and valid admin paths; `npm run check` exits 0.
       - _Requirements: R7.8, R8.1–R8.8_
   - [ ] 11. Sign-in, sign-out and the first owner
-    - [ ] 11.1 Build the auth routes:
+    - [x] 11.1 Build the auth routes:
       - `src/pages/admin/login.astro`: no enumeration, the `zinc-next` cookie, and a rate limit;
       - `src/pages/admin/auth/confirm.astro` (`verifyOtp`);
       - `POST /api/admin/signout`;
