@@ -154,11 +154,11 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - `browser-verify` runs `node scripts/verify-site.mjs --mode quick`.
       - **Verify:** both jobs pass on the M2 PR (ticked during task 7.1).
       - _Requirements: R1.9_
-  - [ ] 5. Public visual review rounds
+  - [x] 5. Public visual review rounds
     - [x] 5.1 Write `scripts/capture.mjs`. It captures every public template and its Design reference, rendered from `current-design/` served on 127.0.0.1 via each file's hash route, in light and dark at 375, 768 and 1440 px. It also captures the interaction states. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m2/round-<n>/`.
       - **Verify:** round 1 contains every template × theme × width pair.
       - _Requirements: R17.6_
-    - [ ] 5.2 Run review rounds until one finds no mistakes.
+    - [x] 5.2 Run review rounds until one finds no mistakes.
       - Round 1 is reviewed by the implementer. Every later round is reviewed by fresh KiroCrew reviewers (`task_run`), given only the screenshot pairs, the Design files and the checklist.
       - Each round writes `findings.md`; each mistake is fixed and re-captured.
       - **Verify:** the final round's `findings.md` reads "No mistakes found". Earlier rounds list every fixed item.
