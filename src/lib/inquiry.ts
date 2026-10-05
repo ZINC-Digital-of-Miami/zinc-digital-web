@@ -1,6 +1,6 @@
-// inquiry.ts — contact-form rules shared by POST /api/inquiries (script) and /contact/send/ (no JavaScript).
-// Pure and dependency-free so `node --test` loads it directly (Node 24 type stripping). Storage, the rate
-// limit and the staff notification join it with the live contact path (task 12.1).
+// inquiry.ts — the contact form's rules and live path, shared by POST /api/inquiries/ (script) and
+// /contact/send/ (no JavaScript). Pure at load time so `node --test` imports it directly (Node 24 type
+// stripping); the live dependencies are imported only inside liveDeps().
 
 // The Design's options. tests/inquiry-validate.test.ts checks SERVICE_SLUGS against the services in site.ts.
 export const SERVICE_SLUGS: readonly string[] = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
@@ -91,4 +91,162 @@ export async function readBody(request: Request): Promise<{ ok: true; body: Inqu
     }
     return { ok: true, body };
   } catch { return { ok: false, status: 400, error: MESSAGES.unreadable }; }
+}
+
+// ---- Live contact path (design section 5, task 12.1). Every outside effect comes in through Deps, so the
+// node tests drive each branch with fakes; liveDeps() wires the secret-key Supabase client, Workspace SMTP
+// and the clock. Logs carry only the inquiry id and an error class.
+
+export const RATE = { shortMs: 10 * 60 * 1000, short: 5, dayMs: 24 * 60 * 60 * 1000, day: 20 } as const;
+export const NOTIFY_TIMEOUT_MS = 8000;
+export const DEFAULT_NOTIFY_TO = 'jaymie@zincdigital.co';
+export type NotifyStatus = 'pending' | 'sent' | 'failed';
+export type MailErrorClass = 'auth' | 'timeout' | 'rejected' | 'network';
+export interface Mail { to: string; replyTo: string; subject: string; text: string }
+export interface Deps {
+  now(): number;
+  /** HMAC-SHA256(INQUIRY_HASH_SALT, clientAddress). */
+  hash(clientAddress: string): string;
+  /** Rate check and insert in one step under a per-client lock (public.submit_inquiry, limits from RATE). */
+  reserve(v: Inquiry, clientHash: string): Promise<{ id: string } | { retryAfter: number }>;
+  send(mail: Mail): Promise<void>;
+  update(id: string, patch: Record<string, unknown>): Promise<void>;
+  notifyTo: string;
+}
+export type Submit =
+  | { kind: 'saved'; id: string; notified: NotifyStatus }
+  | { kind: 'rate'; retryAfter: number }
+  | { kind: 'error'; status: 502; error: string };
+
+export const SUBMIT_MESSAGES = {
+  origin: 'The inquiry could not be accepted from this page',
+  rate: 'Too many inquiries from this connection. Try again later',
+  unavailable: 'The inquiry service is not available right now',
+  failed: 'The inquiry could not be saved. Try again',
+} as const;
+
+/** Origin (or Referer) must be the site origin, or the request's own host on a *.vercel.app preview. */
+export function originAllowed(request: Request, siteOrigin: string): boolean {
+  let from: URL;
+  try { from = new URL(request.headers.get('origin') || request.headers.get('referer') || ''); } catch { return false; }
+  try { if (from.origin === new URL(siteOrigin).origin) return true; } catch { /* fall through */ }
+  const own = new URL(request.url);
+  return own.hostname.endsWith('.vercel.app') && from.origin === own.origin;
+}
+
+export function inquiryMail(v: Inquiry, to: string): Mail {
+  const text = [
+    'Company: ' + v.company, 'Name: ' + v.name, 'Email: ' + v.email, 'Website: ' + v.website,
+    'Services: ' + v.services.join(', '), 'Budget: ' + v.budget, 'Timeline: ' + v.timeline, 'Page: ' + v.source_path,
+    '', v.message,
+  ].join('\n');
+  return { to, replyTo: v.email, subject: 'New inquiry · ' + v.company, text };
+}
+
+/** Maps a mail failure to the class stored in notify_error. */
+export function mailErrorClass(e: unknown): MailErrorClass {
+  const x = (e && typeof e === 'object' ? e : {}) as { code?: string; responseCode?: number };
+  if (x.code === 'EAUTH') return 'auth';
+  if (x.code === 'ETIMEDOUT' || x.code === 'ETIMEOUT') return 'timeout';
+  if (x.code === 'EENVELOPE' || x.code === 'EMESSAGE' || (typeof x.responseCode === 'number' && x.responseCode >= 500)) return 'rejected';
+  return 'network';
+}
+
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const t = new Promise<never>((_, reject) => { timer = setTimeout(() => reject(Object.assign(new Error('mail timeout'), { code: 'ETIMEDOUT' })), ms); });
+  return Promise.race([p, t]).finally(() => clearTimeout(timer));
+}
+
+/** Sends the staff notification (at most NOTIFY_TIMEOUT_MS) and records the outcome on the inquiry. Never throws. */
+export async function notify(id: string, v: Inquiry, deps: Pick<Deps, 'send' | 'update' | 'notifyTo' | 'now'>, attempts: number): Promise<NotifyStatus> {
+  let status: NotifyStatus = 'sent';
+  let error: MailErrorClass | null = null;
+  try { await withTimeout(deps.send(inquiryMail(v, deps.notifyTo)), NOTIFY_TIMEOUT_MS); }
+  catch (e) { status = 'failed'; error = mailErrorClass(e); console.warn('inquiry ' + id + ' notification failed: ' + error); }
+  const patch: Record<string, unknown> = { notify_status: status, notify_error: error, notify_attempts: attempts + 1 };
+  if (status === 'sent') patch.notified_at = new Date(deps.now()).toISOString();
+  try { await deps.update(id, patch); } catch { console.warn('inquiry ' + id + ' notification status not recorded'); }
+  return status;
+}
+
+/** Rate check and insert in one step (notify_status pending), then notify. A failed insert sends no email. */
+export async function submit(v: Inquiry, clientAddress: string, deps: Deps): Promise<Submit> {
+  let r: { id: string } | { retryAfter: number };
+  try { r = await deps.reserve(v, deps.hash(clientAddress)); }
+  catch { console.warn('inquiry insert failed: database'); return { kind: 'error', status: 502, error: SUBMIT_MESSAGES.failed }; }
+  if ('retryAfter' in r) return { kind: 'rate', retryAfter: r.retryAfter };
+  return { kind: 'saved', id: r.id, notified: await notify(r.id, v, deps, 0) };
+}
+
+/** Staff re-send of a notification (POST /api/admin/notify/). Returns null when the inquiry does not exist. */
+export async function renotify(
+  id: string,
+  deps: Pick<Deps, 'send' | 'update' | 'notifyTo' | 'now'> & { get(id: string): Promise<(Inquiry & { notify_attempts?: number | null }) | null> },
+): Promise<NotifyStatus | null> {
+  const row = await deps.get(id);
+  if (!row) return null;
+  return notify(id, row, deps, row.notify_attempts || 0);
+}
+
+export type Outcome =
+  | { kind: 'ok' } // saved, or a honeypot or demo-mode post that stores and sends nothing
+  | { kind: 'reject'; status: 400 | 403 | 413 | 422 | 429 | 502 | 503; error: string; field?: Field; values?: Partial<Inquiry>; retryAfter?: number };
+
+/** Every contact submission, from either route: size, honeypot and demo mode, origin, validation, then submit(). */
+export async function handle(request: Request, clientAddress: string, opts: { mode: Mode; siteOrigin: string; deps: () => Promise<Deps | null> }): Promise<Outcome> {
+  const read = await readBody(request);
+  if (!read.ok) return { kind: 'reject', status: read.status, error: read.error };
+  const r = intake(read.body, opts.mode);
+  if (r.kind === 'ignore') return { kind: 'ok' };
+  const values = formValues(read.body);
+  if (!originAllowed(request, opts.siteOrigin)) return { kind: 'reject', status: 403, error: SUBMIT_MESSAGES.origin, values };
+  if (r.kind === 'invalid') return { kind: 'reject', status: 422, error: r.error, field: r.field, values };
+  const deps = await opts.deps();
+  if (!deps) return { kind: 'reject', status: 503, error: SUBMIT_MESSAGES.unavailable, values };
+  const out = await submit(r.value, clientAddress, deps);
+  if (out.kind === 'rate') return { kind: 'reject', status: 429, error: SUBMIT_MESSAGES.rate, retryAfter: out.retryAfter, values };
+  if (out.kind === 'error') return { kind: 'reject', status: out.status, error: out.error, values };
+  return { kind: 'ok' }; // the visitor sees success whether or not the notification went out (R6.5)
+}
+
+const rejectHeaders = (o: Extract<Outcome, { kind: 'reject' }>): Record<string, string> => (o.retryAfter ? { 'retry-after': String(o.retryAfter) } : {});
+
+/** POST /api/inquiries/ answers in JSON, never cached. */
+export function jsonAnswer(o: Outcome): Response {
+  const headers = { 'content-type': 'application/json', 'cache-control': 'no-store', ...(o.kind === 'reject' ? rejectHeaders(o) : {}) };
+  if (o.kind === 'ok') return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
+  return new Response(JSON.stringify(o.field ? { error: o.error, field: o.field } : { error: o.error }), { status: o.status, headers });
+}
+
+/** /contact/send/ answers with a 303 to /thanks/, or the status, headers and form state for re-rendering the contact page. */
+export function formAnswer(o: Outcome): { redirect: '/thanks/' } | { status: number; headers: Record<string, string>; form: { values?: Partial<Inquiry>; error: string } } {
+  if (o.kind === 'ok') return { redirect: '/thanks/' };
+  return { status: o.status, headers: rejectHeaders(o), form: { values: o.values, error: o.error } };
+}
+
+/** The production dependencies. Loaded lazily so this module stays importable by the node tests. */
+export async function liveDeps(): Promise<Deps | null> {
+  const [{ createAdminClient }, { env, isConfigured }, { sendMail }, { createHmac }] = await Promise.all([import('./supabase'), import('./env'), import('./mail'), import('node:crypto')]);
+  if (!isConfigured('admin') || !env.inquiryHashSalt()) return null;
+  const sb = createAdminClient();
+  const salt = env.inquiryHashSalt();
+  return {
+    now: () => Date.now(),
+    hash: (addr) => createHmac('sha256', salt).update(addr).digest('hex'),
+    reserve: async (v, hash) => {
+      const { data, error } = await sb.rpc('submit_inquiry', {
+        p_inquiry: v, p_client_hash: hash,
+        p_short: RATE.short, p_short_secs: RATE.shortMs / 1000, p_day: RATE.day, p_day_secs: RATE.dayMs / 1000,
+      });
+      if (error) throw error;
+      const r = (data || {}) as { id?: string; retry_after?: number };
+      if (r.retry_after) return { retryAfter: r.retry_after };
+      if (!r.id) throw new Error('no id');
+      return { id: r.id };
+    },
+    send: sendMail,
+    update: async (id, patch) => { const { error } = await sb.from('inquiries').update(patch).eq('id', id); if (error) throw error; },
+    notifyTo: env.smtp().to || DEFAULT_NOTIFY_TO,
+  };
 }

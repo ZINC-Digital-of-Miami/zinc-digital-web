@@ -123,7 +123,7 @@ try {
     check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\//.test(html), route + ' canonical');
     check(/<script type="application\/ld\+json">/.test(html), route + ' JSON-LD');
     check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), route + ' og:image');
-    const main = decode(html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
+    const main = decode(html.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
     check(main.length > (['thanks', '404'].includes(template) ? 100 : 300), route + ' body chars ' + main.length);
     check(!/\[(RECEIPT|OWNER CONFIRM|LOGO PENDING|PHOTO PENDING)/.test(main) && !/\.dc\.html|#\//.test(html.match(/href="[^"]+"/g)?.join(' ') || ''), route + ' placeholder or design-preview link');
     const post = posts.find((p) => route === '/blog/' + p.slug + '/');

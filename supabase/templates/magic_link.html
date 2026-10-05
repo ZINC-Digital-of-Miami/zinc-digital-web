@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+  <body style="margin:0;padding:32px 20px;background:#f5f6f7;color:#0a0a0b;font-family:Inter,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto">
+      <tr><td style="font-family:Menlo,Consolas,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5c5f66;padding-bottom:16px">ZINC / admin</td></tr>
+      <tr><td style="font-size:28px;font-weight:800;text-transform:uppercase;line-height:1.05;padding-bottom:16px">Staff sign-in.</td></tr>
+      <tr><td style="padding-bottom:24px">Use this one-time link to sign in to the ZINC staff admin.</td></tr>
+      <tr><td style="padding-bottom:24px"><a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&amp;type=magiclink" style="display:inline-block;background:#0a0a0b;color:#ffffff;text-decoration:none;font-family:Menlo,Consolas,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:14px 22px;border-radius:8px">Sign in</a></td></tr>
+      <tr><td style="font-size:14px;color:#5c5f66">The link works once and expires after one hour. If you didn't ask to sign in, you can ignore it.</td></tr>
+    </table>
+  </body>
+</html>

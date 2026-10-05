@@ -25,13 +25,14 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 - **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace). No Cloudflare and no Docker. Paid AI and search providers stay off until the owner sets their keys.
 - **Git (Kiro flow):**
   - Work runs in the spec's Kiro worktree on its `spec/<spec-slug>` branch. Milestones are the task groups in `tasks.md`.
-  - Each milestone reaches `main` by squash-merged PR once checks pass, with one Codex GitHub review requested on the final head and at most two review rounds. The branch is then reset to `main`.
+  - Each milestone reaches `main` by squash-merged PR, with one Codex GitHub review requested on the final head and at most two review rounds. The branch is then reset to `main`.
+  - Milestone merges are automatic once the required checks pass and the review is answered (owner, 4 Oct 2026; decision recorded 5 Oct 2026).
   - Pushes always name the branch.
 - **Irreversible or production actions** need the owner's explicit go for that exact action:
   - DNS cutover;
   - production secrets;
   - applying database migrations or Auth settings;
-  - merging to `main`;
+  - merging to `main` outside a milestone PR, and the HSTS merge;
   - closing PRs;
   - deleting anything.
 - **Runtime:** Node 24. This Mac's default `node` is 26, so run commands with `/opt/homebrew/opt/node@24/bin` first on `PATH`.

@@ -202,8 +202,7 @@ sequenceDiagram
 
 **Rate limit:**
 - `client_hash = HMAC-SHA256(INQUIRY_HASH_SALT, clientAddress)` is stored on each inquiry.
-- Before inserting, count rows with the same hash from the last 10 minutes (limit 5) and the last 24 hours (limit 20).
-- One query with the secret key against the existing table. No extra store.
+- `public.submit_inquiry` (`0002b`, service_role only) takes a per-client advisory lock, counts rows with the same hash from the last 10 minutes (limit 5) and the last 24 hours (limit 20), and inserts in the same call, so parallel requests cannot all pass. No extra store.
 
 **Email:**
 - Nodemailer runs over `smtp.gmail.com:465` with `SMTP_USER` / `SMTP_PASS` (App Password).
@@ -307,7 +306,7 @@ Nothing persists.
 - `inquiry_events.kind` check adds `next_step` and `notify`.
 - Trigger `private.log_inquiry_change` writes `inquiry_events` for changes to stage, notes, next_step, archived_at and notify_status, with `actor = auth.uid()`.
 - Recreate `inquiry_board` with `security_invoker = true`, adding website, timeline, source_path, notify_status and archived_at.
-- `public.staff_role()` is security definer with an empty search_path, granted to `authenticated` only.
+- `public.staff_role()` has an empty search_path and is granted to `authenticated` only. It is security invoker (`0002a`, after advisor lint 0029 flagged the definer version); staff read their own row through the existing policy.
 - `private.is_owner()`.
 - Trigger `private.keep_one_owner` on staff update/delete.
 - `alter function private.touch_updated_at() set search_path = ''`.

@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "version": "0.0.1",
-  "engines": { "node": "24.x" },
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "assets": "node scripts/fetch-live-assets.mjs",
@@ -14,6 +16,18 @@
     "verify": "npm run assets && astro build && node scripts/check-site.mjs && node scripts/verify-site.mjs --mode quick",
     "verify:full": "npm run assets && astro build && node scripts/check-site.mjs && node scripts/verify-site.mjs --mode full"
   },
-  "dependencies": { "@astrojs/vercel": "11.0.11", "astro": "7.3.5" },
-  "devDependencies": { "@astrojs/check": "0.9.10", "@axe-core/cli": "4.13.0", "@lhci/cli": "0.15.1", "typescript": "6.0.3" }
+  "dependencies": {
+    "@astrojs/vercel": "11.0.11",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.117.2",
+    "astro": "7.3.5",
+    "nodemailer": "10.0.14"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/cli": "4.13.0",
+    "@lhci/cli": "0.15.1",
+    "@types/nodemailer": "8.0.2",
+    "typescript": "6.0.3"
+  }
 }

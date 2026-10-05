@@ -65,7 +65,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** PR merged; PR #6 closed; `git diff origin/main spec/create-a-complete-implementation-spec` was empty before the reset.
       - _Requirements: R1.4, R18.1_
 
-- [ ] M2 — Public site · in progress
+- [x] M2 — Public site · merged as #8 (`0c0718c`)
   - [x] 2. Integrate the Design package and the build foundation
     - [x] 2.1 Integrate the port from `/Volumes/Satechi Hub/zinc-digital-web-review/2026-10-04-packaged-design/current-design/astro/`.
       - Confirm the source archive's SHA-256 is `a624cfec…d42d0`.
@@ -125,7 +125,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - a secret-pattern scan of the static output in `check-site.mjs`.
       - **Verify:** the built HTML carries the CSP meta tag; the scan fails on a planted test string and passes when it is removed.
       - _Requirements: R15.1, R15.2_
-  - [ ] 4. Checks and CI
+  - [x] 4. Checks and CI
     - [x] 4.1 Update `scripts/check-site.mjs` to the Design contracts and the fixes in design section 4.2:
       - the Summit alias;
       - the wider placeholder scan;
@@ -149,7 +149,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 4.3 Add a `test` script running `node --test 'tests/*.test.ts'` (the quoted glob; `node --test tests/` finds no `.ts` files).
       - **Verify:** `npm test` exits 0.
       - _Requirements: R17.3_
-    - [ ] 4.4 Update `.github/workflows/ci.yml`:
+    - [x] 4.4 Update `.github/workflows/ci.yml`:
       - keep the `build` job and add `npm test`;
       - `browser-verify` runs `node scripts/verify-site.mjs --mode quick`.
       - **Verify:** both jobs pass on the M2 PR (ticked during task 7.1).
@@ -168,35 +168,36 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - Review the reported issues and fix the real defects.
       - **Verify:** the report is saved under `/Volumes/Satechi Hub/zinc-digital-web-review/lighthouse/m2/`. Scores are reported and nothing fails on them.
       - _Requirements: R16.3_
-  - [ ] 7. M2 PR
-    - [ ] 7.1 Run `node scripts/verify-site.mjs --mode full`, then the milestone PR steps. Tick 4.4 when `build` and `browser-verify` pass on the PR.
+  - [x] 7. M2 PR
+    - [x] 7.1 Run `node scripts/verify-site.mjs --mode full`, then the milestone PR steps. Tick 4.4 when `build` and `browser-verify` pass on the PR.
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
 - [ ] M3 — Data, auth, contact
-  - [ ] 8. Database baseline, tests and the first migration
-    - [ ] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
+  - [x] 8. Database baseline, tests and the first migration
+    - [x] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
       - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
       - _Requirements: R9.1_
-    - [ ] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.
+    - [x] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.
       - **Verify:** run against the current schema, the tests report the known gaps in requirements 1.2 as failures, and the rehearsal leaves no change behind (re-check with `list_tables`).
       - _Requirements: R17.4_
-    - [ ] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
+    - [x] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
       - **Verify:** all permission tests pass inside the rehearsal.
       - _Requirements: R6.2, R9.2, R9.3_
-    - [ ] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
+    - [x] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
       - **Verify:** read-only SQL confirms on the live database the new columns, the dropped policy and the new grants, `staff_role()` and the `security_invoker` view; `get_advisors` (security) returns nothing; `supabase gen types --project-id zeetlqskfvsfbllrhzre` regenerates `src/lib/database.types.ts`, and `npm run check` exits 0.
+      - Exception (5 Oct 2026, pending the owner's confirmation): the advisor's leaked-password-protection warning stays, because that setting needs the Supabase Pro plan and the site has no password sign-in (signup disabled, one-time links only).
       - _Requirements: R9.2, R9.4_
-  - [ ] 9. Auth configuration
-    - [ ] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
+  - [x] 9. Auth configuration
+    - [x] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
       - **Owner go:** run `supabase config push`.
       - **Verify:** the Management API read-back shows signup disabled, the redirect URLs, the templates and SMTP; a sign-in attempt for an uninvited address creates no user (checked with read-only SQL on `auth.users`).
       - _Requirements: R7.1, R7.5_
-  - [ ] 10. Server foundations
-    - [ ] 10.1 Add the dependencies `@supabase/supabase-js` and `@supabase/ssr`, with the lockfile in the same commit.
+  - [x] 10. Server foundations
+    - [x] 10.1 Add the dependencies `@supabase/supabase-js` and `@supabase/ssr`, with the lockfile in the same commit.
       - **Verify:** `npm ci` and `npm run build` exit 0.
       - _Requirements: R7.8_
-    - [ ] 10.2 Write the helpers and middleware:
+    - [x] 10.2 Write the helpers and middleware:
       - `src/lib/env.ts`;
       - `src/lib/supabase.ts` (server client plus admin client);
       - `src/lib/auth.ts` (`requireStaff`, `safeNext`);
@@ -204,38 +205,38 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - `src/data/private-routes.ts`.
       - **Verify:** `tests/auth.test.ts` covers `safeNext` with `//evil`, `/\evil`, `%2f`, `:` and valid admin paths; `npm run check` exits 0.
       - _Requirements: R7.8, R8.1–R8.8_
-  - [ ] 11. Sign-in, sign-out and the first owner
-    - [ ] 11.1 Build the auth routes:
+  - [x] 11. Sign-in, sign-out and the first owner
+    - [x] 11.1 Build the auth routes:
       - `src/pages/admin/login.astro`: no enumeration, the `zinc-next` cookie, and a rate limit;
       - `src/pages/admin/auth/confirm.astro` (`verifyOtp`);
       - `POST /api/admin/signout`;
       - remove the old callback page and the localStorage token code.
       - **Verify:** on local dev, a staff sign-in sets HttpOnly session cookies; sign-out clears them; a link opened in a second browser lands on `/admin/`.
       - _Requirements: R7.5, R7.6, R7.7_
-    - [ ] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
+    - [x] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
       - **Verify:** the owner signs in on the preview and `staff_role()` returns `owner` for them.
       - _Requirements: R7.4_
-  - [ ] 12. Live contact path
-    - [ ] 12.1 Add the `nodemailer` dependency. Write `src/lib/mail.ts` and complete `src/lib/inquiry.ts`: rate-limit count, insert, `notify()` with an 8-second timeout, and the status update.
+  - [x] 12. Live contact path
+    - [x] 12.1 Add the `nodemailer` dependency. Write `src/lib/mail.ts` and complete `src/lib/inquiry.ts`: rate-limit count, insert, `notify()` with an 8-second timeout, and the status update.
       - Wire them into `/api/inquiries/` and `/contact/send/`.
       - Remove the Resend and `api/inquiries/email.ts` code.
       - **Verify:** `tests/inquiry.test.ts`, with fake database and mailer, covers validation, the size limit, the origin check and the honeypot; the rate limit (5 per 10 minutes, 20 per day); database failure, which returns a retryable error and sends no email; email failure, which keeps the inquiry and marks it `failed`; and the no-JS 303 and error paths.
       - _Requirements: R5.4–R5.7, R6.1, R6.3–R6.5, R15.3_
-    - [ ] 12.2 Add `POST /api/admin/notify`, which re-sends a failed inquiry notification through `src/lib/mail.ts`.
+    - [x] 12.2 Add `POST /api/admin/notify`, which re-sends a failed inquiry notification through `src/lib/mail.ts`.
       - **Verify:** a unit test shows a `failed` row becoming `sent` and `notify_attempts` incrementing.
       - _Requirements: R6.6_
-  - [ ] 13. Deployment checks and the live smoke test
-    - [ ] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
+  - [x] 13. Deployment checks and the live smoke test
+    - [x] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
       - **Verify:** pages and unknown-path statuses as expected; admin pages 302 and staff APIs 401 without a session; noindex, `no-store` and `frame-ancestors` headers; the function runs on Node 24.
       - _Requirements: R8.1, R8.2, R8.7, R17.4_
-    - [ ] 13.2 **Owner go:** the owner enters the Vercel environment variables, then one smoke inquiry is submitted:
+    - [x] 13.2 **Owner go:** the owner enters the Vercel environment variables, then one smoke inquiry is submitted:
       - Supabase keys;
       - SMTP user, App Password and notification recipient;
       - hash salt;
       - `PUBLIC_INQUIRY_MODE=live` on one protected preview only.
       - **Verify:** the email arrives at the recipient; the row shows `sent`; the test row is removed afterwards with the owner's go.
       - _Requirements: R6.4, R18.6_
-    - [ ] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
+    - [x] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
       - **Verify:** one SPF record includes `_spf.google.com`, and the DKIM selector record resolves.
       - _Requirements: R6.7_
   - [ ] 14. M3 PR

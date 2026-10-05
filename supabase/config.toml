@@ -1,0 +1,54 @@
+# Supabase project settings for zinc-digital-web (design section 6.1).
+# Applied to the live project only with the owner's go: `supabase config push --project-ref zeetlqskfvsfbllrhzre`.
+# The push prints a diff against the live project and asks before applying. Keys not listed here take the
+# CLI's defaults (see https://supabase.com/docs/guides/local-development/cli/config), so read that diff in
+# full. Secrets come from the environment through env(); no value is stored here.
+project_id = "zeetlqskfvsfbllrhzre"
+
+[api]
+enabled = true
+schemas = ["public", "graphql_public", "research"]
+
+[auth]
+enabled = true
+site_url = "https://www.zincdigital.co"
+# Bare confirm URLs only. RedirectTo in the templates is always the confirm URL of the origin that
+# sent the request, so a link opened from a preview stays on that preview.
+additional_redirect_urls = [
+  "https://www.zincdigital.co/admin/auth/confirm/",
+  "https://zinc-digital-web.vercel.app/admin/auth/confirm/",
+  "https://zinc-digital-*-zincdigitalofmiamis-projects.vercel.app/admin/auth/confirm/",
+  "http://127.0.0.1:4321/admin/auth/confirm/",
+]
+# Staff accounts exist only by owner invitation.
+enable_signup = false
+enable_anonymous_sign_ins = false
+
+[auth.rate_limit]
+# Emails per hour through the custom SMTP server. The sign-in route adds its own limit of 3 per address
+# per 15 minutes.
+email_sent = 30
+
+[auth.email]
+enable_signup = false
+# Sign-in and invite links work once and expire after one hour.
+otp_expiry = 3600
+max_frequency = "60s"
+
+# Workspace SMTP credentials are configured through SMTP_USER and SMTP_PASS.
+[auth.email.smtp]
+enabled = true
+host = "smtp.gmail.com"
+port = 465
+user = "env(SMTP_USER)"
+pass = "env(SMTP_PASS)"
+admin_email = "env(SMTP_USER)"
+sender_name = "ZINC Digital"
+
+[auth.email.template.invite]
+subject = "Your ZINC admin invitation"
+content_path = "./supabase/templates/invite.html"
+
+[auth.email.template.magic_link]
+subject = "Your ZINC sign-in link"
+content_path = "./supabase/templates/magic_link.html"

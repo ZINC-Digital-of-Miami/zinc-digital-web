@@ -21,7 +21,7 @@ The new `www.zincdigital.co`: a custom, static-first Astro site on Vercel replac
 - **Tech stack**: Astro (current stable), TypeScript, plain CSS tokens, Node 24, Vercel, Supabase (Auth and Postgres).
 - **Copy**: the Design's copy and voice; no invented numbers; never "GEO" for generative search; no cursing.
 - **Owner inputs**: case results and receipts, client logo files and permission, legal copy, live contact copy, initial staff list.
-- **Irreversible actions**: DNS cutover, production secrets, database migrations, Auth settings, merges to `main` and deletions need the owner's explicit go.
+- **Irreversible actions**: DNS cutover, production secrets, database migrations, Auth settings, the HSTS merge, other merges to `main` outside a milestone PR, and deletions need the owner's explicit go. Milestone PRs merge automatically once checks pass and the review is answered (see `AGENTS.md`).
 
 <!-- GSD:project-end -->
 

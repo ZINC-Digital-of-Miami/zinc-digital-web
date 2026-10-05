@@ -1,19 +1,41 @@
-// Server-side Supabase access without the SDK: PostgREST + GoTrue over fetch.
-// Service-role key never leaves the server. Every helper throws on non-2xx.
-const URL_ = () => (import.meta.env.SUPABASE_URL || import.meta.env.PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
-const SERVICE = () => import.meta.env.SUPABASE_SERVICE_ROLE || '';
-const ANON = () => import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
-export const STAFF_DOMAINS = ['zincdigital.co', 'zincmiami.com'];
-export const configured = () => !!URL_() && !!ANON();
-export const serverConfigured = () => !!URL_() && !!SERVICE();
+// Supabase access (design section 6.3). createServerClient carries the staff session in HttpOnly cookies, so
+// RLS applies to staff reads and writes. createAdminClient uses the secret key; only the modules named in
+// design section 6.3.5 may import it (tests/private-routes.test.ts enforces this).
+import type { AstroCookies } from 'astro';
+import { createServerClient as createSsrClient, parseCookieHeader } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
+import { env, isConfigured } from './env';
 
+export { STAFF_DOMAINS } from './signin';
+export const configured = () => isConfigured('supabase');
+export const serverConfigured = () => isConfigured('admin');
+
+/** One per request: the session client for the visitor's cookies. Cookie writes go back through Astro. */
+export function createServerClient(ctx: { request: Request; cookies: AstroCookies }) {
+  return createSsrClient(env.supabaseUrl(), env.supabasePublishableKey(), {
+    cookies: {
+      getAll: () => parseCookieHeader(ctx.request.headers.get('cookie') || '').map(({ name, value }) => ({ name, value: value || '' })),
+      setAll: (list) => {
+        for (const { name, value, options } of list) ctx.cookies.set(name, value, { ...options, httpOnly: true, secure: true, sameSite: 'lax', path: '/' });
+      },
+    },
+  });
+}
+
+/** Secret-key client for named server operations only (invite, offboard, inquiries, publish, build content). */
+export function createAdminClient() {
+  return createClient(env.supabaseUrl(), env.supabaseSecretKey(), { auth: { persistSession: false, autoRefreshToken: false } });
+}
+
+// --- REST helper used by the routes ported from the Design package until tasks 11, 12 and 23 move them
+// to the clients above. Every helper throws on non-2xx.
 type Opts = { schema?: string; key?: 'anon' | 'service'; prefer?: string; jwt?: string };
 async function rest(method: string, path: string, body?: unknown, o: Opts = {}) {
-  const key = o.key === 'service' ? SERVICE() : ANON();
+  const key = o.key === 'service' ? env.supabaseSecretKey() : env.supabasePublishableKey();
   const headers: Record<string, string> = { apikey: key, authorization: 'Bearer ' + (o.jwt || key), 'content-type': 'application/json' };
   if (o.schema) { headers[method === 'GET' ? 'accept-profile' : 'content-profile'] = o.schema; }
   if (o.prefer) headers.prefer = o.prefer;
-  const r = await fetch(URL_() + '/rest/v1/' + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+  const r = await fetch(env.supabaseUrl() + '/rest/v1/' + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
   if (!r.ok) throw new Error('supabase ' + method + ' ' + path + ' → ' + r.status + ' ' + (await r.text()).slice(0, 300));
   const t = await r.text();
   return t ? JSON.parse(t) : null;
@@ -25,33 +47,5 @@ export const db = {
   rpc: (fn: string, args: unknown, o?: Opts) => rest('POST', 'rpc/' + fn, args, o),
 };
 
-// --- auth ---
-export type StaffUser = { id: string; email: string };
-export function readToken(req: Request): string | null {
-  const auth = req.headers.get('authorization');
-  if (auth?.startsWith('Bearer ')) return auth.slice(7);
-  const m = /(?:^|;\s*)zinc-staff=([^;]+)/.exec(req.headers.get('cookie') || '');
-  return m ? decodeURIComponent(m[1]) : null;
-}
-/** Name of the PostgREST-exposed RPC that returns boolean staff membership for the current JWT. */
-export const STAFF_RPC = import.meta.env.STAFF_RPC || 'is_staff';
-/**
- * Resolves the staff user for a request or null. Access requires ALL of:
- * valid Supabase session, allowed email domain, AND an explicit `true` from the staff RPC
- * evaluated under the caller's JWT. RPC errors, missing RPC, null or any non-boolean deny.
- * The RPC must be exposed to PostgREST (e.g. `public.is_staff()` wrapping `private.is_staff()`); see PORT.md D2.
- */
-export async function staffFromRequest(req: Request): Promise<StaffUser | null> {
-  const jwt = readToken(req);
-  if (!jwt || !URL_() || !ANON()) return null;
-  let u: { id?: string; email?: string };
-  try { const r = await fetch(URL_() + '/auth/v1/user', { headers: { apikey: ANON(), authorization: 'Bearer ' + jwt } }); if (!r.ok) return null; u = (await r.json()) as typeof u; } catch { return null; }
-  const email = (u.email || '').toLowerCase();
-  if (!u.id || !STAFF_DOMAINS.some((d) => email.endsWith('@' + d))) return null;
-  let ok: unknown;
-  try { ok = await db.rpc(STAFF_RPC, {}, { jwt }); } catch (e) { console.warn('staff rpc failed:', (e as Error).message); return null; }
-  if (ok !== true) return null;
-  return { id: u.id, email };
-}
 export const unauthorized = () => new Response(JSON.stringify({ error: 'staff session required' }), { status: 401, headers: { 'content-type': 'application/json' } });
 export const json = (data: unknown, status = 200, headers: Record<string, string> = {}) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store', ...headers } });

@@ -2,34 +2,40 @@
 // /admin/ — server-rendered inquiry board (real data). This is the first implemented slice of the
 // Admin; the full Admin UI (dashboard, pages/posts, SEO, research chat) is the Design prototype
 // `handoff/admin/ZINC Admin.dc.html` + adapter.js and is still to be ported (see PORT.md section 6).
+// Reads and updates go through the staff session, so RLS applies, and the change-log trigger (0002) writes
+// inquiry_events with the staff member as the actor.
 export const prerender = false;
-import { db, serverConfigured, staffFromRequest } from '../../lib/supabase';
+import { createServerClient } from '../../lib/supabase';
+import { isConfigured } from '../../lib/env';
+import { requireStaff } from '../../lib/auth';
 import '../../styles/tokens.css';
 import '../../styles/themes.css';
 import '../../styles/site.css';
-const staff = await staffFromRequest(Astro.request); // middleware already enforced this
+const staff = requireStaff(Astro);
+if (staff instanceof Response) return staff;
 const STAGES: [string, string, string][] = [['new', 'New', 'Reply within 24h'], ['contacted', 'Contacted', 'Book discovery call'], ['qualified', 'Qualified', 'Send proposal'], ['closed', 'Closed', 'Archive']];
 type Inq = { id: string; company: string; name: string; email: string; services: string[]; budget: string; timeline: string; stage: string; created_at: string; archived_at: string | null };
 let rows: Inq[] = [], loadError = '';
-if (Astro.request.method === 'POST' && serverConfigured()) {
+const sb = isConfigured('supabase') ? createServerClient(Astro) : null;
+if (Astro.request.method === 'POST' && sb) {
   const fd = await Astro.request.formData();
   const id = String(fd.get('id') || ''), stage = String(fd.get('stage') || ''), action = String(fd.get('action') || '');
-  try {
-    if (action === 'archive') { await db.update('inquiries?id=eq.' + id, { archived_at: new Date().toISOString() }, { key: 'service', prefer: 'return=minimal' }); await db.insert('inquiry_events', { inquiry_id: id, kind: 'archived', payload: { by: staff?.email } }, { key: 'service', prefer: 'return=minimal' }); }
-    else if (action === 'restore') await db.update('inquiries?id=eq.' + id, { archived_at: null }, { key: 'service', prefer: 'return=minimal' });
-    else if (STAGES.some(([k]) => k === stage)) { await db.update('inquiries?id=eq.' + id, { stage }, { key: 'service', prefer: 'return=minimal' }); await db.insert('inquiry_events', { inquiry_id: id, kind: 'stage', payload: { stage, by: staff?.email } }, { key: 'service', prefer: 'return=minimal' }); }
-  } catch (e) { loadError = (e as Error).message; }
+  const patch = action === 'archive' ? { archived_at: new Date().toISOString() } : action === 'restore' ? { archived_at: null } : STAGES.some(([k]) => k === stage) ? { stage } : null;
+  if (patch) { const { error } = await sb.from('inquiries').update(patch).eq('id', id); if (error) loadError = error.message; }
   if (!loadError) return Astro.redirect('/admin/', 303);
 }
-if (serverConfigured()) { try { rows = (await db.select('inquiries?select=id,company,name,email,services,budget,timeline,stage,created_at,archived_at&order=created_at.desc', { key: 'service' })) as Inq[]; } catch (e) { loadError = (e as Error).message; } }
-else loadError = 'SUPABASE_URL / SUPABASE_SERVICE_ROLE are not set.';
+if (sb) {
+  const { data, error } = await sb.from('inquiries').select('id,company,name,email,services,budget,timeline,stage,created_at,archived_at').order('created_at', { ascending: false });
+  if (error) loadError = error.message; else rows = (data || []) as Inq[];
+}
+else loadError = 'PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_PUBLISHABLE_KEY are not set.';
 const active = rows.filter((r) => !r.archived_at), archived = rows.filter((r) => r.archived_at);
 const when = (d: string) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(d));
 ---
 <html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Inquiries | ZINC admin</title><link rel="icon" href="/favicon.png" type="image/png" />
 <script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
 <body><div class="zb"><main class="wrap" style="padding:48px 24px 80px">
-  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff?.email}</span></div><hr class="rule" />
+  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff.email} <form method="post" action="/api/admin/signout/" style="display:inline;margin-left:12px"><button type="submit" class="arrow" style="margin:0;background:none;border:0;border-bottom:2px solid var(--ink);padding:0 0 2px;font:inherit;color:inherit;cursor:pointer">Sign out</button></form></span></div><hr class="rule" />
   <h1 class="disp p-sec" style="margin-top:22px">Inquiries.</h1>
   {loadError && <p class="p-err">{loadError}</p>}
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px">

@@ -1,0 +1,19 @@
+---
+// /admin/auth/confirm/ — the link in the invite and sign-in emails (design section 6.2). verifyOtp sets the
+// session cookies through the server client; then 303 to the saved destination, or /admin/ when the link
+// is opened in another browser. Any failure goes back to sign-in with the expired-link message.
+export const prerender = false;
+import { createServerClient } from '../../../lib/supabase';
+import { isConfigured } from '../../../lib/env';
+import { safeNext } from '../../../lib/auth';
+import { NEXT_COOKIE } from '../../../lib/signin';
+
+const tokenHash = Astro.url.searchParams.get('token_hash') || '';
+const type = Astro.url.searchParams.get('type');
+if (!isConfigured('supabase') || !tokenHash || (type !== 'magiclink' && type !== 'invite')) return Astro.redirect('/admin/login/?error=link', 303);
+const { error } = await createServerClient(Astro).auth.verifyOtp({ token_hash: tokenHash, type });
+if (error) return Astro.redirect('/admin/login/?error=link', 303);
+const next = safeNext(Astro.cookies.get(NEXT_COOKIE)?.value);
+Astro.cookies.delete(NEXT_COOKIE, { path: '/' });
+return Astro.redirect(next, 303);
+---
