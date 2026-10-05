@@ -31,7 +31,7 @@ const when = (d: string) => new Intl.DateTimeFormat('en-US', { month: 'short', d
 <html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Inquiries | ZINC admin</title><link rel="icon" href="/favicon.png" type="image/png" />
 <script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
 <body><div class="zb"><main class="wrap" style="padding:48px 24px 80px">
-  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff?.email}</span></div><hr class="rule" />
+  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff.email} <form method="post" action="/api/admin/signout/" style="display:inline;margin-left:12px"><button type="submit" class="arrow" style="margin:0;background:none;border:0;border-bottom:2px solid var(--ink);padding:0 0 2px;font:inherit;color:inherit;cursor:pointer">Sign out</button></form></span></div><hr class="rule" />
   <h1 class="disp p-sec" style="margin-top:22px">Inquiries.</h1>
   {loadError && <p class="p-err">{loadError}</p>}
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px">

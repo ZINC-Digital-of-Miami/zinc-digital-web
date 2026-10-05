@@ -5,8 +5,8 @@ import type { Role } from '../lib/auth';
 
 export type PrivateRoute = { path: string; kind: 'page' | 'api'; role: Role; file: string };
 
-/** Sign-in pages that must stay reachable without a session. */
-export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/admin/callback/'];
+/** Sign-in, confirm and sign-out must stay reachable without a staff role. */
+export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/api/admin/signout/'];
 
 /** Path prefixes that need a staff session. */
 export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/', '/api/inquiries/email/'];

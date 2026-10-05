@@ -6,7 +6,7 @@ import { createServerClient as createSsrClient, parseCookieHeader } from '@supab
 import { createClient } from '@supabase/supabase-js';
 import { env, isConfigured } from './env';
 
-export const STAFF_DOMAINS = ['zincdigital.co', 'zincmiami.com'];
+export { STAFF_DOMAINS } from './signin';
 export const configured = () => isConfigured('supabase');
 export const serverConfigured = () => isConfigured('admin');
 

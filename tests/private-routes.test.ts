@@ -23,7 +23,7 @@ test('every admin page and staff API is listed and calls requireStaff', () => {
 });
 
 test('public paths stay public', () => {
-  for (const p of ['/', '/contact/', '/api/inquiries/', '/contact/send/', '/admin/login/', '/admin/auth/confirm/']) assert.equal(isPrivatePath(p), false, p);
+  for (const p of ['/', '/contact/', '/api/inquiries/', '/contact/send/', '/admin/login/', '/admin/auth/confirm/', '/api/admin/signout/']) assert.equal(isPrivatePath(p), false, p);
   for (const p of ['/admin/', '/admin/staff/', '/api/admin/staff/', '/api/research/chat/', '/api/inquiries/email/']) assert.equal(isPrivatePath(p), true, p);
 });
 

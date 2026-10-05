@@ -1,13 +1,35 @@
 ---
-// /admin/login/ — magic-link sign-in for staff (Supabase Auth OTP). Public route; noindex.
+// /admin/login/ — staff sign-in by one-time link (design section 6.2). Posts to itself. The server sends the
+// link with shouldCreateUser: false and always shows the same message, so it never reveals whether an
+// address has an account. Public route; noindex.
 export const prerender = false;
-import { configured, STAFF_DOMAINS } from '../../lib/supabase';
+import { createServerClient } from '../../lib/supabase';
+import { isConfigured } from '../../lib/env';
+import { safeNext } from '../../lib/auth';
+import { NEXT_COOKIE, NEXT_COOKIE_OPTIONS, STAFF_DOMAINS, isStaffAddress, signInAllowed } from '../../lib/signin';
 import '../../styles/tokens.css';
 import '../../styles/themes.css';
 import '../../styles/site.css';
-const url = import.meta.env.PUBLIC_SUPABASE_URL, anon = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-const next = Astro.url.searchParams.get('next') || '/admin/';
-const ok = configured();
+
+const ok = isConfigured('supabase');
+let sent = false;
+const error = Astro.url.searchParams.get('error') === 'link' ? 'This link has expired. Request a new one.' : '';
+let next = safeNext(Astro.url.searchParams.get('next'));
+if (Astro.request.method === 'POST' && ok) {
+  const fd = await Astro.request.formData();
+  const email = String(fd.get('email') || '').trim().toLowerCase().slice(0, 254);
+  next = safeNext(String(fd.get('next') || ''));
+  Astro.cookies.set(NEXT_COOKIE, next, NEXT_COOKIE_OPTIONS);
+  if (isStaffAddress(email) && signInAllowed(email)) {
+    try {
+      const { error: e } = await createServerClient(Astro).auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: Astro.url.origin + '/admin/auth/confirm/' } });
+      if (e) console.warn('sign-in link not sent:', e.status || e.name);
+    } catch {
+      console.warn('sign-in link not sent: network');
+    }
+  }
+  sent = true;
+}
 ---
 <html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Staff sign-in | ZINC</title><link rel="icon" href="/favicon.png" type="image/png" />
 <script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
@@ -15,24 +37,14 @@ const ok = configured();
   <span class="kick">ZINC / admin</span>
   <h1 class="disp p-sec" style="margin-top:16px">Staff sign-in.</h1>
   <p class="p-muted" style="margin:16px 0 32px">A one-time link goes to your {STAFF_DOMAINS.map((d) => '@' + d).join(' or ')} address.</p>
-  {ok ? (
-    <form id="loginForm" class="p-form" data-url={url} data-anon={anon} data-next={next} novalidate>
-      <label>Work email<input id="login-email" name="email" type="email" autocomplete="email" required /></label>
-      <p class="p-err" role="alert" data-form-error></p>
+  {!ok ? <p class="p-err">PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_PUBLISHABLE_KEY are not set. Sign-in is unavailable in this build.</p>
+  : sent ? <p class="p-body" role="status">Check your inbox. The link signs you in on this device.</p>
+  : (
+    <form method="post" class="p-form">
+      <input type="hidden" name="next" value={next} />
+      <label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+      <p class="p-err" role="alert">{error}</p>
       <div class="p-ctrls" style="margin-top:14px"><button type="submit" class="btn fill">Send sign-in link</button></div>
     </form>
-  ) : <p class="p-err">PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY are not set. Sign-in is unavailable in this build.</p>}
-</main></div>
-<script>
-  const f = document.getElementById('loginForm') as HTMLFormElement | null;
-  f?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = (f.elements.namedItem('email') as HTMLInputElement).value.trim().toLowerCase();
-    const err = f.querySelector<HTMLElement>('[data-form-error]')!;
-    if (!/^[^@\s]+@(zincdigital\.co|zincmiami\.com)$/.test(email)) { err.textContent = 'Use a ZINC staff address.'; return; }
-    const btn = f.querySelector('button')!; btn.disabled = true; btn.textContent = 'Sending…';
-    const r = await fetch(f.dataset.url + '/auth/v1/otp', { method: 'POST', headers: { apikey: f.dataset.anon!, 'content-type': 'application/json' }, body: JSON.stringify({ email, create_user: true, options: { email_redirect_to: location.origin + '/admin/callback/?next=' + encodeURIComponent(f.dataset.next!) } }) });
-    if (r.ok) { f.innerHTML = '<p class="p-body">Check your inbox. The link signs you in on this device.</p>'; }
-    else { btn.disabled = false; btn.textContent = 'Send sign-in link'; err.textContent = 'Could not send the link (' + r.status + '). Try again.'; }
-  });
-</script></body></html>
+  )}
+</main></div></body></html>
