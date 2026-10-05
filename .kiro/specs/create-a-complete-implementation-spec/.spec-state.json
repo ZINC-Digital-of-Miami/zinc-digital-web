@@ -93,7 +93,8 @@
         "Leave AGENTS.md as it is"
       ],
       "recommended": "Update AGENTS.md: milestone merges are automatic",
-      "answer": null
+      "answer": "Update AGENTS.md: milestone merges are automatic",
+      "answered": "2026-10-05"
     }
   ],
   "blocking": "M3 head c231531: 8.1, 10, 12, 13.1 and 13.3 are done; 8.2, 8.3, 11.1 and 11.2 are written. The SUPABASE_DB_URL in .env is a Supabase CLI temporary login (cli_login_postgres) whose password has expired, so the live 8.2/8.3 rehearsal needs the project's Session pooler URI with the database password. Then the owner go for 8.4, 9.1 and 11.2; SMTP and Vercel env vars for 13.2.",
