@@ -1,12 +1,11 @@
 ---
-// /contact/send/ — the contact form's no-JavaScript target (live mode). Accepted posts get a 303 to /thanks/;
+// /contact/send/ — the contact form's no-JavaScript target. Accepted posts get a 303 to /thanks/;
 // a rejected post re-renders the contact page with the visitor's values (Astro escapes them) and the error,
-// with the same statuses as /api/inquiries/. Honeypot and demo-mode posts also go to /thanks/ with nothing
-// stored or sent.
+// with the same statuses as /api/inquiries/. Honeypot posts also go to /thanks/ with nothing stored or sent.
 export const prerender = false;
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import Page from '../../components/Page.astro';
-import { routes, INQUIRY_MODE } from '../../data/site';
+import { routes } from '../../data/site';
 import { env } from '../../lib/env';
 import { formAnswer, handle, liveDeps } from '../../lib/inquiry';
 
@@ -15,7 +14,7 @@ const route = routes.find((r) => r.path === '/contact/')!;
 const seeOther = (location: string) => new Response(null, { status: 303, headers: { location, 'cache-control': 'no-store' } });
 Astro.response.headers.set('cache-control', 'no-store');
 if (Astro.request.method !== 'POST') return seeOther('/contact/');
-const answer = formAnswer(await handle(Astro.request, Astro.clientAddress, { mode: INQUIRY_MODE, siteOrigin: env.siteOrigin(), deps: liveDeps }));
+const answer = formAnswer(await handle(Astro.request, Astro.clientAddress, { siteOrigin: env.siteOrigin(), deps: liveDeps }));
 if ('redirect' in answer) return seeOther(answer.redirect);
 Astro.response.status = answer.status;
 for (const [k, v] of Object.entries(answer.headers)) Astro.response.headers.set(k, v);

@@ -13,9 +13,6 @@ export const PHONE_LABEL = '(786) 575-4837';
 export const EMAIL = 'hello@zincdigital.co';
 // Footer "Admin" link (design: ZINC Site footer). /admin/ is an on-demand (server) route guarded by middleware.
 export const ADMIN_PATH: string | null = '/admin/';
-// Contact form mode. 'demo' = the designed non-sending preview (default). 'live' = POST /api/inquiries.
-// Flip with PUBLIC_INQUIRY_MODE=live once PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY are set.
-export const INQUIRY_MODE: 'demo' | 'live' = (import.meta.env.PUBLIC_INQUIRY_MODE === 'live' ? 'live' : 'demo');
 export const SOCIAL = [
   ['Facebook', 'https://www.facebook.com/zincdigitalofmiami'],
   ['Instagram', 'https://www.instagram.com/zincdigitalofmiami/'],
@@ -101,17 +98,15 @@ export const team: TeamMember[] = [
 export const homeCommitments = ['You own your accounts, data and code.', 'Direct access to the people doing the work.', 'Reporting tied to revenue, not impressions.'];
 export const sequence: [string, string][] = [['Understand', 'Agree on the business problem, the sources and the people responsible.'], ['Define', 'Set the scope, decision points and measures that will guide the work.'], ['Build and review', 'Bring complete working increments to a shared review.'], ['Measure and adjust', 'Check outcomes and choose the next priorities from evidence.']];
 
-// Privacy and Terms: the Design's marked-preview copy in demo builds; owner-approved text (legal.ts) in live builds.
-const previewPrivacy: [string, string][] = [['About this preview','This site is a public design preview for ZINC Digital. Its contact interface demonstrates a possible inquiry journey. The demo does not send or retain the information entered into it. Use sample information while reviewing the design.'],['Information in an inquiry','The planned production form includes a name, company, work email, website, service interests, budget, timeline and message. Production collection, delivery, access and retention rules must be confirmed before the form is connected.'],['Hosting and technical requests','Loading this preview requests files from its hosting provider. The provider may process technical request information under its own policies. This preview does not make a promise about provider log retention.'],['Measurement and cookies','No advertising or analytics integration is connected to this mockup. The planned production site includes Google Analytics and advertising measurement. The final policy must describe the actual configuration and applicable choices.'],['Sharing and service providers','The production policy must identify the purposes for which information is used and the providers involved in hosting, inquiry delivery and measurement. These details are awaiting owner review.'],['Retention and requests','Retention periods, deletion procedures and the process for handling access or correction requests must be documented before launch. Do not rely on this preview as a statement of those procedures.'],['External links','Links to client sites, social platforms and reference sources lead to independently operated services. Their information practices are governed by their own policies.'],['Contact and changes','Questions about the planned policy can be directed to hello@zincdigital.co. An effective date and reviewed policy will replace this marked preview before production launch.']];
-const previewTerms: [string, string][] = [['Purpose of this preview','This public website is a design preview for ZINC Digital. Content is subject to change before launch.'],['No engagement created','Browsing this preview or completing its non-sending demo does not create a client relationship, request a service or establish an agreement. A separate written agreement defines any actual engagement.'],['Scope and service descriptions','Service pages illustrate proposed ways of describing deliverables, ownership, cadence and reporting. An agreed scope must establish the work, responsibilities, fees and approvals for a specific engagement.'],['Results and examples','Case studies contain visible markers wherever results require confirmation. No performance outcome, ranking or revenue result is guaranteed by this preview. Source screenshots demonstrate prior interfaces and are not live client applications.'],['Content and intellectual property','Ownership and permitted use of final site content, client materials, software and third-party assets require appropriate agreements and permissions. No license to reuse a client asset is granted by displaying it here.'],['Third-party services','Linked sites and platforms operate independently. Access to a public link does not imply that ZINC controls that service, its availability or its terms.'],['Acceptable use','Use the preview for lawful review. Do not submit sensitive information into demo fields or attempt to access private systems through screenshots or example content.'],['Final legal review','Liability provisions, governing law, dispute handling and an effective date must be reviewed by the owner and appropriate legal counsel. This marked preview does not assert accepted terms. Contact hello@zincdigital.co with questions.']];
-export const privacy = INQUIRY_MODE === 'live' ? privacyApproved.sections : previewPrivacy;
-export const terms = INQUIRY_MODE === 'live' ? termsApproved.sections : previewTerms;
+// Privacy and Terms: the owner-approved text in legal.ts. Empty sections render no legal body (R2.6).
+export const privacy = privacyApproved.sections;
+export const terms = termsApproved.sections;
 
 export const lede: Record<string, string> = {
   services: 'One connected system. The customer experience, the demand behind it and the information that informs both.',
   about: 'Seven people. Connected responsibilities across the work a business needs.',
   blog: 'Source-backed thinking on building, reaching customers and measuring the work.',
-  thanks: INQUIRY_MODE === 'live' ? 'Your inquiry is in. We respond with the right starting point, usually within one business day.' : 'No inquiry was submitted and no form details were saved. You can return to the form or keep exploring the work.',
+  thanks: 'Your inquiry is in. We respond with the right starting point, usually within one business day.',
   '404': 'The address may have changed. Continue with the services, explore the work or return to the homepage.',
   work: 'Four cases, three layers. The relationships and the connected work behind them.',
   contact: 'Tell us about the business. We’ll respond with the right starting point.',
@@ -143,7 +138,7 @@ export const routes: Route[] = [
   ...cases.map((c) => route('/work/' + c.slug + '/', 'case', c.title, { slug: c.slug })),
   route('/about/', 'about', 'The people behind the work'),
   route('/contact/', 'contact', 'Start an Inquiry'),
-  route('/thanks/', 'thanks', INQUIRY_MODE === 'live' ? 'Inquiry received' : 'Demo confirmation'),
+  route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date })),
   route('/privacy/', 'privacy', 'Privacy'),
@@ -163,7 +158,6 @@ export function describe(r: Route): string {
   if (r.template === 'case') return caseBy(r.slug!).line;
   if (r.template === 'article') return excerpt(posts.find((p) => p.slug === r.slug)!, 155);
   if (r.template === 'privacy' || r.template === 'terms') {
-    if (INQUIRY_MODE !== 'live') return 'Marked preview. Requires owner and legal review before launch.';
     return (r.template === 'privacy' ? privacyApproved : termsApproved).description || r.title + ' | ZINC Digital';
   }
   return lede[r.template] || 'ZINC Digital';

@@ -1,25 +1,24 @@
 ---
 // ContactForm.astro — the Design's three-step inquiry form (aside + form). Rendered by Page.astro on /contact/
 // and by /contact/send/, which re-renders it with the submitted values and the server's error (no JavaScript).
-// Live mode: no-JS posts go to /contact/send/; page.ts posts JSON to data-endpoint. Demo mode never posts.
-import { services, layers, SMS, PHONE_LABEL, INQUIRY_MODE } from '../data/site';
+// No-JS posts go to /contact/send/; page.ts posts JSON to data-endpoint.
+import { services, layers, SMS, PHONE_LABEL } from '../data/site';
 import { BUDGETS, TIMELINES, type Inquiry } from '../lib/inquiry';
 interface Props { values?: Partial<Inquiry>; error?: string }
 const { values = {}, error } = Astro.props;
-const live = INQUIRY_MODE === 'live';
 const v = { name: '', company: '', email: '', website: '', budget: '', timeline: '', message: '', ...values };
 const chosen = values.services || [];
 ---
-<aside class="p-aside rv"><span class="kick">{live ? 'Inquiry' : 'Inquiry preview'}</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2>{!live && <p class="p-demo" id="demo-notice"><span class="mdot"></span>Demo inquiry — no message will be sent</p>}<p class="p-muted">{live ? 'Three short steps. We read every inquiry and reply from hello@zincdigital.co.' : 'Use sample information to explore this form. Nothing is submitted or stored.'}</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
-<form class="p-form rv" id="inqForm" data-demo-form data-mode={INQUIRY_MODE} data-thanks="/thanks/" method="post" action={live ? '/contact/send/#inquiry-error' : undefined} data-endpoint="/api/inquiries/" aria-describedby={live ? undefined : 'demo-notice'} novalidate>
+<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
+<form class="p-form rv" id="inqForm" data-inquiry-form data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
   <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
   <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
   <fieldset data-step="0"><legend>01 / Your business</legend><div class="p-fields"><label>Name<input id="inquiry-name" name="name" value={v.name} autocomplete="name" required maxlength="120" /></label><label>Company<input id="inquiry-company" name="company" value={v.company} autocomplete="organization" required maxlength="160" /></label><label>Work email<input id="inquiry-email" name="email" value={v.email} type="email" autocomplete="email" required maxlength="254" /></label><label>Website URL<input id="inquiry-website" name="website" value={v.website} type="url" autocomplete="url" placeholder="https://" required maxlength="500" /></label></div></fieldset>
   <fieldset data-step="1"><legend>02 / What you need</legend>{layers.map((layer) => <div class="p-svcgroup"><span class="lab">{layer}</span><div class="p-checks">{services.filter((s) => s.layer === layer).map((s) => <label class="p-check"><input type="checkbox" name="service" value={s.slug} checked={chosen.includes(s.slug)} data-service />{s.title}</label>)}</div></div>)}<div class="p-fields"><label>Monthly budget<select id="inquiry-budget" name="budget" required><option value="">Choose a range</option>{BUDGETS.map((x) => <option selected={v.budget === x}>{x}</option>)}</select></label><label>Timeline<select id="inquiry-timeline" name="timeline" required><option value="">Choose a timeline</option>{TIMELINES.map((x) => <option selected={v.timeline === x}>{x}</option>)}</select></label></div></fieldset>
-  <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000">{v.message}</textarea></label></div><p class="p-muted" style="margin:14px 0 0">{live ? 'Sending adds your inquiry to our board and emails the team. Nothing else is shared.' : 'Demo only. The next screen previews the confirmation; it does not contact ZINC.'}</p></fieldset>
+  <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000">{v.message}</textarea></label></div><p class="p-muted" style="margin:14px 0 0">Sending adds your inquiry to our board and emails the team. Nothing else is shared.</p></fieldset>
   <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value="/contact/" />
   <p class="p-err" id="inquiry-error" role="alert" data-form-error>{error && <>{error}. <a href={SMS}>Text us instead</a> and we will pick it up.</>}</p>
   <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>← Back</button></div>
-  <p class="p-muted" data-nojs-note style="margin:14px 0 0">{live ? 'Without JavaScript the three steps show as one page; the button below submits.' : 'Without JavaScript the three steps show as one page. This is a non-sending demo; the link below previews the confirmation.'}</p>
-  {live ? <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button> : <a class="btn fill" href="/thanks/" data-nojs-submit>Preview demo confirmation</a>}
+  <p class="p-muted" data-nojs-note style="margin:14px 0 0">Without JavaScript the three steps show as one page; the button below submits.</p>
+  <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button>
 </form>

@@ -3,8 +3,7 @@
 import Img from './Img.astro';
 import ContactForm from './ContactForm.astro';
 import type { Inquiry } from '../lib/inquiry';
-import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, INQUIRY_MODE, type Route, type Layer } from '../data/site';
-const live = INQUIRY_MODE === 'live';
+import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
 const t = route.template;
@@ -114,15 +113,15 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {post && (<>
   <section class="p-band"><div class="wrap p-article">
-    <aside class="p-aside rv"><p class="lab">Source article / {post.id}</p><p class="p-muted">Originally published {dateLabel(post.dateGmt)}.</p>{!live && post.previewEdits.length > 0 && <p class="lab" style="font-size:12px">Legacy search terminology expanded for this preview.</p>}<a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
+    <aside class="p-aside rv"><p class="lab">Source article / {post.id}</p><p class="p-muted">Originally published {dateLabel(post.dateGmt)}.</p><a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
     <article class="p-prose rv" data-source-id={post.id}>
       {post.blocks.map((block, i) => block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</p>)}
     </article>
   </div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Source author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}{!live && <p class="lab" style="margin:10px 0 0;font-size:12px">Attribution from public source record {post.author.id}.</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Source author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
 </>)}
 
-{legal.length > 0 && <section class="p-band"><div class="wrap p-legal">{!live && <aside class="p-aside rv"><p class="p-muted">This public design preview does not present an approved legal policy. Production terms and disclosures require review before launch.</p></aside>}<div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
+{legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
 {t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={form?.values} error={form?.error} /></div></section>}
 

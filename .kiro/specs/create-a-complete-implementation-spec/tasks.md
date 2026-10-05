@@ -233,7 +233,6 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - Supabase keys;
       - SMTP user, App Password and notification recipient;
       - hash salt;
-      - `PUBLIC_INQUIRY_MODE=live` on one protected preview only.
       - **Verify:** the email arrives at the recipient; the row shows `sent`; the test row is removed afterwards with the owner's go.
       - _Requirements: R6.4, R18.6_
     - [x] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.

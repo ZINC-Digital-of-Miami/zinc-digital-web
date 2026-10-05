@@ -146,7 +146,7 @@ No client-side bundle includes any of these.
 | Turnstile | Remove the code and environment variables. |
 | JSON-LD | `author` becomes `Person` (with `name` only) for named people and `Organization` for "Team ZINC". No `jobTitle`. |
 | Design deviations | Correct the two service-to-case links, the homepage contents line and the homepage title toward Design. `.c-quote` renders in upright Inter 400, because no light-italic face is shipped and the font guard allows exactly three files. This is recorded as an owner-visible deviation in the visual review. |
-| Live-mode wording | Live-mode strings in `site.ts` and `page.ts` use owner-approved live copy. Demo strings appear only when `PUBLIC_INQUIRY_MODE=demo`. |
+| Live wording | Strings in `site.ts` and `page.ts` are the production copy; there are no demo strings (owner, 5 Oct 2026). |
 | `robots.txt` | Add `Disallow: /admin/` and `/api/`; remove `Disallow: /thanks/`. |
 | Section-sign comment | Rewrite the `admin/index.astro` comment without the section-sign character. |
 | Static check | Fix the Summit alias contradiction (allow the redirect output file). Placeholder scan adds "design preview", "mockup", "Demo inquiry", "sample information" for live builds. JSON-LD is parsed. Sitemap and robots content are checked. A secret-pattern scan (R15.2) is added. |
@@ -212,7 +212,7 @@ sequenceDiagram
 
 **Resend notification:** an admin button calls `POST /api/admin/notify` (staff). It reuses `notify()` and increments `notify_attempts`.
 
-**Modes:** `PUBLIC_INQUIRY_MODE` is `demo` on Vercel Preview and stays `demo` on Production until the owner approves the live copy (R5.3). In demo mode the form never posts.
+**Production only:** the form is live in every build; there is no demo mode or `PUBLIC_INQUIRY_MODE` (owner, 5 Oct 2026). Previews stay behind Deployment Protection.
 
 **Responses:** `Cache-Control: no-store`, a generic message, and logs containing only the inquiry id and error class.
 
@@ -511,7 +511,6 @@ Values are entered by the owner in Vercel, or in the git-ignored local `.env`. A
 | `SUPABASE_SECRET_KEY` | server and build | named operations (section 6.3.5) |
 | `SUPABASE_DB_URL` | local `.env` only | `pg_dump` / `db-test.mjs` |
 | `SITE_ORIGIN` | all | `https://www.zincdigital.co` |
-| `PUBLIC_INQUIRY_MODE` | Preview=`demo`, Production=`demo` → `live` after owner approval | contact |
 | `INQUIRY_HASH_SALT` | server | rate-limit hashing |
 | `SMTP_USER`, `SMTP_PASS`, `INQUIRY_NOTIFY_TO` | server | Workspace SMTP |
 | `PUBLIC_ANALYTICS`, `PUBLIC_ADS_CONVERSION_LABEL` | Production | analytics |
