@@ -4,7 +4,8 @@
 // Falls back to Claude when the bridge is unreachable and ANTHROPIC_API_KEY exists; otherwise emits the error frame.
 export const prerender = false;
 import type { APIRoute } from 'astro';
-import { db, json, serverConfigured, staffFromRequest, unauthorized } from '../../../lib/supabase';
+import { db, json, serverConfigured } from '../../../lib/supabase';
+import { requireStaff } from '../../../lib/auth';
 
 type Chunk = { id: string; document_id: string; content: string; idx: number; title?: string; kind?: string; similarity?: number };
 const SYSTEM = 'You are the ZINC Digital research assistant. Answer plainly and concretely in ZINC\'s voice: confident, matter-of-fact, no filler. Use only the numbered sources when they are relevant and cite them inline as [n]. If the sources do not cover the question, say so.';
@@ -41,9 +42,10 @@ async function* sse(body: ReadableStream<Uint8Array>): AsyncGenerator<any> {
   }
 }
 
-export const POST: APIRoute = async ({ request }) => {
-  const staff = await staffFromRequest(request);
-  if (!staff) return unauthorized();
+export const POST: APIRoute = async (ctx) => {
+  const { request } = ctx;
+  const staff = requireStaff(ctx);
+  if (staff instanceof Response) return staff;
   if (!serverConfigured()) return json({ error: 'server supabase not configured' }, 503);
   if (import.meta.env.RESEARCH_PROVIDERS_APPROVED !== 'true') return json({ error: 'research providers not approved (OpenAI embeddings / Anthropic are billable; set RESEARCH_PROVIDERS_APPROVED=true after owner sign-off)' }, 503);
   const { project_id, text, model = 'claude' } = (await request.json()) as { project_id: string; text: string; model?: string };

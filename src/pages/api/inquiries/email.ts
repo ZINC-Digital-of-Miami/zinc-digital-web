@@ -2,11 +2,13 @@
 // logs an inquiry_event. Falls back to 503 when RESEND_API_KEY is absent (the adapter then uses mailto:).
 export const prerender = false;
 import type { APIRoute } from 'astro';
-import { db, json, serverConfigured, staffFromRequest, unauthorized } from '../../../lib/supabase';
+import { db, json, serverConfigured } from '../../../lib/supabase';
+import { requireStaff } from '../../../lib/auth';
 
-export const POST: APIRoute = async ({ request }) => {
-  const staff = await staffFromRequest(request);
-  if (!staff) return unauthorized();
+export const POST: APIRoute = async (ctx) => {
+  const { request } = ctx;
+  const staff = requireStaff(ctx);
+  if (staff instanceof Response) return staff;
   if (!serverConfigured()) return json({ error: 'server supabase not configured' }, 503);
   const key = import.meta.env.RESEND_API_KEY;
   if (!key || import.meta.env.EMAIL_PROVIDER_APPROVED !== 'true') return json({ error: 'email provider not configured/approved; use mailto' }, 503);

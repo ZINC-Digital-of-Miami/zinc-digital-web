@@ -3,11 +3,13 @@
 // Admin; the full Admin UI (dashboard, pages/posts, SEO, research chat) is the Design prototype
 // `handoff/admin/ZINC Admin.dc.html` + adapter.js and is still to be ported (see PORT.md section 6).
 export const prerender = false;
-import { db, serverConfigured, staffFromRequest } from '../../lib/supabase';
+import { db, serverConfigured } from '../../lib/supabase';
+import { requireStaff } from '../../lib/auth';
 import '../../styles/tokens.css';
 import '../../styles/themes.css';
 import '../../styles/site.css';
-const staff = await staffFromRequest(Astro.request); // middleware already enforced this
+const staff = requireStaff(Astro);
+if (staff instanceof Response) return staff;
 const STAGES: [string, string, string][] = [['new', 'New', 'Reply within 24h'], ['contacted', 'Contacted', 'Book discovery call'], ['qualified', 'Qualified', 'Send proposal'], ['closed', 'Closed', 'Archive']];
 type Inq = { id: string; company: string; name: string; email: string; services: string[]; budget: string; timeline: string; stage: string; created_at: string; archived_at: string | null };
 let rows: Inq[] = [], loadError = '';

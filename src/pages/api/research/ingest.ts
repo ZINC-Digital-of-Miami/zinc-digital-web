@@ -5,7 +5,8 @@
 // SERP and File return 501 until a SERP provider / storage upload path is configured (see PORT.md).
 export const prerender = false;
 import type { APIRoute } from 'astro';
-import { db, json, serverConfigured, staffFromRequest, unauthorized } from '../../../lib/supabase';
+import { db, json, serverConfigured } from '../../../lib/supabase';
+import { requireStaff } from '../../../lib/auth';
 
 const S = { key: 'service' as const, schema: 'research' };
 const MAX_BYTES = 2 * 1024 * 1024, FETCH_MS = 10000, MAX_REDIRECTS = 3, MAX_CHUNKS = 120, MAX_TEXT = 200000;
@@ -57,9 +58,10 @@ async function embedAll(inputs: string[]): Promise<number[][]> {
   return out;
 }
 
-export const POST: APIRoute = async ({ request }) => {
-  const staff = await staffFromRequest(request);
-  if (!staff) return unauthorized();
+export const POST: APIRoute = async (ctx) => {
+  const { request } = ctx;
+  const staff = requireStaff(ctx);
+  if (staff instanceof Response) return staff;
   if (!serverConfigured()) return json({ error: 'server supabase not configured' }, 503);
   if (import.meta.env.RESEARCH_PROVIDERS_APPROVED !== 'true') return json({ error: 'research providers not approved (set RESEARCH_PROVIDERS_APPROVED=true after owner sign-off on OpenAI embedding costs)' }, 503);
   const { project_id, kind, title, url, content } = (await request.json()) as { project_id: string; kind: 'URL' | 'SERP' | 'File' | 'Note'; title: string; url?: string; content?: string };
