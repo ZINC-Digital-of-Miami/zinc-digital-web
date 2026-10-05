@@ -4,7 +4,7 @@
 // address has an account. Public route; noindex.
 export const prerender = false;
 import {Font} from 'astro:assets';
-import {createHash} from 'node:crypto';
+import {adminThemeScript} from '../../lib/admin-theme';
 import { createServerClient } from '../../lib/supabase';
 import { isConfigured } from '../../lib/env';
 import { safeNext } from '../../lib/auth';
@@ -14,8 +14,6 @@ import '../../styles/themes.css';
 import '../../styles/site.css';
 
 const ok = isConfigured('supabase');
-const themeScript="try{document.documentElement.dataset.theme=localStorage.getItem('zinc-theme')==='light'?'light':'dark'}catch{}";
-Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(themeScript).digest('base64')}`);
 let sent = false;
 const error = Astro.url.searchParams.get('error') === 'link' ? 'This link has expired. Request a new one.' : '';
 let next = safeNext(Astro.url.searchParams.get('next'));
@@ -37,7 +35,7 @@ if (Astro.request.method === 'POST' && ok) {
 ---
 <html lang="en" data-theme="dark"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Staff sign-in | ZINC</title><link rel="icon" href="/favicon.png" type="image/png" />
 <Font cssVariable="--font-display" preload/><Font cssVariable="--font-body"/><Font cssVariable="--font-mono"/>
-<script is:inline set:html={themeScript}/></head>
+<script is:inline set:html={adminThemeScript}/></head>
 <body><div class="zb"><main class="wrap" style="max-width:520px;padding:12vh 24px 80px">
   <span class="kick">ZINC / admin</span>
   <h1 class="disp p-sec" style="margin-top:16px">Staff sign-in.</h1>
