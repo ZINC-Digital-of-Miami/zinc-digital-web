@@ -30,7 +30,8 @@ const TEMPLATES = [
 ].filter(([t]) => !opt('--only') || opt('--only').split(',').includes(t));
 const WIDTHS = [[375, 812], [768, 1024], [1440, 900]];
 const THEMES = ['light', 'dark'];
-const MAX_FRAMES = { 375: 34, 768: 28, 1440: 28 };
+// The 375 cap covers the longest page (the migrated article is about 34,000 px tall at 375, 47 frames).
+const MAX_FRAMES = { 375: 52, 768: 28, 1440: 28 };
 const designUrl = (base, t) => (t[2] ? base + '/' + encodeURIComponent(t[2]) : base + '/' + encodeURIComponent('ZINC Site.dc.html') + '#' + t[1]);
 
 // Interaction states, captured at 375 and 1440 in light: [template, name, steps]. Selectors and labels are the ones
@@ -88,12 +89,14 @@ const open = async (src, t, w, h, theme) => {
 const frames = async (prefix, w, h) => {
   // Re-measure the page height after every scroll: lazy images and finished scenes can make it taller than at load.
   const height = () => d.executeScript('return document.documentElement.scrollHeight');
-  const files = []; let total = await height();
-  for (let k = 0, y = 0; k < MAX_FRAMES[w] && y < total; k++, y += Math.round(h * 0.9)) {
+  const files = []; let total = await height(); let y = 0;
+  for (let k = 0; k < MAX_FRAMES[w] && y < total; k++, y += Math.round(h * 0.9)) {
     await d.executeScript('scrollTo(0, arguments[0])', y); await sleep(160); await d.executeScript(FREEZE);
     const f = path.join(out, 'frames', prefix + '--' + String(k).padStart(2, '0') + '.png'); await writeFile(f, await shot()); files.push(f);
     total = await height();
   }
+  // A page longer than the cap would otherwise lose its bottom silently (round 4 found the article cut at 375).
+  if (y < total) console.warn(`capture: ${prefix} truncated at ${files.length} frames; ${total - y} px not captured`);
   return { files, total };
 };
 
