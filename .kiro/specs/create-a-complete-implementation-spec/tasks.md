@@ -235,7 +235,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - `PUBLIC_INQUIRY_MODE=live` on one protected preview only.
       - **Verify:** the email arrives at the recipient; the row shows `sent`; the test row is removed afterwards with the owner's go.
       - _Requirements: R6.4, R18.6_
-    - [ ] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
+    - [x] 13.3 Check the SPF and DKIM state by DNS query and report it to the owner. The DNS change itself is the owner's.
       - **Verify:** one SPF record includes `_spf.google.com`, and the DKIM selector record resolves.
       - _Requirements: R6.7_
   - [ ] 14. M3 PR
