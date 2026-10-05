@@ -1,9 +1,11 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Page from '../components/Page.astro';
-import { routes, type Route } from '../data/site';
+import { type Route } from '../data/site';
+import {loadPublished} from '../lib/content';
 // Every route except the homepage, which src/pages/index.astro renders with its own stylesheet.
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const {routes}=await loadPublished();
   return routes.filter((route) => route.template !== 'home').map((route) => ({ params: { path: route.path.replace(/^\/|\/$/g, '') }, props: { route } }));
 }
 interface Props { route: Route }

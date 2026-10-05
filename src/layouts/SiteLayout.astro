@@ -8,17 +8,18 @@ import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/site.css';
-import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, posts, excerpt, noindexPaths, type Route } from '../data/site';
+import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route }
 const { route } = Astro.props;
+const {posts}=await (await import('../lib/content')).loadPublished();
 const t = route.template;
 const path = route.path;
-const title = route.title + ' | ZINC';
-const desc = describe(route);
+const title = (route.metaTitle || route.title) + ' | ZINC';
+const desc = route.metaDescription || (route.template==='article'?excerpt(posts.find(p=>p.slug===route.slug)!,155):describe(route));
 const canonical = SITE + path;
 const ogImg = SITE + '/og/' + ogKind(route) + '.png';
-const noindex = noindexPaths.has(path);
+const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
 // ---- JSON-LD ----

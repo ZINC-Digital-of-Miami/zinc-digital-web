@@ -1,0 +1,11 @@
+---
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import {requireStaff} from '../../lib/auth';
+import {inquiries} from '../../lib/admin-data';
+import {googleConfig} from '../../lib/google';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+let count:number|null=null;try{count=(await inquiries(Astro)).filter(r=>new Date(r.created_at).getTime()>Date.now()-30*86400000).length;}catch{}
+const connected=!!googleConfig().account;
+---
+<AdminLayout view="stats" title="Stats"><div data-google-metrics><section class="a-kpis"><div class="a-kpi"><span class="a-label">Sessions</span><div class="a-number" data-metric="sessions">{connected?'Loading…':'Unavailable'}</div></div><div class="a-kpi"><span class="a-label">Engagement / active user</span><div class="a-number" data-metric="engagement">{connected?'Loading…':'Unavailable'}</div></div><div class="a-kpi"><span class="a-label">Inquiries · 30 days</span><div class="a-number">{count??'—'}</div></div><div class="a-kpi"><span class="a-label">AI citations</span><p class="a-muted">No data source</p></div></section><p class="a-notice" data-google-error role="status" hidden={connected}>{connected?'':'Connect Google Analytics to see traffic and engagement.'}</p><div class="a-panel a-section"><span class="a-label">Organic sessions · 30 days</span><div class="a-chart" data-series>{connected?'Loading…':'Connect Google Analytics to see the chart.'}</div><p class="a-count" data-metric="period"></p></div></div><script>import '../../scripts/admin/metrics';</script></AdminLayout>

@@ -12,26 +12,26 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.18"
   }
-  private: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      is_owner: { Args: never; Returns: boolean }
-      is_staff: { Args: never; Returns: boolean }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
+      admin_cache: {
+        Row: {
+          fetched_at: string
+          key: string
+          value: Json
+        }
+        Insert: {
+          fetched_at?: string
+          key: string
+          value: Json
+        }
+        Update: {
+          fetched_at?: string
+          key?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           archived_at: string | null
@@ -153,6 +153,8 @@ export type Database = {
           created_at: string
           focus_keyword: string | null
           id: string
+          live: Json | null
+          live_at: string | null
           meta_description: string | null
           meta_title: string | null
           noindex: boolean
@@ -169,6 +171,8 @@ export type Database = {
           created_at?: string
           focus_keyword?: string | null
           id?: string
+          live?: Json | null
+          live_at?: string | null
           meta_description?: string | null
           meta_title?: string | null
           noindex?: boolean
@@ -185,6 +189,8 @@ export type Database = {
           created_at?: string
           focus_keyword?: string | null
           id?: string
+          live?: Json | null
+          live_at?: string | null
           meta_description?: string | null
           meta_title?: string | null
           noindex?: boolean
@@ -207,9 +213,12 @@ export type Database = {
           focus_keyword: string | null
           id: string
           layer: string | null
+          live: Json | null
+          live_at: string | null
           meta_description: string | null
           meta_title: string | null
           noindex: boolean
+          origin: string
           published_at: string | null
           slug: string
           status: string
@@ -226,9 +235,12 @@ export type Database = {
           focus_keyword?: string | null
           id?: string
           layer?: string | null
+          live?: Json | null
+          live_at?: string | null
           meta_description?: string | null
           meta_title?: string | null
           noindex?: boolean
+          origin?: string
           published_at?: string | null
           slug: string
           status?: string
@@ -245,9 +257,12 @@ export type Database = {
           focus_keyword?: string | null
           id?: string
           layer?: string | null
+          live?: Json | null
+          live_at?: string | null
           meta_description?: string | null
           meta_title?: string | null
           noindex?: boolean
+          origin?: string
           published_at?: string | null
           slug?: string
           status?: string
@@ -411,7 +426,19 @@ export type Database = {
       }
     }
     Functions: {
+      publish_all: { Args: { p_actor: string }; Returns: number }
       staff_role: { Args: never; Returns: string }
+      submit_inquiry: {
+        Args: {
+          p_client_hash: string
+          p_day: number
+          p_day_secs: number
+          p_inquiry: Json
+          p_short: number
+          p_short_secs: number
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
@@ -759,9 +786,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  private: {
-    Enums: {},
-  },
   public: {
     Enums: {},
   },

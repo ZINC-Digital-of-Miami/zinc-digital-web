@@ -1,0 +1,12 @@
+---
+import type {ContentItem} from '../../lib/admin-data';
+interface Props{item:ContentItem;seo?:boolean}
+const{item,seo=false}=Astro.props;
+const identity={kind:item.kind,[item.kind==='page'?'path':'slug']:item.key};
+---
+<form class="a-form" data-admin-form data-endpoint="/api/admin/content/" data-body={JSON.stringify(identity)}>
+{item.kind==='post'&&!seo&&<><label class="a-field"><span>Title</span><input class="a-input" name="title" value={item.title} required maxlength="200"/></label><label class="a-field"><span>Layer</span><select class="a-input" name="layer">{['Build','Demand','Intelligence'].map(layer=><option selected={item.layer===layer}>{layer}</option>)}</select></label><label class="a-field"><span>Excerpt</span><textarea class="a-input" name="excerpt" rows="3" maxlength="2000">{item.excerpt}</textarea></label>{item.origin==='admin'&&<label class="a-field"><span>Markdown body</span><textarea class="a-input" name="body" rows="12" maxlength="200000">{item.body}</textarea></label>}<label class="a-field"><span>Author</span><input class="a-input" name="author" value={item.author||'Team ZINC'} maxlength="100"/></label><label class="a-field"><span>Status</span><select class="a-input" name="status"><option value="draft" selected={item.status==='draft'}>Draft</option><option value="published" selected={item.status==='published'}>Published</option></select></label></>}
+<label class="a-field"><span>Title tag <span data-counter="meta_title">{(item.meta_title||item.title).length+7} / 60</span></span><input class="a-input" name="meta_title" value={item.meta_title||item.title} maxlength="200" data-seo-title/></label>
+<label class="a-field"><span>Description <span data-counter="meta_description">{(item.meta_description||'').length} / 160</span></span><textarea class="a-input" name="meta_description" rows="4" maxlength="500" data-seo-description>{item.meta_description}</textarea></label>
+<label class="a-field"><span>Focus keyword</span><input class="a-input" name="focus_keyword" value={item.focus_keyword||''} maxlength="200"/></label><label class="a-check"><input name="noindex" type="checkbox" checked={item.noindex}/> Keep this page out of search results</label>
+<p class="a-error" data-form-error role="alert" hidden></p><div class="a-actions"><button class="a-button primary" type="submit">Save changes</button><a class="a-button" href={item.path}>View live</a></div><p class="a-muted">Saved changes stay in the draft until an owner publishes.</p></form>

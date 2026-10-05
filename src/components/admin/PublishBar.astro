@@ -1,0 +1,12 @@
+---
+import {createServerClient} from '../../lib/supabase';
+import {requireStaff} from '../../lib/auth';
+import {when} from '../../lib/admin-data';
+import {deploymentConfig,publishResult} from '../../lib/vercel';
+interface Props{pending:number}
+const{pending}=Astro.props;
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+const{data,error}=await createServerClient(Astro).from('admin_cache').select('value').eq('key','last_publish').maybeSingle();
+const value=await publishResult(data?.value||null),hook=!!deploymentConfig().hook;
+---
+<div class="a-publish"><div><span class="a-label">{pending} unpublished {pending===1?'change':'changes'}</span><p class="a-muted">{error?'Publishing status requires the admin migration.':value?'Last publish: '+when(value.at)+' · '+value.status:'Nothing has been published from the admin yet.'}</p></div>{staff.role==='owner'&&<div><button type="button" class="a-button primary" data-endpoint="/api/admin/publish/" data-body='{"confirm":true}' data-confirm="Publish saved changes to the live site?" data-success="Publishing started. Check Backend for the build result." disabled={!hook||!!error}>Publish</button>{!hook&&<p class="a-muted">Connect the main deploy hook to publish.</p>}</div>}</div>

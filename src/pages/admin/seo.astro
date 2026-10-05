@@ -1,0 +1,12 @@
+---
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ContentForm from '../../components/admin/ContentForm.astro';
+import PublishBar from '../../components/admin/PublishBar.astro';
+import {requireStaff} from '../../lib/auth';
+import {contentList,score,unpublished,type ContentItem} from '../../lib/admin-data';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+let items:ContentItem[]=[],error='';try{items=await contentList(Astro);}catch(e){error=(e as Error).message;}
+const selected=items.find(x=>x.kind===Astro.url.searchParams.get('kind')&&x.key===Astro.url.searchParams.get('key'))||items[0];
+---
+<AdminLayout view="seo" title="Search / SEO">{error&&<p class="a-error" role="alert">{error}</p>}{selected&&<section class="a-seo a-section"><nav class="a-panel a-seo-list" aria-label="SEO targets">{items.map(item=><a href={'/admin/seo/?'+new URLSearchParams({kind:item.kind,key:item.key})} aria-current={selected===item?'true':undefined}><span>{item.path}{item.kind==='post'?' · post':''}</span><strong>{score(item).score}</strong></a>)}</nav><div><div class="a-panel"><div class="a-label a-muted">Search preview</div><div class="a-muted">zincdigital.co{selected.path}</div><div class="a-search-title" data-search-title>{selected.meta_title||selected.title} | ZINC</div><p class="a-muted" data-search-description>{selected.meta_description}</p></div><div class="a-panel a-section"><ContentForm item={selected} seo/></div><div class="a-panel a-section"><span class="a-label">Field score · {score(selected).score} / 100</span>{score(selected).issues.length?<ul>{score(selected).issues.map(issue=><li>{issue}</li>)}</ul>:<p class="a-muted">No field issues found.</p>}</div></div></section>}<PublishBar pending={unpublished(items)}/></AdminLayout>

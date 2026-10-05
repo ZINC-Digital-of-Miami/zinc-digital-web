@@ -12,6 +12,19 @@ export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/ap
 export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/'];
 
 export const PRIVATE_ROUTES: PrivateRoute[] = [
+  { path: '/admin/inquiries/', kind: 'page', role: 'editor', file: 'src/pages/admin/inquiries.astro' },
+  { path: '/admin/pages/', kind: 'page', role: 'editor', file: 'src/pages/admin/pages.astro' },
+  { path: '/admin/posts/', kind: 'page', role: 'editor', file: 'src/pages/admin/posts.astro' },
+  { path: '/admin/seo/', kind: 'page', role: 'editor', file: 'src/pages/admin/seo.astro' },
+  { path: '/admin/stats/', kind: 'page', role: 'editor', file: 'src/pages/admin/stats.astro' },
+  { path: '/admin/backend/', kind: 'page', role: 'editor', file: 'src/pages/admin/backend.astro' },
+  { path: '/admin/staff/', kind: 'page', role: 'editor', file: 'src/pages/admin/staff.astro' },
+  { path: '/api/admin/inquiries/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/inquiries.ts' },
+  { path: '/api/admin/content/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/content.ts' },
+  { path: '/api/admin/metrics/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/metrics.ts' },
+  { path: '/api/admin/staff/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/staff.ts' },
+  { path: '/api/admin/publish/', kind: 'api', role: 'owner', file: 'src/pages/api/admin/publish.ts' },
+  { path: '/api/admin/redeploy/', kind: 'api', role: 'owner', file: 'src/pages/api/admin/redeploy.ts' },
   { path: '/admin/', kind: 'page', role: 'editor', file: 'src/pages/admin/index.astro' },
   { path: '/api/admin/notify/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/notify.ts' },
   { path: '/api/research/chat/', kind: 'api', role: 'editor', file: 'src/pages/api/research/chat.ts' },
