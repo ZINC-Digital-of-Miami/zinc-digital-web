@@ -27,10 +27,10 @@
       "id": "od3-launch-gate",
       "title": "Which modules must be finished before DNS cutover?",
       "options": [
-        "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1–19, 28–36); Req 20–27 may follow, disabled until verified",
-        "Everything, including pages/posts, SEO panel, dashboard, stats, backend and research (Req 1–36)"
+        "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1\u201319, 28\u201336); Req 20\u201327 may follow, disabled until verified",
+        "Everything, including pages/posts, SEO panel, dashboard, stats, backend and research (Req 1\u201336)"
       ],
-      "recommended": "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1–19, 28–36); Req 20–27 may follow, disabled until verified",
+      "recommended": "Public site, contact, staff auth/offboarding, inquiries, database, SEO, redirects, security, performance (Req 1\u201319, 28\u201336); Req 20\u201327 may follow, disabled until verified",
       "answer": "Superseded by revision 2; re-asked as d2-launch-gate"
     },
     {
@@ -48,11 +48,11 @@
       "id": "d2-launch-gate",
       "title": "What must be done before DNS cutover?",
       "options": [
-        "R1–R10 and R14–R17; R11–R13 may finish after launch, shown as not enabled",
-        "Everything (R1–R18) before cutover"
+        "R1\u2013R10 and R14\u2013R17; R11\u2013R13 may finish after launch, shown as not enabled",
+        "Everything (R1\u2013R18) before cutover"
       ],
-      "recommended": "R1–R10 and R14–R17; R11–R13 may finish after launch, shown as not enabled",
-      "answer": "Everything (R1–R18) before cutover"
+      "recommended": "R1\u2013R10 and R14\u2013R17; R11\u2013R13 may finish after launch, shown as not enabled",
+      "answer": "Everything (R1\u2013R18) before cutover"
     },
     {
       "id": "d3-pr6-branches",
@@ -77,7 +77,7 @@
     },
     {
       "id": "d5-kiro-flow",
-      "title": "Kiro flow: milestones as task groups on the one Kiro spec branch — how do milestones reach main? (re-opened: per-milestone worktrees were not the native Kiro flow)",
+      "title": "Kiro flow: milestones as task groups on the one Kiro spec branch \u2014 how do milestones reach main? (re-opened: per-milestone worktrees were not the native Kiro flow)",
       "options": [
         "A: PR per milestone from the Kiro spec branch; reset the branch to main after each merge",
         "B: One PR for the whole spec at the end"
@@ -96,8 +96,8 @@
       "answer": null
     }
   ],
-  "blocking": "M2 merged as #8. M3 starts with task 8.1, which needs the owner to put SUPABASE_DB_URL in the git-ignored .env.",
+  "blocking": "M3 code is written and pushed (head 8287b98): 10, 12 and 13.3 are done; 8.2, 8.3, 11.1, 11.2 and 13.1 are written. Waiting on the owner: SUPABASE_DB_URL in the git-ignored .env (8.1 baseline, then the live 8.2/8.3 rehearsal); PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY and SUPABASE_SECRET_KEY in .env (11.1 local sign-in check); VERCEL_BYPASS_SECRET in .env (13.1 run on the protected preview); then the owner go for 8.4 (apply 0002), 9.1 (supabase config push), 11.2 (bootstrap-owner) and 13.2 (Vercel env vars and the smoke inquiry).",
   "context": {
-    "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec…) applied over the existing zinc-digital-web Astro 7.3.5 repository"
+    "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec\u2026) applied over the existing zinc-digital-web Astro 7.3.5 repository"
   }
 }
