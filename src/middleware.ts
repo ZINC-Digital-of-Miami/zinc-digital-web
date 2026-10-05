@@ -8,13 +8,32 @@ import { safeNext, staffRole } from './lib/auth';
 import { isConfigured } from './lib/env';
 import { isPrivatePath } from './data/private-routes';
 
+/** Sets headers on a response, copying it first when its headers are read-only (Response.redirect). */
+function withHeaders(res: Response, headers: Record<string, string>): Response {
+  try {
+    for (const [k, v] of Object.entries(headers)) res.headers.set(k, v);
+    return res;
+  } catch {
+    const copy = new Response(res.body, res);
+    for (const [k, v] of Object.entries(headers)) copy.headers.set(k, v);
+    return copy;
+  }
+}
+
+// On-demand pages send Astro's CSP as a response header, which takes the place of the vercel.json header
+// policy, so frame-ancestors (header-only) is added to it here. Static pages keep both.
+function frameAncestors(res: Response): Response {
+  const csp = res.headers.get('content-security-policy');
+  return csp && !/frame-ancestors/.test(csp) ? withHeaders(res, { 'content-security-policy': csp + "; frame-ancestors 'none'" }) : res;
+}
+
 export const onRequest = defineMiddleware(async (ctx, next) => {
   const p = ctx.url.pathname;
   ctx.locals.user = null;
   ctx.locals.staff = null;
   const admin = p.startsWith('/admin/');
   const api = p.startsWith('/api/');
-  if (!admin && !api) return next();
+  if (!admin && !api) return frameAncestors(await next());
 
   const gated = isPrivatePath(p);
   if (gated && isConfigured('supabase')) {
@@ -38,16 +57,5 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
     return new Response(null, { status: 302, headers: { location: '/admin/login/?next=' + encodeURIComponent(safeNext(p)), 'cache-control': 'private, no-store' } });
   }
 
-  const res = await next();
-  try {
-    res.headers.set('cache-control', 'private, no-store');
-    res.headers.set('x-robots-tag', 'noindex, nofollow');
-    return res;
-  } catch {
-    // Some responses (Response.redirect) have read-only headers.
-    const copy = new Response(res.body, res);
-    copy.headers.set('cache-control', 'private, no-store');
-    copy.headers.set('x-robots-tag', 'noindex, nofollow');
-    return copy;
-  }
+  return withHeaders(frameAncestors(await next()), { 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' });
 });
