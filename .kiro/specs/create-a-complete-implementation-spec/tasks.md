@@ -204,7 +204,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - `src/data/private-routes.ts`.
       - **Verify:** `tests/auth.test.ts` covers `safeNext` with `//evil`, `/\evil`, `%2f`, `:` and valid admin paths; `npm run check` exits 0.
       - _Requirements: R7.8, R8.1–R8.8_
-  - [ ] 11. Sign-in, sign-out and the first owner
+  - [x] 11. Sign-in, sign-out and the first owner
     - [x] 11.1 Build the auth routes:
       - `src/pages/admin/login.astro`: no enumeration, the `zinc-next` cookie, and a rate limit;
       - `src/pages/admin/auth/confirm.astro` (`verifyOtp`);
@@ -212,7 +212,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - remove the old callback page and the localStorage token code.
       - **Verify:** on local dev, a staff sign-in sets HttpOnly session cookies; sign-out clears them; a link opened in a second browser lands on `/admin/`.
       - _Requirements: R7.5, R7.6, R7.7_
-    - [ ] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
+    - [x] 11.2 Write `scripts/bootstrap-owner.mjs`. **Owner go:** the owner runs it for their own address.
       - **Verify:** the owner signs in on the preview and `staff_role()` returns `owner` for them.
       - _Requirements: R7.4_
   - [x] 12. Live contact path
