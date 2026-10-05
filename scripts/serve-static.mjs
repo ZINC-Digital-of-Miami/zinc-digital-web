@@ -22,7 +22,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; ch
 const preRoutes = []; for (const r of vercelConfig.routes) { if (r.handle) break; if (r.src) preRoutes.push(r); }
 // Routes after it that point at the function: on-demand pages this server cannot render.
 const fnRoutes = vercelConfig.routes.filter((r) => r.dest && !r.dest.startsWith('/') && r.src).map((r) => new RegExp(r.src));
-const headerRules = (vercelJson.headers || []).map((h) => ({ re: new RegExp('^' + h.source.replace(/\(\.\*\)/g, '(.*)') + '$'), headers: h.headers }));
+const headerRules = (vercelJson.headers || []).map((h) => ({ re: new RegExp('^' + h.source + '$'), headers: h.headers }));
 // Compress text responses the way Vercel's edge does, so Lighthouse sees realistic transfer sizes.
 const COMPRESSIBLE = /^(text\/|application\/(json|xml|manifest)|image\/svg)/;
 const send = (req, res, status, headers, body) => {
