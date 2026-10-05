@@ -21,8 +21,10 @@
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.2",
     "astro": "7.3.5",
+    "mammoth": "1.13.0",
     "marked": "18.0.14",
-    "nodemailer": "10.0.14"
+    "nodemailer": "10.0.14",
+    "unpdf": "1.8.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

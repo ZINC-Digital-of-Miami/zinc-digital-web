@@ -62,7 +62,7 @@ export default defineConfig({
   // Inline the page CSS: two render-blocking stylesheet requests delayed first paint and LCP on mobile.
   build: { inlineStylesheets: 'always' },
   integrations: [completeFonts, vercelRedirects],
-  adapter: vercel(),
+  adapter: vercel({maxDuration:60}),
   fonts: fontFamilies,
   // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style
   // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header

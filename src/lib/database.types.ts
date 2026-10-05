@@ -494,6 +494,7 @@ export type Database = {
           embedding: string | null
           id: number
           idx: number
+          tsv: unknown
         }
         Insert: {
           content: string
@@ -501,6 +502,7 @@ export type Database = {
           embedding?: string | null
           id?: never
           idx: number
+          tsv?: unknown
         }
         Update: {
           content?: string
@@ -508,6 +510,7 @@ export type Database = {
           embedding?: string | null
           id?: never
           idx?: number
+          tsv?: unknown
         }
         Relationships: [
           {
@@ -656,6 +659,30 @@ export type Database = {
           document_id: string
           id: number
           similarity: number
+        }[]
+      }
+      search_chunks: {
+        Args: { p_limit?: number; p_project: string; p_query: string }
+        Returns: {
+          content: string
+          document_id: string
+          id: number
+          idx: number
+          kind: string
+          source_url: string
+          title: string
+        }[]
+      }
+      start_question: {
+        Args: {
+          p_chat: string
+          p_model: string
+          p_project: string
+          p_question: string
+        }
+        Returns: {
+          chat_id: string
+          message_id: number
         }[]
       }
     }

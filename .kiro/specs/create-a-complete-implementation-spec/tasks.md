@@ -243,9 +243,9 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
-- [ ] M4 — Admin
-  - [ ] 15. Admin migration
-    - [ ] 15.1 Write `0003_admin.sql` per design section 7.2 and rehearse it with `db-test.mjs`. **Owner go:** apply it.
+- [ ] M4 — Admin · implementation merged as #12; first Publish and granted Google data still require live verification
+  - [x] 15. Admin migration
+    - [x] 15.1 Write `0003_admin.sql` per design section 7.2 and rehearse it with `db-test.mjs`. **Owner go:** apply it.
       - **Verify:** read-only SQL confirms the `live` columns, `publish_all`, `admin_cache` and the foreign-key changes; the advisors return nothing; generated types updated; `npm run check` exits 0.
       - _Requirements: R9.3, R9.4_
   - [ ] 16. Admin shell
@@ -289,37 +289,37 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 20.1 Run capture and review rounds for every admin view (as in task 5) until a round finds no mistakes. Output goes to `/Volumes/Satechi Hub/zinc-digital-web-review/visual/m4/`.
       - **Verify:** the final round reads "No mistakes found".
       - _Requirements: R17.6_
-    - [ ] 20.2 Re-run `db-test.mjs` and `check-deploy.mjs` on the M4 preview.
+    - [x] 20.2 Re-run `db-test.mjs` and `check-deploy.mjs` on the M4 preview.
       - **Verify:** both exit 0.
       - _Requirements: R17.4_
-  - [ ] 21. M4 PR
-    - [ ] 21.1 Run the milestone PR steps.
+  - [x] 21. M4 PR
+    - [x] 21.1 Run the milestone PR steps.
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
-- [ ] M5 — Research
-  - [ ] 22. Research migration
-    - [ ] 22.1 Write `0004_research.sql` per design section 7.2: the `tsv` column and index, `search_chunks`, and the private `research` bucket with its policies. Rehearse it. **Owner go:** apply it.
+- [ ] M5 — Research · migration applied; projects and private file ingestion verified against production Supabase
+  - [x] 22. Research migration
+    - [x] 22.1 Write `0004_research.sql` per design section 7.2: the `tsv` column and index, `search_chunks`, and the private `research` bucket with its policies. Rehearse it. **Owner go:** apply it.
       - **Verify:** read-only SQL confirms the column, index, function and bucket; the advisors return nothing; `npm run check` exits 0.
       - _Requirements: R9.3, R9.4_
-  - [ ] 23. Projects, sources and ingestion
-    - [ ] 23.1 Build the Research view and its APIs:
+  - [x] 23. Projects, sources and ingestion
+    - [x] 23.1 Build the Research view and its APIs:
       - projects;
       - sources with status;
       - Note ingestion (up to 200,000 characters), with `chunk()` producing at most 120 chunks.
       - **Verify:** a note becomes `ready` with chunks; a blank project name shows a message; an anonymous user cannot read research tables (`db-test.mjs`).
       - _Requirements: R13.1–R13.3, R13.9_
-    - [ ] 23.2 Write `src/lib/research/fetch.ts` (design section 9), with `RESEARCH_URL_ENABLED` off until the tests pass.
+    - [x] 23.2 Write `src/lib/research/fetch.ts` (design section 9), with `RESEARCH_URL_ENABLED` off until the tests pass.
       - **Verify:** `tests/research-fetch.test.ts` rejects every case in requirement R17.5 and accepts a public test page through the stub resolver. The flag is turned on in the same commit as the passing tests.
       - _Requirements: R13.4, R17.5_
-    - [ ] 23.3 Add the `unpdf` and `mammoth` dependencies. Build the signed upload-URL route, the browser upload script and file extraction.
+    - [x] 23.3 Add the `unpdf` and `mammoth` dependencies. Build the signed upload-URL route, the browser upload script and file extraction.
       - **Verify:** fixture PDF, DOCX, TXT and MD files become `ready`; an encrypted PDF and an 11 MB file end in `error`.
       - _Requirements: R13.2, R13.3_
-    - [ ] 23.4 Build SERP ingestion through SerpAPI (`SERPAPI_KEY`), disabled while the key is unset.
+    - [x] 23.4 Build SERP ingestion through SerpAPI (`SERPAPI_KEY`), disabled while the key is unset.
       - **Verify:** a mocked response stores the top 20 results; without the key, the source option shows "not enabled".
       - _Requirements: R13.2, R15.4_
-  - [ ] 24. Chat
-    - [ ] 24.1 Build `src/lib/research/chat.ts` and the chat route:
+  - [x] 24. Chat
+    - [x] 24.1 Build `src/lib/research/chat.ts` and the chat route:
       - retrieval through `search_chunks`;
       - numbered, quoted sources;
       - Anthropic and OpenAI streaming adapters with no tools;
@@ -327,7 +327,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - message persistence and a per-staff rate limit.
       - **Verify:** `tests/chat.test.ts` with mocked providers covers streaming, `[n]` mapped only to supplied sources, invented numbers dropped, the `error` status, and the 8,000-character limit.
       - _Requirements: R13.5, R13.6, R13.8_
-    - [ ] 24.2 Build the chat client script: streaming log, Send disabled while streaming, Cmd/Ctrl+Enter, auto-scroll, a model picker with disabled states, and source chips.
+    - [x] 24.2 Build the chat client script: streaming log, Send disabled while streaming, Cmd/Ctrl+Enter, auto-scroll, a model picker with disabled states, and source chips.
       - **Verify:** with no keys set, every model shows its "Needs …" reason; with a mocked stream in dev, the UI behaves as specified.
       - _Requirements: R13.5, R13.7_
   - [ ] 25. Research visual review
