@@ -12,6 +12,13 @@ export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/ap
 export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/'];
 
 export const PRIVATE_ROUTES: PrivateRoute[] = [
+  { path: '/api/admin/google/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/google.ts' },
+  { path: '/admin/research/', kind: 'page', role: 'editor', file: 'src/pages/admin/research.astro' },
+  { path: '/api/admin/research/projects/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/research/projects.ts' },
+  { path: '/api/admin/research/ingest/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/research/ingest.ts' },
+  { path: '/api/admin/research/upload-url/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/research/upload-url.ts' },
+  { path: '/api/admin/research/chat/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/research/chat.ts' },
+  { path: '/api/admin/research/source/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/research/source.ts' },
   { path: '/admin/inquiries/', kind: 'page', role: 'editor', file: 'src/pages/admin/inquiries.astro' },
   { path: '/admin/pages/', kind: 'page', role: 'editor', file: 'src/pages/admin/pages.astro' },
   { path: '/admin/posts/', kind: 'page', role: 'editor', file: 'src/pages/admin/posts.astro' },

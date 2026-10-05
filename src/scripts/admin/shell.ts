@@ -1,6 +1,7 @@
 let undo: (()=>Promise<void>) | undefined;
 let timer: ReturnType<typeof setTimeout>;
 let lastFocus: HTMLElement|null=null;
+export function openDialog(dialog:HTMLDialogElement,trigger:HTMLElement){lastFocus=trigger;dialog.showModal();}
 const toast=(text:string,action?:()=>Promise<void>)=>{
   const host=document.querySelector<HTMLElement>('[data-toast]')!;
   host.querySelector('[data-toast-text]')!.textContent=text;host.hidden=false;
@@ -51,7 +52,7 @@ document.addEventListener('click',async e=>{
 });
 document.addEventListener('cancel',e=>{e.preventDefault();close(e.target as HTMLDialogElement);},true);
 document.addEventListener('input',e=>{
-  const field=e.target as HTMLInputElement;const form=field.closest<HTMLFormElement>('[data-admin-form]');
+  const field=e.target as HTMLInputElement;const form=field.closest<HTMLFormElement>('[data-admin-form],[data-google-form]');
   if(form)form.dataset.dirty='true';
   const counter=form?.querySelector('[data-counter="'+field.name+'"]');if(counter)counter.textContent=(field.value.length+(field.name==='meta_title'?7:0))+' / '+(field.name==='meta_title'?60:160);
   if(field.matches('[data-seo-title]')){const preview=document.querySelector('[data-search-title]');if(preview)preview.textContent=field.value+' | ZINC';}
@@ -79,5 +80,5 @@ document.addEventListener('submit',async e=>{
   }catch(e){error.textContent=(e as Error).message;error.hidden=false;error.focus();}finally{buttons.forEach(b=>b.disabled=false);}
 });
 const theme=document.querySelector('[data-theme-toggle]');if(theme)theme.textContent=document.documentElement.dataset.theme==='dark'?'Light mode':'Dark mode';
-const idleRefresh=()=>{if(document.visibilityState==='visible'&&!document.querySelector('[data-dirty],dialog[open]')&&!document.querySelector('[data-chat-sending]'))void refresh();};
+const idleRefresh=()=>{if(document.visibilityState==='visible'&&!document.querySelector('[data-dirty],dialog[open]')&&!document.querySelector('[data-chat-sending]')&&!document.querySelector<HTMLTextAreaElement>('[data-chat-form] [name=text]')?.value.trim())void refresh();};
 window.addEventListener('focus',idleRefresh);setInterval(idleRefresh,60000);
