@@ -16,9 +16,9 @@ export async function triggerBuild(){
   if(!res.ok)throw new Error('Vercel could not start the build. Try again.');
   return(await res.json()).job as {id:string;state:string;createdAt:number};
 }
-export async function publishResult(value:Record<string,any>|null){
+export async function publishResult(value:Record<string,any>|null,list:typeof deployments=deployments){
  if(!value||!['building','pending'].includes(value.status))return value;
- try{const rows=await deployments();const first=rows.filter(r=>r.created>=new Date(value.at).getTime()).sort((a,b)=>a.created-b.created)[0];
+ try{const rows=await list();const first=rows.filter(r=>r.created>=new Date(value.at).getTime()).sort((a,b)=>a.created-b.created)[0];
   return first?{...value,status:first.state.toLowerCase(),deployment:first.url}:value;
  }catch{return {...value,status:'Build status unavailable · connect Vercel'};}
 }

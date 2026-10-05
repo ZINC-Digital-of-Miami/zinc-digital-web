@@ -16,3 +16,10 @@ test('unsnapshotted saved fields do not overwrite repository content',()=>{
  const result=publishedContent(routes,[],[{live:null,...{meta_title:'Unpublished'}}],[]);
  assert.equal(result.routes[0].title,'Home');assert.equal(result.routes[0].metaTitle,undefined);assert.notEqual(result.routes[0],routes[0]);
 });
+test('a published layer edit reaches the article route and preserves its first publication date',()=>{
+ const date='2026-09-01T12:00:00Z';
+ const post:any={slug:'existing',title:'Original',date,dateGmt:date,author:{name:'Team ZINC'},layer:'Build',blocks:[],related:[]};
+ const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',layer:'Build',published:date}],[post],[],[{live:{slug:'existing',title:'Updated',layer:'Demand',status:'published',published_at:date},live_at:'2026-10-05T14:00:00Z'}]);
+ assert.equal(result.posts[0].layer,'Demand');assert.equal(result.routes[0].layer,'Demand');
+ assert.equal(result.routes[0].published,date);assert.equal(result.posts[0].date,date);
+});

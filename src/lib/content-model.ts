@@ -17,7 +17,7 @@ export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snaps
   for(const p of posts)if(!routes.some(r=>r.template==='article'&&r.slug===p.slug))routes.push({path:'/blog/'+p.slug+'/',template:'article',title:p.title,slug:p.slug,layer:p.layer,published:p.date});
   for(const route of routes){
     const p=route.template==='article'?posts.find(p=>p.slug===route.slug):null;
-    if(p)route.title=p.title;
+    if(p){route.title=p.title;route.layer=p.layer;route.published=p.date;}
     const fields={...pageMap.get(route.path),...(p?postMap.get(p.slug):null)};
     if(fields.meta_title)route.metaTitle=fields.meta_title;
     if(fields.meta_description)route.metaDescription=fields.meta_description;
