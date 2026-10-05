@@ -193,7 +193,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** the Management API read-back shows signup disabled, the redirect URLs, the templates and SMTP; a sign-in attempt for an uninvited address creates no user (checked with read-only SQL on `auth.users`).
       - _Requirements: R7.1, R7.5_
   - [ ] 10. Server foundations
-    - [ ] 10.1 Add the dependencies `@supabase/supabase-js` and `@supabase/ssr`, with the lockfile in the same commit.
+    - [x] 10.1 Add the dependencies `@supabase/supabase-js` and `@supabase/ssr`, with the lockfile in the same commit.
       - **Verify:** `npm ci` and `npm run build` exit 0.
       - _Requirements: R7.8_
     - [ ] 10.2 Write the helpers and middleware:
