@@ -1,4 +1,4 @@
-// page.ts — blog filters (layer + topic) and the three-step demo inquiry form.
+// page.ts — blog filters (layer + topic) and the three-step inquiry form.
 export function initBlog() {
   const root = document.querySelector<HTMLElement>('[data-blog]');
   if (!root) return;
@@ -28,11 +28,8 @@ export function initBlog() {
   if (want && ['Build', 'Demand', 'Intelligence'].includes(want)) { layer = want; apply(); }
 }
 
-// Build-time mode, so a live bundle carries none of the demo strings (and the reverse).
-const LIVE = import.meta.env.PUBLIC_INQUIRY_MODE === 'live';
-
 export function initForm() {
-  const form = document.querySelector<HTMLFormElement>('[data-demo-form]');
+  const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
   if (!form) return;
   const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>('[data-step]'));
   const bars = Array.from(form.querySelectorAll<HTMLElement>('[data-step-bar]'));
@@ -50,7 +47,7 @@ export function initForm() {
     steps.forEach((el, i) => { el.hidden = i !== step; });
     bars.forEach((b, i) => b.classList.toggle('on', i <= step));
     back.hidden = step === 0;
-    next.textContent = step === 2 ? (LIVE ? 'Send inquiry' : 'Preview demo confirmation') : 'Continue';
+    next.textContent = step === 2 ? 'Send inquiry' : 'Continue';
     label.textContent = 'Step ' + (step + 1) + ' of 3';
     if (focus) error.textContent = ''; // keep a server-rendered error (/contact/send/) on first paint
     if (focus) steps[step].querySelector<HTMLElement>('input,select,textarea')?.focus();
@@ -58,10 +55,9 @@ export function initForm() {
   const advance = () => {
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
-    if (bad) { error.textContent = LIVE ? 'Complete the required fields.' : 'Complete the required fields with valid sample information.'; bad.scrollIntoView({ block: 'center' }); bad.reportValidity(); return; } // centre the field so the sticky header cannot cover it or its bubble
+    if (bad) { error.textContent = 'Complete the required fields.'; bad.scrollIntoView({ block: 'center' }); bad.reportValidity(); return; } // centre the field so the sticky header cannot cover it or its bubble
     if (step === 1 && !form.querySelector<HTMLInputElement>('[data-service]:checked')) { error.textContent = 'Choose at least one service to continue.'; return; }
     if (step < 2) { step++; show(true); return; }
-    if (!LIVE) { location.assign(form.dataset.thanks || '/thanks/'); return; }
     next.disabled = true; next.textContent = 'Sending…';
     const body: Record<string, string | string[]> = { service: [] };
     new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });

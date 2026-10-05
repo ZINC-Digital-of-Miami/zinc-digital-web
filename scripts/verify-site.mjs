@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Browser verification for the Oct 2026 redesign. Successor to scripts/verify-mockup.mjs:
-// same harness (Selenium/Chrome + axe + CDP, now served by scripts/serve-static.mjs because the Vercel
+// Browser verification for the Oct 2026 redesign:
+// harness (Selenium/Chrome + axe + CDP, now served by scripts/serve-static.mjs because the Vercel
 // adapter has no `astro preview`), same budgets (15 KB gzip JS,
 // 3 same-origin woff2 + 1 preload, no underline, no overflow, no CLS from fonts), with the
 // preview-era assertions replaced by the redesign's invariants:
@@ -8,20 +8,21 @@
 //   - light default (no OS drift), header toggle → dark, label "Dark mode"/"Light mode", persists across reload
 //   - cursor dot never uses mix-blend-mode:difference (no mauve tint over dark)
 //   - shell on every page (cursor/grain/progress), reduced motion honoured, mobile nav row at 375
-//   - blog layer + topic filters, 3-step contact form (demo mode: no POST, no PII in requests, storage unchanged)
+//   - blog layer + topic filters, 3-step contact form (steps and validation; the final send is not exercised)
 //   - keyboard: skip link, toggle via Enter, FAQ via Space; axe wcag2a/aa/21aa/22aa clean
 //   - reduced motion and no-JS at 375 and 1440: pinned scenes in flow, every screenshot/panel/stamp/loop link
 //     reachable, before/after showing both images; with motion the before/after really wipes
 //   - INP from Event Timing entries for real clicks and keys, under 100 ms
 // Usage: node scripts/verify-site.mjs [--mode quick|full] [--base http://host]
 import fs from 'node:fs/promises';
+import { privacyApproved, termsApproved } from '../src/data/legal.ts';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
-// selenium-webdriver, axe-core and chromedriver are NOT root dependencies: they arrive through @axe-core/cli,
-// exactly as the repo's verify-mockup.mjs relied on. Resolve them from there so the retained package-lock.json is untouched.
+// selenium-webdriver, axe-core and chromedriver are NOT root dependencies: they arrive through @axe-core/cli.
+// Resolve them from there so the retained package-lock.json is untouched.
 import { createRequire } from 'node:module';
 const requireFromAxe = createRequire(path.join(process.cwd(), 'node_modules/@axe-core/cli/package.json'));
 const { Builder, By, Key, logging } = requireFromAxe('selenium-webdriver');
@@ -124,7 +125,9 @@ try {
     check(/<script type="application\/ld\+json">/.test(html), route + ' JSON-LD');
     check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), route + ' og:image');
     const main = decode(html.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
-    check(main.length > (['thanks', '404'].includes(template) ? 100 : 300), route + ' body chars ' + main.length);
+    // Privacy and Terms render no legal body until the owner's approved text is in src/data/legal.ts (R2.6).
+    const legalPending = (template === 'privacy' && !privacyApproved.sections.length) || (template === 'terms' && !termsApproved.sections.length);
+    if (!legalPending) check(main.length > (['thanks', '404'].includes(template) ? 100 : 300), route + ' body chars ' + main.length);
     check(!/\[(RECEIPT|OWNER CONFIRM|LOGO PENDING|PHOTO PENDING)/.test(main) && !/\.dc\.html|#\//.test(html.match(/href="[^"]+"/g)?.join(' ') || ''), route + ' placeholder or design-preview link');
     const post = posts.find((p) => route === '/blog/' + p.slug + '/');
     if (post) for (const b of post.blocks) for (const runs of b.items || [b.runs || []]) { const t = runs.map((r) => r.text).join('').trim(); if (t) check(main.includes(t.replace(/\s+/g, ' ')), route + ' source text missing: ' + t.slice(0, 50)); }
@@ -192,23 +195,15 @@ try {
   await driver.findElement(By.css('[data-topic="seo"]')).click(); check(await driver.executeScript('const v=Array.from(document.querySelectorAll("[data-blog-list] article")).filter(x=>x.getClientRects().length>0); return v.length>0 && v.every(x=>x.dataset.topics.split(" ").includes("seo"))'), 'topic filter seo');
   await driver.findElement(By.css('[data-filter="Intelligence"]')).click(); await driver.findElement(By.css('[data-topic="shopify"]')).click(); check(await driver.findElement(By.css('[data-empty]')).isDisplayed() && (await driver.executeScript('return Array.from(document.querySelectorAll("[data-blog-list] article")).every(x=>x.getClientRects().length===0)')), 'empty state shows and every card is hidden'); await driver.findElement(By.css('[data-clear-filter]')).click(); check((await driver.executeScript('return document.querySelector("[data-result-count]").textContent')) === '17 articles', 'clear filters → 17 articles');
   check(((await (await fetch(base + '/blog/?layer=Build')).text()).length > 0), '?layer= query accepted');
-  // contact: preselect (incl. hostile slugs), 3 steps, demo mode = no POST / no PII / storage unchanged (theme key excepted)
+  // contact: preselect (incl. hostile slugs), 3 steps with validation; the final send is not exercised
   for (const slug of [...slugs, 'unknown', '<img src=x onerror=alert(1)>', 'shopify&service=seo']) { const qv = slug === 'shopify&service=seo' ? slug : encodeURIComponent(slug); await load('/contact/?service=' + qv, 375); const sel = await driver.executeScript('return Array.from(document.querySelectorAll("[data-service]:checked")).map(x=>x.value)'); check(JSON.stringify(sel) === JSON.stringify(slugs.includes(slug) ? [slug] : []), 'preselect ' + slug); }
   await load('/contact/?service=shopify', 375);
-  const demo = await driver.executeScript('return document.querySelector("[data-demo-form]").dataset.mode');
-  await driver.manage().logs().get(logging.Type.PERFORMANCE);
-  const storage0 = await driver.executeScript('return JSON.stringify({l:Object.keys(localStorage).filter(k=>k!=="zinc-theme"),s:sessionStorage.length,c:document.cookie})');
   await driver.findElement(By.css('[data-next]')).click(); check((await driver.findElement(By.css('[data-form-error]')).getText()).length > 0, 'invalid step announces error');
-  for (const [id, v] of [['name', 'Demo Reviewer'], ['company', 'Sample Company'], ['email', 'reviewer@example.test'], ['website', 'https://example.test']]) await driver.findElement(By.id('inquiry-' + id)).sendKeys(v);
+  for (const [id, v] of [['name', 'Review Visitor'], ['company', 'Review Company'], ['email', 'reviewer@example.test'], ['website', 'https://example.test']]) await driver.findElement(By.id('inquiry-' + id)).sendKeys(v);
   await driver.findElement(By.css('[data-next]')).click(); await driver.executeScript('document.getElementById("inquiry-budget").selectedIndex=2;document.getElementById("inquiry-timeline").selectedIndex=1'); await driver.findElement(By.css('[data-next]')).click();
-  await driver.findElement(By.id('inquiry-message')).sendKeys('Sample inquiry for local review only.');
-  if (demo === 'demo') {
-    await driver.findElement(By.css('[data-next]')).click(); await settle();
-    check((await driver.getCurrentUrl()) === base + '/thanks/', 'demo → /thanks/'); check((await driver.findElement(By.css('main')).getText()).includes('No inquiry was submitted'), 'thanks copy (demo)');
-    const reqs = (await driver.manage().logs().get(logging.Type.PERFORMANCE)).map((l) => JSON.parse(l.message).message).filter((m) => m.method === 'Network.requestWillBeSent').map((m) => m.params.request);
-    check(reqs.every((r) => r.method === 'GET' && !r.postData && !/Demo%20Reviewer|reviewer%40|Sample%20Company/.test(r.url)), 'demo form sent data');
-    check((await driver.executeScript('return JSON.stringify({l:Object.keys(localStorage).filter(k=>k!=="zinc-theme"),s:sessionStorage.length,c:document.cookie})')) === storage0, 'demo form touched storage');
-  } else result.states.push({ contact: 'live mode detected; submission not exercised by this script (would create a real inquiry)' });
+  await driver.findElement(By.id('inquiry-message')).sendKeys('Inquiry text for the local browser check.');
+  const lastLabel = await driver.executeScript('return document.querySelector("[data-next]").textContent'); check(lastLabel === 'Send inquiry', 'last step offers Send inquiry (got "' + lastLabel + '")');
+  result.states.push({ contact: 'steps and validation exercised; the final send is not (it would create a real inquiry)' });
   if (mode === 'full') { await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled', { value: true }); await driver.get(base + '/contact/'); check((await Promise.all((await driver.findElements(By.css('fieldset'))).map((f) => f.isDisplayed()))).every(Boolean), 'no-JS: all fieldsets visible'); check(await driver.findElement(By.css('[data-nojs-submit]')).isDisplayed(), 'no-JS: fallback control visible'); check(!(await driver.findElement(By.css('[data-next]')).isDisplayed()), 'no-JS: JS-only Continue hidden');
     for (const w of [375, 1440]) { await viewport(w); await driver.get(base + '/work/las-vegas-safety/'); await reachAll('no-JS @' + w + ' LVS:'); const ba = await driver.executeScript(BA, null); check(ba && /ba-before/.test(ba.left) && /ba-after/.test(ba.right), 'no-JS @' + w + ': before/after shows both images ' + JSON.stringify(ba)); await driver.get(base + '/'); for (const [name, sel, inner] of [['layer panel', '.hz-panel', '.hz-h'], ['U.S. Oil stamp', '.stamp', '.stamp-k'], ['loop service link', '.layer-list a', null]]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), 'no-JS @' + w + ' home: ' + name + 's unreachable'); } }
     await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled', { value: false }); }

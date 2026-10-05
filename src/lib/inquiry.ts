@@ -19,13 +19,12 @@ export const MESSAGES = {
   unreadable: 'The inquiry could not be read',
 } as const;
 
-export type Mode = 'demo' | 'live';
 export type InquiryBody = Record<string, unknown>;
 export interface Inquiry { name: string; company: string; email: string; website: string; services: string[]; budget: string; timeline: string; message: string; source_path: string }
 export type Field = keyof Inquiry;
 export type Validation = { ok: true; value: Inquiry } | { ok: false; field: Field; error: string };
 export type Intake =
-  | { kind: 'ignore'; reason: 'honeypot' | 'demo' } // answer as success, store and send nothing
+  | { kind: 'ignore'; reason: 'honeypot' } // answer as success, store and send nothing
   | { kind: 'invalid'; field: Field; error: string }
   | { kind: 'accept'; value: Inquiry };
 
@@ -61,10 +60,9 @@ export function formValues(body: InquiryBody): Partial<Inquiry> {
   };
 }
 
-/** The first decision for every submission: a filled honeypot or demo mode sends nothing; otherwise validate. */
-export function intake(body: InquiryBody, mode: Mode): Intake {
+/** The first decision for every submission: a filled honeypot sends nothing; otherwise validate. */
+export function intake(body: InquiryBody): Intake {
   if (one(body[HONEYPOT])) return { kind: 'ignore', reason: 'honeypot' };
-  if (mode !== 'live') return { kind: 'ignore', reason: 'demo' };
   const r = validate(body);
   return r.ok ? { kind: 'accept', value: r.value } : { kind: 'invalid', field: r.field, error: r.error };
 }
@@ -190,14 +188,14 @@ export async function renotify(
 }
 
 export type Outcome =
-  | { kind: 'ok' } // saved, or a honeypot or demo-mode post that stores and sends nothing
+  | { kind: 'ok' } // saved, or a honeypot post that stores and sends nothing
   | { kind: 'reject'; status: 400 | 403 | 413 | 422 | 429 | 502 | 503; error: string; field?: Field; values?: Partial<Inquiry>; retryAfter?: number };
 
-/** Every contact submission, from either route: size, honeypot and demo mode, origin, validation, then submit(). */
-export async function handle(request: Request, clientAddress: string, opts: { mode: Mode; siteOrigin: string; deps: () => Promise<Deps | null> }): Promise<Outcome> {
+/** Every contact submission, from either route: size, honeypot, origin, validation, then submit(). */
+export async function handle(request: Request, clientAddress: string, opts: { siteOrigin: string; deps: () => Promise<Deps | null> }): Promise<Outcome> {
   const read = await readBody(request);
   if (!read.ok) return { kind: 'reject', status: read.status, error: read.error };
-  const r = intake(read.body, opts.mode);
+  const r = intake(read.body);
   if (r.kind === 'ignore') return { kind: 'ok' };
   const values = formValues(read.body);
   if (!originAllowed(request, opts.siteOrigin)) return { kind: 'reject', status: 403, error: SUBMIT_MESSAGES.origin, values };

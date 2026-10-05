@@ -193,7 +193,6 @@ picture>source{display:none}
 .p-legal h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,2.4vw,36px);text-transform:uppercase;line-height:1;margin:0}
 .p-legal section p{margin:12px 0 0;color:var(--muted);max-width:62ch}
 .p-contact{display:grid;grid-template-columns:1fr 1.5fr;gap:72px;align-items:start}
-.p-demo{display:inline-flex;gap:10px;align-items:center;font-family:var(--fm);font-size:13px;padding:10px 14px;border:1.5px dashed var(--ink);margin:24px 0 14px}
 .p-form fieldset{border:0;padding:0;margin:0}
 .p-form legend{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3vw,46px);text-transform:uppercase;line-height:1;padding:0}
 .p-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:26px}

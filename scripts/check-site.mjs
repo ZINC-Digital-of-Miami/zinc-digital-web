@@ -69,8 +69,7 @@ for (const [key, a] of Object.entries(siteAssets)) if (a.source) check(await exi
 // ---- per page ----
 const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html']);
 const PLACEHOLDER = /\[(RECEIPT|OWNER CONFIRM|LOGO|PHOTO PENDING|PLACEHOLDER|TODO)[^\]]*\]|Receipt pending|\bTBD\b|\bTODO\b|\bFIXME\b|lorem ipsum|coming soon|placeholder text/i;
-// Live builds (contact form data-mode="live") must carry none of the demo or preview wording.
-const LIVE = /data-mode="live"/.test((await readText('contact/index.html')) || '');
+// Every build is production: no demo or preview wording anywhere.
 const PREVIEW_WORDING = /design preview|mockup|Demo inquiry|sample information|Inquiry preview|Demo confirmation|Marked preview|non-sending demo/i;
 const BANNED_ABBREVIATION = new RegExp('\\b' + String.fromCharCode(71, 69, 79) + '\\b');
 const text = (html) => html.replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' ').replace(/<[^>]+>/g, ' ');
@@ -115,8 +114,8 @@ for (const { rel, html } of pages) {
   const m = PLACEHOLDER.exec(t);
   check(!m, rel + ' renders a placeholder marker: "' + (m && m[0]) + '"');
   // Site copy only: migrated article bodies may use these words in their own sense ("mockup" in a design article).
-  const pw = LIVE && PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
-  check(!pw, rel + ' renders demo or preview wording in a live build: "' + (pw && pw[0]) + '"');
+  const pw = PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
+  check(!pw, rel + ' renders demo or preview wording: "' + (pw && pw[0]) + '"');
   for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
   const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (m) => m[1]));
   check(woff2.size === 3, rel + ' has ' + woff2.size + ' woff2 sources, expected 3');
@@ -146,7 +145,7 @@ if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === 17, 'blog
 for (const s of POST_SLUGS) { const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html'); if (p) check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*<p class="first">/.test(p.html), 'blog/' + s + ' does not render the article body'); }
 // ---- contact ----
 const contact = pages.find((p) => p.rel === 'contact/index.html');
-if (contact) { check(contact.html.includes('data-demo-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }
+if (contact) { check(contact.html.includes('data-inquiry-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }
 // ---- redirects: an alias is never a real page (a redirect output file is allowed), and Vercel's route table,
 // replayed in order up to the filesystem handler, answers it with one 301 to the case, with or without the slash ----
 for (const f of ALIAS_FILES) if (htmlFiles.includes(f)) check((await readText(f)).includes('http-equiv="refresh"'), f + ' should be a redirect file, not a page');

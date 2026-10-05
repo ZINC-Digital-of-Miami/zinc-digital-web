@@ -72,13 +72,11 @@ test('the 4 budgets and 4 timelines from the Design', () => {
   for (const t of ['', 'Yesterday']) fails({ ...good(), timeline: t }, 'timeline');
 });
 
-test('intake: honeypot and demo mode send nothing; live mode validates', () => {
-  assert.deepEqual(intake({ ...good(), company_website: 'spam.example' }, 'live'), { kind: 'ignore', reason: 'honeypot' });
-  assert.deepEqual(intake({ ...good(), company_website: 'spam.example' }, 'demo'), { kind: 'ignore', reason: 'honeypot' });
-  assert.deepEqual(intake(good(), 'demo'), { kind: 'ignore', reason: 'demo' });
-  assert.deepEqual(intake({}, 'demo'), { kind: 'ignore', reason: 'demo' });
-  assert.equal(intake(good(), 'live').kind, 'accept');
-  const bad = intake({ ...good(), email: 'nope' }, 'live');
+test('intake: a filled honeypot sends nothing; everything else validates', () => {
+  assert.deepEqual(intake({ ...good(), company_website: 'spam.example' }), { kind: 'ignore', reason: 'honeypot' });
+  assert.equal(intake(good()).kind, 'accept');
+  assert.equal(intake({}).kind, 'invalid');
+  const bad = intake({ ...good(), email: 'nope' });
   assert.equal(bad.kind, 'invalid');
   if (bad.kind === 'invalid') assert.equal(bad.error, MESSAGES.required);
 });

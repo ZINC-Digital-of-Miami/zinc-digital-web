@@ -34,7 +34,7 @@ function fake(over: Partial<Deps> & { retryAfter?: number } = {}): Fake {
   const { retryAfter: _r, ...rest } = over;
   return Object.assign(f, rest);
 }
-const run = (req: Request, deps: Fake | null, mode: 'live' | 'demo' = 'live') => handle(req, '203.0.113.9', { mode, siteOrigin: SITE, deps: async () => deps });
+const run = (req: Request, deps: Fake | null) => handle(req, '203.0.113.9', { siteOrigin: SITE, deps: async () => deps });
 const rejected = (o: Outcome, status: number) => { assert.equal(o.kind, 'reject'); if (o.kind === 'reject') assert.equal(o.status, status); return o as Extract<Outcome, { kind: 'reject' }>; };
 
 test('a valid inquiry is stored with the client hash, then the notification is sent and recorded', async () => {
@@ -74,10 +74,9 @@ test('the origin check rejects other sites and accepts the site, its Referer and
   assert.equal((await run(post(good(), { origin: 'https://zinc-preview.vercel.app' }, 'https://zinc-preview.vercel.app/api/inquiries/'), fake())).kind, 'ok');
 });
 
-test('a filled honeypot and demo mode answer success and store or send nothing', async () => {
+test('a filled honeypot answers success and stores or sends nothing', async () => {
   const f = fake();
   assert.deepEqual(await run(post({ ...good(), company_website: 'https://spam.example' }, { origin: 'https://evil.example' }), f), { kind: 'ok' });
-  assert.deepEqual(await run(post(good()), f, 'demo'), { kind: 'ok' });
   assert.deepEqual(f.calls, []);
 });
 

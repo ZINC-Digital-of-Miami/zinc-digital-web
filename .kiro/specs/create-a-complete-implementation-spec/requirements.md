@@ -285,7 +285,7 @@ Each choice is the smallest one that delivers the requested feature.
    - validate each step with the Design's messages;
    - on success, go to `/thanks/` showing the owner-approved live copy.
 2. WHEN the server rejects a submission, with or without JavaScript, the visitor SHALL see the message with their entries kept and the text-us alternative.
-3. Demo mode (used on previews) SHALL send nothing. Production SHALL use live mode once the owner approves the live copy.
+3. The contact form SHALL be live in every build (owner, 5 Oct 2026: production only, no demo mode). Previews are protected, so only staff and checks reach their form.
 4. `POST /api/inquiries` SHALL:
    - accept only POST;
    - reject bodies over 32 KB;
@@ -467,7 +467,7 @@ Each choice is the smallest one that delivers the requested feature.
    - about and team → `/about/`;
    - other URLs → 301 only where they have traffic or backlinks, otherwise 410.
 5. 301s SHALL use Astro redirects and 410s SHALL use one on-demand route. Every redirect SHALL be single-hop, and internal links in posts SHALL be updated.
-6. Preview deployments SHALL use Vercel Deployment Protection, send `noindex` and run the form in demo mode.
+6. Preview deployments SHALL use Vercel Deployment Protection and send `noindex`.
 7. `zinc-digital-web.vercel.app` SHALL send `noindex` until launch. After launch, only `www.zincdigital.co` SHALL be indexable.
 
 ### R15 — Security and paid services
