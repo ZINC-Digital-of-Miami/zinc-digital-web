@@ -251,7 +251,7 @@ Each choice is the smallest one that delivers the requested feature.
 
 1. Every public and admin page SHALL have the header toggle:
    - labelled "Dark mode" or "Light mode", with `aria-label="Switch between light and dark"`;
-   - light when no choice is stored;
+   - light on public pages when no choice is stored; dark on admin and staff sign-in pages (owner correction, 5 October 2026), preserving an explicit saved preference;
    - with the choice stored under `zinc-theme` and applied before first paint.
 2. WITH motion allowed and a fine pointer, THE site SHALL reproduce the Design's motion:
    - cursor, with no blend mode;
