@@ -39,7 +39,7 @@ const rejected = (o: Outcome, status: number) => { assert.equal(o.kind, 'reject'
 
 test('a valid inquiry is stored with the client hash, then the notification is sent and recorded', async () => {
   const f = fake();
-  assert.deepEqual(await run(post(good()), f), { kind: 'ok' });
+  assert.deepEqual(await run(post(good()), f), { kind: 'ok', lead: true });
   assert.deepEqual(f.calls, ['reserve', 'send', 'update']);
   assert.equal(f.rows[0].client_hash, 'hmac-11');
   assert.ok(!JSON.stringify(f.rows[0]).includes('203.0.113.9'), 'the raw address is not stored');
@@ -102,7 +102,7 @@ test('without database or salt configuration the route answers 503', async () =>
 
 test('an email failure keeps the inquiry, marks it failed with the error class, and still answers success', async () => {
   const f = fake({ send: async () => { throw Object.assign(new Error('bad login'), { code: 'EAUTH' }); } });
-  assert.deepEqual(await run(post(good()), f), { kind: 'ok' });
+  assert.deepEqual(await run(post(good()), f), { kind: 'ok', lead: true });
   assert.equal(f.rows.length, 1);
   assert.deepEqual(f.updates[0].patch, { notify_status: 'failed', notify_error: 'auth', notify_attempts: 1 });
 });
@@ -114,7 +114,7 @@ test('a mail send that hangs is cut off at the timeout and recorded as a timeout
   while (!f.calls.includes('reserve')) await new Promise<void>((r) => setImmediate(r));
   await new Promise<void>((r) => setImmediate(r));
   t.mock.timers.tick(NOTIFY_TIMEOUT_MS);
-  assert.deepEqual(await pending, { kind: 'ok' });
+  assert.deepEqual(await pending, { kind: 'ok', lead: true });
   assert.deepEqual(f.updates[0].patch, { notify_status: 'failed', notify_error: 'timeout', notify_attempts: 1 });
 });
 
@@ -132,6 +132,7 @@ test('the JSON answer is no-store, carries the field on 422 and Retry-After on 4
   assert.equal(ok.status, 200);
   assert.equal(ok.headers.get('cache-control'), 'no-store');
   assert.deepEqual(await ok.json(), { ok: true });
+  assert.deepEqual(await jsonAnswer({ kind: 'ok', lead: true }).json(), { ok: true, lead: true });
   const invalid = jsonAnswer({ kind: 'reject', status: 422, error: 'x', field: 'email' });
   assert.deepEqual(await invalid.json(), { error: 'x', field: 'email' });
   const rate = jsonAnswer({ kind: 'reject', status: 429, error: SUBMIT_MESSAGES.rate, retryAfter: 60 });

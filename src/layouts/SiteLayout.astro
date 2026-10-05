@@ -4,6 +4,7 @@
 // Body: header with theme toggle, mobile nav row, <slot/>, CTA band, footer,
 // then the shell script (theme, cursor, grain, progress, reveal, pins, magnetic).
 import Img from '../components/Img.astro';
+import {analyticsEnabled, googleTagScript} from '../lib/analytics';
 import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/themes.css';
@@ -12,6 +13,12 @@ import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asse
 
 interface Props { route: Route }
 const { route } = Astro.props;
+const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
+if (analytics && Astro.csp) {
+  Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net");
+  Astro.csp.insertDirective("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com");
+  Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");
+}
 const {posts}=await (await import('../lib/content')).loadPublished();
 const t = route.template;
 const path = route.path;
@@ -67,6 +74,9 @@ const showCta = t !== 'home' && t !== 'contact';
       (function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('zinc-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
     </script>
     <script type="application/ld+json" set:html={ld} />
+    {analytics && <>
+      <script is:inline set:html={googleTagScript(import.meta.env.PUBLIC_ADS_CONVERSION_LABEL)} />
+    </>}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
