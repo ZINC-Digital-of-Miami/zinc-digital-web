@@ -174,7 +174,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - _Requirements: R18.1_
 
 - [ ] M3 — Data, auth, contact
-  - [ ] 8. Database baseline, tests and the first migration
+  - [x] 8. Database baseline, tests and the first migration
     - [x] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
       - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
       - _Requirements: R9.1_
@@ -184,8 +184,9 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
       - **Verify:** all permission tests pass inside the rehearsal.
       - _Requirements: R6.2, R9.2, R9.3_
-    - [ ] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
+    - [x] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
       - **Verify:** read-only SQL confirms on the live database the new columns, the dropped policy and the new grants, `staff_role()` and the `security_invoker` view; `get_advisors` (security) returns nothing; `supabase gen types --project-id zeetlqskfvsfbllrhzre` regenerates `src/lib/database.types.ts`, and `npm run check` exits 0.
+      - Accepted exception (owner, 5 Oct 2026): the advisor's leaked-password-protection warning stays, because that setting needs the Supabase Pro plan and the site has no password sign-in (signup disabled, one-time links only).
       - _Requirements: R9.2, R9.4_
   - [x] 9. Auth configuration
     - [x] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
@@ -224,11 +225,11 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 12.2 Add `POST /api/admin/notify`, which re-sends a failed inquiry notification through `src/lib/mail.ts`.
       - **Verify:** a unit test shows a `failed` row becoming `sent` and `notify_attempts` incrementing.
       - _Requirements: R6.6_
-  - [ ] 13. Deployment checks and the live smoke test
+  - [x] 13. Deployment checks and the live smoke test
     - [x] 13.1 Write `scripts/check-deploy.mjs` (design section 11) and run it on the M3 preview with the bypass secret.
       - **Verify:** pages and unknown-path statuses as expected; admin pages 302 and staff APIs 401 without a session; noindex, `no-store` and `frame-ancestors` headers; the function runs on Node 24.
       - _Requirements: R8.1, R8.2, R8.7, R17.4_
-    - [ ] 13.2 **Owner go:** the owner enters the Vercel environment variables, then one smoke inquiry is submitted:
+    - [x] 13.2 **Owner go:** the owner enters the Vercel environment variables, then one smoke inquiry is submitted:
       - Supabase keys;
       - SMTP user, App Password and notification recipient;
       - hash salt;
