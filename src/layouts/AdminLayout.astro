@@ -1,5 +1,6 @@
 ---
 import {Font} from 'astro:assets';
+import {createHash} from 'node:crypto';
 import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/admin.css';
@@ -11,10 +12,12 @@ const {view,title=view}=Astro.props;
 const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
 const shell=await shellData(Astro);
 const nav=[['dashboard','Dashboard',''],['research','Research',shell.counts.research],['inquiries','Inquiries',shell.counts.inquiries],['pages','Pages',shell.counts.pages],['posts','Posts',shell.counts.posts],['seo','SEO',''],['stats','Stats',''],['backend','Backend',''],['staff','Staff',shell.counts.staff]];
+const themeScript="try{document.documentElement.dataset.theme=localStorage.getItem('zinc-theme')==='light'?'light':'dark'}catch{}";
+Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(themeScript).digest('base64')}`);
 ---
 <html lang="en" data-theme="dark"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>{title} | ZINC admin</title><link rel="icon" href="/favicon.png"/>
 <Font cssVariable="--font-display" preload/><Font cssVariable="--font-body"/><Font cssVariable="--font-mono"/>
-<script is:inline>try{document.documentElement.dataset.theme=localStorage.getItem('zinc-theme')==='light'?'light':'dark'}catch{}</script>
+<script is:inline set:html={themeScript}/>
 </head><body><a class="a-skip" href="#admin-main">Skip to content</a><div class="za">
 <aside class="a-side"><a class="a-logo" href="/admin/"><img src={asset('wordmark-black').src} alt="ZINC" width="110" height="22"/><span class="a-label a-muted">Admin</span></a><nav aria-label="Admin">{nav.map(([key,label,count])=><a class="a-nav" href={key==='dashboard'?'/admin/':'/admin/'+key+'/'} aria-current={view===key?'page':undefined}><span>{label}</span><span class="a-count">{count??'—'}</span></a>)}</nav>
 <div class="a-side-bottom"><span class="a-label a-muted"><i class:list={['a-dot',{error:!shell.connected}]}></i> {shell.connected?'Database connected':'Connection unavailable'}</span><button class="a-button" type="button" data-theme-toggle>Dark mode</button><a href="/">← View site</a><span class="a-count">{staff.email}</span><form method="post" action="/api/admin/signout/"><button class="a-button" type="submit">Sign out</button></form></div></aside>
