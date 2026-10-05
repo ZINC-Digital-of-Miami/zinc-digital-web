@@ -1,0 +1,41 @@
+---
+// /admin/ — server-rendered inquiry board (real data). This is the first implemented slice of the
+// Admin; the full Admin UI (dashboard, pages/posts, SEO, research chat) is the Design prototype
+// `handoff/admin/ZINC Admin.dc.html` + adapter.js and is still to be ported (see PORT.md section 6).
+export const prerender = false;
+import { db, serverConfigured, staffFromRequest } from '../../lib/supabase';
+import '../../styles/tokens.css';
+import '../../styles/themes.css';
+import '../../styles/site.css';
+const staff = await staffFromRequest(Astro.request); // middleware already enforced this
+const STAGES: [string, string, string][] = [['new', 'New', 'Reply within 24h'], ['contacted', 'Contacted', 'Book discovery call'], ['qualified', 'Qualified', 'Send proposal'], ['closed', 'Closed', 'Archive']];
+type Inq = { id: string; company: string; name: string; email: string; services: string[]; budget: string; timeline: string; stage: string; created_at: string; archived_at: string | null };
+let rows: Inq[] = [], loadError = '';
+if (Astro.request.method === 'POST' && serverConfigured()) {
+  const fd = await Astro.request.formData();
+  const id = String(fd.get('id') || ''), stage = String(fd.get('stage') || ''), action = String(fd.get('action') || '');
+  try {
+    if (action === 'archive') { await db.update('inquiries?id=eq.' + id, { archived_at: new Date().toISOString() }, { key: 'service', prefer: 'return=minimal' }); await db.insert('inquiry_events', { inquiry_id: id, kind: 'archived', payload: { by: staff?.email } }, { key: 'service', prefer: 'return=minimal' }); }
+    else if (action === 'restore') await db.update('inquiries?id=eq.' + id, { archived_at: null }, { key: 'service', prefer: 'return=minimal' });
+    else if (STAGES.some(([k]) => k === stage)) { await db.update('inquiries?id=eq.' + id, { stage }, { key: 'service', prefer: 'return=minimal' }); await db.insert('inquiry_events', { inquiry_id: id, kind: 'stage', payload: { stage, by: staff?.email } }, { key: 'service', prefer: 'return=minimal' }); }
+  } catch (e) { loadError = (e as Error).message; }
+  if (!loadError) return Astro.redirect('/admin/', 303);
+}
+if (serverConfigured()) { try { rows = (await db.select('inquiries?select=id,company,name,email,services,budget,timeline,stage,created_at,archived_at&order=created_at.desc', { key: 'service' })) as Inq[]; } catch (e) { loadError = (e as Error).message; } }
+else loadError = 'SUPABASE_URL / SUPABASE_SERVICE_ROLE are not set.';
+const active = rows.filter((r) => !r.archived_at), archived = rows.filter((r) => r.archived_at);
+const when = (d: string) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(d));
+---
+<html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Inquiries | ZINC admin</title><link rel="icon" href="/favicon.png" type="image/png" />
+<script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
+<body><div class="zb"><main class="wrap" style="padding:48px 24px 80px">
+  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff?.email}</span></div><hr class="rule" />
+  <h1 class="disp p-sec" style="margin-top:22px">Inquiries.</h1>
+  {loadError && <p class="p-err">{loadError}</p>}
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px">
+    {STAGES.map(([k, label, nextStep], si) => <section><span class="lab">{label} · {active.filter((r) => r.stage === k).length}</span><p class="p-muted" style="margin:6px 0 14px;font-size:14px">{nextStep}</p>
+      <div style="display:grid;gap:12px">{active.filter((r) => r.stage === k).map((r) => <article style="border:1px solid var(--line);padding:14px;border-radius:12px;background:var(--pn)"><strong>{r.company}</strong><div class="p-muted" style="font-size:14px">{r.name} · <a href={'mailto:' + r.email}>{r.email}</a></div><div class="lab" style="margin-top:8px">{(r.services || []).join(', ')} · {r.budget} · {when(r.created_at)}</div>
+        <form method="post" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><input type="hidden" name="id" value={r.id} />{si < 3 && <button class="p-chip sm" name="stage" value={STAGES[si + 1][0]}>→ {STAGES[si + 1][1]}</button>}<button class="p-chip sm" name="action" value="archive">Archive</button></form></article>)}</div></section>)}
+  </div>
+  {archived.length > 0 && <details style="margin-top:40px"><summary class="lab">Archived · {archived.length}</summary><div style="display:grid;gap:8px;margin-top:12px">{archived.map((r) => <form method="post" style="display:flex;gap:12px;align-items:center"><input type="hidden" name="id" value={r.id} /><span>{r.company} · {r.name}</span><button class="p-chip sm" name="action" value="restore">Restore</button></form>)}</div></details>}
+</main></div></body></html>

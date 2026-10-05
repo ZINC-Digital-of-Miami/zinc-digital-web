@@ -90,6 +90,10 @@ jobs:
         if: steps.detect.outputs.present == 'true'
         run: npm run check
 
+      - name: Unit tests (node --test)
+        if: steps.detect.outputs.present == 'true'
+        run: npm test
+
       - name: Build (astro build)
         if: steps.detect.outputs.present == 'true'
         run: npm run build
@@ -99,12 +103,13 @@ jobs:
         run: node scripts/check-site.mjs
 
   # NOT a required check (branch ruleset 24024093 only requires "build").
-  # Selenium/ChromeDriver smoke check of the built site. GitHub's own
+  # Selenium/ChromeDriver smoke check of the built site (scripts/verify-site.mjs,
+  # served by scripts/serve-static.mjs since the Vercel adapter has no preview). GitHub's own
   # ubuntu-latest runner-image docs (actions/runner-images,
   # images/ubuntu/Ubuntu2404-Readme.md, "Installed Software" /
   # "Environment Variables") document Chrome and a matching ChromeDriver
   # preinstalled together in every runner-image release, with $CHROMEWEBDRIVER
-  # pointing at that paired driver's directory. scripts/verify-mockup.mjs
+  # pointing at that paired driver's directory. scripts/verify-site.mjs
   # prefers that driver via $CHROMEWEBDRIVER (falling back to the npm
   # `chromedriver` package's own bundled binary only when unset) specifically
   # because that npm package tracks Chrome-for-Testing's newest release on
@@ -156,4 +161,4 @@ jobs:
 
       - name: Browser verify (quick mode, runner-paired Chrome+ChromeDriver)
         if: steps.detect.outputs.present == 'true'
-        run: node scripts/verify-mockup.mjs --mode quick
+        run: node scripts/verify-site.mjs --mode quick

@@ -1,0 +1,33 @@
+---
+// Renders a site asset by key. Images kept under src/assets/ (case images, the brand badge) go through
+// astro:assets and ship as responsive AVIF/WebP; every other asset is a dimensioned <img> from public/.
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { asset } from '../data/site';
+
+interface Props {
+  k: string;
+  alt: string;
+  class?: string;
+  id?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  /** Height of an object-fit:cover box in vh. Its image renders wider than the viewport on tall screens, so sizes follows the height. */
+  cover?: number;
+}
+
+const local = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.png', { eager: true });
+const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', cover } = Astro.props;
+const a = asset(k);
+const file = local['../assets' + a.src]?.default;
+const widths = file ? [...new Set([480, 960, 1440, 1920, file.width].filter((w) => w <= file.width))] : [];
+// A cover box H vh tall shows the image at H vh × aspect wide, or 100vw once the screen is wider than that.
+const coverWidth = cover && file ? Math.ceil((cover * file.width) / file.height) : 0;
+const imgSizes = coverWidth ? `(min-aspect-ratio: ${coverWidth}/100) 100vw, ${coverWidth}vh` : sizes;
+---
+{file ? (
+  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+) : (
+  <img src={a.src} alt={alt} class={cls} id={id} width={a.width} height={a.height} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+)}

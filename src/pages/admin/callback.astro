@@ -1,0 +1,16 @@
+---
+// /admin/callback/ — Supabase redirects here with #access_token=…; store it as the zinc-staff cookie and continue.
+export const prerender = false;
+const next = Astro.url.searchParams.get('next') || '/admin/';
+---
+<html lang="en"><head><meta charset="utf-8" /><meta name="robots" content="noindex, nofollow" /><title>Signing in… | ZINC</title></head>
+<body><p style="font-family:ui-monospace,monospace;padding:40px">Signing in…</p>
+<script define:vars={{ next }}>
+  const h = new URLSearchParams(location.hash.slice(1));
+  const token = h.get('access_token'), exp = Number(h.get('expires_in') || 3600);
+  if (token) {
+    document.cookie = 'zinc-staff=' + encodeURIComponent(token) + '; Max-Age=' + exp + '; Path=/; Secure; SameSite=Lax';
+    try { localStorage.setItem('zinc-staff-refresh', h.get('refresh_token') || ''); } catch {}
+    location.replace(next.startsWith('/') ? next : '/admin/');
+  } else location.replace('/admin/login/?error=' + encodeURIComponent(h.get('error_description') || 'no token'));
+</script></body></html>

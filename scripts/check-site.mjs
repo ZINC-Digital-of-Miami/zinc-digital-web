@@ -1,478 +1,217 @@
 #!/usr/bin/env node
-// Static dist/ gate. Reads the built site and exits non-zero with a list of
-// every failure. Structured so later plan tasks can append their own
-// assertion groups below the SECTION markers rather than rewriting this file.
+// Static dist/ gate for the Oct 2026 redesign. Exits non-zero with every failure listed.
+// Replaces the preview-era assertions (thread ids, noindex everywhere, [RECEIPT]/
+// [OWNER CONFIRM] markers, data-theme="dark" ban, data-home-band order) with the
+// launch set: real SEO head on every page, no placeholder markers, dark theme
+// allowed, link integrity, font output, JS budget, JSON-LD, sitemap/robots,
+// redirect routes, CSP meta and a secret scan.
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { gzipSync } from 'node:zlib';
 
 const root = process.cwd();
-const distDir = path.join(root, 'dist');
+// With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
+// (copied to .vercel/output/static/), and redirects exist only as routes in .vercel/output/config.json.
+const distDir = path.join(root, 'dist', 'client');
 const failures = [];
-const fail = (message) => failures.push(message);
-const check = (condition, message) => {
-  if (!condition) fail(message);
-};
+const fail = (m) => failures.push(m);
+const check = (ok, m) => { if (!ok) fail(m); };
+// Design-level invariants that live in CSS (cursor correction: no blend mode anywhere).
+for (const f of ['src/styles/site.css', 'src/styles/home.css']) { const css = await readFile(path.join(root, f), 'utf8'); check(!/mix-blend-mode:\s*difference/.test(css), f + ' still uses mix-blend-mode:difference (mauve cursor tint)'); check(/prefers-reduced-motion/.test(css), f + ' lacks the prefers-reduced-motion block'); }
+const exists = async (p) => { try { await access(p); return true; } catch { return false; } };
 
-async function listHtmlFiles(dir) {
-  const entries = await readdir(dir, { recursive: true });
-  return entries.filter((entry) => entry.endsWith('.html')).sort();
-}
-
-async function pathExists(candidate) {
-  try {
-    await access(candidate);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-// Retired-route needles, built from concatenated fragments so this file's own
-// source never contains the literal substrings it is scanning dist/ for —
-// otherwise the plan's own "no leftover pairing/preview code" grep over
-// src/scripts/astro.config.mjs would flag this legitimate negative assertion.
-const join = (...parts) => parts.join('');
-const DATA_PAIRING_ATTR = join('data', '-', 'pairing');
-const DESIGN_PREVIEW_PATH = join('/', 'design', '-preview/');
-const DESIGN_PREVIEW_DIR = join('design', '-preview');
-
-const htmlFiles = await listHtmlFiles(distDir);
+const htmlFiles = (await readdir(distDir, { recursive: true })).filter((e) => e.endsWith('.html')).sort();
 check(htmlFiles.length > 0, 'dist/ contains no built HTML files — run npm run build first');
-
 const pages = [];
-for (const relativePath of htmlFiles) {
-  const html = await readFile(path.join(distDir, relativePath), 'utf8');
-  pages.push({ relativePath, html });
+for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(distDir, rel), 'utf8') });
+
+// ---- expected route set: 43 HTML pages (42 routes + 404). Literal duplicate of site.ts on purpose: catches drift ----
+const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development'];
+const STATIC = ['', 'services', 'work', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
+const POST_SLUGS = postsPreview.posts.map((p) => p.slug);
+check(POST_SLUGS.length === 18, 'posts.preview.json should hold 18 posts, found ' + POST_SLUGS.length);
+const expected = [
+  ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
+  ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
+  ...CASE_SLUGS.map((s) => 'work/' + s + '/index.html'),
+  ...POST_SLUGS.map((s) => 'blog/' + s + '/index.html'),
+];
+for (const e of expected) check(htmlFiles.includes(e) || htmlFiles.includes(e.replace('404/index.html', '404.html')), 'missing built page: ' + e);
+const { caseAliases } = await import(new URL('../src/data/redirects.ts', import.meta.url).href);
+const ALIAS_FILES = Object.keys(caseAliases).map((a) => 'work/' + a + '/index.html');
+const extra = htmlFiles.filter((f) => !expected.includes(f) && f !== '404.html' && !ALIAS_FILES.includes(f));
+check(extra.length === 0, 'unexpected built pages: ' + extra.join(', '));
+const SITE = 'https://www.zincdigital.co';
+const NOINDEX_PAGES = ['thanks/index.html', '404/index.html'];
+const readText = async (rel) => { try { return await readFile(path.join(distDir, rel), 'utf8'); } catch { return null; } };
+const sitemap = await readText('sitemap.xml');
+check(sitemap !== null, 'dist/sitemap.xml missing');
+if (sitemap !== null) {
+  const locs = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]).sort();
+  const want = expected.filter((e) => !NOINDEX_PAGES.includes(e)).map((e) => SITE + '/' + e.replace(/index\.html$/, '')).sort();
+  check(JSON.stringify(locs) === JSON.stringify(want), 'sitemap.xml should list exactly the ' + want.length + ' indexable pages; missing: ' + want.filter((u) => !locs.includes(u)).join(', ') + '; extra: ' + locs.filter((u) => !want.includes(u)).join(', '));
 }
-
-// ---------------------------------------------------------------------------
-// SECTION: Task 1 (tracer) — thread on every page, fonts, no pairing/preview
-// ---------------------------------------------------------------------------
-for (const { relativePath, html } of pages) {
-  check(html.includes('id="thread"'), relativePath + ' is missing id="thread"');
-  check(html.includes('id="thread-dot"'), relativePath + ' is missing id="thread-dot"');
-  check(/<meta[^>]+name="robots"[^>]+content="[^"]*noindex[^"]*"/.test(html), relativePath + ' is missing a noindex robots meta');
-  check(!html.includes(DATA_PAIRING_ATTR), relativePath + ' still contains ' + DATA_PAIRING_ATTR);
-  check(!html.includes(DESIGN_PREVIEW_PATH), relativePath + ' still references ' + DESIGN_PREVIEW_PATH);
-
-  const preloads = Array.from(html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g));
-  check(preloads.length === 1, relativePath + ' has ' + preloads.length + ' font preloads, expected exactly 1');
-
-  // Vercel appends `?dpl=<deployment id>` to font URLs in the HTML it serves
-  // (astro.config.mjs's own build:done hook already strips this same query
-  // before reading the file from disk — mirror that pattern here so this gate
-  // is not fooled into over- or under-counting distinct fonts). The capture
-  // group stops at the first `?` or the closing quote, so a plain build-time
-  // URL (no query at all) and a Vercel-served one (with `?dpl=...`) both
-  // resolve to the same underlying path.
-  const woff2Sources = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (match) => match[1]));
-  check(woff2Sources.size === 3, relativePath + ' has ' + woff2Sources.size + ' distinct woff2 sources, expected exactly 3: ' + JSON.stringify([...woff2Sources]));
-  for (const source of woff2Sources) {
-    const absolute = path.join(distDir, source.replace(/^\/+/, ''));
-    if (!(await pathExists(absolute))) {
-      fail(relativePath + ' references woff2 source ' + source + ' which does not exist in dist/');
-      continue;
-    }
-    const bytes = await readFile(absolute);
-    check(bytes.toString('ascii', 0, 4) === 'wOF2', relativePath + ' woff2 source ' + source + ' is not a valid wOFF2 file (bad magic bytes)');
-  }
+const robots = await readText('robots.txt');
+check(robots !== null, 'dist/robots.txt missing');
+if (robots !== null) {
+  const lines = robots.split('\n').map((l) => l.trim()).filter(Boolean);
+  for (const l of ['User-agent: *', 'Disallow: /admin/', 'Disallow: /api/', 'Sitemap: ' + SITE + '/sitemap.xml']) check(lines.includes(l), 'robots.txt lacks "' + l + '"');
+  check(!lines.some((l) => /^Disallow:\s*\/thanks\//.test(l)), 'robots.txt must not disallow /thanks/ (it is noindex instead)');
+  check(!lines.some((l) => /^Disallow:\s*\/\s*$/.test(l)), 'robots.txt disallows the whole site');
 }
+for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','logos/general-shale.png','logos/ouabc.webp','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
+// Case images live in src/assets/work/ (fetched by scripts/fetch-live-assets.mjs) and ship through astro:assets.
+const siteAssets = JSON.parse(await readFile(path.join(root, 'src/data/assets.site.json'), 'utf8'));
+for (const [key, a] of Object.entries(siteAssets)) if (a.source) check(await exists(path.join(root, 'src/assets', a.src)), 'src/assets' + a.src + ' missing for ' + key + ' (run npm run assets)');
 
-check(!(await pathExists(path.join(distDir, DESIGN_PREVIEW_DIR))), 'dist/' + DESIGN_PREVIEW_DIR + ' still exists');
-
-// ---------------------------------------------------------------------------
-// SECTION: Task 1 (tracer) — no draft copy renders. Owner, 2026-09-26:
-// "remove all draft copy still listed." Guarding markers ([RECEIPT: ...],
-// [OWNER CONFIRM], [LOGO FILES PENDING ...], [LOGO PENDING], the demo
-// disclosures) are NOT part of this pattern and are asserted present
-// elsewhere in this file — they stay. The nine posts.preview.json body-run
-// hits that use "draft" as ordinary English (migrated article prose) are
-// exempted on article routes only, built from the JSON at run time.
-// ---------------------------------------------------------------------------
-const DRAFT_COPY_PATTERN = /\bdraft\b|editorial review|under review|\[\s*draft[^\]]*\]/i;
-
-const NAMED_ENTITIES = {
-  nbsp: ' ',
-  middot: '\u00b7',
-  mdash: '\u2014',
-  ndash: '\u2013',
-  rarr: '\u2192',
-  copy: '\u00a9',
-  amp: '&',
-  lt: '<',
-  gt: '>',
-  quot: '"',
-  apos: "'",
-};
-
-// One pass over the text, so a decoded '&' is never decoded again
-// (&amp;lt; stays the literal text "&lt;", as a browser renders it).
-function decodeHtmlEntities(text) {
-  return text.replace(/&(#x[0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (whole, body) => {
-    if (body[0] === '#') {
-      const code = body[1] === 'x' || body[1] === 'X' ? parseInt(body.slice(2), 16) : Number(body.slice(1));
-      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
-    }
-    const named = NAMED_ENTITIES[body.toLowerCase()];
-    return named === undefined ? whole : named;
-  });
-}
-
-function collapseWhitespace(text) {
-  return text.replace(/\s+/g, ' ').trim();
-}
-
-function extractScannableText(html) {
-  const stripped = html
-    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
-    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
-    .replace(/<!--[\s\S]*?-->/g, ' ');
-  const parts = [];
-  for (const match of stripped.matchAll(/<title[^>]*>([\s\S]*?)<\/title>/gi)) parts.push(match[1]);
-  for (const match of stripped.matchAll(/\s(?:content|alt|aria-label|title|placeholder)="([^"]*)"/gi)) parts.push(match[1]);
-  parts.push(stripped.replace(/<[^>]+>/g, ' '));
-  return collapseWhitespace(decodeHtmlEntities(parts.join(' ')));
-}
-
-const postsPreviewPath = path.join(root, 'src/data/posts.preview.json');
-const exemptRunTexts = [];
-const articleSlugs = new Set();
-if (await pathExists(postsPreviewPath)) {
-  const postsPreview = JSON.parse(await readFile(postsPreviewPath, 'utf8'));
-  for (const post of postsPreview.posts || []) {
-    if (post.slug) articleSlugs.add(post.slug);
-    for (const block of post.blocks || []) {
-      const runs = block.runs || (block.items ? block.items.flat() : []);
-      for (const run of runs || []) {
-        if (run && typeof run.text === 'string' && DRAFT_COPY_PATTERN.test(run.text)) {
-          exemptRunTexts.push(collapseWhitespace(run.text));
-        }
-      }
-    }
-  }
-}
-
-let noDraftCopyScanned = 0;
-let exemptRunsMatched = 0;
-for (const { relativePath, html } of pages) {
-  let scannable = extractScannableText(html);
-  const articleMatch = relativePath.match(/^blog[\\/]([^\\/]+)[\\/]index\.html$/);
-  if (articleMatch && articleSlugs.has(articleMatch[1])) {
-    for (const exemptText of exemptRunTexts) {
-      if (exemptText && scannable.includes(exemptText)) {
-        exemptRunsMatched++;
-        scannable = scannable.split(exemptText).join(' ');
-      }
-    }
-  }
-  noDraftCopyScanned++;
-  const match = DRAFT_COPY_PATTERN.exec(scannable);
-  if (match) {
-    const start = Math.max(0, match.index - 30);
-    const context = scannable.slice(start, start + 60);
-    fail(relativePath + ' renders draft copy near: "' + context + '"');
-  }
-}
-console.log(
-  'no-draft-copy scan: ' + noDraftCopyScanned + ' file(s) scanned, ' + exemptRunsMatched + ' exempt run(s) matched',
-);
-
-// U+00A7 (section sign) byte scan of every file changed on this branch versus
-// origin/main plus every untracked file. The needle is built from its UTF-8
-// bytes (0xC2 0xA7) so this file never contains the character itself.
-const sectionSignNeedle = Buffer.from([0xc2, 0xa7]);
-function tryGit(args) {
-  try {
-    return {
-      ok: true,
-      lines: execFileSync('git', args, { cwd: root, encoding: 'utf8' })
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean),
-    };
-  } catch (error) {
-    return { ok: false, error };
-  }
-}
-function gitLines(args) {
-  const result = tryGit(args);
-  if (!result.ok) {
-    fail('git command failed: git ' + args.join(' ') + ' — ' + result.error.message);
-    return [];
-  }
-  return result.lines;
-}
-// actions/checkout fetches only the single commit for the triggering ref by
-// default (github.com/actions/checkout README, "Only a single commit is
-// fetched by default... Set fetch-depth: 0 to fetch all history for all
-// branches and tags") — `origin/main` has no local ref at all on that path,
-// so `git diff ... origin/main` throws "unknown revision" and this scan would
-// silently cover zero files. ci.yml now fetches `origin/main` explicitly
-// right after checkout so the normal path below always resolves; this is the
-// fail-closed backstop for any trigger/checkout combination that still
-// leaves it missing (e.g. a future workflow change, or a local shallow clone)
-// — scan every tracked file rather than quietly scanning nothing.
-let changedFiles;
-let usedFallbackScan = false;
-const baseRefCheck = tryGit(['rev-parse', '--verify', 'origin/main']);
-const headSha = tryGit(['rev-parse', 'HEAD']);
-const mainSha = baseRefCheck.ok ? tryGit(['rev-parse', 'origin/main']) : null;
-if (baseRefCheck.ok && headSha.ok && mainSha && mainSha.ok && headSha.lines[0] === mainSha.lines[0]) {
-  // HEAD is main itself (push-to-main run): diffing against origin/main is
-  // empty, so scan what the landed commit changed against its parent. CI
-  // checks out with fetch-depth 2 so HEAD~1 exists; if it does not, fail
-  // closed by scanning every tracked file.
-  const parent = tryGit(['rev-parse', '--verify', 'HEAD~1']);
-  if (parent.ok) {
-    changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'HEAD~1', 'HEAD']);
-    console.log('check-site.mjs: HEAD is origin/main; scanning files changed by HEAD against HEAD~1.');
-  } else {
-    usedFallbackScan = true;
-    console.warn('check-site.mjs: HEAD is origin/main and HEAD~1 is unavailable; failing closed by scanning every tracked file.');
-    changedFiles = gitLines(['ls-files']);
-  }
-} else if (baseRefCheck.ok) {
-  changedFiles = gitLines(['diff', '--name-only', '--diff-filter=d', 'origin/main']);
-} else {
-  usedFallbackScan = true;
-  console.warn(
-    'check-site.mjs: origin/main did not resolve (' + baseRefCheck.error.message.trim().split('\n')[0] +
-      ') — failing closed by scanning every tracked file instead of the changed-vs-main diff.',
-  );
-  changedFiles = gitLines(['ls-files']);
-}
-const untrackedFiles = gitLines(['ls-files', '--others', '--exclude-standard']);
-const scannedFiles = [...new Set([...changedFiles, ...untrackedFiles])];
-// The U+00A7 policy is about authored text (source, copy) never spelling the
-// character out. Binary evidence files (Task 3's screenshots) are opaque
-// compressed pixel data, not authored text — scanning their bytes for an
-// incidental two-byte match is a false-positive generator, not a real check.
-const BINARY_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico', '.woff', '.woff2', '.pdf']);
-let scannedCount = 0;
-for (const relativePath of scannedFiles) {
-  if (BINARY_EXTENSIONS.has(path.extname(relativePath).toLowerCase())) continue;
-  const absolute = path.join(root, relativePath);
-  if (!(await pathExists(absolute))) continue;
-  let bytes;
-  try {
-    bytes = await readFile(absolute);
-  } catch {
-    continue;
-  }
-  scannedCount++;
-  if (bytes.includes(sectionSignNeedle)) {
-    fail(relativePath + ' contains the U+00A7 section-sign character');
-  }
-}
-console.log(
-  'U+00A7 byte scan: ' + scannedCount + ' file(s) scanned (' +
-    (usedFallbackScan ? 'all tracked (origin/main unavailable, fail-closed)' : 'changed vs origin/main') +
-    ' + untracked)',
-);
-
-// ---------------------------------------------------------------------------
-// SECTION: Task 2 — all-white design system, masthead, footer, team band,
-// links (no dark band, no bare '#', link integrity, no underline, banned
-// abbreviation for generative search).
-// ---------------------------------------------------------------------------
-const FOOTER_SMS_HREF = 'href="sms:+17865754837"';
-const CONTACT_HREF = 'href="/contact/"';
-
-function extractHrefs(html) {
-  return Array.from(html.matchAll(/href=["']([^"']+)["']/g), (match) => match[1]);
-}
-
-async function internalHrefResolves(href) {
+// ---- per page ----
+const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html']);
+const PLACEHOLDER = /\[(RECEIPT|OWNER CONFIRM|LOGO|PHOTO PENDING|PLACEHOLDER|TODO)[^\]]*\]|Receipt pending|\bTBD\b|\bTODO\b|\bFIXME\b|lorem ipsum|coming soon|placeholder text/i;
+// Live builds (contact form data-mode="live") must carry none of the demo or preview wording.
+const LIVE = /data-mode="live"/.test((await readText('contact/index.html')) || '');
+const PREVIEW_WORDING = /design preview|mockup|Demo inquiry|sample information|Inquiry preview|Demo confirmation|Marked preview|non-sending demo/i;
+const BANNED_ABBREVIATION = new RegExp('\\b' + String.fromCharCode(71, 69, 79) + '\\b');
+const text = (html) => html.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ');
+const hrefs = (html) => Array.from(html.matchAll(/href=["']([^"']+)["']/g), (m) => m[1]);
+// On-demand (server-rendered) routes are not in dist/; they are gated by src/middleware.ts.
+const SERVER_ROUTES = ['/admin/', '/admin/login/', '/admin/callback/', '/api/inquiries', '/api/inquiries/email', '/api/research/chat', '/api/research/ingest'];
+const resolves = async (href) => {
   const clean = href.split('#')[0].split('?')[0];
-  if (!clean.startsWith('/')) return true; // external, mailto:, sms:, tel:, in-page anchor
-  if (clean === '/') return pathExists(path.join(distDir, 'index.html'));
+  if (!clean.startsWith('/')) return true;
+  if (SERVER_ROUTES.includes(clean)) return true;
+  if (clean === '/') return exists(path.join(distDir, 'index.html'));
   const rel = clean.replace(/^\/+/, '');
-  const asFile = path.join(distDir, rel);
-  const asIndex = path.join(distDir, rel, 'index.html');
-  return (await pathExists(asFile)) || (await pathExists(asIndex));
+  return (await exists(path.join(distDir, rel))) || (await exists(path.join(distDir, rel, 'index.html')));
+};
+for (const { rel, html } of pages) {
+  const is404 = rel === '404.html' || rel === '404/index.html';
+  check(/<title>[^<]+<\/title>/.test(html), rel + ' has no <title>');
+  check(/<meta name="description" content="[^"]{20,}"/.test(html), rel + ' has no usable meta description');
+  check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\/[^"]*"/.test(html), rel + ' has no canonical');
+  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), rel + ' has no og:image');
+  const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
+  const types = ld.map((x) => x['@type']);
+  check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
+  if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
+  if (rel.startsWith('blog/') && rel !== 'blog/index.html') { const a = ld.find((x) => x['@type'] === 'Article'); check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && Object.keys(a.author).every((k) => k === '@type' || k === 'name') && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' Article JSON-LD author must be a Person (name only), or an Organization for Team ZINC: ' + JSON.stringify(a?.author)); }
+  const hasNoindex = /<meta name="robots" content="[^"]*noindex/.test(html);
+  check(hasNoindex === NOINDEX_OK.has(rel), rel + (hasNoindex ? ' is noindex but should be indexable' : ' must be noindex'));
+  check(html.includes('id="themeToggle"') && /<span data-theme-label>Dark mode<\/span>/.test(html), rel + ' is missing the light/dark toggle with its "Dark mode" label');
+  check(!/mix-blend-mode:\s*difference/.test(html), rel + ' cursor still uses mix-blend-mode difference');
+  check(html.includes('id="zsCur"') && html.includes('class="zs-grain"'), rel + ' is missing the shell cursor/grain');
+  check(html.includes('href="sms:+17865754837"'), rel + ' is missing the sms link');
+  check(html.includes('href="/contact/"'), rel + ' is missing a /contact/ link');
+  check(!html.includes('href="#"'), rel + ' contains a bare href="#"');
+  check(!html.includes('ZINC%20Site.dc.html') && !html.includes('.dc.html') && !/href="#\//.test(html), rel + ' still has a design-preview (hash or .dc.html) link');
+  check(!/https:\/\/www\.zincdigital\.co\/wp-content\//.test(html), rel + ' hot-links an image from the WordPress site');
+  check(!/["'(=]\/wp-content\//.test(html), rel + ' references a relative wp-content URL');
+  check(!/["' ]\/work\/[^"' ]+\.png/.test(html), rel + ' serves a raw case PNG instead of the optimized image');
+  for (const tag of html.match(/<img\b[^>]*>/g) || []) check(/\swidth=/.test(tag) && /\sheight=/.test(tag), rel + ' has an <img> without width and height: ' + tag.slice(0, 120));
+  check(!/fonts\.googleapis\.com/.test(html), rel + ' loads Google Fonts directly (fonts must come from astro:assets)');
+  check(!BANNED_ABBREVIATION.test(html), rel + ' contains the banned abbreviation for generative search');
+  const t = text(html);
+  const m = PLACEHOLDER.exec(t);
+  check(!m, rel + ' renders a placeholder marker: "' + (m && m[0]) + '"');
+  // Site copy only: migrated article bodies may use these words in their own sense ("mockup" in a design article).
+  const pw = LIVE && PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
+  check(!pw, rel + ' renders demo or preview wording in a live build: "' + (pw && pw[0]) + '"');
+  for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
+  const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (m) => m[1]));
+  check(woff2.size === 3, rel + ' has ' + woff2.size + ' woff2 sources, expected 3');
+  const preloads = html.match(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g) || [];
+  check(preloads.length === 1, rel + ' has ' + preloads.length + ' font preloads, expected 1');
+  if (!is404) check(/<meta property="og:url" content="https:\/\/www\.zincdigital\.co\/[^"]*\/"/.test(html) || rel === 'index.html', rel + ' og:url is missing or lacks trailing slash');
 }
 
-for (const { relativePath, html } of pages) {
-  check(!html.includes('data-theme="dark"'), relativePath + ' still contains data-theme="dark" — no band may be ink-filled');
-  check(!html.includes('href="#"'), relativePath + ' contains a bare href="#"');
-  check(html.includes(FOOTER_SMS_HREF), relativePath + ' is missing the footer sms link');
-  check(html.includes(CONTACT_HREF), relativePath + ' is missing a /contact/ link');
-
-  for (const href of extractHrefs(html)) {
-    // eslint-disable-next-line no-await-in-loop
-    const resolved = await internalHrefResolves(href);
-    check(resolved, relativePath + ' links to "' + href + '" which does not resolve in dist/');
-  }
+// ---- homepage structure ----
+const home = pages.find((p) => p.rel === 'index.html');
+if (home) {
+  const order = ['id="hero"', 'id="loop"', 'id="hz"', 'id="work"', 'id="uso"', 'id="team"', 'id="notes"', 'id="inquiry"'];
+  const pos = order.map((k) => home.html.indexOf(k));
+  check(pos.every((p) => p >= 0), 'index.html is missing home sections: ' + order.filter((_, i) => pos[i] < 0).join(', '));
+  check(pos.every((p, i) => i === 0 || p > pos[i - 1]), 'index.html home sections out of order');
+  for (const s of SERVICE_SLUGS) check(home.html.includes('href="/services/' + s + '/"'), 'index.html is missing a link to /services/' + s + '/');
+  check((home.html.match(/class="person rv"/g) || []).length === 7, 'index.html must render all 7 team members');
+  check(home.html.includes('data-team'), 'index.html team grid lacks data-team (shuffle hook)');
+}
+// ---- work + cases ----
+const work = pages.find((p) => p.rel === 'work/index.html');
+if (work) for (const s of CASE_SLUGS) check(work.html.includes('href="/work/' + s + '/"'), 'work/index.html is missing a link to /work/' + s + '/');
+for (const s of CASE_SLUGS) { const p = pages.find((x) => x.rel === 'work/' + s + '/index.html'); if (p) { check(p.html.includes('id="cOpen"') && p.html.includes('id="cHz"'), 'work/' + s + ' lacks the opener or screenshot scroller'); check(/\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks situation/approach'); } }
+// ---- blog ----
+const blog = pages.find((p) => p.rel === 'blog/index.html');
+if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === 17, 'blog/index.html should list 17 cards (18 posts minus the featured one)'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
+for (const s of POST_SLUGS) { const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html'); if (p) check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*<p class="first">/.test(p.html), 'blog/' + s + ' does not render the article body'); }
+// ---- contact ----
+const contact = pages.find((p) => p.rel === 'contact/index.html');
+if (contact) { check(contact.html.includes('data-demo-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }
+// ---- redirects: an alias is never a real page (a redirect output file is allowed), and Vercel's route table,
+// replayed in order up to the filesystem handler, answers it with one 301 to the case, with or without the slash ----
+for (const f of ALIAS_FILES) if (htmlFiles.includes(f)) check((await readText(f)).includes('http-equiv="refresh"'), f + ' should be a redirect file, not a page');
+const vercelConfig = JSON.parse((await readFile(path.join(root, '.vercel/output/config.json'), 'utf8').catch(() => 'null')) || 'null');
+check(!!vercelConfig, '.vercel/output/config.json missing — build with the Vercel adapter first');
+const firstRoute = (p) => { for (const r of vercelConfig?.routes || []) { if (r.handle) return null; if (!r.continue && r.src && new RegExp(r.src).test(p)) return r; } return null; };
+for (const [from, to] of Object.entries(caseAliases)) for (const p of ['/work/' + from + '/', '/work/' + from]) {
+  const r = firstRoute(p);
+  check(r?.status === 301 && r.headers?.Location === '/work/' + to + '/', 'Vercel routes answer ' + p + ' with ' + (r ? r.status + ' ' + (r.headers?.Location || r.dest || '') : 'nothing before the filesystem') + ', expected 301 /work/' + to + '/');
+}
+// ---- built CSS: no underline affordance, no stray color literals outside tokens is a src concern (see below) ----
+const astroDir = path.join(distDir, '_astro');
+if (await exists(astroDir)) for (const f of (await readdir(astroDir, { recursive: true })).filter((e) => e.endsWith('.css'))) check(!(await readFile(path.join(astroDir, f), 'utf8')).toLowerCase().includes('underline'), '_astro/' + f + ' contains "underline"');
+// Page CSS is inlined (build.inlineStylesheets), so scan the <style> blocks too.
+for (const { rel, html } of pages) for (const m of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) check(!m[1].toLowerCase().includes('underline'), rel + ' has inline CSS containing "underline"');
+// ---- src scans: banned abbreviation, section sign ----
+const SRC_EXT = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
+const PROVENANCE = /^\s*"(sourceTitle|sourceSlug|sourceUrl)"\s*:/;
+const sectionSign = Buffer.from([0xc2, 0xa7]);
+for (const e of await readdir(path.join(root, 'src'), { recursive: true })) {
+  if (!SRC_EXT.has(path.extname(e))) continue;
+  const file = path.join(root, 'src', e); let buf; try { buf = await readFile(file); } catch { continue; }
+  let s = buf.toString('utf8');
+  if (e.endsWith('posts.preview.json')) s = s.split('\n').filter((l) => !PROVENANCE.test(l)).join('\n');
+  check(!BANNED_ABBREVIATION.test(s), 'src/' + e + ' contains the banned abbreviation for generative search');
+  check(!buf.includes(sectionSign), 'src/' + e + ' contains the U+00A7 section-sign character');
+  if (e !== path.join('styles', 'tokens.css') && e.endsWith('.css')) { /* colors allowed in site.css/home.css for shadows/alpha; tokens hold the palette */ }
+}
+// ---- JS budget: 15 KB gzip per page, unchanged from the preview gate (external + inline, de-duplicated) ----
+const JS_BUDGET = 15360; const cache = new Map(); // first-party only: external scripts (e.g. googletagmanager.com) are not counted
+const readJs = async (src) => { const c = src.split('?')[0]; if (cache.has(c)) return cache.get(c); let t = null; try { t = await readFile(path.join(distDir, c.replace(/^\//, '')), 'utf8'); } catch {} cache.set(c, t); return t; };
+for (const { rel, html } of pages) {
+  const chunks = []; const seen = new Set();
+  for (const m of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) { const b = m[1].trim(); if (b && !/application\/ld\+json/.test(m[0])) chunks.push(Buffer.from(b)); }
+  const queue = Array.from(html.matchAll(/<script[^>]+src="([^"]+)"[^>]*>/g), (m) => m[1]).filter((s) => s.startsWith('/'));
+  while (queue.length) { const src = queue.shift(); const c = src.split('?')[0]; if (seen.has(c)) continue; seen.add(c); const t = await readJs(c); if (t == null) { fail(rel + ' references script ' + src + ' which does not exist'); continue; } chunks.push(Buffer.from(t)); const dir = path.posix.dirname(c); for (const imp of t.matchAll(/import\s*(?:[^'"]*?from\s*)?["']([^"']+)["']/g)) { const sp = imp[1]; if (sp.startsWith('.') || sp.startsWith('/')) queue.push(sp.startsWith('/') ? sp : path.posix.normalize(path.posix.join(dir, sp))); } }
+  const bytes = chunks.reduce((n, b) => n + gzipSync(b).length, 0);
+  check(bytes <= JS_BUDGET, rel + ' ships ' + bytes + ' gzip bytes of script, over ' + JS_BUDGET);
 }
 
-// Built CSS must never carry an underline affordance (property or value).
-async function listFilesWithExt(dir, ext) {
-  const entries = await readdir(dir, { recursive: true }).catch(() => []);
-  return entries.filter((entry) => entry.endsWith(ext)).map((entry) => path.join(dir, entry));
-}
-const astroAssetsDir = path.join(distDir, '_astro');
-if (await pathExists(astroAssetsDir)) {
-  for (const file of await listFilesWithExt(astroAssetsDir, '.css')) {
-    const css = await readFile(file, 'utf8');
-    check(!css.toLowerCase().includes('underline'), path.relative(root, file) + ' contains "underline"');
-  }
-}
+// ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
+for (const { rel, html } of pages) check(/<meta http-equiv="content-security-policy" content="[^"]*script-src 'self' 'sha256-/.test(html), rel + ' lacks the hashed content-security-policy meta tag');
 
-// The uppercase three-letter abbreviation for generative search is banned
-// everywhere. Built from character codes so this file's own source never
-// spells it out.
-const BANNED_ABBREVIATION = String.fromCharCode(71, 69, 79);
-const bannedPattern = new RegExp('\\b' + BANNED_ABBREVIATION + '\\b');
-for (const { relativePath, html } of pages) {
-  check(!bannedPattern.test(html), relativePath + ' contains the banned abbreviation for generative search');
-}
-const SRC_TEXT_EXTENSIONS = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
-// posts.preview.json carries three named provenance fields (sourceTitle,
-// sourceSlug, sourceUrl) that intentionally preserve the original WordPress
-// title/slug/url — including the banned abbreviation when the source post
-// used it. Provenance is never rendered to any page (grep-verified separately);
-// only the lines carrying those three keys are exempt from this scan, so the
-// abbreviation still fails the gate anywhere else in src/ (authored copy) or
-// in any other field of this same file.
-const PROVENANCE_FIELD_LINE = /^\s*"(sourceTitle|sourceSlug|sourceUrl)"\s*:/;
-const PROVENANCE_EXEMPT_FILE = path.join('src', 'data', 'posts.preview.json');
-const srcDir = path.join(root, 'src');
-if (await pathExists(srcDir)) {
-  const srcEntries = await readdir(srcDir, { recursive: true }).catch(() => []);
-  for (const entry of srcEntries) {
-    if (!SRC_TEXT_EXTENSIONS.has(path.extname(entry))) continue;
-    const file = path.join(srcDir, entry);
-    let text;
-    try {
-      text = await readFile(file, 'utf8');
-    } catch {
-      continue;
-    }
-    const relative = path.join('src', entry);
-    if (relative === PROVENANCE_EXEMPT_FILE) {
-      const scannable = text
-        .split('\n')
-        .filter((line) => !PROVENANCE_FIELD_LINE.test(line))
-        .join('\n');
-      check(!bannedPattern.test(scannable), 'src/' + entry + ' contains the banned abbreviation for generative search outside its provenance fields');
-    } else {
-      check(!bannedPattern.test(text), 'src/' + entry + ' contains the banned abbreviation for generative search');
-    }
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SECTION: Task 3 — homepage nine bands and per-page JS budget.
-// ---------------------------------------------------------------------------
-
-// mockup.ts is TypeScript and this script runs as plain Node ESM, so the
-// expected home-band content is a deliberate, literal duplicate of the data
-// file here — this gate exists precisely to catch drift between the two.
-const HOME_SERVICE_SLUGS = [
-  'shopify', 'web-design', 'apps',
-  'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads',
-  'business-intelligence',
+// ---- secrets (R15.2): nothing in the static output may look like a credential ----
+// A Supabase JWT is a secret unless its role is anon (the anon key is public by design).
+const SECRET_PATTERNS = [
+  ['private key', /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
+  ['Supabase secret key', /\bsb_secret_[A-Za-z0-9_-]{16,}/],
+  ['Anthropic API key', /\bsk-ant-[A-Za-z0-9_-]{20,}/],
+  ['OpenAI API key', /\bsk-(?:proj-|svcacct-|admin-)?[A-Za-z0-9_-]{32,}/],
+  ['Resend API key', /\bre_[A-Za-z0-9]{8,}_[A-Za-z0-9]{16,}/],
+  ['Google API key', /\bAIza[0-9A-Za-z_-]{35}/],
+  ['Google OAuth client secret', /\bGOCSPX-[A-Za-z0-9_-]{20,}/],
+  ['AWS access key', /\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/],
+  ['GitHub token', /\b(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{50,})/],
+  ['Slack token', /\bxox[abprs]-[A-Za-z0-9-]{10,}/],
+  ['secret variable with a value', /\b(?:SUPABASE_SERVICE_ROLE|SMTP_PASS|INQUIRY_HASH_SALT|OPENAI_API_KEY|ANTHROPIC_API_KEY|RESEND_API_KEY|CODEX_BRIDGE_TOKEN|VERCEL_BYPASS_SECRET)["']?\s*[:=]\s*["']?[A-Za-z0-9_\-./+]{12,}/],
 ];
-const HOME_COMMITMENTS = [
-  'You own your accounts, data and code.',
-  'Direct access to the people doing the work.',
-  'Reporting tied to revenue, not impressions.',
-];
-const HOME_BAND_ORDER = ['hero', 'intro', 'clients', 'loop', 'once-upon-a-book-club', 'us-oil-solutions', 'commitments', 'team', 'articles', 'footer'];
-
-const indexPage = pages.find((p) => p.relativePath === 'index.html');
-if (!indexPage) {
-  fail('dist/index.html does not exist');
-} else {
-  const html = indexPage.html;
-  const bandPositions = HOME_BAND_ORDER.map((band) => ({ band, index: html.indexOf('data-home-band="' + band + '"') }));
-  check(bandPositions.every((b) => b.index !== -1), 'dist/index.html is missing one of the home bands: ' + bandPositions.filter((b) => b.index === -1).map((b) => b.band).join(', '));
-  const inOrder = bandPositions.every((b, i) => i === 0 || b.index === -1 || bandPositions[i - 1].index === -1 || b.index > bandPositions[i - 1].index);
-  check(inOrder, 'dist/index.html home bands are out of order, expected: ' + HOME_BAND_ORDER.join(', '));
-
-  check(html.includes('href="sms:+17865754837"'), 'dist/index.html is missing the sms link');
-  check(html.includes('[LOGO FILES PENDING'), 'dist/index.html is missing the [LOGO FILES PENDING marker');
-  check(html.includes('[OWNER CONFIRMS EACH LINE]'), 'dist/index.html is missing the [OWNER CONFIRMS EACH LINE] marker');
-  check(html.includes('[RECEIPT:'), 'dist/index.html is missing a [RECEIPT: marker');
-  check(!html.includes('[PHOTO PENDING]') && (html.match(/class="team-band-photo"/g) || []).length === 7, 'dist/index.html must render all 7 team members with a real photo and no [PHOTO PENDING] marker');
-  for (const text of HOME_COMMITMENTS) {
-    check(html.includes(text), 'dist/index.html is missing the how-we-work line: ' + text);
-  }
-  for (const slug of HOME_SERVICE_SLUGS) {
-    check(html.includes('href="/services/' + slug + '/"'), 'dist/index.html is missing a link to /services/' + slug + '/');
-  }
+const jwtRole = (payload) => { try { return JSON.parse(Buffer.from(payload, 'base64url').toString('utf8')).role; } catch { return undefined; } };
+const TEXT_FILE = /\.(?:html|js|mjs|cjs|css|json|txt|xml|svg|map|webmanifest)$/;
+for (const rel of (await readdir(distDir, { recursive: true })).filter((f) => TEXT_FILE.test(f)).sort()) {
+  const body = await readFile(path.join(distDir, rel), 'utf8');
+  for (const [name, re] of SECRET_PATTERNS) if (re.test(body)) fail('dist/client/' + rel + ' contains what looks like a secret (' + name + ')');
+  for (const m of body.matchAll(/\beyJ[A-Za-z0-9_-]{8,}\.(eyJ[A-Za-z0-9_-]{8,})\.[A-Za-z0-9_-]{8,}/g)) if (jwtRole(m[1]) !== 'anon') fail('dist/client/' + rel + ' contains a JWT with role ' + (jwtRole(m[1]) ?? 'unknown') + ' (only the anon key may ship)');
 }
 
-// Per-page JS budget: every external module script it references (followed
-// through static imports, deduped) plus every inline script, gzipped and
-// summed, must be at most 15360 bytes. No library ships here, so this is
-// mostly a guard against regressions growing HomeBands' own script.
-const jsCache = new Map();
-async function readJsFile(relativeSrc) {
-  const clean = relativeSrc.split('?')[0];
-  if (jsCache.has(clean)) return jsCache.get(clean);
-  const absolute = path.join(distDir, clean.replace(/^\//, ''));
-  let text = null;
-  try {
-    text = await readFile(absolute, 'utf8');
-  } catch {
-    text = null;
-  }
-  jsCache.set(clean, text);
-  return text;
-}
-
-async function collectScriptBytes(html, pageLabel) {
-  const seen = new Set();
-  const chunks = [];
-
-  // Inline module/no-src scripts (Astro emits component scripts as external
-  // modules by default; this also covers any is:inline script that ships).
-  for (const match of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
-    const body = match[1].trim();
-    if (body) chunks.push(Buffer.from(body, 'utf8'));
-  }
-
-  // External module scripts, followed through their own static imports.
-  const queue = Array.from(html.matchAll(/<script[^>]+src="([^"]+)"[^>]*>/g), (m) => m[1]).filter((src) => src.startsWith('/'));
-  while (queue.length) {
-    const src = queue.shift();
-    const clean = src.split('?')[0];
-    if (seen.has(clean)) continue;
-    seen.add(clean);
-    const text = await readJsFile(clean);
-    if (text == null) {
-      fail(pageLabel + ' references script "' + src + '" which does not exist in dist/');
-      continue;
-    }
-    chunks.push(Buffer.from(text, 'utf8'));
-    const dir = path.posix.dirname(clean);
-    for (const imp of text.matchAll(/import\s*(?:[^'"]*?from\s*)?["']([^"']+)["']/g)) {
-      const spec = imp[1];
-      if (!spec.startsWith('.') && !spec.startsWith('/')) continue; // bare specifier: no library ships, so nothing to resolve
-      const resolved = spec.startsWith('/') ? spec : path.posix.normalize(path.posix.join(dir, spec));
-      queue.push(resolved);
-    }
-  }
-
-  return chunks.reduce((sum, chunk) => sum + gzipSync(chunk).length, 0);
-}
-
-const JS_BUDGET_BYTES = 15360;
-let largestPage = { relativePath: '', bytes: 0 };
-for (const { relativePath, html } of pages) {
-  const bytes = await collectScriptBytes(html, relativePath);
-  if (bytes > largestPage.bytes) largestPage = { relativePath, bytes };
-  check(bytes <= JS_BUDGET_BYTES, relativePath + ' ships ' + bytes + ' gzip bytes of script, over the ' + JS_BUDGET_BYTES + ' byte budget');
-}
-console.log('JS budget: largest page is ' + largestPage.relativePath + ' at ' + largestPage.bytes + ' gzip bytes (budget ' + JS_BUDGET_BYTES + ')');
-
-if (failures.length) {
-  console.error('check-site.mjs: ' + failures.length + ' failure(s):');
-  for (const failure of failures) console.error('  - ' + failure);
-  process.exitCode = 1;
-} else {
-  console.log('check-site.mjs: all checks passed across ' + htmlFiles.length + ' HTML file(s)');
-}
+if (failures.length) { console.error('check-site.mjs: ' + failures.length + ' failure(s):'); for (const f of failures) console.error('  - ' + f); process.exitCode = 1; }
+else console.log('check-site.mjs: all checks passed across ' + htmlFiles.length + ' HTML file(s)');
