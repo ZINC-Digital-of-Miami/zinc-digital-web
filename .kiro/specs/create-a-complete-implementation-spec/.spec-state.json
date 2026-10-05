@@ -96,7 +96,7 @@
       "answer": null
     }
   ],
-  "blocking": "M3 head a3503d5: 10, 12, 13.1 and 13.3 are done; 8.2, 8.3, 11.1 and 11.2 are written. Supabase keys, salt and the bypass secret are in .env. Waiting on the owner: SUPABASE_DB_URL in .env (8.1 baseline, then the live 8.2/8.3 rehearsal); then the owner go for 8.4 (apply 0002), 9.1 (supabase config push) and 11.2 (bootstrap-owner, which the 11.1 sign-in check also needs); SMTP_USER/SMTP_PASS and the Vercel env vars for 13.2.",
+  "blocking": "M3 head c231531: 8.1, 10, 12, 13.1 and 13.3 are done; 8.2, 8.3, 11.1 and 11.2 are written. The SUPABASE_DB_URL in .env is a Supabase CLI temporary login (cli_login_postgres) whose password has expired, so the live 8.2/8.3 rehearsal needs the project's Session pooler URI with the database password. Then the owner go for 8.4, 9.1 and 11.2; SMTP and Vercel env vars for 13.2.",
   "context": {
     "template": "current-design/astro port (Claude Design package, SHA-256 a624cfec\u2026) applied over the existing zinc-digital-web Astro 7.3.5 repository"
   }
