@@ -186,7 +186,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - _Requirements: R6.2, R9.2, R9.3_
     - [x] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).
       - **Verify:** read-only SQL confirms on the live database the new columns, the dropped policy and the new grants, `staff_role()` and the `security_invoker` view; `get_advisors` (security) returns nothing; `supabase gen types --project-id zeetlqskfvsfbllrhzre` regenerates `src/lib/database.types.ts`, and `npm run check` exits 0.
-      - Accepted exception (owner, 5 Oct 2026): the advisor's leaked-password-protection warning stays, because that setting needs the Supabase Pro plan and the site has no password sign-in (signup disabled, one-time links only).
+      - Exception (5 Oct 2026, pending the owner's confirmation): the advisor's leaked-password-protection warning stays, because that setting needs the Supabase Pro plan and the site has no password sign-in (signup disabled, one-time links only).
       - _Requirements: R9.2, R9.4_
   - [x] 9. Auth configuration
     - [x] 9.1 Add `supabase/config.toml` and the invite and magic-link email templates (design section 6.1), with SMTP via `env()`.
