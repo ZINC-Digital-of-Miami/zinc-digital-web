@@ -1,21 +1,14 @@
-import {createSign} from 'node:crypto';
+import {authorizeGoogle,googleAccount} from './google-auth';
 import {SITE,noindexPaths} from '../data/site';
 import {loadPublished} from './content';
 import type {SupabaseClient} from '@supabase/supabase-js';
 import {googleSettingsInput,type GoogleSettings} from './google-settings';
-export const googleConfig=()=>({account:import.meta.env.GOOGLE_SERVICE_ACCOUNT_JSON||'',property:import.meta.env.GA4_PROPERTY_ID||'494489814',site:import.meta.env.GSC_SITE||''});
+export const googleConfig=()=>({account:import.meta.env.GOOGLE_AUTHORIZED_USER_JSON||import.meta.env.GOOGLE_SERVICE_ACCOUNT_JSON||'',property:import.meta.env.GA4_PROPERTY_ID||'494489814',site:import.meta.env.GSC_SITE||''});
 type Report={rows?:{dimensionValues:{value:string}[];metricValues:{value:string}[]}[]};
 let credential:{value:string;expires:number}|undefined;
 async function token(){
  if(credential&&credential.expires>Date.now()+60000)return credential.value;
- let account:{client_email:string;private_key:string};
- try{account=JSON.parse(googleConfig().account);if(!account.client_email||!account.private_key)throw 0;}catch{throw new Error('Connect a valid Google service account.');}
- const now=Math.floor(Date.now()/1000),encode=(x:unknown)=>Buffer.from(JSON.stringify(x)).toString('base64url');
- const message=encode({alg:'RS256',typ:'JWT'})+'.'+encode({iss:account.client_email,scope:'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/webmasters.readonly',aud:'https://oauth2.googleapis.com/token',iat:now,exp:now+3600});
- const assertion=message+'.'+createSign('RSA-SHA256').update(message).sign(account.private_key,'base64url');
- const res=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'urn:ietf:params:oauth:grant-type:jwt-bearer',assertion}),signal:AbortSignal.timeout(10000)});
- if(!res.ok)throw new Error('Google authentication failed. Check the service account access.');
- const data=await res.json();credential={value:data.access_token,expires:Date.now()+data.expires_in*1000};return credential.value;
+ credential=await authorizeGoogle(googleConfig().account);return credential.value;
 }
 async function request(url:string,body:unknown){
  const res=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+await token(),'content-type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(10000)});
@@ -43,8 +36,9 @@ export async function indexed(c:GoogleSettings=googleConfig()){
 }
 
 export function googleAccountEmail(){
- try{return String(JSON.parse(googleConfig().account).client_email||'');}catch{return '';}
+ try{const account=googleAccount(googleConfig().account);return account.client_email||account.account_email||'';}catch{return '';}
 }
+export function googleUsesExistingLogin(){try{return googleAccount(googleConfig().account).type==='authorized_user';}catch{return false;}}
 export async function savedGoogleSettings(sb:SupabaseClient):Promise<GoogleSettings>{
  const row=await sb.from('admin_cache').select('value').eq('key','google_connection').maybeSingle();
  if(row.error)throw new Error('Google connection settings could not be loaded.');

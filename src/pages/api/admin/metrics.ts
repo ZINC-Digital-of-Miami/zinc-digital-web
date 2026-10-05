@@ -6,7 +6,7 @@ import {reply} from '../../../lib/admin-http';
 import {metrics,indexed,googleConfig,savedGoogleSettings} from '../../../lib/google';
 export const GET:APIRoute=async ctx=>{
  const staff=requireStaff(ctx);if(staff instanceof Response)return staff;
- if(!googleConfig().account)return reply({error:'Connect a Google service account to load Analytics and Search Console.'},503);
+ if(!googleConfig().account)return reply({error:'Connect Google to load Analytics and Search Console.'},503);
  const sb=createServerClient(ctx),isIndexed=ctx.url.searchParams.get('kind')==='indexed';
  try{
   const config=await savedGoogleSettings(sb),key=(isIndexed?'google_indexed:':'google_metrics:')+config.property+':'+config.site;
