@@ -9,15 +9,18 @@ test('analytics requires both the production environment and the explicit on fla
   for(const flag of ['off','',undefined]) assert.equal(analyticsEnabled(flag,'production'),false);
 });
 
-test('the tag configures the existing destinations only on the live ZINC hosts, without URL queries',()=>{
+test('the tag configures the existing destinations only on the live ZINC hosts, with campaign attribution and without unrelated URL queries',()=>{
   for(const hostname of ['www.zincdigital.co','zincdigital.co','zinc-digital-web.vercel.app','localhost','zincdigital.co.evil.example']) {
     const window:Record<string,any>={};
     const loaded:any[]=[];
-    runInNewContext(googleTagScript(''),{window,location:{hostname,origin:'https://'+hostname,pathname:'/contact/',href:'https://'+hostname+'/contact/?email=private@example.com'},document:{referrer:'https://example.com/?email=private@example.com',createElement:()=>({}),head:{appendChild:(tag:unknown)=>loaded.push(tag)}},URL,Date});
+    runInNewContext(googleTagScript(''),{window,location:{hostname,origin:'https://'+hostname,pathname:'/contact/',href:'https://'+hostname+'/contact/?email=private@example.com&utm_source=google&utm_medium=cpc&utm_campaign=launch&gclid=click-id&gbraid=ios-click'},document:{referrer:'https://example.com/?email=private@example.com',createElement:()=>({}),head:{appendChild:(tag:unknown)=>loaded.push(tag)}},URL,Date});
     if(!['www.zincdigital.co','zincdigital.co'].includes(hostname)){assert.equal(window.gtag,undefined);assert.equal(loaded.length,0);continue;}
     const calls=Array.from(window.dataLayer,(args:any)=>Array.from(args));
     assert.deepEqual(calls.filter((c:any[])=>c[0]==='config').map((c:any[])=>c[1]),['G-BV43HRVJ18','AW-17071018445']);
     assert.ok(!JSON.stringify(calls).includes('private@example.com'));
+    const page = new URL((calls.find((call:any[])=>call[0]==='set')![1] as Record<string,string>).page_location);
+    for (const [name,value] of Object.entries({utm_source:'google',utm_medium:'cpc',utm_campaign:'launch',gclid:'click-id',gbraid:'ios-click'}))assert.equal(page.searchParams.get(name),value);
+    assert.equal(page.searchParams.has('email'),false);
     assert.equal(loaded.length,1);assert.equal(loaded[0].async,true);assert.equal(loaded[0].src,'https://www.googletagmanager.com/gtag/js?id=GT-NNZRWNCF');
   }
 });

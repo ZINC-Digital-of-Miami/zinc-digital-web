@@ -3,6 +3,7 @@
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {authorizeGoogle} from '../src/lib/google-auth.ts';
+import {googleInventoryRange} from '../src/lib/google-dates.ts';
 const SITE='https://www.zincdigital.co';
 const output='/Volumes/Satechi Hub/zinc-digital-web-review/redirects/proposed.json';
 try{process.loadEnvFile('.env');}catch{}
@@ -55,8 +56,7 @@ sources.push({source:'sitemaps',count:sitemapCount,documents:visited.size});
 const credential=process.env.GOOGLE_AUTHORIZED_USER_JSON||process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
 if(!credential||!process.env.GSC_SITE)throw Error('The existing Google credentials and exact GSC_SITE are required');
 const token=(await authorizeGoogle(credential)).value;
-const end=new Date(),start=new Date(end);start.setUTCMonth(start.getUTCMonth()-16);
-const range={startDate:start.toISOString().slice(0,10),endDate:end.toISOString().slice(0,10)};
+const range=googleInventoryRange();
 let gscCount=0;
 for(let offset=0;;offset+=25000){
  const r=await fetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(process.env.GSC_SITE)+'/searchAnalytics/query',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({...range,dimensions:['page'],rowLimit:25000,startRow:offset}),signal:AbortSignal.timeout(20000)});
