@@ -3,9 +3,11 @@
 import Img from './Img.astro';
 import ContactForm from './ContactForm.astro';
 import type { Inquiry } from '../lib/inquiry';
-import { services, cases, posts, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
+import { services, cases, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
+const {posts}=await (await import('../lib/content')).loadPublished();
+const {renderMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
 const study = t === 'case' ? caseBy(route.slug!) : null;
@@ -100,7 +102,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">How an engagement runs</span><h2 class="disp p-sec">A clear working sequence.</h2></div><ol class="p-seq rv rv-stag">{sequence.map(([name, body], i) => <li><span class="lab">{pad(i)}</span><div><h3 class="disp">{name}</h3><p>{body}</p></div></li>)}</ol></div></section>
 </>)}
 
-{t === 'blog' && (<>
+{t === 'blog' && feat && (<>
   <section class="p-band"><div class="wrap"><a class="p-feat rv" href={'/blog/' + feat.slug + '/'}><div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2></div><div><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article ↗</span></div></a></div></section>
   <section class="p-band thin"><div class="wrap" data-blog>
     <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
@@ -115,6 +117,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   <section class="p-band"><div class="wrap p-article">
     <aside class="p-aside rv"><p class="lab">Source article / {post.id}</p><p class="p-muted">Originally published {dateLabel(post.dateGmt)}.</p><a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
     <article class="p-prose rv" data-source-id={post.id}>
+      {post.markdown!==undefined && <div set:html={renderMarkdown(post.markdown)} />}
       {post.blocks.map((block, i) => block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</p>)}
     </article>
   </div></section>

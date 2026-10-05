@@ -1,47 +1,23 @@
 ---
-// /admin/ — server-rendered inquiry board (real data). This is the first implemented slice of the
-// Admin; the full Admin UI (dashboard, pages/posts, SEO, research chat) is the Design prototype
-// `handoff/admin/ZINC Admin.dc.html` + adapter.js and is still to be ported (see PORT.md section 6).
-// Reads and updates go through the staff session, so RLS applies, and the change-log trigger (0002) writes
-// inquiry_events with the staff member as the actor.
-export const prerender = false;
-import { createServerClient } from '../../lib/supabase';
-import { isConfigured } from '../../lib/env';
-import { requireStaff } from '../../lib/auth';
-import '../../styles/tokens.css';
-import '../../styles/themes.css';
-import '../../styles/site.css';
-const staff = requireStaff(Astro);
-if (staff instanceof Response) return staff;
-const STAGES: [string, string, string][] = [['new', 'New', 'Reply within 24h'], ['contacted', 'Contacted', 'Book discovery call'], ['qualified', 'Qualified', 'Send proposal'], ['closed', 'Closed', 'Archive']];
-type Inq = { id: string; company: string; name: string; email: string; services: string[]; budget: string; timeline: string; stage: string; created_at: string; archived_at: string | null };
-let rows: Inq[] = [], loadError = '';
-const sb = isConfigured('supabase') ? createServerClient(Astro) : null;
-if (Astro.request.method === 'POST' && sb) {
-  const fd = await Astro.request.formData();
-  const id = String(fd.get('id') || ''), stage = String(fd.get('stage') || ''), action = String(fd.get('action') || '');
-  const patch = action === 'archive' ? { archived_at: new Date().toISOString() } : action === 'restore' ? { archived_at: null } : STAGES.some(([k]) => k === stage) ? { stage } : null;
-  if (patch) { const { error } = await sb.from('inquiries').update(patch).eq('id', id); if (error) loadError = error.message; }
-  if (!loadError) return Astro.redirect('/admin/', 303);
-}
-if (sb) {
-  const { data, error } = await sb.from('inquiries').select('id,company,name,email,services,budget,timeline,stage,created_at,archived_at').order('created_at', { ascending: false });
-  if (error) loadError = error.message; else rows = (data || []) as Inq[];
-}
-else loadError = 'PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_PUBLISHABLE_KEY are not set.';
-const active = rows.filter((r) => !r.archived_at), archived = rows.filter((r) => r.archived_at);
-const when = (d: string) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(d));
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import {requireStaff} from '../../lib/auth';
+import {inquiries,contentList,score,type InquiryRow,type ContentItem} from '../../lib/admin-data';
+import {googleConfig} from '../../lib/google';
+import {deployments,type Deployment} from '../../lib/vercel';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+let leads:InquiryRow[]=[],items:ContentItem[]=[],error='',deploys:Deployment[]=[];
+try{[leads,items]=await Promise.all([inquiries(Astro),contentList(Astro)]);}catch(e){error=(e as Error).message;}
+try{deploys=await deployments();}catch{}
+const failed=leads.filter(r=>r.notify_status==='failed'),issues=items.filter(r=>score(r).issues.length);
+const average=items.length?Math.round(items.reduce((n,x)=>n+score(x).score,0)/items.length):null;
+const connected=!!googleConfig().account;
 ---
-<html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Inquiries | ZINC admin</title><link rel="icon" href="/favicon.png" type="image/png" />
-<script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
-<body><div class="zb"><main class="wrap" style="padding:48px 24px 80px">
-  <div class="meta lab" style="padding-top:0"><span>ZINC / admin</span><span>{staff.email} <form method="post" action="/api/admin/signout/" style="display:inline;margin-left:12px"><button type="submit" class="arrow" style="margin:0;background:none;border:0;border-bottom:2px solid var(--ink);padding:0 0 2px;font:inherit;color:inherit;cursor:pointer">Sign out</button></form></span></div><hr class="rule" />
-  <h1 class="disp p-sec" style="margin-top:22px">Inquiries.</h1>
-  {loadError && <p class="p-err">{loadError}</p>}
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px">
-    {STAGES.map(([k, label, nextStep], si) => <section><span class="lab">{label} · {active.filter((r) => r.stage === k).length}</span><p class="p-muted" style="margin:6px 0 14px;font-size:14px">{nextStep}</p>
-      <div style="display:grid;gap:12px">{active.filter((r) => r.stage === k).map((r) => <article style="border:1px solid var(--line);padding:14px;border-radius:12px;background:var(--pn)"><strong>{r.company}</strong><div class="p-muted" style="font-size:14px">{r.name} · <a href={'mailto:' + r.email}>{r.email}</a></div><div class="lab" style="margin-top:8px">{(r.services || []).join(', ')} · {r.budget} · {when(r.created_at)}</div>
-        <form method="post" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><input type="hidden" name="id" value={r.id} />{si < 3 && <button class="p-chip sm" name="stage" value={STAGES[si + 1][0]}>→ {STAGES[si + 1][1]}</button>}<button class="p-chip sm" name="action" value="archive">Archive</button></form></article>)}</div></section>)}
-  </div>
-  {archived.length > 0 && <details style="margin-top:40px"><summary class="lab">Archived · {archived.length}</summary><div style="display:grid;gap:8px;margin-top:12px">{archived.map((r) => <form method="post" style="display:flex;gap:12px;align-items:center"><input type="hidden" name="id" value={r.id} /><span>{r.company} · {r.name}</span><button class="p-chip sm" name="action" value="restore">Restore</button></form>)}</div></details>}
-</main></div></body></html>
+<AdminLayout view="dashboard" title="Dashboard">
+{error&&<p class="a-error" role="alert">{error}</p>}
+<div data-google-metrics><section class="a-kpis"><div class="a-kpi"><span class="a-label a-muted">Organic clicks · 30 days</span><div class="a-number" data-metric="clicks">{connected?'Loading…':'Unavailable'}</div><span class="a-count">Search Console</span></div><div class="a-kpi"><span class="a-label a-muted">Indexed pages</span><div class="a-number" data-metric="indexed">{connected?'Loading…':'Unavailable'}</div><span class="a-count">Sitemap URLs</span></div><div class="a-kpi"><span class="a-label a-muted">New inquiries</span><div class="a-number">{error?'—':leads.filter(r=>r.stage==='new'&&!r.archived_at).length}</div><span class="a-count">Database</span></div><div class="a-kpi"><span class="a-label a-muted">Average SEO score</span><div class="a-number">{average??'—'}</div><span class="a-count">Field score · pages and posts</span></div></section>
+<p class="a-notice" data-google-error role="status" hidden={connected}>{connected?'':'Connect a Google service account for Analytics and Search Console metrics.'}</p>
+<section class="a-grid a-section"><div class="a-panel"><span class="a-label">Organic sessions · 30 days</span><div class="a-chart" data-series>{connected?'Loading…':'Connect Google Analytics to see the chart.'}</div><p class="a-count" data-metric="period"></p></div><div class="a-panel"><span class="a-label">Needs attention</span><ul class="a-list">{failed.length>0&&<li><a class="a-link" href="/admin/inquiries/">{failed.length} failed inquiry notifications</a></li>}{issues.length>0&&<li><a class="a-link" href="/admin/seo/">{issues.length} pages or posts with SEO field issues</a></li>}{deploys[0]?.state==='ERROR'&&<li><a class="a-link" href="/admin/backend/">The latest deployment failed</a></li>}{!failed.length&&!issues.length&&deploys[0]?.state!=='ERROR'&&<li class="a-muted">No issues found in the connected sources.</li>}</ul></div></section>
+<section class="a-panel a-section"><span class="a-label">Top pages</span><ul class="a-list" data-top-pages>{connected?'Loading…':'Connect Google Analytics to see page views.'}</ul><p class="a-count">Data updated <span data-metric="updated">—</span></p></section></div>
+<script>import '../../scripts/admin/metrics';</script>
+</AdminLayout>

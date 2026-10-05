@@ -1,0 +1,8 @@
+---
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ContentList from '../../components/admin/ContentList.astro';
+import {requireStaff} from '../../lib/auth';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+---
+<AdminLayout view="pages" title="Pages"><ContentList kind="page"/></AdminLayout>

@@ -3,6 +3,7 @@
 // link with shouldCreateUser: false and always shows the same message, so it never reveals whether an
 // address has an account. Public route; noindex.
 export const prerender = false;
+import {Font} from 'astro:assets';
 import { createServerClient } from '../../lib/supabase';
 import { isConfigured } from '../../lib/env';
 import { safeNext } from '../../lib/auth';
@@ -32,6 +33,7 @@ if (Astro.request.method === 'POST' && ok) {
 }
 ---
 <html lang="en" data-theme="light"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Staff sign-in | ZINC</title><link rel="icon" href="/favicon.png" type="image/png" />
+<Font cssVariable="--font-display" preload/><Font cssVariable="--font-body"/><Font cssVariable="--font-mono"/>
 <script is:inline>(function(){try{if(localStorage.getItem('zinc-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script></head>
 <body><div class="zb"><main class="wrap" style="max-width:520px;padding:12vh 24px 80px">
   <span class="kick">ZINC / admin</span>

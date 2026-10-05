@@ -1,0 +1,5 @@
+---
+interface Props{id:string;title:string}
+const{id,title}=Astro.props;
+---
+<dialog id={id} class="a-drawer" aria-labelledby={id+'-title'}><div class="a-drawer-head"><h2 class="a-heading" id={id+'-title'}>{title}</h2><button class="a-button" type="button" data-close-dialog aria-label="Close details">×</button></div><slot/></dialog>

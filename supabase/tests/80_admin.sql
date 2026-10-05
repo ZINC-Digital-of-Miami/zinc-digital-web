@@ -1,0 +1,30 @@
+-- Only exercised when the M4 migration exists, so M3 rehearsals remain valid.
+do $$begin if to_regclass('public.admin_cache') is null then return; end if;
+  if has_column_privilege('authenticated','public.pages','live','UPDATE') then raise exception 'staff may publish directly'; end if;
+  if has_column_privilege('authenticated','public.posts','live','INSERT') then raise exception 'staff may insert live content'; end if;
+  if has_function_privilege('authenticated','public.publish_all(uuid)','EXECUTE') then raise exception 'staff may invoke publish'; end if;
+  if has_table_privilege('anon','public.pages','SELECT') or has_table_privilege('anon','public.posts','SELECT') then raise exception 'anonymous content access'; end if;
+end $$;
+do $$begin
+ if to_regclass('public.admin_cache') is null then return; end if;
+ perform set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a002","role":"authenticated"}',true);
+ execute 'set local role authenticated';
+ perform dbtest.allowed('editor saves a real draft',$q$insert into public.posts(slug,title,body,layer,status,origin) values('dbtest-publish','Draft title','# Body','Build','draft','admin')$q$);
+ perform dbtest.blocked('editor cannot write live snapshot',$q$update public.posts set live='{}' where slug='dbtest-publish'$q$);
+ perform dbtest.blocked('editor cannot forge publish status',$q$insert into public.admin_cache(key,value) values('last_publish','{}')$q$);
+ execute 'set local role postgres';
+ perform set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a003","role":"authenticated"}',true);
+ execute 'set local role authenticated';
+ perform dbtest.blocked('nonstaff cannot read posts','select * from public.posts');
+ execute 'set local role postgres';
+ execute 'set local role service_role';
+ perform dbtest.refused('publish rejects editor actor',$q$select public.publish_all('00000000-0000-4000-8000-00000000a002')$q$,'%owner role required%');
+ perform public.publish_all('00000000-0000-4000-8000-00000000a001');
+ execute 'set local role postgres';
+ perform dbtest.ok('snapshot persisted',(select live->>'title'='Draft title' and live_at is not null from public.posts where slug='dbtest-publish'));
+ perform set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a002","role":"authenticated"}',true);
+ execute 'set local role authenticated';
+ update public.posts set title='Changed draft' where slug='dbtest-publish';
+ perform dbtest.ok('editing does not publish',(select title='Changed draft' and live->>'title'='Draft title' from public.posts where slug='dbtest-publish'));
+ execute 'set local role postgres';
+end $$;

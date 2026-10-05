@@ -1,0 +1,8 @@
+---
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ContentList from '../../components/admin/ContentList.astro';
+import {requireStaff} from '../../lib/auth';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+---
+<AdminLayout view="posts" title="Posts"><button slot="action" class="a-button primary" type="button" data-open-dialog="new-post">New post</button><ContentList kind="post"/></AdminLayout>
