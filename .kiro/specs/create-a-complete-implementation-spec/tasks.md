@@ -178,10 +178,10 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 8.1 The owner puts `SUPABASE_DB_URL` in the git-ignored `.env`. Produce `supabase/migrations/0001_baseline.sql` with the `pg_dump` command in design section 7.1.
       - **Verify:** the file contains the tables, policies and functions listed in requirements 1.2.
       - _Requirements: R9.1_
-    - [ ] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.
+    - [x] 8.2 Write `scripts/db-test.mjs` and the `supabase/tests/*.sql` permission tests. Identities: anonymous, authenticated non-staff, editor, owner and offboarded. Assertions use `DO` blocks that raise.
       - **Verify:** run against the current schema, the tests report the known gaps in requirements 1.2 as failures, and the rehearsal leaves no change behind (re-check with `list_tables`).
       - _Requirements: R17.4_
-    - [ ] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
+    - [x] 8.3 Write `supabase/migrations/0002_site_fixes.sql` per design section 7.2 and rehearse it with `db-test.mjs`.
       - **Verify:** all permission tests pass inside the rehearsal.
       - _Requirements: R6.2, R9.2, R9.3_
     - [ ] 8.4 **Owner go:** apply `0002_site_fixes` to the project (design section 7.1).

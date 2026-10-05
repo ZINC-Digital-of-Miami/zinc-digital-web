@@ -11,8 +11,8 @@ select dbtest.allowed('inquiry_events accepts notify and next_step', $q$insert i
 select dbtest.ok('inquiry_board is security_invoker', (select coalesce('security_invoker=true' = any(reloptions), false) from pg_class where oid = 'public.inquiry_board'::regclass));
 select dbtest.ok('inquiry_board has ' || col, exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'inquiry_board' and column_name = col))
   from unnest(array['website', 'timeline', 'source_path', 'notify_status', 'archived_at']) col;
-select dbtest.ok('staff_role() is security definer with an empty search_path', exists (
-  select 1 from pg_proc where oid = to_regprocedure('public.staff_role()') and prosecdef and proconfig && array['search_path=""', 'search_path=']));
+select dbtest.ok('staff_role() is security invoker with an empty search_path (advisor lint 0029)', exists (
+  select 1 from pg_proc where oid = to_regprocedure('public.staff_role()') and not prosecdef and proconfig && array['search_path=""', 'search_path=']));
 select dbtest.ok('only signed-in users may call staff_role()', has_function_privilege('authenticated', to_regprocedure('public.staff_role()'), 'execute')
   and not has_function_privilege('anon', to_regprocedure('public.staff_role()'), 'execute'));
 select dbtest.ok('private.touch_updated_at() has a fixed search_path', (select proconfig is not null from pg_proc where oid = 'private.touch_updated_at()'::regprocedure));

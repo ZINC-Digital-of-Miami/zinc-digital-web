@@ -307,7 +307,7 @@ Nothing persists.
 - `inquiry_events.kind` check adds `next_step` and `notify`.
 - Trigger `private.log_inquiry_change` writes `inquiry_events` for changes to stage, notes, next_step, archived_at and notify_status, with `actor = auth.uid()`.
 - Recreate `inquiry_board` with `security_invoker = true`, adding website, timeline, source_path, notify_status and archived_at.
-- `public.staff_role()` is security definer with an empty search_path, granted to `authenticated` only.
+- `public.staff_role()` has an empty search_path and is granted to `authenticated` only. It is security invoker (`0002a`, after advisor lint 0029 flagged the definer version); staff read their own row through the existing policy.
 - `private.is_owner()`.
 - Trigger `private.keep_one_owner` on staff update/delete.
 - `alter function private.touch_updated_at() set search_path = ''`.

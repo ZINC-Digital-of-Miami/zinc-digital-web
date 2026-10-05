@@ -35,8 +35,10 @@ enable_signup = false
 otp_expiry = 3600
 max_frequency = "60s"
 
+# Workspace SMTP is off until the owner sets SMTP_USER and SMTP_PASS (owner, 5 Oct 2026: skip Gmail for now).
+# Until then Auth uses Supabase's built-in sender, which only delivers to the project's team addresses.
 [auth.email.smtp]
-enabled = true
+enabled = false
 host = "smtp.gmail.com"
 port = 465
 user = "env(SMTP_USER)"
