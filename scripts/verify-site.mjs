@@ -116,6 +116,7 @@ try {
 
   // ---- 1. every route: status, head, body, links, fonts, JS budget ----
   const htmlMap = new Map();
+  const articlePreviews = new Set();
   for (const [route, template] of [...routes, ['/not-a-real-page/', '404']]) {
     const res = await fetch(base + route); const html = await res.text();
     check(res.status === (template === '404' ? 404 : 200), route + ' status ' + res.status);
@@ -123,7 +124,16 @@ try {
     check(/noindex/.test(robots) === (NOINDEX.has(route) || template === '404'), route + ' robots: ' + (robots || 'indexable'));
     check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\//.test(html), route + ' canonical');
     check(/<script type="application\/ld\+json">/.test(html), route + ' JSON-LD');
-    check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), route + ' og:image');
+    const socialImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || '';
+    if (template === 'article') {
+      const validImage = /^https:\/\/www\.zincdigital\.co\/_astro\/[^/]+\.webp$/.test(socialImage);
+      check(validImage && !articlePreviews.has(socialImage), route + ' unique article og:image');
+      articlePreviews.add(socialImage);
+      if (validImage) {
+        const imageResponse = await fetch(base + new URL(socialImage).pathname);
+        check(imageResponse.ok && /image\/webp/.test(imageResponse.headers.get('content-type') || ''), route + ' social image response');
+      }
+    } else check(/^https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png$/.test(socialImage), route + ' og:image');
     const main = decode(html.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
     // Privacy and Terms render no legal body until the owner's approved text is in src/data/legal.ts (R2.6).
     const legalPending = (template === 'privacy' && !privacyApproved.sections.length) || (template === 'terms' && !termsApproved.sections.length);
@@ -160,7 +170,7 @@ try {
   const driverPath = matchedDriver(); result.chromedriver = driverPath;
   driver = await new Builder().forBrowser('chrome').setChromeOptions(opts).setChromeService(new chrome.ServiceBuilder(driverPath)).build();
   const axeSrc = await fs.readFile(axeMinPath, 'utf8');
-  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog']];
+  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article']];
   for (const [route, template] of samples) for (const w of mode === 'full' ? [1440, 375] : [375, 1440]) {
     await load(route, w); const o = await observe();
     check(o.h1 && !o.overflow, route + '@' + w + ' overflow/h1'); check(o.underlines === 0, route + '@' + w + ' underlines ' + o.underlines);

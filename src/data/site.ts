@@ -5,6 +5,7 @@ import snapshot from './posts.preview.json';
 import assetData from './assets.preview.json';
 import siteAssets from './assets.site.json';
 import { privacyApproved, termsApproved } from './legal';
+import { articleEditorial } from './article-editorial';
 
 export const SITE = 'https://www.zincdigital.co';
 export const PHONE = '+1-786-575-4837';
@@ -122,7 +123,7 @@ export type Post = Omit<(typeof snapshot.posts)[number], 'blocks'> & { blocks: B
 const articleMap: Record<number, { layer: Layer; related: string[]; excerpt: string }> = {
   56328:{layer:'Demand',related:['ai-search-optimization','seo'],excerpt:"AI search results are not a future footnote anymore. They are becoming part of the normal search experience: summaries, citations, follow-up answers, AI Overviews, AI Mode, generated comparisons, answer engines, and tools that can reason across multiple sources before a person ever clicks a blue link."},55980:{layer:'Demand',related:['shopping-ads','shopify'],excerpt:"Google Shopping usually breaks before the campaign ever gets interesting."},55886:{layer:'Demand',related:['seo','shopify'],excerpt:"Shopify gives stores a better technical starting point than a lot of custom ecommerce builds. It can create sitemaps, handle SSL, output canonical tags, support editable title tags…"},55722:{layer:'Demand',related:['seo','web-design'],excerpt:"SEO frameworks are useful until they become decorations."},55721:{layer:'Demand',related:['seo','web-design'],excerpt:"Technical SEO is where a lot of websites quietly lose."},55720:{layer:'Demand',related:['local-seo','seo'],excerpt:"Local SEO in 2026 is not an “ultimate guide” problem."},55719:{layer:'Demand',related:['seo','business-intelligence'],excerpt:"Most content marketing plans are calendars wearing a tiny strategy hat."},55718:{layer:'Build',related:['web-design','seo'],excerpt:"Web design trend lists are usually very pretty and not very helpful."},55717:{layer:'Demand',related:['seo','shopify'],excerpt:"Shopify SEO problems are rarely mysterious."},55716:{layer:'Demand',related:['google-search-ads','social-ads','seo'],excerpt:"Most channel-planning advice starts with a lie."},55715:{layer:'Demand',related:['seo','ai-search-optimization'],excerpt:"Most Google algorithm retrospectives are calendars."},55714:{layer:'Demand',related:['shopping-ads','shopify'],excerpt:"Most Shopify stores do not fail Google Merchant Center because the owner forgot to click one magic setup button."},55713:{layer:'Intelligence',related:['business-intelligence','google-search-ads'],excerpt:"When the economy gets tight, marketing gets interrogated."},55712:{layer:'Demand',related:['seo','business-intelligence'],excerpt:"Google algorithm updates do not need more hot takes."},55711:{layer:'Intelligence',related:['business-intelligence','seo'],excerpt:"Most teams open Google Search Console like it is a dashboard."},55710:{layer:'Demand',related:['seo','web-design'],excerpt:"Most answers to “how long does SEO take?” are too neat to be useful."},55709:{layer:'Demand',related:['seo','ai-search-optimization'],excerpt:"Most SEO trend posts are written like the calendar changed the algorithm."},55708:{layer:'Demand',related:['seo','web-design'],excerpt:"Duplicate content is usually not a penalty."},
 };
-export const posts: Post[] = snapshot.posts.map((p) => ({ ...p, blocks: p.blocks as Block[], ...articleMap[p.id] }));
+export const posts: Post[] = snapshot.posts.map((p) => ({ ...p, blocks: p.blocks as Block[], ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt }));
 export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(new Date(date.endsWith('Z') ? date : date + 'Z'));
 // The Design's own excerpt when there is one; otherwise the first paragraph, cut at a word boundary.
 export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; const t = p.blocks.find((b) => b.type === 'p')?.runs?.map((r) => r.text).join('') || ''; return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
@@ -141,7 +142,7 @@ export const routes: Route[] = [
   route('/contact/', 'contact', 'Start an Inquiry'),
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
-  ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date })),
+  ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
   route('/privacy/', 'privacy', 'Privacy'),
   route('/terms/', 'terms', 'Terms'),
 ];
