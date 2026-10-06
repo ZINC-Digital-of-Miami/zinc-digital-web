@@ -38,6 +38,23 @@ export function initForm() {
   const back = form.querySelector<HTMLButtonElement>('[data-back]')!;
   const label = form.querySelector<HTMLElement>('[data-step-label]')!;
   const error = form.querySelector<HTMLElement>('[data-form-error]')!;
+  const names: Record<string,string> = { name: 'Name', company: 'Company', email: 'Work email', website: 'Website URL', budget: 'Monthly budget', timeline: 'Timeline', message: 'Message' };
+  const clearFieldError = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+    field.removeAttribute('aria-invalid');
+    const id = field.id + '-error';
+    const described = (field.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== id);
+    if (described.length) field.setAttribute('aria-describedby', described.join(' ')); else field.removeAttribute('aria-describedby');
+    form.querySelector('#' + CSS.escape(id))?.remove();
+  };
+  const showFieldError = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+    clearFieldError(field);
+    const help = document.createElement('span'); help.id = field.id + '-error'; help.className = 'p-err';
+    help.setAttribute('aria-hidden', 'true'); // Read through describedby, without changing the wrapped label's name.
+    help.style.cssText = 'display:block;margin:0;text-transform:none';
+    help.textContent = field.validity.valueMissing ? (names[field.name] || 'This field') + ' is required.' : field.type === 'email' ? 'Enter a valid work email address.' : field.type === 'url' ? 'Enter the full website URL, starting with https://.' : 'Check this value and try again.';
+    field.closest('label')?.append(help); field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', [field.getAttribute('aria-describedby'), help.id].filter(Boolean).join(' '));
+  };
   let step = 0;
   // Progressive enhancement: server markup is the one-page no-JS form; JS turns it into three steps.
   form.querySelectorAll<HTMLElement>('[data-js-only],[data-js-ctrls]').forEach((el) => { el.hidden = false; });
@@ -57,19 +74,31 @@ export function initForm() {
     if (next.disabled) return;
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
-    if (bad) { error.textContent = 'Complete the required fields.'; bad.scrollIntoView({ block: 'center' }); bad.reportValidity(); return; } // centre the field so the sticky header cannot cover it or its bubble
-    if (step === 1 && !form.querySelector<HTMLInputElement>('[data-service]:checked')) { error.textContent = 'Choose at least one service to continue.'; return; }
+    fields.forEach(clearFieldError);
+    if (bad) { showFieldError(bad); error.textContent = 'Check the highlighted field to continue.'; bad.focus({ preventScroll: true }); bad.scrollIntoView({ block: 'center' }); return; }
+    if (step === 1 && !form.querySelector<HTMLInputElement>('[data-service]:checked')) {
+      error.textContent = 'Choose at least one service to continue.';
+      form.querySelectorAll<HTMLInputElement>('[data-service]').forEach((f) => { f.setAttribute('aria-invalid','true'); f.setAttribute('aria-describedby',error.id); });
+      form.querySelector<HTMLInputElement>('[data-service]')?.focus(); return;
+    }
     if (step < 2) { step++; show(true); return; }
-    next.disabled = true; next.textContent = 'Sending…';
+    next.style.minWidth = next.offsetWidth + 'px'; next.disabled = true; next.textContent = 'Sending…'; form.setAttribute('aria-busy','true');
     const body: Record<string, string | string[]> = { service: [] };
     new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });
     fetch(form.dataset.endpoint || '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
       .then(async (r) => { const result = await r.json().catch(() => ({})); if (!r.ok || result.ok !== true) throw new Error(result.error || 'Send failed'); await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/'); })
-      .catch((e) => { next.disabled = false; next.textContent = 'Send inquiry'; error.textContent = e.message + '. Text us instead and we will pick it up.'; });
+      .catch((e) => { next.disabled = false; next.textContent = 'Send inquiry'; form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
   };
   next.addEventListener('click', advance);
   back.addEventListener('click', () => { step = Math.max(0, step - 1); show(true); });
   form.addEventListener('submit', (e) => { e.preventDefault(); advance(); });
-  form.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target instanceof HTMLInputElement) { e.preventDefault(); advance(); } });
+  form.addEventListener('input', (e) => {
+    const field=e.target;
+    if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
+      if(field.matches('[data-service]') && form.querySelector('[data-service]:checked')) { form.querySelectorAll<HTMLInputElement>('[data-service]').forEach(f=>{f.removeAttribute('aria-invalid');f.removeAttribute('aria-describedby');});error.textContent=''; }
+      else if(field.getAttribute('aria-invalid')==='true'&&field.checkValidity()){clearFieldError(field);error.textContent='';}
+    }
+  });
+  form.addEventListener('keydown', (e) => { if (!e.isComposing && e.key === 'Enter' && e.target instanceof HTMLInputElement && e.target.type !== 'checkbox') { e.preventDefault(); advance(); } });
   show();
 }

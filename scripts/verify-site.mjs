@@ -130,7 +130,15 @@ try {
     if (!legalPending) check(main.length > (['thanks', '404'].includes(template) ? 100 : 300), route + ' body chars ' + main.length);
     check(!/\[(RECEIPT|OWNER CONFIRM|LOGO PENDING|PHOTO PENDING)/.test(main) && !/\.dc\.html|#\//.test(html.match(/href="[^"]+"/g)?.join(' ') || ''), route + ' placeholder or design-preview link');
     const post = posts.find((p) => route === '/blog/' + p.slug + '/');
-    if (post) for (const b of post.blocks) for (const runs of b.items || [b.runs || []]) { const t = runs.map((r) => r.text).join('').trim(); if (t) check(main.includes(t.replace(/\s+/g, ' ')), route + ' source text missing: ' + t.slice(0, 50)); }
+    const comparisonIndex = post?.slug === 'how-long-seo-actually-takes' ? post.blocks.findIndex(b => b.runs?.map(r => r.text).join('') === 'Question · If The Answer Is No · Likely Bottleneck') : -1;
+    const comparisonBlocks = comparisonIndex >= 0 ? post.blocks.slice(comparisonIndex, comparisonIndex + 9) : [];
+    if (comparisonBlocks.length) {
+      const table = html.match(/class="p-comparison"[^>]*>[\s\S]*?<table\b[^>]*>([\s\S]*?)<\/table>/)?.[1] || '';
+      const cells = [...table.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/g)].map(m => decode(m[1].replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim());
+      const expected = comparisonBlocks.flatMap(b => b.runs.map(r => r.text).join('').split(' · ').map(t => t.replace(/\s+/g, ' ').trim()));
+      check(JSON.stringify(cells) === JSON.stringify(expected), route + ' comparison table must preserve every source cell in order');
+    }
+    if (post) for (const b of post.blocks.filter(b => !comparisonBlocks.includes(b))) for (const runs of b.items || [b.runs || []]) { const t = runs.map((r) => r.text).join('').trim(); if (t) check(main.includes(t.replace(/\s+/g, ' ')), route + ' source text missing: ' + t.slice(0, 50)); }
     const scripts = new Map(); for (const m of html.matchAll(/<script[^>]+src="([^"]+)"/g)) { const u = new URL(m[1], base).href; if (!scripts.has(u)) { const r = await fetch(u); check(r.ok, route + ' script ' + r.status); scripts.set(u, await r.text()); } }
     const inline = Array.from(html.matchAll(/<script(?![^>]*src=)(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g), (m) => m[1]).join('\n');
     const gz = [...scripts.values()].reduce((n, b) => n + gzipSync(b).length, 0) + (inline ? gzipSync(inline).length : 0);

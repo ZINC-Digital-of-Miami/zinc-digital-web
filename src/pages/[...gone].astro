@@ -1,0 +1,11 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Page from '../components/Page.astro';
+import { notFoundRoute } from '../data/site';
+import { isRetiredPath } from '../data/redirects';
+export const prerender = false;
+Astro.response.status = isRetiredPath(Astro.url.pathname) ? 410 : 404;
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+// Reuse the approved missing-page design; only inventoried retired paths receive 410.
+---
+<SiteLayout route={notFoundRoute}><Page route={notFoundRoute} /></SiteLayout>

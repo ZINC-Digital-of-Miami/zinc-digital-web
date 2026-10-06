@@ -1,10 +1,15 @@
 import {post,openDialog} from './shell';
 import {events} from '../../lib/research/sse';
+const syncSourceFields=(form:HTMLFormElement)=>{
+ const kind=form.querySelector<HTMLSelectElement>('[data-source-kind]');if(!kind)return;
+ for(const label of form.querySelectorAll<HTMLElement>('[data-source-field]'))label.hidden=label.dataset.sourceField!==kind.value;
+};
 document.addEventListener('change',e=>{
  const field=e.target as HTMLSelectElement;
- if(field.matches('[data-source-kind]'))for(const label of field.form!.querySelectorAll<HTMLElement>('[data-source-field]'))label.hidden=label.dataset.sourceField!==field.value;
+ if(field.matches('[data-source-kind]')&&field.form)syncSourceFields(field.form);
  if(field.matches('[data-chat-select]'))location.assign('/admin/research/?'+new URLSearchParams({project:field.dataset.project!,chat:field.value}));
 });
+document.addEventListener('reset',e=>{const form=e.target as HTMLFormElement;if(form.matches('[data-source-form]'))queueMicrotask(()=>syncSourceFields(form));});
 document.addEventListener('input',e=>{const field=e.target as HTMLInputElement;const form=field.closest('[data-source-form]');if(form)(form as HTMLElement).dataset.dirty='true';});
 document.addEventListener('click',async e=>{
  const button=(e.target as Element).closest<HTMLElement>('[data-source-id]');if(!button)return;

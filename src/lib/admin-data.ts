@@ -2,12 +2,13 @@ import type { APIContext, AstroGlobal } from 'astro';
 import { createServerClient } from './supabase';
 import { routes, posts, describe, excerpt } from '../data/site';
 import { seoScore } from './seo-score';
+import { mergeAdminContent } from './admin-content-model';
 
 export type ContentItem = {
   kind: 'page' | 'post'; key: string; path: string; title: string; template: string; status: string;
   meta_title: string; meta_description: string; focus_keyword: string; noindex: boolean;
   layer: string; body: string; excerpt: string; author: string; origin: string;
-  updated_at?: string; live_at?: string; live?: Record<string, unknown> | null; saved: boolean;
+  updated_at?: string; live_at?: string; live?: Record<string, unknown> | null; saved: boolean; pending?: boolean;
 };
 export type InquiryRow = {
   id: string; company: string; name: string; email: string; website: string; services: string[];
@@ -17,27 +18,18 @@ export type InquiryRow = {
 export const stages = [['new','New','Reply within 24h'],['contacted','Contacted','Book discovery call'],['qualified','Qualified','Send proposal'],['closed','Closed','Archive']] as const;
 export const when = (value: string | null | undefined) => value ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }).format(new Date(value)) + ' CT' : '—';
 export function repositoryContent(): ContentItem[] {
-  const pages: ContentItem[] = routes.map(r => ({ kind: 'page', key: r.path, path: r.path, title: r.title, template: r.template, status: 'published', meta_title: r.title, meta_description: describe(r), focus_keyword: '', noindex: r.template === 'thanks', layer: r.layer || '', body: '', excerpt: '', author: '', origin: 'repo', saved: false }));
+  const pages: ContentItem[] = routes.filter(r => r.template !== 'article').map(r => ({ kind: 'page', key: r.path, path: r.path, title: r.title, template: r.template, status: 'published', meta_title: r.title, meta_description: describe(r), focus_keyword: '', noindex: r.template === 'thanks', layer: r.layer || '', body: '', excerpt: '', author: '', origin: 'repo', saved: false }));
   return [...pages, ...posts.map(p => ({ kind: 'post' as const, key: p.slug, path: '/blog/' + p.slug + '/', title: p.title, template: 'article', status: 'published', meta_title: p.title, meta_description: excerpt(p,160), focus_keyword: '', noindex: false, layer: p.layer, body: '', excerpt: excerpt(p,2000), author: p.author.name, origin: 'repo', saved: false }))];
 }
 export async function contentList(ctx: APIContext | AstroGlobal) {
   const sb = createServerClient(ctx);
   const [pageResult, postResult] = await Promise.all([sb.from('pages').select('*'), sb.from('posts').select('*')]);
   if (pageResult.error || postResult.error) throw new Error('Content could not be loaded.');
-  const defaults = repositoryContent();
-  for (const [kind, rows] of [['page', pageResult.data], ['post', postResult.data]] as const) {
-    for (const row of rows || []) {
-      const key = kind === 'page' ? row.path : row.slug;
-      const index = defaults.findIndex(x => x.kind === kind && x.key === key);
-      const item = { ...(index >= 0 ? defaults[index] : {}), ...row, kind, key, path: kind === 'page' ? key : '/blog/' + key + '/', template: row.template || 'article', saved: true } as ContentItem;
-      if (index >= 0) defaults[index] = item; else defaults.push(item);
-    }
-  }
-  return defaults;
+  return mergeAdminContent(repositoryContent(), pageResult.data || [], postResult.data || []);
 }
 export function score(item: ContentItem) { return seoScore({ title: item.meta_title || item.title, desc: item.meta_description || '', status: item.status }); }
 export function unpublished(items: ContentItem[]) {
-  return items.filter(x => x.saved && (!x.live_at || !x.updated_at || new Date(x.updated_at) > new Date(x.live_at))).length;
+  return items.filter(x => x.pending ?? (x.saved && (!x.live_at || !x.updated_at || new Date(x.updated_at) > new Date(x.live_at)))).length;
 }
 export async function shellData(ctx: APIContext | AstroGlobal) {
   const sb = createServerClient(ctx);

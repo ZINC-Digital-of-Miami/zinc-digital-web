@@ -39,8 +39,8 @@ const expected = [
   ...POST_SLUGS.map((s) => 'blog/' + s + '/index.html'),
 ];
 for (const e of expected) check(htmlFiles.includes(e) || htmlFiles.includes(e.replace('404/index.html', '404.html')), 'missing built page: ' + e);
-const { caseAliases } = await import(new URL('../src/data/redirects.ts', import.meta.url).href);
-const ALIAS_FILES = Object.keys(caseAliases).map((a) => 'work/' + a + '/index.html');
+const { redirects } = await import(new URL('../src/data/redirects.ts', import.meta.url).href);
+const ALIAS_FILES = Object.keys(redirects).map((a) => a.replace(/^\/|\/$/g, '') + '/index.html');
 const extra = htmlFiles.filter((f) => !expected.includes(f) && f !== '404.html' && !ALIAS_FILES.includes(f));
 check(extra.length === 0, 'unexpected built pages: ' + extra.join(', '));
 const SITE = 'https://www.zincdigital.co';
@@ -157,7 +157,19 @@ if (home) {
 // ---- work + cases ----
 const work = pages.find((p) => p.rel === 'work/index.html');
 if (work) for (const s of CASE_SLUGS) check(work.html.includes('href="/work/' + s + '/"'), 'work/index.html is missing a link to /work/' + s + '/');
-for (const s of CASE_SLUGS) { const p = pages.find((x) => x.rel === 'work/' + s + '/index.html'); if (p) { check(p.html.includes('id="cOpen"') && p.html.includes('id="cHz"'), 'work/' + s + ' lacks the opener or screenshot scroller'); check(/\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks situation/approach'); } }
+for (const s of CASE_SLUGS) {
+  const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
+  if (!p) continue;
+  if (s === 'once-upon-a-book-club') {
+    for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
+    check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
+    check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');
+    check(p.html.includes('BI app in development') && p.html.includes('private client figures removed'), 'OUABC lacks BI status or privacy context');
+  } else {
+    check(p.html.includes('id="cOpen"') && p.html.includes('id="cHz"'), 'work/' + s + ' lacks the opener or screenshot scroller');
+    check(/\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks situation/approach');
+  }
+}
 // ---- blog ----
 const blog = pages.find((p) => p.rel === 'blog/index.html');
 if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === 17, 'blog/index.html should list 17 cards (18 posts minus the featured one)'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
@@ -171,9 +183,9 @@ for (const f of ALIAS_FILES) if (htmlFiles.includes(f)) check((await readText(f)
 const vercelConfig = JSON.parse((await readFile(path.join(root, '.vercel/output/config.json'), 'utf8').catch(() => 'null')) || 'null');
 check(!!vercelConfig, '.vercel/output/config.json missing — build with the Vercel adapter first');
 const firstRoute = (p) => { for (const r of vercelConfig?.routes || []) { if (r.handle) return null; if (!r.continue && r.src && new RegExp(r.src).test(p)) return r; } return null; };
-for (const [from, to] of Object.entries(caseAliases)) for (const p of ['/work/' + from + '/', '/work/' + from]) {
+for (const [from, to] of Object.entries(redirects)) for (const p of [from, from.replace(/\/$/, '')]) {
   const r = firstRoute(p);
-  check(r?.status === 301 && r.headers?.Location === '/work/' + to + '/', 'Vercel routes answer ' + p + ' with ' + (r ? r.status + ' ' + (r.headers?.Location || r.dest || '') : 'nothing before the filesystem') + ', expected 301 /work/' + to + '/');
+  check(r?.status === 301 && r.headers?.Location === to, 'Vercel routes answer ' + p + ' with ' + (r ? r.status + ' ' + (r.headers?.Location || r.dest || '') : 'nothing before the filesystem') + ', expected 301 ' + to);
 }
 // ---- built CSS: no underline affordance, no stray color literals outside tokens is a src concern (see below) ----
 const astroDir = path.join(distDir, '_astro');

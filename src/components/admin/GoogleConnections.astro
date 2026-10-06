@@ -20,7 +20,7 @@ try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){erro
   <div>
    <h3 class="a-heading">Google Analytics 4</h3>
    {!existingLogin&&<p class="a-muted">In Admin → Property access management, add the website account as a Viewer. Turn off the invitation email.</p>}
-   <a class="a-button a-section" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Connect GA4 ↗</a>
+   <a class="a-button a-section" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener noreferrer">Open Google Analytics ↗</a>
    <form class="a-form a-section" data-google-form data-kind="ga4">
     <label class="a-field"><span>Property ID</span><input class="a-input" name="property" inputmode="numeric" pattern="[0-9]{1,20}" maxlength="20" required value={settings.property} readonly={staff.role!=='owner'}/></label>
     {staff.role==='owner'&&<button type="submit" class="a-button">Verify and save GA4</button>}
@@ -31,7 +31,7 @@ try{settings=await savedGoogleSettings(createServerClient(Astro));}catch(e){erro
   <div>
    <h3 class="a-heading">Search Console</h3>
    {!existingLogin&&<p class="a-muted">In Settings → Users and permissions, add the website account as a Full user. Return here to load your accessible property.</p>}
-   <a class="a-button a-section" href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">Connect Search Console ↗</a>
+   <a class="a-button a-section" href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">Open Search Console ↗</a>
    <button type="button" class="a-button a-section" data-google-discover>Check available properties</button>
    <form class="a-form a-section" data-google-form data-kind="gsc">
     <label class="a-field"><span>Search Console property</span><select class="a-input" name="site" required disabled={staff.role!=='owner'}><option value="">Choose your property</option>{settings.site&&<option value={settings.site} selected>{settings.site}</option>}</select></label>

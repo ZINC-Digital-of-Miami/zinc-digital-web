@@ -86,7 +86,7 @@
         {
           "runs": [
             {
-              "text": "Original ZINC schematic: AI search visibility is not a magic placement. It is the result of cleaner evidence, stronger pages, better entity signals, and proof that the work moved."
+              "text": "AI search visibility is not a magic placement. It is the result of cleaner evidence, stronger pages, better entity signals, and proof that the work moved."
             }
           ],
           "type": "p"
@@ -772,7 +772,7 @@
         {
           "runs": [
             {
-              "text": "Original ZINC schematic: industry research gives context, but the SEO work still has to improve the site, the evidence, and the measurement layer."
+              "text": "Industry research gives context, but the SEO work still has to improve the site, the evidence, and the measurement layer."
             }
           ],
           "type": "p"
@@ -1389,7 +1389,7 @@
         {
           "runs": [
             {
-              "text": "Original ZINC schematic: AI search reporting needs classic SEO metrics plus AI-search visibility signals, because a useful answer can shape the buyer before analytics records a click."
+              "text": "AI search reporting needs classic SEO metrics plus AI-search visibility signals, because a useful answer can shape the buyer before analytics records a click."
             }
           ],
           "type": "p"
@@ -2241,40 +2241,6 @@
             }
           ],
           "type": "p"
-        },
-        {
-          "runs": [
-            {
-              "text": "Related ZINC Reading"
-            }
-          ],
-          "type": "heading"
-        },
-        {
-          "items": [
-            [
-              {
-                "href": "/work/",
-                "text": "Local SEO Work That Moves Map Rankings in 2026"
-              }
-            ],
-            [
-              {
-                "text": "When SEO Is The Right Marketing Channel"
-              }
-            ],
-            [
-              {
-                "text": "Topic Clusters Only Work When They Map To Buyer Intent"
-              }
-            ],
-            [
-              {
-                "text": "Website Differentiation Starts With Clarity, Not Decoration"
-              }
-            ]
-          ],
-          "type": "ul"
         },
         {
           "runs": [
@@ -3981,8 +3947,8 @@
           "items": [
             [
               {
-                "href": "/services/",
-                "text": "PPC management"
+                "href": "/services/shopping-ads/",
+                "text": "Shopping / Merchant Center Ads"
               }
             ],
             [
@@ -6115,22 +6081,14 @@
           "items": [
             [
               {
-                "text": "/google-shopping-ad-management-2026/"
+                "text": "Google Shopping Ad Management in 2026: Fix the Feed Before You Scale",
+                "href": "/blog/google-shopping-ad-management-2026/"
               }
             ],
             [
               {
-                "text": "/shopify-seo-problems-real-fixes/"
-              }
-            ],
-            [
-              {
-                "text": "/website-differentiation-starts-with-clarity/"
-              }
-            ],
-            [
-              {
-                "text": "/topic-clusters-buyer-intent-map/"
+                "text": "Shopify SEO Problems: The Real Fixes Behind The Audit",
+                "href": "/blog/shopify-seo-problems-real-fixes/"
               }
             ]
           ],
@@ -8707,27 +8665,26 @@
           "items": [
             [
               {
-                "text": "/service/seo/"
+                "text": "SEO",
+                "href": "/services/seo/"
               }
             ],
             [
               {
-                "text": "/technical-seo-ten-fixes-that-move-rankings/"
+                "text": "Technical SEO: Ten Fixes That Actually Move Rankings",
+                "href": "/blog/technical-seo-ten-fixes-that-move-rankings/"
               }
             ],
             [
               {
-                "text": "/how-long-seo-actually-takes/"
+                "text": "How Long SEO Actually Takes: The Operator Timeline",
+                "href": "/blog/how-long-seo-actually-takes/"
               }
             ],
             [
               {
-                "text": "/google-search-console-the-operators-guide/"
-              }
-            ],
-            [
-              {
-                "text": "/topic-clusters-buyer-intent-map/"
+                "text": "Google Search Console: The Operator Guide For Real SEO Decisions",
+                "href": "/blog/google-search-console-the-operators-guide/"
               }
             ]
           ],
@@ -11557,27 +11514,32 @@
           "items": [
             [
               {
-                "text": "/service/seo/"
+                "text": "SEO",
+                "href": "/services/seo/"
               }
             ],
             [
               {
-                "text": "/four-pillars-of-seo-operators-view/"
+                "text": "Four Pillars Of SEO: How Operators Actually Think About The Work",
+                "href": "/blog/four-pillars-of-seo-operators-view/"
               }
             ],
             [
               {
-                "text": "/google-search-console-the-operators-guide/"
+                "text": "Google Search Console: The Operator Guide For Real SEO Decisions",
+                "href": "/blog/google-search-console-the-operators-guide/"
               }
             ],
             [
               {
-                "text": "/how-long-seo-actually-takes/"
+                "text": "How Long SEO Actually Takes: The Operator Timeline",
+                "href": "/blog/how-long-seo-actually-takes/"
               }
             ],
             [
               {
-                "text": "/shopify-seo-launch-checklist/"
+                "text": "Shopify SEO Launch Checklist: What To Fix Before The Store Goes Live",
+                "href": "/blog/shopify-seo-launch-checklist/"
               }
             ]
           ],
@@ -14676,26 +14638,26 @@
           "items": [
             [
               {
-                "href": "/services/",
-                "text": "Local SEO Services"
+                "href": "/services/local-seo/",
+                "text": "Local SEO"
               }
             ],
             [
               {
-                "href": "/services/",
-                "text": "SEO Services"
+                "href": "/services/seo/",
+                "text": "SEO"
               }
             ],
             [
               {
-                "href": "/services/",
-                "text": "Business Intelligence Platform"
+                "href": "/services/business-intelligence/",
+                "text": "Business Intelligence"
               }
             ],
             [
               {
-                "href": "/services/",
-                "text": "Web Design Services"
+                "href": "/services/web-design/",
+                "text": "Web Design"
               }
             ],
             [
@@ -17893,20 +17855,20 @@
             ],
             [
               {
-                "href": "/services/",
-                "text": "SEO Services"
+                "href": "/services/seo/",
+                "text": "SEO"
               }
             ],
             [
               {
-                "href": "/services/",
-                "text": "PPC Services"
+                "href": "/services/google-search-ads/",
+                "text": "Google Search Ads"
               }
             ],
             [
               {
-                "href": "/services/",
-                "text": "Business Intelligence Platform"
+                "href": "/services/business-intelligence/",
+                "text": "Business Intelligence"
               }
             ],
             [
@@ -45037,11 +44999,6 @@
                 "href": "/blog/shopify-seo-launch-checklist/",
                 "text": "Shopify SEO Launch Checklist"
               }
-            ],
-            [
-              {
-                "text": "City Pages for Local SEO Without Doorway Spam"
-              }
             ]
           ],
           "type": "ul"
@@ -45112,112 +45069,6 @@
             ]
           ],
           "type": "ul"
-        },
-        {
-          "runs": [
-            {
-              "text": "Planned Schema Graph"
-            }
-          ],
-          "type": "heading"
-        },
-        {
-          "runs": [
-            {
-              "text": "Use the standard ZINC BlogPosting graph with "
-            },
-            {
-              "text": "BlogPosting"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "Person"
-            },
-            {
-              "text": ","
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "Organization"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "LocalBusiness"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "ProfessionalService"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "AdvertisingAgency"
-            },
-            {
-              "text": ","
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "WebPage"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "BreadcrumbList"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "Service"
-            },
-            {
-              "text": ", and "
-            },
-            {
-              "text": "DefinedTerm"
-            },
-            {
-              "text": " nodes. The schema"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nshould describe this article as SEO strategy guidance about AI search, core"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nupdates, content quality, technical SEO, service authority, and measurement. It"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nshould not add Product, Review, or AggregateRating schema."
-            }
-          ],
-          "type": "p"
         }
       ],
       "date": "2026-05-15T09:01:00",
@@ -48256,7 +48107,8 @@
             ],
             [
               {
-                "text": "The Four Pillars of SEO"
+                "text": "Four Pillars Of SEO: How Operators Actually Think About The Work",
+                "href": "/blog/four-pillars-of-seo-operators-view/"
               }
             ],
             [
@@ -48334,112 +48186,6 @@
             ]
           ],
           "type": "ul"
-        },
-        {
-          "runs": [
-            {
-              "text": "Planned Schema Graph"
-            }
-          ],
-          "type": "heading"
-        },
-        {
-          "runs": [
-            {
-              "text": "Use the standard ZINC BlogPosting graph with "
-            },
-            {
-              "text": "BlogPosting"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "Person"
-            },
-            {
-              "text": ","
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "Organization"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "LocalBusiness"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "ProfessionalService"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "AdvertisingAgency"
-            },
-            {
-              "text": ","
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "WebPage"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "BreadcrumbList"
-            },
-            {
-              "text": ", "
-            },
-            {
-              "text": "Service"
-            },
-            {
-              "text": ", and "
-            },
-            {
-              "text": "DefinedTerm"
-            },
-            {
-              "text": " nodes. The schema"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nshould describe the article as technical SEO guidance about duplicate content,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ncanonical URLs, redirects, Search Console, WordPress SEO, and Shopify SEO. It"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nshould not add Product, Review, or AggregateRating schema."
-            }
-          ],
-          "type": "p"
         }
       ],
       "date": "2026-05-15T09:00:00",

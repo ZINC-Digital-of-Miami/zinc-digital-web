@@ -1,7 +1,7 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
-import { caseAliases } from './src/data/redirects.ts';
+import { redirects, retiredPaths } from './src/data/redirects.ts';
 import { adminThemeHash } from './src/lib/admin-theme.ts';
 import {analyticsEnabled, googleTagScript} from './src/lib/analytics.ts';
 import {createHash} from 'node:crypto';
@@ -56,7 +56,9 @@ const vercelRedirects = { name: 'zinc-vercel-redirects', hooks: {
     const redirects = cfg.routes.filter(isRedirect).map((r) => ({ ...r, src: r.src.replace(/\/?\$$/, '/?$') }));
     const rest = cfg.routes.filter((r) => !isRedirect(r));
     const at = rest.findIndex((r) => r.status === 308);
-    rest.splice(at < 0 ? 0 : at, 0, ...redirects);
+    const escape = (path) => path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const gone = retiredPaths.map((path) => ({src: '^' + escape(path.replace(/\/$/, '')) + '/?$', dest: '/404.html', status: 410, headers: {'X-Robots-Tag':'noindex, nofollow'}}));
+    rest.splice(at < 0 ? 0 : at, 0, ...redirects, ...gone);
     await writeFile(file, JSON.stringify({ ...cfg, routes: rest }, null, 2));
   },
 } };
@@ -74,5 +76,5 @@ export default defineConfig({
   // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header
   // (vercel.json), since browsers ignore it in a meta policy. Register hashes before SSR headers stream.
   security: { csp: { scriptDirective: { hashes: [adminThemeHash, ...(analytics ? [analyticsHash] : [])], resources: ["'self'", ...(analytics ? ['https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.google.com'] : [])] }, styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
-  redirects: Object.fromEntries(Object.entries(caseAliases).map(([from, to]) => ['/work/' + from + '/', { status: 301, destination: '/work/' + to + '/' }])),
+  redirects: Object.fromEntries(Object.entries(redirects).map(([from, to]) => [from, { status: 301, destination: to }])),
 });

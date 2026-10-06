@@ -9,7 +9,7 @@ const { values = {}, error } = Astro.props;
 const v = { name: '', company: '', email: '', website: '', budget: '', timeline: '', message: '', ...values };
 const chosen = values.services || [];
 ---
-<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
+
 <form class="p-form rv" id="inqForm" data-inquiry-form data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
   <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
   <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
@@ -22,3 +22,4 @@ const chosen = values.services || [];
   <p class="p-muted" data-nojs-note style="margin:14px 0 0">Without JavaScript the three steps show as one page; the button below submits.</p>
   <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button>
 </form>
+<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>

@@ -68,13 +68,24 @@ function initScroll() {
   const ba = document.getElementById('ba'), baStage = document.getElementById('baStage');
   const hz = document.getElementById('cHz'), hzTrack = document.getElementById('cHzTrack');
   const pars = q('[data-par]');
+  // A keyboard user must never focus a link inside an unrevealed case panel.
+  if (opener || document.querySelector('.ou-case')) document.addEventListener('focusin', (event) => {
+    let element = event.target instanceof Element ? event.target : null;
+    while (element) {
+      if (element.matches('.rv,.rv-stag')) element.classList.add('in');
+      element = element.parentElement;
+    }
+  });
   const noMotion = reduce();
   if (noMotion) { q('.rv,.rv-stag').forEach((el) => el.classList.add('in')); if (baStage) baStage.style.setProperty('--ba', '50%'); }
 
   const pin = (el: HTMLElement | null, fn: (p: number) => void) => {
     if (!el) return;
     const b = el.getBoundingClientRect(); const span = b.height - (innerHeight - NAV);
-    if (span <= 0) return; fn(Math.min(1, Math.max(0, (NAV - b.top) / span)));
+    if (span <= 0) return;
+    const elapsed = NAV - b.top;
+    // Scroll positions round to physical pixels; land fully on the last panel.
+    fn(elapsed >= span - 1 ? 1 : Math.min(1, Math.max(0, elapsed / span)));
   };
   let ticking = false;
   const update = () => {
@@ -82,10 +93,10 @@ function initScroll() {
     const vh = innerHeight;
     if (prog) { const mx = document.documentElement.scrollHeight - vh; prog.style.transform = 'scaleX(' + (mx > 0 ? scrollY / mx : 0) + ')'; }
     if (noMotion) return;
-    q('.rv:not(.in),.rv-stag:not(.in)').forEach((el) => { const b = el.getBoundingClientRect(); if (b.top < vh * 0.9 && b.bottom > 0) el.classList.add('in'); });
-    pin(opener, (p) => { if (openImg) openImg.style.transform = 'translateY(' + -p * 12 + '%) scale(' + (1 + p * 0.06) + ')'; if (openTxt) { openTxt.style.opacity = String(1 - Math.max(0, (p - 0.6) / 0.4)); openTxt.style.transform = 'translateY(' + -p * 48 + 'px)'; } });
+    if (!opener?.classList.contains('c-open-app')) pin(opener, (p) => { if (openImg) openImg.style.transform = 'translateY(' + -p * 12 + '%) scale(' + (1 + p * 0.06) + ')'; if (openTxt) { openTxt.style.opacity = String(1 - Math.max(0, (p - 0.6) / 0.4)); openTxt.style.transform = 'translateY(' + -p * 48 + 'px)'; } });
     pin(ba, (p) => baStage?.style.setProperty('--ba', (100 - p * 100).toFixed(2) + '%'));
     pin(hz, (p) => { if (hzTrack) { const max = Math.max(0, hzTrack.scrollWidth - innerWidth); hzTrack.style.transform = 'translateX(' + -p * max + 'px)'; } });
+    q('.rv:not(.in),.rv-stag:not(.in)').forEach((el) => { const b = el.getBoundingClientRect(); if (b.top < vh * 0.9 && b.bottom > 0 && b.left < innerWidth && b.right > 0) el.classList.add('in'); });
     pars.forEach((el) => { const s = parseFloat(el.dataset.par || '0'); const b = el.parentElement!.getBoundingClientRect(); const d = b.top + b.height / 2 - vh / 2; el.style.transform = 'translateY(' + -d * s + 'px)'; });
   };
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
@@ -93,7 +104,7 @@ function initScroll() {
   addEventListener('resize', request);
   update();
   // Anything already above the fold after fonts settle.
-  setTimeout(() => q('.rv,.rv-stag').forEach((el) => { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }), 1400);
+  setTimeout(() => q('.rv,.rv-stag').forEach((el) => { const b = el.getBoundingClientRect(); if (b.top < innerHeight && b.bottom > 0 && b.left < innerWidth && b.right > 0) el.classList.add('in'); }), 1400);
 }
 
 // ---- team: shuffle order on every visit (About + Home) ----

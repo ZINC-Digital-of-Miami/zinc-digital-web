@@ -42,7 +42,7 @@ if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'Creati
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
-const showCta = t !== 'home' && t !== 'contact';
+const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
 ---
 <html lang="en" data-theme="light">
   <head>
@@ -123,12 +123,12 @@ const showCta = t !== 'home' && t !== 'contact';
       )}
 
       <footer class="foot">
-        <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>
+        {t !== 'thanks' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
-            {STUDIOS.map((s) => <div><h3>{s.name}</h3><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
-            <div><h3>Contact</h3><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
+            {STUDIOS.map((s) => <div><h2>{s.name}</h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
+            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href={SMS}>Text {PHONE_LABEL} ↗</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
           </div>
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
