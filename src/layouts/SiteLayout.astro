@@ -34,7 +34,7 @@ const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/artic
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
 const heroFile = heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined;
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: [480, 960, 1440, heroFile.width].filter(width => width <= heroFile.width), format: 'avif' }) : undefined;
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: [480, 720, 960, 1280, heroFile.width].filter(width => width <= heroFile.width), format: 'avif' }) : undefined;
 const heroSizes = '(max-width: 900px) 90vw, ' + (t === 'blog' ? '600px' : '1100px');
 const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
 const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');
@@ -111,6 +111,7 @@ const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
           </nav>
           <button type="button" class="theme-t" id="themeToggle" aria-label="Switch between light and dark"><span class="ic"></span><span data-theme-label>Dark mode</span></button>
           <a class="btn fill" href="/contact/" style="min-height:44px;padding:0 18px">Start an inquiry</a>
+          <button type="button" class="menu-toggle" id="mobileMenuToggle" aria-haspopup="dialog" aria-controls="mobileMenu" aria-expanded="false"><span>Menu</span><span class="menu-glyph" aria-hidden="true"><i></i><i></i></span></button>
         </div>
       </header>
       <nav class="mnav" aria-label="Main navigation (mobile)">
@@ -120,6 +121,12 @@ const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
         <a class={navOn('blog')} href="/blog/">Articles</a>
         <a href="/contact/">Contact</a>
       </nav>
+      <dialog class="mobile-menu" id="mobileMenu" aria-labelledby="mobileMenuTitle">
+        <div class="menu-background" aria-hidden="true"><img src={wordmark.src} alt="" width={wordmark.width} height={wordmark.height} /></div>
+        <div class="menu-head"><a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} /></a><button type="button" class="menu-close" data-menu-close aria-label="Close navigation" autofocus><span aria-hidden="true"></span></button></div>
+        <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Articles','/blog/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span><span class="menu-arrow" aria-hidden="true">↗</span></a>)}</nav></div>
+        <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href={SMS}>Text {PHONE_LABEL} <span aria-hidden="true">↗</span></a></div>
+      </dialog>
 
       <main id="main"><slot /></main>
 

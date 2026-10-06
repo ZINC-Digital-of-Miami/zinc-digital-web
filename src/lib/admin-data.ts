@@ -1,6 +1,7 @@
 import type { APIContext, AstroGlobal } from 'astro';
 import { createServerClient } from './supabase';
 import { routes, posts, describe, excerpt } from '../data/site';
+import { articleEditorial } from '../data/article-editorial';
 import { seoScore } from './seo-score';
 import { mergeAdminContent } from './admin-content-model';
 
@@ -19,7 +20,7 @@ export const stages = [['new','New','Reply within 24h'],['contacted','Contacted'
 export const when = (value: string | null | undefined) => value ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }).format(new Date(value)) + ' CT' : '—';
 export function repositoryContent(): ContentItem[] {
   const pages: ContentItem[] = routes.filter(r => r.template !== 'article').map(r => ({ kind: 'page', key: r.path, path: r.path, title: r.title, template: r.template, status: 'published', meta_title: r.title, meta_description: describe(r), focus_keyword: '', noindex: r.template === 'thanks', layer: r.layer || '', body: '', excerpt: '', author: '', origin: 'repo', saved: false }));
-  return [...pages, ...posts.map(p => ({ kind: 'post' as const, key: p.slug, path: '/blog/' + p.slug + '/', title: p.title, template: 'article', status: 'published', meta_title: p.title, meta_description: excerpt(p,160), focus_keyword: '', noindex: false, layer: p.layer, body: '', excerpt: excerpt(p,2000), author: p.author.name, origin: 'repo', saved: false }))];
+  return [...pages, ...posts.map(p => ({ kind: 'post' as const, key: p.slug, path: '/blog/' + p.slug + '/', title: p.title, template: 'article', status: 'published', meta_title: articleEditorial[p.slug]?.title || p.title, meta_description: articleEditorial[p.slug]?.description || excerpt(p,160), focus_keyword: articleEditorial[p.slug]?.keywords[0] || '', noindex: false, layer: p.layer, body: '', excerpt: excerpt(p,2000), author: p.author.name, origin: 'repo', saved: false }))];
 }
 export async function contentList(ctx: APIContext | AstroGlobal) {
   const sb = createServerClient(ctx);

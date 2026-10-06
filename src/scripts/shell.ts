@@ -9,10 +9,55 @@ const NAV = 76;
 
 export function initShell() {
   initTheme();
+  initMobileMenu();
   initCursor();
   initMotion();
   initScroll();
   initTeamShuffle();
+}
+
+// The native modal supplies focus containment and makes the page behind it inert.
+function initMobileMenu() {
+  const toggle = document.getElementById('mobileMenuToggle');
+  const menu = document.getElementById('mobileMenu') as HTMLDialogElement | null;
+  if (!toggle || !menu) return;
+  let closing = false;
+  let closeTimer: ReturnType<typeof setTimeout>;
+  const restore = () => {
+    document.documentElement.classList.remove('menu-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    delete menu.dataset.visible;
+    closing = false;
+  };
+  const finish = () => {
+    clearTimeout(closeTimer);
+    menu.close();
+    restore();
+  };
+  const close = () => {
+    if (!menu.open || closing) return;
+    closing = true;
+    delete menu.dataset.visible;
+    if (reduce()) finish(); else closeTimer = setTimeout(finish, 360);
+  };
+  toggle.addEventListener('click', () => {
+    if (menu.open) return;
+    menu.showModal();
+    document.documentElement.classList.add('menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (menu.open && !closing) menu.dataset.visible = 'true'; }));
+  });
+  menu.querySelector('[data-menu-close]')?.addEventListener('click', close);
+  menu.addEventListener('cancel', event => { event.preventDefault(); close(); });
+  menu.addEventListener('click', event => {
+    if ((event.target as Element).closest('a')) { finish(); return; }
+    if (event.target !== menu) return;
+    const box = menu.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) close();
+  });
+  menu.addEventListener('close', restore);
+  addEventListener('pagehide', () => { if (menu.open) finish(); });
+  matchMedia('(max-width: 900px)').addEventListener('change', event => { if (!event.matches && menu.open) finish(); });
 }
 
 // ---- theme ----
