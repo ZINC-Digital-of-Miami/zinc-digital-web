@@ -23,3 +23,14 @@ test('a published layer edit reaches the article route and preserves its first p
  assert.equal(result.posts[0].layer,'Demand');assert.equal(result.routes[0].layer,'Demand');
  assert.equal(result.routes[0].published,date);assert.equal(result.posts[0].date,date);
 });
+test('article SEO inherits legacy page snapshots until explicit post fields override',()=>{
+ const repo:any={slug:'existing',title:'Original',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],related:[]};
+ const route:any={path:'/blog/existing/',template:'article',title:'Original',slug:'existing'};
+ const legacy={live:{path:route.path,meta_title:'Legacy title',meta_description:'Legacy description',noindex:true}};
+ for(const post of [[],[{live:{slug:'existing',meta_title:null,meta_description:null}}]]) {
+  const published=publishedContent([route],[repo],[legacy],post).routes[0];
+  assert.equal(published.metaTitle,'Legacy title');assert.equal(published.metaDescription,'Legacy description');assert.equal(published.noindex,true);
+ }
+ const published=publishedContent([route],[repo],[legacy],[{live:{slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
+ assert.equal(published.metaTitle,'Post title');assert.equal(published.metaDescription,'Post description');assert.equal(published.noindex,false);
+});

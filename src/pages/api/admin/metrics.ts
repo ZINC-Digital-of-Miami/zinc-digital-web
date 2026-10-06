@@ -9,7 +9,7 @@ export const GET:APIRoute=async ctx=>{
  if(!googleConfig().account)return reply({error:'Connect Google to load Analytics and Search Console.'},503);
  const sb=createServerClient(ctx),isIndexed=ctx.url.searchParams.get('kind')==='indexed';
  try{
-  const config=await savedGoogleSettings(sb),key=(isIndexed?'google_indexed:':'google_metrics:')+config.property+':'+config.site;
+  const config=await savedGoogleSettings(sb),key=(isIndexed?'google_indexed:':'google_metrics:v2:')+config.property+':'+config.site;
   const cached=await sb.from('admin_cache').select('value,fetched_at').eq('key',key).maybeSingle();
   if(cached.error)return reply({error:'Metrics cache is unavailable. Apply the admin migration first.'},503);
   const ttl=isIndexed?86400000:21600000;

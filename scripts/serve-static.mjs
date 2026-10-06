@@ -9,6 +9,7 @@ import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { brotliCompressSync, gzipSync } from 'node:zlib';
+import { isRetiredPath } from '../src/data/redirects.ts';
 
 const root = process.cwd();
 const dist = path.join(root, 'dist', 'client');
@@ -20,8 +21,6 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; ch
 
 // Routes before Vercel's filesystem handler: redirects (status + Location) and header-only `continue` routes.
 const preRoutes = []; for (const r of vercelConfig.routes) { if (r.handle) break; if (r.src) preRoutes.push(r); }
-// Routes after it that point at the function: on-demand pages this server cannot render.
-const fnRoutes = vercelConfig.routes.filter((r) => r.dest && !r.dest.startsWith('/') && r.src).map((r) => new RegExp(r.src));
 const headerRules = (vercelJson.headers || []).map((h) => ({ re: new RegExp('^' + h.source + '$'), has: h.has || [], headers: h.headers }));
 // Compress text responses the way Vercel's edge does, so Lighthouse sees realistic transfer sizes.
 const COMPRESSIBLE = /^(text\/|application\/(json|xml|manifest)|image\/svg)/;
@@ -37,18 +36,19 @@ const fileAt = async (p) => { try { const s = await stat(p); return s.isFile() ?
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url || '/', 'http://127.0.0.1');
-  const pathname = decodeURIComponent(url.pathname);
+  let pathname; try { pathname = decodeURIComponent(url.pathname); } catch { pathname = url.pathname; }
   const headers = {};
   const host = (req.headers.host || '').split(':')[0];
   for (const rule of headerRules) if (rule.re.test(pathname) && rule.has.every(condition => condition.type === 'host' && new RegExp('^' + condition.value + '$').test(host))) for (const h of rule.headers) headers[h.key] = h.value;
   for (const r of preRoutes) {
-    const m = new RegExp(r.src).exec(pathname); if (!m) continue;
+    const m = new RegExp(r.src).exec(url.pathname) || new RegExp(r.src).exec(pathname); if (!m) continue;
     if (r.continue) { Object.assign(headers, r.headers); continue; }
     if (r.status && r.headers?.Location) { const loc = r.headers.Location.replace(/\$(\d)/g, (_, i) => m[Number(i)] ?? ''); res.writeHead(r.status, { ...headers, Location: loc + url.search }); return res.end(); }
+    if (r.status === 410) return send(req, res, 410, {...headers,...r.headers,'content-type':TYPES['.html']}, await readFile(path.join(dist,'404.html')));
   }
-  if (fnRoutes.some((re) => re.test(pathname))) { res.writeHead(501, { ...headers, 'content-type': 'text/plain' }); return res.end('on-demand route: not served by serve-static'); }
+  if (/^\/(?:admin|api)(?:\/|$)/.test(pathname) || pathname === '/contact/send/') { res.writeHead(501, { ...headers, 'content-type': 'text/plain' }); return res.end('on-demand route: not served by serve-static'); }
   const rel = pathname.replace(/^\/+/, '');
   const file = (await fileAt(path.join(dist, rel))) || (await fileAt(path.join(dist, rel, 'index.html')));
   if (file && file.startsWith(dist)) return send(req, res, 200, { ...headers, 'content-type': TYPES[path.extname(file)] || 'application/octet-stream' }, await readFile(file));
-  send(req, res, 404, { ...headers, 'content-type': TYPES['.html'] }, await readFile(path.join(dist, '404.html')).catch(() => Buffer.from('Not found')));
+  send(req, res, isRetiredPath(pathname) ? 410 : 404, { ...headers, 'content-type': TYPES['.html'], 'X-Robots-Tag': 'noindex, nofollow' }, await readFile(path.join(dist, '404.html')).catch(() => Buffer.from('Not found')));
 }).listen(port, '127.0.0.1', () => console.log('serve-static: http://127.0.0.1:' + port + ' serving ' + path.relative(root, dist)));

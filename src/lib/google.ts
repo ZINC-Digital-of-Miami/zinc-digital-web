@@ -1,10 +1,11 @@
+import {googleReportRange} from './google-range';
 import {authorizeGoogle,googleAccount} from './google-auth';
 import {SITE,noindexPaths} from '../data/site';
 import {loadPublished} from './content';
 import type {SupabaseClient} from '@supabase/supabase-js';
 import {googleSettingsInput,type GoogleSettings} from './google-settings';
 export const googleConfig=()=>({account:import.meta.env.GOOGLE_AUTHORIZED_USER_JSON||import.meta.env.GOOGLE_SERVICE_ACCOUNT_JSON||'',property:import.meta.env.GA4_PROPERTY_ID||'494489814',site:import.meta.env.GSC_SITE||''});
-type Report={rows?:{dimensionValues:{value:string}[];metricValues:{value:string}[]}[]};
+type Report={metadata?:{timeZone?:string};rows?:{dimensionValues:{value:string}[];metricValues:{value:string}[]}[]};
 let credential:{value:string;expires:number}|undefined;
 async function token(){
  if(credential&&credential.expires>Date.now()+60000)return credential.value;
@@ -15,18 +16,20 @@ async function request(url:string,body:unknown){
  if(!res.ok)throw new Error('Google data could not be loaded. Check the property and account permissions.');return res.json();
 }
 export async function metrics(c:GoogleSettings=googleConfig()){
- const fmt=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'});
- const range={start:fmt.format(Date.now()-30*86400000),end:fmt.format(Date.now()-86400000)};
- const url='https://analyticsdata.googleapis.com/v1beta/properties/'+c.property+':runReport',base={dateRanges:[{startDate:range.start,endDate:range.end}]};
+ const requestedAt=Date.now();
+ const url='https://analyticsdata.googleapis.com/v1beta/properties/'+c.property+':runReport',base={dateRanges:[{startDate:'30daysAgo',endDate:'yesterday'}]};
  const [summary,daily,top]=await Promise.all([
  request(url,{...base,metrics:[{name:'sessions'},{name:'userEngagementDuration'},{name:'activeUsers'}]}),
  request(url,{...base,dimensions:[{name:'date'}],metrics:[{name:'sessions'}],dimensionFilter:{filter:{fieldName:'sessionDefaultChannelGroup',stringFilter:{matchType:'EXACT',value:'Organic Search'}}},orderBys:[{dimension:{dimensionName:'date'}}]}),
  request(url,{...base,dimensions:[{name:'pagePath'}],metrics:[{name:'screenPageViews'}],orderBys:[{metric:{metricName:'screenPageViews'},desc:true}],limit:10}),
  ]) as [Report,Report,Report];
+ const timeZone=summary.metadata?.timeZone;
+ const range=googleReportRange(requestedAt,timeZone||'UTC');
+ const source={analyticsProperty:c.property,analyticsTimeZone:timeZone||null,searchConsoleProperty:c.site,searchConsoleTimeZone:'America/Los_Angeles',inspectionOrigin:SITE};
  const values=summary.rows?.[0]?.metricValues.map(x=>Number(x.value))||[0,0,0];let clicks:number|null=null,impressions:number|null=null,searchError='';
  if(c.site){try{const search=await request('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(c.site)+'/searchAnalytics/query',{startDate:range.start,endDate:range.end});clicks=search.rows?.[0]?.clicks||0;impressions=search.rows?.[0]?.impressions||0;}catch(e){searchError=(e as Error).message;}}
  else searchError='Connect the Search Console property to load organic clicks.';
- return{sessions:values[0],engagement:values[2]?values[1]/values[2]:0,clicks,impressions,range,searchError,series:(daily.rows||[]).map(r=>({date:r.dimensionValues[0].value,sessions:Number(r.metricValues[0].value)})),topPages:(top.rows||[]).map(r=>({path:r.dimensionValues[0].value,views:Number(r.metricValues[0].value)}))};
+ return{source,sessions:values[0],engagement:values[2]?values[1]/values[2]:0,clicks,impressions,range,searchError,series:(daily.rows||[]).map(r=>({date:r.dimensionValues[0].value,sessions:Number(r.metricValues[0].value)})),topPages:(top.rows||[]).map(r=>({path:r.dimensionValues[0].value,views:Number(r.metricValues[0].value)}))};
 }
 export async function indexed(c:GoogleSettings=googleConfig()){
  const site=c.site;if(!site)throw new Error('Connect Search Console to inspect indexed pages.');

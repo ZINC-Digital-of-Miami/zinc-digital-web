@@ -1,0 +1,7 @@
+---
+import Img from './Img.astro';
+import { clients, asset } from '../data/site';
+---
+<div class="logos rv">
+  {clients.map(client => <div class="logo-c"><Img k={client.logo!} alt={client.name} class={asset(client.logo!).width === asset(client.logo!).height ? 'sq' : ''} sizes="240px" /></div>)}
+</div>

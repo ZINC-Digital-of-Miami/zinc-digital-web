@@ -1,4 +1,5 @@
 import type {Post,Route,Layer} from '../data/site';
+import {effectiveSeo} from './admin-content-model.ts';
 type Snapshot={live:Record<string,any>|null;live_at?:string|null};
 export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snapshot[],rows:Snapshot[]) {
   const pageMap=new Map(pages.filter(x=>x.live).map(x=>[x.live!.path,x.live!]));
@@ -18,7 +19,7 @@ export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snaps
   for(const route of routes){
     const p=route.template==='article'?posts.find(p=>p.slug===route.slug):null;
     if(p){route.title=p.title;route.layer=p.layer;route.published=p.date;}
-    const fields={...pageMap.get(route.path),...(p?postMap.get(p.slug):null)};
+    const fields=effectiveSeo(pageMap.get(route.path),p?postMap.get(p.slug):undefined);
     if(fields.meta_title)route.metaTitle=fields.meta_title;
     if(fields.meta_description)route.metaDescription=fields.meta_description;
     if(typeof fields.noindex==='boolean')route.noindex=fields.noindex;

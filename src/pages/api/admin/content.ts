@@ -4,16 +4,20 @@ import { requireStaff } from '../../../lib/auth';
 import { createServerClient } from '../../../lib/supabase';
 import { input, reply, fail } from '../../../lib/admin-http';
 import { contentInput } from '../../../lib/admin-input';
-import { repositoryContent } from '../../../lib/admin-data';
+import { contentList } from '../../../lib/admin-data';
 import { routes } from '../../../data/site';
 export const POST: APIRoute = async ctx => {
   const staff = requireStaff(ctx); if (staff instanceof Response) return staff;
   try {
-    const body = await input(ctx); const {kind,key,patch} = contentInput(body,routes.map(r=>r.path));
+    const body = await input(ctx);
+    // Older SEO links/forms may still identify an article as a page. Keep one write owner.
+    const article = body.kind === 'page' && routes.find(r => r.path === body.path && r.template === 'article');
+    if (article) { body.kind = 'post'; body.slug = article.slug; }
+    const {kind,key,patch} = contentInput(body,routes.filter(r=>r.template!=='article').map(r=>r.path));
     const sb=createServerClient(ctx), table=kind==='page'?'pages':'posts', field=kind==='page'?'path':'slug';
     const existing=await sb.from(table).select('id').eq(field,key).maybeSingle();
     if(existing.error) return reply({error:'Content could not be loaded.'},502);
-    const baseline=repositoryContent().find(x=>x.kind===kind&&x.key===key);
+    const baseline=(await contentList(ctx)).find(x=>x.kind===kind&&x.key===key);
     if(body.create===true&&(baseline||existing.data))return fail('This post address already exists. Choose another slug.');
     let result;
     if(existing.data) result=await sb.from(table).update({...patch,updated_by:staff.id}).eq('id',existing.data.id).select('id').single();

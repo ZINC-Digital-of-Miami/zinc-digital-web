@@ -4,6 +4,7 @@ import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {authorizeGoogle} from '../src/lib/google-auth.ts';
 import {googleInventoryRange} from '../src/lib/google-dates.ts';
+import {redirects,isRetiredPath} from '../src/data/redirects.ts';
 const SITE='https://www.zincdigital.co';
 const output='/Volumes/Satechi Hub/zinc-digital-web-review/redirects/proposed.json';
 try{process.loadEnvFile('.env');}catch{}
@@ -73,10 +74,13 @@ const postById=new Map(posts.map(post=>[post.id,'/blog/'+post.slug+'/']));
 const proposals=Array.from(inventory.values()).sort((a,b)=>a.path.localeCompare(b.path)).map(item=>{
  const post=item.wordpress.find(w=>w.type==='posts');
  const target=post?postById.get(post.id):undefined;
- if(current.has(item.path))return {...item,action:'keep',target:item.path,reason:'Existing canonical route'};
+ const normalized=item.path.replace(/\/?$/, '/');
+ if(current.has(normalized))return {...item,action:'keep',target:normalized,reason:'Existing canonical route'};
  if(target&&current.has(target))return {...item,action:'301',target,reason:'Same WordPress post ID in the migrated content'};
+ if(redirects[normalized])return {...item,action:'301',target:redirects[normalized],reason:'Replacement for the same page, service or consolidated content'};
+ if(isRetiredPath(item.path))return {...item,action:'410',target:null,reason:'No corresponding page or migrated article in the approved site; retirement proposed for owner review'};
  return {...item,action:'review',target:null,reason:'Owner decision needed; no replacement or retirement is assumed'};
 });
 await mkdir(dirname(output),{recursive:true});
-await writeFile(output,JSON.stringify({site:SITE,generatedAt:new Date().toISOString(),status:'proposed; no routing applied',sources,summary:{inventoried:proposals.length,keep:proposals.filter(p=>p.action==='keep').length,redirects:proposals.filter(p=>p.action==='301').length,needsReview:proposals.filter(p=>p.action==='review').length},proposals},null,2)+'\n');
+await writeFile(output,JSON.stringify({site:SITE,generatedAt:new Date().toISOString(),status:'proposed; no production routing applied',sources,summary:{inventoried:proposals.length,keep:proposals.filter(p=>p.action==='keep').length,redirects:proposals.filter(p=>p.action==='301').length,retirements:proposals.filter(p=>p.action==='410').length,needsReview:proposals.filter(p=>p.action==='review').length},proposals},null,2)+'\n');
 console.log(JSON.stringify({output,sources,inventory:proposals.length,needsReview:proposals.filter(p=>p.action==='review').length}));

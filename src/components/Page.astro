@@ -1,15 +1,24 @@
 ---
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
+import OUABCCase from './OUABCCase.astro';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import ClientLogos from './ClientLogos.astro';
+import CasePresentations from './CasePresentations.astro';
+import { casePresentations } from '../data/case-presentations';
 import ContactForm from './ContactForm.astro';
 import type { Inquiry } from '../lib/inquiry';
-import { services, cases, layers, layerMeta, contract, readout, clients, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
+import { services, cases, layers, layerMeta, contract, readout, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
 const {posts}=await (await import('../lib/content')).loadPublished();
 const {renderMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
+const serviceCase = svc ? caseBy(svc.caseSlug) : null;
+const serviceProofAssets: Record<string, string> = { apps: 'uos-current-technicians-desktop', 'business-intelligence': 'ouabc-bi-ads-current', 'shopping-ads': 'ouabc-shopping-creative-2024', 'social-ads': 'ouabc-halloween-campaign-square', 'tiktok-ads': 'ouabc-bridgerton-campaign-product' };
+const serviceProof = svc && serviceCase ? serviceProofAssets[svc.slug] || serviceCase.hero : null;
 const study = t === 'case' ? caseBy(route.slug!) : null;
 const post = t === 'article' ? posts.find((p) => p.slug === route.slug)! : null;
 const urlLabel = 'zincdigital.co' + route.path;
@@ -23,18 +32,108 @@ const dots = Array.from({ length: 144 }, (_, i) => ({ cls: (i * 7) % 13 === 0 ? 
 let sec: Record<string, string> = {};
 if (study) { let n = 0; const nx = () => pad(n++); sec = { sit: nx(), app: nx() }; if (study.before) sec.ba = nx(); sec.layers = nx(); sec.shots = nx(); if (study.brand.length) sec.brand = nx(); if (study.results.length) sec.results = nx(); if (study.quote) sec.quote = nx(); }
 const isPhone = (k: string) => /phone|mobile/.test(k);
-const cap = (k: string) => k.replace(/-/g, ' ');
+// These assets already contain their device hardware; do not frame them twice.
+const isDevicePresentation = (k: string) => k.startsWith('uos-current-') || ['lvs-mobile', 'lvs-laptop', 'lvs-devices', 'smd-cover', 'smd-devices'].includes(k);
+const imageLabels: Record<string, string> = {
+  'ouabc-bi-products-current': 'BI app · Seasonal product records · in progress, October 2026 · private figures removed',
+  'ouabc-bi-demand-current': 'BI app · Search demand calendar · in progress, October 2026 · private figures removed',
+  'ouabc-bi-season-current': 'BI app · Season outlook and projections · in progress, October 2026 · private figures removed',
+  'ouabc-bi-ads-current': 'BI app · Advertising overview · in progress, October 2026 · private figures removed',
+  'ouabc-bi-bookmark-current': 'BI app · Guided page walkthrough · in progress, October 2026 · private figures removed',
+  'ouabc-bi-funnel-current': 'BI app · Visits, carts, checkout and purchase · in progress, October 2026 · private figures removed',
+  'ouabc-bi-work-current': 'BI app · Content, advertising and dated work · in progress, October 2026 · private figures removed',
+  'ouabc-bi-meetings-current': 'BI app · Meeting records · in progress, October 2026 · private figures removed',
+  'ouabc-bi-admin-current': 'BI app · Work-record correction controls · in progress, October 2026 · private figures removed',
+
+  'uos-current-technicians-desktop': 'Supervisor dashboard · technician assignments and check-ins · identifying details removed',
+  'uos-current-technicians-mobile': 'Mobile technician roster · identifying details removed',
+  'uos-current-schedule-mobile': 'Restaurant scheduling · identifying details removed',
+  'uos-current-groups-mobile': 'Restaurant groups · identifying details removed',
+  'uos-current-fryers-desktop': 'Fryer records and service history · identifying details removed',
+  'uos-current-fryers-mobile': 'Mobile fryer records and scheduling · identifying details removed',
+  'uos-current-oncall-desktop': 'On-call visits and rescheduling · identifying details removed',
+  'uos-current-oncall-mobile': 'Mobile on-call visits · identifying details removed',
+  'uos-current-menu-mobile': 'Issues, users, reports and special tasks · identifying details removed',
+  'uos-current-special-mobile': 'Special-task scheduling · identifying details removed',
+  'uos-second-site-desktop': 'Second public website · desktop design in development, October 2026',
+  'uos-second-site-mobile': 'Second public website · mobile design in development, October 2026',
+  'ouabc-bi-today-wip': 'BI app · connected commerce and advertising view · in progress, October 2026',
+  'ouabc-bi-creative-wip': 'BI design package · ad artwork and copy analysis · in progress, September 2026 · private figures removed',
+  'ouabc-bi-funnel-wip': 'BI design package · visits, cart, checkout and purchase · in progress, September 2026 · private figures removed',
+  'ouabc-bi-checkout-wip': 'BI design package · mobile and desktop checkout behavior · in progress, September 2026 · private figures removed',
+  'ouabc-bi-market-context-wip': 'BI design package · modeled competitor traffic and market context · in progress, September 2026',
+  'ouabc-hero': 'Ecommerce storefront preview',
+  'ouabc-site': 'Desktop storefront',
+  'ouabc-mobile': 'Mobile storefront',
+  'uos-app-desktop': 'Operations application · desktop sign-in',
+  'uos-app-phone': 'Operations application · mobile sign-in',
+  'uos-opening-checklist': 'Shift opening · oil supply and equipment checks',
+  'uos-fryer-tasks': 'Restaurant visit · assigned fryer-service tasks',
+  'uos-service-choice': 'Fryer service · TPM reading and filtration or replacement',
+  'uos-visit-progress': 'Visit progress · pending and completed fryer services',
+  'uos-service-complete': 'Service completion · photo capture and checkout',
+  'uos-special-tasks': 'Supervisor workflow · special tasks and visit completion',
+  'uos-restaurant-mobile': 'Mobile workflow · restaurant settings and fryer details',
+  'uos-visit-list': 'Technician shift · assigned locations and visit start',
+  'ouabc-halloween-campaign-square': 'Seasonal campaign · client-approved Halloween artwork',
+  'ouabc-bridgerton-campaign-product': 'Campaign source · Bridgerton box, book and numbered gifts',
+  'ouabc-shopping-creative-2024': 'Shopping campaign source · book, numbered gifts and box',
+  'lvs-hero': 'Rebuilt ecommerce store across devices',
+  'lvs-before': 'Ecommerce site before the rebuild',
+  'lvs-laptop': 'Rebuilt ecommerce store · laptop view',
+  'lvs-mobile': 'Rebuilt ecommerce store · mobile view',
+  'lvs-devices': 'Rebuilt ecommerce store across devices',
+  'lvs-banner': 'Store launch promotional artwork',
+  'lvs-storefront-first-aid': 'Ecommerce catalog · first-aid products, product search and quick reorder',
+  'lvs-launch-flyer': 'New-store launch · product categories and ordering information',
+  'lvs-launch-flyer-photo': 'Store launch artwork · photographic version',
+  'lvs-food-service-net30-banner': 'Wholesale merchandising · food-service supplies',
+  'lvs-food-service-product-hero': 'Food-service catalog artwork · containers, gloves and hair nets',
+  'lvs-logo-black': 'Primary brand mark',
+  'lvs-brand-1': 'Chemicals service-line identity',
+  'lvs-brand-3': 'Training service-line identity',
+  'lvs-product-1': 'Brand mark on a light background',
+  'lvs-product-2': 'Brand mark on a dark background',
+  'lvs-product-3': 'Wordmark application',
+  'smd-hero': 'Website presentation',
+  'smd-cover': 'Website · laptop view',
+  'smd-devices': 'Website across devices',
+  'smd-home-1': 'Eight-month performance comparison · landscape',
+  'smd-home-2': 'Eight-month performance comparison · portrait',
+  'smd-brand-book': 'Marine-construction brand book · identity, palette and typography',
+  'smd-dock-ad-previews': 'Dock-construction campaign · ad-placement previews',
+  'smd-seawall-ad-previews': 'Seawall campaign · ad-placement previews',
+};
+const cap = (k: string) => imageLabels[k] || 'Project view';
+const presentedAssets = new Set(study ? casePresentations[study.slug]?.frames.map(frame => frame.asset) : []);
+const websiteImages = study?.slug === 'us-oil-solutions' ? study.images.filter(k => k.startsWith('uos-second-site-')) : [];
+const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k)) || [];
+const brandImages = study?.brand.filter(k => !presentedAssets.has(k)) || [];
+const caseFiles = import.meta.glob<{default:ImageMetadata}>('../assets/**/*.{png,jpg,jpeg,webp}',{eager:true});
+const enlargements: Record<string,string> = study ? Object.fromEntries(await Promise.all([...study.images,...study.brand].map(async k=>{
+  const file=caseFiles['../assets'+asset(k).src]?.default;
+  return [k,file?(await getImage({src:file,width:file.width,format:'webp'})).src:asset(k).src];
+}))) : {};
+const articleSections = post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || [];
+// The imported SEO comparison lost its table markup. Reconstruct only its exact
+// known header and eight complete rows; other article prose is never split.
+const comparisonHeader = 'Question · If The Answer Is No · Likely Bottleneck';
+const comparisonIndex = post?.slug === 'how-long-seo-actually-takes' ? post.blocks.findIndex(b => b.type === 'p' && b.runs?.map(r => r.text).join('') === comparisonHeader) ?? -1 : -1;
+const comparisonBlocks = comparisonIndex >= 0 ? post!.blocks.slice(comparisonIndex + 1, comparisonIndex + 9) : [];
+const comparisonRows = comparisonBlocks.map(b => b.runs?.map(r => r.text).join('').split(' · ') || []);
+const hasComparison = comparisonRows.length === 8 && comparisonBlocks.every(b => b.type === 'p' && b.runs?.every(r => !r.href)) && comparisonRows.every(row => row.length === 3);
 const feat = posts[0];
 const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
+import { canonicalContentLink } from '../data/redirects';
 type Run = { text: string; href?: string };
 const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 ---
 {t !== 'case' && (
-  <section class="p-intro">
+  <section class:list={["p-intro", { "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
     <div class="sph" data-par="0.07" style="width:560px;height:560px;right:-150px;top:-60px;animation:float1 11s ease-in-out infinite"></div>
     <div class="wrap">
-      <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span><span>{urlLabel}</span></div>
+      <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span><span class="p-url-label">{urlLabel}</span></div>
       <hr class="rule" />
       <h1 class:list={['disp p-title rv', titleCls]}>{route.title}</h1>
       {pageLede && <p class="p-lede rv">{pageLede}</p>}
@@ -46,21 +145,21 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {svc && (<>
   <section class="s-open"><div class="wrap s-open-in">
     <div class="rv"><span class="kick">{layerMeta[svc.layer].kick}</span><h2 class="disp p-sec">{layerMeta[svc.layer].line}</h2><p class="p-body p-muted" style="margin-top:22px">{layerMeta[svc.layer].body}</p></div>
-    <div class="s-vis rv">
+    <div class="s-vis s-vis-proof rv"><div class="s-motif" aria-hidden="true">
       {svc.layer === 'Build' && <div class="s-wire"><i style="grid-area:1/1/2/7"></i><i style="grid-area:2/1/5/5"></i><i style="grid-area:2/5/4/7"></i><i style="grid-area:4/5/5/7"></i><i style="grid-area:5/1/7/3"></i><i style="grid-area:5/3/7/5"></i><i style="grid-area:5/5/7/7;background:var(--teal);border-color:var(--teal)"></i></div>}
       {svc.layer === 'Demand' && <div class="s-curve"><svg viewBox="0 0 400 400" aria-hidden="true"><line x1="20" y1="360" x2="380" y2="360" stroke="var(--line)" stroke-width="1.5"></line><line x1="20" y1="40" x2="20" y2="360" stroke="var(--line)" stroke-width="1.5"></line><path class="fillp" d="M20 356 C120 350 180 300 230 200 S330 60 380 40 L380 360 L20 360 Z"></path><path class="ln" pathLength="1" d="M20 356 C120 350 180 300 230 200 S330 60 380 40"></path><circle class="pt" cx="380" cy="40" r="7" fill="#FC0781"></circle></svg><div class="s-ax lab"><span>Low intent</span><span>Ready to buy</span></div></div>}
       {svc.layer === 'Intelligence' && <div class="s-dots" aria-hidden="true">{dots.map((d) => <i class={d.cls} style={'animation-delay:' + d.delay}></i>)}</div>}
-    </div>
+    </div>{serviceProof && serviceCase && <figure class="s-service-proof"><a href={'/work/' + serviceCase.slug + '/'} aria-label={'Explore ' + serviceCase.title}><Img k={serviceProof} alt={serviceCase.title + ' — ' + cap(serviceProof)} sizes="(max-width: 900px) 90vw, 480px" /></a><figcaption><span class="lab">Related engagement / {serviceCase.title}</span><p>{cap(serviceProof)}</p><a class="arrow" href={'/work/' + serviceCase.slug + '/'}>Explore the work ↗</a></figcaption></figure>}</div>
   </div></section>
   <section class="p-band thin"><div class="wrap"><span class="kick rv">{layerMeta[svc.layer].second}</span><h2 class="disp p-sec rv">{layerMeta[svc.layer].secondTitle}</h2>
-    {svc.layer === 'Build' && <ol class="s-blocks rv-stag">{svc.deliverables.map((d, i) => <li><span class="lab">Slice {pad(i)}</span><p>{d}</p></li>)}</ol>}
+    {svc.layer === 'Build' && <ol class="s-blocks rv-stag">{sequence.map(([name, body], i) => <li><span class="lab">{pad(i)} / {name}</span><p>{body}</p></li>)}</ol>}
     {svc.layer === 'Demand' && <div class="s-blocks rv-stag">{contract.map(([k, v]) => <div><span class="lab">{k}</span><p>{v}</p></div>)}</div>}
     {svc.layer === 'Intelligence' && <dl class="s-readout rv">{readout.map(([k, v]) => <div><dt><span class="mdot"></span>{k}</dt><dd>{v}</dd></div>)}</dl>}
   </div></section>
   <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>
     <dl class="p-spec rv rv-stag"><div><dt class="lab">Deliverables</dt><dd><ul>{svc.deliverables.map((d, i) => <li><i>{pad(i)}</i><span>{d}</span></li>)}</ul></dd></div><div><dt class="lab">Cadence</dt><dd>{svc.cadence}</dd></div><div><dt class="lab">Client owns</dt><dd>{svc.owns}</dd></div><div><dt class="lab">Reported</dt><dd>{svc.reported}</dd></div></dl>
   </div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Related work / scope varies by service</span><h2 class="disp p-sec">{caseBy(svc.caseSlug).title}</h2></div><div class="rv"><p class="p-body p-muted">See how this service ran inside a real engagement, alongside the connected work.</p><a class="arrow" href={'/work/' + svc.caseSlug + '/'}>Read the case study ↗</a></div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Related work / scope varies by service</span><h2 class="disp p-sec">{caseBy(svc.caseSlug).title}</h2></div><div class="rv"><p class="p-body p-muted">Explore the related engagement and the work that connected its services.</p><a class="arrow" href={'/work/' + svc.caseSlug + '/'}>Read the case study ↗</a></div></div></section>
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Before the work begins</span><h2 class="disp p-sec">Useful questions.</h2></div><div class="p-faq rv">{svc.questions.map(([qq, a]) => <details><summary>{qq}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></div></section>
   <section class="p-band thin"><div class="wrap"><span class="kick rv">Connect the next part</span><h2 class="disp p-sec rv">Start with {svc.title.toLowerCase()}.</h2><div class="p-related rv"><a class="btn fill" href={link('/contact/', { service: svc.slug })}>Start an Inquiry</a><span class="brk"></span>{svc.related.map((s) => <a href={'/services/' + s + '/'}>{svcBy(s).title} ↗</a>)}</div></div></section>
 </>)}
@@ -72,25 +171,32 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 )}
 
 {t === 'work' && (<>
-  {cases.map((c, i) => <section class="p-band thin"><div class="wrap p-case"><div class="rv"><div class="disp p-case-no" aria-hidden="true">{pad(i)}</div><span class="kick" style="margin-top:22px">Case study / {pad(i)}</span><h2 class="disp p-sec">{c.title}</h2><p class="p-body" style="margin-top:20px">{c.line}</p><p class="lab" style="margin:14px 0 0">{c.layers.join(' / ')}</p><a class="arrow" href={'/work/' + c.slug + '/'}>Read the case study ↗</a></div><figure class="p-frame rv"><Img k={c.hero} alt={c.title + ' source screenshot'} sizes="(max-width: 900px) 100vw, 50vw" /></figure></div></section>)}
-  <section class="p-band thin"><div class="wrap"><span class="kick rv">Selected client relationships</span><div class="logos rv rv-stag">{clients.map((c) => <div class="logo-c">{c.logo ? <Img class={asset(c.logo).width === asset(c.logo).height ? 'sq' : ''} k={c.logo} alt={c.name} sizes="240px" /> : <span>{c.name}</span>}</div>)}</div></div></section>
+  {cases.map((c, i) => <section class="p-band thin"><div class="wrap p-case"><div class="rv"><div class="disp p-case-no" aria-hidden="true">{pad(i)}</div><span class="kick" style="margin-top:22px">Case study / {pad(i)}</span><h2 class="disp p-sec">{c.title}</h2><p class="p-body" style="margin-top:20px">{c.line}</p><p class="lab" style="margin:14px 0 0">{c.layers.join(' / ')}</p><a class="arrow" href={'/work/' + c.slug + '/'}>Read the case study ↗</a></div><figure class="p-frame rv"><Img k={c.hero} alt={c.title + ' — ' + cap(c.hero)} sizes="(max-width: 900px) 100vw, 50vw" /></figure></div></section>)}
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">Selected client relationships</span><ClientLogos /></div></section>
 </>)}
 
-{study && (<>
-  <section class="c-open" id="cOpen"><div class="c-open-pin"><div class="c-open-img"><Img id="cOpenImg" k={study.hero} alt={study.title + ' — current site'} loading="eager" fetchpriority="high" cover={124} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{urlLabel}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">Layers in use / {study.layers.join(' · ')}</p></div></div></section>
-  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">Client</span><p>{study.title}</p></div><div><span class="lab">Location</span><p>{study.location}</p></div><div><span class="lab">Timeline</span><p>{study.timeline}</p></div><div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
+{study?.slug === 'once-upon-a-book-club' && <OUABCCase imageLinks={enlargements} />}
+{study && study.slug !== 'once-upon-a-book-club' && (<>
+  <section class="c-open c-open-app" id="cOpen"><div class="c-open-pin"><div class="c-open-img"><Img id="cOpenImg" k={study.hero} alt={study.title + ' — ' + cap(study.hero)} loading="eager" fetchpriority="high" /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity"}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">Layers in use / {study.layers.join(' · ')}</p></div></div></section>
+  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">Client</span><p>{study.title}</p></div><div><span class="lab">{study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location'}</span><p>{study.location}</p></div><div><span class="lab">Timeline</span><p>{study.timeline}</p></div><div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
-    <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">Visit the public client site ↗</a></div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.sit} / The situation</span><h2 class="disp p-sec">What they arrived with.</h2></div><div class="rv"><p class="p-body">{study.situation}</p><ol class="c-list rv-stag">{study.challenge.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>
+    <div class="c-site-links"><a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">Visit the public client site ↗</a>{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.sit} / The situation</span><h2 class="disp p-sec">What they arrived with.</h2>{study.slug === 'us-oil-solutions' && <figure class="c-ops-proof"><div class="c-ops-label lab">Operations app / restaurant visit</div><ol class="c-ops-flow rv-stag"><li>Schedule</li><li>Check in</li><li>Service fryers</li><li>Photo &amp; report</li></ol><div class="c-ops-screen"><Img k="uos-current-fryers-desktop" alt="U.S. Oil fryer records and service-history interface, with identifying details removed" sizes="(max-width: 900px) 90vw, 520px" /></div><figcaption class="lab">Fryer records · scheduling · service history</figcaption></figure>}</div><div class="rv"><p class="p-body">{study.situation}</p><ol class="c-list rv-stag">{study.challenge.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.app} / The approach</span><h2 class="disp p-sec">What ZINC did.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.approach.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>
   {study.before && <section class="ba" id="ba"><div class="wrap ba-pin"><div class="ba-head"><div><span class="kick">{sec.ba} / Before and after</span><h2 class="disp p-sec">Then and now.</h2></div><p class="lab" style="max-width:38ch;margin:0">Scroll to wipe between the site the client arrived with and the site ZINC shipped.</p></div><div class="ba-stage" id="baStage"><Img class="ba-before" k={study.before} alt={study.title + ' — site before the engagement'} cover={100} /><Img class="ba-after" k={study.hero} alt={study.title + ' — current site'} cover={100} /><div class="ba-bar" aria-hidden="true"><i>⇔</i></div><span class="ba-tag" style="left:16px">Before / prior site</span><span class="ba-tag" style="right:16px">After / current</span></div></div></section>}
   <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.layers} / The connected work</span><h2 class="disp p-sec rv">The layers in use.</h2>
-    <div class="p-layers rv rv-stag">{layers.map((layer, i) => { const on = study.layers.includes(layer); return <div class:list={['p-layer', { on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{pad(i)} / {on ? 'Active layer' : 'Scope to confirm'}</span><h3 class="disp p-layer-h">{layer}</h3><p class="p-muted" style="margin:0 0 18px">{study.work[layer as Layer]}</p><ul class="p-links">{services.filter((s) => study.services.includes(s.slug) && s.layer === layer).map((s) => <li><a href={'/services/' + s.slug + '/'}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>; })}</div>
+    <div class="p-layers rv rv-stag">{layers.map((layer, i) => { const on = study.layers.includes(layer); return <div class:list={['p-layer', { on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{pad(i)} / {on ? 'Active layer' : study.slug === 'us-oil-solutions' ? 'Reporting within the app' : 'Outside this engagement'}</span><h3 class="disp p-layer-h">{layer}</h3><p class="p-muted" style="margin:0 0 18px">{study.work[layer as Layer]}</p><ul class="p-links">{services.filter((s) => study.services.includes(s.slug) && s.layer === layer).map((s) => <li><a href={'/services/' + s.slug + '/'}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>; })}</div>
   </div></section>
-  <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">Built for the work.</h2><p class="p-muted" style="margin:18px 0 0">Source screenshots. Keep scrolling to move through them.</p></div>
-    {study.images.map((k) => <figure class:list={['c-hz-shot', { phone: isPhone(k) }]}><div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div><div class="vp"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></div><figcaption class="lab">{cap(k)} / original capture</figcaption></figure>)}
+  {study.slug === 'us-oil-solutions' && <section class="p-band thin c-original-website" aria-labelledby="originalWebsiteTitle"><div class="wrap p-split"><div class="rv"><span class="kick">Public website / First build</span><h2 class="disp p-sec" id="originalWebsiteTitle">The first website.</h2></div><div class="rv"><p class="p-body">Service pages for fryer-oil management, filtration, fresh-oil delivery and used-oil pickup, supported by Las Vegas search content and inquiry paths.</p><p class="lab">Online by September 2022</p><a class="arrow" href="https://web.archive.org/web/20220930171133/https://www.usoilsolutions.com/" target="_blank" rel="noopener noreferrer">View the first website in the archive ↗</a></div></div></section>}
+  <CasePresentations slug={study.slug} />
+  <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro rv"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">{study.slug === 'us-oil-solutions' ? 'Inside the operations app.' : 'Built for the work.'}</h2><p class="p-muted" style="margin:18px 0 0">{study.slug === 'us-oil-solutions' ? 'Supervisor dashboards, restaurant groups, fryer records, on-call visits and special tasks in the standalone operations app. Open any screen for a closer look.' : 'Interfaces, campaign materials and deliverables from the engagement. Open any image for a closer look.'}</p></div>
+    {galleryImages.map((k) => <figure class:list={['c-hz-shot rv', { phone: isPhone(k), cutout: isDevicePresentation(k), app: k.startsWith('ouabc-bi-') }]}>{k.startsWith('uos-second-site-') ? <div class="c-shot-status">New website <span>In progress</span></div> : <div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div>}<div class="vp"><a href={enlargements[k]} target="_blank" rel="noopener noreferrer" aria-label={'Open full image: '+cap(k)}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></a></div><figcaption class="lab">{cap(k)} <a href={enlargements[k]} target="_blank" rel="noopener noreferrer" aria-label={'Open full image: '+cap(k)}>Open full image ↗</a></figcaption></figure>)}
   </div></div></section>
-  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{study.brand.map((k) => <figure class:list={['c-brand-tile', { dark: /brand-|product-/.test(k) }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
+  {websiteImages.length > 0 && <section class="p-band c-new-website" aria-labelledby="newWebsiteTitle"><div class="wrap">
+    <div class="p-split"><div class="rv"><span class="kick">Public website / Second build · In progress</span><h2 class="disp p-sec" id="newWebsiteTitle">The new website.</h2></div><div class="rv"><p class="p-body">A second public website is being built around the complete oil-management program: filtration, top-offs, fresh-oil delivery, oil changes and used-oil collection.</p><p class="p-body p-muted">These desktop and mobile designs show the website in development. The technician and supervisor app is a separate product.</p><a class="arrow" href="https://usos-website-blush.vercel.app/" target="_blank" rel="noopener noreferrer">Preview the website in development ↗</a></div></div>
+    <div class="c-website-screens">{websiteImages.map(k => <figure class:list={['c-website-screen rv', { phone: isPhone(k) }]}><div class="c-shot-status">New website <span>In progress</span></div><a href={enlargements[k]} target="_blank" rel="noopener noreferrer" aria-label={'Open full image: '+cap(k)}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '(max-width: 600px) 70vw, 300px' : '(max-width: 900px) 90vw, 900px'} /></a><figcaption class="lab">{cap(k)}<a class="arrow" href={enlargements[k]} target="_blank" rel="noopener noreferrer">Open full image ↗</a></figcaption></figure>)}</div>
+  </div></section>}
+  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k), mixed: /lvs-brand-/.test(k), light: k === 'lvs-logo-black' }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
   {study.results.length > 0 && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.results} / The results</span><h2 class="disp p-sec">What changed.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.results.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>}
   {study.quote && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.quote} / In their words</span><h2 class="disp p-sec">{study.quote.who}</h2><p class="lab" style="margin:10px 0 0">{study.quote.org}</p></div><div class="rv"><blockquote class="p-body c-quote" style="margin:0">“{study.quote.text}”</blockquote></div></div></section>}
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{caseBy(study.next).title}</h2></div><div class="rv" style="align-self:end"><a class="arrow" href={'/work/' + study.next + '/'}>Continue through the work ↗</a></div></div></section>
@@ -98,7 +204,8 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {t === 'about' && (<>
   <section class="p-band"><div class="wrap p-split"><h2 class="disp p-sec rv" style="margin:0">The business sets the work.</h2><div class="rv"><p class="p-body">ZINC brings build, demand and intelligence into one working relationship.</p><p class="p-muted" style="margin:20px 0 0;max-width:52ch">The team’s roles span business strategy, content, ecommerce, applications and code. Responsibilities are made explicit for each engagement.</p></div></div></section>
-  <section class="p-band thin"><div class="wrap"><span class="kick rv">The people doing the work · Order shuffles on every visit</span><div class="team" data-team>{team.map((p) => <div class="person rv"><div class="person-ph"><img src={asset(p.photo).src} alt={p.name} width={asset(p.photo).width} height={asset(p.photo).height} loading="lazy" decoding="async" /></div><div class="person-n">{p.name}</div><div class="lab" style="margin-top:6px">{p.role}</div></div>)}</div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Pro bono support</span><h2 class="disp p-sec">Straight Street and The Lampstand.</h2></div><div class="rv"><p class="p-body">ZINC supports Straight Street and The Lampstand in Virginia pro bono. The relationship began through Kirk Musick’s lifelong friendship with Keith Farmer.</p><p class="p-muted" style="margin-top:20px">Straight Street provides a Christian community where at-risk youth can build relationships, develop skills and find support. The Lampstand serves people affected by sexual exploitation through prevention education, professional training, wraparound support and residential care.</p><p><a class="arrow" href="https://www.straightstreet.org/" target="_blank" rel="noopener noreferrer">Visit Straight Street ↗</a></p><p><a class="arrow" href="https://www.thelampstandva.org/" target="_blank" rel="noopener noreferrer">Visit The Lampstand ↗</a></p></div></div></section>
+  <section class="p-band thin"><div class="wrap"><span class="kick rv">The people doing the work</span><div class="team" data-team>{team.map((p) => <div class="person rv"><div class="person-ph"><img src={asset(p.photo).src} alt={p.name} width={asset(p.photo).width} height={asset(p.photo).height} loading="lazy" decoding="async" /></div><div class="person-n">{p.name}</div><div class="lab" style="margin-top:6px">{p.role}</div></div>)}</div></div></section>
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">How an engagement runs</span><h2 class="disp p-sec">A clear working sequence.</h2></div><ol class="p-seq rv rv-stag">{sequence.map(([name, body], i) => <li><span class="lab">{pad(i)}</span><div><h3 class="disp">{name}</h3><p>{body}</p></div></li>)}</ol></div></section>
 </>)}
 
@@ -115,20 +222,20 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {post && (<>
   <section class="p-band"><div class="wrap p-article">
-    <aside class="p-aside rv"><p class="lab">Source article / {post.id}</p><p class="p-muted">Originally published {dateLabel(post.dateGmt)}.</p><a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
+    <aside class="p-aside rv"><div class="p-article-date"><p class="lab">Published</p><p class="p-muted">{dateLabel(post.dateGmt)}</p></div>{articleSections.length > 0 && <nav class="p-article-nav" aria-label="Article sections"><details><summary>In this article</summary><ol>{articleSections.map((section) => <li><a href={'#' + section.id}>{section.label}</a></li>)}</ol></details></nav>}<a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
     <article class="p-prose rv" data-source-id={post.id}>
       {post.markdown!==undefined && <div set:html={renderMarkdown(post.markdown)} />}
-      {post.blocks.map((block, i) => block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={r.href}>{r.text}</a> : r.text)}</p>)}
+      {post.blocks.map((block, i) => hasComparison && i > comparisonIndex && i <= comparisonIndex + 8 ? null : hasComparison && i === comparisonIndex ? <div class="p-comparison"><table><caption>The Bottleneck Test</caption><thead><tr>{comparisonHeader.split(' · ').map(label => <th scope="col">{label}</th>)}</tr></thead><tbody>{comparisonRows.map(row => <tr><th scope="row">{row[0]}</th><td data-label="If the answer is no">{row[1]}</td><td data-label="Likely bottleneck">{row[2]}</td></tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>)}
     </article>
   </div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Source author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
+  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
 </>)}
 
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
 {t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={form?.values} error={form?.error} /></div></section>}
 
-{t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/contact/">Return to inquiry</a><a class="arrow" href="/work/" style="margin-top:0">Explore the work ↗</a></div></div></section>}
+{t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/work/">Explore the work ↗</a><a class="arrow" href="/" style="margin-top:0">Return home ↗</a></div></div></section>}
 
 {t === '404' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/">Home</a><a href="/services/">Services ↗</a><a href="/contact/">Contact ↗</a></div></div></section>}
 
