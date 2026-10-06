@@ -6,6 +6,8 @@ import ClientLogos from './ClientLogos.astro';
 import CasePresentations from './CasePresentations.astro';
 import { casePresentations } from '../data/case-presentations';
 import ContactForm from './ContactForm.astro';
+import { articleImages } from '../data/article-images';
+import { blogPillars, pillarFor, readingPath } from '../data/blog-strategy';
 import type { Inquiry } from '../lib/inquiry';
 import { services, cases, layers, layerMeta, contract, readout, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
@@ -24,6 +26,7 @@ const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as R
 const pageLede = svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
 const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
 const titleCls = route.title.length > 34 ? 'long' : '';
+const revealHeader = t !== 'blog' && t !== 'article';
 const layerGrid = layers.map((layer, i) => ({ layer, on: svc ? svc.layer === layer : true, label: pad(i) + ' / ' + (svc && svc.layer === layer ? 'Current layer' : 'Connected layer'), services: services.filter((s) => s.layer === layer) }));
 const dots = Array.from({ length: 144 }, (_, i) => ({ cls: (i * 7) % 13 === 0 ? 't' : '', delay: ((i % 12) * 0.12 + Math.floor(i / 12) * 0.08).toFixed(2) + 's' }));
 // case section numbering counts only rendered sections
@@ -108,6 +111,10 @@ const websiteImages = study?.slug === 'us-oil-solutions' ? study.images.filter(k
 const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k)) || [];
 const brandImages = study?.brand.filter(k => !presentedAssets.has(k)) || [];
 const articleSections = post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || [];
+const articleImage = post ? articleImages[post.slug] : undefined;
+const articlePillar = post ? pillarFor(post.slug) : undefined;
+const publishedPillar = articlePillar && posts.find(p => p.slug === articlePillar.slug);
+const nextArticles = post ? readingPath(post.slug, posts) : [];
 // The imported SEO comparison lost its table markup. Reconstruct only its exact
 // known header and eight complete rows; other article prose is never split.
 const comparisonHeader = 'Question · If The Answer Is No · Likely Bottleneck';
@@ -128,9 +135,10 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     <div class="wrap">
       <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span><span class="p-url-label">{urlLabel}</span></div>
       <hr class="rule" />
-      <h1 class:list={['disp p-title rv', titleCls]}>{route.title}</h1>
-      {pageLede && <p class="p-lede rv">{pageLede}</p>}
-      {meta && <p class="lab rv" style="margin:28px 0 0">{meta}</p>}
+      <h1 class:list={['disp p-title', titleCls, { rv: revealHeader }]}>{route.title}</h1>
+      {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
+      {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{meta}</p>}
+      {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
   </section>
 )}
@@ -203,12 +211,13 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 </>)}
 
 {t === 'blog' && feat && (<>
-  <section class="p-band"><div class="wrap"><a class="p-feat rv" href={'/blog/' + feat.slug + '/'}><div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2></div><div><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article ↗</span></div></a></div></section>
+  <section class="p-band"><div class="wrap"><a class="p-feat p-feat-illustrated" href={'/blog/' + feat.slug + '/'}>{articleImages[feat.slug] && <Img k={articleImages[feat.slug].asset} alt={articleImages[feat.slug].alt} class="p-feat-image" sizes="(max-width: 900px) 90vw, 600px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" />}<div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article ↗</span></div></a></div></section>
+  <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{blogPillars.filter(pillar => posts.some(p => p.slug === pillar.slug)).map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide ↗</span></a>)}</nav></div></section>
   <section class="p-band thin"><div class="wrap" data-blog>
     <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
     <div class="p-filter rv" style="margin-top:14px" data-blog-topics><span class="lab" style="margin-right:10px">Topic</span><button type="button" class="p-chip sm on" data-topic="All" aria-pressed="true">All topics</button>{topics.map((s) => <button type="button" class="p-chip sm" data-topic={s.slug} aria-pressed="false">{s.title}</button>)}</div>
     <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{posts.length - 1} articles</p>
-    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.related.join(' ')}><span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><a class="arrow" href={'/blog/' + p.slug + '/'}>Read the full article ↗</a></article>)}</div>
+    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.related.join(' ')}>{articleImages[p.slug] && <a class="p-art-image" href={'/blog/' + p.slug + '/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><a class="arrow" href={'/blog/' + p.slug + '/'}>Read the full article ↗</a></article>)}</div>
     <div class="p-empty" data-empty hidden><h2 class="disp p-sec">No articles in this view yet.</h2><p class="p-muted">Clear the filters to see the full archive.</p><button class="btn fill" type="button" data-clear-filter>Clear filters</button></div>
   </div></section>
 </>)}
@@ -220,6 +229,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
       {post.markdown!==undefined && <div set:html={renderMarkdown(post.markdown)} />}
       {post.blocks.map((block, i) => hasComparison && i > comparisonIndex && i <= comparisonIndex + 8 ? null : hasComparison && i === comparisonIndex ? <div class="p-comparison"><table><caption>The Bottleneck Test</caption><thead><tr>{comparisonHeader.split(' · ').map(label => <th scope="col">{label}</th>)}</tr></thead><tbody>{comparisonRows.map(row => <tr><th scope="row">{row[0]}</th><td data-label="If the answer is no">{row[1]}</td><td data-label="Likely bottleneck">{row[2]}</td></tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>)}
     </article>
+    {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articlePillar?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedPillar && articlePillar?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedPillar.slug + '/'}>{articlePillar?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></nav>}
   </div></section>
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
 </>)}

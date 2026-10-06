@@ -19,6 +19,8 @@ export function mergeAdminContent(repository: ContentItem[], pages: SavedRow[], 
       const key = kind === 'page' ? row.path : row.slug;
       const index = items.findIndex(item => item.kind === kind && item.key === key);
       const item = { ...(index >= 0 ? items[index] : {}), ...row, kind, key, path: kind === 'page' ? key : '/blog/' + key + '/', template: row.template || 'article', saved: true, pending: hasPending(row) } as ContentItem;
+      // Null means no saved override; empty strings and false remain intentional edits.
+      if (index >= 0) for (const field of seoFields) if (row[field] == null) (item as any)[field] = items[index][field];
       if (index >= 0) items[index] = item; else items.push(item);
     }
   }

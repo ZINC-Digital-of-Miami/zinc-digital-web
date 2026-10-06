@@ -7,7 +7,7 @@
 //   - 43 pages (42 routes + 404), real SEO head, noindex ONLY on /thanks/ + 404
 //   - light default (no OS drift), header toggle → dark, label "Dark mode"/"Light mode", persists across reload
 //   - cursor dot never uses mix-blend-mode:difference (no mauve tint over dark)
-//   - shell on every page (cursor/grain/progress), reduced motion honoured, mobile nav row at 375
+//   - shell on every page (cursor/grain/progress), reduced motion honoured, mobile drawer at 375
 //   - blog layer + topic filters, 3-step contact form (steps and validation; the final send is not exercised)
 //   - keyboard: skip link, toggle via Enter, FAQ via Space; axe wcag2a/aa/21aa/22aa clean
 //   - reduced motion and no-JS at 375 and 1440: pinned scenes in flow, every screenshot/panel/stamp/loop link
@@ -103,12 +103,13 @@ const observe = () => driver.executeScript(function () {
     toggleLabel: document.querySelector('#themeToggle [data-theme-label]')?.textContent,
     cursorBlend: cur ? getComputedStyle(cur).mixBlendMode : null, hasGrain: !!document.querySelector('.zs-grain'), hasProg: !!document.getElementById('zsProg'),
     mnavVisible: !!document.querySelector('.mnav') && getComputedStyle(document.querySelector('.mnav')).display !== 'none',
+    menuToggleVisible: !!document.getElementById('mobileMenuToggle') && vis(document.getElementById('mobileMenuToggle')),
     nlinksVisible: !!document.querySelector('.nlinks') && getComputedStyle(document.querySelector('.nlinks')).display !== 'none',
     images: Array.from(document.images).filter(vis).map((i) => ({ src: i.currentSrc, ok: i.naturalWidth > 0, reserved: i.hasAttribute('width') && i.hasAttribute('height') })),
     animated: Array.from(document.querySelectorAll('*')).filter((el) => { const s = getComputedStyle(el); return s.animationName !== 'none' && parseFloat(s.animationDuration) > 0.05; }).length,
   };
 });
-const capture = async (name) => { if (mode !== 'full') return; const shot = await driver.sendAndGetDevToolsCommand('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false }); await fs.writeFile(path.join(out, 'screenshots', name + '.png'), Buffer.from(shot.data, 'base64')); result.screenshots.push(name); };
+const capture = async (name, always = false) => { if (mode !== 'full' && !always) return; const shot = await driver.sendAndGetDevToolsCommand('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false }); await fs.writeFile(path.join(out, 'screenshots', name + '.png'), Buffer.from(shot.data, 'base64')); result.screenshots.push(name); };
 
 try {
   await fs.mkdir(path.join(out, 'screenshots'), { recursive: true });
@@ -116,6 +117,7 @@ try {
 
   // ---- 1. every route: status, head, body, links, fonts, JS budget ----
   const htmlMap = new Map();
+  const articlePreviews = new Set();
   for (const [route, template] of [...routes, ['/not-a-real-page/', '404']]) {
     const res = await fetch(base + route); const html = await res.text();
     check(res.status === (template === '404' ? 404 : 200), route + ' status ' + res.status);
@@ -123,7 +125,16 @@ try {
     check(/noindex/.test(robots) === (NOINDEX.has(route) || template === '404'), route + ' robots: ' + (robots || 'indexable'));
     check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\//.test(html), route + ' canonical');
     check(/<script type="application\/ld\+json">/.test(html), route + ' JSON-LD');
-    check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), route + ' og:image');
+    const socialImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || '';
+    if (template === 'article') {
+      const validImage = /^https:\/\/www\.zincdigital\.co\/_astro\/[^/]+\.webp$/.test(socialImage);
+      check(validImage && !articlePreviews.has(socialImage), route + ' unique article og:image');
+      articlePreviews.add(socialImage);
+      if (validImage) {
+        const imageResponse = await fetch(base + new URL(socialImage).pathname);
+        check(imageResponse.ok && /image\/webp/.test(imageResponse.headers.get('content-type') || ''), route + ' social image response');
+      }
+    } else check(/^https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png$/.test(socialImage), route + ' og:image');
     const main = decode(html.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
     // Privacy and Terms render no legal body until the owner's approved text is in src/data/legal.ts (R2.6).
     const legalPending = (template === 'privacy' && !privacyApproved.sections.length) || (template === 'terms' && !termsApproved.sections.length);
@@ -160,13 +171,13 @@ try {
   const driverPath = matchedDriver(); result.chromedriver = driverPath;
   driver = await new Builder().forBrowser('chrome').setChromeOptions(opts).setChromeService(new chrome.ServiceBuilder(driverPath)).build();
   const axeSrc = await fs.readFile(axeMinPath, 'utf8');
-  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog']];
+  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article']];
   for (const [route, template] of samples) for (const w of mode === 'full' ? [1440, 375] : [375, 1440]) {
     await load(route, w); const o = await observe();
     check(o.h1 && !o.overflow, route + '@' + w + ' overflow/h1'); check(o.underlines === 0, route + '@' + w + ' underlines ' + o.underlines);
     check(o.bg === SNOW && o.theme === 'light' && o.toggleLabel === 'Dark mode', route + '@' + w + ' default theme/label: ' + o.theme + ' / ' + o.toggleLabel);
     check(o.cursorBlend !== 'difference' && o.hasGrain && o.hasProg, route + '@' + w + ' shell (cursor blend=' + o.cursorBlend + ')');
-    check(w < 900 ? o.mnavVisible && !o.nlinksVisible : !o.mnavVisible && o.nlinksVisible, route + '@' + w + ' nav row');
+    check(w < 900 ? o.menuToggleVisible && !o.mnavVisible && !o.nlinksVisible : !o.menuToggleVisible && !o.mnavVisible && o.nlinksVisible, route + '@' + w + ' navigation');
     check(o.images.every((i) => i.ok && i.reserved), route + '@' + w + ' images: ' + JSON.stringify(o.images.filter((i) => !i.ok || !i.reserved).map((i) => i.src)));
     await finish(); await driver.executeScript(axeSrc); const audit = await driver.executeAsyncScript('const d=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>d({violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)}))}))');
     result.axe.push({ route, w, ...audit }); check(audit.violations.length === 0, route + '@' + w + ' axe ' + JSON.stringify(audit.violations));
@@ -185,10 +196,39 @@ try {
   await driver.actions().sendKeys(Key.TAB).perform(); check(await driver.executeScript('return document.activeElement.classList.contains("skip-link")'), 'first Tab lands on skip link');
   await driver.executeScript('document.getElementById("themeToggle").focus()'); await driver.actions().sendKeys(Key.ENTER).perform(); check((await observe()).theme === 'dark', 'Enter toggles theme'); await driver.actions().sendKeys(Key.ENTER).perform();
   await driver.executeScript('document.querySelector(".p-faq summary").focus()'); await driver.actions().sendKeys(Key.SPACE).perform(); check(await driver.executeScript('return document.querySelector(".p-faq details").open'), 'Space opens FAQ');
+  // Mobile drawer: modal focus, scroll restoration, every exit and real navigation.
+  const openMenu = async () => { await driver.findElement(By.id('mobileMenuToggle')).click(); await driver.wait(() => driver.executeScript('return document.getElementById("mobileMenu").dataset.visible === "true"'), 1500); await settle(); };
+  const menuClosed = () => driver.wait(() => driver.executeScript('return !document.getElementById("mobileMenu").open'), 1500);
+  await load('/blog/', 375);
+  await driver.executeScript('window.scrollTo(0,300)');
+  const menuScroll = await driver.executeScript('return scrollY');
+  await openMenu();
+  check(await driver.executeScript('return document.documentElement.classList.contains("menu-open") && document.getElementById("mobileMenuToggle").getAttribute("aria-expanded") === "true" && document.activeElement.matches("[data-menu-close]")'), 'drawer locks scroll, exposes state and focuses close');
+  await capture('mobile-menu--375',true);
+  for (let i = 0; i < 10; i++) { await driver.actions().sendKeys(Key.TAB).perform(); check(await driver.executeScript('return document.getElementById("mobileMenu").contains(document.activeElement)'), 'drawer contains keyboard focus on Tab ' + i); }
+  await driver.executeScript(axeSrc);
+  const menuAxe = await driver.executeAsyncScript('const d=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>d(r.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))))');
+  result.axe.push({route:'/blog/ mobile menu',w:375,violations:menuAxe}); check(menuAxe.length === 0, 'drawer axe ' + JSON.stringify(menuAxe));
+  await driver.actions().sendKeys(Key.ESCAPE).perform(); await menuClosed();
+  check(await driver.executeScript('return !document.documentElement.classList.contains("menu-open") && document.activeElement.id === "mobileMenuToggle" && document.getElementById("mobileMenuToggle").getAttribute("aria-expanded") === "false"'), 'Escape restores focus and unlocks the page');
+  check(await driver.executeScript('return scrollY') === menuScroll, 'drawer restores the prior scroll position');
+  await openMenu(); await driver.findElement(By.css('[data-menu-close]')).click(); await menuClosed();
+  await openMenu(); await driver.actions().move({origin:'viewport',x:8,y:300}).click().perform(); await menuClosed();
+  await openMenu(); await driver.findElement(By.css('.menu-links a[href="/work/"]')).click(); await driver.wait(async()=>new URL(await driver.getCurrentUrl()).pathname === '/work/',1500); await settle();
+  check(await driver.executeScript('return !document.getElementById("mobileMenu").open && !document.documentElement.classList.contains("menu-open")'), 'drawer link reaches Work and leaves no scroll lock');
+  await openMenu(); await viewport(1440); await menuClosed(); check((await observe()).nlinksVisible, 'desktop resize closes the drawer and restores desktop navigation');
+  await load('/blog/',320); await openMenu();
+  check(await driver.executeScript('const menu=document.getElementById("mobileMenu");return menu.scrollWidth <= menu.clientWidth + 1 && [...menu.querySelectorAll("a,button")].every(el=>{const r=el.getBoundingClientRect();return r.left>=0 && r.right<=innerWidth+1})'), 'drawer fits a 320px phone');
+  await driver.findElement(By.css('[data-menu-close]')).click(); await menuClosed();
+  await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:true});
+  await viewport(375); await driver.get(base+'/');
+  const fallback=await observe(); check(fallback.mnavVisible && !fallback.menuToggleVisible, 'without JavaScript the mobile navigation links remain available');
+  await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled',{value:false});
   // reduced motion
   await driver.sendAndGetDevToolsCommand('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   for (const w of [375, 1440]) {
     await load('/', w); const rm = await observe(); check(rm.animated === 0, 'reduced motion @' + w + ': ' + rm.animated + ' elements still animate'); check(await driver.executeScript('return Array.from(document.querySelectorAll(".rv")).every(e=>getComputedStyle(e).opacity==="1")'), 'reduced motion @' + w + ': reveals visible');
+    if (w === 375) { await openMenu(); check(await driver.executeScript('return document.getAnimations().filter(a=>a instanceof CSSTransition).length === 0'), 'drawer honours reduced motion'); await driver.actions().sendKeys(Key.ESCAPE).perform(); await menuClosed(); }
     for (const [name, sel, inner] of [['layer panel', '.hz-panel', '.hz-h'], ['U.S. Oil stamp', '.stamp', '.stamp-k'], ['loop service link', '.layer-list a', null]]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), 'reduced motion @' + w + ' home: ' + name + 's unreachable ' + JSON.stringify(r.filter((x) => !x.ok).slice(0, 3))); }
     await capture('home--' + w + '--reduced-motion');
     await load('/work/las-vegas-safety/', w); await reachAll('reduced motion @' + w + ' LVS:');

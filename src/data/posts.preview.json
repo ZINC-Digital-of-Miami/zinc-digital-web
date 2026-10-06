@@ -14,7 +14,7 @@
         {
           "runs": [
             {
-              "text": "AI search results are not a future footnote anymore. They are becoming part of the normal search experience: summaries, citations, follow-up answers, AI Overviews, AI Mode, generated comparisons, answer engines, and tools that can reason across multiple sources before a person ever clicks a blue link."
+              "text": "AI search can answer a question before anyone clicks your site."
             }
           ],
           "type": "p"
@@ -22,7 +22,7 @@
         {
           "runs": [
             {
-              "text": "That does not mean SEO is dead. That phrase has had more lives than it deserves."
+              "text": "Summaries, citations, AI Overviews, AI Mode, and answer engines make clear source information part of the work."
             }
           ],
           "type": "p"
@@ -30,7 +30,7 @@
         {
           "runs": [
             {
-              "text": "It does mean the job is changing. A business can no longer measure organic visibility only by asking, “Where do we rank?” The better question is, “Can search systems find us, understand us, trust us, cite us, represent us accurately, and still send the right people toward action?”"
+              "text": "Organic visibility asks more than “Where do we rank?” Search systems need to find the business, understand it, cite it accurately, and help the right people take the next step."
             }
           ],
           "type": "p"
@@ -38,7 +38,24 @@
         {
           "runs": [
             {
-              "text": "That is where generative search optimization comes in."
+              "text": "That is where "
+            },
+            {
+              "text": "generative search optimization",
+              "href": "/services/ai-search-optimization/"
+            },
+            {
+              "text": " comes in."
+            },
+            {
+              "text": " The wider foundation is the "
+            },
+            {
+              "text": "four-pillar SEO framework",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -46,7 +63,7 @@
         {
           "runs": [
             {
-              "text": "generative search optimization stands for generative engine optimization. In plain English, it is the work of making a brand, website, page, product, service, or idea easier for AI-powered search systems to retrieve, interpret, mention, cite, and reuse inside generated answers."
+              "text": "Generative search optimization makes business information easier for AI-powered search systems to retrieve, interpret, cite, and represent accurately."
             }
           ],
           "type": "p"
@@ -203,7 +220,7 @@
         {
           "runs": [
             {
-              "text": "generative search optimization, or generative engine optimization, is the practice of improving the likelihood that generative search systems can understand, cite, mention, and accurately represent your business in AI-generated answers."
+              "text": "Generative search optimization improves the information that AI search systems can retrieve, understand, cite, and use to describe your business. It cannot guarantee a mention or placement."
             }
           ],
           "type": "p"
@@ -2374,7 +2391,7 @@
         {
           "runs": [
             {
-              "text": "If AI search has made your SEO plan feel noisy, bring us the site, the crawl, the content inventory, the Search Console data, the analytics, the business profile issues, and the uncomfortable questions."
+              "text": "Start with the source pages, crawl, content inventory, and search data. Find the missing or contradictory evidence."
             }
           ],
           "type": "p"
@@ -2382,7 +2399,7 @@
         {
           "runs": [
             {
-              "text": "ZINC will do the SEO work: find the weak evidence, repair the source surfaces, rewrite what needs human judgment, clean the technical path, strengthen the internal links, measure AI-search visibility without pretending it is perfectly stable, and keep the work tied to business outcomes."
+              "text": "Repair the source, strengthen the internal links, and measure what can be verified. AI-search visibility still comes with uncertainty."
             }
           ],
           "type": "p"
@@ -2408,7 +2425,8 @@
       "sourceSlug": "ai-search-results-and-geo",
       "sourceTitle": "AI Search Results And GEO: What Businesses Need To Know",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -2421,7 +2439,11 @@
         {
           "runs": [
             {
-              "text": "Google Shopping usually breaks before the campaign ever gets interesting."
+              "text": "Google Shopping",
+              "href": "/services/shopping-ads/"
+            },
+            {
+              "text": " usually breaks before the campaign gets interesting."
             }
           ],
           "type": "p"
@@ -2429,7 +2451,7 @@
         {
           "runs": [
             {
-              "text": "The weak point is rarely the ad format. It is the feed, the tracking, the product IDs, the margin logic, the landing page, or the assumption that Performance Max can clean up data it cannot actually trust."
+              "text": "The weak point is usually the feed, tracking, product IDs, margin logic, or landing page. Performance Max cannot clean up data it cannot trust."
             }
           ],
           "type": "p"
@@ -2438,6 +2460,16 @@
           "runs": [
             {
               "text": "Before scaling spend, the account needs clean commercial truth. Merchant Center, Google Ads, the store, and the conversion data all need to describe the same business."
+            },
+            {
+              "text": " For the store behind the feed, use the "
+            },
+            {
+              "text": "Shopify SEO launch checklist",
+              "href": "/blog/shopify-seo-launch-checklist/"
+            },
+            {
+              "text": " to check the pages and product data together."
             }
           ],
           "type": "p"
@@ -4085,7 +4117,8 @@
       "sourceTitle": "Google Shopping Ad Management in 2026: Fix the Feed Before You Scale",
       "previewEdits": [
         "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
-        "Omitted retired promotional coda beginning Bring us the feed; complete original retained in ignored raw source."
+        "Omitted retired promotional coda beginning Bring us the feed; complete original retained in ignored raw source.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -4098,7 +4131,7 @@
         {
           "runs": [
             {
-              "text": "Shopify gives stores a better technical starting point than a lot of custom ecommerce builds. It can create sitemaps, handle SSL, output canonical tags, support editable title tags, and give product teams a sane place to manage catalog content."
+              "text": "Shopify provides sitemaps, SSL, canonical tags, editable title tags, and a place to manage catalog content. That is a useful technical starting point."
             }
           ],
           "type": "p"
@@ -4106,7 +4139,7 @@
         {
           "runs": [
             {
-              "text": "That does not mean the store is ready for search."
+              "text": "It does not make the store ready for search."
             }
           ],
           "type": "p"
@@ -4234,7 +4267,11 @@
         {
           "runs": [
             {
-              "text": "Shopify SEO has three layers."
+              "text": "Shopify SEO",
+              "href": "/services/shopify/"
+            },
+            {
+              "text": " has three layers."
             }
           ],
           "type": "p"
@@ -4601,6 +4638,16 @@
           "runs": [
             {
               "text": "Shopify stores can create multiple paths to the same product. A product might be reachable through a direct product URL, a collection URL, a variant URL, a filtered collection page, or a tagged collection path."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "Shopify SEO repair guide",
+              "href": "/blog/shopify-seo-problems-real-fixes/"
+            },
+            {
+              "text": " works through these URL and collection problems in more detail."
             }
           ],
           "type": "p"
@@ -4699,6 +4746,16 @@
           "runs": [
             {
               "text": "On the store itself, Product and Offer markup should describe the visible product. For variant-heavy catalogs, ProductGroup and variant markup may be appropriate when the page and URL pattern support it. Merchant Center should receive accurate product IDs, titles, descriptions, links, images, price, availability, brand, identifiers, and variant attributes."
+            },
+            {
+              "text": " Use the "
+            },
+            {
+              "text": "Shopify and Merchant Center integration checklist",
+              "href": "/blog/shopify-google-merchant-center-checklist/"
+            },
+            {
+              "text": " to verify that connection field by field."
             }
           ],
           "type": "p"
@@ -4763,6 +4820,16 @@
           "runs": [
             {
               "text": "This is where Shopify SEO, Google Shopping, and technical SEO stop being separate lanes. The product data layer connects them."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "Google Shopping management guide",
+              "href": "/blog/google-shopping-ad-management-2026/"
+            },
+            {
+              "text": " carries that same product-data discipline into campaign decisions."
             }
           ],
           "type": "p"
@@ -6162,7 +6229,8 @@
       "sourceSlug": "shopify-seo-launch-checklist",
       "sourceTitle": "Shopify SEO Launch Checklist: What To Fix Before The Store Goes Live",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -6175,7 +6243,7 @@
         {
           "runs": [
             {
-              "text": "SEO frameworks are useful until they become decorations."
+              "text": "An SEO framework should help you decide what to fix next."
             }
           ],
           "type": "p"
@@ -6183,25 +6251,7 @@
         {
           "runs": [
             {
-              "text": "Every agency has a version of the pillars. Some call them technical SEO,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ncontent, authority, and UX. Some add local SEO, analytics, or conversion rate"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\noptimization as separate pillars. Some build a diagram with enough arrows to"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nmake the whole thing look scientific."
+              "text": "Technical SEO, content, authority, and UX are useful categories. Local SEO, analytics, and conversion work belong in the picture too. The diagram only earns its place if it helps you make a decision."
             }
           ],
           "type": "p"
@@ -6225,7 +6275,14 @@
         {
           "runs": [
             {
-              "text": "If the answer is yes, the SEO program has a chance to compound. If the answer is"
+              "text": "If the answer is yes, the "
+            },
+            {
+              "text": "SEO program",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " has a chance to compound. If the answer is"
             },
             {
               "text": "\n"
@@ -6562,6 +6619,16 @@
             },
             {
               "text": "\nthan the page level."
+            },
+            {
+              "text": " The guide to "
+            },
+            {
+              "text": "AI search results and generative search optimization",
+              "href": "/blog/ai-search-results-and-generative-search-optimization/"
+            },
+            {
+              "text": " explains those retrieval and citation surfaces."
             }
           ],
           "type": "p"
@@ -6654,6 +6721,16 @@
           "runs": [
             {
               "text": "Technical SEO is the access layer."
+            },
+            {
+              "text": " Start with the "
+            },
+            {
+              "text": "technical SEO fixes that remove common access problems",
+              "href": "/blog/technical-seo-ten-fixes-that-move-rankings/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -6674,6 +6751,16 @@
             },
             {
               "text": "\nindex. That sounds basic because it is. Basic does not mean optional."
+            },
+            {
+              "text": " If several URLs compete to represent the page, review "
+            },
+            {
+              "text": "duplicate content and canonical decisions",
+              "href": "/blog/duplicate-content-isnt-a-penalty-but-its-a-tax/"
+            },
+            {
+              "text": " before changing the copy."
             }
           ],
           "type": "p"
@@ -6911,6 +6998,16 @@
             },
             {
               "text": "\nmatters first, and whether they can trust the person doing it."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "SEO timeline guide",
+              "href": "/blog/how-long-seo-actually-takes/"
+            },
+            {
+              "text": " breaks down those dependencies and waiting periods."
             }
           ],
           "type": "p"
@@ -7220,6 +7317,16 @@
             },
             {
               "text": "\nand source-worthy category or buying content."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "local SEO operating guide",
+              "href": "/blog/local-seo-2026-operators-manual/"
+            },
+            {
+              "text": " turns that local layer into a practical routine."
             }
           ],
           "type": "p"
@@ -7264,6 +7371,16 @@
             },
             {
               "text": "\nshould compound."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "SEO in 2026 guide",
+              "href": "/blog/seo-in-2026-what-changed-what-to-ignore/"
+            },
+            {
+              "text": " separates current priorities from claims that do not justify more work."
             }
           ],
           "type": "p"
@@ -7272,6 +7389,16 @@
           "runs": [
             {
               "text": "Measurement decides whether the work is producing business value."
+            },
+            {
+              "text": " Use the "
+            },
+            {
+              "text": "Search Console decision guide",
+              "href": "/blog/google-search-console-the-operators-guide/"
+            },
+            {
+              "text": " to turn query, page, and indexation evidence into action."
             }
           ],
           "type": "p"
@@ -7599,6 +7726,16 @@
             },
             {
               "text": "\nhow the fix will be verified."
+            },
+            {
+              "text": " During a rollout, follow the "
+            },
+            {
+              "text": "algorithm-update response process",
+              "href": "/blog/how-to-read-a-google-algorithm-update/"
+            },
+            {
+              "text": " before treating movement as a diagnosis."
             }
           ],
           "type": "p"
@@ -8192,6 +8329,16 @@
             },
             {
               "text": "\npriorities all move."
+            },
+            {
+              "text": " The review of "
+            },
+            {
+              "text": "three years of Google algorithm updates",
+              "href": "/blog/three-years-of-algorithm-updates-what-moved-rankings/"
+            },
+            {
+              "text": " provides context for separating durable changes from short-term noise."
             }
           ],
           "type": "p"
@@ -8758,7 +8905,8 @@
       "sourceSlug": "four-pillars-of-seo-operators-view",
       "sourceTitle": "Four Pillars Of SEO: How Operators Actually Think About The Work",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -8771,7 +8919,11 @@
         {
           "runs": [
             {
-              "text": "Technical SEO is where a lot of websites quietly lose."
+              "text": "Technical SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " removes the obstacles between useful pages and the people searching for them."
             }
           ],
           "type": "p"
@@ -8779,19 +8931,7 @@
         {
           "runs": [
             {
-              "text": "Not because the work is glamorous. It is absolutely not. No one is throwing a"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nparty because a canonical tag finally stopped pointing at the wrong URL. If"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nthey are, I have questions."
+              "text": "That work is rarely glamorous. A canonical tag pointing to the right URL will not make the launch presentation. It still needs to be right."
             }
           ],
           "type": "p"
@@ -8846,6 +8986,16 @@
             },
             {
               "text": "\ndecorative tray from one table to another and calling it strategy."
+            },
+            {
+              "text": " Set those priorities within the "
+            },
+            {
+              "text": "four pillars of SEO",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -11619,7 +11769,8 @@
       "sourceSlug": "technical-seo-ten-fixes-that-move-rankings",
       "sourceTitle": "Technical SEO: Ten Fixes That Actually Move Rankings",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -11632,7 +11783,11 @@
         {
           "runs": [
             {
-              "text": "Local SEO in 2026 is not an “ultimate guide” problem."
+              "text": "Local SEO",
+              "href": "/services/local-seo/"
+            },
+            {
+              "text": " needs an operating routine."
             }
           ],
           "type": "p"
@@ -11640,25 +11795,7 @@
         {
           "runs": [
             {
-              "text": "There are plenty of ultimate guides. They are everywhere. They reproduce"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nquietly in content calendars and arrive wearing the same sections: optimize"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nyour profile, get reviews, build citations, add schema, write local content,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ntrack rankings, prepare for voice search."
+              "text": "The familiar checklist covers profile updates, reviews, citations, schema, local content, rankings, and voice search. A list of tasks is useful. It still needs priorities and someone responsible for the work."
             }
           ],
           "type": "p"
@@ -11695,6 +11832,16 @@
             },
             {
               "text": "\nsystems to trust it."
+            },
+            {
+              "text": " That local evidence belongs within the broader "
+            },
+            {
+              "text": "four-pillar SEO framework",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -14779,7 +14926,8 @@
       "sourceSlug": "local-seo-2026-operators-manual",
       "sourceTitle": "Local SEO In 2026: The Operator’s Manual",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -14792,7 +14940,7 @@
         {
           "runs": [
             {
-              "text": "Most content marketing plans are calendars wearing a tiny strategy hat."
+              "text": "A content calendar can look organized while the strategy is missing."
             }
           ],
           "type": "p"
@@ -14800,13 +14948,7 @@
         {
           "runs": [
             {
-              "text": "They look organized. They have themes, dates, assigned writers, draft statuses,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nand a suspicious number of color-coded tabs. Lovely. Very tidy."
+              "text": "Themes, deadlines, assigned writers, and draft statuses tell you what will be published. They do not tell you what it should change for the business."
             }
           ],
           "type": "p"
@@ -14855,6 +14997,16 @@
             },
             {
               "text": "\nsuccess will be measured."
+            },
+            {
+              "text": " Place that plan within a "
+            },
+            {
+              "text": "channel strategy the business can operate",
+              "href": "/blog/seven-digital-channels-which-to-skip/"
+            },
+            {
+              "text": " before committing to a publishing cadence."
             }
           ],
           "type": "p"
@@ -15769,7 +15921,14 @@
               "text": "\n"
             },
             {
-              "text": "\nstrategy. It is vocabulary with SEO shoes on."
+              "text": "\nstrategy. It is vocabulary with "
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " shoes on."
             }
           ],
           "type": "p"
@@ -17978,7 +18137,8 @@
       "sourceSlug": "content-marketing-plan-that-produces-pipeline",
       "sourceTitle": "Content Marketing Plan That Produces Pipeline",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -17991,7 +18151,14 @@
         {
           "runs": [
             {
-              "text": "Web design trend lists are usually very pretty and not very helpful."
+              "text": "A "
+            },
+            {
+              "text": "web design",
+              "href": "/services/web-design/"
+            },
+            {
+              "text": " trend needs to earn its place on the site."
             }
           ],
           "type": "p"
@@ -17999,25 +18166,7 @@
         {
           "runs": [
             {
-              "text": "Every year, the same advice returns wearing a new jacket: bold typography,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ndark mode, motion, immersive scrolling, AI visuals, brutalism, minimalism,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nglass effects, personalization, 3D objects, and whatever gradient has apparently"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nbeen promoted to strategy."
+              "text": "Bold typography, dark mode, motion, immersive scrolling, AI visuals, brutalism, minimalism, glass effects, personalization, and 3D can all look compelling. A new look still needs a useful job."
             }
           ],
           "type": "p"
@@ -18054,6 +18203,16 @@
             },
             {
               "text": "\nsearch visibility, or maintainability."
+            },
+            {
+              "text": " The same discipline applies when deciding "
+            },
+            {
+              "text": "which marketing channels deserve budget",
+              "href": "/blog/seven-digital-channels-which-to-skip/"
+            },
+            {
+              "text": ": fund work that has a clear business job."
             }
           ],
           "type": "p"
@@ -21035,7 +21194,8 @@
       "sourceSlug": "when-web-design-trends-actually-matter",
       "sourceTitle": "When Web Design Trends Actually Matter",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -21048,7 +21208,11 @@
         {
           "runs": [
             {
-              "text": "Shopify SEO problems are rarely mysterious."
+              "text": "Shopify SEO",
+              "href": "/services/shopify/"
+            },
+            {
+              "text": " problems tend to repeat."
             }
           ],
           "type": "p"
@@ -21056,19 +21220,7 @@
         {
           "runs": [
             {
-              "text": "They are usually hiding in the same places: variant URLs, thin collections,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nsupplier descriptions, app-heavy themes, weak product data, internal links, and"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nMerchant Center mismatches."
+              "text": "Check variant URLs, thin collections, supplier descriptions, app-heavy themes, product data, internal links, and Merchant Center mismatches before looking for an exotic explanation."
             }
           ],
           "type": "p"
@@ -21111,6 +21263,16 @@
             },
             {
               "text": "\nconnects technical eligibility, product data, buyer intent, and revenue."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "Shopify SEO launch checklist",
+              "href": "/blog/shopify-seo-launch-checklist/"
+            },
+            {
+              "text": " provides the wider sequence for that repair work."
             }
           ],
           "type": "p"
@@ -24033,7 +24195,8 @@
       "sourceSlug": "shopify-seo-problems-real-fixes",
       "sourceTitle": "Shopify SEO Problems: The Real Fixes Behind The Audit",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -24046,7 +24209,7 @@
         {
           "runs": [
             {
-              "text": "Most channel-planning advice starts with a lie."
+              "text": "A channel plan needs priorities before it needs platforms."
             }
           ],
           "type": "p"
@@ -24054,19 +24217,14 @@
         {
           "runs": [
             {
-              "text": "It says a real digital marketing program needs SEO, paid search, organic social,"
+              "text": "SEO, "
             },
             {
-              "text": "\n"
+              "text": "paid search",
+              "href": "/services/google-search-ads/"
             },
             {
-              "text": "\npaid social, email, content, influencer marketing, PR, video, affiliates, and"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nwhatever platform is having a very important week on LinkedIn."
+              "text": ", organic social, paid social, email, content, influencer marketing, PR, video, and affiliates all compete for budget and attention. Recommending all of them is easy. Operating them well is the harder decision."
             }
           ],
           "type": "p"
@@ -24677,6 +24835,16 @@
             },
             {
               "text": "\nor connect content to service pages."
+            },
+            {
+              "text": " A "
+            },
+            {
+              "text": "content plan tied to pipeline",
+              "href": "/blog/content-marketing-plan-that-produces-pipeline/"
+            },
+            {
+              "text": " makes that ownership and measurement explicit."
             }
           ],
           "type": "p"
@@ -25265,6 +25433,16 @@
             },
             {
               "text": "\nafter the click."
+            },
+            {
+              "text": " When budgets tighten, use the "
+            },
+            {
+              "text": "marketing budget review framework",
+              "href": "/blog/marketing-budgets-during-economic-stress/"
+            },
+            {
+              "text": " to distinguish what to cut, keep, and prove."
             }
           ],
           "type": "p"
@@ -25751,6 +25929,16 @@
             },
             {
               "text": "\nmemory, politics, stale reports, and panic instead of evidence."
+            },
+            {
+              "text": " Apply that test to the website too: "
+            },
+            {
+              "text": "design trends need a business job",
+              "href": "/blog/when-web-design-trends-actually-matter/"
+            },
+            {
+              "text": " before they deserve investment."
             }
           ],
           "type": "p"
@@ -26717,31 +26905,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital helps operators decide which marketing channels deserve budget and"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nwhich ones are just making the dashboard noisy. Bring us the spend, analytics,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nCRM, ad accounts, service pages, content library, landing pages, and the parts"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nof the report nobody trusts. We will build the channel ledger and make the plan"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nsmaller, sharper, and easier to defend."
+              "text": "Give each channel a job, an owner, and a decision rule. If it cannot justify the budget, it does not belong in the plan."
             }
           ],
           "type": "p"
@@ -26759,7 +26923,8 @@
       "sourceSlug": "seven-digital-channels-which-to-skip",
       "sourceTitle": "Seven Digital Marketing Channels: Which To Fund, Cap, Or Skip",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -26772,7 +26937,7 @@
         {
           "runs": [
             {
-              "text": "Most Google algorithm retrospectives are calendars."
+              "text": "An algorithm-update calendar tells you what Google announced."
             }
           ],
           "type": "p"
@@ -26780,7 +26945,7 @@
         {
           "runs": [
             {
-              "text": "Calendars are not strategy."
+              "text": "It does not tell you what to fix."
             }
           ],
           "type": "p"
@@ -26788,19 +26953,7 @@
         {
           "runs": [
             {
-              "text": "A list of updates tells you what Google announced. It does not tell you what"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nactually moved rankings, what only created noise, or what an operator should"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nfix now."
+              "text": "The useful record connects the announcement to the pages that moved, the changes already shipped, and the repair that comes next."
             }
           ],
           "type": "p"
@@ -26814,7 +26967,14 @@
               "text": "\n"
             },
             {
-              "text": "\nSEO systems harder to hide. Thin content, anonymous authorship, scaled output,"
+              "text": "\n"
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " systems harder to hide. Thin content, anonymous authorship, scaled output,"
             },
             {
               "text": "\n"
@@ -26841,6 +27001,16 @@
           "runs": [
             {
               "text": "The named updates matter less than the direction."
+            },
+            {
+              "text": " Use the "
+            },
+            {
+              "text": "four pillars of SEO",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": " to connect that direction to the work."
             }
           ],
           "type": "p"
@@ -29645,25 +29815,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital helps operators turn algorithm history into a repair sequence. If"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nyour rankings moved across the last few years and nobody can separate update"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nnoise from system weakness, bring us the Search Console history, analytics,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ncrawl, service map, and content inventory. We will build the movement ledger."
+              "text": "Keep the update dates beside the page-group evidence. Repair the weakness you can demonstrate."
             }
           ],
           "type": "p"
@@ -29681,7 +29833,8 @@
       "sourceSlug": "three-years-of-algorithm-updates-what-moved-rankings",
       "sourceTitle": "Three Years Of Google Algorithm Updates: What Actually Moved Rankings",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -29694,7 +29847,7 @@
         {
           "runs": [
             {
-              "text": "Most Shopify stores do not fail Google Merchant Center because the owner forgot to click one magic setup button."
+              "text": "Connecting Shopify to Google Merchant Center is the start of the work."
             }
           ],
           "type": "p"
@@ -29702,7 +29855,7 @@
         {
           "runs": [
             {
-              "text": "They fail because the store, the feed, the product page, the shipping settings, the return policy, and the ad account all describe the catalog slightly differently. A price is current in Shopify but stale in Merchant Center. A variant exists on the storefront but not in the feed. A product has a nice brand title on the site and a useless title in Shopping. A shipping rule exists in Shopify but not where Google expects to read it."
+              "text": "Problems appear when the store, feed, product page, shipping settings, return policy, and ad account describe the catalog differently. A stale price, missing variant, vague Shopping title, or missing shipping rule can leave Google with the wrong product facts."
             }
           ],
           "type": "p"
@@ -29719,6 +29872,16 @@
           "runs": [
             {
               "text": "The Google and YouTube channel can help connect Shopify products to Merchant Center. It is not a replacement for feed governance. The app can sync product data, but it cannot decide whether your product titles are useful, your identifiers are stable, your variant data is clean, your shipping is readable, or your conversion data is teaching Google the right lesson."
+            },
+            {
+              "text": " Check those dependencies alongside the "
+            },
+            {
+              "text": "Shopify SEO launch checklist",
+              "href": "/blog/shopify-seo-launch-checklist/"
+            },
+            {
+              "text": " before relying on the connection."
             }
           ],
           "type": "p"
@@ -29726,7 +29889,14 @@
         {
           "runs": [
             {
-              "text": "Before a Shopify store leans on free listings, Shopping ads, Performance Max, or local inventory, the Merchant Center setup needs an actual operating check. Not a ceremonial check. Not “the app says connected.” A real one."
+              "text": "Before a Shopify store leans on free listings, "
+            },
+            {
+              "text": "Shopping ads",
+              "href": "/services/shopping-ads/"
+            },
+            {
+              "text": ", Performance Max, or local inventory, the Merchant Center setup needs an actual operating check. Not a ceremonial check. Not “the app says connected.” A real one."
             }
           ],
           "type": "p"
@@ -31221,7 +31391,8 @@
       "sourceSlug": "shopify-google-merchant-center-checklist",
       "sourceTitle": "Shopify + Google Merchant Center: The Integration Checklist Most Stores Skip",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -31234,7 +31405,7 @@
         {
           "runs": [
             {
-              "text": "When the economy gets tight, marketing gets interrogated."
+              "text": "When the economy gets tight, every marketing line has to defend its place."
             }
           ],
           "type": "p"
@@ -31242,7 +31413,7 @@
         {
           "runs": [
             {
-              "text": "That part is normal."
+              "text": "That is a useful conversation when the evidence is clear."
             }
           ],
           "type": "p"
@@ -31264,7 +31435,14 @@
               "text": "\n"
             },
             {
-              "text": "\nweb design, brand, AI tools, and analytics do not have the same response time."
+              "text": "\nweb design, brand, AI tools, and "
+            },
+            {
+              "text": "analytics",
+              "href": "/services/business-intelligence/"
+            },
+            {
+              "text": " do not have the same response time."
             },
             {
               "text": "\n"
@@ -31283,6 +31461,16 @@
             },
             {
               "text": "\noperations."
+            },
+            {
+              "text": " Start with a "
+            },
+            {
+              "text": "channel-by-channel funding decision",
+              "href": "/blog/seven-digital-channels-which-to-skip/"
+            },
+            {
+              "text": " so each cut has a reason."
             }
           ],
           "type": "p"
@@ -34078,25 +34266,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital helps operators build marketing budgets that can survive finance"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\npressure without starving future demand. Bring us the spend, pipeline, search,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\npaid, local, Shopify, email, web, and CRM data. We will show what to cut, keep,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ncap, and prove."
+              "text": "A defensible budget names what to cut, keep, cap, and prove. Every line has a job."
             }
           ],
           "type": "p"
@@ -34114,7 +34284,8 @@
       "sourceSlug": "marketing-budgets-during-economic-stress",
       "sourceTitle": "Marketing Budgets During Economic Stress: What To Cut, Keep, And Prove",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -34127,7 +34298,7 @@
         {
           "runs": [
             {
-              "text": "Google algorithm updates do not need more hot takes."
+              "text": "A Google algorithm update calls for a calm response."
             }
           ],
           "type": "p"
@@ -34135,7 +34306,7 @@
         {
           "runs": [
             {
-              "text": "They need incident response."
+              "text": "Preserve the evidence before changing the site."
             }
           ],
           "type": "p"
@@ -34164,6 +34335,16 @@
           "runs": [
             {
               "text": "That is how teams break attribution."
+            },
+            {
+              "text": " The "
+            },
+            {
+              "text": "four-pillar SEO framework",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": " helps separate technical, content, authority, and measurement issues."
             }
           ],
           "type": "p"
@@ -34731,7 +34912,14 @@
         {
           "runs": [
             {
-              "text": "Not every finding belongs to technical SEO."
+              "text": "Not every finding belongs to technical "
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -37117,25 +37305,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital helps operators read search volatility without turning the site"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ninto a guessing game. Bring us the Search Console data, analytics, crawl,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nservice-page map, local footprint, Shopify structure, and update dates. We will"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nseparate noise from work."
+              "text": "Give every confirmed finding a page group, an owner, and a next action. That is the diagnosis doing its job."
             }
           ],
           "type": "p"
@@ -37153,7 +37323,8 @@
       "sourceSlug": "how-to-read-a-google-algorithm-update",
       "sourceTitle": "How To Read A Google Algorithm Update Without Panic",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -37166,7 +37337,7 @@
         {
           "runs": [
             {
-              "text": "Most teams open Google Search Console like it is a dashboard."
+              "text": "Google Search Console should change the next decision."
             }
           ],
           "type": "p"
@@ -37174,7 +37345,7 @@
         {
           "runs": [
             {
-              "text": "That is why they miss the work."
+              "text": "Watching the clicks move is only the start."
             }
           ],
           "type": "p"
@@ -37223,6 +37394,16 @@
           "runs": [
             {
               "text": "The problem is that nobody turns the data into decisions."
+            },
+            {
+              "text": " Put those decisions in context with the "
+            },
+            {
+              "text": "four pillars of SEO",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -37236,7 +37417,14 @@
               "text": "\n"
             },
             {
-              "text": "\nactually proves, what it cannot prove, and how to map the findings back to SEO,"
+              "text": "\nactually proves, what it cannot prove, and how to map the findings back to "
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": ","
             },
             {
               "text": "\n"
@@ -39872,25 +40060,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital builds SEO systems for operators who need search data turned into"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\naction. If your Search Console account is connected but not changing the work,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nbring us the property, crawl, analytics, service map, and revenue goal. We will"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nturn the report into a working SEO ledger."
+              "text": "Give the finding an owner and a next action. The report has done its job when the work changes."
             }
           ],
           "type": "p"
@@ -39908,7 +40078,8 @@
       "sourceSlug": "google-search-console-the-operators-guide",
       "sourceTitle": "Google Search Console: The Operator Guide For Real SEO Decisions",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -39921,7 +40092,14 @@
         {
           "runs": [
             {
-              "text": "Most answers to “how long does SEO take?” are too neat to be useful."
+              "text": "An "
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " timeline is useful when it explains what the work is waiting for."
             }
           ],
           "type": "p"
@@ -39929,19 +40107,7 @@
         {
           "runs": [
             {
-              "text": "They say three months, six months, twelve months, or “it depends.” The problem"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nis not that those ranges are always wrong. The problem is that they hide the"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nreal operating question:"
+              "text": "Three, six, or twelve months may be reasonable ranges. “It depends” may be honest. None of those answers tells you where the delay sits."
             }
           ],
           "type": "p"
@@ -40002,6 +40168,16 @@
             },
             {
               "text": "\ninputs Google and buyers use to judge it."
+            },
+            {
+              "text": " Map those dependencies against the "
+            },
+            {
+              "text": "four pillars of SEO",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -42334,31 +42510,7 @@
         {
           "runs": [
             {
-              "text": "ZINC Digital builds SEO systems for service businesses, local operators,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nShopify stores, and growth teams that need search to produce pipeline, not just"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nrank-tracking screenshots. If your SEO timeline is unclear, bring us the site,"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nSearch Console data, technical crawl, service-page map, and revenue target. We"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nwill show you which clock is stuck."
+              "text": "Name the bottleneck. Ship the fix. Check whether the expected signal moved. That is a timeline you can defend."
             }
           ],
           "type": "p"
@@ -42376,7 +42528,8 @@
       "sourceSlug": "how-long-seo-actually-takes",
       "sourceTitle": "How Long SEO Actually Takes: The Operator Timeline",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -42389,7 +42542,14 @@
         {
           "runs": [
             {
-              "text": "Most SEO trend posts are written like the calendar changed the algorithm."
+              "text": "A new calendar year is not an "
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " strategy."
             }
           ],
           "type": "p"
@@ -42397,7 +42557,7 @@
         {
           "runs": [
             {
-              "text": "That is not how search works."
+              "text": "The work has to follow what changed in search."
             }
           ],
           "type": "p"
@@ -42470,6 +42630,16 @@
           "runs": [
             {
               "text": "The useful question is not “what are the SEO trends?”"
+            },
+            {
+              "text": " Ground the answer in the "
+            },
+            {
+              "text": "four pillars of SEO",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -45083,7 +45253,8 @@
       "sourceSlug": "seo-in-2026-what-changed-what-to-ignore",
       "sourceTitle": "SEO in 2026: What Changed, What Is Hype, And What To Fix Now",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     },
     {
@@ -45104,37 +45275,14 @@
         {
           "runs": [
             {
-              "text": "That sentence matters because the panic around duplicate pages causes teams to"
+              "text": "Panic about duplicate pages can create worse "
             },
             {
-              "text": "\n"
+              "text": "technical",
+              "href": "/services/seo/"
             },
             {
-              "text": "\nmake bad technical decisions. They block pages that should stay crawlable. They"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\ncanonicalize useful category pages to irrelevant pages. They redirect URLs that"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nstill serve a real search purpose. They spend 20 hours rewriting copy when the"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\nreal issue is a product filter, an archive template, a staging URL, or a"
-            },
-            {
-              "text": "\n"
-            },
-            {
-              "text": "\npreferred-domain setting."
+              "text": " problems: blocking URLs that should stay crawlable, pointing useful categories at irrelevant canonicals, or redirecting pages with a real search purpose. Rewriting copy will not repair a product filter, archive template, staging URL, or preferred-domain setting."
             }
           ],
           "type": "p"
@@ -45177,6 +45325,16 @@
             },
             {
               "text": "\ncite it."
+            },
+            {
+              "text": " This is one technical dependency in the wider "
+            },
+            {
+              "text": "four-pillar SEO framework",
+              "href": "/blog/four-pillars-of-seo-operators-view/"
+            },
+            {
+              "text": "."
             }
           ],
           "type": "p"
@@ -48200,7 +48358,8 @@
       "sourceSlug": "duplicate-content-isnt-a-penalty-but-its-a-tax",
       "sourceTitle": "Duplicate Content Is Not a Penalty. It Is a Tax on Every Page.",
       "previewEdits": [
-        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance."
+        "Expanded legacy generative-search abbreviation; source title and slug retained in provenance.",
+        "Tightened opening prose in the clean byline register; added contextual links to the relevant pillar, service, and supporting articles. Original dates, authors, factual sections, and citations retained."
       ]
     }
   ]

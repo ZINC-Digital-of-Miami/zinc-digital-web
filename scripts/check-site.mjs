@@ -108,7 +108,7 @@ for (const { rel, html } of pages) {
   check(/<title>[^<]+<\/title>/.test(html), rel + ' has no <title>');
   check(/<meta name="description" content="[^"]{20,}"/.test(html), rel + ' has no usable meta description');
   check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\/[^"]*"/.test(html), rel + ' has no canonical');
-  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png"/.test(html), rel + ' has no og:image');
+  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z]+\.png|_astro\/[^/]+\.webp)"/.test(html), rel + ' has no valid og:image');
   const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
@@ -173,7 +173,24 @@ for (const s of CASE_SLUGS) {
 // ---- blog ----
 const blog = pages.find((p) => p.rel === 'blog/index.html');
 if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === 17, 'blog/index.html should list 17 cards (18 posts minus the featured one)'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
-for (const s of POST_SLUGS) { const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html'); if (p) check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*<p class="first">/.test(p.html), 'blog/' + s + ' does not render the article body'); }
+const articleSocialImages = new Set();
+for (const s of POST_SLUGS) {
+  const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
+  if (!p) continue;
+  check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*<p class="first">/.test(p.html), 'blog/' + s + ' does not render the article body');
+  check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');
+  check(/<nav class="p-reading" aria-label="Related articles">/.test(p.html), 'blog/' + s + ' lacks a published reading path');
+  const social = p.html.match(/property="og:image" content="([^"]+)"/)?.[1];
+  check(!!social && !social.endsWith('/og/article.png') && !articleSocialImages.has(social), 'blog/' + s + ' lacks its own social artwork');
+  if (social) articleSocialImages.add(social);
+  check(/property="og:image:alt" content="[^"]+"/.test(p.html), 'blog/' + s + ' lacks descriptive image metadata');
+  const ld = p.html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  if (ld) {
+    const article = JSON.parse(ld)['@graph']?.find(node => node['@type'] === 'Article');
+    check(article?.image === social && article?.keywords?.length >= 3 && article?.articleSection, 'blog/' + s + ' article metadata disagrees with its image or topic');
+  }
+}
+if (blog) check(/aria-label="Article guides"/.test(blog.html), 'blog/index.html lacks the guide navigation');
 // ---- contact ----
 const contact = pages.find((p) => p.rel === 'contact/index.html');
 if (contact) { check(contact.html.includes('data-inquiry-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }

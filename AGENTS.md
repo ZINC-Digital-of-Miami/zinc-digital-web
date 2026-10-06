@@ -15,10 +15,12 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 
 - **Identity:** ZINC Digital's own site only. The live WordPress site, the July 2026 "Website V2" prototype and the `Zinc_Digital_Agency` repo are sources of facts and assets, never of design, copy or configuration.
 - **Copy:** the Design's copy and voice.
-  - No `kirk-voice` phrasing, no cursing, no sales devices.
+  - General site copy follows the Design, without cursing or sales devices.
+  - Owner, 6 Oct 2026: first-person Kirk/ZINC articles use `kirk-voice`: deadpan openings, supplied proof, one controlled dry joke at most. Retired mess-versus-math contrast hooks stay retired. Client bylines use `zinc-author-voice`, with no Kirk sarcasm or profanity.
   - No invented numbers. Content waiting on the owner renders nothing; no placeholder markers in pages.
   - Never "GEO" for generative search.
 - **Performance:** LCP ≤ 1.2 s, CLS 0, INP < 100 ms, and at most 15 KB gzip first-party JavaScript per page.
+  - Owner, 6 Oct 2026: approximately 1.5-second mobile loading is accepted for the illustrated articles and archive. Preserve the approved image resolution and quality; do not reduce them to chase the 1.2-second target.
   - Lighthouse runs and reports, but a score below 100 never fails a check.
   - The Google tag loads asynchronously and is counted separately (owner, 4 Oct 2026).
   - Accessibility: WCAG 2.2 AA.
@@ -39,3 +41,9 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 - **Runtime:** Node 24. This Mac's default `node` is 26, so run commands with `/opt/homebrew/opt/node@24/bin` first on `PATH`.
 - **Time:** everything shown to the owner is America/Chicago (CT).
 - **Storage:** all work, scratch and worktrees stay under `/Volumes/Satechi Hub/`.
+
+## Approved illustration direction — owner, 6 Oct 2026
+
+Use the approved smooth studio mockup illustrations across articles and case studies where they help explain the work. Vary GSC, GA4, Shopping, storefront and workflow compositions by topic; case studies use the client's own branding and appropriate screens. Keep report values private, with placeholder bars or em dashes, and remove browser URLs and cursors.
+
+Mugs are white. Mix the supplied ZINC wordmark, Fusion badge and unbranded mugs; keep branding restrained rather than putting an icon on every object. Notebooks are matte black with white geometric sans `code()` and the short vertical rule from the owner's notebook reference. Preserve the exact images the owner already approved.

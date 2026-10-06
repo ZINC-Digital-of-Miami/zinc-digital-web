@@ -13,15 +13,17 @@ interface Props {
   loading?: 'lazy' | 'eager';
   fetchpriority?: 'high' | 'low' | 'auto';
   sizes?: string;
+  widths?: number[];
+  decoding?: 'async' | 'sync' | 'auto';
   /** Height of an object-fit:cover box in vh. Its image renders wider than the viewport on tall screens, so sizes follows the height. */
   cover?: number;
 }
 
 const local = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,jpg,jpeg,webp}', { eager: true });
-const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', cover } = Astro.props;
+const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', widths: requestedWidths, decoding = 'async', cover } = Astro.props;
 const a = asset(k);
 const file = local['../assets' + a.src]?.default;
-const widths = file ? [...new Set([480, 960, 1440, 1920, file.width].filter((w) => w <= file.width))] : [];
+const widths = file ? [...new Set([...(requestedWidths || [480, 960, 1440, 1920]), file.width].filter((w) => w <= file.width))] : [];
 // A cover box H vh tall shows the image at H vh × aspect wide, or 100vw once the screen is wider than that.
 const coverWidth = cover && file ? Math.ceil((cover * file.width) / file.height) : 0;
 const imgSizes = coverWidth ? `(min-aspect-ratio: ${coverWidth}/100) 100vw, ${coverWidth}vh` : sizes;
@@ -38,10 +40,10 @@ const wideDimensions = croppedCover ? {width:wideCover[1].attributes.width,heigh
   <picture>
     {mobileCover.map(image => <source media="(max-width: 900px) and (max-aspect-ratio: 1/1)" type={'image/' + image.options.format} srcset={image.src} />)}
     <source type="image/avif" srcset={wideCover[0].srcSet.attribute} sizes={imgSizes} />
-    <img {...wideDimensions} src={wideCover[1].src} srcset={wideCover[1].srcSet.attribute} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+    <img {...wideDimensions} src={wideCover[1].src} srcset={wideCover[1].srcSet.attribute} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
   </picture>
 ) : file ? (
-  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 ) : (
-  <img src={a.src} alt={alt} class={cls} id={id} width={a.width} height={a.height} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+  <img src={a.src} alt={alt} class={cls} id={id} width={a.width} height={a.height} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 )}
