@@ -1,0 +1,12 @@
+---
+import Img from './Img.astro';
+import { authorFor, authorPath } from '../data/authors';
+interface Props { name: string; description?: string }
+const { name, description = '' } = Astro.props;
+const author = authorFor(name);
+---
+<section class="p-author-card" data-author-card aria-label={'About ' + name}>
+  {author && <a class="p-author-photo" href={authorPath(author.id)} aria-label={'Articles by ' + name}><Img k={author.photo} alt="" sizes="112px" /></a>}
+  <div><span class="lab">Written by</span><h2 class="disp">{author ? <a href={authorPath(author.id)} rel="author">{name}</a> : name}</h2>{author && <p class="lab p-muted">{author.role}</p>}<p class="p-muted">{author?.bio || description}</p>{author && <a class="arrow" href={authorPath(author.id)}>More from {author.schemaName.split(' ')[0]} ↗</a>}</div>
+</section>
+

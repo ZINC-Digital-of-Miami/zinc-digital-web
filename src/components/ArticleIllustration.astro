@@ -1,0 +1,10 @@
+---
+import Img from './Img.astro';
+import type { ArticleIllustration } from '../data/article-illustrations';
+interface Props { illustration: ArticleIllustration }
+const { illustration } = Astro.props;
+---
+<figure class="p-article-figure" data-article-illustration>
+  <Img k={illustration.asset} alt={illustration.alt} sizes="(max-width: 900px) 90vw, 760px" widths={[480, 720, 960, 1280]} />
+  <figcaption>{illustration.caption}</figcaption>
+</figure>
