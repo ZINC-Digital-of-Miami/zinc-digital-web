@@ -110,24 +110,26 @@ export const cases: Case[] = [
   {
     slug: 'the-lampstand-va', title: 'The Lampstand VA', nonprofit: true,
     heroLabel: 'Nonprofit / Pro bono support',
-    line: 'Pro bono website support for a Virginia ministry serving people affected by sexual exploitation.',
+    line: 'Pro bono website updates, hosting and ongoing support for a Virginia ministry serving people affected by sexual exploitation.',
     url: 'https://www.thelampstandva.org/', layers: ['Build'],
+    relatedSites: [{ label: 'Night of Hope', url: 'https://www.thelampstandva.org/night-of-hope/' }],
     location: 'Roanoke & Southwest Virginia', timeline: 'Ongoing pro bono support',
-    scope: 'Website management · Ministry information · Community support',
+    scope: 'Ongoing site changes · Hosting · Night of Hope support · Pro bono website management',
     situation: 'The Lampstand serves people vulnerable to and affected by sexual exploitation through prevention education, professional training, wraparound services and a residential safehome. Its website helps families, professionals and supporters understand the ministry and find the right next step.',
     receipts: [],
     challenge: [
       'Families and referring professionals need clear information about available support.',
       'Schools, churches and community organizations need a way to learn about education and training.',
-      'Supporters need straightforward paths to current needs, volunteering and giving.'
+      'Supporters need straightforward paths to current needs, volunteering, giving and events such as Night of Hope.'
     ],
     approach: [
-      'We manage the website pro bono, supporting the ministry’s public presence and the information its community relies on.',
-      'Our support centers on the mission: helping people understand the programs and find ways to connect with the organization.',
-      'This is an ongoing community commitment, rooted in Kirk Musick’s lifelong friendship with Keith Farmer.'
+      'Our ongoing pro bono work includes website management, hosting and site changes that support the ministry’s day-to-day needs.',
+      'We support Night of Hope through website updates and event information, helping the community find the event and ways to take part.',
+      'We continue to update the site as programs, community needs and supporter information evolve. The support carries on beyond a single event or website launch.',
+      'This continuing commitment is rooted in Kirk Musick’s lifelong friendship with Keith Farmer and support for the ministry’s mission.'
     ],
     results: [], before: null, brand: [], quote: null,
-    work: { Build: 'Pro bono website management and support.', Demand: '', Intelligence: '' },
+    work: { Build: 'Ongoing pro bono website management, hosting, site changes and Night of Hope support.', Demand: '', Intelligence: '' },
     hero: 'lampstand-home', images: ['lampstand-home', 'lampstand-mobile'], services: [],
     next: 'straight-street-ministries'
   },
