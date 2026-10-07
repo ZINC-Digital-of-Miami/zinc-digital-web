@@ -126,5 +126,13 @@
   "article-tiktok-basics": {"src": "/articles/article-tiktok-basics.png", "width": 1536, "height": 1024},
   "article-meta-basics": {"src": "/articles/article-meta-basics.png", "width": 1536, "height": 1024},
   "article-ai-content-strategy": {"src": "/articles/article-ai-content-strategy.png", "width": 1536, "height": 1024},
-  "article-bi-basics": {"src": "/articles/article-bi-basics.png", "width": 1536, "height": 1024}
+  "article-bi-basics": {"src": "/articles/article-bi-basics.png", "width": 1536, "height": 1024},
+  "fusion-v16-dashboard": {"src":"/work/fusion-v16-dashboard.png","width":1672,"height":941},
+  "fusion-v16-strategy": {"src":"/work/fusion-v16-strategy.png","width":1295,"height":1215},
+  "fusion-v16-legislation": {"src":"/work/fusion-v16-legislation.png","width":1672,"height":941},
+  "fusion-v16-sentiment": {"src":"/work/fusion-v16-sentiment.png","width":1295,"height":1215},
+  "lampstand-home": {"src":"/work/lampstand-home.jpg","width":1265,"height":712},
+  "lampstand-mobile": {"src":"/work/lampstand-mobile.jpg","width":375,"height":812},
+  "straight-street-home": {"src":"/work/straight-street-home.jpg","width":1265,"height":712},
+  "straight-street-mobile": {"src":"/work/straight-street-mobile.jpg","width":375,"height":812}
 }

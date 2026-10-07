@@ -27,7 +27,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries'];
 const STATIC = ['', 'services', 'work', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
@@ -46,6 +46,15 @@ const { redirects } = await import(new URL('../src/data/redirects.ts', import.me
 const ALIAS_FILES = Object.keys(redirects).map((a) => a.replace(/^\/|\/$/g, '') + '/index.html');
 const extra = htmlFiles.filter((f) => !expected.includes(f) && f !== '404.html' && !ALIAS_FILES.includes(f));
 check(extra.length === 0, 'unexpected built pages: ' + extra.join(', '));
+// Separate the forecasting platform and nonprofit support from commercial case claims.
+const fusion = pages.find(p => p.rel === 'work/zinc-fusion-v16/index.html')?.html || '';
+check(fusion.includes('Chris Stacy') && fusion.includes('In development'), 'Fusion case must name Chris Stacy and its development status');
+check(!fusion.includes('zinc-fusion-v16.vercel.app'), 'Fusion case must not expose the unredacted live application');
+for (const slug of ['the-lampstand-va', 'straight-street-ministries']) {
+  const html = pages.find(p => p.rel === 'work/' + slug + '/index.html')?.html || '';
+  check(html.includes('Pro bono') && html.includes('Keith Farmer'), slug + ' must identify the nonprofit support relationship');
+  check(!html.includes('The layers in use.'), slug + ' must use the nonprofit presentation');
+}
 const SITE = 'https://www.zincdigital.co';
 const NOINDEX_PAGES = ['thanks/index.html', '404/index.html'];
 const readText = async (rel) => { try { return await readFile(path.join(distDir, rel), 'utf8'); } catch { return null; } };
@@ -177,7 +186,8 @@ for (const s of CASE_SLUGS) {
     check(p.html.includes('BI app in development') && p.html.includes('private client figures removed'), 'OUABC lacks BI status or privacy context');
   } else {
     check(p.html.includes('id="cOpen"') && p.html.includes('id="cHz"'), 'work/' + s + ' lacks the opener or screenshot scroller');
-    check(/\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks situation/approach');
+    const nonprofit = ['the-lampstand-va', 'straight-street-ministries'].includes(s);
+    check(nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
   }
 }
 // ---- blog ----

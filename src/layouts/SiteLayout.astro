@@ -64,7 +64,7 @@ if (t === 'author') {
   graph.push(person, {'@type':'ProfilePage', '@id':canonical+'#profile', url:canonical, name:author.name, mainEntity:{'@id':person['@id']}});
 }
 if (t === 'service') { const s = svcBy(route.slug!); graph.push({ '@type': 'Service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: 'US', url: canonical }, { '@type': 'FAQPage', mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
-if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: { '@type': 'Organization', name: c.title, url: c.url } }); }
+if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, url: c.url } }); }
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
