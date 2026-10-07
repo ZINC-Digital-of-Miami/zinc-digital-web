@@ -35,7 +35,7 @@ const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as R
 const pageLede = svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
 const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
 const titleCls = route.title.length > 34 ? 'long' : '';
-const revealHeader = t !== 'blog' && t !== 'article';
+const revealHeader = t !== 'blog' && t !== 'article' && t !== 'author';
 const layerGrid = layers.map((layer, i) => ({ layer, on: svc ? svc.layer === layer : true, label: pad(i) + ' / ' + (svc && svc.layer === layer ? 'Current layer' : 'Connected layer'), services: services.filter((s) => s.layer === layer) }));
 const dots = Array.from({ length: 144 }, (_, i) => ({ cls: (i * 7) % 13 === 0 ? 't' : '', delay: ((i % 12) * 0.12 + Math.floor(i / 12) * 0.08).toFixed(2) + 's' }));
 // case section numbering counts only rendered sections
