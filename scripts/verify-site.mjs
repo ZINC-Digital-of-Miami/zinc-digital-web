@@ -4,7 +4,7 @@
 // adapter has no `astro preview`), same budgets (15 KB gzip JS,
 // 3 same-origin woff2 + 1 preload, no underline, no overflow, no CLS from fonts), with the
 // preview-era assertions replaced by the redesign's invariants:
-//   - 43 pages (42 routes + 404), real SEO head, noindex ONLY on /thanks/ + 404
+//   - current public routes plus 404, real SEO head, noindex ONLY on /thanks/ + 404
 //   - light default (no OS drift), header toggle → dark, label "Dark mode"/"Light mode", persists across reload
 //   - cursor dot never uses mix-blend-mode:difference (no mauve tint over dark)
 //   - shell on every page (cursor/grain/progress), reduced motion honoured, mobile drawer at 375
@@ -33,11 +33,13 @@ const args = process.argv.slice(2);
 const option = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
 const mode = option('--mode', 'quick'); assert.ok(['quick', 'full'].includes(mode), 'mode must be quick or full');
 const root = process.cwd(); const out = path.join(root, '.scratch/verify-site');
-const posts = JSON.parse(await fs.readFile('src/data/posts.preview.json', 'utf8')).posts;
+const { authoredArticles } = await import('../src/data/article-library.ts');
+const { authors } = await import('../src/data/authors.ts');
+const posts = [...JSON.parse(await fs.readFile('src/data/posts.preview.json', 'utf8')).posts, ...authoredArticles.map(p => ({...p, blocks:[]}))];
 const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
 const caseSlugs = ['once-upon-a-book-club', 'us-oil-solutions', 'las-vegas-safety', 'summit-marine-development'];
-const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
-assert.equal(routes.length, 42, 'route inventory must be 42 (+404 = 43 pages)');
+const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
+assert.equal(routes.length, 24 + posts.length + authors.length, 'route inventory must include every public article and author');
 const NOINDEX = new Set(['/thanks/']);
 const JS_BUDGET = 15 * 1024;
 const SNOW = 'rgb(245, 246, 247)', NEAR_BLACK = 'rgb(10, 10, 11)';
@@ -171,7 +173,7 @@ try {
   const driverPath = matchedDriver(); result.chromedriver = driverPath;
   driver = await new Builder().forBrowser('chrome').setChromeOptions(opts).setChromeService(new chrome.ServiceBuilder(driverPath)).build();
   const axeSrc = await fs.readFile(axeMinPath, 'utf8');
-  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article']];
+  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article'], ['/blog/ga4-ecommerce-event-validation/', 'article'], ['/blog/ai-competitor-research-prompts/', 'article'], ['/blog/meta-ads-basics/', 'article'], ...authors.map(a=>['/authors/'+a.id+'/', 'author'])];
   for (const [route, template] of samples) for (const w of mode === 'full' ? [1440, 375] : [375, 1440]) {
     await load(route, w); const o = await observe();
     check(o.h1 && !o.overflow, route + '@' + w + ' overflow/h1'); check(o.underlines === 0, route + '@' + w + ' underlines ' + o.underlines);
@@ -179,6 +181,10 @@ try {
     check(o.cursorBlend !== 'difference' && o.hasGrain && o.hasProg, route + '@' + w + ' shell (cursor blend=' + o.cursorBlend + ')');
     check(w < 900 ? o.menuToggleVisible && !o.mnavVisible && !o.nlinksVisible : !o.menuToggleVisible && !o.mnavVisible && o.nlinksVisible, route + '@' + w + ' navigation');
     check(o.images.every((i) => i.ok && i.reserved), route + '@' + w + ' images: ' + JSON.stringify(o.images.filter((i) => !i.ok || !i.reserved).map((i) => i.src)));
+    if(template === 'article') {
+      const reading = await driver.executeScript('return {sources:document.querySelector("[data-article-sources]")?.querySelectorAll("a").length||0,illustrations:document.querySelectorAll("[data-article-illustration]").length,targets:[...document.querySelectorAll(".p-article-nav a")].every(a=>document.getElementById(a.hash.slice(1))),author:!!document.querySelector("[data-author-card]"),share:document.querySelector("[data-share-url]")?.dataset.shareUrl}');
+      check(reading.sources>0 && reading.illustrations===1 && reading.targets && reading.author && reading.share==='https://www.zincdigital.co'+route, route+' reading aids and canonical share URL');
+    }
     await finish(); await driver.executeScript(axeSrc); const audit = await driver.executeAsyncScript('const d=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>d({violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)}))}))');
     result.axe.push({ route, w, ...audit }); check(audit.violations.length === 0, route + '@' + w + ' axe ' + JSON.stringify(audit.violations));
     await capture((route === '/' ? 'home' : route.replace(/^\/|\/$/g, '').replaceAll('/', '--')) + '--' + w + '--light');
@@ -241,7 +247,7 @@ try {
   await load('/blog/', 375);
   for (const layer of ['Build', 'Demand', 'Intelligence', 'All']) { await driver.findElement(By.css('[data-filter="' + layer + '"]')).click(); const s = await driver.executeScript('return {count:document.querySelector("[data-result-count]").textContent,visible:Array.from(document.querySelectorAll("[data-blog-list] article")).filter(x=>x.getClientRects().length>0).map(x=>x.dataset.layer)}'); check(s.visible.length > 0 && s.visible.every((l) => layer === 'All' || l === layer), 'blog filter ' + layer); result.states.push({ filter: layer, ...s }); }
   await driver.findElement(By.css('[data-topic="seo"]')).click(); check(await driver.executeScript('const v=Array.from(document.querySelectorAll("[data-blog-list] article")).filter(x=>x.getClientRects().length>0); return v.length>0 && v.every(x=>x.dataset.topics.split(" ").includes("seo"))'), 'topic filter seo');
-  await driver.findElement(By.css('[data-filter="Intelligence"]')).click(); await driver.findElement(By.css('[data-topic="shopify"]')).click(); check(await driver.findElement(By.css('[data-empty]')).isDisplayed() && (await driver.executeScript('return Array.from(document.querySelectorAll("[data-blog-list] article")).every(x=>x.getClientRects().length===0)')), 'empty state shows and every card is hidden'); await driver.findElement(By.css('[data-clear-filter]')).click(); check((await driver.executeScript('return document.querySelector("[data-result-count]").textContent')) === '17 articles', 'clear filters → 17 articles');
+  await driver.findElement(By.css('[data-filter="Intelligence"]')).click(); await driver.findElement(By.css('[data-topic="local-seo"]')).click(); check(await driver.findElement(By.css('[data-empty]')).isDisplayed() && (await driver.executeScript('return Array.from(document.querySelectorAll("[data-blog-list] article")).every(x=>x.getClientRects().length===0)')), 'empty state shows and every card is hidden'); await driver.findElement(By.css('[data-clear-filter]')).click(); check((await driver.executeScript('return document.querySelector("[data-result-count]").textContent')) === (posts.length-1)+' articles', 'clear filters → full archive');
   check(((await (await fetch(base + '/blog/?layer=Build')).text()).length > 0), '?layer= query accepted');
   // contact: preselect (incl. hostile slugs), 3 steps with validation; the final send is not exercised
   for (const slug of [...slugs, 'unknown', '<img src=x onerror=alert(1)>', 'shopify&service=seo']) { const qv = slug === 'shopify&service=seo' ? slug : encodeURIComponent(slug); await load('/contact/?service=' + qv, 375); const sel = await driver.executeScript('return Array.from(document.querySelectorAll("[data-service]:checked")).map(x=>x.value)'); check(JSON.stringify(sel) === JSON.stringify(slugs.includes(slug) ? [slug] : []), 'preselect ' + slug); }

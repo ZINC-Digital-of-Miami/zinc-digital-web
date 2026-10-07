@@ -1,0 +1,10 @@
+---
+interface Props { auto?: boolean }
+const { auto=false } = Astro.props;
+---
+<section class="a-seo-report" data-seo-report data-seo-auto={auto?'true':undefined} aria-label="ZINC SEO analysis">
+  <div class="a-seo-report-head"><div><span class="a-label a-muted">ZINC / SEO analysis</span><h2 class="a-heading">Know what to fix.</h2></div><button class="a-button" type="button" data-analyze-seo>Analyze page ↗</button></div>
+  <p class="a-muted" data-seo-status role="status" aria-live="polite">Analyze the draft metadata, pillar links, images and live page structure.</p>
+  <div data-seo-results hidden><div class="a-seo-score"><strong data-seo-score></strong><div><span class="a-label" data-seo-grade></span><p class="a-muted" data-seo-summary></p></div></div><p class="a-count" data-seo-source></p><ul class="a-seo-checks" data-seo-checks></ul></div>
+  <p class="a-error" data-seo-error role="alert" hidden></p><p class="a-count">An optimization score, not a ranking prediction. Each check shows its weight; unavailable measurements earn no points.</p>
+</section>

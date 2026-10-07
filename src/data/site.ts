@@ -1,3 +1,5 @@
+import { authoredArticles } from './article-library.ts';
+import { authors, authorPath } from './authors.ts';
 // site.ts — the redesign's data layer. Replaces the parts of mockup.ts that the
 // Oct 2026 redesign changed (services copy, four cases, clients with logos,
 // case assets, layer copy, legal copy). posts.preview.json is untouched.
@@ -123,13 +125,16 @@ export type Post = Omit<(typeof snapshot.posts)[number], 'blocks'> & { blocks: B
 const articleMap: Record<number, { layer: Layer; related: string[]; excerpt: string }> = {
   56328:{layer:'Demand',related:['ai-search-optimization','seo'],excerpt:"AI search results are not a future footnote anymore. They are becoming part of the normal search experience: summaries, citations, follow-up answers, AI Overviews, AI Mode, generated comparisons, answer engines, and tools that can reason across multiple sources before a person ever clicks a blue link."},55980:{layer:'Demand',related:['shopping-ads','shopify'],excerpt:"Google Shopping usually breaks before the campaign ever gets interesting."},55886:{layer:'Demand',related:['seo','shopify'],excerpt:"Shopify gives stores a better technical starting point than a lot of custom ecommerce builds. It can create sitemaps, handle SSL, output canonical tags, support editable title tags…"},55722:{layer:'Demand',related:['seo','web-design'],excerpt:"SEO frameworks are useful until they become decorations."},55721:{layer:'Demand',related:['seo','web-design'],excerpt:"Technical SEO is where a lot of websites quietly lose."},55720:{layer:'Demand',related:['local-seo','seo'],excerpt:"Local SEO in 2026 is not an “ultimate guide” problem."},55719:{layer:'Demand',related:['seo','business-intelligence'],excerpt:"Most content marketing plans are calendars wearing a tiny strategy hat."},55718:{layer:'Build',related:['web-design','seo'],excerpt:"Web design trend lists are usually very pretty and not very helpful."},55717:{layer:'Demand',related:['seo','shopify'],excerpt:"Shopify SEO problems are rarely mysterious."},55716:{layer:'Demand',related:['google-search-ads','social-ads','seo'],excerpt:"Most channel-planning advice starts with a lie."},55715:{layer:'Demand',related:['seo','ai-search-optimization'],excerpt:"Most Google algorithm retrospectives are calendars."},55714:{layer:'Demand',related:['shopping-ads','shopify'],excerpt:"Most Shopify stores do not fail Google Merchant Center because the owner forgot to click one magic setup button."},55713:{layer:'Intelligence',related:['business-intelligence','google-search-ads'],excerpt:"When the economy gets tight, marketing gets interrogated."},55712:{layer:'Demand',related:['seo','business-intelligence'],excerpt:"Google algorithm updates do not need more hot takes."},55711:{layer:'Intelligence',related:['business-intelligence','seo'],excerpt:"Most teams open Google Search Console like it is a dashboard."},55710:{layer:'Demand',related:['seo','web-design'],excerpt:"Most answers to “how long does SEO take?” are too neat to be useful."},55709:{layer:'Demand',related:['seo','ai-search-optimization'],excerpt:"Most SEO trend posts are written like the calendar changed the algorithm."},55708:{layer:'Demand',related:['seo','web-design'],excerpt:"Duplicate content is usually not a penalty."},
 };
-export const posts: Post[] = snapshot.posts.map((p) => ({ ...p, blocks: p.blocks as Block[], ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt }));
+export const posts: Post[] = [
+  ...snapshot.posts.map((p) => ({ ...p, blocks: p.blocks as Block[], ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt })),
+  ...authoredArticles.map(p => ({ id:p.id, slug:p.slug, title:p.title, date:p.dateGmt, dateGmt:p.dateGmt, modified:p.dateGmt, modifiedGmt:p.dateGmt, link:'/blog/'+p.slug+'/', author:{id:p.authorId,name:p.authorName,description:authors.find(a=>a.name===p.authorName)?.bio||''}, blocks:[], markdown:p.markdown, layer:p.layer, related:p.related, excerpt:p.description } as unknown as Post)),
+].sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
 export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(new Date(date.endsWith('Z') ? date : date + 'Z'));
 // The Design's own excerpt when there is one; otherwise the first paragraph, cut at a word boundary.
 export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; const t = p.blocks.find((b) => b.type === 'p')?.runs?.map((r) => r.text).join('') || ''; return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
 
 // ---- routes ----
-export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'privacy' | 'terms' | '404';
+export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'privacy' | 'terms' | '404';
 export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; metaTitle?:string; metaDescription?:string; noindex?:boolean };
 const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra });
 export const routes: Route[] = [
@@ -143,6 +148,7 @@ export const routes: Route[] = [
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
+  ...authors.map(a => route(authorPath(a.id), 'author', a.name, {slug:a.id,metaTitle:'Articles by '+a.schemaName,metaDescription:a.bio})),
   route('/privacy/', 'privacy', 'Privacy'),
   route('/terms/', 'terms', 'Terms'),
 ];
@@ -156,7 +162,8 @@ export const pad = (i: number) => '0' + (i + 1);
 export const link = (path: string, query?: Record<string, string>) => path + (query ? '?' + new URLSearchParams(query) : '');
 
 export function describe(r: Route): string {
-  if (r.template === 'service') return svcBy(r.slug!).line;
+  if (r.metaDescription) return r.metaDescription;
+  if (r.template === 'service') return serviceDescriptions[r.slug!] || svcBy(r.slug!).line;
   if (r.template === 'case') return caseBy(r.slug!).line;
   if (r.template === 'article') return excerpt(posts.find((p) => p.slug === r.slug)!, 155);
   if (r.template === 'privacy' || r.template === 'terms') {
@@ -164,6 +171,18 @@ export function describe(r: Route): string {
   }
   return lede[r.template] || 'ZINC Digital';
 }
+const serviceDescriptions: Record<string,string> = {
+  shopify:'Shopify stores built around clear product pages, dependable checkout and catalog operations. ZINC connects storefront development with search and paid media.',
+  'web-design':'Custom websites with clear content, accessible navigation and fast page delivery. ZINC designs and develops the customer experience around the business.',
+  apps:'Operations apps for assignments, scheduling and fieldwork. ZINC builds interfaces that connect the people doing the work with the information they need.',
+  seo:'Technical SEO, useful content and internal links built around the pages your customers need. ZINC investigates search problems and verifies the repairs.',
+  'local-seo':'Local SEO for service businesses: listings, location pages and search visibility connected to real customer demand. Explore ZINC’s approach and case work.',
+  'google-search-ads':'Google Search campaigns built around customer intent, relevant landing pages and verified measurement. ZINC manages the account and the decisions behind it.',
+  'shopping-ads':'Google Shopping management that connects product feeds, availability and campaigns. ZINC checks the catalog and storefront before interpreting ad performance.',
+  'social-ads':'Meta paid social campaigns with creative, audience testing and verified measurement. ZINC connects campaign management with the customer experience.',
+  'tiktok-ads':'TikTok campaign management with platform-specific creative, testing and measurement. Explore how ZINC connects paid social with the wider marketing program.',
+  'business-intelligence':'Business reporting that connects commerce, search and paid media sources. ZINC builds dashboards and analysis around the decisions the business needs to make.',
+};
 export function ogKind(r: Route): string {
   if (r.template === 'service') return svcBy(r.slug!).layer.toLowerCase();
   if (r.template === 'article') return 'article';

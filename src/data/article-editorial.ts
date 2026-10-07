@@ -1,9 +1,11 @@
+import { authoredArticles } from './article-library.ts';
 /** Search presentation; article headings and source provenance stay in posts.preview.json. */
 export const articleEditorial: Record<string, {
   title: string;
   description: string;
   keywords: string[];
 }> = {
+  ...Object.fromEntries(authoredArticles.map(p => [p.slug, {title:p.title,description:p.description,keywords:p.keywords}])),
   "ai-search-results-and-generative-search-optimization": {
     "title": "AI Search Results: A Guide to Generative Search",
     "description": "Learn how AI search results find, interpret, and cite business information, and which content, technical, and measurement foundations deserve attention.",

@@ -1,0 +1,20 @@
+---
+import { SITE } from '../data/site';
+interface Props { path: string; title: string }
+const { path, title } = Astro.props;
+const url = SITE + path;
+const encoded = encodeURIComponent(url);
+const links = [
+  ['LinkedIn', 'https://www.linkedin.com/sharing/share-offsite/?url=' + encoded],
+  ['Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + encoded],
+  ['X', 'https://twitter.com/intent/tweet?url=' + encoded + '&text=' + encodeURIComponent(title)],
+];
+---
+<nav class="p-share" aria-label="Share this article" data-article-share data-share-url={url} data-share-title={title}>
+  <span class="lab">Share the article</span><div class="p-share-actions">{links.map(([name, href]) => <a href={href} target="_blank" rel="noopener noreferrer" aria-label={'Share on ' + name}>{name}<span aria-hidden="true">↗</span></a>)}<button type="button" data-copy-article hidden>Copy link<span aria-hidden="true">↗</span></button><button type="button" data-native-share hidden>Share<span aria-hidden="true">↗</span></button></div><p class="lab p-share-status" data-share-status role="status" aria-live="polite"></p>
+</nav>
+<script>
+  import { initArticleShare } from '../scripts/article-share';
+  initArticleShare();
+</script>
+

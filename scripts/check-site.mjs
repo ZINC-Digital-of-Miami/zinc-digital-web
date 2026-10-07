@@ -25,18 +25,21 @@ check(htmlFiles.length > 0, 'dist/ contains no built HTML files — run npm run 
 const pages = [];
 for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(distDir, rel), 'utf8') });
 
-// ---- expected route set: 43 HTML pages (42 routes + 404). Literal duplicate of site.ts on purpose: catches drift ----
+// ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development'];
 const STATIC = ['', 'services', 'work', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
-const POST_SLUGS = postsPreview.posts.map((p) => p.slug);
-check(POST_SLUGS.length === 18, 'posts.preview.json should hold 18 posts, found ' + POST_SLUGS.length);
+const { authoredArticles } = await import('../src/data/article-library.ts');
+const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
+const POST_SLUGS = [...postsPreview.posts, ...authoredArticles].map((p) => p.slug);
+check(postsPreview.posts.length === 18, 'posts.preview.json should preserve the 18 migrated posts');
 const expected = [
   ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
   ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
   ...CASE_SLUGS.map((s) => 'work/' + s + '/index.html'),
   ...POST_SLUGS.map((s) => 'blog/' + s + '/index.html'),
+  ...authors.map((a) => 'authors/' + a.id + '/index.html'),
 ];
 for (const e of expected) check(htmlFiles.includes(e) || htmlFiles.includes(e.replace('404/index.html', '404.html')), 'missing built page: ' + e);
 const { redirects } = await import(new URL('../src/data/redirects.ts', import.meta.url).href);
@@ -113,7 +116,14 @@ for (const { rel, html } of pages) {
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
   if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
-  if (rel.startsWith('blog/') && rel !== 'blog/index.html') { const a = ld.find((x) => x['@type'] === 'Article'); check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && Object.keys(a.author).every((k) => k === '@type' || k === 'name') && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' Article JSON-LD author must be a Person (name only), or an Organization for Team ZINC: ' + JSON.stringify(a?.author)); }
+  if (rel.startsWith('blog/') && rel !== 'blog/index.html') {
+    const a = ld.find((x) => x['@type'] === 'Article');
+    const profile = a?.author?.name && authorFor(a.author.name);
+    check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' has an inaccurate Article author');
+    if (profile) check(a.author.url === SITE + authorPath(profile.id) && a.author['@id'] === SITE + authorPath(profile.id) + '#person' && a.author.name === profile.schemaName, rel + ' author must reference the correct profile');
+    check(/T\d\d:\d\d:\d\d(?:Z|[+-]\d\d:\d\d)$/.test(a?.datePublished || '') && /T\d\d:\d\d:\d\d(?:Z|[+-]\d\d:\d\d)$/.test(a?.dateModified || ''), rel + ' Article dates require a timezone');
+  }
+  if (rel.startsWith('authors/')) check(types.includes('Person') && types.includes('ProfilePage'), rel + ' lacks Person/ProfilePage structured data');
   const hasNoindex = /<meta name="robots" content="[^"]*noindex/.test(html);
   check(hasNoindex === NOINDEX_OK.has(rel), rel + (hasNoindex ? ' is noindex but should be indexable' : ' must be noindex'));
   check(html.includes('id="themeToggle"') && /<span data-theme-label>Dark mode<\/span>/.test(html), rel + ' is missing the light/dark toggle with its "Dark mode" label');
@@ -172,12 +182,15 @@ for (const s of CASE_SLUGS) {
 }
 // ---- blog ----
 const blog = pages.find((p) => p.rel === 'blog/index.html');
-if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === 17, 'blog/index.html should list 17 cards (18 posts minus the featured one)'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
+if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === POST_SLUGS.length - 1, 'blog/index.html should list every post except the featured one'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
 const articleSocialImages = new Set();
 for (const s of POST_SLUGS) {
   const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
   if (!p) continue;
-  check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*<p class="first">/.test(p.html), 'blog/' + s + ' does not render the article body');
+  check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*?<p(?: class="first")?>/.test(p.html), 'blog/' + s + ' does not render the article body');
+  check(p.html.includes('data-article-sources') && p.html.includes('id="article-sources-title"'), 'blog/' + s + ' lacks bottom source links');
+  check(p.html.includes('data-article-illustration'), 'blog/' + s + ' lacks a supporting illustration');
+  check(p.html.includes('aria-label="Share this article"') && p.html.includes('data-author-card') && p.html.includes('data-share-url="' + SITE + '/blog/' + s + '/"'), 'blog/' + s + ' lacks sharing or author attribution');
   check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');
   check(/<nav class="p-reading" aria-label="Related articles">/.test(p.html), 'blog/' + s + ' lacks a published reading path');
   const social = p.html.match(/property="og:image" content="([^"]+)"/)?.[1];

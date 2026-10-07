@@ -1,6 +1,12 @@
 ---
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
+import AuthorCard from './AuthorCard.astro';
+import ArticleShare from './ArticleShare.astro';
+import ArticleSources from './ArticleSources.astro';
+import ArticleIllustration from './ArticleIllustration.astro';
+import { articleIllustrations } from '../data/article-illustrations';
+import { authors, authorFor, authorPath } from '../data/authors';
 import OUABCCase from './OUABCCase.astro';
 import ClientLogos from './ClientLogos.astro';
 import CasePresentations from './CasePresentations.astro';
@@ -13,20 +19,23 @@ import { services, cases, layers, layerMeta, contract, readout, team, sequence, 
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
 const {posts}=await (await import('../lib/content')).loadPublished();
-const {renderMarkdown}=await import('../lib/markdown');
+const {renderArticleMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
 const serviceCase = svc ? caseBy(svc.caseSlug) : null;
 const serviceProofAssets: Record<string, string> = { apps: 'uos-current-technicians-desktop', 'business-intelligence': 'ouabc-bi-ads-current', 'shopping-ads': 'ouabc-shopping-creative-2024', 'social-ads': 'ouabc-halloween-campaign-square', 'tiktok-ads': 'ouabc-bridgerton-campaign-product' };
 const serviceProof = svc && serviceCase ? serviceProofAssets[svc.slug] || serviceCase.hero : null;
 const study = t === 'case' ? caseBy(route.slug!) : null;
+const profile = t === 'author' ? authors.find(a=>a.id===route.slug)! : null;
+const authorPosts = profile ? posts.filter(p=>authorFor(p.author.name)?.id===profile.id) : [];
 const post = t === 'article' ? posts.find((p) => p.slug === route.slug)! : null;
+const postAuthor = post ? authorFor(post.author.name) : undefined;
 const urlLabel = 'zincdigital.co' + route.path;
 const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as Record<string, string>)[t] || t);
 const pageLede = svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
 const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
 const titleCls = route.title.length > 34 ? 'long' : '';
-const revealHeader = t !== 'blog' && t !== 'article';
+const revealHeader = t !== 'blog' && t !== 'article' && t !== 'author';
 const layerGrid = layers.map((layer, i) => ({ layer, on: svc ? svc.layer === layer : true, label: pad(i) + ' / ' + (svc && svc.layer === layer ? 'Current layer' : 'Connected layer'), services: services.filter((s) => s.layer === layer) }));
 const dots = Array.from({ length: 144 }, (_, i) => ({ cls: (i * 7) % 13 === 0 ? 't' : '', delay: ((i % 12) * 0.12 + Math.floor(i / 12) * 0.08).toFixed(2) + 's' }));
 // case section numbering counts only rendered sections
@@ -110,8 +119,15 @@ const presentedAssets = new Set(study ? casePresentations[study.slug]?.frames.ma
 const websiteImages = study?.slug === 'us-oil-solutions' ? study.images.filter(k => k.startsWith('uos-second-site-')) : [];
 const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k)) || [];
 const brandImages = study?.brand.filter(k => !presentedAssets.has(k)) || [];
-const articleSections = post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || [];
+const markdownArticle = post?.markdown !== undefined ? renderArticleMarkdown(post.markdown) : undefined;
+const articleSections = (markdownArticle?.sections || post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || []).map(section => ({...section,label:section.label.replace(/^(?:Step )?\d+[.:]\s+/, '')}));
 const articleImage = post ? articleImages[post.slug] : undefined;
+const supportingIllustration = post ? articleIllustrations[post.slug] : undefined;
+const markdownHeadings = markdownArticle ? [...markdownArticle.html.matchAll(/<h[2-6] id=/g)] : [];
+const illustrationOffset = markdownHeadings[Math.floor(markdownHeadings.length / 2)]?.index ?? markdownArticle?.html.length ?? 0;
+const markdownParts = markdownArticle ? [markdownArticle.html.slice(0, illustrationOffset), markdownArticle.html.slice(illustrationOffset)] : [];
+const blockHeadings = post?.blocks.flatMap((block, i) => block.type === 'heading' ? [i] : []) || [];
+const illustrationBlock = blockHeadings[Math.floor(blockHeadings.length / 2)] ?? Math.floor((post?.blocks.length || 0) / 2);
 const articlePillar = post ? pillarFor(post.slug) : undefined;
 const publishedPillar = articlePillar && posts.find(p => p.slug === articlePillar.slug);
 const nextArticles = post ? readingPath(post.slug, posts) : [];
@@ -137,7 +153,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
       <hr class="rule" />
       <h1 class:list={['disp p-title', titleCls, { rv: revealHeader }]}>{route.title}</h1>
       {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
-      {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{meta}</p>}
+      {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
       {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
   </section>
@@ -226,13 +242,16 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   <section class="p-band"><div class="wrap p-article">
     <aside class="p-aside rv"><div class="p-article-date"><p class="lab">Published</p><p class="p-muted">{dateLabel(post.dateGmt)}</p></div>{articleSections.length > 0 && <nav class="p-article-nav" aria-label="Article sections"><details><summary>In this article</summary><ol>{articleSections.map((section) => <li><a href={'#' + section.id}>{section.label}</a></li>)}</ol></details></nav>}<a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles ↗</a></aside>
     <article class="p-prose rv" data-source-id={post.id}>
-      {post.markdown!==undefined && <div set:html={renderMarkdown(post.markdown)} />}
-      {post.blocks.map((block, i) => hasComparison && i > comparisonIndex && i <= comparisonIndex + 8 ? null : hasComparison && i === comparisonIndex ? <div class="p-comparison"><table><caption>The Bottleneck Test</caption><thead><tr>{comparisonHeader.split(' · ').map(label => <th scope="col">{label}</th>)}</tr></thead><tbody>{comparisonRows.map(row => <tr><th scope="row">{row[0]}</th><td data-label="If the answer is no">{row[1]}</td><td data-label="Likely bottleneck">{row[2]}</td></tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>)}
+      {markdownArticle && <><div set:html={markdownParts[0]} />{supportingIllustration && <ArticleIllustration illustration={supportingIllustration} />}<div set:html={markdownParts[1]} /></>}
+      {post.blocks.map((block, i) => <>{supportingIllustration && i === illustrationBlock && <ArticleIllustration illustration={supportingIllustration} />}{hasComparison && i > comparisonIndex && i <= comparisonIndex + 8 ? null : hasComparison && i === comparisonIndex ? <div class="p-comparison"><table><caption>The Bottleneck Test</caption><thead><tr>{comparisonHeader.split(' · ').map(label => <th scope="col">{label}</th>)}</tr></thead><tbody>{comparisonRows.map(row => <tr><th scope="row">{row[0]}</th><td data-label="If the answer is no">{row[1]}</td><td data-label="Likely bottleneck">{row[2]}</td></tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>}</>)}
+      <ArticleSources post={post} />
     </article>
     {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articlePillar?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedPillar && articlePillar?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedPillar.slug + '/'}>{articlePillar?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></nav>}
   </div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Author</span><h2 class="disp p-sec">{post.author.name}</h2>{post.author.description && <p class="p-muted" style="margin:16px 0 0">{post.author.description}</p>}</div><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></section>
+  <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><div class="p-split p-author-services"><AuthorCard name={post.author.name} description={post.author.description}/><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span><span aria-hidden="true">↗</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles ↗</a></div></div></div></section>
 </>)}
+
+{profile && <section class="p-band thin"><div class="wrap"><div class="p-author-profile"><Img k={profile.photo} alt={profile.schemaName} sizes="(max-width: 700px) 120px, 220px" loading="eager" fetchpriority="high" decoding="sync"/><div><span class="lab">{profile.role}</span><p class="p-body">{profile.bio}</p><p class="lab p-muted">{profile.topics}</p></div></div><h2 class="disp p-sec">Articles by {profile.schemaName.split(' ')[0]}.</h2>{authorPosts.length ? <div class="p-articles">{authorPosts.map(p=><article class="p-art">{articleImages[p.slug] && <a class="p-art-image" href={'/blog/'+p.slug+'/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px"/></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h3><a href={'/blog/'+p.slug+'/'}>{p.title}</a></h3><p>{excerpt(p)}</p><a class="arrow" href={'/blog/'+p.slug+'/'}>Read the article ↗</a></article>)}</div> : <p class="p-muted">New articles are being prepared.</p>}</div></section>}
 
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
