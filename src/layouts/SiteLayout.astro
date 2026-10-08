@@ -16,6 +16,7 @@ import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/site.css';
+import '../styles/studio.css';
 import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route }
@@ -120,7 +121,7 @@ const showCta = t !== 'work' && t !== 'home' && t !== 'contact' && t !== 'thanks
       <header class="nav">
         <div class="wrap nav-in">
           <i class="sprog" id="zsProg" aria-hidden="true"></i>
-          <a class="nav-logo" href="/" aria-label="ZINC home">{(t === 'work' || t === 'home') ? <span class="wl-shell-wordmark">ZINC<i>.</i></span> : <img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} fetchpriority="high" />}</a>
+          <a class="nav-logo" href="/" aria-label="ZINC home"><span class="wl-shell-wordmark">ZINC<i>.</i></span></a>
           <nav class="nlinks" aria-label="Main navigation">
             <a class={navOn('work')} href="/work/" aria-current={t === 'work' ? 'page' : undefined}>Work</a>
             <a class={navOn('services')} href="/services/" aria-current={t === 'services' ? 'page' : undefined}>Services</a>
