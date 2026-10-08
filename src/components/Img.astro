@@ -24,6 +24,8 @@ const local = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,
 const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', widths: requestedWidths, quality, decoding = 'async', cover } = Astro.props;
 const a = asset(k);
 const file = local['../assets' + a.src]?.default;
+// Portfolio screens retain fine UI text; the owner prioritizes image clarity over a small load-time saving.
+const imageQuality = quality ?? (a.src.startsWith('/work/') ? 95 : undefined);
 const widths = file ? [...new Set([...(requestedWidths || [480, 960, 1440, 1920]), file.width].filter((w) => w <= file.width))] : [];
 // A cover box H vh tall shows the image at H vh × aspect wide, or 100vw once the screen is wider than that.
 const coverWidth = cover && file ? Math.ceil((cover * file.width) / file.height) : 0;
@@ -31,8 +33,8 @@ const imgSizes = coverWidth ? `(min-aspect-ratio: ${coverWidth}/100) 100vw, ${co
 // A portrait phone only shows the centre of a wide cover image. A square crop retains the original
 // image's full height and the same visible centre, while avoiding a download of the off-screen sides.
 const croppedCover = file && cover && file.width > file.height;
-const mobileCover = croppedCover ? await Promise.all(['avif', 'webp'].map(format => getImage({src:file,format,width:Math.min(file.height,1440),height:Math.min(file.height,1440),fit:'cover',position:'center'}))) : [];
-const wideCover = croppedCover ? await Promise.all(['avif', 'webp'].map(format => getImage({src:file,format,widths,sizes:imgSizes}))) : [];
+const mobileCover = croppedCover ? await Promise.all(['avif', 'webp'].map(format => getImage({src:file,format,width:Math.min(file.height,1440),height:Math.min(file.height,1440),fit:'cover',position:'center',quality:imageQuality}))) : [];
+const wideCover = croppedCover ? await Promise.all(['avif', 'webp'].map(format => getImage({src:file,format,widths,sizes:imgSizes,quality:imageQuality}))) : [];
 // getImage supplies lazy loading by default. Spread only dimensions so the explicit hero loading
 // attribute is not duplicated (HTML parsers honor the first duplicate, leaving a hero lazy).
 const wideDimensions = croppedCover ? {width:wideCover[1].attributes.width,height:wideCover[1].attributes.height} : {};
@@ -44,7 +46,7 @@ const wideDimensions = croppedCover ? {width:wideCover[1].attributes.width,heigh
     <img {...wideDimensions} src={wideCover[1].src} srcset={wideCover[1].srcSet.attribute} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
   </picture>
 ) : file ? (
-  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} quality={quality} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
+  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} quality={imageQuality} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 ) : (
   <img src={a.src} alt={alt} class={cls} id={id} width={a.width} height={a.height} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 )}

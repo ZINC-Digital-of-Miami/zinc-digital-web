@@ -40,7 +40,7 @@ const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[po
 const laneImages = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*-hero.png', { eager: true });
 const laneHero = t === 'home' || t === 'work' ? laneImages['../assets/lanes/' + (t === 'home' ? 'build' : (route.layer || 'Build').toLowerCase()) + '-hero.png']?.default : undefined;
 const heroFile = laneHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: laneHero ? [480, 768, 1100, 1536] : [480, 720, 960, 1280, heroFile.width].filter(width => width <= heroFile.width), format: 'avif', ...(laneHero ? {quality:88} : {}) }) : undefined;
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: laneHero ? [480, 768, 1536] : [480, 720, 960, 1280, heroFile.width].filter(width => width <= heroFile.width), format: 'avif', ...(laneHero ? {quality:95} : {}) }) : undefined;
 const heroSizes = laneHero ? '(max-width: 700px) 100vw, 75vw' : '(max-width: 900px) 90vw, ' + (t === 'blog' ? '600px' : '1100px');
 const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
 const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');

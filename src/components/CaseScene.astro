@@ -6,7 +6,7 @@ const { name, alt, caption } = Astro.props;
 const scenes = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*.png', { eager: true });
 ---
 <figure class="case-scene">
-  <Picture src={scenes['../assets/lanes/'+name+'.png'].default} formats={['avif','webp']} widths={[480,768,1100,1536]} quality={88} sizes="(max-width: 700px) 100vw, 90vw" loading="lazy" alt={alt} />
+  <Picture src={scenes['../assets/lanes/'+name+'.png'].default} formats={['avif','webp']} widths={[480,768,1100,1536]} quality={95} sizes="(max-width: 700px) 100vw, 90vw" loading="lazy" alt={alt} />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
 <style>

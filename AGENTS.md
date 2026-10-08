@@ -21,6 +21,7 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
   - Never "GEO" for generative search.
 - **Performance:** LCP ≤ 1.2 s, CLS 0, INP < 100 ms, and at most 15 KB gzip first-party JavaScript per page.
   - Owner, 6 Oct 2026: approximately 1.5-second mobile loading is accepted for the illustrated articles and archive. Preserve the approved image resolution and quality; do not reduce them to chase the 1.2-second target.
+  - Owner, 8 Oct 2026: prioritize image resolution and visible clarity over roughly half a second of load-time savings. Inspect for pixelation; preserve approved mockup compositions and use higher-density source captures where available. Do not lower image quality solely to chase the timing target.
   - Lighthouse runs and reports, but a score below 100 never fails a check.
   - The Google tag loads asynchronously and is counted separately (owner, 4 Oct 2026).
   - Accessibility: WCAG 2.2 AA.
