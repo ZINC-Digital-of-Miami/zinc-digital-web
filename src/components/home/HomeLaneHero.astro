@@ -1,0 +1,44 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { laneNames, workLanes } from '../../data/work-lanes';
+import '../../styles/work-lanes.css';
+const art = import.meta.glob<{ default: ImageMetadata }>('../../assets/lanes/*-hero.png', { eager: true });
+---
+<section class="home-lane-hero" id="hero" aria-label="ZINC services and selected work" aria-roledescription="carousel" data-home-lanes>
+  <h1 class="home-carousel-title">Other agencies deliver the scope. ZINC delivers the business.</h1>
+  <div class="home-lane-controls wrap">
+    <div role="tablist" aria-label="Choose a service lane">{laneNames.map((name,i)=><button role="tab" id={'home-tab-'+i} aria-controls={'home-slide-'+i} aria-selected={i===0} tabindex={i===0?0:-1} type="button" data-home-tab={i}>{name}</button>)}</div>
+    <button type="button" data-carousel-pause hidden>Pause rotation <span aria-hidden="true">Ⅱ</span></button>
+  </div>
+  <div class="home-lane-slides">
+    {laneNames.map((name,i)=><div class:list={['work-lane','work-lane--'+name.toLowerCase()]} id={'home-slide-'+i} role="tabpanel" aria-labelledby={'home-tab-'+i} hidden={i!==0} data-home-slide>
+      <div class:list={['wl-opening',{'wl-dark':name!=='Demand'}]}><div class="wl-hero wrap">
+        <div class="wl-hero-copy"><p class="wl-eyebrow">ZINC / {name==='Build'?'Digital experiences':name==='Demand'?'Search + campaigns':'Business intelligence'}</p><h2>{name}<span>.</span></h2><p class="wl-lede">{workLanes[name].line}</p><a class="wl-explore" href={workLanes[name].path}>Explore {name.toLowerCase()} <span aria-hidden="true">↗</span></a>{name==='Intelligence'&&<span class="wl-hero-status">Featuring applications in development</span>}</div>
+        <div class="wl-hero-art"><Picture src={art['../../assets/lanes/'+name.toLowerCase()+'-hero.png'].default} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 75vw" quality={95} loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'low'} alt={name==='Build'?'Bear Claw and Once Upon a Book Club websites in desktop, tablet and phone devices.':name==='Demand'?'Book Club creative, Summit Marine advertising and search in a campaign composition.':'OUABC BI Fusion and ZINC Fusion forecasting in a reporting device composition.'} /></div>
+      </div></div>
+    </div>)}
+  </div>
+  <div class="home-positioning wrap"><p>Other agencies deliver the scope.<br/><strong>ZINC delivers the business<span>.</span></strong></p><a href="/contact/">Start an inquiry <span aria-hidden="true">↗</span></a></div>
+</section>
+<style>
+.home-lane-hero{background:var(--color-near-black);color:var(--color-snow)}.home-carousel-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.home-lane-controls{display:flex;justify-content:space-between;align-items:center;min-height:72px;border-bottom:1px solid var(--color-line-dark);gap:15px}.home-lane-controls [role=tablist]{display:flex;gap:38px}.home-lane-controls button{font:11px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.07em;background:none;border:0;color:var(--color-snow);min-height:55px;padding:12px 0;cursor:pointer}.home-lane-controls [aria-selected=true]{box-shadow:0 -2px var(--color-teal) inset}.home-lane-controls button:focus-visible{outline:2px solid var(--color-teal);outline-offset:5px}.home-lane-controls [data-carousel-pause]{color:var(--color-gray-on-dark);font-size:10px}.home-lane-controls [data-carousel-pause] span{margin-left:15px;color:var(--color-teal)}.home-lane-slides{display:grid;grid-template-columns:minmax(0,1fr)}.home-lane-slides>div{grid-area:1/1;min-width:0}.home-lane-slides>div[hidden]{display:block!important;visibility:hidden;pointer-events:none}.home-lane-slides :global(.wl-hero-copy){padding-bottom:60px}.home-lane-slides :global(.wl-hero h2){font:800 clamp(100px,16vw,240px)/.96 var(--fd);text-transform:uppercase;letter-spacing:-.018em;margin:30px 0 20px}.home-lane-slides :global(.wl-hero h2 span){color:var(--color-teal)}.home-lane-slides :global(.work-lane--demand .wl-hero h2){font-size:clamp(86px,12vw,180px)}.home-lane-slides :global(.work-lane--intelligence .wl-hero h2){font-size:clamp(70px,8.5vw,130px)}.home-positioning{display:flex;justify-content:space-between;align-items:center;gap:30px;padding-top:35px;padding-bottom:35px;border-top:1px solid var(--color-line-dark)}.home-positioning p{font:400 clamp(18px,2.3vw,28px)/1.5 var(--fb);margin:0;color:var(--color-gray-on-dark)}.home-positioning strong{font-weight:600;color:var(--color-snow)}.home-positioning strong span{color:var(--color-teal)}.home-positioning a{color:var(--color-snow);font:12px/1.5 var(--fm);min-height:44px;display:flex;align-items:center;gap:20px;border-bottom:1px solid var(--color-teal)}
+@media(max-width:700px){.home-lane-controls [role=tablist]{gap:22px}.home-lane-controls button{font-size:10px}.home-lane-controls [data-carousel-pause]{font-size:9px;max-width:70px}.home-lane-controls [data-carousel-pause] span{display:none}.home-lane-slides :global(.wl-hero h2),.home-lane-slides :global(.work-lane--demand .wl-hero h2){font-size:clamp(86px,23vw,155px);margin:20px 0 15px}.home-lane-slides :global(.work-lane--intelligence .wl-hero h2){font-size:clamp(42px,13.8vw,90px)}.home-lane-slides :global(.wl-hero-copy){padding-bottom:0}.home-positioning{align-items:flex-start;flex-direction:column;gap:15px}.home-positioning p{font-size:19px}}
+</style>
+<script>
+  const root=document.querySelector<HTMLElement>('[data-home-lanes]');
+  if(root){
+    const tabs=[...root.querySelectorAll<HTMLButtonElement>('[data-home-tab]')];
+    const slides=[...root.querySelectorAll<HTMLElement>('[data-home-slide]')];
+    const pause=root.querySelector<HTMLButtonElement>('[data-carousel-pause]')!;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    let active=0,paused=reduced.matches,timer:ReturnType<typeof setInterval>|undefined;
+    const show=(i:number)=>{active=(i+slides.length)%slides.length;slides.forEach((slide,n)=>slide.hidden=n!==active);tabs.forEach((tab,n)=>{tab.setAttribute('aria-selected',String(n===active));tab.tabIndex=n===active?0:-1;});};
+    const stop=()=>{if(timer)clearInterval(timer);timer=undefined;};
+    const start=()=>{stop();if(!paused&&!document.hidden&&!root.matches(':hover')&&!root.contains(document.activeElement))timer=setInterval(()=>show(active+1),7000);};
+    const label=()=>{pause.textContent=paused?'Play rotation ▶':'Pause rotation Ⅱ';};
+    tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>{show(i);paused=true;label();stop();});tab.addEventListener('keydown',event=>{const index=event.key==='ArrowRight'?i+1:event.key==='ArrowLeft'?i-1:event.key==='Home'?0:event.key==='End'?tabs.length-1:null;if(index!==null){event.preventDefault();show(index);tabs[active].focus();}});});
+    pause.hidden=false;label();pause.addEventListener('click',()=>{paused=!paused;label();start();});
+    root.addEventListener('mouseenter',stop);root.addEventListener('mouseleave',start);root.addEventListener('focusin',stop);root.addEventListener('focusout',()=>setTimeout(start,0));document.addEventListener('visibilitychange',start);reduced.addEventListener('change',()=>{paused=reduced.matches;label();start();});start();
+  }
+</script>

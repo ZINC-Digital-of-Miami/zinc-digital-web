@@ -4,6 +4,8 @@
 // Body: header with theme toggle, mobile nav row, <slot/>, CTA band, footer,
 // then the shell script (theme, cursor, grain, progress, reveal, pins, magnetic).
 import Img from '../components/Img.astro';
+import LaneFooter from '../components/LaneFooter.astro';
+import { workLanes } from '../data/work-lanes';
 import {analyticsEnabled, googleTagScript} from '../lib/analytics';
 import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -14,6 +16,7 @@ import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/site.css';
+import '../styles/studio.css';
 import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route }
@@ -34,9 +37,11 @@ const articleImage = t === 'article' ? articleImages[route.slug!] : undefined;
 const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/articles/*.{png,jpg,jpeg,webp}', { eager: true });
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
-const heroFile = heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined;
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: [480, 720, 960, 1280, heroFile.width].filter(width => width <= heroFile.width), format: 'avif' }) : undefined;
-const heroSizes = '(max-width: 900px) 90vw, ' + (t === 'blog' ? '600px' : '1100px');
+const laneImages = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*-hero.png', { eager: true });
+const laneHero = t === 'home' || t === 'work' ? laneImages['../assets/lanes/' + (t === 'home' ? 'build' : (route.layer || 'Build').toLowerCase()) + '-hero.png']?.default : undefined;
+const heroFile = laneHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: laneHero ? [480, 768, 1536] : [480, 720, 960, 1280, heroFile.width].filter(width => width <= heroFile.width), format: 'avif', ...(laneHero ? {quality:95} : {}) }) : undefined;
+const heroSizes = laneHero ? '(max-width: 700px) 100vw, 75vw' : '(max-width: 900px) 90vw, ' + (t === 'blog' ? '600px' : '1100px');
 const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
 const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');
 const socialAlt = articleImage?.alt || 'ZINC Digital — ' + route.title;
@@ -68,7 +73,7 @@ if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'Creati
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
-const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
+const showCta = t !== 'work' && t !== 'home' && t !== 'contact' && t !== 'thanks';
 ---
 <html lang="en" data-theme="light">
   <head>
@@ -116,7 +121,7 @@ const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
       <header class="nav">
         <div class="wrap nav-in">
           <i class="sprog" id="zsProg" aria-hidden="true"></i>
-          <a class="nav-logo" href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} fetchpriority="high" /></a>
+          <a class="nav-logo" href="/" aria-label="ZINC home"><span class="wl-shell-wordmark">ZINC<i>.</i></span></a>
           <nav class="nlinks" aria-label="Main navigation">
             <a class={navOn('work')} href="/work/" aria-current={t === 'work' ? 'page' : undefined}>Work</a>
             <a class={navOn('services')} href="/services/" aria-current={t === 'services' ? 'page' : undefined}>Services</a>
@@ -158,8 +163,9 @@ const showCta = t !== 'home' && t !== 'contact' && t !== 'thanks';
         </section>
       )}
 
+      <LaneFooter next={t === 'work' ? workLanes[route.layer || 'Build'].next : 'Build'} label={t === 'work' ? 'Next:' : 'Explore:'} />
       <footer class="foot">
-        {t !== 'thanks' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
+        {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">

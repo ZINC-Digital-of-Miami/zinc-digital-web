@@ -1,0 +1,100 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Img from './Img.astro';
+import { caseBy } from '../data/site';
+import { laneNames, workLanes, projectLink, type WorkLane } from '../data/work-lanes';
+import '../styles/work-lanes.css';
+interface Props { lane: WorkLane }
+const { lane } = Astro.props;
+const data = workLanes[lane];
+const art = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*.png', { eager: true });
+const scene = (name: string) => art['../assets/lanes/' + name + '.png'].default;
+const features = data.projects.filter(p => p.scene);
+const cards = data.projects.filter(p => !p.scene && !p.community);
+const community = data.projects.filter(p => p.community);
+const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Explore the demand work' : 'Explore the intelligence work';
+---
+<div class:list={['work-lane', 'work-lane--' + lane.toLowerCase()]} data-work-lane={lane}>
+  <section class:list={['wl-opening', { 'wl-dark': lane !== 'Demand' }]} aria-labelledby="lane-title">
+    <nav class="wl-nav wrap" aria-label="Work by service lane">
+      <div>{laneNames.map(name => <a href={workLanes[name].path} aria-current={name === lane ? 'page' : undefined}>{name}</a>)}</div>
+      <span class="wl-nav-note">Selected work <i aria-hidden="true"></i></span>
+    </nav>
+    <div class="wl-hero wrap">
+      <div class="wl-hero-copy">
+        <p class="wl-eyebrow">ZINC / {lane === 'Build' ? 'Digital experiences' : lane === 'Demand' ? 'Search + campaigns' : 'Business intelligence'}</p>
+        <h1 id="lane-title">{lane}<span>.</span></h1>
+        <p class="wl-lede">{data.line}</p>
+        <a class="wl-explore" href="#lane-projects">Explore the work <span aria-hidden="true">↓</span></a>
+        {lane === 'Intelligence' && <span class="wl-hero-status">Featuring applications in development</span>}
+      </div>
+      <div class="wl-hero-art">
+        <Picture src={scene(lane.toLowerCase() + '-hero')} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 75vw" quality={95} loading="eager" fetchpriority="high" decoding="sync" alt={lane === 'Build' ? 'Bear Claw website and Once Upon a Book Club storefront in a laptop, tablet and phone studio composition.' : lane === 'Demand' ? 'Book Club campaign creative, Summit Marine dock advertising and a search presentation in devices.' : 'Fusion forecasting and Book Club reporting applications in a desktop and tablet composition.'} />
+      </div>
+    </div>
+  </section>
+  <div class="wl-filterbar" id="lane-projects">
+    <div class="wrap wl-filter-inner">
+      <div class="wl-filters" role="group" aria-label={'Filter ' + lane + ' projects'} hidden data-lane-filters>
+        {data.filters.map((label, i) => <button type="button" data-lane-filter={i === 0 ? 'all' : label} aria-pressed={i === 0}>{label}</button>)}
+      </div>
+      <span class="wl-count" data-lane-count aria-live="polite">{data.projects.length} projects</span>
+    </div>
+  </div>
+  {features.map(project => <section class:list={['wl-feature', { 'wl-dark': project.dark }]} data-lane-project data-categories={project.category.join('|')}>
+    <div class="wrap wl-feature-grid">
+      <div class="wl-project-copy rv">
+        <p class="wl-eyebrow">{project.label}</p>
+        <h2>{caseBy(project.slug).title}</h2>
+        <p>{project.summary}</p>
+        {project.status && <span class="wl-status">{project.status}</span>}
+        <a class="wl-project-link" href={project.href || projectLink(project.slug,lane)}>{action} <span aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="wl-feature-art rv">
+        <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={caseBy(project.slug).title + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />
+        {project.flow && <figcaption class="wl-flow">{project.flow.map((step,i) => <><span><svg aria-hidden="true" viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" rx="2"/><path d={i === 0 ? 'M10 11h12M10 16h12M10 21h6' : i === 1 ? 'M10 21l5-7 4 3 4-8' : 'M10 17l4 4 9-11'}/></svg>{step}</span>{i < project.flow!.length - 1 && <i aria-hidden="true">→</i>}</>)}</figcaption>}
+      </figure>
+    </div>
+  </section>)}
+  {cards.length > 0 && <section class="wl-more" data-lane-group>
+    <div class="wrap">
+      <div class="wl-section-label"><h2>{lane === 'Build' ? 'More builds' : 'More demand work'}</h2><span>Different businesses. Connected work.</span></div>
+      <div class:list={['wl-cards', {'wl-cards--build':lane==='Build'}]}>
+        {cards.map(project => <article class="wl-card" data-lane-project data-categories={project.category.join('|')}>
+          <a href={project.href || projectLink(project.slug,lane)} class="wl-card-link">
+            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices'].includes(project.asset!)}]}><Img k={project.asset!} alt={caseBy(project.slug).title + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
+            <div class="wl-card-copy"><h3>{caseBy(project.slug).title}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
+          </a>
+        </article>)}
+      </div>
+    </div>
+  </section>}
+  {community.length > 0 && <section class="wl-community" data-lane-group><div class="wrap">
+    <div class="wl-section-label"><h2>Pro bono</h2><span>Ongoing community support.</span></div>
+    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href || projectLink(project.slug,lane)}><div class="wl-community-image"><Img k={project.asset!} alt={caseBy(project.slug).title + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{caseBy(project.slug).title}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
+  </div></section>}
+  {lane === 'Demand' && <div class="wl-closing wrap"><strong>Creative<span>.</span> Search<span>.</span> Landing pages<span>.</span></strong><i aria-hidden="true"></i><p>Connect the work<br/>to the customer.</p></div>}
+
+</div>
+
+<script>
+  const lane = document.querySelector<HTMLElement>('[data-work-lane]');
+  if (lane) {
+    const filters = lane.querySelector<HTMLElement>('[data-lane-filters]')!;
+    const projects = [...lane.querySelectorAll<HTMLElement>('[data-lane-project]')];
+    const count = lane.querySelector<HTMLElement>('[data-lane-count]')!;
+    const apply = (value: string) => {
+      let shown = 0;
+      projects.forEach(project => { project.hidden = value !== 'all' && !project.dataset.categories?.split('|').includes(value); if (!project.hidden) shown++; });
+      lane.querySelectorAll<HTMLElement>('[data-lane-group]').forEach(group => { group.hidden = ![...group.querySelectorAll<HTMLElement>('[data-lane-project]')].some(project => !project.hidden); });
+      filters.querySelectorAll<HTMLButtonElement>('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.laneFilter === value)));
+      count.textContent = `${shown} project${shown === 1 ? '' : 's'}`;
+    };
+    filters.hidden = false;
+    filters.addEventListener('click', event => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-lane-filter]');
+      if (button) apply(button.dataset.laneFilter!);
+    });
+  }
+</script>

@@ -1,0 +1,16 @@
+---
+import { workLanes, type WorkLane } from '../data/work-lanes';
+interface Props { next?: WorkLane; label?: string }
+const { next = 'Build', label = 'Next:' } = Astro.props;
+---
+<nav class="lane-footer" aria-label="Explore the connected work"><div class="wrap">
+  <a href="/" class="lane-footer-brand" aria-label="ZINC home">ZINC<span>.</span></a>
+  <span class="lane-footer-caption">Build. Demand. Intelligence.</span>
+  <i class="lane-footer-thread" aria-hidden="true"><b></b></i>
+  <a class="lane-footer-link" href={workLanes[next].path}>{label} {next} <span aria-hidden="true">→</span></a>
+  <span class="lane-footer-note">Explore<br/>the connected<br/>work.</span>
+</div></nav>
+<style>
+.lane-footer{background:var(--color-near-black);color:var(--color-snow);border-bottom:1px solid var(--color-line-dark)}.lane-footer>.wrap{display:flex;align-items:center;gap:35px;min-height:145px;padding-top:30px;padding-bottom:30px}.lane-footer a{color:var(--color-snow)}.lane-footer-brand{font:800 38px/.95 var(--fd);letter-spacing:-.03em}.lane-footer-brand>span{color:var(--color-teal)}.lane-footer-caption{font:9px/1.6 var(--fm);text-transform:uppercase;letter-spacing:.08em}.lane-footer-thread{flex:1;border-top:1px solid var(--color-gray-on-dark);position:relative;min-width:25px}.lane-footer-thread b{position:absolute;width:7px;height:7px;right:0;top:-4px;border-radius:50%;background:var(--color-magenta);box-shadow:0 0 8px var(--color-magenta),0 0 20px #fc078177;animation:lane-glow 3s ease-in-out infinite}.lane-footer-link{font:800 clamp(29px,3.3vw,48px)/1 var(--fd);text-transform:uppercase;display:flex;align-items:center;gap:20px;min-height:55px}.lane-footer-link span{font-family:var(--fb);font-weight:400;transition:transform .25s}.lane-footer-link:hover span{transform:translateX(8px)}.lane-footer-note{border-left:1px solid var(--color-teal);padding-left:25px;color:var(--color-gray-on-dark);font:9px/1.7 var(--fm);letter-spacing:.1em;text-transform:uppercase}.lane-footer a:focus-visible{outline:3px solid var(--color-teal);outline-offset:6px}@keyframes lane-glow{50%{box-shadow:0 0 12px var(--color-magenta),0 0 27px #fc0781aa}}
+@media(max-width:1000px){.lane-footer-caption{display:none}.lane-footer>.wrap{gap:25px}}@media(max-width:700px){.lane-footer>.wrap{gap:20px;min-height:130px}.lane-footer-link{font-size:30px;gap:12px}.lane-footer-note{display:none}.lane-footer-brand{font-size:29px}}@media(prefers-reduced-motion:reduce){.lane-footer *{animation:none!important;transition:none!important}}
+</style>

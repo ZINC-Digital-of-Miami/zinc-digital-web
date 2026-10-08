@@ -1,0 +1,14 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { name: string; alt: string; caption?: string }
+const { name, alt, caption } = Astro.props;
+const scenes = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*.png', { eager: true });
+---
+<figure class="case-scene">
+  <Picture src={scenes['../assets/lanes/'+name+'.png'].default} formats={['avif','webp']} widths={[480,768,1100,1536]} quality={95} sizes="(max-width: 700px) 100vw, 90vw" loading="lazy" alt={alt} />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+<style>
+.case-scene{margin:35px 0 55px;overflow:hidden}.case-scene :global(img){display:block;width:100%;height:auto}.case-scene figcaption{font:11px/1.7 var(--fm);padding:18px 0;color:var(--muted);max-width:85ch}
+</style>
