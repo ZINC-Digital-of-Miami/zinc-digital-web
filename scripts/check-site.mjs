@@ -8,6 +8,7 @@
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
+import { caseScreens } from '../src/data/case-screens.ts';
 
 const root = process.cwd();
 // With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
@@ -180,13 +181,17 @@ for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
   if (!p) continue;
   check(p.html.includes('data-case-mockup="' + s + '"'), 'work/' + s + ' lacks its device mockup hero');
+  if (s !== 'bear-claw-usa') check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
+  for (const screenPage of caseScreens[s]?.pages || []) {
+    for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
+  }
   if (s === 'once-upon-a-book-club') {
     for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
     check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
     check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');
     check(p.html.includes('BI app in development') && p.html.includes('private client figures removed'), 'OUABC lacks BI status or privacy context');
   } else {
-    check(p.html.includes('id="cOpen"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
+    check(p.html.includes('id="cOpen"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
     const nonprofit = ['the-lampstand-va', 'straight-street-ministries'].includes(s);
     check(nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
   }

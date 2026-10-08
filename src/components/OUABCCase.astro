@@ -1,6 +1,8 @@
 ---
 import Img from './Img.astro';
 import CaseHeroMockup from './CaseHeroMockup.astro';
+import CaseScreens from './CaseScreens.astro';
+import { caseScreens } from '../data/case-screens';
 import BeforeAfter from './BeforeAfter.astro';
 import CasePresentations from './CasePresentations.astro';
 import { caseBy } from '../data/site';
@@ -23,6 +25,7 @@ const moreScreens=[['ouabc-bi-products-current','Seasonal product records'],['ou
     <BeforeAfter before="ouabc-website-before" after="ouabc-website-after" />
     <div class="ou-notes rv-stag"><div><h3>Storefront rebuilt.</h3><p>A revised header, product-led homepage and clearer Book Boxes and Books &amp; Products navigation.</p></div><div><h3>Built for changing releases.</h3><p>Subscriptions, limited editions and pre-orders share the store with the growing boutique collection.</p></div><div><h3>Work continues after launch.</h3><p>We maintain product and collection content, search metadata and publication checks as the catalog changes.</p></div></div>
   </section>
+  <CaseScreens presentation={caseScreens[study.slug]} />
   <section class="ou-campaigns" id="campaigns" aria-label="Paid campaigns"><CasePresentations slug={study.slug} /></section>
   <section class="ou-section wrap ou-search" id="search-content" aria-labelledby="ouSearchTitle">
     <div class="rv"><span class="kick">Demand / Ongoing management</span><h2 class="disp" id="ouSearchTitle">Make each release<br/>easier to find.</h2><p class="ou-body">The work connects what readers search for with the boxes available to buy—and the articles, product pages and campaigns that introduce them.</p><dl class="ou-service-list"><div><dt>SEO &amp; blogs</dt><dd>Search research, article briefs, writing, client review and publication. Product and collection titles and descriptions are kept current.</dd></div><div><dt>Google Shopping</dt><dd>Product groups, performance and availability reviewed together, with sold-out stock distinguished from feed and publication problems.</dd></div><div><dt>Technical upkeep</dt><dd>Crawl traps from tracking paths, recommendation parameters and repeated locale URLs repaired.</dd></div></dl></div>
