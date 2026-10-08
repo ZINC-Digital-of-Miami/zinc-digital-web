@@ -43,13 +43,15 @@
   --muted:var(--color-gray-on-light);--line:var(--color-line-light);--tealt:var(--color-teal-text);
   background:var(--bg);color:var(--ink);
 }
-.home-case-study{position:relative;padding-top:clamp(90px,10vw,150px);padding-bottom:130px;z-index:2}
-/* The cut extends across the neighboring band; all interactive content stays in normal flow. */
+.home-case-study{isolation:isolate;position:relative;padding-top:clamp(90px,10vw,150px);padding-bottom:130px;z-index:2}
+/* Background planes reach behind the next section; content remains above them. */
 .home-case-study::before,.home-case-study::after,.home-notes::before,.home-notes::after{
   content:"";position:absolute;left:0;width:100%;height:120px;pointer-events:none;background:var(--bg);
 }
-.home-case-study::before,.home-notes::before{top:-119px;clip-path:polygon(0 100%,100% 0,100% 100%)}
-.home-case-study::after,.home-notes::after{bottom:-119px;clip-path:polygon(0 0,100% 0,0 100%)}
+.home-case-study::before{top:28%;height:55%;background:#E7EAED;clip-path:polygon(0 18%,100% 0,100% 76%,0 100%);z-index:-1}
+.home-case-study::after{bottom:-180px;height:650px;background:var(--color-near-black);clip-path:polygon(0 48%,100% 0,100% 100%,0 100%);z-index:-1}
+.home-notes::before{top:-119px;clip-path:polygon(0 100%,100% 0,100% 100%);z-index:-1}
+.home-notes::after{bottom:-230px;height:350px;clip-path:polygon(0 0,100% 0,0 100%);z-index:-1}
 .home-case-study .case-top{grid-template-columns:1.15fr .85fr;align-items:end;gap:60px}
 .home-case-study .case-h{font-size:clamp(52px,6.8vw,105px);line-height:.98;max-width:14ch}
 .home-case-study .figs{margin-top:45px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -57,12 +59,12 @@
 .home-case-study .case-body{grid-template-columns:.7fr 1.3fr;align-items:center;gap:20px;margin-top:35px}
 .home-case-study .chips li{border-radius:0;font-size:12px}
 .home-case-scenes{gap:45px}
-.home-case-scenes>a{transition:transform .3s ease}
+.home-case-scenes>a{transition:transform .3s ease;background:var(--color-snow);color:var(--color-near-black);padding:24px;border:1px solid var(--color-line-light);box-shadow:0 22px 55px rgb(0 0 0 / .13)}
 .home-case-scenes>a:hover{transform:translateY(-5px)}
 .home-case-scenes>a:focus-visible{outline:3px solid var(--tealt);outline-offset:8px}
 .home-case-scenes .kick{font-size:10px}
 
-.home-operations{position:relative;border-top:0;padding-top:80px;padding-bottom:75px}
+.home-operations{z-index:3;position:relative;border-top:0;padding-top:80px;padding-bottom:75px}
 .home-operations::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:75px;background:var(--color-snow);clip-path:polygon(0 100%,100% 0,100% 100%);pointer-events:none}
 .home-operations .uso-h{font-size:clamp(58px,6.3vw,100px);line-height:.98}
 .home-operations .stamp{border-color:var(--color-line-dark)}
@@ -77,12 +79,12 @@
 .home-commit .lock{color:var(--color-teal-text)}
 .home-team{padding-bottom:140px}
 .home-team .person-ph{border-radius:0}
-.home-notes{position:relative;padding-top:70px;padding-bottom:100px;z-index:2}
+.home-notes{isolation:isolate;position:relative;padding-top:70px;padding-bottom:100px;z-index:2}
 .home-notes-title{font-size:clamp(60px,8vw,120px);line-height:1;margin:24px 0 50px}
 .home-notes-title span{color:var(--color-teal)}
 .home-notes .note{border-color:var(--color-line-dark)}
 .home-notes .note h3{font-size:clamp(27px,3vw,42px)}
-.home-contact-story{padding-top:150px}
+.home-contact-story{position:relative;z-index:3;padding-top:150px}
 .home-contact-story .mcard{border-radius:0}
 
 @media(min-width:901px){
@@ -96,8 +98,10 @@
   .home-case-study .case-top,.home-case-study .case-body{grid-template-columns:1fr;gap:30px}
   .home-case-study .case-h{font-size:clamp(52px,10vw,80px)}
   .home-case-study{padding-top:70px;padding-bottom:80px}
-  .home-case-study::before,.home-case-study::after,.home-notes::before,.home-notes::after{height:40px}
-  .home-case-study::before,.home-notes::before{top:-39px}.home-case-study::after,.home-notes::after{bottom:-39px}
+  .home-case-study::before{top:24%;height:48%}
+  .home-case-study::after{bottom:-100px;height:550px;clip-path:polygon(0 20%,100% 0,100% 100%,0 100%)}
+  .home-notes::before{height:40px;top:-39px}.home-notes::after{height:180px;bottom:-130px}
+  .home-case-scenes>a{padding:18px}
   .home-operations{padding-top:40px;padding-bottom:40px}.home-operations::after{height:40px}
   .home-operations .stamp-k{font-size:clamp(26px,7.5vw,36px)}
   .home-operations .uso-track{row-gap:30px}.home-operations .uso-shot{margin-top:15px}
