@@ -1,0 +1,62 @@
+---
+import Img from './Img.astro';
+import type { Case } from '../data/site';
+
+interface Props { study: Case }
+const { study } = Astro.props;
+type Scene = { desktop: string; mobile?: string; tablet?: string; framed?: boolean; mobileFramed?: boolean; label: string };
+const scenes: Record<string, Scene> = {
+  'once-upon-a-book-club': { desktop: 'ouabc-website-after', mobile: 'ouabc-mobile', label: 'Shopify storefront' },
+  'us-oil-solutions': { desktop: 'uos-second-site-desktop', mobile: 'uos-second-site-mobile', label: 'New website · In progress' },
+  'las-vegas-safety': { desktop: 'lvs-devices', framed: true, label: 'Wholesale ecommerce' },
+  'summit-marine-development': { desktop: 'smd-devices', framed: true, label: 'Marine construction website' },
+  'zinc-fusion-v16': { desktop: 'fusion-v16-dashboard', label: 'Forecasting platform · In development' },
+  'the-lampstand-va': { desktop: 'lampstand-home', mobile: 'lampstand-mobile', label: 'Website · Pro bono support' },
+  'straight-street-ministries': { desktop: 'straight-street-home', mobile: 'straight-street-mobile', label: 'Website · Pro bono support' },
+  'bear-claw-usa': { desktop: 'bear-claw-home-desktop', mobile: 'bear-claw-home-mobile', tablet: 'bear-claw-home-tablet', label: 'Website · Desktop, tablet & mobile' },
+};
+const scene = scenes[study.slug] || { desktop: study.hero, label: 'Website' };
+const desktopSizes = study.slug === 'once-upon-a-book-club'
+  ? '(max-width: 900px) 90vw, (max-width: 1440px) 48vw, 700px'
+  : '(max-width: 700px) 85vw, (max-width: 1440px) 48vw, 700px';
+---
+
+<figure data-case-mockup={study.slug} class:list={['case-mockup', { 'case-mockup--single': !scene.mobile, 'case-mockup--trio': !!scene.tablet }]}>
+  <figcaption class="case-mockup__caption"><span>{study.title}</span><span>{scene.label}</span></figcaption>
+  <div class:list={['case-mockup__desktop', { 'case-mockup__desktop--framed': scene.framed }]}>
+    <div class="case-mockup__screen">
+      {!scene.framed && <span class="case-mockup__camera" aria-hidden="true"></span>}
+      <Img k={scene.desktop} alt={study.title + (scene.framed ? ' website in a device mockup' : ' desktop screen in a laptop mockup')} loading="eager" fetchpriority="high" decoding="sync" quality={95} widths={[720, 960, 1440, 1920]} sizes={desktopSizes} />
+    </div>
+    {!scene.framed && <div class="case-mockup__base" aria-hidden="true"><i></i></div>}
+  </div>
+  {scene.tablet && <div class="case-mockup__tablet"><div class="case-mockup__glass"><Img k={scene.tablet} alt={study.title + ' tablet website in a tablet mockup'} loading="eager" fetchpriority="low" quality={95} widths={[360, 540, 720]} sizes="(max-width: 700px) 28vw, 220px" /></div></div>}
+  {scene.mobile && <div class:list={['case-mockup__phone', { 'case-mockup__phone--framed': scene.mobileFramed }]}><div class="case-mockup__glass"><Img k={scene.mobile} alt={study.title + ' mobile website in a phone mockup'} loading="eager" fetchpriority="low" quality={95} widths={[280, 420, 640]} sizes="(max-width: 700px) 22vw, 160px" /></div></div>}
+</figure>
+
+<style>
+  .case-mockup{position:relative;isolation:isolate;aspect-ratio:1.14;margin:0;overflow:visible;color:var(--ink)}
+  .case-mockup__caption{position:absolute;inset:7% 7% auto;display:grid;gap:7px;font:10px/1.5 var(--fm);letter-spacing:.04em;text-transform:uppercase;z-index:2}
+  .case-mockup__caption span:first-child{font-weight:600;letter-spacing:.12em}
+  .case-mockup__caption span:last-child{color:var(--muted);font-size:9px}
+  .case-mockup__desktop{position:absolute;top:29%;left:9%;width:82%;transform:rotate(-3deg)}
+  .case-mockup__screen{position:relative;padding:2.3% 1.4% 2%;background:linear-gradient(115deg,#4b4e52,#111215 35%,#26292d);border:1px solid #70757b;border-radius:12px 12px 5px 5px;box-shadow:inset 0 0 0 1px #0b0c0d,4px 22px 28px rgb(20 25 30 / .18)}
+  .case-mockup__screen :global(picture),.case-mockup__glass :global(picture){display:block}
+  .case-mockup__screen :global(img),.case-mockup__glass :global(img){display:block;width:100%;height:auto;filter:none;transform:none;border-radius:2px}
+  .case-mockup__camera{position:absolute;top:1.2%;left:50%;width:3px;height:3px;border-radius:50%;background:#6a7482;box-shadow:0 0 0 1px #0c0d0e}
+  .case-mockup__base{position:relative;width:112%;height:12px;left:-6%;background:linear-gradient(#d5d8dd 0%,#a5aab0 45%,#616970 90%);border-radius:1px 1px 45% 45%;box-shadow:inset 0 1px #f3f4f5,0 2px 1px #52585e}
+  .case-mockup__base i{position:absolute;width:16%;height:4px;top:0;left:42%;background:#91979e;border-radius:0 0 7px 7px;box-shadow:inset 0 1px 2px #656c74}
+  .case-mockup__phone,.case-mockup__tablet{position:absolute;padding:1.2%;background:linear-gradient(135deg,#6b7177,#17191c 35%,#383e44);border:1px solid #727981;box-shadow:inset 0 0 0 1px #08090a,9px 19px 24px rgb(25 30 35 / .24)}
+  .case-mockup__phone{width:20%;right:6%;bottom:12%;border-radius:20px;transform:rotate(5deg)}
+  .case-mockup__glass{overflow:hidden;border-radius:13px;background:#111}
+  .case-mockup__tablet{width:28%;left:5%;bottom:12%;border-radius:14px;transform:rotate(-7deg)}
+  .case-mockup__tablet .case-mockup__glass{border-radius:7px}
+  .case-mockup__desktop--framed{top:32%;left:6%;width:88%}
+  .case-mockup__desktop--framed .case-mockup__screen{padding:0;background:none;border:0;border-radius:0;box-shadow:none}
+  .case-mockup__phone--framed{padding:0;background:none;border:0;box-shadow:none;filter:drop-shadow(7px 16px 12px rgb(25 30 35 / .24))}
+  .case-mockup__phone--framed .case-mockup__glass{background:none;border-radius:0}
+  .case-mockup--single .case-mockup__desktop{top:30%;left:7%;width:86%}
+  .case-mockup--single .case-mockup__desktop--framed{top:30%;left:4%;width:92%}
+  .case-mockup--trio .case-mockup__desktop{top:26%;left:10%;width:83%}
+  @media(max-width:700px){.case-mockup__caption{font-size:9px;gap:4px}.case-mockup__caption span:last-child{font-size:8px}.case-mockup__screen{border-radius:7px 7px 3px 3px}.case-mockup__base{height:8px}.case-mockup__phone{border-radius:12px}.case-mockup__glass{border-radius:8px}.case-mockup__tablet{border-radius:9px}.case-mockup__tablet .case-mockup__glass{border-radius:5px}}
+</style>

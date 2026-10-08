@@ -155,6 +155,36 @@ export const cases: Case[] = [
     results: [], before: null, brand: [], quote: null,
     work: { Build: 'Pro bono website management and support.', Demand: '', Intelligence: '' },
     hero: 'straight-street-home', images: ['straight-street-home', 'straight-street-mobile'], services: [],
+    next: 'bear-claw-usa'
+  },
+  {
+    slug: 'bear-claw-usa', title: 'Bear Claw USA',
+    heroLabel: 'Website design / Responsive development',
+    line: 'A product website that connects plant-based form release with its uses and a clear path to request a quote.',
+    url: 'https://bear-claw-usa.vercel.app/', layers: ['Build'],
+    location: 'Las Vegas, NV', timeline: '',
+    scope: 'Website design and development · Product, about and quote pages · Desktop, tablet and mobile layouts',
+    situation: 'Bear Claw USA makes plant-based form release for concrete forms, asphalt beds and tools. ZINC designed and built the website using Bear Claw’s existing brand identity, connecting product information, company background and quote requests across screen sizes.',
+    receipts: [],
+    challenge: [
+      'Make the product and its uses clear from the first screen.',
+      'Keep the product information and navigation usable across desktop, tablet and mobile.',
+      'Give product buyers a direct path to request a quote.'
+    ],
+    approach: [
+      'Built the website around the product, its applications and a visible quote-request path.',
+      'Designed home, product, about and quote pages using Bear Claw’s existing logos, colors and product imagery.',
+      'Adapted page layouts and navigation for desktop, tablet and mobile screens.'
+    ],
+    results: [], before: null,
+    brand: [],
+    quote: null,
+    work: {
+      Build: 'Website design and development, including product information, company background and quote requests across desktop, tablet and mobile.',
+      Demand: 'Search and paid-media management are outside the work shown here.',
+      Intelligence: 'Reporting and analytics are outside the work shown here.'
+    },
+    hero: 'bear-claw-home-desktop', images: ["bear-claw-home-desktop","bear-claw-home-tablet","bear-claw-home-mobile","bear-claw-product-desktop","bear-claw-product-tablet","bear-claw-product-mobile","bear-claw-about-desktop","bear-claw-about-tablet","bear-claw-about-mobile","bear-claw-quote-desktop","bear-claw-quote-tablet","bear-claw-quote-mobile"], services: ['web-design'],
     next: 'once-upon-a-book-club'
   },
 ];
@@ -167,6 +197,7 @@ export const clients: Client[] = [
   { name: 'General Shale', logo: 'logo-general-shale' }, { name: 'Once Upon a Book Club', logo: 'logo-ouabc' },
   { name: 'U.S. Oil Solutions', logo: 'logo-us-oil' }, { name: 'Summit Marine', logo: 'logo-summit-marine' }, { name: 'Straight Street', logo: 'logo-straight-street' },
   { name: 'Las Vegas Safety', logo: 'lvs-logo-black' },
+  { name: 'Bear Claw USA', logo: 'bear-claw-wordmark-orange' },
 ];
 export const partners = [{ name: 'Google Partner', logo: 'logo-google-partner' }, { name: 'Meta Business Partner' }];
 

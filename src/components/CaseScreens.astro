@@ -1,0 +1,140 @@
+---
+import Img from './Img.astro';
+import type { CaseScreensPresentation } from '../data/case-screens';
+
+interface Props {
+  presentation: CaseScreensPresentation;
+}
+
+const { presentation } = Astro.props;
+const application = presentation.kind === 'application';
+const sectionId = `case-pages-${presentation.slug}`;
+const devices = [
+  { key: 'desktop', title: 'Desktop', sizes: '(max-width: 720px) 84vw, (max-width: 1000px) 80vw, 680px', widths: [640, 960, 1440, 1920] },
+  { key: 'tablet', title: 'Tablet', sizes: '(max-width: 720px) 45vw, (max-width: 1000px) 44vw, 350px', widths: [480, 834, 1200] },
+  { key: 'mobile', title: 'Mobile', sizes: '(max-width: 720px) 32vw, (max-width: 1000px) 30vw, 250px', widths: [390, 780] },
+] as const;
+---
+
+<section class:list={['cs-screens', { 'cs-application': application }]} id={sectionId} data-case-pages={presentation.slug} aria-labelledby={`${sectionId}-title`}>
+  <div class="wrap">
+    <header class="cs-heading">
+      <div>
+        <span class="kick">{application ? 'Application / In development' : 'Website / Page by page'}</span>
+        <h2 class="disp" id={`${sectionId}-title`}>{presentation.title}</h2>
+      </div>
+      <p>{presentation.intro}</p>
+    </header>
+
+    {presentation.pages.length >= 3 && <nav class="cs-index" aria-label="Explore the project pages">
+      {presentation.pages.map(page => <a href={`#${sectionId}-${page.key}`}>{page.title}<span aria-hidden="true">↓</span></a>)}
+    </nav>}
+
+    <div class="cs-pages">
+      {presentation.pages.map(page => {
+        const availableDevices = devices.filter(device => page.images[device.key]);
+        const desktopOnly = availableDevices.length === 1 && Boolean(page.images.desktop);
+        const sizesFor = (device: typeof devices[number]) => {
+          if (availableDevices.length === 1) return device.key === 'desktop'
+            ? '(max-width: 720px) 84vw, (max-width: 1100px) 80vw, 1000px'
+            : '(max-width: 720px) 84vw, 390px';
+          if (availableDevices.length === 2 && page.images.desktop) {
+            if (device.key === 'desktop') return '(max-width: 720px) 84vw, (max-width: 1100px) 65vw, 800px';
+            return device.key === 'mobile'
+              ? '(max-width: 720px) 48vw, (max-width: 1100px) 26vw, 270px'
+              : '(max-width: 720px) 72vw, (max-width: 1100px) 36vw, 450px';
+          }
+          return device.sizes;
+        };
+        return <article class="cs-page" id={`${sectionId}-${page.key}`} aria-labelledby={`${sectionId}-${page.key}-title`}>
+          <header class="cs-page-heading">
+            <div>
+              <h3 class="disp" id={`${sectionId}-${page.key}-title`}>{page.title}</h3>
+              <p>{page.detail}</p>
+            </div>
+            {page.url && <a class="cs-live" href={page.url} target="_blank" rel="noopener noreferrer" aria-label={`View the ${page.title.toLowerCase()} page (opens in a new tab)`}>View page <span aria-hidden="true">↗</span></a>}
+          </header>
+
+          <div class:list={['cs-stage', `cs-count-${availableDevices.length}`, { 'cs-desktop-only': desktopOnly, 'cs-has-desktop': Boolean(page.images.desktop), 'cs-has-tablet': Boolean(page.images.tablet) }]}>
+            {availableDevices.map(device => <figure class={`cs-device cs-${device.key}`}>
+              <div class="cs-hardware">
+                {application && device.key === 'desktop' && <div class="cs-window-bar" aria-hidden="true"><span class="cs-window-dots"><i></i><i></i><i></i></span><span>{page.title}</span></div>}
+                <div class="cs-display">
+                  <Img k={page.images[device.key]!} alt={`${page.title} ${application ? 'application view' : 'page'} in its ${device.title.toLowerCase()} layout`} sizes={sizesFor(device)} widths={[...device.widths]} quality={95} />
+                </div>
+              </div>
+              <figcaption><span>{application && device.key === 'desktop' ? 'Desktop workspace' : device.title}</span>{application && <span class="cs-status">In development</span>}</figcaption>
+            </figure>)}
+          </div>
+        </article>;
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cs-screens{padding:clamp(64px,9vw,120px) 0;border-top:1px solid var(--line);color:var(--ink)}
+  .cs-heading{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(32px,5vw,64px)}
+  .cs-heading h2{max-width:13ch;font-size:clamp(44px,6vw,86px);margin-top:18px}
+  .cs-heading p{margin:0;max-width:38ch;font-size:18px;line-height:1.65;color:var(--muted)}
+  .cs-index{display:flex;gap:12px 32px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,80px)}
+  .cs-index a{display:inline-flex;align-items:center;gap:18px;min-height:44px;border-bottom:1px solid var(--line);font-family:var(--fm);font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+  .cs-pages{display:grid;gap:clamp(48px,7vw,96px)}
+  .cs-page{min-width:0;scroll-margin-top:100px}
+  .cs-page-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 0 26px}
+  .cs-page-heading h3{font-size:clamp(30px,3.3vw,46px);line-height:1}
+  .cs-page-heading p{max-width:64ch;margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--muted)}
+  .cs-live{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;flex-shrink:0;border-bottom:1px solid var(--ink);font-family:var(--fm);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+  .cs-live:hover,.cs-index a:hover{color:var(--tealt);border-color:var(--tealt)}
+  .cs-live:focus-visible,.cs-index a:focus-visible{outline:2px solid var(--tealt);outline-offset:5px}
+  .cs-stage{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,.55fr);align-items:end;gap:clamp(16px,2.4vw,36px);padding:clamp(24px,3.8vw,54px);background:transparent}
+  .cs-stage.cs-count-2{grid-template-columns:minmax(0,1fr) minmax(0,.34fr)}
+  .cs-stage.cs-count-2.cs-has-tablet{grid-template-columns:minmax(0,1fr) minmax(0,.6fr)}
+  .cs-stage.cs-count-1{grid-template-columns:minmax(0,1fr)}
+  .cs-count-1 .cs-device{width:100%;max-width:390px;justify-self:center}
+  .cs-desktop-only .cs-device{max-width:1000px}
+  .cs-device{min-width:0;margin:0}
+  .cs-hardware{position:relative;padding:12px 8px 9px;border:1px solid #64666a;border-radius:13px;background:linear-gradient(145deg,#393b3f,#111214 40%,#25272a);box-shadow:0 2px 2px #0003,0 16px 24px -12px #0005,inset 0 0 0 1px #ffffff19}
+  .cs-hardware::before{content:"";position:absolute;top:5px;left:50%;width:3px;height:3px;border-radius:50%;background:#62656b;transform:translateX(-50%)}
+  .cs-display{background:#080808;line-height:0}
+  .cs-display :global(picture),.cs-display :global(img){display:block;width:100%;height:auto;max-height:none;filter:none}
+  .cs-desktop .cs-hardware{margin-bottom:8px}
+  .cs-desktop .cs-hardware::after{content:"";position:absolute;bottom:-7px;left:-3%;width:106%;height:7px;border:1px solid #777a80;border-top:1px solid #c0c2c6;border-radius:1px 1px 50% 50% / 1px 1px 6px 6px;background:linear-gradient(#a7a9ae,#55585d);box-shadow:0 3px 3px #0002}
+  .cs-tablet .cs-hardware{padding:16px 9px;border-radius:18px}
+  .cs-tablet .cs-hardware::before{top:6px;width:4px;height:4px}
+  .cs-mobile .cs-hardware{padding:17px 7px 15px;border-radius:20px}
+  .cs-mobile .cs-hardware::before{top:6px;width:18px;height:3px;border-radius:5px;background:#474a50}
+  .cs-mobile .cs-hardware::after{content:"";position:absolute;bottom:6px;left:35%;width:30%;height:3px;border-radius:3px;background:#686b71}
+  .cs-device figcaption{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;min-height:38px;padding-top:18px;font-family:var(--fm);font-size:11px;line-height:1.5;text-transform:uppercase;letter-spacing:.04em}
+  .cs-status{color:var(--muted)}
+  .cs-application .cs-desktop .cs-hardware{padding:0 7px 7px;margin-bottom:0;border-radius:12px}
+  .cs-application .cs-desktop .cs-hardware::before,.cs-application .cs-desktop .cs-hardware::after{display:none}
+  .cs-window-bar{display:flex;align-items:center;gap:18px;min-height:32px;padding:0 5px;color:#e5e5e8;font-family:var(--fm);font-size:10px;line-height:1.5}
+  .cs-window-dots{display:flex;gap:5px;flex-shrink:0}
+  .cs-window-dots i{width:5px;height:5px;border-radius:50%;background:#858890}
+  :global(html[data-theme="dark"]) .cs-hardware{box-shadow:0 2px 2px #0008,0 16px 24px -12px #000b,inset 0 0 0 1px #ffffff19}
+  @media(max-width:1000px){
+    .cs-stage{grid-template-columns:minmax(0,1fr) minmax(0,.64fr);gap:36px clamp(24px,6vw,70px);padding:clamp(24px,5vw,48px)}
+    .cs-count-3 .cs-desktop{grid-column:1/-1}
+    .cs-count-3 .cs-tablet{width:100%;max-width:390px;justify-self:end}
+    .cs-count-3 .cs-mobile{width:100%;max-width:250px;justify-self:start}
+  }
+  @media(max-width:720px){
+    .cs-heading{grid-template-columns:1fr;gap:24px}
+    .cs-heading p{font-size:17px}
+    .cs-page-heading{align-items:flex-start;flex-direction:column;gap:12px}
+    .cs-page-heading p{max-width:36ch}
+    .cs-stage{padding:24px 14px;gap:28px 16px}
+    .cs-stage.cs-count-2.cs-has-desktop{grid-template-columns:minmax(0,1fr)}
+    .cs-count-2.cs-has-desktop .cs-mobile{width:58%;max-width:250px;justify-self:center}
+    .cs-count-2.cs-has-desktop .cs-tablet{width:85%;max-width:390px;justify-self:center}
+    .cs-hardware{padding:10px 5px 6px;border-radius:9px}
+    .cs-hardware::before{top:4px;width:2px;height:2px}
+    .cs-tablet .cs-hardware{padding:12px 5px;border-radius:12px}
+    .cs-tablet .cs-hardware::before{top:5px;width:3px;height:3px}
+    .cs-mobile .cs-hardware{padding:13px 4px 12px;border-radius:13px}
+    .cs-mobile .cs-hardware::before{top:5px;width:14px;height:2px}
+    .cs-mobile .cs-hardware::after{bottom:5px;height:2px}
+    .cs-device figcaption{gap:2px 10px;padding-top:12px;font-size:10px}
+  }
+</style>
