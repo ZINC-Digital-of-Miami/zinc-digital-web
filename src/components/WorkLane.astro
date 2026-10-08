@@ -46,13 +46,13 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
     <div class="wrap wl-feature-grid">
       <div class="wl-project-copy rv">
         <p class="wl-eyebrow">{project.label}</p>
-        <h2>{caseBy(project.slug).title}</h2>
+        <h2>{(project.title || caseBy(project.slug).title)}</h2>
         <p>{project.summary}</p>
         {project.status && <span class="wl-status">{project.status}</span>}
         <a class="wl-project-link" href={project.href || projectLink(project.slug,lane)}>{action} <span aria-hidden="true">↗</span></a>
       </div>
       <figure class="wl-feature-art rv">
-        <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={caseBy(project.slug).title + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />
+        <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />
         {project.flow && <figcaption class="wl-flow">{project.flow.map((step,i) => <><span><svg aria-hidden="true" viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" rx="2"/><path d={i === 0 ? 'M10 11h12M10 16h12M10 21h6' : i === 1 ? 'M10 21l5-7 4 3 4-8' : 'M10 17l4 4 9-11'}/></svg>{step}</span>{i < project.flow!.length - 1 && <i aria-hidden="true">→</i>}</>)}</figcaption>}
       </figure>
     </div>
@@ -63,8 +63,8 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
       <div class:list={['wl-cards', {'wl-cards--build':lane==='Build'}]}>
         {cards.map(project => <article class="wl-card" data-lane-project data-categories={project.category.join('|')}>
           <a href={project.href || projectLink(project.slug,lane)} class="wl-card-link">
-            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices'].includes(project.asset!)}]}><Img k={project.asset!} alt={caseBy(project.slug).title + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
-            <div class="wl-card-copy"><h3>{caseBy(project.slug).title}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
+            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices'].includes(project.asset!)}]}><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
+            <div class="wl-card-copy"><h3>{(project.title || caseBy(project.slug).title)}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
           </a>
         </article>)}
       </div>
@@ -72,7 +72,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
   </section>}
   {community.length > 0 && <section class="wl-community" data-lane-group><div class="wrap">
     <div class="wl-section-label"><h2>Pro bono</h2><span>Ongoing community support.</span></div>
-    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href || projectLink(project.slug,lane)}><div class="wl-community-image"><Img k={project.asset!} alt={caseBy(project.slug).title + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{caseBy(project.slug).title}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
+    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href || projectLink(project.slug,lane)}><div class="wl-community-image"><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{(project.title || caseBy(project.slug).title)}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
   </div></section>}
   {lane === 'Demand' && <div class="wl-closing wrap"><strong>Creative<span>.</span> Search<span>.</span> Landing pages<span>.</span></strong><i aria-hidden="true"></i><p>Connect the work<br/>to the customer.</p></div>}
 
