@@ -38,7 +38,7 @@ const devices = [
           {devices.map(device => <figure class={`bc-device bc-${device.key}`}>
             <div class="bc-hardware">
               <div class="bc-display">
-                <Img k={`bear-claw-${page.key}-${device.key}`} alt={`Bear Claw ${page.title.toLowerCase()} page in its ${device.title.toLowerCase()} layout`} sizes={device.sizes} widths={device.widths} />
+                <Img k={`bear-claw-${page.key}-${device.key}`} alt={`Bear Claw ${page.title.toLowerCase()} page in its ${device.title.toLowerCase()} layout`} sizes={device.sizes} widths={device.widths} quality={95} />
               </div>
             </div>
             <figcaption><span>{device.title}</span><span class="bc-viewport">{device.viewport}</span></figcaption>
@@ -62,7 +62,7 @@ const devices = [
   .bc-live{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;flex-shrink:0;border-bottom:1px solid var(--ink);font-family:var(--fm);font-size:13px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
   .bc-live:hover{color:var(--tealt);border-color:var(--tealt)}
   .bc-live:focus-visible{outline:2px solid var(--tealt);outline-offset:5px}
-  .bc-stage{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,.55fr);align-items:end;gap:clamp(16px,2.4vw,36px);padding:clamp(24px,3.8vw,54px);border:1px solid var(--line);background:var(--bg2)}
+  .bc-stage{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr) minmax(0,.55fr);align-items:end;gap:clamp(16px,2.4vw,36px);padding:clamp(24px,3.8vw,54px);background:transparent}
   .bc-device{min-width:0;margin:0}
   .bc-hardware{position:relative;padding:12px 8px 9px;border:1px solid #64666a;border-radius:13px;background:linear-gradient(145deg,#393b3f,#111214 40%,#25272a);box-shadow:0 2px 2px #0003,0 16px 24px -12px #0005,inset 0 0 0 1px #ffffff19}
   .bc-hardware::before{content:"";position:absolute;top:5px;left:50%;width:3px;height:3px;border-radius:50%;background:#62656b;transform:translateX(-50%)}

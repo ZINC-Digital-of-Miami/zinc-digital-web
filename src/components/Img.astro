@@ -14,13 +14,14 @@ interface Props {
   fetchpriority?: 'high' | 'low' | 'auto';
   sizes?: string;
   widths?: number[];
+  quality?: number;
   decoding?: 'async' | 'sync' | 'auto';
   /** Height of an object-fit:cover box in vh. Its image renders wider than the viewport on tall screens, so sizes follows the height. */
   cover?: number;
 }
 
 const local = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,jpg,jpeg,webp}', { eager: true });
-const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', widths: requestedWidths, decoding = 'async', cover } = Astro.props;
+const { k, alt, class: cls, id, loading = 'lazy', fetchpriority, sizes = '100vw', widths: requestedWidths, quality, decoding = 'async', cover } = Astro.props;
 const a = asset(k);
 const file = local['../assets' + a.src]?.default;
 const widths = file ? [...new Set([...(requestedWidths || [480, 960, 1440, 1920]), file.width].filter((w) => w <= file.width))] : [];
@@ -43,7 +44,7 @@ const wideDimensions = croppedCover ? {width:wideCover[1].attributes.width,heigh
     <img {...wideDimensions} src={wideCover[1].src} srcset={wideCover[1].srcSet.attribute} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
   </picture>
 ) : file ? (
-  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
+  <Picture src={file} formats={['avif', 'webp']} fallbackFormat="webp" widths={widths} sizes={imgSizes} quality={quality} alt={alt} class={cls} id={id} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 ) : (
   <img src={a.src} alt={alt} class={cls} id={id} width={a.width} height={a.height} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 )}
