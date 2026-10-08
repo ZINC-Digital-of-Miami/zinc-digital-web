@@ -159,32 +159,32 @@ export const cases: Case[] = [
   },
   {
     slug: 'bear-claw-usa', title: 'Bear Claw USA',
-    heroLabel: 'Website / Brand identity / Packaging',
-    line: 'A product website, brand identity and packaging for plant-based form release.',
+    heroLabel: 'Website design / Responsive development',
+    line: 'A product website that connects plant-based form release with its uses and a clear path to request a quote.',
     url: 'https://bear-claw-usa.vercel.app/', layers: ['Build'],
     location: 'Las Vegas, NV', timeline: '',
-    scope: 'Product website · Brand identity · Product packaging · Business cards',
-    situation: 'Bear Claw USA makes plant-based form release for concrete forms, asphalt beds and tools. The work brings the product website, container label and printed materials together around a recognizable shield, wordmark and orange-and-black identity.',
+    scope: 'Website design and development · Product, about and quote pages · Desktop, tablet and mobile layouts',
+    situation: 'Bear Claw USA makes plant-based form release for concrete forms, asphalt beds and tools. ZINC designed and built the website using Bear Claw’s existing brand identity, connecting product information, company background and quote requests across screen sizes.',
     receipts: [],
     challenge: [
       'Make the product and its uses clear from the first screen.',
-      'Carry the identity from the website to packaging and printed materials.',
+      'Keep the product information and navigation usable across desktop, tablet and mobile.',
       'Give product buyers a direct path to request a quote.'
     ],
     approach: [
       'Built the website around the product, its applications and a visible quote-request path.',
-      'Created a shield and wordmark system with orange and white variants for different backgrounds.',
-      'Applied the identity to the product container and business cards, using the same typography, color and diagonal stripe motif.'
+      'Designed home, product, about and quote pages using Bear Claw’s existing logos, colors and product imagery.',
+      'Adapted page layouts and navigation for desktop, tablet and mobile screens.'
     ],
     results: [], before: null,
-    brand: ['bear-claw-lockup-orange', 'bear-claw-lockup-white', 'bear-claw-shield', 'bear-claw-wordmark-orange', 'bear-claw-wordmark-white'],
+    brand: [],
     quote: null,
     work: {
-      Build: 'A product website, shield and wordmark identity, packaging artwork and business cards.',
+      Build: 'Website design and development, including product information, company background and quote requests across desktop, tablet and mobile.',
       Demand: 'Search and paid-media management are outside the work shown here.',
       Intelligence: 'Reporting and analytics are outside the work shown here.'
     },
-    hero: 'bear-claw-website', images: ['bear-claw-website'], services: ['web-design'],
+    hero: 'bear-claw-home-desktop', images: ["bear-claw-home-desktop","bear-claw-home-tablet","bear-claw-home-mobile","bear-claw-product-desktop","bear-claw-product-tablet","bear-claw-product-mobile","bear-claw-about-desktop","bear-claw-about-tablet","bear-claw-about-mobile","bear-claw-quote-desktop","bear-claw-quote-tablet","bear-claw-quote-mobile"], services: ['web-design'],
     next: 'once-upon-a-book-club'
   },
 ];

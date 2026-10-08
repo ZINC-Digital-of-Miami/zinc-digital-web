@@ -530,3 +530,7 @@ html[data-theme="dark"] .c-open-app .c-open-img{box-shadow:none}
 .p-prose th,.p-prose td{padding:12px;text-align:left;vertical-align:top;border:1px solid var(--line);min-width:100px}
 .p-prose th{background:var(--pn);font-weight:600}
 .p-prose p a,.p-prose li a{color:var(--tealt);border-bottom:1px solid var(--teal)}
+
+/* Case hero devices use their own surfaces, separate from the source-screen gallery. */
+.c-open-app .c-open-visual{grid-column:2;grid-row:1;min-width:0}
+@media(max-width:700px){.c-open-app .c-open-visual{grid-column:1;grid-row:2}}

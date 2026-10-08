@@ -1,6 +1,8 @@
 ---
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
+import CaseHeroMockup from './CaseHeroMockup.astro';
+import BearClawScreens from './BearClawScreens.astro';
 import AuthorCard from './AuthorCard.astro';
 import ArticleShare from './ArticleShare.astro';
 import ArticleSources from './ArticleSources.astro';
@@ -45,14 +47,20 @@ const isPhone = (k: string) => /phone|mobile/.test(k);
 // These assets already contain their device hardware; do not frame them twice.
 const isDevicePresentation = (k: string) => k.startsWith('uos-current-') || ['lvs-mobile', 'lvs-laptop', 'lvs-devices', 'smd-cover', 'smd-devices'].includes(k);
 const imageLabels: Record<string, string> = {
+  'bear-claw-home-desktop': 'Home page · desktop',
+  'bear-claw-home-tablet': 'Home page · tablet',
+  'bear-claw-home-mobile': 'Home page · mobile',
+  'bear-claw-product-desktop': 'Product page · desktop',
+  'bear-claw-product-tablet': 'Product page · tablet',
+  'bear-claw-product-mobile': 'Product page · mobile',
+  'bear-claw-about-desktop': 'About page · desktop',
+  'bear-claw-about-tablet': 'About page · tablet',
+  'bear-claw-about-mobile': 'About page · mobile',
+  'bear-claw-quote-desktop': 'Request a quote page · desktop',
+  'bear-claw-quote-tablet': 'Request a quote page · tablet',
+  'bear-claw-quote-mobile': 'Request a quote page · mobile',
   'bear-claw-website': 'Product website · form release and quote requests',
-  'bear-claw-product': 'Product packaging · form-release container',
-  'bear-claw-business-card': 'Business card · front and back',
-  'bear-claw-lockup-orange': 'Shield and wordmark · orange',
-  'bear-claw-lockup-white': 'Shield and wordmark · white',
-  'bear-claw-shield': 'Shield mark · orange and black',
   'bear-claw-wordmark-orange': 'Wordmark · orange',
-  'bear-claw-wordmark-white': 'Wordmark · white',
   'lampstand-home': 'The Lampstand · public ministry website · October 2026',
   'lampstand-mobile': 'The Lampstand · mobile website · October 2026',
   'straight-street-home': 'Straight Street · public ministry website · October 2026',
@@ -210,7 +218,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {study?.slug === 'once-upon-a-book-club' && <OUABCCase />}
 {study && study.slug !== 'once-upon-a-book-club' && (<>
-  <section class="c-open c-open-app" id="cOpen"><div class="c-open-pin"><div class="c-open-img"><Img id="cOpenImg" k={study.hero} alt={study.title + ' — ' + cap(study.hero)} loading="eager" fetchpriority="high" /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
+  <section class="c-open c-open-app" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
   <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
     <div class="c-site-links">{study.url && <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">{study.nonprofit ? 'Visit the ministry website ↗' : 'Visit the public client site ↗'}</a>}{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>
@@ -222,14 +230,14 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   </div></section>}
   {study.slug === 'us-oil-solutions' && <section class="p-band thin c-original-website" aria-labelledby="originalWebsiteTitle"><div class="wrap p-split"><div class="rv"><span class="kick">Public website / First build</span><h2 class="disp p-sec" id="originalWebsiteTitle">The first website.</h2></div><div class="rv"><p class="p-body">Service pages for fryer-oil management, filtration, fresh-oil delivery and used-oil pickup, supported by Las Vegas search content and inquiry paths.</p><p class="lab">Online by September 2022</p><a class="arrow" href="https://web.archive.org/web/20220930171133/https://www.usoilsolutions.com/" target="_blank" rel="noopener noreferrer">View the first website in the archive ↗</a></div></div></section>}
   <CasePresentations slug={study.slug} />
-  <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro rv"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">{study.nonprofit ? 'Making the mission visible.' : study.application ? 'Inside the forecasting platform.' : study.slug === 'us-oil-solutions' ? 'Inside the operations app.' : 'Built for the work.'}</h2><p class="p-muted" style="margin:18px 0 0">{study.nonprofit ? 'Desktop and mobile views of the ministry’s public website, supported by ZINC pro bono.' : study.application ? 'Dashboard, strategy, policy intelligence and sentiment views from the platform in development. Private figures removed.' : study.slug === 'us-oil-solutions' ? 'Supervisor dashboards, restaurant groups, fryer records, on-call visits and special tasks in the standalone operations app.' : 'Interfaces, campaign materials and deliverables from the engagement.'}</p></div>
+  {study.slug === 'bear-claw-usa' ? <BearClawScreens /> : <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro rv"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">{study.nonprofit ? 'Making the mission visible.' : study.application ? 'Inside the forecasting platform.' : study.slug === 'us-oil-solutions' ? 'Inside the operations app.' : 'Built for the work.'}</h2><p class="p-muted" style="margin:18px 0 0">{study.nonprofit ? 'Desktop and mobile views of the ministry’s public website, supported by ZINC pro bono.' : study.application ? 'Dashboard, strategy, policy intelligence and sentiment views from the platform in development. Private figures removed.' : study.slug === 'us-oil-solutions' ? 'Supervisor dashboards, restaurant groups, fryer records, on-call visits and special tasks in the standalone operations app.' : 'Interfaces, campaign materials and deliverables from the engagement.'}</p></div>
     {galleryImages.map((k) => <figure class:list={['c-hz-shot rv', { phone: isPhone(k), cutout: isDevicePresentation(k), app: study.application || k.startsWith('ouabc-bi-') }]}>{study.application ? <div class="c-shot-status">Forecasting platform <span>In development</span></div> : k.startsWith('uos-second-site-') ? <div class="c-shot-status">New website <span>In progress</span></div> : <div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div>}<div class="vp"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></div><figcaption class="lab">{cap(k)} </figcaption></figure>)}
-  </div></div></section>
+  </div></div></section>}
   {websiteImages.length > 0 && <section class="p-band c-new-website" aria-labelledby="newWebsiteTitle"><div class="wrap">
     <div class="p-split"><div class="rv"><span class="kick">Public website / Second build · In progress</span><h2 class="disp p-sec" id="newWebsiteTitle">The new website.</h2></div><div class="rv"><p class="p-body">A second public website is being built around the complete oil-management program: filtration, top-offs, fresh-oil delivery, oil changes and used-oil collection.</p><p class="p-body p-muted">These desktop and mobile designs show the website in development. The technician and supervisor app is a separate product.</p><a class="arrow" href="https://usos-website-blush.vercel.app/" target="_blank" rel="noopener noreferrer">Preview the website in development ↗</a></div></div>
     <div class="c-website-screens">{websiteImages.map(k => <figure class:list={['c-website-screen rv', { phone: isPhone(k) }]}><div class="c-shot-status">New website <span>In progress</span></div><div class="c-website-view"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '(max-width: 600px) 70vw, 300px' : '(max-width: 900px) 90vw, 900px'} /></div><figcaption class="lab">{cap(k)}</figcaption></figure>)}</div>
   </div></section>}
-  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k) || (k.startsWith('bear-claw-') && k.endsWith('-white')), mixed: /lvs-brand-/.test(k), light: k === 'lvs-logo-black' }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
+  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k), mixed: /lvs-brand-/.test(k), light: k === 'lvs-logo-black' }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
   {study.results.length > 0 && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.results} / The results</span><h2 class="disp p-sec">What changed.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.results.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>}
   {study.quote && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.quote} / In their words</span><h2 class="disp p-sec">{study.quote.who}</h2><p class="lab" style="margin:10px 0 0">{study.quote.org}</p></div><div class="rv"><blockquote class="p-body c-quote" style="margin:0">“{study.quote.text}”</blockquote></div></div></section>}
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{caseBy(study.next).title}</h2></div><div class="rv" style="align-self:end"><a class="arrow" href={'/work/' + study.next + '/'}>Continue through the work ↗</a></div></div></section>

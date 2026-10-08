@@ -136,11 +136,17 @@
   "straight-street-home": {"src":"/work/straight-street-home.jpg","width":1265,"height":712},
   "straight-street-mobile": {"src":"/work/straight-street-mobile.jpg","width":375,"height":812},
   "bear-claw-website": {"src":"/work/bear-claw-website.png","width":1409,"height":906},
-  "bear-claw-business-card": {"src":"/work/bear-claw-business-card.jpeg","width":1080,"height":1331},
-  "bear-claw-product": {"src":"/work/bear-claw-product.jpeg","width":992,"height":1056},
-  "bear-claw-lockup-orange": {"src":"/work/bear-claw-lockup-orange.png","width":2048,"height":1736},
-  "bear-claw-lockup-white": {"src":"/work/bear-claw-lockup-white.png","width":2048,"height":1736},
-  "bear-claw-shield": {"src":"/work/bear-claw-shield.png","width":2048,"height":1736},
   "bear-claw-wordmark-orange": {"src":"/work/bear-claw-wordmark-orange.png","width":2046,"height":311},
-  "bear-claw-wordmark-white": {"src":"/work/bear-claw-wordmark-white.png","width":2046,"height":311}
+  "bear-claw-home-desktop": {"src":"/work/bear-claw-home-desktop.png","width":2880,"height":1800},
+  "bear-claw-product-desktop": {"src":"/work/bear-claw-product-desktop.png","width":2880,"height":1800},
+  "bear-claw-about-desktop": {"src":"/work/bear-claw-about-desktop.png","width":2880,"height":1800},
+  "bear-claw-quote-desktop": {"src":"/work/bear-claw-quote-desktop.png","width":2880,"height":1800},
+  "bear-claw-home-tablet": {"src":"/work/bear-claw-home-tablet.png","width":1668,"height":2224},
+  "bear-claw-product-tablet": {"src":"/work/bear-claw-product-tablet.png","width":1668,"height":2224},
+  "bear-claw-about-tablet": {"src":"/work/bear-claw-about-tablet.png","width":1668,"height":2224},
+  "bear-claw-quote-tablet": {"src":"/work/bear-claw-quote-tablet.png","width":1668,"height":2224},
+  "bear-claw-home-mobile": {"src":"/work/bear-claw-home-mobile.png","width":780,"height":1688},
+  "bear-claw-product-mobile": {"src":"/work/bear-claw-product-mobile.png","width":780,"height":1688},
+  "bear-claw-about-mobile": {"src":"/work/bear-claw-about-mobile.png","width":780,"height":1688},
+  "bear-claw-quote-mobile": {"src":"/work/bear-claw-quote-mobile.png","width":780,"height":1688}
 }
