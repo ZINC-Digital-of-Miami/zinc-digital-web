@@ -155,6 +155,36 @@ export const cases: Case[] = [
     results: [], before: null, brand: [], quote: null,
     work: { Build: 'Pro bono website management and support.', Demand: '', Intelligence: '' },
     hero: 'straight-street-home', images: ['straight-street-home', 'straight-street-mobile'], services: [],
+    next: 'bear-claw-usa'
+  },
+  {
+    slug: 'bear-claw-usa', title: 'Bear Claw USA',
+    heroLabel: 'Website / Brand identity / Packaging',
+    line: 'A product website, brand identity and packaging for plant-based form release.',
+    url: 'https://bear-claw-usa.vercel.app/', layers: ['Build'],
+    location: 'Las Vegas, NV', timeline: '',
+    scope: 'Product website · Brand identity · Product packaging · Business cards',
+    situation: 'Bear Claw USA makes plant-based form release for concrete forms, asphalt beds and tools. The work brings the product website, container label and printed materials together around a recognizable shield, wordmark and orange-and-black identity.',
+    receipts: [],
+    challenge: [
+      'Make the product and its uses clear from the first screen.',
+      'Carry the identity from the website to packaging and printed materials.',
+      'Give product buyers a direct path to request a quote.'
+    ],
+    approach: [
+      'Built the website around the product, its applications and a visible quote-request path.',
+      'Created a shield and wordmark system with orange and white variants for different backgrounds.',
+      'Applied the identity to the product container and business cards, using the same typography, color and diagonal stripe motif.'
+    ],
+    results: [], before: null,
+    brand: ['bear-claw-lockup-orange', 'bear-claw-lockup-white', 'bear-claw-shield', 'bear-claw-wordmark-orange', 'bear-claw-wordmark-white'],
+    quote: null,
+    work: {
+      Build: 'A product website, shield and wordmark identity, packaging artwork and business cards.',
+      Demand: 'Search and paid-media management are outside the work shown here.',
+      Intelligence: 'Reporting and analytics are outside the work shown here.'
+    },
+    hero: 'bear-claw-website', images: ['bear-claw-website'], services: ['web-design'],
     next: 'once-upon-a-book-club'
   },
 ];
@@ -167,6 +197,7 @@ export const clients: Client[] = [
   { name: 'General Shale', logo: 'logo-general-shale' }, { name: 'Once Upon a Book Club', logo: 'logo-ouabc' },
   { name: 'U.S. Oil Solutions', logo: 'logo-us-oil' }, { name: 'Summit Marine', logo: 'logo-summit-marine' }, { name: 'Straight Street', logo: 'logo-straight-street' },
   { name: 'Las Vegas Safety', logo: 'lvs-logo-black' },
+  { name: 'Bear Claw USA', logo: 'bear-claw-wordmark-orange' },
 ];
 export const partners = [{ name: 'Google Partner', logo: 'logo-google-partner' }, { name: 'Meta Business Partner' }];
 

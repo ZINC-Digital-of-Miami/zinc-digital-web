@@ -20,6 +20,15 @@ interface CasePresentation {
 // Platform treatments present approved source artwork; they do not assert a
 // particular campaign, platform interface, delivery state or performance result.
 export const casePresentations: Record<string, CasePresentation> = {
+  'bear-claw-usa': {
+    client: 'Bear Claw USA',
+    title: 'From the screen to the container.',
+    intro: 'The shield, wordmark and orange-and-black palette carry through the product packaging and business cards.',
+    frames: [
+      { asset: 'bear-claw-product', kind: 'catalog', surface: 'Packaging', label: 'Product presentation', title: 'The product in hand.', caption: 'The container label brings the shield, wordmark and product information into one layout.', alt: 'Black Bear Claw form-release container with an orange-and-black product label.' },
+      { asset: 'bear-claw-business-card', kind: 'sheet', surface: 'Print', label: 'Business card', title: 'A consistent introduction.', caption: 'Front and back business-card artwork with the shield, wordmark and diagonal stripe motif.', alt: 'Bear Claw business-card artwork for Chris Stacy, with orange shield and wordmark on black and orange backgrounds.' },
+    ],
+  },
   'once-upon-a-book-club': {
     client: 'Once Upon a Book Club',
     title: 'Google Shopping. Meta. TikTok.',
