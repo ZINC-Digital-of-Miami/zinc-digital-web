@@ -9,6 +9,7 @@ import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { caseScreens } from '../src/data/case-screens.ts';
+import { laneNames, workLanes } from '../src/data/work-lanes.ts';
 
 const root = process.cwd();
 // With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
@@ -29,7 +30,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa'];
-const STATIC = ['', 'services', 'work', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const STATIC = ['', 'services', 'work', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
@@ -174,9 +175,23 @@ if (home) {
   check((home.html.match(/class="person rv"/g) || []).length === 7, 'index.html must render all 7 team members');
   check(home.html.includes('data-team'), 'index.html team grid lacks data-team (shuffle hook)');
 }
+// Homepage and Work reuse the approved lane art with live navigation.
+if (home) {
+  check(home.html.includes('data-home-lanes'), 'homepage lacks its service-lane carousel');
+  for (const lane of laneNames) check(home.html.includes('href="' + workLanes[lane].path + '"'), 'homepage lacks ' + lane + ' lane link');
+}
+for (const lane of laneNames) {
+  const data = workLanes[lane];
+  const page = pages.find(p => p.rel === data.path.slice(1) + 'index.html');
+  check(!!page, 'missing lane page ' + data.path);
+  if (!page) continue;
+  check((page.html.match(/data-lane-project(?:\s|>)/g) || []).length === data.projects.length, lane + ' is missing project entries');
+  for (const project of data.projects) if (project.scene) check(page.html.includes(project.scene + '.'), lane + ' lacks approved scene ' + project.scene);
+  check(page.html.includes('href="' + workLanes[data.next].path + '"'), lane + ' lacks next-lane link');
+}
 // ---- work + cases ----
 const work = pages.find((p) => p.rel === 'work/index.html');
-if (work) for (const s of CASE_SLUGS) check(work.html.includes('href="/work/' + s + '/"'), 'work/index.html is missing a link to /work/' + s + '/');
+if (work) for (const s of CASE_SLUGS) check(hrefs(work.html).some(h => h.split('#')[0] === '/work/' + s + '/'), 'work/index.html is missing a link to /work/' + s + '/');
 for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
   if (!p) continue;

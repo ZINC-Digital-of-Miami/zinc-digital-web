@@ -101,7 +101,7 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 | Category | Item | Status | Deferred At | Milestone |
 |----------|------|--------|-------------|-----------|
-| *(none)* | | | | |
+| Homepage imagery | Refresh the remaining homepage sections with the approved service-lane mockups and updated client imagery; keep U.S. Oil website and operations-app imagery separate. The rotating hero already uses the new art. | To do — owner requested after current lane work | 8 October 2026 (CT) | Follow-up to service lanes |
 
 ## Session Continuity
 

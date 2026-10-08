@@ -44,7 +44,7 @@ export const casePresentations: Record<string, CasePresentation> = {
     title: 'Built around the buying task.',
     intro: 'The storefront, product artwork and identity belong to one wholesale ecommerce rebuild.',
     frames: [
-      { asset: 'lvs-storefront-first-aid', kind: 'catalog', surface: 'Ecommerce', label: 'Delivered storefront', title: 'Find the right supplies.', caption: 'First-aid storefront artwork with product search, quick reorder and account navigation.', alt: 'Las Vegas Safety first-aid ecommerce storefront presented on a laptop.' },
+      { asset: 'case-lvs-home-desktop', kind: 'catalog', surface: 'Ecommerce', label: 'Delivered storefront', title: 'Find the right supplies.', caption: 'The current storefront brings workplace supply categories, quick reorder and account navigation together.', alt: 'Las Vegas Safety and Supply current ecommerce homepage.' },
       { asset: 'lvs-food-service-product-hero', kind: 'catalog', surface: 'Food service', label: 'Catalog artwork', title: 'Products in context.', caption: 'Food-service catalog artwork brings containers, gloves and hair nets into one product presentation.', alt: 'Las Vegas Safety catalog artwork featuring takeout containers, gloves and hair nets.' },
       { asset: 'lvs-logo-black', kind: 'identity', surface: 'Brand identity', label: 'Delivered brand mark', title: 'A consistent identity.', caption: 'The primary shield and wordmark created for Las Vegas Safety & Supply.', alt: 'Las Vegas Safety and Supply primary shield logo and wordmark.' },
     ],
