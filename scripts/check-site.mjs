@@ -178,6 +178,8 @@ if (home) {
 // Homepage and Work reuse the approved lane art with live navigation.
 if (home) {
   check(home.html.includes('data-home-lanes'), 'homepage lacks its service-lane carousel');
+  for (const scene of ['build-ouabc','demand-ouabc','intelligence-ouabc','demand-summit','intelligence-fusion','intelligence-uos','build-uos']) check(home.html.includes(scene + '.'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('href="/work/us-oil-solutions/#website"') && home.html.includes('href="/work/us-oil-solutions/#operations-app"'), 'homepage must keep U.S. Oil website and app destinations separate');
   for (const lane of laneNames) check(home.html.includes('href="' + workLanes[lane].path + '"'), 'homepage lacks ' + lane + ' lane link');
 }
 for (const lane of laneNames) {
