@@ -208,7 +208,7 @@ for (const s of CASE_SLUGS) {
   }
   if (s === 'felon-motorwerk') {
     for (const id of ['website','apparel','brand-creative','merchandise','shop-signage']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);
-    check((p.html.match(/data-apparel-item/g)||[]).length === 15, 'Felon must show 15 selected apparel designs');
+    check((p.html.match(/data-apparel-item/g)||[]).length === 19, 'Felon must show 19 selected apparel designs');
   } else if (s === 'once-upon-a-book-club') {
     for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
     check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
