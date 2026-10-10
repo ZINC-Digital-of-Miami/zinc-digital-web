@@ -30,7 +30,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa'];
-const STATIC = ['', 'services', 'work', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
@@ -177,8 +177,12 @@ if (home) {
 }
 // Homepage and Work reuse the approved lane art with live navigation.
 if (home) {
-  check(home.html.includes('data-home-lanes'), 'homepage lacks its service-lane carousel');
-  for (const scene of ['build-ouabc','demand-ouabc','intelligence-ouabc','demand-summit','intelligence-fusion','intelligence-uos','build-uos']) check(home.html.includes(scene + '.'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
+  check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 2, 'homepage must have two matching case sliders');
+  check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
+  for (const scene of ['build-ouabc','intelligence-ouabc','demand-summit','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('campaign-white.'), 'homepage lacks white campaign device stage');
+  check(/class="band home-team" hidden/.test(home.html), 'saved staff must be hidden on home');
   check(home.html.includes('href="/work/us-oil-solutions/#website"') && home.html.includes('href="/work/us-oil-solutions/#operations-app"'), 'homepage must keep U.S. Oil website and app destinations separate');
   for (const lane of laneNames) check(home.html.includes('href="' + workLanes[lane].path + '"'), 'homepage lacks ' + lane + ' lane link');
 }
@@ -188,7 +192,7 @@ for (const lane of laneNames) {
   check(!!page, 'missing lane page ' + data.path);
   if (!page) continue;
   check((page.html.match(/data-lane-project(?:\s|>)/g) || []).length === data.projects.length, lane + ' is missing project entries');
-  for (const project of data.projects) if (project.scene) check(page.html.includes(project.scene + '.'), lane + ' lacks approved scene ' + project.scene);
+  for (const project of data.projects) if (project.scene) check(page.html.includes('data-scene="'+project.scene+'"'), lane + ' lacks approved scene ' + project.scene);
   check(page.html.includes('href="' + workLanes[data.next].path + '"'), lane + ' lacks next-lane link');
 }
 // ---- work + cases ----

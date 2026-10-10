@@ -1,4 +1,6 @@
 ---
+import WorkOverview from "./WorkOverview.astro";
+import ApprovedImage from "./ApprovedImage.astro";
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
 import WorkLane from './WorkLane.astro';
@@ -177,20 +179,25 @@ type Run = { text: string; href?: string };
 const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 ---
 {t !== 'case' && t !== 'work' && (
-  <section class:list={["p-intro", { "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
+  <section class:list={["p-intro", "zn-page-hero", { "zn-long-title": route.title.length > 35, "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
     <div class="sph" data-par="0.07" style="width:560px;height:560px;right:-150px;top:-60px;animation:float1 11s ease-in-out infinite"></div>
-    <div class="wrap">
-      <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span><span class="p-url-label">{urlLabel}</span></div>
+    <div class:list={["wrap", {"zn-service-hero":t === "services"}]}>
+      <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span></div>
       <hr class="rule" />
-      <h1 class:list={['disp p-title', titleCls, { rv: revealHeader }]}>{route.title}</h1>
+      <h1 class:list={['disp p-title', titleCls, {'zn-insights-title':t === 'blog'}, { rv: revealHeader }]}>{t === "blog" ? <>&lt;insights<span>.py</span>/&gt;</> : route.title}</h1>
       {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
       {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
+      {svc && <a class="zn-hero-action" href={'/contact/?service='+svc.slug}>Discuss this service ↗</a>}
+      {t === 'services' && <><a class="zn-hero-action" href="#service-directory">Find your service ↓</a><div class="zn-service-art"><ApprovedImage name="build-ouabc-neese.png" alt="Websites and commerce across desktop, tablet and phone" loading="eager" /></div></>}
       {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
   </section>
 )}
 
 {svc && (<>
+  <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>
+    <dl class="p-spec rv rv-stag"><div><dt class="lab">Deliverables</dt><dd><ul>{svc.deliverables.map((d, i) => <li><i>{pad(i)}</i><span>{d}</span></li>)}</ul></dd></div><div><dt class="lab">Cadence</dt><dd>{svc.cadence}</dd></div><div><dt class="lab">Client owns</dt><dd>{svc.owns}</dd></div><div><dt class="lab">Reported</dt><dd>{svc.reported}</dd></div></dl>
+  </div></section>
   <section class="s-open studio-service-opening"><div class="wrap s-open-in">
     <div class="rv"><span class="kick">{layerMeta[svc.layer].kick}</span><h2 class="disp p-sec">{layerMeta[svc.layer].line}</h2><p class="p-body p-muted" style="margin-top:22px">{layerMeta[svc.layer].body}</p></div>
     <div class="s-vis s-vis-proof rv"><div class="s-motif" aria-hidden="true">
@@ -204,25 +211,23 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     {svc.layer === 'Demand' && <div class="s-blocks rv-stag">{contract.map(([k, v]) => <div><span class="lab">{k}</span><p>{v}</p></div>)}</div>}
     {svc.layer === 'Intelligence' && <dl class="s-readout rv">{readout.map(([k, v]) => <div><dt><span class="mdot"></span>{k}</dt><dd>{v}</dd></div>)}</dl>}
   </div></section>
-  <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>
-    <dl class="p-spec rv rv-stag"><div><dt class="lab">Deliverables</dt><dd><ul>{svc.deliverables.map((d, i) => <li><i>{pad(i)}</i><span>{d}</span></li>)}</ul></dd></div><div><dt class="lab">Cadence</dt><dd>{svc.cadence}</dd></div><div><dt class="lab">Client owns</dt><dd>{svc.owns}</dd></div><div><dt class="lab">Reported</dt><dd>{svc.reported}</dd></div></dl>
-  </div></section>
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Related work / scope varies by service</span><h2 class="disp p-sec">{caseBy(svc.caseSlug).title}</h2></div><div class="rv"><p class="p-body p-muted">Explore the related engagement and the work that connected its services.</p><a class="arrow" href={'/work/' + svc.caseSlug + '/'}>Read the case study ↗</a></div></div></section>
+
+
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Before the work begins</span><h2 class="disp p-sec">Useful questions.</h2></div><div class="p-faq rv">{svc.questions.map(([qq, a]) => <details><summary>{qq}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></div></section>
   <section class="p-band thin"><div class="wrap"><span class="kick rv">Connect the next part</span><h2 class="disp p-sec rv">Start with {svc.title.toLowerCase()}.</h2><div class="p-related rv"><a class="btn fill" href={link('/contact/', { service: svc.slug })}>Start an Inquiry</a><span class="brk"></span>{svc.related.map((s) => <a href={'/services/' + s + '/'}>{svcBy(s).title} ↗</a>)}</div></div></section>
 </>)}
 
-{(t === 'services' || svc) && (
-  <section class="p-band studio-lanes"><div class="wrap"><span class="kick rv">The connected system</span><h2 class="disp p-sec rv">Build. Demand. Intelligence.</h2>
-    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3>{t === 'services' && <a class="studio-lane-image" href={workLanes[l.layer].path} aria-label={'Explore ' + l.layer + ' work'}><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></a>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>)}</div>
+{(t === 'services') && (
+  <section class="p-band studio-lanes" id="service-directory"><div class="wrap"><span class="kick rv">The connected system</span><h2 class="disp p-sec rv">Build. Demand. Intelligence.</h2>
+    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3>{t === 'services' && <div class="studio-lane-image"><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></div>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>)}</div>
   </div></section>
 )}
 
-{t === 'work' && <WorkLane lane={route.layer || 'Build'} />}
+{t === 'work' && (route.path === '/work/' ? <WorkOverview /> : <WorkLane lane={route.layer || 'Build'} />)}
 
 {study?.slug === 'once-upon-a-book-club' && <OUABCCase />}
 {study && study.slug !== 'once-upon-a-book-club' && (<>
-  <section class="c-open c-open-app" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
+  <section class="c-open c-open-app zn-page-hero" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
   <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
     <div class="c-site-links">{study.url && <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">{study.nonprofit ? 'Visit the ministry website ↗' : 'Visit the public client site ↗'}</a>}{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>

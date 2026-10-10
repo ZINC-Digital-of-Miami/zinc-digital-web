@@ -38,7 +38,7 @@ const { authors } = await import('../src/data/authors.ts');
 const posts = [...JSON.parse(await fs.readFile('src/data/posts.preview.json', 'utf8')).posts, ...authoredArticles.map(p => ({...p, blocks:[]}))];
 const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
 const caseSlugs = ['once-upon-a-book-club', 'us-oil-solutions', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries', 'bear-claw-usa'];
-const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
+const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ['/work/build/', 'work'], ['/work/demand/', 'work'], ['/work/intelligence/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
 assert.equal(routes.length, 20 + caseSlugs.length + posts.length + authors.length, 'route inventory must include every public case, article and author');
 const NOINDEX = new Set(['/thanks/']);
 const JS_BUDGET = 15 * 1024;
@@ -72,7 +72,7 @@ const matchedDriver = () => {
 // In-page probes. reach(): scroll only the window, as a user would, and require each element inside the viewport
 // and top-most at its centre (an overflow:hidden track never scrolls). baState(): which image shows on each side.
 const REACH = `const [sel, inner] = arguments; const out = [];
-  for (const el of document.querySelectorAll(sel)) { for (let k = 0; k < 3; k++) { const q = el.getBoundingClientRect(); scrollTo({ top: scrollY + q.top + q.height / 2 - innerHeight / 2, behavior: 'instant' }); }
+  for (const el of document.querySelectorAll(sel)) { const rail=el.closest('.case-slider .uso-track'); if(rail){rail.style.scrollSnapType='none';rail.scrollLeft=el.offsetLeft-parseFloat(getComputedStyle(rail).paddingLeft);} for (let k = 0; k < 3; k++) { const q = el.getBoundingClientRect(); scrollTo({ top: scrollY + q.top + q.height / 2 - innerHeight / 2, behavior: 'instant' }); }
     const r = el.getBoundingClientRect(); const t = (inner && el.querySelector(inner)) || el; const tr = t.getBoundingClientRect();
     const hit = document.elementFromPoint(Math.min(Math.max(tr.left + tr.width / 2, 1), innerWidth - 2), Math.min(Math.max(tr.top + Math.min(tr.height / 2, 40), 1), innerHeight - 2));
     out.push({ ok: r.width > 0 && r.left >= -1 && r.right <= innerWidth + 1 && !!hit && el.contains(hit), l: Math.round(r.left), at: hit && String(hit.className || hit.tagName).slice(0, 30) }); }

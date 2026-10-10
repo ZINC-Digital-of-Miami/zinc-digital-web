@@ -9,7 +9,7 @@ export const workLanes: Record<WorkLane, {
   path: string; line: string; next: WorkLane; filters: string[]; projects: WorkProject[];
 }> = {
   Build: {
-    path: '/work/', line: 'Websites, commerce and applications.', next: 'Demand',
+    path: '/work/build/', line: 'Websites, commerce and applications.', next: 'Demand',
     filters: ['All builds', 'Websites', 'Ecommerce', 'Applications'],
     projects: [
       { slug: 'once-upon-a-book-club', label: 'Shopify rebuild', summary: 'A rebuilt Shopify storefront for subscriptions, one-time releases and bookish gifts.', category: ['Ecommerce'], scene: 'build-ouabc' },

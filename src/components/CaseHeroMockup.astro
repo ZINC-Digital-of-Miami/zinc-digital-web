@@ -2,8 +2,8 @@
 import Img from './Img.astro';
 import type { Case } from '../data/site';
 
-interface Props { study: Case }
-const { study } = Astro.props;
+interface Props { study: Case; loading?: "eager" | "lazy" }
+const { study, loading = "eager" } = Astro.props;
 type Scene = { desktop: string; mobile?: string; tablet?: string; framed?: boolean; mobileFramed?: boolean; label: string };
 const scenes: Record<string, Scene> = {
   'once-upon-a-book-club': { desktop: 'ouabc-website-after', mobile: 'ouabc-mobile', label: 'Shopify storefront' },
@@ -26,12 +26,12 @@ const desktopSizes = study.slug === 'once-upon-a-book-club'
   <div class:list={['case-mockup__desktop', { 'case-mockup__desktop--framed': scene.framed }]}>
     <div class="case-mockup__screen">
       {!scene.framed && <span class="case-mockup__camera" aria-hidden="true"></span>}
-      <Img k={scene.desktop} alt={study.title + (scene.framed ? ' website in a device mockup' : ' desktop screen in a laptop mockup')} loading="eager" fetchpriority="high" decoding="sync" quality={95} widths={[720, 960, 1440, 1920]} sizes={desktopSizes} />
+      <Img k={scene.desktop} alt={study.title + (scene.framed ? ' website in a device mockup' : ' desktop screen in a laptop mockup')} loading={loading} fetchpriority={loading === "eager" ? "high" : undefined} decoding="sync" quality={95} widths={[720, 960, 1440, 1920]} sizes={desktopSizes} />
     </div>
     {!scene.framed && <div class="case-mockup__base" aria-hidden="true"><i></i></div>}
   </div>
-  {scene.tablet && <div class="case-mockup__tablet"><div class="case-mockup__glass"><Img k={scene.tablet} alt={study.title + ' tablet website in a tablet mockup'} loading="eager" fetchpriority="low" quality={95} widths={[360, 540, 720]} sizes="(max-width: 700px) 28vw, 220px" /></div></div>}
-  {scene.mobile && <div class:list={['case-mockup__phone', { 'case-mockup__phone--framed': scene.mobileFramed }]}><div class="case-mockup__glass"><Img k={scene.mobile} alt={study.title + ' mobile website in a phone mockup'} loading="eager" fetchpriority="low" quality={95} widths={[280, 420, 640]} sizes="(max-width: 700px) 22vw, 160px" /></div></div>}
+  {scene.tablet && <div class="case-mockup__tablet"><div class="case-mockup__glass"><Img k={scene.tablet} alt={study.title + ' tablet website in a tablet mockup'} loading={loading} fetchpriority="low" quality={95} widths={[360, 540, 720]} sizes="(max-width: 700px) 28vw, 220px" /></div></div>}
+  {scene.mobile && <div class:list={['case-mockup__phone', { 'case-mockup__phone--framed': scene.mobileFramed }]}><div class="case-mockup__glass"><Img k={scene.mobile} alt={study.title + ' mobile website in a phone mockup'} loading={loading} fetchpriority="low" quality={95} widths={[280, 420, 640]} sizes="(max-width: 700px) 22vw, 160px" /></div></div>}
 </figure>
 
 <style>
