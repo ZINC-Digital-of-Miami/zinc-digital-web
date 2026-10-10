@@ -1,0 +1,56 @@
+[
+  {
+    "file": "campaign.png",
+    "label": "Felon Cycles / campaign creative",
+    "group": "brand-creative",
+    "sourceId": "1_97IW4AdLZfZFWQglzrD0UAX--GN0PB-"
+  },
+  {
+    "file": "mugs.jpg",
+    "label": "Spade emblems / mugs",
+    "group": "merchandise",
+    "sourceId": "1hg04_p6n_49tVTL1aGErVlNYcfrKPCq9"
+  },
+  {
+    "file": "spade-sticker.jpg",
+    "label": "Red spade / logo sticker",
+    "group": "merchandise",
+    "sourceId": "1QjJvhZO46arWN7OEDMMFG928QMfW-pyf"
+  },
+  {
+    "file": "mirror-mark.jpg",
+    "label": "Felon Cycles / motorcycle detail",
+    "group": "shop-signage",
+    "sourceId": "1Xq5usOgVsp7UcOHQRLMFdYahrB1WowgM"
+  },
+  {
+    "file": "workshop-signage.jpg",
+    "label": "Workshop / wall and pillar signage",
+    "group": "shop-signage",
+    "sourceId": "19klp1-zMsLfvFFBCmOsdRCxFiM7l9yzA"
+  },
+  {
+    "file": "floor-spade.jpg",
+    "label": "Red spade / floor graphic",
+    "group": "shop-signage",
+    "sourceId": "1DzLHeMFsNkS2Lp6Tq7p1iHngKD7kaYZg"
+  },
+  {
+    "file": "storefront.jpg",
+    "label": "Storefront / exterior view",
+    "group": "shop-signage",
+    "sourceId": "12dX0f5NFgKO2kISEQHcJ568cA5nhmZF_"
+  },
+  {
+    "file": "storefront-detail.jpg",
+    "label": "Storefront / structural detail",
+    "group": "shop-signage",
+    "sourceId": "1e0coHK8aS45d3OurU5tbHS6vWqVKBwug"
+  },
+  {
+    "file": "retail-display.jpg",
+    "label": "Retail space / apparel and accessories",
+    "group": "shop-signage",
+    "sourceId": "10rPy3wLuHpZTxGRaQbhbooqb9wdsQQq9"
+  }
+]

@@ -1,0 +1,17 @@
+---
+import {Picture} from 'astro:assets';
+import type {ImageMetadata} from 'astro';
+interface Props {items:{image:ImageMetadata;label:string}[]; apparel?:boolean; wide?:boolean}
+const {items,apparel=false,wide=false}=Astro.props;
+---
+<div class:list={['felon-gallery',{'felon-gallery--wide':wide}]}>
+  {items.map(({image,label})=><figure data-apparel-item={apparel?true:undefined}>
+    <a href={image.src} target="_blank" rel="noopener" aria-label={'View '+label+' — opens full image in a new tab'}>
+      <div class="felon-image"><Picture src={image} formats={['avif','webp']} widths={[...new Set([400,700,1000,image.width].filter(w=>w<=image.width))]} sizes={wide?'(max-width: 600px) 90vw, 44vw':'(max-width: 600px) 90vw, (max-width: 1000px) 44vw, 29vw'} quality={90} alt={label} loading="lazy" /></div>
+      <figcaption><span>{label}</span><span aria-hidden="true">↗</span></figcaption>
+    </a>
+  </figure>)}
+</div>
+<style>
+.felon-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.felon-gallery--wide{grid-template-columns:repeat(2,minmax(0,1fr))}.felon-gallery figure{margin:0;background:#fff;color:#111;border:1px solid #d7d8d9;box-shadow:0 12px 30px #11111108;padding:18px;min-width:0}.felon-gallery a{display:block;color:#111!important;text-decoration:none!important}.felon-image{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:white}.felon-gallery--wide .felon-image{aspect-ratio:4/3}.felon-image :global(picture){display:contents}.felon-image :global(img){width:100%;height:100%;object-fit:contain}.felon-gallery figcaption{border-top:1px solid #ddd;margin-top:18px;padding-top:15px;font:12px/1.5 var(--fm);display:flex;justify-content:space-between;gap:12px}.felon-gallery a:focus-visible{outline:3px solid #008d91;outline-offset:6px}@media(max-width:1000px){.felon-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.felon-gallery{grid-template-columns:1fr;gap:20px}.felon-gallery figure{padding:16px}}
+</style>

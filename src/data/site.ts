@@ -187,6 +187,7 @@ export const cases: Case[] = [
     hero: 'bear-claw-home-desktop', images: ["bear-claw-home-desktop","bear-claw-home-tablet","bear-claw-home-mobile","bear-claw-product-desktop","bear-claw-product-tablet","bear-claw-product-mobile","bear-claw-about-desktop","bear-claw-about-tablet","bear-claw-about-mobile","bear-claw-quote-desktop","bear-claw-quote-tablet","bear-claw-quote-mobile"], services: ['web-design'],
     next: 'once-upon-a-book-club'
   },
+  {"slug": "felon-motorwerk", "title": "Felon Motorwerk", "line": "Web design, apparel and brand applications for Felon Motorwerk.", "url": "", "layers": ["Build"], "situation": "A motorcycle brand expressed across digital and physical work.", "location": "Motorcycles", "contextLabel": "Brand", "timeline": "", "scope": "Web design \u00b7 Apparel \u00b7 Brand applications", "receipts": [], "challenge": [], "approach": [], "results": [], "before": null, "brand": [], "quote": null, "work": {"Build": "Website creative and branded apparel.", "Demand": "", "Intelligence": ""}, "hero": "felon-web-mockup", "images": [], "services": ["web-design"], "next": "bear-claw-usa"},
 ];
 // Legacy / short URL → canonical case slug. Astro redirects are generated from this.
 export { caseAliases } from './redirects';

@@ -29,7 +29,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk'];
 const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
@@ -206,7 +206,10 @@ for (const s of CASE_SLUGS) {
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
   }
-  if (s === 'once-upon-a-book-club') {
+  if (s === 'felon-motorwerk') {
+    for (const id of ['website','apparel','brand-creative','merchandise','shop-signage']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);
+    check((p.html.match(/data-apparel-item/g)||[]).length === 15, 'Felon must show 15 selected apparel designs');
+  } else if (s === 'once-upon-a-book-club') {
     for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
     check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
     check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');

@@ -193,5 +193,6 @@
   "case-straight-street-about-mobile": {"src":"/work/case-straight-street-about-mobile.png","width":780,"height":1688},
   "case-straight-street-volunteer-desktop": {"src":"/work/case-straight-street-volunteer-desktop.png","width":2880,"height":1800},
   "case-straight-street-volunteer-tablet": {"src":"/work/case-straight-street-volunteer-tablet.png","width":1668,"height":2224},
-  "case-straight-street-volunteer-mobile": {"src":"/work/case-straight-street-volunteer-mobile.png","width":780,"height":1688}
+  "case-straight-street-volunteer-mobile": {"src":"/work/case-straight-street-volunteer-mobile.png","width":780,"height":1688},
+  "felon-web-mockup": {"src":"/approved/felon-white-devices.png","width":1536,"height":1024}
 }
