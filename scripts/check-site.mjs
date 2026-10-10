@@ -29,7 +29,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical'];
 const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
@@ -206,7 +206,9 @@ for (const s of CASE_SLUGS) {
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
   }
-  if (s === 'felon-motorwerk') {
+  if (s === 'miami-tactical') {
+    for (const id of ['overview','website','logo','design-details']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'Miami Tactical lacks linked section ' + id);
+  } else if (s === 'felon-motorwerk') {
     for (const id of ['website','apparel','brand-creative','merchandise','shop-signage','around-the-shop']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);
     check((p.html.match(/data-apparel-item/g)||[]).length === 25, 'Felon must show 25 selected apparel designs');
   } else if (s === 'once-upon-a-book-club') {

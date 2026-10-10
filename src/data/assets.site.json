@@ -194,5 +194,7 @@
   "case-straight-street-volunteer-desktop": {"src":"/work/case-straight-street-volunteer-desktop.png","width":2880,"height":1800},
   "case-straight-street-volunteer-tablet": {"src":"/work/case-straight-street-volunteer-tablet.png","width":1668,"height":2224},
   "case-straight-street-volunteer-mobile": {"src":"/work/case-straight-street-volunteer-mobile.png","width":780,"height":1688},
-  "felon-web-mockup": {"src":"/approved/felon-white-devices.png","width":1536,"height":1024}
+  "felon-web-mockup": {"src":"/approved/felon-white-devices.png","width":1536,"height":1024},
+  "miami-tactical-website": {"src":"/work/miami-tactical/website.png","width":1332,"height":634},
+  "miami-tactical-logo": {"src":"/work/miami-tactical/logo.jpg","width":1002,"height":201}
 }
