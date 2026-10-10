@@ -28,10 +28,10 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 - **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace). No Cloudflare and no Docker. Paid AI and search providers stay off until the owner sets their keys.
 - **Git (Kiro flow):**
   - Work runs in the spec's Kiro worktree on its `spec/<spec-slug>` branch. Milestones are the task groups in `tasks.md`.
-  - Each milestone reaches `main` by squash-merged PR, with one Codex GitHub review requested on the final head and at most two review rounds. The branch is then reset to `main`.
+  - Each milestone reaches `main` by squash-merged PR, with a fresh agent review of the final head using specific, non-generic instructions for the actual changes. The branch is then reset to `main`.
   - Milestone merges are automatic once the required checks pass and the review is answered (owner, 4 Oct 2026; decision recorded 5 Oct 2026).
   - Pushes always name the branch.
-- **Code scanning and review:** CodeQL stays off in every ZINC Digital repo (owner, 5 Oct 2026). Do not add CodeQL workflows or turn on code scanning default setup or Code Quality. Codex is the only reviewer; do not request Copilot or any other automated review.
+- **Code scanning and review:** CodeQL stays off in every ZINC Digital repo (owner, 5 Oct 2026). Do not add CodeQL workflows or turn on code scanning default setup or Code Quality. Owner, 10 Oct 2026: do not request Codex or Copilot reviews. Use a fresh agent with specific, non-generic instructions naming the change scope, owner requirements, known risks and behaviors to verify.
 - **Irreversible or production actions** need the owner's explicit go for that exact action:
   - DNS cutover;
   - production secrets;
