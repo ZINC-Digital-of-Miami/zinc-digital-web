@@ -16,7 +16,8 @@ export function initShell() {
   initTeamShuffle();
 }
 
-// The native modal supplies focus containment and makes the page behind it inert.
+// The native modal makes the page behind it inert; wrap Tab inside the menu
+// explicitly because Chrome can otherwise move focus into browser chrome.
 function initMobileMenu() {
   const toggle = document.getElementById('mobileMenuToggle');
   const menu = document.getElementById('mobileMenu') as HTMLDialogElement | null;
@@ -48,6 +49,17 @@ function initMobileMenu() {
     requestAnimationFrame(() => requestAnimationFrame(() => { if (menu.open && !closing) menu.dataset.visible = 'true'; }));
   });
   menu.querySelector('[data-menu-close]')?.addEventListener('click', close);
+  menu.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const controls = q<HTMLElement>('a[href],button:not([disabled])', menu).filter(el => el.getClientRects().length > 0);
+    const first = controls[0], last = controls.at(-1);
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  });
   menu.addEventListener('cancel', event => { event.preventDefault(); close(); });
   menu.addEventListener('click', event => {
     if ((event.target as Element).closest('a')) { finish(); return; }

@@ -207,6 +207,11 @@ try {
   check(await driver.executeScript('return document.documentElement.classList.contains("menu-open") && document.getElementById("mobileMenuToggle").getAttribute("aria-expanded") === "true" && document.activeElement.matches("[data-menu-close]")'), 'drawer locks scroll, exposes state and focuses close');
   await capture('mobile-menu--375',true);
   for (let i = 0; i < 10; i++) { await driver.actions().sendKeys(Key.TAB).perform(); check(await driver.executeScript('return document.getElementById("mobileMenu").contains(document.activeElement)'), 'drawer contains keyboard focus on Tab ' + i); }
+  await driver.executeScript('document.querySelector("#mobileMenu a[href]").focus()');
+  await driver.actions().keyDown(Key.SHIFT).sendKeys(Key.TAB).keyUp(Key.SHIFT).perform();
+  check(await driver.executeScript('const controls=[...document.querySelectorAll("#mobileMenu a[href],#mobileMenu button:not([disabled])")].filter(el=>el.getClientRects().length);return document.activeElement===controls.at(-1)'), 'drawer wraps Shift+Tab from first to last control');
+  await driver.actions().sendKeys(Key.TAB).perform();
+  check(await driver.executeScript('return document.activeElement===document.querySelector("#mobileMenu a[href]")'), 'drawer wraps Tab from last to first control');
   await driver.executeScript(axeSrc);
   const menuAxe = await driver.executeAsyncScript('const d=arguments[arguments.length-1];axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}}).then(r=>d(r.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))))');
   result.axe.push({route:'/blog/ mobile menu',w:375,violations:menuAxe}); check(menuAxe.length === 0, 'drawer axe ' + JSON.stringify(menuAxe));
