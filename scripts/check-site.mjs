@@ -180,7 +180,7 @@ if (home) {
   check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
   check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 2, 'homepage must have two matching case sliders');
   check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
-  for (const scene of ['build-ouabc','intelligence-ouabc','demand-summit','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  for (const scene of ['build-ouabc','intelligence-ouabc','demand-dark','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
   check(home.html.includes('campaign-white.'), 'homepage lacks white campaign device stage');
   check(/class="band home-team" hidden/.test(home.html), 'saved staff must be hidden on home');
   check(home.html.includes('href="/work/us-oil-solutions/#website"') && home.html.includes('href="/work/us-oil-solutions/#operations-app"'), 'homepage must keep U.S. Oil website and app destinations separate');
