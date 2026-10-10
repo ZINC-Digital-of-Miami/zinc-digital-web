@@ -26,3 +26,8 @@
 @media(max-width:760px){.zn-service-hero{padding-right:0;min-height:0}.zn-service-art{position:static;width:100%;margin-top:30px}}
 
 .work-lane--intelligence .wl-hero h1{font-size:clamp(48px,7.2vw,112px);position:relative;z-index:2}.work-lane--intelligence .wl-hero-art{z-index:0}@media(max-width:700px){.work-lane--intelligence .wl-hero h1{font-size:clamp(38px,10.6vw,72px)}}
+
+/* A modest contrast lift to the existing ambient spheres. */
+.sph{background:radial-gradient(circle at 35% 30%,rgba(10,10,11,.14),rgba(10,10,11,0) 70%)!important}
+html[data-theme="dark"] .sph,.mcard .sph,.cta .sph,.zn-page-hero .sph{background:radial-gradient(circle at 35% 30%,rgba(245,246,247,.15),rgba(245,246,247,0) 70%)!important;opacity:1!important;filter:none!important}
+#zsRoot .p-intro>.sph{display:block;opacity:.65!important}
