@@ -29,8 +29,8 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa'];
-const STATIC = ['', 'services', 'work', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
+const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
@@ -177,8 +177,12 @@ if (home) {
 }
 // Homepage and Work reuse the approved lane art with live navigation.
 if (home) {
-  check(home.html.includes('data-home-lanes'), 'homepage lacks its service-lane carousel');
-  for (const scene of ['build-ouabc','demand-ouabc','intelligence-ouabc','demand-summit','intelligence-fusion','intelligence-uos','build-uos']) check(home.html.includes(scene + '.'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
+  check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 2, 'homepage must have two matching case sliders');
+  check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
+  for (const scene of ['build-ouabc','intelligence-ouabc','demand-summit','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('campaign-white.'), 'homepage lacks white campaign device stage');
+  check(/class="band home-team" hidden/.test(home.html), 'saved staff must be hidden on home');
   check(home.html.includes('href="/work/us-oil-solutions/#website"') && home.html.includes('href="/work/us-oil-solutions/#operations-app"'), 'homepage must keep U.S. Oil website and app destinations separate');
   for (const lane of laneNames) check(home.html.includes('href="' + workLanes[lane].path + '"'), 'homepage lacks ' + lane + ' lane link');
 }
@@ -188,7 +192,7 @@ for (const lane of laneNames) {
   check(!!page, 'missing lane page ' + data.path);
   if (!page) continue;
   check((page.html.match(/data-lane-project(?:\s|>)/g) || []).length === data.projects.length, lane + ' is missing project entries');
-  for (const project of data.projects) if (project.scene) check(page.html.includes(project.scene + '.'), lane + ' lacks approved scene ' + project.scene);
+  for (const project of data.projects) if (project.scene) check(page.html.includes('data-scene="'+project.scene+'"'), lane + ' lacks approved scene ' + project.scene);
   check(page.html.includes('href="' + workLanes[data.next].path + '"'), lane + ' lacks next-lane link');
 }
 // ---- work + cases ----
@@ -202,7 +206,18 @@ for (const s of CASE_SLUGS) {
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
   }
-  if (s === 'once-upon-a-book-club') {
+  if (['fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'].includes(s)) {
+    for (const id of ['overview','website','website-details']) check(p.html.includes('id="'+id+'"'), s+' lacks '+id);
+  } else if (s === 'las-vegas-safety') {
+    for (const id of ['before-after','website','identity','catalog','production','flyers']) check(p.html.includes('id="'+id+'"') && p.html.includes('href="#'+id+'"'), 'LVS lacks linked section '+id);
+    check(!p.html.includes('case-lvs-'), 'LVS must not present the later client refresh as ZINC work');
+    check(p.html.includes('Christmas Eve') && p.html.includes('no extra charge') && p.html.includes('manually upscaled'), 'LVS lacks owner-confirmed production context');
+  } else if (s === 'miami-tactical') {
+    for (const id of ['overview','website','logo','design-details']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'Miami Tactical lacks linked section ' + id);
+  } else if (s === 'felon-motorwerk') {
+    for (const id of ['website','apparel','brand-creative','merchandise','shop-signage','around-the-shop']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);
+    check((p.html.match(/data-apparel-item/g)||[]).length === 25, 'Felon must show 25 selected apparel designs');
+  } else if (s === 'once-upon-a-book-club') {
     for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
     check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
     check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');

@@ -1,0 +1,216 @@
+[
+  {
+    "file": "gold-spade-tee.jpg",
+    "group": "T-shirts & long sleeves",
+    "label": "Gold spade / black tee",
+    "sourceId": "1fVsLKK7wEojq3pPTlcIupeEgvnDGncNG",
+    "sourceName": "felon-gold-rocker-blk.jpg",
+    "folder": "Felon Gear",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "file": "red-skull-tee.png",
+    "group": "T-shirts & long sleeves",
+    "label": "Skull emblem / red tee",
+    "sourceId": "1GyDGaG23DoB8y36oi_7elWPS22zm1r8V",
+    "sourceName": "Felon Foreman Rocker T.png",
+    "folder": "Felon Gear",
+    "width": 500,
+    "height": 500
+  },
+  {
+    "file": "white-rocker-tee.jpg",
+    "group": "T-shirts & long sleeves",
+    "label": "Red spade / white tee",
+    "sourceId": "16i2pimU0o06tpdwNrQ2X3fM0kBBn7q7d",
+    "sourceName": "Felon Rocker T WHT.jpg",
+    "folder": "Felon Gear",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "gray-baseball-shirt.jpg",
+    "group": "T-shirts & long sleeves",
+    "label": "Red spade / baseball shirt",
+    "sourceId": "14cV4olno8Sgsf3iwr0D_fBMZQG-LUiU9",
+    "sourceName": "Felon Rocker Unisex Baseball Tee.jfif",
+    "folder": "Felon Gear",
+    "width": 1200,
+    "height": 1200
+  },
+  {
+    "file": "skull-long-sleeve.png",
+    "group": "T-shirts & long sleeves",
+    "label": "Skull emblem / long sleeve",
+    "sourceId": "1JP6kDc0UULezJXAFtV8VNo4wEMnvPlgz",
+    "sourceName": "mens-long-sleeve-shirt-black-front-6092ae3b531cd.png",
+    "folder": "Felon Gear",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "motorwerk-tee.png",
+    "group": "T-shirts & long sleeves",
+    "label": "Motorwerk / white tee",
+    "sourceId": "18SXTlCqnq5aZu4TtDEfCn290S1FjEHWn",
+    "sourceName": "front (1).png",
+    "folder": "Felon Gear",
+    "width": 500,
+    "height": 500
+  },
+  {
+    "file": "black-trucker.jpg",
+    "group": "Headwear",
+    "label": "Gold spade / black trucker",
+    "sourceId": "1e5E4ZJdv1y4la56HuclkGzyNXNsdejKs",
+    "sourceName": "retro-trucker-hat-black-front-6097f4e4809d5.jpg",
+    "folder": "Felon Gear/Hats",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "black-white-trucker.jpg",
+    "group": "Headwear",
+    "label": "Gold spade / black and white trucker",
+    "sourceId": "19ryWl8E4ctDqww_AqEb30uwQpTXvw00l",
+    "sourceName": "retro-trucker-hat-black-white-left-front-6097f4e480ea8.jpg",
+    "folder": "Felon Gear/Hats",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "khaki-trucker.jpg",
+    "group": "Headwear",
+    "label": "Gold spade / brown and khaki trucker",
+    "sourceId": "1wC34NYoVxeiE26AZNQNy1LKwmiNKBlMk",
+    "sourceName": "retro-trucker-hat-brown-khaki-left-front-6097f4e48171c.jpg",
+    "folder": "Felon Gear/Hats",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "acid-black-tank.jpg",
+    "group": "Women’s",
+    "label": "Skull emblem / acid black tank",
+    "sourceId": "14mySFrA2_FP1Yy5JJ1MMVADYE4LG1d3a",
+    "sourceName": "Felon foreman Girl Acid Black Racertank.jpg",
+    "folder": "Felon Gear/Womens",
+    "width": 503,
+    "height": 492
+  },
+  {
+    "file": "star-spade-tank.jpg",
+    "group": "Women’s",
+    "label": "Red spade / star-print tank",
+    "sourceId": "1fJq5Pn7IzjSs-F4_pusD-Gi7pCF-6vHf",
+    "sourceName": "Felon Star Girl T.jpg",
+    "folder": "Felon Gear/Womens",
+    "width": 516,
+    "height": 485
+  },
+  {
+    "file": "pink-skull-tank.jpg",
+    "group": "Women’s",
+    "label": "Pink skull / charcoal tank",
+    "sourceId": "1VXNLRdGlSeS_b6rYkuptoUwwYLiYa03e",
+    "sourceName": "Screenshot 2021-06-02 113205.jpg",
+    "folder": "Felon Gear/Womens",
+    "width": 519,
+    "height": 494
+  },
+  {
+    "file": "purple-skull-tank.png",
+    "group": "Women’s",
+    "label": "Skull emblem / purple tank",
+    "sourceId": "1GlRaWJpNoSx2jKQ_19dh00eUCeB445nh",
+    "sourceName": "womens-racerback-tank-top-purple-rush-front-60a156ada1ca6.png",
+    "folder": "Felon Gear/Womens",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "pink-skull-racerback.png",
+    "group": "Women’s",
+    "label": "Skull emblem / pink racerback",
+    "sourceId": "1r-MAWGRczjdH8Dz4OTQKA_4asO4xzkJ_",
+    "sourceName": "womens-racerback-tank-top-vintage-shocking-pink-front-60a156ada200e.png",
+    "folder": "Felon Gear/Womens",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "turquoise-skull-tank.png",
+    "group": "Women’s",
+    "label": "Skull emblem / turquoise tank",
+    "sourceId": "1OagVfkGue_4aHTlPcvyNoIhpPCMoOd6J",
+    "sourceName": "womens-racerback-tank-top-vintage-turquoise-front-60a156ada3803.png",
+    "folder": "Felon Gear/Womens",
+    "width": 1000,
+    "height": 1000
+  },
+  {
+    "file": "miami-black-tee.jpg",
+    "label": "Red spade / Miami black tee",
+    "group": "T-shirts & long sleeves",
+    "sourceId": "1VB2JzRfzwUCdzQ4QKKMLhv5vZxcjhvY2",
+    "folder": "Owner-supplied additions"
+  },
+  {
+    "file": "green-spade-tee.jpg",
+    "label": "White spade / green tee",
+    "group": "T-shirts & long sleeves",
+    "sourceId": "1KmATM2ZVPyNhj2PvoIMbzIm8IzkCN5SB",
+    "folder": "Owner-supplied additions"
+  },
+  {
+    "file": "red-spade-tee.webp",
+    "label": "White spade / red tee",
+    "group": "T-shirts & long sleeves",
+    "sourceId": "12cPCCZkgShZITmn2-C3-eHkjer3eI561",
+    "folder": "Owner-supplied additions"
+  },
+  {
+    "file": "white-spade-underwear.jpg",
+    "label": "Red spade / women’s underwear",
+    "group": "Women’s",
+    "sourceId": "1Zp5enJTk1A0OyEIEXdc0PC_SqNNUu9Ry",
+    "folder": "Owner-supplied additions"
+  },
+  {
+    "file": "white-bikini-logo.png",
+    "label": "White bikini / Felon emblem",
+    "group": "Women’s",
+    "sourceId": "1qsU4PjpaLycF16XUAbBalsFAqVKJhV6N"
+  },
+  {
+    "file": "white-bikini-spade.png",
+    "label": "White bikini / spade detail",
+    "group": "Women’s",
+    "sourceId": "1tryH8nQFA7DKRZdS8R2vJ3NwDa2lc0Hw"
+  },
+  {
+    "file": "charcoal-spade-tee.jpg",
+    "label": "White spade / charcoal tee",
+    "group": "T-shirts & long sleeves",
+    "sourceId": "1MBy45QrdlCvQfrhYQ-Oitv76DJy0GM93"
+  },
+  {
+    "file": "underwear-front.jpg",
+    "label": "White underwear / spade detail",
+    "group": "Women’s",
+    "sourceId": "1ztiYAsvDERNK6tqA9y7-4HPR58p5CnX6"
+  },
+  {
+    "file": "skull-snapback.jpg",
+    "label": "Skull emblem / black snapback",
+    "group": "Headwear",
+    "sourceId": "1U04dWoujj-jPGsCvs00ZzSjBK4msbsCG"
+  },
+  {
+    "file": "navy-spade-tee.jpg",
+    "label": "Gold spade / navy tee",
+    "group": "T-shirts & long sleeves",
+    "sourceId": "1stWF20WJGcNcZYEFr7zIDU_jyMaD4_Ny"
+  }
+]

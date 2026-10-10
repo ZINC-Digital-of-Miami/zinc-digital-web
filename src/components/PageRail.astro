@@ -1,0 +1,14 @@
+---
+import {routes} from '../data/site';
+interface Props {path:string; title:string}
+const {path,title}=Astro.props;
+const parts=path.split('/').filter(Boolean);
+const parent=parts.length>1?(parts[0]==='authors'?'/blog/':'/'+parts[0]+'/'):undefined;
+const parentTitle=parent==='/blog/'?'Insights':parent==='/work/'?'Work':routes.find(r=>r.path===parent)?.title || parts[0];
+const category=parts[0]==='work'?'work':parts[0]==='services'?'services':undefined;
+const links=category==='work'?[['All work','/work/'],['Build','/work/build/'],['Demand','/work/demand/'],['Intelligence','/work/intelligence/']]:category==='services'?[['All services','/services/'],['Build','/services/#build'],['Demand','/services/#demand'],['Intelligence','/services/#intelligence']]:[];
+---
+<div class="page-rail"><div class="wrap page-rail-inner"><nav aria-label="Breadcrumb"><ol><li>{path==='/'?<span aria-current="page">Home</span>:<a href="/">Home</a>}</li>{parent&&<li><a href={parent}>{parentTitle}</a></li>}{path!=='/'&&<li><span aria-current="page">{title}</span></li>}</ol></nav>{links.length>0&&<nav class="page-rail-categories" aria-label={category==='work'?'Work categories':'Service categories'}>{links.map(([label,href])=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}</nav>}</div></div>
+<style>
+.page-rail{position:relative;z-index:2;background:#121416;color:#bfc1c5;border-block:1px solid #36393d}.page-rail-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px}.page-rail nav{min-width:0}.page-rail ol{display:flex;align-items:center;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}.page-rail li{font:11px/1.6 var(--fm)}.page-rail li+li:before{content:'/';margin-right:10px;color:#85898e}.page-rail.page-rail a{color:#c9cbd0;text-decoration:none!important}.page-rail a:hover{color:#fff}.page-rail.page-rail [aria-current]{color:#fff}.page-rail-categories{display:flex;gap:24px;flex-shrink:0}.page-rail-categories a{font:11px var(--fm);padding:10px 0;border-bottom:2px solid transparent}.page-rail-categories a[aria-current]{border-color:#fa268c}.page-rail a:focus-visible{outline:2px solid #00b7ba;outline-offset:5px}@media(max-width:900px){.page-rail-inner{align-items:flex-start;flex-direction:column;gap:8px}.page-rail-categories{gap:20px;flex-wrap:wrap}.page-rail li{font-size:10px}}
+</style>

@@ -1,0 +1,40 @@
+/* Shared page openings: approved ZINC dark treatment, regardless of body theme. */
+.nav{background:#111112!important;color:#efefeb!important;border-bottom:1px solid #383839!important}.nav .nav-logo img{width:110px;height:auto;filter:none!important;opacity:1!important}.nav .nlink,.nav .theme-t,.nav .menu-toggle{color:#efefeb!important}.nav .btn.fill{background:#efefeb;color:#111112}
+.zn-page-hero:not(.zn-hero){background-color:#090b0d!important;background-image:radial-gradient(ellipse at 90% 15%,rgb(0 183 186 / .1),transparent 42%),radial-gradient(ellipse at 7% 90%,rgb(250 38 140 / .08),transparent 38%)!important;color:#efefeb!important;--ink:#efefeb;--muted:#b3b5b7;--line:#383839;--bg:#090b0d;--bg2:#101214;--tealt:#00b7ba;isolation:isolate;position:relative;border-bottom:1px solid #303335}
+.zn-page-hero h1{color:#efefeb!important;text-shadow:0 8px 36px rgb(0 0 0 / .25)}
+.zn-page-hero .p-lede,.zn-page-hero .wl-lede,.zn-page-hero .ou-lede{color:#c4c6c8!important}
+.zn-page-hero .lab,.zn-page-hero .meta,.zn-page-hero .kick,.zn-page-hero .wl-eyebrow,.zn-page-hero .wl-nav-note{color:#b3b5b7!important}
+.zn-page-hero h1>span,.zn-page-hero .wl-hero-copy h1 span{color:#fa268c!important}
+.zn-page-hero .rule{border-color:#383839}.zn-page-hero .sph{opacity:.2;filter:brightness(.45)}
+.zn-page-hero .p-title{font-size:clamp(66px,9vw,150px);line-height:.96;max-width:14ch}.zn-page-hero.zn-long-title .p-title{font-size:clamp(48px,6.2vw,102px);max-width:22ch}
+.zn-page-hero.p-intro{padding-top:70px;padding-bottom:75px}.zn-page-hero .p-url-label{display:none}
+.zn-page-hero.wl-opening{background:#090b0d!important}.zn-page-hero .wl-nav a{color:#b3b5b7}.zn-page-hero .wl-nav a[aria-current]{color:#fff;border-color:#fa268c}.zn-page-hero .wl-explore{color:#fff!important;border-color:#00b7ba}.zn-page-hero .wl-hero-art img{height:auto;object-fit:contain;filter:drop-shadow(0 22px 34px #0008)}
+.work-lane--demand .wl-hero-art{mix-blend-mode:normal!important}.work-lane--demand .wl-hero-art img{mix-blend-mode:lighten}
+.zn-page-hero .c-open-pin{background:transparent!important}.zn-page-hero .c-open-txt{color:#efefeb!important}.zn-page-hero .c-open-no{color:#fa268c;opacity:.18}
+.ou-case:has(>.zn-page-hero){background:#090b0d}.zn-page-hero.ou-hero{max-width:none;width:100%;padding-left:max(24px,4vw);padding-right:max(24px,4vw)}.zn-page-hero.ou-hero a{color:#efefeb}
+.zn-hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:20px}.zn-hero-copy{position:relative;z-index:2;min-width:0}.zn-direction-art{display:block;width:100%;height:auto;mix-blend-mode:lighten;filter:drop-shadow(0 24px 36px #0009);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 95%,transparent)}
+.zn-hero-action{display:inline-block;color:#efefeb!important;text-decoration:none;border-bottom:1px solid #00b7ba;padding:12px 0;font:12px var(--fm);margin-top:24px}.zn-hero-action:hover{border-color:#fa268c}
+.zn-work-overview{padding:70px 0 0}.zn-work-overview h1{font:800 clamp(68px,9vw,145px)/.92 var(--fd);margin:20px 0}.zn-work-overview .p-lede{font-size:20px;line-height:1.5}
+.zn-work-categories{display:flex;gap:32px;flex-wrap:wrap;padding-top:30px;padding-bottom:24px;margin-top:30px;border-top:1px solid #383839;font:12px var(--fm)}.zn-work-categories a{color:#bbb;text-decoration:none}.zn-work-categories a[aria-current]{color:#fff;border-bottom:2px solid #fa268c;padding-bottom:8px}
+.zn-project-link{display:block;height:100%;text-decoration:none;color:inherit}.zn-project-link:focus-visible{outline:2px solid #00b7ba;outline-offset:8px}.zn-editorial .art picture{display:block;width:100%;height:100%}.zn-editorial .project h3{overflow-wrap:anywhere}
+.zn-insights-title{text-transform:none!important}.zn-page-hero .rv{opacity:1!important;transform:none!important}
+.preview-form-note{padding:15px;border:1px solid currentColor;margin-top:18px;font:14px/1.5 var(--fb)}
+@media(max-width:900px){.zn-hero-grid{grid-template-columns:1fr}.zn-direction-art{max-width:800px;margin:auto}.zn-work-overview h1{font-size:clamp(65px,13vw,105px)}.zn-page-hero .wl-nav>div{gap:18px;flex-wrap:wrap}.zn-work-categories{gap:20px}.zn-page-hero.p-intro{padding-top:45px;padding-bottom:50px}.zn-page-hero .p-title{font-size:clamp(58px,12vw,95px)}.zn-page-hero.zn-long-title .p-title{font-size:clamp(42px,8vw,72px)}}
+@media(max-width:600px){.nav .nav-logo img{width:90px}.zn-work-categories{font-size:10px;gap:16px}.zn-page-hero .p-lede{font-size:18px}.zn-page-hero .wl-hero-copy h1{font-size:clamp(46px,12vw,72px)}.zn-page-hero .wl-nav-note{display:none}}
+
+.zn-service-hero{position:relative;min-height:480px;padding-right:50%}.zn-service-art{position:absolute;width:52%;right:0;top:0;bottom:0;display:flex;align-items:center}.zn-service-art img{width:100%;height:auto;mix-blend-mode:lighten}.zn-service-hero>h1,.zn-service-hero>.p-lede{position:relative;z-index:1}.zn-service-hero .meta{position:relative;z-index:1}.zn-work-overview .zn-direction-art img{width:100%;height:auto}
+@media(max-width:760px){.zn-service-hero{padding-right:0;min-height:0}.zn-service-art{position:static;width:100%;margin-top:30px}}
+
+.work-lane--intelligence .wl-hero h1{font-size:clamp(48px,7.2vw,112px);position:relative;z-index:2}.work-lane--intelligence .wl-hero-art{z-index:0}@media(max-width:700px){.work-lane--intelligence .wl-hero h1{font-size:clamp(38px,10.6vw,72px)}}
+
+/* A modest contrast lift to the existing ambient spheres. */
+.sph{background:radial-gradient(circle at 35% 30%,rgba(10,10,11,.14),rgba(10,10,11,0) 70%)!important}
+html[data-theme="dark"] .sph,.mcard .sph,.cta .sph,.zn-page-hero .sph{background:radial-gradient(circle at 35% 30%,rgba(245,246,247,.15),rgba(245,246,247,0) 70%)!important;opacity:1!important;filter:none!important}
+#zsRoot .p-intro>.sph{display:block;opacity:.65!important}
+
+/* Keep the seasonal dashboard composition beside its title, with all three devices intact. */
+.work-lane--intelligence .wl-hero{display:grid;grid-template-columns:40% 60%;min-height:540px;align-items:center}
+.work-lane--intelligence .wl-hero-copy{width:100%;align-self:center;padding:65px 0}
+.work-lane--intelligence .wl-hero-art{position:relative;width:110%;right:0;bottom:auto;mask-image:linear-gradient(to right,transparent,black 7%)}
+.work-lane--intelligence .wl-hero h1{font-size:clamp(48px,6.3vw,100px)}
+@media(max-width:700px){.work-lane--intelligence .wl-hero{display:block;min-height:0}.work-lane--intelligence .wl-hero-copy{padding:40px 0 15px}.work-lane--intelligence .wl-hero-art{width:calc(100% + 48px);mask-image:none}.work-lane--intelligence .wl-hero h1{font-size:clamp(38px,10.6vw,72px)}}

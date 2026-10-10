@@ -1,0 +1,15 @@
+
+
+
+.home-team[hidden]{display:none!important}
+.zn-closing{background:#090909;color:#efefeb;padding:70px 0 42px;position:relative}
+.zn-closing-inner{width:calc(100% - 80px);max-width:1600px;margin:0 auto}
+.zn-closing-top{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
+.zn-closing-top h2{font:800 clamp(62px,8vw,125px)/.96 var(--fd),sans-serif;letter-spacing:-.045em;margin:0;color:#efefeb}
+.zn-closing-top h2 span{color:#fa268c}
+.zn-closing-top a{display:inline-block;margin-top:10px;border:1px solid #555;padding:18px;color:#efefeb;font:12px/1.5 var(--fm),monospace;text-decoration:none}
+.zn-closing-top a:hover{border-color:#fa268c}
+.zn-closing-top a:focus-visible{outline:2px solid #00b7ba;outline-offset:5px}
+.zn-closing-word{font:400 clamp(70px,12.7vw,203px)/1 var(--fb),sans-serif;letter-spacing:-.09em;margin-top:70px;color:#fa268c;white-space:nowrap}
+.zn-closing-word span{color:#fff}
+@media(max-width:760px){.zn-closing{padding:50px 0 35px}.zn-closing-inner{width:calc(100% - 40px)}.zn-closing-top{display:block}.zn-closing-top h2{font-size:70px}.zn-closing-top a{margin-top:28px}.zn-closing-word{font-size:12.5vw;margin-top:50px}}

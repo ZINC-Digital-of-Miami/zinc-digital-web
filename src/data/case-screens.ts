@@ -99,46 +99,6 @@ export const caseScreens: Record<string, CaseScreensPresentation> = {
       }
     ]
   },
-  "las-vegas-safety": {
-    "slug": "las-vegas-safety",
-    "title": "The storefront, across devices",
-    "intro": "The homepage, catalog and a product page show the public shopping experience on desktop, tablet and mobile.",
-    "pages": [
-      {
-        "key": "home",
-        "title": "Home",
-        "url": "https://lasvegassafety.net/",
-        "detail": "The storefront introduces safety, first-aid and restaurant supplies.",
-        "images": {
-          "desktop": "case-lvs-home-desktop",
-          "tablet": "case-lvs-home-tablet",
-          "mobile": "case-lvs-home-mobile"
-        }
-      },
-      {
-        "key": "catalog",
-        "title": "Product catalog",
-        "url": "https://lasvegassafety.net/shop/",
-        "detail": "The catalog brings product categories and inventory into one browsing view.",
-        "images": {
-          "desktop": "case-lvs-catalog-desktop",
-          "tablet": "case-lvs-catalog-tablet",
-          "mobile": "case-lvs-catalog-mobile"
-        }
-      },
-      {
-        "key": "product",
-        "title": "Product detail",
-        "url": "https://lasvegassafety.net/product/woundseal-rapid-response-24-boxes-per-case/",
-        "detail": "A product page combines imagery, product information and ordering options.",
-        "images": {
-          "desktop": "case-lvs-product-desktop",
-          "tablet": "case-lvs-product-tablet",
-          "mobile": "case-lvs-product-mobile"
-        }
-      }
-    ]
-  },
   "summit-marine-development": {
     "slug": "summit-marine-development",
     "title": "Waterfront services, across screens",
