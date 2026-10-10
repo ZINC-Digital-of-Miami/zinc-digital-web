@@ -28,3 +28,5 @@ html.js .case-slider .uso-track,.case-slider .uso-track{display:flex!important;f
 
 /* Charcoal layers retain depth without putting pale shapes behind light copy. */
 .home-case-study.case-slider::before{display:block!important;content:""!important;background:#1b1d20!important}.home-case-study.case-slider::after{display:block!important;content:""!important;background:#101112!important}.home-notes::after{background:#1b1d20!important}.home-contact-story{background:#1b1d20!important}.home-contact-story .mcard{background:#0d0f11!important}
+
+.case-slider .uso-intro{background:#101112}.case-slider .uso-intro .kick{color:#bfc1c5!important}.case-slider .uso-intro .chips li{background:#191b1e!important;color:#d8d9db!important}.case-slider .stamp.next .lab{color:#bfc1c5!important}

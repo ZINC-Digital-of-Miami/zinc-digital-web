@@ -1,4 +1,6 @@
 ---
+import PageRail from "./PageRail.astro";
+import ServicesVisual from "./ServicesVisual.astro";
 import WorkOverview from "./WorkOverview.astro";
 import ApprovedImage from "./ApprovedImage.astro";
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
@@ -188,10 +190,11 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
       {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
       {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
       {svc && <a class="zn-hero-action" href={'/contact/?service='+svc.slug}>Discuss this service ↗</a>}
-      {t === 'services' && <><a class="zn-hero-action" href="#service-directory">Find your service ↓</a><div class="zn-service-art"><ApprovedImage name="build-ouabc-neese.png" alt="Websites and commerce across desktop, tablet and phone" loading="eager" /></div></>}
+      {t === 'services' && <><a class="zn-hero-action" href="#service-directory">Find your service ↓</a><div class="zn-service-art"><ServicesVisual /></div></>}
       {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
   </section>
+  <PageRail path={route.path} title={t === "blog" ? "Insights" : route.title} />
 )}
 
 {svc && (<>
@@ -219,7 +222,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {(t === 'services') && (
   <section class="p-band studio-lanes" id="service-directory"><div class="wrap"><span class="kick rv">The connected system</span><h2 class="disp p-sec rv">Build. Demand. Intelligence.</h2>
-    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3>{t === 'services' && <div class="studio-lane-image"><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></div>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>)}</div>
+    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div id={l.layer.toLowerCase()} class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3>{t === 'services' && <div class="studio-lane-image"><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></div>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span><span aria-hidden="true">↗</span></a></li>)}</ul></div>)}</div>
   </div></section>
 )}
 
@@ -228,6 +231,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {study?.slug === 'once-upon-a-book-club' && <OUABCCase />}
 {study && study.slug !== 'once-upon-a-book-club' && (<>
   <section class="c-open c-open-app zn-page-hero" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
+  <PageRail path={route.path} title={route.title} />
   <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
     <div class="c-site-links">{study.url && <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">{study.nonprofit ? 'Visit the ministry website ↗' : 'Visit the public client site ↗'}</a>}{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>
