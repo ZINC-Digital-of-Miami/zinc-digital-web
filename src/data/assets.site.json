@@ -213,5 +213,7 @@
   "andrew-neese-presentation": {"src": "/approved/andrew-white-devices.png", "width": 1536, "height": 1024},
   "porsche-roanoke-presentation": {"src": "/approved/porsche-white-devices.png", "width": 1536, "height": 1024},
   "lvs-case-product-board": {"src": "/work/lvs-case/product-board.png", "width": 2408, "height": 1318},
-  "lvs-case-original-home": {"src": "/work/lvs-case/original-home.png", "width": 1697, "height": 875}
+  "lvs-case-original-home": {"src": "/work/lvs-case/original-home.png", "width": 1697, "height": 875},
+  "lvs-case-delivered-restaurant": {"src":"/work/lvs-case/delivered-restaurant-laptop.webp","width":650,"height":450},
+  "lvs-case-zinc-presentation": {"src": "/work/lvs-case/zinc-original-presentation.png", "width": 1528, "height": 1281}
 }
