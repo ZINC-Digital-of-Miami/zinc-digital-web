@@ -65,5 +65,89 @@
     "group": "website",
     "sourceId": "1T28GHQzr8IJ-nyM6D_6lVvpuch7SI1Lm",
     "originalFile": "website-homepage.png"
+  },
+  {
+    "file": "black-jacket-portrait.jpg",
+    "label": "Black jacket / window portrait",
+    "group": "around-the-shop",
+    "sourceId": "14Jkgs77JSU4KOG_OBIIQsJBaA8qm6TXY"
+  },
+  {
+    "file": "black-jacket-back.jpg",
+    "label": "Black jacket / back view",
+    "group": "around-the-shop",
+    "sourceId": "14Qgp6p_nhGGcyTvut0_GYLXyF4CueV_9"
+  },
+  {
+    "file": "engine-monochrome.jpg",
+    "label": "Motorcycle engine / monochrome detail",
+    "group": "around-the-shop",
+    "sourceId": "1Z_Fhy7VUm-OGpO45FdxdzzUBlEw-M-Dz"
+  },
+  {
+    "file": "motorcycles-workshop.jpg",
+    "label": "Motorcycles / workshop lineup",
+    "group": "around-the-shop",
+    "sourceId": "1K4gOplIyU_6NQYyfsizaweCMAYV9-5GT"
+  },
+  {
+    "file": "red-bandana.jpg",
+    "label": "Red bandana / workshop portrait",
+    "group": "around-the-shop",
+    "sourceId": "1awFD7JzNzj-13eOKBhDu5WQlZjGwqJOo"
+  },
+  {
+    "file": "sticker-tool-chest-original.png",
+    "label": "Workshop / sticker-covered tool chest",
+    "group": "around-the-shop",
+    "sourceId": "11lapa6wWlXwW7i6RN6WhfKaRzgj2oq70"
+  },
+  {
+    "file": "leather-vest-portrait.png",
+    "label": "Leather vest / motorcycle portrait",
+    "group": "around-the-shop",
+    "sourceFile": "Screenshot 2026-10-10 at 12.45.36 PM.png"
+  },
+  {
+    "file": "flame-motorcycle-original.png",
+    "label": "Flame-painted motorcycle / engine detail",
+    "group": "around-the-shop",
+    "sourceId": "1Th35GFE1CD4dj6KPbKSdyqM6Uyjy-c0X"
+  },
+  {
+    "file": "rider-workshop-original.jpg",
+    "label": "Rider / motorcycle in the workshop",
+    "group": "around-the-shop",
+    "sourceId": "1ejhWUKH78lWOi7mCZmFA1fzHlqfdoF1g"
+  },
+  {
+    "file": "shop-portrait-monochrome.jpg",
+    "label": "Around the shop / monochrome portrait",
+    "group": "around-the-shop",
+    "sourceFile": "20200621_090035~2.jpg"
+  },
+  {
+    "file": "skull-mug.jpg",
+    "label": "Skull emblem / black mug",
+    "group": "merchandise",
+    "sourceId": "16EdnzBNEtluQnk_LkgpwI51jPlbOnRGE"
+  },
+  {
+    "file": "white-spade-mug.jpg",
+    "label": "White spade / black mug",
+    "group": "merchandise",
+    "sourceId": "1iGIxbsaStPv1tTVD5cOcjHVY2WwpEu_7"
+  },
+  {
+    "file": "red-spade-mug.jpg",
+    "label": "Red spade / black mug",
+    "group": "merchandise",
+    "sourceId": "17JjC0p20n36zLGgqH-xgYIsbxj_a22VJ"
+  },
+  {
+    "file": "spade-clock.jpg",
+    "label": "Red spade / wall clock",
+    "group": "merchandise",
+    "sourceId": "1uxFQL7XWfwiVkioYJ3YN1QoAeRR8bRvl"
   }
 ]

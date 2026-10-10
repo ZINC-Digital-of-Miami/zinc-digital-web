@@ -8,7 +8,7 @@ import brand from '../data/felon-brand.json';
 const files=import.meta.glob<{default:ImageMetadata}>('../assets/felon-*/*.{jpg,png,webp}',{eager:true});
 const apparelItems=(group:string)=>apparel.filter(x=>x.group===group).map(x=>({image:files['../assets/felon-apparel/'+x.file].default,label:x.label}));
 const brandItems=(group:string)=>brand.filter(x=>x.group===group).map(x=>({image:files['../assets/felon-brand/'+x.file].default,label:x.label}));
-const sections=[{id:'brand-creative',title:'Brand & campaign creative',line:'The Felon identity in campaign artwork.'},{id:'merchandise',title:'Merchandise',line:'The spade emblem on mugs and stickers.'},{id:'shop-signage',title:'Shop & signage',line:'Brand details, signage and views of the retail space.'}];
+const sections=[{id:'brand-creative',title:'Brand & campaign creative',line:'The Felon identity in campaign artwork.'},{id:'merchandise',title:'Merchandise',line:'The Felon emblems on mugs, a wall clock and stickers.'},{id:'shop-signage',title:'Shop & signage',line:'Brand details, signage and views of the retail space.'},{id:'around-the-shop',title:'Around the shop',line:'The owners, staff, motorcycles and everyday life at Felon.'}];
 ---
 <article class="felon-case">
   <header class="zn-page-hero felon-hero"><div class="wrap felon-hero-grid"><div><p class="kick">ZINC / Selected work</p><h1 class="disp">Felon<br/>Motorwerk<span>.</span></h1><p class="felon-lede">Web design, apparel<br/>and brand applications.</p><a class="arrow" href="#apparel">Explore the apparel ↓</a></div><div class="felon-hero-art"><ApprovedImage name="felon.png" alt="Felon Motorwerk motorcycle brand creative" loading="eager" sizes="(max-width: 800px) 92vw, 52vw" /></div></div></header>
