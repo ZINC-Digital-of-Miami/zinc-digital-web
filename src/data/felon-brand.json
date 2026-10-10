@@ -60,9 +60,10 @@
     "sourceId": "11mFUVgUbSPmMYn_BI9Hm3VGuvx0E7IAN"
   },
   {
-    "file": "website-homepage.png",
-    "label": "Felon Motorwerk / website homepage",
+    "file": "website-homepage-mockup.png",
+    "label": "Felon Motorwerk / website desktop view",
     "group": "website",
-    "sourceId": "1T28GHQzr8IJ-nyM6D_6lVvpuch7SI1Lm"
+    "sourceId": "1T28GHQzr8IJ-nyM6D_6lVvpuch7SI1Lm",
+    "originalFile": "website-homepage.png"
   }
 ]
