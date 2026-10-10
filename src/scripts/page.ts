@@ -82,15 +82,32 @@ export function initForm() {
       form.querySelector<HTMLInputElement>('[data-service]')?.focus(); return;
     }
     if (step < 2) { step++; show(true); return; }
-    next.style.minWidth = next.offsetWidth + 'px'; next.disabled = true; next.textContent = 'Sending…'; form.setAttribute('aria-busy','true');
+    next.style.minWidth = next.offsetWidth + 'px'; next.disabled = true; back.disabled = true; next.textContent = 'Sending…'; form.setAttribute('aria-busy','true');
     const body: Record<string, string | string[]> = { service: [] };
     new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });
     fetch(form.dataset.endpoint || '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
-      .then(async (r) => { const result = await r.json().catch(() => ({})); if (!r.ok || result.ok !== true) throw new Error(result.error || 'Send failed'); await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/'); })
-      .catch((e) => { next.disabled = false; next.textContent = 'Send inquiry'; form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
+      .then(async (r) => {
+        const result = await r.json().catch(() => ({}));
+        if (!r.ok || result.ok !== true) {
+          const field = result.field === 'services' ? form.querySelector<HTMLInputElement>('[data-service]') : typeof result.field === 'string' ? form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name="' + CSS.escape(result.field) + '"]') : null;
+          const invalidStep = field ? steps.findIndex(el => el.contains(field)) : -1;
+          if (field && invalidStep >= 0) {
+            step = invalidStep; next.disabled = false; back.disabled = false; form.removeAttribute('aria-busy'); show(true);
+            if (result.field === 'services') {
+              error.textContent = 'Choose at least one service to continue.';
+              form.querySelectorAll<HTMLInputElement>('[data-service]').forEach(f => { f.setAttribute('aria-invalid', 'true'); f.setAttribute('aria-describedby', error.id); });
+            } else { showFieldError(field); error.textContent = 'Check the highlighted field to continue.'; }
+            field.focus({ preventScroll: true }); field.scrollIntoView({ block: 'center' });
+            return;
+          }
+          throw new Error(result.error || 'Send failed');
+        }
+        await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/');
+      })
+      .catch((e) => { next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
   };
   next.addEventListener('click', advance);
-  back.addEventListener('click', () => { step = Math.max(0, step - 1); show(true); });
+  back.addEventListener('click', () => { if (next.disabled) return; step = Math.max(0, step - 1); show(true); });
   form.addEventListener('submit', (e) => { e.preventDefault(); advance(); });
   form.addEventListener('input', (e) => {
     const field=e.target;

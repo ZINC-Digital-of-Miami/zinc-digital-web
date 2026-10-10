@@ -79,13 +79,9 @@
 /* Owner-approved: the emblem stays black on black, in either theme. */
 .home-loop .circ-core .bimg{filter:brightness(0)}
 
-.zb[data-template=home] .hz-panel:first-child,.zb[data-template=home] .hz-panel:nth-child(3){
+.zb[data-template=home] .hz-panel{
   --bg:var(--color-near-black);--ink:var(--color-snow);--muted:var(--color-gray-on-dark);
   --line:var(--color-line-dark);--tealt:var(--color-teal);background:var(--bg);color:var(--ink);
-}
-.zb[data-template=home] .hz-panel:nth-child(2){
-  --bg:var(--color-snow);--ink:var(--color-near-black);--muted:var(--color-gray-on-light);
-  --line:var(--color-line-light);--tealt:var(--color-teal-text);background:var(--bg);color:var(--ink);
 }
 .zb[data-template=home] .hz{border-top:1px solid var(--color-line-dark)}
 .home-lane-link{border-bottom:1px solid var(--tealt);padding-bottom:12px}
