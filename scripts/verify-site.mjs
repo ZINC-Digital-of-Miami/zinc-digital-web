@@ -39,7 +39,7 @@ const posts = [...JSON.parse(await fs.readFile('src/data/posts.preview.json', 'u
 const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
 const caseSlugs = ['once-upon-a-book-club', 'us-oil-solutions', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries', 'bear-claw-usa'];
 const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ['/work/build/', 'work'], ['/work/demand/', 'work'], ['/work/intelligence/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
-assert.equal(routes.length, 20 + caseSlugs.length + posts.length + authors.length, 'route inventory must include every public case, article and author');
+assert.equal(routes.length, 23 + caseSlugs.length + posts.length + authors.length, 'route inventory must include every public case, article and author');
 const NOINDEX = new Set(['/thanks/']);
 const JS_BUDGET = 15 * 1024;
 const SNOW = 'rgb(245, 246, 247)', NEAR_BLACK = 'rgb(10, 10, 11)';
