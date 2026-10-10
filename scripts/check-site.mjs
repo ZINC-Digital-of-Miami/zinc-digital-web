@@ -29,7 +29,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical'];
+const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
 const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
@@ -206,7 +206,13 @@ for (const s of CASE_SLUGS) {
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
   }
-  if (s === 'miami-tactical') {
+  if (['fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'].includes(s)) {
+    for (const id of ['overview','website','website-details']) check(p.html.includes('id="'+id+'"'), s+' lacks '+id);
+  } else if (s === 'las-vegas-safety') {
+    for (const id of ['before-after','website','identity','catalog','production','flyers']) check(p.html.includes('id="'+id+'"') && p.html.includes('href="#'+id+'"'), 'LVS lacks linked section '+id);
+    check(!p.html.includes('case-lvs-'), 'LVS must not present the later client refresh as ZINC work');
+    check(p.html.includes('Christmas Eve') && p.html.includes('no extra charge') && p.html.includes('manually upscaled'), 'LVS lacks owner-confirmed production context');
+  } else if (s === 'miami-tactical') {
     for (const id of ['overview','website','logo','design-details']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'Miami Tactical lacks linked section ' + id);
   } else if (s === 'felon-motorwerk') {
     for (const id of ['website','apparel','brand-creative','merchandise','shop-signage','around-the-shop']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);

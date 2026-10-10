@@ -15,6 +15,7 @@ const scene = (name: string) => art['../assets/lanes/' + name + '.png'].default;
 const features = data.projects.filter(p => p.scene);
 const cards = data.projects.filter(p => !p.scene && !p.community);
 const community = data.projects.filter(p => p.community);
+const composedAssets = ['lvs-case-devices-restaurant','fraim-cawley-company-presentation','smoky-mountain-survival-presentation','andrew-neese-presentation','porsche-roanoke-presentation'];
 const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Explore the demand work' : 'Explore the intelligence work';
 ---
 <div class:list={['work-lane', 'work-lane--' + lane.toLowerCase()]} data-work-lane={lane}>
@@ -63,7 +64,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
       <div class:list={['wl-cards', {'wl-cards--build':lane==='Build'}]}>
         {cards.map(project => <article class="wl-card" data-lane-project data-categories={project.category.join('|')}>
           <a href={project.href || projectLink(project.slug,lane)} class="wl-card-link">
-            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices'].includes(project.asset!)}]}><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
+            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices',...composedAssets].includes(project.asset!), 'wl-card-art--original': composedAssets.includes(project.asset!)}]}><Img k={project.asset!} alt={project.slug === 'porsche-roanoke' ? 'Illustrative Porsche device presentation' : (project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
             <div class="wl-card-copy"><h3>{(project.title || caseBy(project.slug).title)}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
           </a>
         </article>)}
@@ -98,3 +99,5 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
     });
   }
 </script>
+
+<style>.wl-card-art.wl-card-art--original{background:#fff}.wl-card-art--original :global(img){object-fit:contain;width:100%;height:auto}</style>

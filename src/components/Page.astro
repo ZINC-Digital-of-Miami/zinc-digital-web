@@ -19,6 +19,9 @@ import { authors, authorFor, authorPath } from '../data/authors';
 import OUABCCase from './OUABCCase.astro';
 import FelonCase from './FelonCase.astro';
 import MiamiTacticalCase from './MiamiTacticalCase.astro';
+import WebsiteCase from './WebsiteCase.astro';
+import LasVegasSafetyCase from './LasVegasSafetyCase.astro';
+import {websiteCases, type WebsiteCaseSlug} from '../data/website-cases';
 import CasePresentations from './CasePresentations.astro';
 import CaseScene from './CaseScene.astro';
 import { workLanes, laneNames } from '../data/work-lanes';
@@ -233,7 +236,9 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {study?.slug === 'once-upon-a-book-club' && <OUABCCase />}
 {study?.slug === 'felon-motorwerk' && <FelonCase />}
 {study?.slug === 'miami-tactical' && <MiamiTacticalCase />}
-{study && !['once-upon-a-book-club','felon-motorwerk','miami-tactical'].includes(study.slug) && (<>
+{study?.slug === 'las-vegas-safety' && <LasVegasSafetyCase />}
+{study && study.slug in websiteCases && <WebsiteCase slug={study.slug as WebsiteCaseSlug} />}
+{study && !(study.slug in websiteCases) && !['once-upon-a-book-club','felon-motorwerk','miami-tactical','las-vegas-safety'].includes(study.slug) && (<>
   <section class="c-open c-open-app zn-page-hero" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
   <PageRail path={route.path} title={route.title} />
   <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>

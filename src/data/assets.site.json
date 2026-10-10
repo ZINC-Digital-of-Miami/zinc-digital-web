@@ -196,5 +196,22 @@
   "case-straight-street-volunteer-mobile": {"src":"/work/case-straight-street-volunteer-mobile.png","width":780,"height":1688},
   "felon-web-mockup": {"src":"/approved/felon-white-devices.png","width":1536,"height":1024},
   "miami-tactical-website": {"src":"/work/miami-tactical/website.png","width":1332,"height":634},
-  "miami-tactical-logo": {"src":"/work/miami-tactical/logo.jpg","width":1002,"height":201}
+  "miami-tactical-logo": {"src":"/work/miami-tactical/logo.jpg","width":1002,"height":201},
+  "lvs-case-before": {"src": "/work/lvs-case/before.png", "width": 1160, "height": 551},
+  "lvs-case-brand-board": {"src": "/work/lvs-case/brand-board.png", "width": 2048, "height": 1102},
+  "lvs-case-first-aid": {"src": "/work/lvs-case/first-aid.png", "width": 2000, "height": 1000},
+  "lvs-case-core-brand": {"src": "/work/lvs-case/core-brand.png", "width": 6250, "height": 3125},
+  "lvs-case-devices-restaurant": {"src": "/work/lvs-case/devices-restaurant.png", "width": 1800, "height": 760},
+  "lvs-case-devices-safety": {"src": "/work/lvs-case/devices-safety.webp", "width": 1300, "height": 760},
+  "lvs-case-flyer-black": {"src": "/work/lvs-case/flyer-black.png", "width": 4830, "height": 6250},
+  "lvs-case-flyer-white": {"src": "/work/lvs-case/flyer-white.png", "width": 4830, "height": 6250},
+  "lvs-case-flyer-photo": {"src": "/work/lvs-case/flyer-photo.png", "width": 4830, "height": 6250},
+  "lvs-case-footer": {"src": "/work/lvs-case/footer.png", "width": 1694, "height": 825},
+  "lvs-case-footer-progress": {"src": "/work/lvs-case/footer-progress.png", "width": 1088, "height": 826},
+  "fraim-cawley-company-presentation": {"src": "/approved/tax.jpeg", "width": 6336, "height": 2688},
+  "smoky-mountain-survival-presentation": {"src": "/approved/smoky-white-devices.png", "width": 1536, "height": 1024},
+  "andrew-neese-presentation": {"src": "/approved/andrew-white-devices.png", "width": 1536, "height": 1024},
+  "porsche-roanoke-presentation": {"src": "/approved/porsche-white-devices.png", "width": 1536, "height": 1024},
+  "lvs-case-product-board": {"src": "/work/lvs-case/product-board.png", "width": 2408, "height": 1318},
+  "lvs-case-original-home": {"src": "/work/lvs-case/original-home.png", "width": 1697, "height": 875}
 }
