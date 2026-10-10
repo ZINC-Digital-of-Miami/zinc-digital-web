@@ -147,6 +147,7 @@ function initScroll() {
   const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
   addEventListener('scroll', request, { passive: true });
   addEventListener('resize', request);
+  addEventListener('zinc-layout', request);
   update();
   // Anything already above the fold after fonts settle.
   setTimeout(() => q('.rv,.rv-stag').forEach((el) => { const b = el.getBoundingClientRect(); if (b.top < innerHeight && b.bottom > 0 && b.left < innerWidth && b.right > 0) el.classList.add('in'); }), 1400);

@@ -11,7 +11,7 @@
 //   - blog layer + topic filters, 3-step contact form (steps and validation; the final send is not exercised)
 //   - keyboard: skip link, toggle via Enter, FAQ via Space; axe wcag2a/aa/21aa/22aa clean
 //   - reduced motion and no-JS at 375 and 1440: pinned scenes in flow, every screenshot/panel/stamp/loop link
-//     reachable, before/after showing both images; with motion the before/after really wipes
+//     reachable, LVS original before/after artwork stays reachable
 //   - INP from Event Timing entries for real clicks and keys, under 100 ms
 // Usage: node scripts/verify-site.mjs [--mode quick|full] [--base http://host]
 import fs from 'node:fs/promises';
@@ -77,15 +77,8 @@ const REACH = `const [sel, inner] = arguments; const out = [];
     const hit = document.elementFromPoint(Math.min(Math.max(tr.left + tr.width / 2, 1), innerWidth - 2), Math.min(Math.max(tr.top + Math.min(tr.height / 2, 40), 1), innerHeight - 2));
     out.push({ ok: r.width > 0 && r.left >= -1 && r.right <= innerWidth + 1 && !!hit && el.contains(hit), l: Math.round(r.left), at: hit && String(hit.className || hit.tagName).slice(0, 30) }); }
   return out;`;
-const BA = `const s = document.getElementById('baStage'); if (!s) return null; if (arguments[0] !== null) { const b = document.getElementById('ba'); scrollTo({ top: b.getBoundingClientRect().top + scrollY + (b.offsetHeight - innerHeight) * arguments[0] + 1, behavior: 'instant' }); }
-  else for (let k = 0; k < 3; k++) { const q = s.getBoundingClientRect(); scrollTo({ top: scrollY + q.top + q.height / 2 - innerHeight / 2, behavior: 'instant' }); }
-  const measure = () => { const r = s.getBoundingClientRect(), y = r.top + r.height * 0.6; const at = (x) => String(document.elementFromPoint(r.left + r.width * x, y)?.className || '');
-    return { ba: getComputedStyle(s).getPropertyValue('--ba').trim(), h: Math.round(r.height), left: at(0.15), right: at(0.85) }; };
-  // Static checks (reduced motion, no JS) measure at once: with page scripts disabled requestAnimationFrame never fires.
-  if (arguments[0] === null) return measure();
-  return new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(() => done(measure()))));`;
 const reachAll = async (tag) => {
-  for (const [name, sel, inner] of [['case screenshot', '.c-hz-shot', '.vp']]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), tag + ' ' + name + 's unreachable: ' + JSON.stringify(r.filter((x) => !x.ok))); }
+  for (const [name, sel, inner] of [['original case artwork', '.lvs-case .compare-grid figure,.lvs-case .device-board,.lvs-case .footer-board', 'img']]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), tag + ' ' + name + 's unreachable: ' + JSON.stringify(r.filter((x) => !x.ok))); }
 };
 const viewport = (w) => driver.sendAndGetDevToolsCommand('Emulation.setDeviceMetricsOverride', { width: w, height: 900, deviceScaleFactor: 2, mobile: w < 700 });
 const settle = () => driver.executeAsyncScript('const done=arguments[arguments.length-1];document.fonts.ready.then(()=>Promise.all(Array.from(document.images).map(i=>{i.loading="eager";return i.decode().catch(()=>{})}))).then(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))).then(()=>Promise.all(document.getAnimations().filter(a=>a instanceof CSSTransition).map(a=>a.finished.catch(()=>{})))).then(()=>done())');
@@ -172,6 +165,8 @@ try {
   const prefs = new logging.Preferences(); prefs.setLevel(logging.Type.PERFORMANCE, logging.Level.ALL); opts.setLoggingPrefs(prefs);
   const driverPath = matchedDriver(); result.chromedriver = driverPath;
   driver = await new Builder().forBrowser('chrome').setChromeOptions(opts).setChromeService(new chrome.ServiceBuilder(driverPath)).build();
+  // Reset only this test origin's persisted theme in the dedicated test profile.
+  await driver.sendAndGetDevToolsCommand('Storage.clearDataForOrigin', { origin: new URL(base).origin, storageTypes: 'local_storage' });
   const axeSrc = await fs.readFile(axeMinPath, 'utf8');
   const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article'], ['/blog/ga4-ecommerce-event-validation/', 'article'], ['/blog/ai-competitor-research-prompts/', 'article'], ['/blog/meta-ads-basics/', 'article'], ...authors.map(a=>['/authors/'+a.id+'/', 'author'])];
   for (const [route, template] of samples) for (const w of mode === 'full' ? [1440, 375] : [375, 1440]) {
@@ -238,9 +233,22 @@ try {
     for (const [name, sel, inner] of [['layer panel', '.hz-panel', '.hz-h'], ['U.S. Oil stamp', '.stamp', '.stamp-k'], ['loop service link', '.layer-list a', null]]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), 'reduced motion @' + w + ' home: ' + name + 's unreachable ' + JSON.stringify(r.filter((x) => !x.ok).slice(0, 3))); }
     await capture('home--' + w + '--reduced-motion');
     await load('/work/las-vegas-safety/', w); await reachAll('reduced motion @' + w + ' LVS:');
-    const ba = await driver.executeScript(BA, null); check(ba && ba.ba === '50%' && /ba-before/.test(ba.left) && /ba-after/.test(ba.right), 'reduced motion @' + w + ': before/after shows both images ' + JSON.stringify(ba));
+    check((await driver.findElements(By.css('.compare-grid figure'))).length === 2, 'LVS retains both original before/after presentations');
   }
   await driver.sendAndGetDevToolsCommand('Emulation.setEmulatedMedia', { features: [] });
+  // Owner-reported homepage parity and the filter/reveal regression.
+  await load('/', 1440);
+  const homeParity = await driver.executeScript(`const badge=document.querySelector('.signature img').getBoundingClientRect();return {badge:[badge.width,badge.height],demand:getComputedStyle(document.querySelector('.hz-panel:nth-child(2)')).backgroundColor,cards:[...document.querySelectorAll('.zn-editorial .gallery .project')].map(e=>e.querySelector('a')?.pathname)};`);
+  check(Math.abs(homeParity.badge[0]-homeParity.badge[1]) < 1 && homeParity.badge[1] < 200, 'signature badge preserves square dimensions');
+  check(homeParity.demand === NEAR_BLACK, 'Demand feature keeps the approved dark background');
+  check(homeParity.cards.length === 6 && homeParity.cards.every(p=>p?.startsWith('/work/')), 'homepage project cards link to case studies');
+  await driver.findElement(By.id('themeToggle')).click();
+  check(await driver.executeScript(`return getComputedStyle(document.querySelector('.hz-panel:nth-child(2)')).backgroundColor`) === NEAR_BLACK, 'Demand feature remains dark in the other theme');
+  await load('/work/demand/', 1440);
+  await driver.executeScript(`window.scrollTo(0,document.querySelector('.wl-filterbar').getBoundingClientRect().top+scrollY-100)`);
+  await driver.findElement(By.css('[data-lane-filter="Local search"]')).click();
+  await driver.wait(async()=>await driver.executeScript(`const visible=[...document.querySelectorAll('[data-lane-project]:not([hidden]) .rv')].filter(e=>{const r=e.getBoundingClientRect();return r.top<innerHeight*.9&&r.bottom>0});return visible.length>0&&visible.every(e=>e.classList.contains('in'))`), 2000);
+  result.states.push({homeParity,filter:'Local search reveals visible content without an extra scroll'});
   // responsive sweep (full)
   if (mode === 'full') for (const [route] of [['/'], ['/services/ai-search-optimization/'], ['/work/las-vegas-safety/'], ['/about/'], ['/contact/'], ['/blog/']]) for (const w of [320, 375, 768, 1024, 1440, 2560]) { await load(route, w); check(!(await observe()).overflow, route + ' overflow at ' + w); }
   // blog filters
@@ -257,14 +265,19 @@ try {
   await driver.findElement(By.css('[data-next]')).click(); await driver.executeScript('document.getElementById("inquiry-budget").selectedIndex=2;document.getElementById("inquiry-timeline").selectedIndex=1'); await driver.findElement(By.css('[data-next]')).click();
   await driver.findElement(By.id('inquiry-message')).sendKeys('Inquiry text for the local browser check.');
   const lastLabel = await driver.executeScript('return document.querySelector("[data-next]").textContent'); check(lastLabel === 'Send inquiry', 'last step offers Send inquiry (got "' + lastLabel + '")');
-  result.states.push({ contact: 'steps and validation exercised; the final send is not (it would create a real inquiry)' });
+  // Replace fetch in this isolated test page: no request can create a real inquiry.
+  await driver.executeScript(`window.fetch=()=>new Promise(resolve=>{window.resolveInquiryTest=()=>resolve(new Response(JSON.stringify({error:'Complete the required fields with valid information',field:'email'}),{status:422,headers:{'content-type':'application/json'}}))})`);
+  await driver.findElement(By.css('[data-next]')).click();
+  check(!(await driver.findElement(By.css('[data-back]')).isEnabled()), 'Back is disabled while sending');
+  await driver.executeScript('window.resolveInquiryTest()');
+  await driver.wait(async()=>await driver.findElement(By.id('inquiry-email')).isDisplayed(),2000);
+  check(await driver.executeScript(`return document.activeElement.id==='inquiry-email'&&document.querySelector('#inquiry-email').getAttribute('aria-invalid')==='true'&&document.querySelector('#inquiry-email-error').textContent.includes('email')&&document.querySelector('#inquiry-message').value.length>0`), 'server field error returns focus to the invalid step and preserves values');
+  result.states.push({ contact: 'steps, validation, pending control and stubbed server field recovery verified; no inquiry sent' });
   if (mode === 'full') { await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled', { value: true }); await driver.get(base + '/contact/'); check((await Promise.all((await driver.findElements(By.css('fieldset'))).map((f) => f.isDisplayed()))).every(Boolean), 'no-JS: all fieldsets visible'); check(await driver.findElement(By.css('[data-nojs-submit]')).isDisplayed(), 'no-JS: fallback control visible'); check(!(await driver.findElement(By.css('[data-next]')).isDisplayed()), 'no-JS: JS-only Continue hidden');
-    for (const w of [375, 1440]) { await viewport(w); await driver.get(base + '/work/las-vegas-safety/'); await reachAll('no-JS @' + w + ' LVS:'); const ba = await driver.executeScript(BA, null); check(ba && /ba-before/.test(ba.left) && /ba-after/.test(ba.right), 'no-JS @' + w + ': before/after shows both images ' + JSON.stringify(ba)); await driver.get(base + '/'); for (const [name, sel, inner] of [['layer panel', '.hz-panel', '.hz-h'], ['U.S. Oil stamp', '.stamp', '.stamp-k'], ['loop service link', '.layer-list a', null]]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), 'no-JS @' + w + ' home: ' + name + 's unreachable'); } }
+    for (const w of [375, 1440]) { await viewport(w); await driver.get(base + '/work/las-vegas-safety/'); await reachAll('no-JS @' + w + ' LVS:'); check((await driver.findElements(By.css('.compare-grid figure'))).length === 2, 'no-JS LVS retains both before/after presentations'); await driver.get(base + '/'); for (const [name, sel, inner] of [['layer panel', '.hz-panel', '.hz-h'], ['U.S. Oil stamp', '.stamp', '.stamp-k'], ['loop service link', '.layer-list a', null]]) { const r = await driver.executeScript(REACH, sel, inner); check(r.length > 0 && r.every((x) => x.ok), 'no-JS @' + w + ' home: ' + name + 's unreachable'); } }
     await driver.sendAndGetDevToolsCommand('Emulation.setScriptExecutionDisabled', { value: false }); }
   // case page pins exist and the horizontal track moves
-  await load('/work/las-vegas-safety/', 1440); await driver.executeScript('window.scrollTo(0, document.getElementById("cHz").offsetTop + innerHeight)'); await new Promise((r) => setTimeout(r, 300)); check(/translateX\(-\d/.test(await driver.executeScript('return document.getElementById("cHzTrack").style.transform')), 'case screenshot scroller moves');
-  const ba0 = await driver.executeScript(BA, 0), ba1 = await driver.executeScript(BA, 0.75);
-  check(ba0 && parseFloat(ba0.ba) > 80 && /ba-before/.test(ba0.right) && ba1 && parseFloat(ba1.ba) < 40 && /ba-after/.test(ba1.right) && /ba-before/.test(ba1.left), 'before/after wipes from the old site to the new one with scroll: ' + JSON.stringify([ba0, ba1]));
+  await load('/work/summit-marine-development/', 1440); await driver.executeScript('window.scrollTo(0, document.getElementById("cHz").offsetTop + innerHeight)'); await new Promise((r) => setTimeout(r, 300)); check(/translateX\(-\d/.test(await driver.executeScript('return document.getElementById("cHzTrack").style.transform')), 'case screenshot scroller moves');
   // INP from Event Timing: trusted clicks and keys on the main controls. Entries under the 16 ms observer floor are
   // not reported, so performance.interactionCount proves the interactions happened; the slowest must stay < 100 ms.
   const INP = `return new Promise((done) => { const seen = []; new PerformanceObserver((l) => seen.push(...l.getEntries())).observe({ type: 'event', buffered: true, durationThreshold: 16 });

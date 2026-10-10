@@ -91,6 +91,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
       lane.querySelectorAll<HTMLElement>('[data-lane-group]').forEach(group => { group.hidden = ![...group.querySelectorAll<HTMLElement>('[data-lane-project]')].some(project => !project.hidden); });
       filters.querySelectorAll<HTMLButtonElement>('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.laneFilter === value)));
       count.textContent = `${shown} project${shown === 1 ? '' : 's'}`;
+      dispatchEvent(new Event('zinc-layout'));
     };
     filters.hidden = false;
     filters.addEventListener('click', event => {
