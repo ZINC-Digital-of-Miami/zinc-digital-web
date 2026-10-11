@@ -13,3 +13,6 @@
 .zn-closing-word{font:400 clamp(70px,12.7vw,203px)/1 var(--fb),sans-serif;letter-spacing:-.09em;margin-top:70px;color:#fa268c;white-space:nowrap}
 .zn-closing-word span{color:#fff}
 @media(max-width:760px){.zn-closing{padding:50px 0 35px}.zn-closing-inner{width:calc(100% - 40px)}.zn-closing-top{display:block}.zn-closing-top h2{font-size:70px}.zn-closing-top a{margin-top:28px}.zn-closing-word{font-size:12.5vw;margin-top:50px}}
+
+/* Same wordmark as the masthead, with this section's approved tracking. */
+.zn-closing-word>.zn-stable-word{display:inline-block;width:5.40344em;color:inherit}

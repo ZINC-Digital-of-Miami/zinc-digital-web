@@ -10,3 +10,6 @@
 .zn-hero-picture img{height:auto}
 
 .zn-hero-picture img{height:auto}.zn-hero-picture[hidden]{display:none!important}@media(max-width:760px){.zn-hero-picture img{aspect-ratio:1.05;object-fit:cover;object-position:67% center}}
+
+/* Reserve the approved font's word advance so loading a fallback never moves its period. */
+.zn-mast h1>.zn-stable-word{display:inline-block;width:5.46301em;color:inherit}
