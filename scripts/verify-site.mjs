@@ -2,7 +2,7 @@
 // Browser verification for the Oct 2026 redesign:
 // harness (Selenium/Chrome + axe + CDP, now served by scripts/serve-static.mjs because the Vercel
 // adapter has no `astro preview`), same budgets (15 KB gzip JS,
-// 3 same-origin woff2 + 1 preload, no underline, no overflow, no CLS from fonts), with the
+// 2 same-origin woff2 + 1 embedded display face, all three preloaded, no underline, no overflow, no CLS from fonts), with the
 // preview-era assertions replaced by the redesign's invariants:
 //   - current public routes plus 404, real SEO head, noindex ONLY on /thanks/ + 404
 //   - light default (no OS drift), header toggle → dark, label "Dark mode"/"Light mode", persists across reload
@@ -150,7 +150,9 @@ try {
     const gz = [...scripts.values()].reduce((n, b) => n + gzipSync(b).length, 0) + (inline ? gzipSync(inline).length : 0);
     check(gz <= JS_BUDGET, route + ' JS gzip ' + gz + ' > ' + JS_BUDGET);
     const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)/g), (m) => m[1]));
-    check(woff2.size === 3 && (html.match(/rel="preload"[^>]+as="font"/g) || []).length === 1, route + ' fonts: ' + woff2.size + ' woff2');
+    const fontPreloads = [...html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g)].map((m) => m[0].match(/href="([^"]+)"/)?.[1]);
+    const embedded = [...html.matchAll(/url\("data:font\/woff2;base64,([^"\)]+)"\)/g)];
+    check(woff2.size === 2 && embedded.length === 1 && Buffer.from(embedded[0][1], 'base64').toString('ascii',0,4) === 'wOF2' && fontPreloads.length === 3 && new Set(fontPreloads).size === 3 && [...woff2].every((src) => fontPreloads.includes(src)) && fontPreloads.includes("data:font/woff2;base64," + embedded[0]?.[1]), route + ' must embed the display face and preload all three font faces');
     htmlMap.set(route, { html, links: Array.from(html.matchAll(/href="([^"]+)"/g), (m) => m[1]), ids: Array.from(html.matchAll(/\bid="([^"]+)"/g), (m) => m[1]) });
     result.routes.push({ route, template, status: res.status, bodyChars: main.length, jsGzip: gz });
   }
