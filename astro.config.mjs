@@ -28,9 +28,9 @@ const completeFonts = { name: 'zinc-complete-font-output', hooks: { 'astro:build
     const flat = html.replaceAll('"', '');
     const missing = fontFamilies.filter((f) => !flat.includes(f.cssVariable + ':' + f.name + '-'));
     if (missing.length) throw new Error('FONT_OUTPUT_INCOMPLETE: ' + entry + ' is missing declared families: ' + missing.map((f) => f.name).join(', '));
-    const sources = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (m) => m[1]));
+    const sources = new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2(?:\?[^"]*)?)"\)/g), (m) => m[1]));
     const preloads = Array.from(html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g));
-    for (const source of sources) { const bytes = await readFile(new URL(source.replace(/^\//, ''), dir)); if (bytes.toString('ascii', 0, 4) !== 'wOF2') throw new Error('FONT_OUTPUT_INCOMPLETE: invalid font file ' + source + ' in ' + entry); }
+    for (const source of sources) { const bytes = await readFile(new URL(source.split('?')[0].replace(/^\//, ''), dir)); if (bytes.toString('ascii', 0, 4) !== 'wOF2') throw new Error('FONT_OUTPUT_INCOMPLETE: invalid font file ' + source + ' in ' + entry); }
     const preloadSources = new Set(preloads.map((tag) => tag[0].match(/href="([^"]+)"/)?.[1]));
     const embedded = [...html.matchAll(/url\("data:font\/woff2;base64,([^"\)]+)"\)/g)];
     if (embedded.length !== 1 || Buffer.from(embedded[0][1], "base64").toString("ascii",0,4) !== "wOF2") throw new Error("FONT_OUTPUT_INCOMPLETE: " + entry + " must embed the critical display face");

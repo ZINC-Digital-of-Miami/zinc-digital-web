@@ -122,7 +122,7 @@ try {
     check(/<script type="application\/ld\+json">/.test(html), route + ' JSON-LD');
     const socialImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || '';
     if (template === 'article') {
-      const validImage = /^https:\/\/www\.zincdigital\.co\/_astro\/[^/]+\.webp$/.test(socialImage);
+      const validImage = /^https:\/\/www\.zincdigital\.co\/_astro\/[^/?]+\.webp(?:\?dpl=[A-Za-z0-9_-]+)?$/.test(socialImage);
       check(validImage && !articlePreviews.has(socialImage), route + ' unique article og:image');
       articlePreviews.add(socialImage);
       if (validImage) {
@@ -149,7 +149,7 @@ try {
     const inline = Array.from(html.matchAll(/<script(?![^>]*src=)(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g), (m) => m[1]).join('\n');
     const gz = [...scripts.values()].reduce((n, b) => n + gzipSync(b).length, 0) + (inline ? gzipSync(inline).length : 0);
     check(gz <= JS_BUDGET, route + ' JS gzip ' + gz + ' > ' + JS_BUDGET);
-    const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)/g), (m) => m[1]));
+    const woff2 = new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2(?:\?[^"]*)?)"\)/g), (m) => m[1]));
     const fontPreloads = [...html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g)].map((m) => m[0].match(/href="([^"]+)"/)?.[1]);
     const embedded = [...html.matchAll(/url\("data:font\/woff2;base64,([^"\)]+)"\)/g)];
     check(woff2.size === 2 && embedded.length === 1 && Buffer.from(embedded[0][1], 'base64').toString('ascii',0,4) === 'wOF2' && fontPreloads.length === 3 && new Set(fontPreloads).size === 3 && [...woff2].every((src) => fontPreloads.includes(src)) && fontPreloads.includes("data:font/woff2;base64," + embedded[0]?.[1]), route + ' must embed the display face and preload all three font faces');
