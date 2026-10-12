@@ -1,5 +1,8 @@
 ---
 import Closing from "../components/Closing.astro";
+import criticalDisplayFont from '../assets/fonts/big-shoulders-display-latin-800.woff2?inline';
+import criticalLogo from '../assets/zinc-white.webp?inline';
+import { createHash } from 'node:crypto';
 import "../styles/closing.css";
 import "../styles/site-direction.css";
 // SiteLayout.astro — one shell for every route (home included).
@@ -24,6 +27,10 @@ import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asse
 
 interface Props { route: Route }
 const { route } = Astro.props;
+// The unchanged 14 KB display face is available before first paint; no fallback rewrap.
+const criticalDisplayCss = '@font-face{font-family:"Big Shoulders Display-critical";src:url("' + criticalDisplayFont + '") format("woff2");font-weight:800;font-style:normal;font-display:block;} :root{--font-display:"Big Shoulders Display-critical",sans-serif;}';
+Astro.csp?.insertDirective("font-src 'self' data:");
+Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
 if (analytics && Astro.csp) {
   Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net");
@@ -37,15 +44,16 @@ const title = (route.metaTitle || route.title) + ' | ZINC';
 const desc = route.metaDescription || (route.template==='article'?excerpt(posts.find(p=>p.slug===route.slug)!,155):describe(route));
 const canonical = SITE + path;
 const articleImage = t === 'article' ? articleImages[route.slug!] : undefined;
-const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/articles/*.{png,jpg,jpeg,webp}', { eager: true });
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.{png,jpg,jpeg,webp}', { eager: true });
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
 const approvedHeroes = import.meta.glob<{ default: ImageMetadata }>('../assets/approved/*.png', { eager: true });
 const heroName = path === '/' || path === '/work/' || path === '/work/build/' ? 'build-ouabc-neese.png' : path === '/work/demand/' ? 'demand-dark.png' : path === '/work/intelligence/' ? 'intelligence-vibrant.png' : undefined;
 const approvedHero = heroName ? approvedHeroes['../assets/approved/' + heroName]?.default : undefined;
-const heroFile = approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (approvedHero ? [480, 768, 1100, 1536] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(approvedHero ? {quality:90} : {}) }) : undefined;
-const heroSizes = approvedHero ? path === '/' ? '(max-width: 760px) 100vw, 75vw' : path === '/work/' ? '(max-width: 900px) 92vw, 56vw' : '(max-width: 700px) 100vw, 65vw' : '(max-width: 900px) 90vw, ' + (t === 'blog' ? '600px' : '1100px');
+const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + asset('lvs-case-devices-restaurant').src]?.default : undefined;
+const heroFile = lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(approvedHero || lvsHero ? {quality:90} : {}) }) : undefined;
+const heroSizes = lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 100vw, 75vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
 const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
 const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');
 const socialAlt = articleImage?.alt || 'ZINC Digital — ' + route.title;
@@ -104,9 +112,10 @@ const showCta = false;
     <meta name="twitter:image:alt" content={socialAlt} />
     <meta name="theme-color" content="#F5F6F7" />
     {heroPreload && <link rel="preload" as="image" type="image/avif" href={heroPreload.src} imagesrcset={heroPreload.srcSet.attribute} imagesizes={heroSizes} fetchpriority="high" />}
-    <Font cssVariable="--font-display" preload />
-    <Font cssVariable="--font-body" />
-    <Font cssVariable="--font-mono" />
+    <link rel="preload" as="font" type="font/woff2" href={criticalDisplayFont} crossorigin="anonymous" />
+    <style set:html={criticalDisplayCss} />
+    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-mono" preload />
     <script is:inline>
       // Design default is light; only a stored choice switches to dark (no OS-preference drift).
       (function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('zinc-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
@@ -125,7 +134,7 @@ const showCta = false;
       <header class="nav">
         <div class="wrap nav-in">
           <i class="sprog" id="zsProg" aria-hidden="true"></i>
-          <a class="nav-logo" href="/" aria-label="ZINC home"><img src="/logos/zinc-white.png" alt="ZINC" width="957" height="248" /></a>
+          <a class="nav-logo" href="/" aria-label="ZINC home"><img src={criticalLogo} alt="ZINC" width="934" height="234" /></a>
           <nav class="nlinks" aria-label="Main navigation">
             <a class={navOn('work')} href="/work/" aria-current={t === 'work' ? 'page' : undefined}>Work</a>
             <a class={navOn('services')} href="/services/" aria-current={t === 'services' ? 'page' : undefined}>Services</a>

@@ -364,9 +364,10 @@ html.js .c-hz-track{flex-wrap:nowrap;align-items:center;will-change:transform}
 }
 
 /* shell: grain, cursor, progress (SiteLayout) */
-.zs-grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:2147482999;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:zsgrain 1.2s steps(4) infinite;mix-blend-mode:multiply}
+.zs-grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2147482999;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:zsgrain 1.2s steps(4) infinite;mix-blend-mode:multiply}
 html[data-theme="dark"] .zs-grain{mix-blend-mode:screen;opacity:.07}
-@keyframes zsgrain{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,-1%)}100%{transform:translate(2%,2%)}}
+/* Move the tiled noise by the same offsets inside its fixed box, without shifting the overlay. */
+@keyframes zsgrain{0%{background-position:-50vw -50vh}25%{background-position:-54vw -48vh}50%{background-position:-48vw -54vh}75%{background-position:-52vw -52vh}100%{background-position:-46vw -46vh}}
 .zs-cur{position:fixed;left:0;top:0;width:12px;height:12px;border-radius:50%;pointer-events:none;z-index:2147483000;transform:translate(-50%,-50%) scale(0);transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s,border-color .25s;background:var(--ink);border:1.5px solid var(--ink);box-sizing:border-box;display:none}
 @media(pointer:fine){.zs-cur{display:block}}
 .zs-cur.on{transform:translate(-50%,-50%) scale(1)}.zs-cur.big{transform:translate(-50%,-50%) scale(3.6);background:transparent;border-color:var(--ink)}.zs-cur.hide{transform:translate(-50%,-50%) scale(0)}

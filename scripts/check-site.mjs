@@ -122,7 +122,7 @@ for (const { rel, html } of pages) {
   check(/<title>[^<]+<\/title>/.test(html), rel + ' has no <title>');
   check(/<meta name="description" content="[^"]{20,}"/.test(html), rel + ' has no usable meta description');
   check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\/[^"]*"/.test(html), rel + ' has no canonical');
-  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z]+\.png|_astro\/[^/]+\.webp)"/.test(html), rel + ' has no valid og:image');
+  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z]+\.png|_astro\/[^/?]+\.webp(?:\?dpl=[A-Za-z0-9_-]+)?)"/.test(html), rel + ' has no valid og:image');
   const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
@@ -157,10 +157,12 @@ for (const { rel, html } of pages) {
   const pw = PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
   check(!pw, rel + ' renders demo or preview wording: "' + (pw && pw[0]) + '"');
   for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
-  const woff2 = new Set(Array.from(html.matchAll(/url\("([^"?]+\.woff2)(?:\?[^"]*)?"\)/g), (m) => m[1]));
-  check(woff2.size === 3, rel + ' has ' + woff2.size + ' woff2 sources, expected 3');
+  const woff2 = new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2(?:\?[^"]*)?)"\)/g), (m) => m[1]));
+  const embedded = [...html.matchAll(/url\("data:font\/woff2;base64,([^"\)]+)"\)/g)];
+  check(woff2.size === 2 && embedded.length === 1 && Buffer.from(embedded[0][1], 'base64').toString('ascii',0,4) === 'wOF2', rel + ' must ship two external font faces and one embedded display face');
   const preloads = html.match(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g) || [];
-  check(preloads.length === 1, rel + ' has ' + preloads.length + ' font preloads, expected 1');
+  const fontPreloads = new Set(preloads.map((tag) => tag.match(/href="([^"]+)"/)?.[1]));
+  check(preloads.length === 3 && fontPreloads.size === 3 && [...woff2].every((src) => fontPreloads.has(src)) && fontPreloads.has("data:font/woff2;base64," + embedded[0]?.[1]), rel + ' must preload the embedded display face and both external font faces');
   if (!is404) check(/<meta property="og:url" content="https:\/\/www\.zincdigital\.co\/[^"]*\/"/.test(html) || rel === 'index.html', rel + ' og:url is missing or lacks trailing slash');
 }
 
