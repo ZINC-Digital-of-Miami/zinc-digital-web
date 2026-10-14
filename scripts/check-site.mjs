@@ -106,7 +106,11 @@ if (robots !== null) {
 for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','logos/general-shale.png','logos/ouabc.webp','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
 // Case images live in src/assets/work/ (fetched by scripts/fetch-live-assets.mjs) and ship through astro:assets.
 const siteAssets = JSON.parse(await readFile(path.join(root, 'src/data/assets.site.json'), 'utf8'));
-for (const [key, a] of Object.entries(siteAssets)) if (a.source) check(await exists(path.join(root, 'src/assets', a.src)), 'src/assets' + a.src + ' missing for ' + key + ' (run npm run assets)');
+for (const [key, a] of Object.entries(siteAssets)) if (a.source) {
+  // Vector artwork is served unchanged from public; raster sources use astro:assets.
+  const directory = a.src.endsWith('.svg') ? 'public' : 'src/assets';
+  check(await exists(path.join(root, directory, a.src)), directory + a.src + ' missing for ' + key + ' (run npm run assets)');
+}
 
 // ---- per page ----
 const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html']);
