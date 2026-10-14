@@ -38,8 +38,8 @@ export const team: TeamMember[] = [
   {id:'jaymie-wilhoit',name:'Jaymie Wilhoit',role:'Managing Partner',photo:'jaymie-wilhoit'},
   {id:'wendy-funnell',name:'Wendy Funnell',role:'Chief Content Officer',photo:'wendy-funnell'},
   {id:'bethany-mckinzie',name:'Bethany McKinzie',role:'Business Strategy & HR',photo:'bethany-mckinzie'},
-  {id:'priya-nahar',name:'Priya Nahar, MBA',role:'Shopify Developer',photo:'priya-nahar'},
-  {id:'martin-stewart',name:'Martin Stewart',role:'Glide Expert & App Developer',photo:'martin-stewart'},
+  {id:'priya-nahar',name:'Priya Nahar, MBA',role:'Shopify Dev',photo:'priya-nahar'},
+  {id:'martin-stewart',name:'Martin Stewart',role:'Backend Dev',photo:'martin-stewart'},
   {id:'dr-basset',name:'Dr. Basset',role:'Code',photo:'dr-basset'},
 ];
 export const clients = ['Porsche','Home Depot','John Deere','YMCA','General Shale','Once Upon a Book Club','U.S. Oil Solutions'];
