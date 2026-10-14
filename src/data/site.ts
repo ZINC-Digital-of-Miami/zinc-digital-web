@@ -213,8 +213,8 @@ export const team: TeamMember[] = [
   { id: 'jaymie-wilhoit', name: 'Jaymie Wilhoit', role: 'Managing Partner', photo: 'team-jaymie-wilhoit' },
   { id: 'wendy-funnell', name: 'Wendy Funnell', role: 'Chief Content Officer', photo: 'team-wendy-funnell' },
   { id: 'bethany-mckinzie', name: 'Bethany McKinzie', role: 'Business Strategy & HR', photo: 'team-bethany-mckinzie' },
-  { id: 'priya-nahar', name: 'Priya Nahar, MBA', role: 'Shopify Developer', photo: 'team-priya-nahar' },
-  { id: 'martin-stewart', name: 'Martin Stewart', role: 'Glide Expert & App Developer', photo: 'team-martin-stewart' },
+  { id: 'priya-nahar', name: 'Priya Nahar, MBA', role: 'Shopify Dev', photo: 'team-priya-nahar' },
+  { id: 'martin-stewart', name: 'Martin Stewart', role: 'Backend Dev', photo: 'team-martin-stewart' },
   { id: 'dr-basset', name: 'Dr. Basset', role: 'Code', photo: 'team-dr-basset' },
 ];
 export const homeCommitments = ['You own your accounts, data and code.', 'Direct access to the people doing the work.', 'Reporting tied to revenue, not impressions.'];
