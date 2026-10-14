@@ -29,7 +29,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
-const CASE_SLUGS = ['once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
+const CASE_SLUGS = ['carla-funk-photography','ballad-health','meade-tractor','general-shale','once-upon-a-book-club','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
 const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
@@ -57,6 +57,15 @@ for (const slug of ['the-lampstand-va', 'straight-street-ministries']) {
   check(html.includes('Pro bono') && html.includes('Keith Farmer'), slug + ' must identify the nonprofit support relationship');
   check(!html.includes('The layers in use.'), slug + ' must use the nonprofit presentation');
 }
+// Every available source-backed comparison uses the shared accessible slider.
+for (const slug of ['once-upon-a-book-club','las-vegas-safety','carla-funk-photography','us-oil-solutions','summit-marine-development','the-lampstand-va']) {
+  const html = pages.find(p => p.rel === 'work/' + slug + '/index.html')?.html || '';
+  check(html.includes('data-compare') && html.includes('type="range"') && html.includes('data-compare-to="100"') && html.includes('data-compare-to="0"'), slug + ' lacks before/after controls');
+}
+const carla = pages.find(p => p.rel === 'work/carla-funk-photography/index.html')?.html || '';
+check(carla.includes('Admin image uploader') && carla.includes('In progress') && carla.includes('2025'), 'Carla must distinguish the existing website from the upgrade and admin uploader');
+const ballad = pages.find(p => p.rel === 'work/ballad-health/index.html')?.html || '';
+check(ballad.includes('Past client') && ballad.includes('Enterprise SEO') && ballad.includes('2018') && ballad.includes('thousands of pages') && ballad.includes('SEO technician'), 'Ballad must remain a past enterprise SEO engagement');
 const SITE = 'https://www.zincdigital.co';
 const NOINDEX_PAGES = ['thanks/index.html', '404/index.html'];
 const readText = async (rel) => { try { return await readFile(path.join(distDir, rel), 'utf8'); } catch { return null; } };
@@ -203,12 +212,20 @@ if (work) for (const s of CASE_SLUGS) check(hrefs(work.html).some(h => h.split('
 for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
   if (!p) continue;
-  check(p.html.includes('data-case-mockup="' + s + '"'), 'work/' + s + ' lacks its device mockup hero');
-  if (s !== 'bear-claw-usa') check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
+  if (!['ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-mockup="' + s + '"'), 'work/' + s + ' lacks its device mockup hero');
+  if (!['bear-claw-usa','ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
   }
-  if (['fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'].includes(s)) {
+  if (s === 'carla-funk-photography') {
+    for (const id of ['website','upgrade','image-manager','identity']) check(p.html.includes('id="'+id+'"'), 'Carla lacks '+id);
+  } else if (['meade-tractor','general-shale'].includes(s)) {
+    check(p.html.includes(s+'-logo.') && p.html.includes('Past client'), s+' lacks its logo or past engagement status');
+    check(!p.html.includes('data-device-composition'), s+' SEO case must not imply website design work');
+  } else if (s === 'ballad-health') {
+    check(p.html.includes('ballad-logo.') && p.html.includes('https://www.balladhealth.org/'), 'Ballad lacks its supplied logo or official website link');
+    check(!p.html.includes('data-device-composition'), 'Ballad SEO case must not imply website design work');
+  } else if (['fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'].includes(s)) {
     for (const id of ['overview','website','website-details']) check(p.html.includes('id="'+id+'"'), s+' lacks '+id);
   } else if (s === 'las-vegas-safety') {
     for (const id of ['before-after','website','identity','catalog','production','flyers']) check(p.html.includes('id="'+id+'"') && p.html.includes('href="#'+id+'"'), 'LVS lacks linked section '+id);

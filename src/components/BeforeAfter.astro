@@ -1,26 +1,37 @@
 ---
 import Img from './Img.astro';
-interface Props { before: string; after: string; }
-const { before, after } = Astro.props;
+import { asset } from '../data/site';
+interface Props {
+  before: string; after: string; beforeAlt?: string; afterAlt?: string;
+  beforeLabel?: string; afterLabel?: string; beforeName?: string; afterName?: string;
+  fit?: 'cover' | 'contain'; aspectRatio?: string;
+  /** Display the desktop region of a source design board without changing the original. */
+  afterCrop?: { left: number; top: number; width: number };
+}
+const { before, after, beforeAlt='Earlier website design', afterAlt='Updated website design', beforeLabel='Before', afterLabel='After', beforeName='Before', afterName='After', fit='cover', aspectRatio='1610 / 905', afterCrop } = Astro.props;
+const afterAsset = asset(after);
+const cropStyle = afterCrop ? `--crop-scale:${afterAsset.width / afterCrop.width * 100}%;--crop-x:${-afterCrop.left / afterAsset.width * 100}%;--crop-y:${-afterCrop.top / afterAsset.height * 100}%` : undefined;
+const helpId = 'comparison-help-' + before + '-' + after;
 ---
-<div class="compare" data-compare>
-  <div class="compare-stage" style="--split:50%">
-    <Img k={after} alt="Rebuilt Once Upon a Book Club homepage, archived June 9, 2025" sizes="(max-width: 900px) 92vw, 1200px" />
-    <div class="compare-before"><Img k={before} alt="Earlier Once Upon a Book Club homepage, archived October 1, 2024" sizes="(max-width: 900px) 92vw, 1200px" /></div>
-    <span class="compare-label before">Before · Oct 2024</span><span class="compare-label after">After · Jun 2025</span>
+<div class="compare" data-compare data-before-name={beforeName} data-after-name={afterName}>
+  <div class="compare-stage" style={`--split:50%;--compare-fit:${fit};--compare-position:${fit === 'contain' ? 'center' : 'top'};aspect-ratio:${aspectRatio}`}>
+    <div class:list={["compare-image",{crop:afterCrop}]} style={cropStyle}><slot name="after"><Img k={after} alt={afterAlt} sizes="(max-width: 900px) 92vw, 1200px" /></slot></div>
+    <div class="compare-before"><div class="compare-image"><slot name="before"><Img k={before} alt={beforeAlt} sizes="(max-width: 900px) 92vw, 1200px" /></slot></div></div>
+    <span class="compare-label before">{beforeLabel}</span><span class="compare-label after">{afterLabel}</span>
     <div class="compare-divider" aria-hidden="true"><span>↔</span></div>
-    <input class="compare-range" type="range" min="0" max="100" value="50" aria-label="Website comparison: percentage of earlier design shown" aria-valuetext="50% earlier design, 50% rebuilt design" aria-describedby="comparisonHelp" />
+    <input class="compare-range" type="range" min="0" max="100" value="50" aria-label={`Website comparison: percentage of ${beforeName.toLowerCase()} design shown`} aria-valuetext={`50% ${beforeName}, 50% ${afterName}`} aria-describedby={helpId} />
   </div>
-  <div class="compare-controls"><div><button type="button" data-compare-to="100">Before</button><button type="button" data-compare-to="50">Compare</button><button type="button" data-compare-to="0">After</button></div><p id="comparisonHelp">Drag to compare · use arrow keys or the buttons</p></div>
-  <p class="compare-sources">Archived views: <a href="https://web.archive.org/web/20241001200820/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">October 1, 2024 ↗</a> / <a href="https://web.archive.org/web/20250609025814/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">June 9, 2025 ↗</a>. Capture dates, not launch dates.</p>
+  <div class="compare-controls"><div><button type="button" data-compare-to="100">{beforeName}</button><button type="button" data-compare-to="50">Compare</button><button type="button" data-compare-to="0">{afterName}</button></div><p id={helpId}>Drag to compare · use arrow keys or the buttons</p></div>
+  {Astro.slots.has("default") && <p class="compare-sources"><slot /></p>}
 </div>
 <script>
   document.querySelectorAll<HTMLElement>('[data-compare]').forEach(root => {
     const stage=root.querySelector<HTMLElement>('.compare-stage')!;
     const input=root.querySelector<HTMLInputElement>('input')!;
+    const beforeName=root.dataset.beforeName || 'Before', afterName=root.dataset.afterName || 'After';
     const motion=matchMedia('(prefers-reduced-motion: reduce)');
     let frame=0, current=50, interacted=false;
-    const paint=(value:number)=>{current=value;stage.style.setProperty('--split',value+'%');input.value=String(Math.round(value));input.setAttribute('aria-valuetext',`${Math.round(value)}% earlier design, ${100-Math.round(value)}% rebuilt design`);root.querySelectorAll<HTMLButtonElement>('[data-compare-to]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.compareTo)===Math.round(value))));};
+    const paint=(value:number)=>{current=value;stage.style.setProperty('--split',value+'%');input.value=String(Math.round(value));input.setAttribute('aria-valuetext',`${Math.round(value)}% ${beforeName}, ${100-Math.round(value)}% ${afterName}`);root.querySelectorAll<HTMLButtonElement>('[data-compare-to]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.compareTo)===Math.round(value))));};
     const move=(value:number,animate=false)=>{cancelAnimationFrame(frame);if(!animate||motion.matches){paint(value);return;}const start=current,time=performance.now();const tick=(now:number)=>{const p=Math.min(1,(now-time)/550);paint(start+(value-start)*(1-Math.pow(1-p,3)));if(p<1)frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);};
     const takeControl=()=>{interacted=true;cancelAnimationFrame(frame);};
     input.addEventListener('pointerdown',takeControl);input.addEventListener('keydown',takeControl);input.addEventListener('focus',takeControl);
@@ -33,14 +44,15 @@ const { before, after } = Astro.props;
 </script>
 <style>
 .compare{margin-top:32px}.compare-stage{position:relative;aspect-ratio:1610/905;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--pn);isolation:isolate}
-.compare-stage :global(picture),.compare-stage :global(img){display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.compare-image{position:relative;overflow:hidden;height:100%;display:flex;align-items:center;justify-content:center;background:#fff}.compare-image> :global(picture),.compare-image> :global(picture)> :global(img){display:block;width:100%;height:100%;object-fit:var(--compare-fit);object-position:var(--compare-position)}
+.compare-image.crop> :global(picture){position:absolute;top:0;left:0;width:var(--crop-scale);height:auto;max-width:none;transform:translate(var(--crop-x),var(--crop-y))}.compare-image.crop> :global(picture)> :global(img){width:100%;height:auto;max-width:none}
 .compare-before{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
 .compare-divider{position:absolute;left:var(--split);top:0;bottom:0;width:2px;background:var(--ink);transform:translateX(-1px);pointer-events:none}
 .compare-divider span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--ink);border-radius:50%;background:var(--bg);color:var(--ink);font-size:24px;box-shadow:0 4px 14px rgb(0 0 0 / .18)}
 .compare-label{position:absolute;top:16px;padding:9px 12px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:12px var(--fm);pointer-events:none}.compare-label.before{left:16px}.compare-label.after{right:16px}
 .compare-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
 .compare-stage:focus-within{outline:3px solid var(--tealt);outline-offset:5px}
-.compare-controls{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-top:18px}.compare-controls>div{display:flex;gap:8px}.compare-controls button{min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--pn);color:var(--ink);font:12px var(--fm);cursor:pointer}.compare-controls button:hover{border-color:var(--ink)}.compare-controls p,.compare-sources{font:12px/1.6 var(--fm);color:var(--muted);margin:0}.compare-sources{margin-top:12px}.compare-sources a{display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid var(--line);color:var(--ink)}
+.compare-controls{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-top:18px}.compare-controls>div{display:flex;gap:8px}.compare-controls button{min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:var(--pn);color:var(--ink);font:12px var(--fm);cursor:pointer}.compare-controls button:hover{border-color:var(--ink)}.compare-controls p,.compare-sources{font:12px/1.6 var(--fm);color:var(--muted);margin:0}.compare-sources{margin-top:12px}.compare-sources :global(a){display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid var(--line);color:var(--ink)}
 @media(max-width:600px){.compare-label{font-size:10px;padding:7px;top:8px}.compare-label.before{left:8px}.compare-label.after{right:8px}.compare-controls{align-items:flex-start;flex-direction:column}.compare-divider span{width:44px;height:44px}}
 :global(html:not(.js)) .compare-controls,:global(html:not(.js)) .compare-range{display:none}
 </style>
