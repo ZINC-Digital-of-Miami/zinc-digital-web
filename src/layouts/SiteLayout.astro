@@ -25,8 +25,8 @@ import '../styles/site.css';
 import '../styles/studio.css';
 import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
-interface Props { route: Route }
-const { route } = Astro.props;
+interface Props { route: Route; customClosing?: boolean }
+const { route, customClosing = false } = Astro.props;
 // The unchanged 14 KB display face is available before first paint; no fallback rewrap.
 const criticalDisplayCss = '@font-face{font-family:"Big Shoulders Display-critical";src:url("' + criticalDisplayFont + '") format("woff2");font-weight:800;font-style:normal;font-display:block;} :root{--font-display:"Big Shoulders Display-critical",sans-serif;}';
 Astro.csp?.insertDirective("font-src 'self' data:");
@@ -176,7 +176,7 @@ const showCta = false;
         </section>
       )}
 
-      <Closing />
+      {!customClosing && <Closing />}
       <footer class="foot">
         {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">

@@ -1,0 +1,118 @@
+---
+import IntelligenceScenario from './IntelligenceScenario.astro';
+import { businessIntelligenceQuestions, businessIntelligenceScenarios } from '../data/business-intelligence';
+import '../styles/business-intelligence.css';
+
+// Decorative, deterministic geometry. These are conceptual connections, never client readings.
+function network(width: number, height: number, seed: number, color: string, count: number, opacity: string) {
+  let state = seed;
+  const random = () => { state = (state * 16807) % 2147483647; return (state - 1) / 2147483646; };
+  const points = Array.from({ length: count }, () => ({ x: 35 + random() * (width - 70), y: 35 + random() * (height - 70) }));
+  const lines = points.flatMap((point, i) => points.slice(i + 1).filter(other => Math.hypot(point.x - other.x, point.y - other.y) < 95).map(other => ({
+    x1: point.x.toFixed(2), y1: point.y.toFixed(2), x2: other.x.toFixed(2), y2: other.y.toFixed(2),
+    stroke: color, 'stroke-opacity': opacity, 'stroke-width': '.8',
+  })));
+  const nodes = points.map((point, i) => ({ cx: point.x.toFixed(2), cy: point.y.toFixed(2), r: i % 9 === 0 ? '3' : '1.5', fill: color, 'fill-opacity': i % 9 === 0 ? '.8' : '.45' }));
+  return { lines, nodes };
+}
+const heroWeb = network(660, 400, 7, '#8c9aa8', 92, '.22');
+const detailWeb = network(540, 480, 27, '#057e7e', 86, '.19');
+---
+<div class="bi-platform">
+<section class="bi-hero bi-dark"><div class="bi-shell bi-hero-grid"><div class="bi-hero-copy"><p class="bi-eyebrow"><span class="bi-signal-dot"></span> Business intelligence / Custom platforms</p>
+<h1>Your next<br/>move is in<br/><em>your data.</em></h1>
+<p class="bi-hero-lede">We build intelligence platforms that connect your data, uncover hidden patterns, and help you decide where to act.</p>
+<div class="bi-hero-actions"><a class="bi-button bi-primary" href="/contact/?service=business-intelligence">Discuss your platform <span>↗</span></a><a class="bi-text-link" href="#connections">Explore the connections <span>↓</span></a></div>
+<p class="bi-hero-note">Built for your business. Your systems. Your decisions.</p>
+</div>
+<div aria-label="Conceptual illustration of connected business data" class="bi-intelligence-scene"><div class="bi-scene-heading"><span class="bi-mini-mark">z.</span><span>Connected intelligence</span><span class="bi-concept-label">Concept view</span></div>
+<div class="bi-neural-map"><svg aria-label="Commerce, customer, behavior, and operational signals connected through an intelligence layer" class="bi-network" role="img" viewBox="0 0 660 400"><defs><radialGradient id="halo"><stop offset="0" stop-color="#fc0781" stop-opacity=".15"></stop><stop offset="1" stop-color="#fc0781" stop-opacity="0"></stop></radialGradient><linearGradient id="pathcolor"><stop stop-color="#07b2b2"></stop><stop offset="1" stop-color="#fc0781"></stop></linearGradient></defs><ellipse cx="330" cy="215" fill="url(#halo)" rx="250" ry="180"></ellipse><g id="network-web">{heroWeb.lines.map(line => <line {...line} />)}{heroWeb.nodes.map(node => <circle {...node} />)}</g><g class="bi-major-paths" fill="none" stroke="url(#pathcolor)" stroke-width="1.5"><path d="M120 95 C210 95 200 212 330 212 S470 100 545 100"></path><path d="M100 295 C200 295 215 212 330 212 S450 310 550 310"></path><path d="M330 55 L330 212 L360 365"></path></g><g class="bi-travel-points" fill="#fc0781"><circle r="4"><animateMotion dur="4s" fill="freeze" path="M120 95 C210 95 200 212 330 212 S470 100 545 100" repeatCount="1"></animateMotion></circle><circle fill="#07b2b2" r="3"><animateMotion dur="5s" fill="freeze" path="M100 295 C200 295 215 212 330 212 S450 310 550 310" repeatCount="1"></animateMotion></circle></g><circle cx="330" cy="212" fill="#101214" r="71" stroke="#fc0781" stroke-opacity=".5"></circle><circle cx="330" cy="212" fill="none" r="82" stroke="#fc0781" stroke-opacity=".15"></circle><g fill="none" stroke="#f5f6f7" stroke-width="1.5"><path d="M300 201 L314 187 L331 200 L346 186 L362 201 L346 215 L362 229 L346 240 L330 225 L314 240 L300 225 L315 213 Z"></path><path d="M314 187 L315 213 L346 215 L346 186 M300 201 L331 200 L330 225 L362 229 M314 240 L315 213 L346 240"></path></g><g fill="#fc0781"><circle cx="314" cy="187" r="3"></circle><circle cx="331" cy="200" r="3"></circle><circle cx="346" cy="215" r="3"></circle><circle cx="330" cy="225" r="3"></circle></g></svg><span class="bi-source-node bi-n-commerce">Commerce</span><span class="bi-source-node bi-n-customers">Customers</span><span class="bi-source-node bi-n-behavior">Behavior</span><span class="bi-source-node bi-n-operations">Operations</span><span class="bi-source-node bi-n-demand">Demand</span><span class="bi-engine-label">Intelligence layer</span></div>
+<div class="bi-question-surface"><div class="bi-question-top"><span class="bi-eyebrow">Ask across your business</span><span aria-hidden="true" class="bi-question-icon">↗</span></div>
+<h2>Where does customer interest<br/>stop becoming revenue?</h2>
+<div class="bi-relationship"><span>Pattern</span><i>→</i><span>Context</span><i>→</i><span class="bi-decision">Next decision</span></div>
+</div>
+<p class="bi-scene-caption">Illustrative connections. No client data shown.</p>
+</div>
+</div>
+<div class="bi-hero-bottom bi-shell"><span><a href="/services/#build">Build.</a> <a href="/services/#demand">Demand.</a> <a href="/services/#intelligence">Intelligence.</a></span><span>From connected data to a considered next move <span aria-hidden="true">↘</span></span></div>
+</section>
+<section class="bi-introduction bi-light"><div class="bi-shell bi-intro-grid"><p class="bi-eyebrow bi-teal">Built to find what matters</p>
+<div><h2 class="bi-display">The most useful insight<br/>can sit <span class="bi-underlined">between systems.</span></h2>
+<p>Customer behavior, commercial performance, market conditions, and operations influence each other. A custom intelligence platform brings those relationships into view—so an unexpected pattern becomes something you can investigate and act on.</p>
+</div>
+</div>
+<div class="bi-shell bi-capability-row"><article><span aria-hidden="true" class="bi-cap-symbol">⌘</span><h3>Connect the context.</h3>
+<p>Bring large, varied datasets into a shared business context. Connect events, entities, and outcomes across your systems.</p>
+</article>
+<article><span aria-hidden="true" class="bi-cap-symbol bi-anomaly-symbol">⌁</span><h3>Find the unexpected.</h3>
+<p>Use AI analysis to surface unusual changes, overlooked relationships, and emerging opportunities that need attention.</p>
+</article>
+<article><span aria-hidden="true" class="bi-cap-symbol">↗</span><h3>Make the next decision.</h3>
+<p>See what changed, examine the contributing signals, and identify the action worth considering.</p>
+</article>
+</div>
+</section>
+<section class="bi-connections bi-dark" id="connections"><div class="bi-shell"><div class="bi-section-top"><div><p class="bi-eyebrow">Intelligence, applied</p>
+<h2 class="bi-display">Different businesses.<br/><em>Different questions.</em></h2>
+</div>
+<p>The platform takes the shape of the decision.<br/>Explore two examples of what connected intelligence can help you understand.</p>
+</div>
+<div aria-label="Business intelligence examples" class="bi-scenario-tabs" hidden="" role="tablist"><button aria-controls="scenario-commerce" aria-selected="true" data-scenario="commerce" id="tab-commerce" role="tab" tabindex="0"><span>↗</span> Ecommerce</button><button aria-controls="scenario-procurement" aria-selected="false" data-scenario="procurement" id="tab-procurement" role="tab" tabindex="-1"><span>⌁</span> Soybean oil procurement</button><span class="bi-example-note">Illustrative use cases</span></div>
+{businessIntelligenceScenarios.map((scenario) => <IntelligenceScenario scenario={scenario} />)}</div>
+</section>
+<section class="bi-intelligence-detail bi-light"><div class="bi-shell bi-detail-grid"><div aria-hidden="true" class="bi-detail-art"><svg viewBox="0 0 540 480"><defs><linearGradient id="teal-line"><stop stop-color="#057e7e" stop-opacity=".1"></stop><stop offset=".6" stop-color="#057e7e"></stop><stop offset="1" stop-color="#057e7e" stop-opacity=".2"></stop></linearGradient></defs><g class="bi-detail-network">{detailWeb.lines.map(line => <line {...line} />)}{detailWeb.nodes.map(node => <circle {...node} />)}</g><circle cx="281" cy="231" fill="none" r="120" stroke="#057e7e" stroke-opacity=".12"></circle><circle cx="281" cy="231" fill="none" r="75" stroke="#057e7e" stroke-opacity=".3"></circle><circle cx="281" cy="231" fill="#057e7e" r="24"></circle><path d="M270 232 L279 240 L292 222" fill="none" stroke="white" stroke-width="2.5"></path></svg><span class="bi-art-label bi-art-label-top">Hidden relationships</span><span class="bi-art-label bi-art-label-bottom">A clearer point of action</span></div>
+<div class="bi-detail-copy"><p class="bi-eyebrow bi-teal">From discovery to direction</p>
+<h2 class="bi-display">Understand the signal.<br/>Then decide<br/>what to do.</h2>
+<p>An anomaly is the beginning of the investigation. Your platform connects it to related activity, business priorities, and the underlying evidence.</p>
+<dl class="bi-reason-list"><div><dt>Why it matters</dt><dd>Understand the commercial or operational question behind a change.</dd></div>
+<div><dt>What connects</dt><dd>Explore related signals across time, customers, channels, or markets.</dd></div>
+<div><dt>Where to act</dt><dd>Bring the findings into a clear view of the next decision, with the evidence available to review.</dd></div>
+</dl>
+</div>
+</div>
+</section>
+<section class="bi-custom-platform bi-light"><div class="bi-shell bi-custom-grid"><div><p class="bi-eyebrow bi-teal">Custom, all the way through</p>
+<h2 class="bi-display">Your business<br/>is the blueprint.</h2>
+<p>We design and build the platform around your data, operating model, and the people making decisions.</p>
+<a class="bi-text-link bi-ink-link" href="/contact/?service=business-intelligence">Tell us what you need to understand <span>↗</span></a></div>
+<div class="bi-custom-list"><article><span aria-hidden="true" class="bi-custom-icon">⌘</span><div><h3>Your systems, connected.</h3>
+<p>Integrations and data pipelines bring the required sources together, with clear definitions and reconciliation.</p>
+</div>
+</article>
+<article><span aria-hidden="true" class="bi-custom-icon">⌁</span><div><h3>Intelligence shaped to your business.</h3>
+<p>Pattern discovery, anomaly detection, and analysis focus on the relationships and outcomes that matter to you.</p>
+</div>
+</article>
+<article><span aria-hidden="true" class="bi-custom-icon">▣</span><div><h3>A workspace your team can use.</h3>
+<p>Purpose-built applications, dashboards, and decision views put the findings into the team's daily work.</p>
+</div>
+</article>
+<article><span aria-hidden="true" class="bi-custom-icon">◎</span><div><h3>Evidence within reach.</h3>
+<p>Source details, data freshness, and known gaps remain available behind each reading and recommendation.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="bi-faqs bi-light"><div class="bi-shell bi-faq-grid"><div><p class="bi-eyebrow bi-teal">Before we build</p>
+<h2 class="bi-display">A few useful<br/>questions.</h2>
+<p>A platform designed around the way your business works.</p>
+</div>
+<div class="bi-faq-list">{businessIntelligenceQuestions.map(([question, answer]) => (
+        <details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p>
+</details>
+      ))}</div>
+</div>
+</section>
+<section class="bi-closing bi-dark"><div class="bi-shell"><p class="bi-eyebrow">Build + Intelligence</p>
+<div class="bi-closing-grid"><h2 class="bi-display">What should your<br/>data help you <em>decide?</em></h2>
+<div><p>Let's shape an intelligence platform around the questions that move your business forward.</p>
+<a class="bi-button bi-primary" href="/contact/?service=business-intelligence">Discuss your platform <span>↗</span></a></div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  import { initBusinessIntelligence } from "../scripts/business-intelligence";
+  initBusinessIntelligence();
+</script>

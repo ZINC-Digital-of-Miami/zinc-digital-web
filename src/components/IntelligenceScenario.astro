@@ -1,0 +1,37 @@
+---
+import type { IntelligenceScenario } from '../data/business-intelligence';
+interface Props { scenario: IntelligenceScenario }
+const { scenario } = Astro.props;
+---
+<section id={`scenario-${scenario.id}`} class="bi-scenario-panel" aria-labelledby={`scenario-title-${scenario.id}`}>
+  <div class="bi-scenario-question">
+    <p class="bi-eyebrow">{scenario.category}</p>
+    <h3 id={`scenario-title-${scenario.id}`}>{scenario.title[0]}<br />{scenario.title[1]}</h3>
+    <p>{scenario.description}</p>
+    <div class="bi-decision-prompt">
+      <span class="bi-small-arrow" aria-hidden="true">↗</span>
+      <div><span class="bi-eyebrow">The decision it supports</span><p>{scenario.decision}</p></div>
+    </div>
+  </div>
+  <div class="bi-scenario-visual">
+    <div class="bi-analysis-header"><span class="bi-mini-mark">z.</span><span>Relationship explorer</span><span class="bi-analysis-badge">Example</span></div>
+    <div class="bi-evidence-sources">{scenario.sources.map(source => <span>{source}</span>)}</div>
+    <div class="bi-explorer-lines" aria-hidden="true">
+      <svg viewBox="0 0 520 125">
+        <g fill="none" stroke="#53616b" stroke-width="1">
+          <path d="M60 0 C60 80 260 30 260 110" /><path d="M190 0 C190 50 260 50 260 110" />
+          <path d="M325 0 C325 50 260 50 260 110" /><path d="M455 0 C455 80 260 30 260 110" />
+        </g>
+        <path d="M190 0 C190 50 260 50 260 110" fill="none" stroke="#fc0781" stroke-width="2" />
+        <circle cx="260" cy="110" r="7" fill="#fc0781" />
+        <circle cx="260" cy="110" r="17" fill="none" stroke="#fc0781" stroke-opacity=".35" />
+      </svg>
+    </div>
+    <div class="bi-analysis-focus">
+      <span class="bi-eyebrow">Connections to investigate</span>
+      <h4>{scenario.focus[0]}<br />{scenario.focus[1]}</h4>
+      <ul>{scenario.signals.map(signal => <li>{signal}</li>)}</ul>
+    </div>
+    <div class="bi-analysis-footer"><span>Follow the evidence</span><span aria-hidden="true">→</span><span>Set the next priority</span></div>
+  </div>
+</section>

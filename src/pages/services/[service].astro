@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import BusinessIntelligence from '../../components/BusinessIntelligence.astro';
+import type { Route } from '../../data/site';
+import { loadPublished } from '../../lib/content';
+
+// Keep this page's styles out of the generic service and content templates.
+export async function getStaticPaths() {
+  const { routes } = await loadPublished();
+  return routes
+    .filter(route => route.template === 'service' && route.slug === 'business-intelligence')
+    .map(route => ({ params: { service: route.slug }, props: { route } }));
+}
+interface Props { route: Route }
+const { route } = Astro.props;
+---
+<SiteLayout route={route} customClosing>
+  <BusinessIntelligence />
+</SiteLayout>
