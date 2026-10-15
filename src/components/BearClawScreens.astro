@@ -1,58 +1,24 @@
 ---
-import DeviceComposition from './DeviceComposition.astro';
-
+import Img from './Img.astro';
 const pages = [
-  { key: 'home', title: 'Home', path: '/', detail: 'The product introduction, adapted to each screen.' },
-  { key: 'product', title: 'Product', path: '/product', detail: 'Product information with room for the details.' },
-  { key: 'about', title: 'About', path: '/about', detail: 'The company story in the same visual language.' },
-  { key: 'quote', title: 'Request a quote', path: '/quote', detail: 'A dedicated page for the next conversation.' },
+ {key:'product',title:'Show what it does.',label:'01 / Product',path:'/product',detail:'Concrete forms, asphalt beds and tools. Product information is organized around the applications buyers need to understand.'},
+ {key:'home',title:'The product comes first.',label:'02 / First impression',path:'/',detail:'The existing black-and-orange identity carries into a direct product introduction, with a visible route to request a quote.'},
+ {key:'about',title:'Put the company behind it.',label:'03 / About',path:'/about',detail:'The company story uses the same typography, colors and navigation, keeping the website connected from page to page.'},
+ {key:'quote',title:'Make the next step clear.',label:'04 / Request a quote',path:'/quote',detail:'A dedicated quote page gives interested buyers a direct next step. The layout adapts for desktop, tablet and mobile.'},
 ];
-
 ---
-
-<section class="bc-screens" aria-labelledby="bc-screens-title">
+<div class="bc-screens" id="case-content" data-case-pages="bear-claw-usa">
+ {pages.map((page,i)=><section class:list={['bc-chapter',{'bc-chapter--dark':i%2===0}]} aria-labelledby={i===0?'bc-screens-title':'bc-'+page.key}>
   <div class="wrap">
-    <header class="bc-heading">
-      <div>
-        <span class="kick">Responsive website</span>
-        <h2 class="disp" id="bc-screens-title">Every page.<br />Every screen.</h2>
-      </div>
-      <p>Home, product, about and quote pages, shown on desktop, tablet and mobile.</p>
-    </header>
-
-    <div class="bc-pages">
-      {pages.map(page => <article class="bc-page" aria-labelledby={`bc-page-${page.key}`}>
-        <header class="bc-page-heading">
-          <div>
-            <h3 class="disp" id={`bc-page-${page.key}`}>{page.title}</h3>
-            <p>{page.detail}</p>
-          </div>
-          <a class="bc-live" href={`https://bear-claw-usa.vercel.app${page.path}`} target="_blank" rel="noopener noreferrer" aria-label={`View the Bear Claw ${page.title.toLowerCase()} page (opens in a new tab)`}>View page <span aria-hidden="true">↗</span></a>
-        </header>
-
-        <DeviceComposition title={'Bear Claw ' + page.title} desktop={`bear-claw-${page.key}-desktop`} tablet={`bear-claw-${page.key}-tablet`} mobile={`bear-claw-${page.key}-mobile`} />
-      </article>)}
-    </div>
+   <header class="bc-heading"><div><p class="bc-kick">{page.label}</p><h2 class="disp" id={i===0?'bc-screens-title':'bc-'+page.key}>{page.title}</h2></div><div><p>{page.detail}</p><a href={'https://bear-claw-usa.vercel.app'+page.path} target="_blank" rel="noopener noreferrer">View {page.key==='home'?'home':page.key} page ↗</a></div></header>
+   <div class="bc-evidence" id={i===0?'bc-product':undefined}>
+    <figure class="bc-desktop"><div class="bc-browser" aria-hidden="true"><i></i><i></i><i></i><span>bear-claw-usa.vercel.app / {page.key}</span></div><Img k={'bear-claw-'+page.key+'-desktop'} alt={'Bear Claw '+page.key+' page on desktop'} sizes="(max-width: 700px) 90vw, 65vw" /><figcaption>Desktop / {page.key}</figcaption></figure>
+    <div class="bc-responsive"><figure class="bc-tablet"><Img k={'bear-claw-'+page.key+'-tablet'} alt={'Bear Claw '+page.key+' page on tablet'} sizes="(max-width: 700px) 54vw, 20vw" /><figcaption>Tablet</figcaption></figure><figure class="bc-mobile"><Img k={'bear-claw-'+page.key+'-mobile'} alt={'Bear Claw '+page.key+' page on mobile'} sizes="(max-width: 700px) 28vw, 12vw" /><figcaption>Mobile</figcaption></figure></div>
+   </div>
   </div>
-</section>
-
+ </section>)}
+</div>
 <style>
-  .bc-screens{padding:clamp(64px,9vw,120px) 0;border-top:1px solid var(--line);color:var(--ink)}
-  .bc-heading{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
-  .bc-heading h2{font-size:clamp(44px,6vw,86px);margin-top:18px}
-  .bc-heading p{margin:0;max-width:38ch;font-size:18px;line-height:1.65;color:var(--muted)}
-  .bc-pages{display:grid;gap:clamp(48px,7vw,96px)}
-  .bc-page{min-width:0}
-  .bc-page-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 0 26px}
-  .bc-page-heading h3{font-size:clamp(30px,3.3vw,46px);line-height:1}
-  .bc-page-heading p{margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--muted)}
-  .bc-live{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;flex-shrink:0;border-bottom:1px solid var(--ink);font-family:var(--fm);font-size:13px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
-  .bc-live:hover{color:var(--tealt);border-color:var(--tealt)}
-  .bc-live:focus-visible{outline:2px solid var(--tealt);outline-offset:5px}
-  @media(max-width:720px){
-    .bc-heading{grid-template-columns:1fr;gap:24px}
-    .bc-heading p{font-size:17px}
-    .bc-page-heading{align-items:flex-start;flex-direction:column;gap:12px}
-    .bc-page-heading p{max-width:32ch}
-  }
+.bc-chapter{padding:70px 0 80px;background:#ebe8e1;color:#1e1d1b;--bc-muted:#55524e;--bc-line:#bcb7ad;overflow:hidden}.bc-chapter--dark{background:#111213;color:#f6f4ee;--bc-muted:#bec0c1;--bc-line:#44413b;border-top:1px solid #393630}.bc-heading{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:42px}.bc-heading h2{font-size:clamp(42px,5.6vw,80px);line-height:1.02;max-width:13ch;margin:16px 0 0}.bc-kick{font:10px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.1em}.bc-chapter--dark .bc-kick{color:#ffb14b}.bc-heading>div>p:not(.bc-kick){font-size:17px;line-height:1.65;max-width:45ch;color:var(--bc-muted)}.bc-heading a{display:inline-flex;align-items:center;min-height:44px;font:11px/1.5 var(--fm);border-bottom:1px solid currentColor;margin-top:12px;color:inherit}.bc-heading a:focus-visible{outline:2px solid #c3761c;outline-offset:5px}.bc-evidence{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);gap:32px;align-items:center}.bc-evidence figure{margin:0;min-width:0}.bc-evidence :global(picture){display:block}.bc-evidence :global(img){display:block;width:100%;height:auto;border:1px solid var(--bc-line);box-shadow:0 22px 30px #0002}.bc-browser{background:#242526;padding:12px;display:flex;gap:5px;align-items:center;border:1px solid #4e4c48;border-radius:8px 8px 0 0}.bc-browser i{width:5px;height:5px;border-radius:50%;background:#a89980}.bc-browser span{font:9px var(--fm);margin:auto;color:#ccc}.bc-responsive{display:flex;gap:18px;align-items:end}.bc-tablet{width:65%}.bc-mobile{width:35%;padding-bottom:20px}.bc-responsive :global(img){border:5px solid #202123;border-radius:9px}.bc-evidence figcaption{font:10px/1.5 var(--fm);margin-top:15px;color:var(--bc-muted);text-transform:uppercase;letter-spacing:.07em}.bc-chapter:nth-child(even) .bc-evidence{grid-template-columns:1fr 1.8fr}.bc-chapter:nth-child(even) .bc-desktop{grid-column:2;grid-row:1}.bc-chapter:nth-child(even) .bc-responsive{grid-column:1;grid-row:1}
+@media(max-width:700px){.bc-chapter{padding:45px 0 50px}.bc-heading{grid-template-columns:1fr;gap:15px;margin-bottom:30px}.bc-heading h2{max-width:16ch}.bc-evidence,.bc-chapter:nth-child(even) .bc-evidence{display:flex;flex-direction:column;gap:25px}.bc-responsive{width:80%;margin:auto;gap:20px}.bc-browser span{font-size:8px}.bc-heading>div>p:not(.bc-kick){font-size:16px}}
 </style>

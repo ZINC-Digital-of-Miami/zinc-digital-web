@@ -2,12 +2,12 @@
 import ApprovedImage from './ApprovedImage.astro';
 import DeviceComposition from './DeviceComposition.astro';
 import Img from './Img.astro';
+import DesktopMockup from './DesktopMockup.astro';
 import type { Case } from '../data/site';
 
 interface Props { study: Case; loading?: 'eager' | 'lazy' }
 const { study, loading = 'eager' } = Astro.props;
 const approved: Record<string, string> = {
-  'once-upon-a-book-club': 'ouabc-white-devices.png',
   'bear-claw-usa': 'bear-white-devices.png',
   'smoky-mountain-survival': 'smoky-white-devices.png',
   'fraim-cawley-company': 'tax.jpeg',
@@ -16,21 +16,22 @@ const approved: Record<string, string> = {
   'felon-motorwerk': 'felon-white-devices.png',
 };
 const sources: Record<string, { desktop: string; tablet?: string; mobile?: string }> = {
+  'once-upon-a-book-club': {desktop:'ouabc-site',mobile:'ouabc-mobile'},
   'carla-funk-photography': { desktop: 'carla-home-desktop', tablet: 'carla-home-tablet', mobile: 'carla-home-mobile' },
   'us-oil-solutions': { desktop: 'case-uos-home-desktop', tablet: 'case-uos-home-tablet', mobile: 'case-uos-home-mobile' },
   'the-lampstand-va': { desktop: 'case-lampstand-home-desktop', tablet: 'case-lampstand-home-tablet', mobile: 'case-lampstand-home-mobile' },
   'straight-street-ministries': { desktop: 'case-straight-street-home-desktop', tablet: 'case-straight-street-home-tablet', mobile: 'case-straight-street-home-mobile' },
-  'summit-marine-development': { desktop: 'case-smd-home-desktop', tablet: 'case-smd-home-tablet', mobile: 'case-smd-home-mobile' },
   'miami-tactical': { desktop: 'miami-tactical-website' },
   'zinc-fusion-v16': { desktop: 'fusion-v16-dashboard' },
 };
 ---
 <figure data-case-mockup={study.slug} class="case-mockup">
-  {['ballad-health','meade-tractor','general-shale'].includes(study.slug) ? <Img k={study.hero} alt={study.title + " — past SEO client"} loading={loading} sizes="(max-width: 700px) 80vw, 500px" /> : approved[study.slug] ? <ApprovedImage name={approved[study.slug]} alt={study.title + ' — level desktop, laptop, tablet and phone presentation'} loading={loading} sizes="(max-width: 700px) 92vw, 700px" />
-    : study.slug === 'las-vegas-safety' ? <Img k="lvs-case-devices-restaurant" alt="Las Vegas Safety & Supply — original ZINC storefront across desktop, laptop, tablet and phone" loading={loading} quality={95} sizes="(max-width: 700px) 92vw, 700px" />
+  {['ballad-health','meade-tractor','general-shale'].includes(study.slug) ? <div class="seo-monitor"><DesktopMockup asset={"seo-"+study.slug+"-current"} title={study.title+" — current website; past SEO engagement"} loading={loading} /></div> : approved[study.slug] ? <ApprovedImage name={approved[study.slug]} alt={study.title + ' — level desktop, laptop, tablet and phone presentation'} loading={loading} sizes="(max-width: 700px) 92vw, 700px" />
+    : study.slug === 'summit-marine-development' ? <Img k="smd-devices" alt="Original Summit Marine website built by ZINC, from the project archive" loading={loading} quality={95} sizes="(max-width: 700px) 100vw, 85vw" /> : study.slug === 'las-vegas-safety' ? <Img k="lvs-case-devices-restaurant" alt="Las Vegas Safety & Supply — original ZINC storefront across desktop, laptop, tablet and phone" loading={loading} quality={95} sizes="(max-width: 700px) 100vw, 85vw" />
     : <DeviceComposition title={study.title} {...(sources[study.slug] || { desktop: study.hero })} loading={loading} />}
 </figure>
 <style>
+  .seo-monitor{width:82%;margin:8% auto 0}
   .case-mockup{width:100%;aspect-ratio:3/2;margin:0;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}
   .case-mockup> :global(picture){display:block;width:100%}
   .case-mockup> :global(img),.case-mockup> :global(picture)> :global(img){display:block;width:100%;height:auto;object-fit:contain;transform:none;filter:none}

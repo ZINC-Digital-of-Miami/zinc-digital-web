@@ -1,6 +1,5 @@
 ---
 import CaseStudyHero from './CaseStudyHero.astro';
-import PageRail from './PageRail.astro';
 import Img from './Img.astro';
 import CaseHeroMockup from './CaseHeroMockup.astro';
 import {caseBy} from '../data/site';
@@ -8,7 +7,7 @@ const study=caseBy('miami-tactical');
 ---
 <article class="miami-case">
   <CaseStudyHero study={study} title="Miami Tactical" description="A distinct mark. A direct digital presence." eyebrow="Website + logo design" href="#overview" action="Explore the project" />
-  <PageRail path="/work/miami-tactical/" title="Miami Tactical" />
+
   <nav class="case-jumps wrap" aria-label="Miami Tactical case study sections"><a href="#overview">Overview</a><a href="#website">Website</a><a href="#logo">Logo design</a><a href="#design-details">Design details</a></nav>
   <section id="overview" class="case-section"><div class="wrap overview-grid"><div><p class="kick">01 / The project</p><h2 class="disp">A focused<br/>foundation.</h2></div><div><p class="intro">ZINC designed the Miami Tactical logo and website, giving the name a simple visual identity and a place on screen.</p><p>The work pairs a geometric mark with straightforward typography. On the website, a black-and-white foundation gives the photography room to lead, while search and category navigation sit clearly above it.</p><dl class="scope"><div><dt>Client</dt><dd>Miami Tactical</dd></div><div><dt>Work</dt><dd>Website · Logo design</dd></div></dl></div></div></section>
   <section id="website" class="case-section website-section" data-case-pages="miami-tactical"><div class="wrap"><div class="section-head"><div><p class="kick">02 / Website design</p><h2 class="disp">On screen.</h2></div><p>A bold opening image and a practical header give the page two clear jobs: establish the brand and help visitors find their way.</p></div><div class="website-stage"><CaseHeroMockup study={study} loading="lazy" /></div><div class="detail-grid"><div><span class="detail-number">01</span><h3>A clear starting point</h3><p>The logo anchors the header. Search takes a prominent position alongside the account and cart controls.</p></div><div><span class="detail-number">02</span><h3>Categories in view</h3><p>A separate navigation strip makes the main categories visible before the visitor reaches the opening image.</p></div><div><span class="detail-number">03</span><h3>Photography with presence</h3><p>The monochrome photograph fills the opening section. A dark overlay holds the headline and supporting text together.</p></div></div></div></section>

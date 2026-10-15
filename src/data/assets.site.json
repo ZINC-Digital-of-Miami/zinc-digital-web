@@ -239,5 +239,15 @@
   "uos-upgrade-comparison": {"src": "/work/case-material/us-oil-upgrade.png", "width": 1440, "height": 1000, "source": "https://usos-website-blush.vercel.app/", "captured": "2026-10-14"},
   "lampstand-upgrade-concept": {"src": "/work/case-material/lampstand-warm-editorial.png", "width": 1410, "height": 1116, "source": "https://lampstand-design-review.zincdigital.chatgpt.site/#warm-editorial", "captured": "2026-10-14"},
   "meade-tractor-logo": {"src": "/work/case-material/meade-tractor-logo.png", "width": 532, "height": 122, "source": "https://meadetractor.com/wp-content/uploads/2024/05/logo@2x.png", "captured": "2026-10-14"},
-  "general-shale-logo": {"src": "/work/case-material/general-shale-logo.png", "width": 360, "height": 120, "source": "https://generalshale.com/wp-content/uploads/2020/05/GS-Logo-Retina-Black.png", "captured": "2026-10-14"}
+  "general-shale-logo": {"src": "/work/case-material/general-shale-logo.png", "width": 360, "height": 120, "source": "https://generalshale.com/wp-content/uploads/2020/05/GS-Logo-Retina-Black.png", "captured": "2026-10-14"},
+  "seo-ballad-health-current": {"src": "/work/seo-sites/ballad-health-current.png", "width": 1440, "height": 1000, "source": "https://www.balladhealth.org/primary-care", "captured": "2026-10-14"},
+  "seo-ballad-health-scene": {"src": "/work/seo-sites/ballad-health-scene.webp", "width": 800, "height": 800, "source": "https://www.balladhealth.org/primary-care", "captured": "2026-10-14"},
+  "seo-meade-tractor-current": {"src": "/work/seo-sites/meade-tractor-current.png", "width": 1440, "height": 1000, "source": "https://meadetractor.com/", "captured": "2026-10-14"},
+  "seo-meade-tractor-scene": {"src": "/work/seo-sites/meade-tractor-scene.webp", "width": 870, "height": 696, "source": "https://meadetractor.com/", "captured": "2026-10-14"},
+  "seo-general-shale-current": {"src": "/work/seo-sites/general-shale-current.png", "width": 1440, "height": 1000, "source": "https://generalshale.com/", "captured": "2026-10-14"},
+  "seo-general-shale-scene": {"src": "/work/seo-sites/general-shale-scene.jpg", "width": 1024, "height": 576, "source": "https://generalshale.com/", "captured": "2026-10-14"},
+  "smoky-source-home": {"src": "/work/smoky-mountain/home.png", "width": 1872, "height": 897, "source": "/Volumes/Satechi Hub/zinc-digital-web-design-concepts/release-unused-assets/smoky.png"},
+  "smoky-source-about": {"src": "/work/smoky-mountain/about.jpg", "width": 1349, "height": 5449, "source": "/Users/zincdigital/Desktop/About \u2013 Smoky Mountain Survival Outfitters Unlimited.jpg"},
+  "smoky-source-training": {"src": "/work/smoky-mountain/training.jpg", "width": 1920, "height": 912, "source": "/Users/zincdigital/Desktop/Smoky Mountain Survival Outfitters Unlimited (1).jpg"},
+  "smoky-source-camping": {"src": "/work/smoky-mountain/camping.jpg", "width": 1920, "height": 912, "source": "/Users/zincdigital/Desktop/Smoky Mountain Survival Outfitters Unlimited (3).jpg"}
 }

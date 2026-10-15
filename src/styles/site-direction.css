@@ -32,9 +32,56 @@
 html[data-theme="dark"] .sph,.mcard .sph,.cta .sph,.zn-page-hero .sph{background:radial-gradient(circle at 35% 30%,rgba(245,246,247,.15),rgba(245,246,247,0) 70%)!important;opacity:1!important;filter:none!important}
 #zsRoot .p-intro>.sph{display:block;opacity:.65!important}
 
-/* Keep the seasonal dashboard composition beside its title, with all three devices intact. */
-.work-lane--intelligence .wl-hero{display:grid;grid-template-columns:40% 60%;min-height:540px;align-items:center}
-.work-lane--intelligence .wl-hero-copy{width:100%;align-self:center;padding:65px 0}
-.work-lane--intelligence .wl-hero-art{position:relative;width:110%;right:0;bottom:auto;mask-image:linear-gradient(to right,transparent,black 7%)}
-.work-lane--intelligence .wl-hero h1{font-size:clamp(48px,6.3vw,100px)}
-@media(max-width:700px){.work-lane--intelligence .wl-hero{display:block;min-height:0}.work-lane--intelligence .wl-hero-copy{padding:40px 0 15px}.work-lane--intelligence .wl-hero-art{width:calc(100% + 48px);mask-image:none}.work-lane--intelligence .wl-hero h1{font-size:clamp(38px,10.6vw,72px)}}
+/* Owner direction, 14 October: work-lane artwork fills the opening. */
+.work-lane .wl-opening{overflow:hidden;position:relative;isolation:isolate}
+.work-lane .wl-opening>.wl-hero-art{position:absolute;inset:0;width:100%;height:100%;mask-image:none;z-index:-2;mix-blend-mode:normal!important}
+.work-lane .wl-opening>.wl-hero-art picture,.work-lane .wl-opening>.wl-hero-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:65% center;filter:none;mix-blend-mode:normal}
+.work-lane .wl-opening::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#080b0ef5 0%,#080b0edb 26%,#080b0e58 60%,#080b0e0a 100%),linear-gradient(0deg,#080b0eb3,transparent 35%);pointer-events:none}
+.work-lane .wl-hero{display:flex;min-height:clamp(580px,52vw,820px)}
+.work-lane .wl-hero-copy{width:55%;align-self:center;padding:80px 0}
+.work-lane .wl-hero h1{font-size:clamp(66px,10vw,150px);margin:26px 0;overflow-wrap:normal}
+.work-lane--intelligence .wl-hero h1{font-size:clamp(64px,8.6vw,136px)}
+.work-lane .wl-hero-status{color:#d1d4d7}
+@media(max-width:700px){.work-lane .wl-hero{min-height:700px;align-items:flex-start}.work-lane .wl-hero-copy{width:100%;padding:46px 0 330px;align-self:flex-start}.work-lane .wl-hero h1{font-size:clamp(48px,12vw,78px)}.work-lane--intelligence .wl-hero h1{font-size:clamp(42px,10.8vw,72px)}.work-lane .wl-opening>.wl-hero-art img{object-position:62% bottom}.work-lane .wl-opening::after{background:linear-gradient(180deg,#080b0ef5 0%,#080b0ee0 29%,#080b0e30 67%,#080b0e66)}.work-lane .wl-hero-status{margin-top:18px}.work-lane .wl-lede{max-width:26ch}}
+.zn-work-overview{overflow:hidden;position:relative;isolation:isolate;padding:0}
+.zn-work-overview .zn-hero-grid{display:flex;min-height:620px;position:static}
+.zn-work-overview .zn-hero-copy{width:50%;padding:65px 0}
+.zn-work-overview .zn-hero-grid>picture{display:block;position:absolute;inset:0;z-index:-2}
+.zn-work-overview .zn-direction-art{width:100%;height:100%;max-width:none;margin:0;object-fit:cover;object-position:65% center;mask-image:none;filter:none;mix-blend-mode:normal}
+.zn-work-overview::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#080b0ef5,#080b0edb 28%,#080b0e30 65%,#080b0e05)}
+@media(max-width:700px){.zn-work-overview .zn-hero-grid{min-height:730px;align-items:flex-start}.zn-work-overview .zn-hero-copy{width:100%;padding:42px 0 300px}.zn-work-overview::after{background:linear-gradient(#080b0ef5 0%,#080b0ec9 35%,#080b0e15 72%,#080b0e99)}}
+
+/* Shared visible hero height. Client metadata follows the image stage. */
+:root{--portfolio-hero-height:680px}
+.work-lane .wl-opening,.zn-work-overview{height:var(--portfolio-hero-height)}
+.work-lane .wl-hero,.zn-work-overview .zn-hero-grid{height:100%;min-height:0}
+.work-lane .wl-hero-copy{padding-top:55px;padding-bottom:55px}
+.work-lane--demand .wl-opening::after{background:linear-gradient(90deg,#090d11 0%,#090d11f5 28%,#090d1199 42%,transparent 58%);pointer-events:none}
+.work-lane--demand .wl-card-art:has([data-desktop-mockup]){padding:25px;background:#eeece8;border:0;overflow:visible}
+.work-lane--demand .wl-card-art:has(img[src*="us-oil-sharp"]){padding:60px;background:#fff}
+@media(max-width:900px){:root{--portfolio-hero-height:720px}}
+@media(max-width:600px){:root{--portfolio-hero-height:850px}.work-lane .wl-hero-copy{padding:38px 0 330px}.work-lane--demand .wl-opening::after{background:linear-gradient(#090d11 0%,#090d11f0 28%,transparent 57%)}.zn-work-overview .zn-hero-copy{padding-top:38px}}
+
+/* Owner: plain white surfaces and flat gray; no grain or material textures. */
+.zs-grain,.grain{display:none!important}
+html:not([data-theme="dark"]){--bg:#fff;--bg2:#f3f4f5}
+.zn-editorial .light{background:#fff}
+.work-lane--demand .wl-card-art:has([data-desktop-mockup]){background:#f3f4f5}
+
+/* Service evidence shares the section's planes instead of a boxed image surface. */
+#zsRoot .s-service-proof>a{background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;position:relative;z-index:1}
+#zsRoot .s-service-proof .desktop-mockup{width:105%;margin-left:-5%;transform:perspective(1600px) rotateY(-7deg);transform-origin:center}
+#zsRoot .s-service-proof .desktop-mockup img{max-height:none}
+#zsRoot .s-service-proof figcaption{position:relative;z-index:2}
+@media(max-width:700px){#zsRoot .s-service-proof .desktop-mockup{width:96%;margin-left:0;transform:none}}
+
+.zn-hero .zn-stage{height:clamp(450px,45vw,680px);isolation:isolate}
+.zn-hero .zn-hero-picture{position:absolute;inset:0;z-index:0;isolation:isolate}
+.zn-hero-picture .build-art img,.zn-hero-picture .demand-art img{margin:0;mask-image:none;mix-blend-mode:normal}
+.zn-hero-picture .build-screen img,.zn-hero-picture .build-tablet img,.zn-hero-picture .demand-art .dm-screen img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+.zn-hero-picture .build-phone img{width:100%;height:auto;aspect-ratio:9/18}
+.zn-hero-picture .demand-creative img{width:100%;height:auto;aspect-ratio:auto}
+@media(max-width:760px){.zn-hero .zn-stage{height:510px}}
+
+#zsRoot .zn-editorial .light{background:#fff}
+#zsRoot .studio-service-opening .s-service-proof>a{box-shadow:none;background:transparent}

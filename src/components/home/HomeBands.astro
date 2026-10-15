@@ -2,6 +2,7 @@
 // HomeBands.astro — the homepage, ported from ZINC Home Blend.dc.html.
 // Header, CTA band and footer come from SiteLayout. Motion lives in scripts/home.ts.
 import Img from '../Img.astro';
+import DemandHeroArt from '../DemandHeroArt.astro';
 import ApprovedHero from './ApprovedHero.astro';
 import SelectedWork from './SelectedWork.astro';
 import BookClubSlider from './BookClubSlider.astro';
@@ -33,7 +34,7 @@ import '../../styles/home-mockups.css';
 
 <section class="hz" id="hz"><div class="hz-pin"><div class="hz-track" id="hzTrack">
   <div class="hz-panel"><div class="hz-in"><div class="hz-text"><span class="kick">01 · Build</span><h2 class="disp hz-h" style="margin-top:14px">Build</h2><p class="hz-p">The storefront, the site, the app. The machine the customer touches, built to convert before any traffic hits it.</p><div class="hz-tags"><span class="hz-tag">Shopify</span><span class="hz-tag">Web design</span><span class="hz-tag">Apps</span></div><a class="arrow home-lane-link" href="/work/build/">Explore the builds ↗</a></div><div class="hz-vis home-scene"><CaseScene name="build-hero" alt="Bear Claw and Once Upon a Book Club websites in laptop, tablet and phone mockups" /></div></div></div>
-  <div class="hz-panel"><div class="hz-in"><div class="hz-text"><span class="kick">02 · Demand</span><h2 class="disp hz-h" style="margin-top:14px">Demand</h2><p class="hz-p">Search, AI answers, paid and social. Traffic modeled against the demand curve, then pointed at the pages that close.</p><div class="hz-tags"><span class="hz-tag">SEO</span><span class="hz-tag">Generative search</span><span class="hz-tag">Paid media</span></div><a class="arrow home-lane-link" href="/work/demand/">Explore the demand work ↗</a></div><div class="hz-vis home-scene"><figure class="case-scene" data-scene="demand-dark"><ApprovedImage name="demand-dark.png" alt="Once Upon a Book Club and Summit Marine search and campaign work in the approved dark device presentation" /></figure></div></div></div>
+  <div class="hz-panel"><div class="hz-in"><div class="hz-text"><span class="kick">02 · Demand</span><h2 class="disp hz-h" style="margin-top:14px">Demand</h2><p class="hz-p">Search, AI answers, paid and social. Traffic modeled against the demand curve, then pointed at the pages that close.</p><div class="hz-tags"><span class="hz-tag">SEO</span><span class="hz-tag">Generative search</span><span class="hz-tag">Paid media</span></div><a class="arrow home-lane-link" href="/work/demand/">Explore the demand work ↗</a></div><div class="hz-vis home-scene"><div class="home-demand-art"><DemandHeroArt /></div></div></div></div>
   <div class="hz-panel"><div class="hz-in"><div class="hz-text"><span class="kick">03 · Intelligence</span><h2 class="disp hz-h" style="margin-top:14px">Intelligence</h2><p class="hz-p">Dashboards and models your team actually opens. The truth about what's working, tied to revenue.</p><div class="hz-tags"><span class="hz-tag">BI dashboards</span><span class="hz-tag">Business reporting</span><span class="hz-tag">Decision apps</span></div><a class="arrow home-lane-link" href="/work/intelligence/">Explore the intelligence work ↗</a><p class="lab home-development">OUABC BI Fusion · Application in development · Private figures removed</p></div><div class="hz-vis home-scene"><figure class="case-scene"><ApprovedImage name="bi.png" alt="OUABC BI Fusion dashboard and campaign context; private figures removed" /></figure></div></div></div>
 </div><div class="hz-dots" id="hzDots"><i class="on"></i><i></i><i></i></div></div></section>
 
@@ -59,3 +60,5 @@ import '../../styles/home-mockups.css';
   import {initCaseSliders} from '../../scripts/case-sliders';
   initCaseSliders();
 </script>
+
+<style>.home-demand-art{position:relative;isolation:isolate;height:440px;width:100%;overflow:hidden}.home-demand-art :global(.demand-site){width:76%;right:9%;top:5%}.home-demand-art :global(.demand-creative){width:32%;right:4%;bottom:5%}@media(max-width:600px){.home-demand-art{height:400px}}</style>

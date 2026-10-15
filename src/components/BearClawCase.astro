@@ -1,0 +1,16 @@
+---
+import {caseBy} from '../data/site';
+import CaseStudyHero from './CaseStudyHero.astro';
+import BearClawScreens from './BearClawScreens.astro';
+const study=caseBy('bear-claw-usa');
+---
+<article class="bear-case">
+ <CaseStudyHero study={study} eyebrow="Industrial / Website design" description="Plant-based form release. A product website built around its applications and a direct path to request a quote." action="See the website" />
+ 
+ <BearClawScreens />
+ <section class="bc-scope wrap" id="work-build"><p class="kick">The engagement</p><h2 class="disp">Existing identity.<br/>A website built around it.</h2><p>ZINC designed and developed the home, product, about and quote pages using Bear Claw’s existing logos, colors and product imagery. Navigation and page layouts adapt across desktop, tablet and mobile.</p><p>Website design and development / Las Vegas, Nevada</p></section>
+ <footer class="wrap bc-next"><a href="/work/">← All work</a><a href="/work/once-upon-a-book-club/">Next client / Once Upon a Book Club ↗</a></footer>
+</article>
+<style>
+.bear-case{background:#111213;color:#f6f4ee}.bc-scope{padding-block:65px;display:grid;grid-template-columns:1fr 1fr;gap:20px 50px}.bc-scope .kick{grid-column:1/-1;color:#ffb14b}.bc-scope h2{font-size:clamp(40px,5vw,70px);line-height:1.05;grid-row:2/4;margin:0}.bc-scope p{font-size:17px;line-height:1.7;max-width:50ch;margin:0;color:#c5c4c0}.bc-next{padding-block:30px;border-top:1px solid #45423b;display:flex;justify-content:space-between;gap:25px;font:12px/1.8 var(--fm)}.bc-next a{min-height:44px;display:flex;align-items:center}.bc-next a:focus-visible{outline:2px solid #ffb14b;outline-offset:5px}@media(max-width:700px){.bc-scope{grid-template-columns:1fr;padding-block:40px}.bc-scope h2{grid-row:auto}.bc-next{flex-direction:column;gap:8px}}
+</style>

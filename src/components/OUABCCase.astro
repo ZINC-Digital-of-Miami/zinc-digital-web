@@ -1,6 +1,6 @@
 ---
+import CaseHeroMockup from './CaseHeroMockup.astro';
 import CaseStudyHero from './CaseStudyHero.astro';
-import PageRail from "./PageRail.astro";
 import Img from './Img.astro';
 import CaseScene from './CaseScene.astro';
 import CaseScreens from './CaseScreens.astro';
@@ -17,14 +17,14 @@ const screens=[
 const moreScreens=[['ouabc-bi-season-current','Season outlook'],['ouabc-bi-bookmark-current','Guided walkthrough'],['ouabc-bi-work-current','Dated work and content'],['ouabc-bi-meetings-current','Meeting records'],['ouabc-bi-admin-current','Record correction'],['ouabc-bi-creative-wip','Creative analysis · design package'],['ouabc-bi-checkout-wip','Checkout behavior · design package'],['ouabc-bi-market-context-wip','Market context · design package']];
 ---
 <article class="ou-case">
-  <CaseStudyHero study={study} title={"A rebuilt store. Books, boxes & book lovers"} description="We rebuilt Once Upon a Book Club’s Shopify website. We manage its SEO, blogs, Google Shopping, Meta and TikTok ads. We’re also building OUABC BI Fusion, a dedicated application and business intelligence system." href="#website" action="Explore the website rebuild" caption="Shopify website · Campaigns · BI in development" />
-<PageRail path="/work/once-upon-a-book-club/" title="Once Upon a Book Club" />
+  <CaseStudyHero study={study} description="We rebuilt Once Upon a Book Club’s Shopify website. We manage its SEO, blogs, Google Shopping, Meta and TikTok ads. We’re also building OUABC BI Fusion, a dedicated application and business intelligence system." href="#website" action="Explore the website rebuild" caption="Shopify website · Campaigns · BI in development" />
+
   <nav class="ou-jump wrap" aria-label="Case study sections"><a href="#website">Website rebuild</a><a href="#campaigns">Paid campaigns</a><a href="#search-content">SEO &amp; content</a><a href="#reporting">OUABC BI Fusion · In progress</a></nav>
   <section class="ou-section wrap" id="website" aria-labelledby="ouWebsiteTitle">
     <div class="ou-section-head rv"><div><span class="kick">Build / Shopify</span><h2 class="disp" id="ouWebsiteTitle">A new home for<br/>the reading experience.</h2></div><p>Once Upon a Book Club pairs books with wrapped gifts, opened at specific pages in the story. The website has to explain that experience while helping readers find subscriptions, one-time boxes and bookish gifts.</p></div>
-    <CaseScene name="build-ouabc" alt="Once Upon a Book Club Shopify storefront in a laptop and phone mockup with book boxes" />
-    <BeforeAfter before="ouabc-website-before" after="ouabc-website-after" beforeLabel="Before · Oct 2024" afterLabel="After · Jun 2025" beforeAlt="Earlier Once Upon a Book Club homepage, archived October 1, 2024" afterAlt="Rebuilt Once Upon a Book Club homepage, archived June 9, 2025">Archived views: <a href="https://web.archive.org/web/20241001200820/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">October 1, 2024 ↗</a> / <a href="https://web.archive.org/web/20250609025814/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">June 9, 2025 ↗</a>. Capture dates, not launch dates.</BeforeAfter>
-    <div class="ou-notes rv-stag"><div><h3>Storefront rebuilt.</h3><p>A revised header, product-led homepage and clearer Book Boxes and Books &amp; Products navigation.</p></div><div><h3>Built for changing releases.</h3><p>Subscriptions, limited editions and pre-orders share the store with the growing boutique collection.</p></div><div><h3>Work continues after launch.</h3><p>We maintain product and collection content, search metadata and publication checks as the catalog changes.</p></div></div>
+    <CaseHeroMockup study={caseBy("once-upon-a-book-club")} loading="lazy" />
+    <BeforeAfter before="ouabc-website-after" after="ouabc-site" beforeLabel="Before · Archived site" afterLabel="Rebuilt storefront" beforeAlt="Earlier Once Upon a Book Club homepage with the flower-vase boutique presentation" afterAlt="Once Upon a Book Club rebuilt Shopify storefront">Earlier site: <a href="https://web.archive.org/web/20250609025814/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">June 9, 2025 archive ↗</a>. Compared with the supplied rebuilt storefront capture.</BeforeAfter>
+    <div class="ou-notes rv-stag"><div><h3>Storefront rebuilt.</h3><p>A revised header and navigation connect book boxes, shopping and the wider catalog.</p></div><div><h3>Built for changing releases.</h3><p>Subscriptions, limited editions and pre-orders share the store with the growing boutique collection.</p></div><div><h3>Work continues after launch.</h3><p>We maintain product and collection content, search metadata and publication checks as the catalog changes.</p></div></div>
   </section>
   <CaseScreens presentation={caseScreens[study.slug]} />
   <section class="ou-campaigns" id="campaigns" aria-label="Paid campaigns"><div class="wrap"><CaseScene name="demand-ouabc" alt="Once Upon a Book Club campaign creative on tablet and mobile devices" /></div><CasePresentations slug={study.slug} /></section>
