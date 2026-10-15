@@ -10,7 +10,7 @@ import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { caseScreens } from '../src/data/case-screens.ts';
 import { laneNames, workLanes } from '../src/data/work-lanes.ts';
-import { workFor } from '../src/data/engagements.ts';
+import { clientWork, workFor } from '../src/data/engagements.ts';
 
 const root = process.cwd();
 // With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
@@ -228,6 +228,9 @@ if (work) {
   const list = Array.from(work.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)).flatMap((b) => JSON.parse(b[1])['@graph'] || []).find((x) => x['@type'] === 'CollectionPage')?.mainEntity;
   check(list?.['@type'] === 'ItemList' && list.itemListElement?.length === CASE_SLUGS.length, 'work/index.html JSON-LD lacks the client ItemList');
 }
+// Next case follows the /work/ client order and loops, so every case page leads on to the next client.
+const workOrder = clientWork.map((c) => c.slug);
+workOrder.forEach((s, i) => { const p = pages.find((x) => x.rel === 'work/' + s + '/index.html'); const next = workOrder[(i + 1) % workOrder.length]; check(!!p && hrefs(p.html).includes('/work/' + next + '/'), 'work/' + s + ' must link to the next client, ' + next); });
 // Every client-work link (Work cards, lanes, case rails) must land on a section that exists on the case page.
 for (const page of pages) {
   const railLinks = (page.html.match(/<nav\b[^>]*\bclass="[^"]*\bpage-rail-categories\b[^"]*"[\s\S]*?<\/nav>/)?.[0] || '');

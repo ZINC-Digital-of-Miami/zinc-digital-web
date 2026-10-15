@@ -5,7 +5,9 @@ import CaseScene from './CaseScene.astro';
 import BeforeAfter from './BeforeAfter.astro';
 import CasePresentations from './CasePresentations.astro';
 import { caseBy } from '../data/site';
+import { workFor } from '../data/engagements';
 const study=caseBy('once-upon-a-book-club');
+const next=caseBy(study.next);
 const screens=[
   {key:'ouabc-bi-demand-current',title:'Plan around demand.',copy:'The demand calendar puts seasonal search interest beside the products and content being planned.'},
   {key:'ouabc-bi-funnel-current',title:'See where visits stop.',copy:'The store’s funnel follows visits into carts, checkout and purchase, with the source and reporting window kept visible.'},
@@ -35,7 +37,7 @@ const moreScreens=[['ouabc-bi-season-current','Season outlook'],['ouabc-bi-bookm
     <div class="ou-bi-screens">{screens.map(screen=><figure class="ou-bi-feature rv"><div class="ou-bi-image"><Img k={screen.key} alt={screen.title+' Once Upon a Book Club BI app in development; private figures removed.'} sizes="(max-width: 900px) 90vw, 1200px" /></div><figcaption><h3>{screen.title}</h3><p>{screen.copy}</p></figcaption></figure>)}</div>
     <details class="ou-more"><summary>Explore more of the BI app <span aria-hidden="true">+</span></summary><div class="ou-more-grid">{moreScreens.map(([key,title])=><figure><Img k={key} alt={title+' · BI app in development; private figures removed'} sizes="(max-width: 700px) 90vw, 45vw" /><figcaption>{title}</figcaption></figure>)}</div></details>
   </div></section>
-  <section class="ou-section wrap ou-close"><div class="rv"><span class="kick">An ongoing engagement</span><h2 class="disp">The work keeps moving<br/>with the catalog.</h2><p class="ou-body">A rebuilt website, ongoing search and paid-channel management, monthly reporting and OUABC BI Fusion, a business intelligence application in development.</p><a class="arrow" href={study.url} target="_blank" rel="noopener noreferrer">Visit Once Upon a Book Club ↗</a></div><a class="ou-next rv" href="/work/us-oil-solutions/"><span class="lab">Next case / U.S. Oil Solutions</span><strong class="disp">Website &amp;<br/>operations app.</strong><span aria-hidden="true">↗</span></a></section>
+  <section class="ou-section wrap ou-close"><div class="rv"><span class="kick">An ongoing engagement</span><h2 class="disp">The work keeps moving<br/>with the catalog.</h2><p class="ou-body">A rebuilt website, ongoing search and paid-channel management, monthly reporting and OUABC BI Fusion, a business intelligence application in development.</p><a class="arrow" href={study.url} target="_blank" rel="noopener noreferrer">Visit Once Upon a Book Club ↗</a></div><a class="ou-next rv" href={'/work/'+next.slug+'/'}><span class="lab">Next case / {next.title}</span><strong class="disp">{workFor(next.slug)[0].label}</strong><span aria-hidden="true">↗</span></a></section>
 </article>
 <style>
 .ou-hero-mockup{min-width:0}
