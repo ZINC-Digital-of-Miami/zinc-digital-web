@@ -1,12 +1,18 @@
 ---
 import DesktopMockup from './DesktopMockup.astro';
-import Img from './Img.astro';
+import DeviceFrame from './DeviceFrame.astro';
 ---
-<div class="demand-art" aria-label="Current General Shale website and original Once Upon a Book Club campaign artwork">
- <div class="demand-site"><DesktopMockup asset="seo-general-shale-current" title="General Shale current website — context for a past national enterprise SEO engagement" loading="eager" /><span>General Shale / SEO client</span></div>
- <figure class="demand-creative"><Img k="ouabc-halloween-campaign-square" alt="Original Once Upon a Book Club Halloween campaign artwork" loading="eager" sizes="(max-width: 600px) 35vw, 24vw" /><figcaption>OUABC / Campaign creative</figcaption></figure>
+<div class="demand-art hero-art" aria-label="Current General Shale website and original Once Upon a Book Club campaign artwork">
+ <div class="hero-art__group">
+  <div class="demand-site"><DesktopMockup asset="seo-general-shale-current" title="General Shale current website — context for a past national enterprise SEO engagement" loading="eager" sizes="(max-width:700px) 80vw, 50vw" /></div>
+  <div class="demand-phone"><DeviceFrame device="phone" asset="ouabc-halloween-campaign-vertical" fit="contain" position="center" fill="#dddad5" title="Original Once Upon a Book Club Halloween campaign creative" loading="eager" sizes="(max-width:700px) 22vw, 14vw" /></div>
+ </div>
+ <p class="demand-credits"><span>General Shale / SEO client</span><span>OUABC / Campaign creative</span></p>
 </div>
 <style>
-.demand-art{position:absolute;inset:0;background:#101416;isolation:isolate;container-type:size}.demand-site{position:absolute;width:min(55%,calc((74cqh - 32px) * 1.17));right:4%;top:13%;color:#bfc7c9}.demand-site>span{font:9px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.08em;position:absolute;bottom:7%;right:5%}.demand-creative{position:absolute;width:23%;right:3%;bottom:10%;margin:0;padding:8px;background:#24282b;border:1px solid #555b60;box-shadow:-20px 25px 45px #0008}.demand-creative :global(picture){display:block}.demand-creative :global(img){display:block;width:100%;height:auto;object-fit:contain}.demand-creative figcaption{font:9px/1.5 var(--fm);text-transform:uppercase;padding:10px 3px 3px;color:#d2d3d4}
-@media(max-width:600px){.demand-site{width:83%;right:8%;top:auto;bottom:15%}.demand-creative{width:35%;right:5%;bottom:7%}.demand-site>span{font-size:7px;left:0;right:auto;bottom:4%}.demand-creative figcaption{font-size:7px}}
+.demand-art{--ratio:1.4;position:absolute;inset:0;background:#101416;isolation:isolate}
+.demand-site{position:absolute;width:86%;left:0;top:0}
+.demand-phone{position:absolute;width:23%;right:1%;bottom:0;z-index:2;filter:drop-shadow(-14px 20px 18px #0008)}
+.demand-credits{position:absolute;right:4%;bottom:2.5%;display:flex;gap:18px;margin:0;font:9px/1.5 var(--fm);letter-spacing:.08em;text-transform:uppercase;color:#bfc7c9}
+@media(max-width:700px){.demand-credits{left:max(16px,4%);right:auto;bottom:1.5%;flex-direction:column;gap:0;font-size:8px}}
 </style>

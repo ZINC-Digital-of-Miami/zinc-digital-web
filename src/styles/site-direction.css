@@ -78,7 +78,6 @@ html:not([data-theme="dark"]){--bg:#fff;--bg2:#f3f4f5}
 .zn-hero .zn-stage{height:clamp(450px,45vw,680px);isolation:isolate}
 .zn-hero .zn-hero-picture{position:absolute;inset:0;z-index:0;isolation:isolate}
 .zn-hero-picture .build-art img,.zn-hero-picture .demand-art img{margin:0;mask-image:none;mix-blend-mode:normal}
-.zn-hero-picture .demand-creative img{width:100%;height:auto;aspect-ratio:auto}
 @media(max-width:760px){.zn-hero .zn-stage{height:510px}}
 
 #zsRoot .zn-editorial .light{background:#fff}
@@ -89,3 +88,18 @@ html:not([data-theme="dark"]){--bg:#fff;--bg2:#f3f4f5}
 
 /* Build planes belong to the full hero, outside the reusable hardware. */
 .zn-work-overview,.work-lane--build .wl-opening{background:linear-gradient(117deg,#101519 0 60%,#1b2228 60% 100%)}
+
+/* Hero device groups (owner, 15 Oct 2026 CT): each composition scales as one unit by the smaller of its
+   width and height allowance, so devices shrink together and never crowd the copy or leave the hero.
+   Contexts set --gw/--gh (percent of the art box's width/height), --gr (right inset) and --gy (centre). */
+.hero-art{container-type:size}
+.hero-art__group{position:absolute;aspect-ratio:var(--ratio);width:min(calc(var(--gw,56) * 1%),calc(var(--gh,80) * var(--ratio) * 1cqh));right:calc(var(--gr,3) * 1%);top:calc(var(--gy,55) * 1%);translate:0 -50%}
+.zn-hero .zn-stage{--gw:57;--gh:82;--gr:2;--gy:55}
+.work-lane .wl-opening,.zn-work-overview{--gw:54;--gh:76;--gr:4;--gy:53}
+.work-lane .wl-opening>.wl-hero-art{margin:0}
+.work-lane .wl-opening::after,.zn-work-overview::after{background:linear-gradient(90deg,#080b0ef0 0%,#080b0ec7 24%,#080b0e33 40%,transparent 52%),linear-gradient(0deg,#080b0e99,transparent 30%)}
+.work-lane--demand .wl-opening::after{background:linear-gradient(90deg,#090d11 0%,#090d11e6 26%,#090d1133 40%,transparent 52%)}
+.work-lane--intelligence .wl-opening{--gw:50}
+@media(max-width:1200px){.work-lane .wl-opening,.zn-work-overview{--gw:52;--gh:64;--gr:3;--gy:55}.work-lane--intelligence .wl-opening{--gw:50}.zn-work-overview .p-lede{max-width:27ch}}
+@media(max-width:760px){.zn-hero .zn-stage{--gw:100;--gh:56;--gr:0;--gy:58}}
+@media(max-width:700px){.work-lane .wl-opening,.zn-work-overview{--gw:92;--gh:41;--gr:4;--gy:76}.work-lane .wl-opening::after,.zn-work-overview::after,.work-lane--demand .wl-opening::after{background:linear-gradient(180deg,#080b0ef5 0%,#080b0ee0 34%,#080b0e40 55%,transparent 66%)}}

@@ -6,8 +6,8 @@ const {lane}=Astro.props;
 <div class:list={['service-mockup','service-mockup--'+lane.toLowerCase()]}>
   <div class="service-ground" aria-hidden="true"></div>
   {lane === 'Build' ? <div class="service-laptop"><DeviceFrame device="laptop" asset="bear-claw-home-desktop" title="Bear Claw website built by ZINC" sizes="(max-width:700px) 90vw, 450px" /></div>
-  : lane === 'Demand' ? <div class="service-phone"><DeviceFrame device="phone" asset="ouabc-halloween-campaign-vertical" title="Once Upon a Book Club original Halloween campaign creative" position="center" fit="contain" sizes="220px" /></div>
-  : <div class="service-monitor"><DeviceFrame device="monitor" fit="contain" asset="ouabc-bi-demand-current" title="OUABC BI Fusion demand calendar — application in development" sizes="(max-width:700px) 90vw, 450px" /></div>}
+  : lane === 'Demand' ? <div class="service-phone"><DeviceFrame device="phone" asset="ouabc-halloween-campaign-vertical" fill="#dddad5" title="Once Upon a Book Club original Halloween campaign creative" position="center" fit="contain" sizes="220px" /></div>
+  : <div class="service-monitor"><DeviceFrame device="monitor" fit="contain" fill="#fefefe" asset="ouabc-bi-demand-current" title="OUABC BI Fusion demand calendar — application in development" sizes="(max-width:700px) 90vw, 450px" /></div>}
 </div>
 <style>
 .service-mockup{position:relative;height:300px;isolation:isolate;background:#e9ebee;overflow:hidden}
