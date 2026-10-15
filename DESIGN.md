@@ -8,4 +8,8 @@ Production uses Astro components and optimized assets; functional forms and publ
 
 ## Business Intelligence — owner approved, 15 October 2026 CT
 
-The Business Intelligence service page uses the approved custom-platform presentation: a dark connected-data hero, pattern discovery and decision capabilities, interactive anonymous ecommerce and soybean oil procurement examples, a custom-platform section, six FAQs, and its own closing inquiry. Use the existing ZINC fonts and black, snow, magenta, and teal palette. Keep the shared site navigation and footer. Client platform identities, screens, readings, and links stay private; examples are explicitly illustrative and contain no invented measurements.
+The Business Intelligence service page uses the approved custom-platform presentation: a dark connected-data hero, pattern discovery and decision capabilities, interactive anonymous examples, a custom-platform section, six FAQs, and its own closing inquiry. Use the existing ZINC fonts and black, snow, magenta, and teal palette. Keep the shared site navigation and footer. Client platform identities, screens, readings, and links stay private; examples are explicitly illustrative and contain no invented measurements.
+
+Owner update, 15 October 2026 CT: use five tabs in this exact order: Ecommerce, Services, Start Up, Retail, Financial Forecasting. Explain relevant signals, example insight triggers, and decisions; include shopping and checkout friction, AOV, market strategy, service competition, competitor scoring, and scenario planning. Keep all examples generic and all client platforms private.
+
+Owner hero update, 15 October 2026 CT: the intelligence layer and connected nodes sit directly on the dark hero background. Remove the outer card, header, question panel, caption, and dotted card backdrop.

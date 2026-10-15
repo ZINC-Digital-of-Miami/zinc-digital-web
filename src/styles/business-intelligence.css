@@ -210,24 +210,7 @@
 .bi-platform .bi-intelligence-scene {
   position: relative;
   align-self: center;
-  min-width: 0;
-  border: 1px solid #2c2d35;
-  border-radius: 15px;
-  background: linear-gradient(135deg,#17191d 0%,#101114 64%,#1c1118 100%);
-  box-shadow: 0 28px 80px #0005;
-  transform: rotate(-1deg);
-  margin-top: 12px;
-  padding-bottom: 13px
-}
-
-.bi-platform .bi-scene-heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font: 11px var(--mono);
-  padding: 19px 22px;
-  border-bottom: 1px solid #292b30;
-  color: #cfd1d7
+  min-width: 0
 }
 
 .bi-platform .bi-mini-mark {
@@ -235,20 +218,9 @@
   color: var(--magenta)
 }
 
-.bi-platform .bi-concept-label {
-  margin-left: auto;
-  font-size: 9px;
-  border: 1px solid #44454c;
-  border-radius: 4px;
-  padding: 5px 7px;
-  color: #b9bbc3
-}
-
 .bi-platform .bi-neural-map {
   position: relative;
-  aspect-ratio: 660/400;
-  background-image: radial-gradient(#9199a120 .8px,transparent .8px);
-  background-size: 18px 18px
+  aspect-ratio: 660/400
 }
 
 .bi-platform .bi-network {
@@ -312,63 +284,6 @@
   letter-spacing: .1em;
   color: #bec0c9;
   white-space: nowrap
-}
-
-.bi-platform .bi-question-surface {
-  margin: 0 23px;
-  padding: 23px 24px 21px;
-  border: 1px solid #42424c;
-  border-radius: 8px;
-  background: linear-gradient(120deg,#24222b,#1b1c22);
-  box-shadow: 0 10px 22px #0003
-}
-
-.bi-platform .bi-question-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  align-items: center
-}
-
-.bi-platform .bi-question-top .bi-eyebrow {
-  font-size: 9px;
-  letter-spacing: .06em;
-  color: #c2b7c1
-}
-
-.bi-platform .bi-question-icon {
-  color: var(--magenta);
-  font-size: 24px
-}
-
-.bi-platform .bi-question-surface h2 {
-  font: 500 24px/1.3 var(--body);
-  margin: 10px 0 20px;
-  letter-spacing: -.03em
-}
-
-.bi-platform .bi-relationship {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  font: 9px var(--mono);
-  color: #b5b7c1
-}
-
-.bi-platform .bi-relationship i {
-  font-style: normal;
-  color: #777a85
-}
-
-.bi-platform .bi-relationship .bi-decision {
-  color: #e2e4e9
-}
-
-.bi-platform .bi-scene-caption {
-  font: 8px/1.6 var(--mono);
-  color: #a1a3ac;
-  text-align: center;
-  margin: 14px 10px 0
 }
 
 .bi-platform .bi-hero-bottom {
@@ -496,8 +411,9 @@
 
 .bi-platform .bi-scenario-tabs {
   margin-top: 50px;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
   border-bottom: 1px solid #3b3d45;
   gap: 8px
 }
@@ -531,7 +447,8 @@
 }
 
 .bi-platform .bi-example-note {
-  margin-left: auto;
+  margin: 16px 0 0;
+  text-align: right;
   font: 9px var(--mono);
   color: #9ea2ad
 }
@@ -1009,36 +926,9 @@
   font-size: 9px
 }
 
-.bi-platform .bi-intelligence-scene {
-  transform: none
-}
-
-.bi-platform .bi-question-surface {
-  margin: 0 15px;
-  padding: 16px
-}
-
-.bi-platform .bi-question-surface h2 {
-  font-size: 20px
-}
-
-.bi-platform .bi-relationship {
-  gap: 9px;
-  font-size: 8px
-}
-
 .bi-platform .bi-source-node {
   font-size: 8px;
   padding: 7px
-}
-
-.bi-platform .bi-scene-heading {
-  padding: 16px;
-  font-size: 9px
-}
-
-.bi-platform .bi-concept-label {
-  font-size: 8px
 }
 
 .bi-platform .bi-engine-label {
@@ -1151,36 +1041,9 @@
   padding: 9px 12px
 }
 
-.bi-platform .bi-scene-heading {
-  font-size: 11px;
-  padding: 19px 22px
-}
-
-.bi-platform .bi-concept-label {
-  font-size: 9px
-}
-
-.bi-platform .bi-question-surface {
-  margin: 0 23px;
-  padding: 23px
-}
-
-.bi-platform .bi-question-surface h2 {
-  font-size: 24px
-}
-
 .bi-platform .bi-engine-label {
   font-size: 9px;
   top: 76%
-}
-
-.bi-platform .bi-relationship {
-  font-size: 10px;
-  gap: 15px
-}
-
-.bi-platform .bi-scene-caption {
-  font-size: 9px
 }
 
 .bi-platform .bi-intro-grid {
@@ -1442,19 +1305,8 @@
   margin-top: 15px
 }
 
-.bi-platform .bi-scene-heading {
-  padding: 15px 13px;
-  font-size: 8px;
-  gap: 8px
-}
-
 .bi-platform .bi-mini-mark {
   font-size: 20px
-}
-
-.bi-platform .bi-concept-label {
-  font-size: 7px;
-  padding: 4px 5px
 }
 
 .bi-platform .bi-source-node {
@@ -1473,34 +1325,6 @@
   font-size: 6px;
   letter-spacing: .02em;
   top: 77%
-}
-
-.bi-platform .bi-question-surface {
-  margin: 0 12px;
-  padding: 15px
-}
-
-.bi-platform .bi-question-top .bi-eyebrow {
-  font-size: 7px
-}
-
-.bi-platform .bi-question-surface h2 {
-  font-size: 18px;
-  margin: 7px 0 15px
-}
-
-.bi-platform .bi-question-icon {
-  font-size: 20px
-}
-
-.bi-platform .bi-relationship {
-  font-size: 7px;
-  gap: 9px
-}
-
-.bi-platform .bi-scene-caption {
-  font-size: 7px;
-  margin-top: 12px
 }
 
 .bi-platform .bi-hero-bottom {
@@ -1844,7 +1668,7 @@
 
 @media(forced-colors:active) {
 
-.bi-platform .bi-source-node,.bi-platform .bi-question-surface,.bi-platform .bi-scenario-visual,.bi-platform .bi-analysis-focus,.bi-platform .bi-button {
+.bi-platform .bi-source-node,.bi-platform .bi-scenario-visual,.bi-platform .bi-analysis-focus,.bi-platform .bi-button {
   border: 1px solid CanvasText
 }
 
@@ -1878,4 +1702,48 @@
 
 .bi-platform .bi-custom-platform .bi-teal {
   color: #057575;
+}
+
+/* Industry tabs share a data source with their panels and fit without clipping. */
+.bi-platform .bi-scenario-tabs button {
+  justify-content: center;
+  min-height: 60px;
+  line-height: 1.4;
+}
+
+.bi-platform .bi-insight-trigger {
+  margin: 20px auto 0;
+  padding: 18px 0 0;
+  max-width: 360px;
+  border-top: 1px solid #454b55;
+  text-align: left;
+}
+
+.bi-platform .bi-insight-trigger .bi-eyebrow {
+  color: #70d5d5;
+  font-size: 9px;
+}
+
+.bi-platform .bi-insight-trigger p {
+  margin-top: 9px;
+  color: #c1c6d1;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+@media (max-width: 600px) {
+  .bi-platform .bi-scenario-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .bi-platform .bi-scenario-tabs button {
+    min-height: 48px;
+    font-size: 12px;
+  }
+  .bi-platform .bi-scenario-tabs button:last-child {
+    grid-column: 1 / -1;
+  }
+  .bi-platform .bi-example-note {
+    margin: 14px 0 0;
+  }
 }

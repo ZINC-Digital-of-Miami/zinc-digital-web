@@ -31,6 +31,10 @@ const { scenario } = Astro.props;
       <span class="bi-eyebrow">Connections to investigate</span>
       <h4>{scenario.focus[0]}<br />{scenario.focus[1]}</h4>
       <ul>{scenario.signals.map(signal => <li>{signal}</li>)}</ul>
+      <div class="bi-insight-trigger">
+        <span class="bi-eyebrow">Example insight trigger</span>
+        <p>{scenario.trigger}</p>
+      </div>
     </div>
     <div class="bi-analysis-footer"><span>Follow the evidence</span><span aria-hidden="true">→</span><span>Set the next priority</span></div>
   </div>
