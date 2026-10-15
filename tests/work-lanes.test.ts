@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { laneNames, workLanes, projectLink } from '../src/data/work-lanes.ts';
+import { laneNames, workLanes } from '../src/data/work-lanes.ts';
+import { clientWork } from '../src/data/engagements.ts';
 
-test('service lanes retain every existing case and let engagements span relevant services', () => {
+test('service lanes are a view of the client-first record', () => {
+  for (const lane of laneNames) {
+    const authored = clientWork.flatMap(c => c.engagements.filter(e => e.layer === lane).map(e => c.slug + ' / ' + e.label)).sort();
+    assert.deepEqual(workLanes[lane].projects.map(p => p.slug + ' / ' + p.label).sort(), authored, lane);
+  }
   assert.deepEqual([...new Set(workLanes.Build.projects.map(p => p.slug))].sort(), [
     'once-upon-a-book-club', 'us-oil-solutions', 'bear-claw-usa', 'las-vegas-safety',
     'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries',
@@ -32,11 +37,15 @@ test('every filter has work, every scene exists and next links make one complete
   assert.equal(workLanes.Intelligence.next, 'Build');
 });
 
-test('lane links take readers directly to the relevant part of a case', () => {
-  assert.equal(projectLink('once-upon-a-book-club','Demand'), '/work/once-upon-a-book-club/#campaigns');
-  assert.equal(projectLink('once-upon-a-book-club','Intelligence'), '/work/once-upon-a-book-club/#reporting');
-  assert.equal(projectLink('us-oil-solutions','Intelligence'), '/work/us-oil-solutions/#work-intelligence');
-  assert.equal(projectLink('las-vegas-safety','Build'), '/work/las-vegas-safety/');
+test('lane links open the case, or the engagement section for later engagements', () => {
+  const href = (lane: 'Build' | 'Demand' | 'Intelligence', slug: string) => workLanes[lane].projects.find(p => p.slug === slug)!.href;
+  assert.equal(href('Build', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/');
+  assert.equal(href('Demand', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/#campaigns');
+  assert.equal(href('Intelligence', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/#reporting');
+  assert.equal(href('Intelligence', 'us-oil-solutions'), '/work/us-oil-solutions/#work-intelligence');
+  assert.equal(href('Build', 'las-vegas-safety'), '/work/las-vegas-safety/');
+  assert.equal(href('Demand', 'las-vegas-safety'), '/work/las-vegas-safety/#catalog');
+  assert.equal(href('Demand', 'ballad-health'), '/work/ballad-health/');
 });
 
 test('US Oil keeps website and operations app scope under one client entry', () => {

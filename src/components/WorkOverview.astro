@@ -2,22 +2,40 @@
 import PageRail from "./PageRail.astro";
 import BuildHeroArt from './BuildHeroArt.astro';
 import CaseHeroMockup from './CaseHeroMockup.astro';
-import {cases} from '../data/site';
-const order=['bear-claw-usa','smoky-mountain-survival','fraim-cawley-company','once-upon-a-book-club','andrew-neese','porsche-roanoke','felon-motorwerk','summit-marine-development','us-oil-solutions'];
-const orderedCases=[...order.map(slug=>cases.find(c=>c.slug===slug)!),...cases.filter(c=>!order.includes(c.slug))];
+import {caseBy} from '../data/site';
+import {clientWork, engagementsByLayer, sectionHref} from '../data/engagements';
 import '../styles/editorial.css';
+// One entry per client, with every engagement nested under it (owner, 14 Oct 2026 CT).
+const clients=clientWork.map(({slug})=>({study:caseBy(slug),work:engagementsByLayer(slug)}));
 ---
-<section class="zn-page-hero zn-work-overview"><div class="zn-hero-grid wrap"><div class="zn-hero-copy"><p class="lab">ZINC / Selected projects</p><h1 class="disp">Selected<br/>work<span>.</span></h1><p class="p-lede">Websites, campaigns and applications.<br/>See what we made, and the work behind it.</p><a class="zn-hero-action" href="#selected-projects">Explore the projects ↓</a></div><BuildHeroArt /></div></section><PageRail path="/work/" title="Work" /><section class="zn-editorial" id="selected-projects"><div class="light"><div class="wrap"><div class="gallery">
-  {orderedCases.map(study => <article class="project" data-client={study.slug}>
-    <a class="zn-project-link" href={'/work/'+study.slug+'/'}>
-      <div class="art zn-device-stage"><CaseHeroMockup study={study} loading="lazy" /></div>
-      <div class="meta"><h2>{study.title}</h2><p>{study.scope}</p></div>
-      {study.slug === 'porsche-roanoke' && <p class="project-note">Illustrative device presentation</p>}
-      {['us-oil-solutions','carla-funk-photography'].includes(study.slug) && <p class="project-note">Website upgrade · In development</p>}
-      {study.application && <p class="project-note">Application · In development</p>}
-    </a>
-  </article>)}
-</div></div></div></section>
+<section class="zn-page-hero zn-work-overview"><div class="zn-hero-grid wrap"><div class="zn-hero-copy"><p class="lab">ZINC / Selected projects</p><h1 class="disp">Selected<br/>work<span>.</span></h1><p class="p-lede">Websites, campaigns and applications.<br/>See what we made, and the work behind it.</p><a class="zn-hero-action" href="#selected-projects">Explore the projects ↓</a></div><BuildHeroArt /></div></section><PageRail path="/work/" title="Work" /><section class="zn-editorial" id="selected-projects" aria-label="Clients"><div class="light"><div class="wrap"><ul class="gallery" role="list">
+  {clients.map(({study,work}) => <li class="project" data-client={study.slug}>
+    <div class="art zn-device-stage" aria-hidden="true"><CaseHeroMockup study={study} loading="lazy" /></div>
+    <div class="meta">
+      <h2><a class="zn-client-link" href={'/work/'+study.slug+'/'}>{study.title}</a></h2>
+      {study.client && <p class="zn-client-name">Client · {study.client}</p>}
+      <p>{study.scope}</p>
+    </div>
+    <ul class="zn-engagements" aria-label={'Work for '+study.title}>
+      {work.map(e => <li data-layer={e.layer}><span class="zn-engagement-layer">{e.layer}</span><a href={sectionHref(study.slug,e)}>{e.label}</a>{e.status && <span class="zn-engagement-status">{e.status}</span>}</li>)}
+    </ul>
+  </li>)}
+</ul></div></div></section>
 <style>
-.zn-editorial .meta{display:block}.zn-editorial .meta h2{margin-bottom:12px}.zn-editorial .meta p{max-width:65ch;line-height:1.7;text-align:left;white-space:normal}.project-note{font:10px/1.6 var(--fm);margin:12px 0 0;color:var(--muted)}
+.zn-editorial .gallery{list-style:none;margin:0;padding:0}
+.zn-editorial .project{position:relative}
+.zn-editorial .meta{display:block}.zn-editorial .meta h2{margin-bottom:12px}.zn-editorial .meta p{max-width:65ch;line-height:1.7;text-align:left;white-space:normal}
+.zn-editorial .meta .zn-client-name{margin:0 0 6px}
+.zn-client-link{color:inherit;text-decoration:none}
+.zn-client-link::after{content:'';position:absolute;inset:0}
+.zn-client-link:focus-visible{outline:none}
+.zn-client-link:focus-visible::after{outline:2px solid #00b7ba;outline-offset:4px}
+.zn-engagements{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid #e3e3e1}
+.zn-engagements li{display:grid;grid-template-columns:104px minmax(0,1fr);gap:2px 14px;align-items:baseline;padding:10px 0;border-bottom:1px solid #e3e3e1}
+.zn-engagement-layer{font:10px/1.6 var(--fm);text-transform:uppercase;letter-spacing:.06em;color:var(--color-gray-on-light,#5c5d61)}
+.zn-engagements a{position:relative;z-index:1;display:inline-block;justify-self:start;min-height:24px;padding-block:2px;font:14px/1.45 var(--fb);color:#111112;text-decoration:none;border-bottom:1px solid #c4c4c1}
+.zn-engagements a:hover{border-color:#fa268c}
+.zn-engagements a:focus-visible{outline:2px solid #00b7ba;outline-offset:3px}
+.zn-engagement-status{grid-column:2;font:10px/1.6 var(--fm);color:var(--color-gray-on-light,#5c5d61)}
+@media(max-width:760px){.zn-engagements li{grid-template-columns:1fr}.zn-engagement-status{grid-column:1}}
 </style>

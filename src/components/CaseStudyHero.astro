@@ -6,6 +6,7 @@ import CaseHeroMockup from './CaseHeroMockup.astro';
 import Img from './Img.astro';
 import DesktopMockup from './DesktopMockup.astro';
 import type { Case } from '../data/site';
+import { engagementsByLayer } from '../data/engagements';
 interface Props {
   study: Case;
   title?: string;
@@ -17,6 +18,9 @@ interface Props {
 }
 const { study, title = study.title, description = study.line, eyebrow = 'Selected client work', href = '#case-content', action = 'Explore the work', caption } = Astro.props;
 const seo = ['ballad-health','meade-tractor','general-shale'].includes(study.slug);
+// The rail under every case hero lists this client's own work, layer by layer.
+const work = engagementsByLayer(study.slug);
+const railItems: [string, string][] = [['All work', '/work/'], ...work.map((e): [string, string] => [work.filter((x) => x.layer === e.layer).length > 1 ? e.label : e.layer, '#' + e.anchor])];
 const accents: Record<string,string> = {
   'las-vegas-safety':'#ed3652', 'once-upon-a-book-club':'#eb70c3',
   'bear-claw-usa':'#ffac43',
@@ -72,7 +76,7 @@ const artworkLabel = caption || (seo ? 'Current website · Past SEO engagement' 
   </div>
   </div>
 </header>
-<PageRail path={"/work/"+study.slug+"/"} title={study.title} />
+<PageRail path={"/work/"+study.slug+"/"} title={study.title} items={railItems} itemsLabel={"Work for " + study.title} />
 <section class="case-project-facts"><div class="wrap">
     <dl class="hero-details">
       <div><dt>Client</dt><dd>{study.client || study.title}</dd></div>

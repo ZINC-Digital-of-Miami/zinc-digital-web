@@ -217,6 +217,24 @@ const work = pages.find((p) => p.rel === 'work/index.html');
 if (work) for (const s of CASE_SLUGS) {
   check(hrefs(work.html).some(h => h.split('#')[0] === '/work/' + s + '/'), 'work/index.html is missing a link to /work/' + s + '/');
   check(work.html.split('data-client="' + s + '"').length - 1 === 1, 'work/index.html must show exactly one card for ' + s);
+  const card = work.html.split('data-client="' + s + '"')[1]?.split('data-client="')[0] || '';
+  check(/class="zn-engagements"[^>]*>[\s\S]*?href="\/work\//.test(card), 'work/index.html card for ' + s + ' must nest its engagements');
+}
+if (work) {
+  const heads = Array.from(work.html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g), (m) => m[1].replace(/<[^>]+>/g, '').trim());
+  check(new Set(heads).size === heads.length, 'work/index.html repeats a client heading: ' + heads.join(' | '));
+  const list = Array.from(work.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)).flatMap((b) => JSON.parse(b[1])['@graph'] || []).find((x) => x['@type'] === 'CollectionPage')?.mainEntity;
+  check(list?.['@type'] === 'ItemList' && list.itemListElement?.length === CASE_SLUGS.length, 'work/index.html JSON-LD lacks the client ItemList');
+}
+// Every client-work link (Work cards, lanes, case rails) must land on a section that exists on the case page.
+for (const page of pages) {
+  const railLinks = (page.html.match(/<nav class="page-rail-categories"[\s\S]*?<\/nav>/)?.[0] || '');
+  const targets = [...hrefs(page.html).filter((h) => /^\/work\/[a-z0-9-]+\/#./.test(h)), ...hrefs(railLinks).filter((h) => h.startsWith('#')).map((h) => '/' + page.rel.replace(/index\.html$/, '') + h)];
+  for (const h of new Set(targets)) {
+    const [route, id] = h.split('#');
+    const target = pages.find((p) => p.rel === route.slice(1) + 'index.html');
+    check(!!target && target.html.includes('id="' + id + '"'), page.rel + ' links to ' + h + ', which has no matching section');
+  }
 }
 for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');

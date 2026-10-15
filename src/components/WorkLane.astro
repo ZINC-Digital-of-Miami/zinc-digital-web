@@ -8,7 +8,7 @@ import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Img from './Img.astro';
 import { caseBy } from '../data/site';
-import { laneNames, workLanes, projectLink, type WorkLane } from '../data/work-lanes';
+import { laneNames, workLanes, type WorkLane } from '../data/work-lanes';
 import '../styles/work-lanes.css';
 interface Props { lane: WorkLane }
 const { lane } = Astro.props;
@@ -54,7 +54,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
         <h2>{(project.title || caseBy(project.slug).title)}</h2>
         <p>{project.summary}</p>
         {project.status && <span class="wl-status">{project.status}</span>}
-        <a class="wl-project-link" href={project.href || projectLink(project.slug,lane)}>{action} <span aria-hidden="true">↗</span></a>
+        <a class="wl-project-link" href={project.href}>{action} <span aria-hidden="true">↗</span></a>
       </div>
       <figure class="wl-feature-art rv" data-scene={project.scene}>
         {project.asset && lane === "Intelligence" ? <DesktopMockup asset={project.asset} title={caseBy(project.slug).title+" — "+project.label} /> : project.asset ? <Img k={project.asset} alt={caseBy(project.slug).title+' — original campaign previews'} sizes="(max-width:700px) 90vw, 55vw" /> : <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />}
@@ -67,7 +67,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
       <div class="wl-section-label"><h2>{lane === 'Build' ? 'More builds' : 'More demand work'}</h2><span>Different businesses. Connected work.</span></div>
       <div class:list={['wl-cards', {'wl-cards--build':lane==='Build'}]}>
         {cards.map(project => <article class="wl-card" data-lane-project data-categories={project.category.join('|')}>
-          <a href={project.href || projectLink(project.slug,lane)} class="wl-card-link">
+          <a href={project.href} class="wl-card-link">
             <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices',...composedAssets].includes(project.asset!), 'wl-card-art--original': composedAssets.includes(project.asset!)}]}>{project.slug === "andrew-neese" ? <DesktopMockup asset="andrew-original-website" ratio="1262 / 900" title="Andrew Neese original website" /> : ["ballad-health","general-shale","meade-tractor"].includes(project.slug) ? <DesktopMockup asset={project.asset!} title={caseBy(project.slug).title+" current website — past SEO engagement"} /> : <Img k={project.asset!} alt={project.slug === 'porsche-roanoke' ? 'Illustrative Porsche device presentation' : (project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" />}</div>
             <div class="wl-card-copy"><h3>{(project.title || caseBy(project.slug).title)}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
           </a>
@@ -77,7 +77,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
   </section>}
   {community.length > 0 && <section class="wl-community" data-lane-group><div class="wrap">
     <div class="wl-section-label"><h2>Pro bono</h2><span>Ongoing community support.</span></div>
-    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href || projectLink(project.slug,lane)}><div class="wl-community-image"><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{(project.title || caseBy(project.slug).title)}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
+    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href}><div class="wl-community-image"><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{(project.title || caseBy(project.slug).title)}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
   </div></section>}
   {lane === 'Demand' && <div class="wl-closing wrap"><strong>Creative<span>.</span> Search<span>.</span> Landing pages<span>.</span></strong><i aria-hidden="true"></i><p>Connect the work<br/>to the customer.</p></div>}
 
