@@ -1,0 +1,13 @@
+---
+import DeviceFrame from './DeviceFrame.astro';
+interface Props { asset: string; title: string; loading?: 'eager' | 'lazy'; mobile?: string; sizes?: string; ratio?: string }
+const {asset,title,loading='lazy',mobile,sizes='(max-width: 700px) 90vw, 60vw'}=Astro.props;
+---
+<div class="desktop-mockup" data-desktop-mockup style="--mockup-fit:1.279">
+  <DeviceFrame device="monitor" fit={asset.startsWith('ouabc-bi-') ? 'contain' : 'cover'} fill={asset.startsWith('ouabc-bi-') ? '#fefefe' : undefined} asset={asset} title={title} loading={loading} sizes={sizes} />
+  {mobile && <div class="dm-phone"><DeviceFrame device="phone" asset={mobile} title={title+' — mobile view'} loading={loading} sizes="(max-width:700px) 24vw, 180px" /></div>}
+</div>
+<style>
+.desktop-mockup{position:relative;width:100%;isolation:isolate;filter:drop-shadow(0 24px 22px #0005)}
+.dm-phone{position:absolute;width:21%;right:-3%;bottom:0;z-index:2;filter:drop-shadow(-8px 10px 10px #0005)}
+</style>

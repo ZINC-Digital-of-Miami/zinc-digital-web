@@ -1,11 +1,15 @@
 ---
+import IntelligenceHeroArt from './IntelligenceHeroArt.astro';
+import BuildHeroArt from './BuildHeroArt.astro';
 import PageRail from "./PageRail.astro";
-import ApprovedImage from "./ApprovedImage.astro";
+import DemandHeroArt from "./DemandHeroArt.astro";
+import DesktopMockup from "./DesktopMockup.astro";
+import CaseHeroMockup from './CaseHeroMockup.astro';
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Img from './Img.astro';
 import { caseBy } from '../data/site';
-import { laneNames, workLanes, projectLink, type WorkLane } from '../data/work-lanes';
+import { laneNames, workLanes, type WorkLane } from '../data/work-lanes';
 import '../styles/work-lanes.css';
 interface Props { lane: WorkLane }
 const { lane } = Astro.props;
@@ -15,12 +19,17 @@ const scene = (name: string) => art['../assets/lanes/' + name + '.png'].default;
 const features = data.projects.filter(p => p.scene);
 const cards = data.projects.filter(p => !p.scene && !p.community);
 const community = data.projects.filter(p => p.community);
-const composedAssets = ['lvs-case-devices-restaurant','fraim-cawley-company-presentation','smoky-mountain-survival-presentation','andrew-neese-presentation','porsche-roanoke-presentation'];
+const composedAssets = ['lvs-case-devices-restaurant','fraim-cawley-company-presentation','smoky-mountain-survival-presentation','andrew-neese-presentation','porsche-roanoke-presentation','logo-us-oil'];
+// Precomposed boards whose clients now have native screens render in the shared device family.
+const universalBoards = ['fraim-cawley-company-presentation','smoky-mountain-survival-presentation','porsche-roanoke-presentation','smd-devices'];
 const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Explore the demand work' : 'Explore the intelligence work';
 ---
 <div class:list={['work-lane', 'work-lane--' + lane.toLowerCase()]} data-work-lane={lane}>
   <section class:list={['wl-opening', 'wl-dark', 'zn-page-hero']} aria-labelledby="lane-title">
 
+      <div class="wl-hero-art">
+        {lane === "Demand" ? <DemandHeroArt /> : lane === "Build" ? <BuildHeroArt /> : <IntelligenceHeroArt />}
+      </div>
     <div class="wl-hero wrap">
       <div class="wl-hero-copy">
         <p class="wl-eyebrow">ZINC / {lane === 'Build' ? 'Digital experiences' : lane === 'Demand' ? 'Search + campaigns' : 'Business intelligence'}</p>
@@ -29,9 +38,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
         <a class="wl-explore" href="#lane-projects">Explore the work <span aria-hidden="true">↓</span></a>
         {lane === 'Intelligence' && <span class="wl-hero-status">Featuring applications in development</span>}
       </div>
-      <div class="wl-hero-art">
-        <ApprovedImage name={lane === "Intelligence" ? "intelligence-vibrant.png" : lane === "Build" ? "build-ouabc-neese.png" : "demand-dark.png"} loading="eager" sizes="(max-width: 700px) 100vw, 65vw" alt={lane === "Intelligence" ? "OUABC BI Fusion seasonal dashboard across desktop, tablet and mobile, with magenta and cyan studio lighting" : lane + " project work across devices"} />
-      </div>
+
     </div>
   </section>
   <PageRail path={data.path} title={lane} />
@@ -50,10 +57,10 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
         <h2>{(project.title || caseBy(project.slug).title)}</h2>
         <p>{project.summary}</p>
         {project.status && <span class="wl-status">{project.status}</span>}
-        <a class="wl-project-link" href={project.href || projectLink(project.slug,lane)}>{action} <span aria-hidden="true">↗</span></a>
+        <a class="wl-project-link" href={project.href}>{action} <span aria-hidden="true">↗</span></a>
       </div>
       <figure class="wl-feature-art rv" data-scene={project.scene}>
-        <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />
+        {project.asset && lane === "Intelligence" ? <DesktopMockup asset={project.asset} title={caseBy(project.slug).title+" — "+project.label} /> : project.asset ? <Img k={project.asset} alt={caseBy(project.slug).title+' — original campaign previews'} sizes="(max-width:700px) 90vw, 55vw" /> : <Picture src={scene(project.scene!)} formats={['avif','webp']} widths={[480,768,1536]} sizes="(max-width: 700px) 100vw, 65vw" quality={95} alt={(project.title || caseBy(project.slug).title) + ' — ' + project.label + ', presented in a studio device composition.'} loading="lazy" />}
         {project.flow && <figcaption class="wl-flow">{project.flow.map((step,i) => <><span><svg aria-hidden="true" viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" rx="2"/><path d={i === 0 ? 'M10 11h12M10 16h12M10 21h6' : i === 1 ? 'M10 21l5-7 4 3 4-8' : 'M10 17l4 4 9-11'}/></svg>{step}</span>{i < project.flow!.length - 1 && <i aria-hidden="true">→</i>}</>)}</figcaption>}
       </figure>
     </div>
@@ -63,8 +70,8 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
       <div class="wl-section-label"><h2>{lane === 'Build' ? 'More builds' : 'More demand work'}</h2><span>Different businesses. Connected work.</span></div>
       <div class:list={['wl-cards', {'wl-cards--build':lane==='Build'}]}>
         {cards.map(project => <article class="wl-card" data-lane-project data-categories={project.category.join('|')}>
-          <a href={project.href || projectLink(project.slug,lane)} class="wl-card-link">
-            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices',...composedAssets].includes(project.asset!), 'wl-card-art--original': composedAssets.includes(project.asset!)}]}><Img k={project.asset!} alt={project.slug === 'porsche-roanoke' ? 'Illustrative Porsche device presentation' : (project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" /></div>
+          <a href={project.href} class="wl-card-link">
+            <div class:list={['wl-card-art', {'wl-card-art--framed': !['lvs-storefront-first-aid','smd-devices',...composedAssets].includes(project.asset!), 'wl-card-art--original': composedAssets.includes(project.asset!) || universalBoards.includes(project.asset!)}]}>{project.slug === "andrew-neese" ? <DesktopMockup asset="andrew-original-website" ratio="1262 / 900" title="Andrew Neese original website" /> : ["ballad-health","general-shale","meade-tractor"].includes(project.slug) ? <DesktopMockup asset={project.asset!} title={caseBy(project.slug).title+" current website — past SEO engagement"} /> : universalBoards.includes(project.asset!) ? <CaseHeroMockup study={caseBy(project.slug)} loading="lazy" /> : <Img k={project.asset!} alt={project.slug === 'porsche-roanoke' ? 'Illustrative Porsche device presentation' : (project.title || caseBy(project.slug).title) + ' — ' + project.label} sizes="(max-width: 700px) 90vw, 40vw" />}</div>
             <div class="wl-card-copy"><h3>{(project.title || caseBy(project.slug).title)}</h3><p class="wl-eyebrow">{project.label}</p><p>{project.summary}</p>{project.status && <span class="wl-status">{project.status}</span>}<span class="wl-card-arrow">Explore <span aria-hidden="true">↗</span></span></div>
           </a>
         </article>)}
@@ -73,7 +80,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
   </section>}
   {community.length > 0 && <section class="wl-community" data-lane-group><div class="wrap">
     <div class="wl-section-label"><h2>Pro bono</h2><span>Ongoing community support.</span></div>
-    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href || projectLink(project.slug,lane)}><div class="wl-community-image"><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{(project.title || caseBy(project.slug).title)}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
+    <div class="wl-community-grid">{community.map(project => <article data-lane-project data-categories={project.category.join('|')}><a href={project.href}><div class="wl-community-image"><Img k={project.asset!} alt={(project.title || caseBy(project.slug).title) + ' website'} sizes="(max-width: 700px) 35vw, 200px" /></div><div><h3>{(project.title || caseBy(project.slug).title)}</h3><p>{project.summary}</p></div><span aria-hidden="true">↗</span></a></article>)}</div>
   </div></section>}
   {lane === 'Demand' && <div class="wl-closing wrap"><strong>Creative<span>.</span> Search<span>.</span> Landing pages<span>.</span></strong><i aria-hidden="true"></i><p>Connect the work<br/>to the customer.</p></div>}
 

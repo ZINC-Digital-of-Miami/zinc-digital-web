@@ -1,0 +1,134 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import PageRail from './PageRail.astro';
+import CaseHeroMockup from './CaseHeroMockup.astro';
+import Img from './Img.astro';
+import DesktopMockup from './DesktopMockup.astro';
+import type { Case } from '../data/site';
+import { engagementsByLayer } from '../data/engagements';
+interface Props {
+  study: Case;
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+  href?: string;
+  action?: string;
+  caption?: string;
+}
+const { study, title = study.title, description = study.line, eyebrow = 'Selected client work', href = '#case-content', action = 'Explore the work', caption } = Astro.props;
+const seo = ['ballad-health','meade-tractor','general-shale'].includes(study.slug);
+// The rail under every case hero lists this client's own work, layer by layer.
+const work = engagementsByLayer(study.slug);
+const railItems: [string, string][] = [['All work', '/work/'], ...work.map((e): [string, string] => [work.filter((x) => x.layer === e.layer).length > 1 ? e.label : e.layer, '#' + e.anchor])];
+const accents: Record<string,string> = {
+  'las-vegas-safety':'#ed3652', 'once-upon-a-book-club':'#eb70c3',
+  'bear-claw-usa':'#ffac43',
+ 'smoky-mountain-survival':'#d3ad62',
+  'us-oil-solutions':'#edcb45', 'summit-marine-development':'#38c2d6',
+  'the-lampstand-va':'#f4a181', 'straight-street-ministries':'#c8da54',
+  'carla-funk-photography':'#f39dc9', 'ballad-health':'#64c8f1',
+  'meade-tractor':'#d5e46d', 'general-shale':'#efa28d',
+  'felon-motorwerk':'#ed3652', 'miami-tactical':'#e96464',
+  'fraim-cawley-company':'#97bddc', 'porsche-roanoke':'#d7c4a3',
+  'andrew-neese':'#b5c8de', 'zinc-fusion-v16':'#59d7be',
+};
+const screens: Record<string, {desktop:string;mobile?:string;ratio?:string}> = {
+ 'andrew-neese':{desktop:'andrew-original-website',ratio:'1262 / 900'},
+ 'once-upon-a-book-club':{desktop:'ouabc-site',mobile:'ouabc-mobile'},
+ 'smoky-mountain-survival':{desktop:'smoky-source-home'},
+ 'bear-claw-usa':{desktop:'bear-claw-home-desktop',mobile:'bear-claw-product-mobile'},
+ 'the-lampstand-va':{desktop:'case-lampstand-home-desktop',mobile:'case-lampstand-home-mobile'},
+ 'straight-street-ministries':{desktop:'case-straight-street-home-desktop',mobile:'case-straight-street-home-mobile'},
+ 'carla-funk-photography':{desktop:'carla-home-desktop',mobile:'carla-home-mobile'},
+ 'us-oil-solutions':{desktop:'case-uos-home-desktop',mobile:'case-uos-home-mobile'},
+ 'miami-tactical':{desktop:'miami-tactical-website'},
+ 'fraim-cawley-company':{desktop:'case-fraim-home-desktop',mobile:'case-fraim-home-mobile'},
+ 'porsche-roanoke':{desktop:'case-porsche-usa-desktop',mobile:'case-porsche-usa-mobile'},
+ 'summit-marine-development':{desktop:'smd-zinc-home-desktop'},
+ ...Object.fromEntries(['ballad-health','meade-tractor','general-shale'].map(slug=>[slug,{desktop:'seo-'+slug+'-current'}]))
+};
+const screen=screens[study.slug];
+const scenes: Record<string,string> = {'zinc-fusion-v16':'intelligence-fusion'};
+const sceneFiles=import.meta.glob<{default:ImageMetadata}>('../assets/lanes/*.png',{eager:true});
+const scene=scenes[study.slug] ? sceneFiles['../assets/lanes/'+scenes[study.slug]+'.png'].default : undefined;
+const artworkLabel = caption || (seo ? 'Current website · Past SEO engagement' : study.slug === 'porsche-roanoke' ? 'Illustrative device presentation' : study.slug === 'las-vegas-safety' ? 'Final delivered website · 2024–2025' : study.slug === 'summit-marine-development' ? 'Original ZINC website · Project archive' : study.slug === 'us-oil-solutions' ? 'Website upgrade · In development' : study.application ? 'Application · In development' : 'Website presentation');
+---
+<header class:list={['case-study-hero', { 'case-study-hero--identity': seo, 'case-study-hero--light-art': study.slug === 'felon-motorwerk', 'case-study-hero--screen': !!screen, 'case-study-hero--bear': study.slug==='bear-claw-usa', 'case-study-hero--marine': study.slug==='summit-marine-development', 'case-study-hero--lvs': study.slug === 'las-vegas-safety', 'case-study-hero--scene': !!scene }]} data-case-hero={study.slug} style={'--hero-accent:'+ (accents[study.slug] || '#54c8cd')}>
+  <div class="hero-stage">
+  <figure class="hero-exhibit" aria-label={artworkLabel}>
+    {scene ? <Picture src={scene} formats={['avif','webp']} widths={[480,768,1100,1536]} quality={90} loading="eager" fetchpriority="high" sizes="(max-width:600px) 100vw, 61vw" alt={study.title + ' project presentation'} /> : <div class="hero-studio">
+      <div class="studio-backdrop" aria-hidden="true">{study.slug === "summit-marine-development" && <Img k="smd-original-hero" alt="" loading="eager" sizes="(max-width:600px) 100vw, 65vw" />}
+      {seo && <Img k={'seo-'+study.slug+'-scene'} alt="" loading="eager" sizes="(max-width: 600px) 100vw, 65vw" quality={90} />}</div>
+      <div class="studio-floor" aria-hidden="true"></div>
+      {study.slug==='las-vegas-safety' && <div class="hero-support"><Img k="lvs-case-flyer-black" alt="Restaurant safety flyer designed by ZINC" loading="eager" sizes="(max-width:600px) 40vw, 24vw" /></div>}
+      <div class="studio-art">
+        {screen ? <DesktopMockup asset={screen.desktop} mobile={screen.mobile} ratio={screen.ratio} title={study.title + (seo ? " — current website, shown in the context of a past SEO engagement" : study.slug === "porsche-roanoke" ? " — illustrative presentation using porsche.com screens" : " — website design")} loading="eager" /> : <CaseHeroMockup study={study} />}
+      </div>
+    </div>}
+  </figure>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-layout">
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><span aria-hidden="true"></span>ZINC / {eyebrow}</p>
+      <h1 class="disp">{title}<span class="hero-period" aria-hidden="true">.</span></h1>
+      <p class="hero-description">{description}</p>
+      <a class="hero-action" href={href}>{action}<span aria-hidden="true">↘</span></a>
+    </div>
+    <p class="hero-art-caption">{artworkLabel}</p>
+  </div>
+  </div>
+</header>
+<PageRail path={"/work/"+study.slug+"/"} title={study.title} items={railItems} itemsLabel={"Work for " + (study.client || study.title)} />
+<section class="case-project-facts"><div class="wrap">
+    <dl class="hero-details">
+      <div><dt>Client</dt><dd>{study.client || study.title}</dd></div>
+      <div><dt>Work</dt><dd>{study.scope}</dd></div>
+      <div><dt>{study.nonprofit ? 'Commitment' : 'Engagement'}</dt><dd>{study.nonprofit ? 'Ongoing pro bono support' : study.timeline || 'Selected work'}</dd></div>
+    </dl>
+  </div></section>
+<style>
+.case-study-hero{position:relative;isolation:isolate;overflow:clip;background:#0b1015;color:#f6f5f2;--ink:#f6f5f2;--muted:#c6ccd0;--line:#3c444a;--tealt:var(--hero-accent)}
+.hero-stage{position:relative;isolation:isolate;height:var(--portfolio-hero-height,680px)}
+.hero-exhibit{position:absolute;inset:0;margin:0;pointer-events:none;z-index:-2}
+.hero-studio{position:absolute;inset:0;isolation:isolate}
+.studio-backdrop{position:absolute;inset:0;background:#11191f}
+.studio-backdrop:after{content:'';position:absolute;inset:0;clip-path:polygon(68% 0,100% 0,100% 100%,35% 100%);background:#ffffff07}
+.studio-floor{position:absolute;inset:68% 0 0;clip-path:polygon(0 58%,100% 0,100% 100%,0 100%);background:#ffffff05}
+.studio-art{position:absolute;left:44%;right:5%;top:13%;bottom:13%;display:grid;align-items:center;container-type:size;filter:drop-shadow(0 25px 20px #0005)}
+.studio-art> :global(.desktop-mockup){width:min(100%,calc((100cqh - 32px) * var(--mockup-fit)));justify-self:center}
+.studio-art :global(.case-mockup){background:transparent;aspect-ratio:auto;height:auto;overflow:visible}
+.studio-art :global(.case-mockup>picture){width:100%;display:block}
+.studio-art :global(.case-mockup>picture>img){width:100%;height:auto;object-fit:contain}
+.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#090d11 0%,#090d11ec 25%,#090d1170 41%,transparent 55%);pointer-events:none}
+.hero-layout{position:relative;display:flex;flex-direction:column;height:100%;min-height:0}
+.hero-copy{position:relative;width:39%;padding:65px 0 30px;flex:1}
+.hero-eyebrow{font:10px/1.8 var(--fm);letter-spacing:.1em;text-transform:uppercase;display:flex;gap:12px;align-items:center;margin:0 0 25px;color:#d2d6da}
+.hero-eyebrow>span{width:24px;height:2px;background:var(--hero-accent);flex-shrink:0}
+.case-study-hero h1{font-size:clamp(46px,6.2vw,94px);font-weight:400;line-height:.98;letter-spacing:-.025em;margin:0;max-width:13ch;color:#f6f5f2}
+.hero-period{color:var(--hero-accent)}
+.hero-description{font-size:clamp(17px,1.4vw,21px);line-height:1.6;color:#d2d6da;max-width:38ch;margin:24px 0 0}
+.case-study-hero .hero-action{display:inline-flex;align-items:center;gap:28px;min-height:48px;margin-top:28px;padding:8px 0;border-bottom:1px solid var(--hero-accent);font:11px/1.5 var(--fm);color:#fff}
+.hero-action>span{font:24px/1 var(--fb);color:var(--hero-accent)}.hero-action:focus-visible{outline:2px solid var(--hero-accent);outline-offset:7px}
+.case-study-hero .hero-art-caption{align-self:flex-end;max-width:55%;font:10px/1.6 var(--fm);color:#fff;background:#090d11ed;padding:9px 13px;margin:0 0 24px;border-left:2px solid var(--hero-accent)}
+.case-project-facts{background:#fff;color:#151719}.hero-details{display:grid;grid-template-columns:1fr 1.8fr 1fr;gap:30px;margin:0;padding:25px 0 28px;border-bottom:1px solid #d5d7da;background:#fff}.hero-details dt{font:9px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.12em;color:#5c5d61;margin-bottom:9px}.hero-details dd{font:12px/1.6 var(--fb);margin:0;color:#151719}
+.case-study-hero--bear .studio-backdrop{background:#211e19}.case-study-hero--bear .studio-floor{background:#ba7b2820}
+.case-study-hero[data-case-hero="smoky-mountain-survival"] .studio-backdrop{background:#20291e}
+.case-study-hero[data-case-hero="carla-funk-photography"] .studio-backdrop{background:#25212b}
+.case-study-hero[data-case-hero="us-oil-solutions"] .studio-backdrop{background:#29251a}
+.case-study-hero--marine .studio-backdrop{background:#112f36}.case-study-hero--marine .studio-floor{background:#267b8930}
+.case-study-hero--lvs .studio-backdrop{background:#24191f}.case-study-hero--lvs .studio-floor{background:#8f304630}
+.case-study-hero--lvs .studio-art{left:39%;right:1%;top:40%;bottom:13%;z-index:1}
+.hero-support{position:absolute;right:7%;top:9%;width:24%;height:57%;transform:rotate(7deg);filter:drop-shadow(0 20px 20px #0008)}.hero-support :global(picture),.hero-support :global(img){display:block;width:100%;height:100%;object-fit:contain}
+.case-study-hero--marine .studio-backdrop :global(picture),.case-study-hero--identity .studio-backdrop :global(picture){position:absolute;inset:0 0 0 40%;display:block}
+.case-study-hero--marine .studio-backdrop :global(img),.case-study-hero--identity .studio-backdrop :global(img){width:100%;height:100%;object-fit:cover;object-position:center;opacity:.65;mask-image:linear-gradient(90deg,transparent,#000 25%)}
+.case-study-hero--identity .studio-art{left:49%;right:4%;top:31%;bottom:9%}
+.case-study-hero--identity .hero-scrim{background:linear-gradient(90deg,#090d11 20%,#090d11e6 35%,#090d1144 60%,transparent),linear-gradient(0deg,#090d11,transparent 45%)}
+.case-study-hero--light-art .studio-backdrop:after{background:#e8ecef;clip-path:polygon(62% 0,100% 0,100% 100%,38% 100%)}
+.case-study-hero--light-art .studio-art{left:40%;right:0;mix-blend-mode:multiply;filter:none}.case-study-hero--light-art .studio-art :global(img){mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+.case-study-hero--scene .hero-exhibit{background:#10191e}
+.case-study-hero--scene .hero-exhibit> :global(picture){position:absolute;left:39%;right:0;top:9%;bottom:9%;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 95%,transparent)}
+.case-study-hero--scene .hero-exhibit> :global(picture)> :global(img){display:block;width:100%;height:auto;object-fit:contain;mask-image:linear-gradient(transparent,#000 8%,#000 90%,transparent)}
+@media(max-width:900px) and (min-width:601px){.hero-copy{width:43%;padding-top:52px}.case-study-hero h1{font-size:clamp(46px,7vw,68px)}.hero-description{font-size:17px}.studio-art{left:47%;right:3%}.hero-details{gap:20px}}
+@media(max-width:600px){.hero-copy{width:100%;padding:34px 0 285px}.hero-eyebrow{font-size:9px;margin-bottom:18px}.case-study-hero h1{font-size:clamp(40px,10.8vw,62px);max-width:18ch}.hero-description{font-size:15px;line-height:1.5;max-width:40ch;margin-top:18px}.case-study-hero .hero-action{margin-top:18px}.case-study-hero .hero-art-caption{align-self:flex-start;max-width:100%;font-size:9px;margin-bottom:20px}.studio-art,.case-study-hero--identity .studio-art,.case-study-hero--light-art .studio-art{left:6%;right:9%;top:auto;bottom:70px;height:265px;align-items:end}.hero-scrim{background:linear-gradient(#090d11 0%,#090d11e6 29%,transparent 60%)}.studio-backdrop:after{clip-path:polygon(100% 35%,100% 100%,0 100%)}.studio-floor{inset:68% 0 0}.case-study-hero--light-art .studio-backdrop:after{clip-path:polygon(100% 45%,100% 100%,0 100%,0 66%)}.case-study-hero--lvs .studio-art{left:1%;right:1%;top:auto;bottom:80px;height:210px}.hero-support{right:9%;top:auto;bottom:150px;width:40%;height:220px}.case-study-hero--marine .studio-backdrop :global(picture),.case-study-hero--identity .studio-backdrop :global(picture){inset:36% 0 0}.case-study-hero--marine .studio-backdrop :global(img),.case-study-hero--identity .studio-backdrop :global(img){mask-image:linear-gradient(transparent,#000 20%);opacity:.55}.case-study-hero--identity .hero-scrim{background:linear-gradient(#090d11 0%,#090d11e0 32%,transparent 67%,#090d11)}.case-study-hero--scene .hero-exhibit> :global(picture){left:0;right:0;top:auto;bottom:55px;height:310px;mask-image:linear-gradient(transparent,#000 15%,#000 90%,transparent)}.hero-details{grid-template-columns:1fr 1fr;padding:20px 0;gap:18px}.hero-details>div:nth-child(2){grid-column:1/-1;grid-row:2}.hero-details dd{font-size:11px}}
+</style>

@@ -1,57 +1,51 @@
-// Owner-approved lane mockups, 8 October 2026. One project can appear in several lanes.
+// Owner-approved lane mockups, 8 October 2026. Lanes are a service view of the client-first
+// record in engagements.ts: a client appears in every lane where it has an engagement.
+import { clientWork, laneHref } from './engagements.ts';
+
 export type WorkLane = 'Build' | 'Demand' | 'Intelligence';
 export type WorkProject = {
   slug: string; title?: string; label: string; summary: string; category: string[];
-  scene?: string; asset?: string; href?: string; status?: string; dark?: boolean;
+  scene?: string; asset?: string; href: string; status?: string; dark?: boolean;
   flow?: string[]; community?: boolean;
 };
-export const workLanes: Record<WorkLane, {
-  path: string; line: string; next: WorkLane; filters: string[]; projects: WorkProject[];
-}> = {
+type LaneConfig = { path: string; line: string; next: WorkLane; filters: string[]; order: string[] };
+
+const lanes: Record<WorkLane, LaneConfig> = {
   Build: {
     path: '/work/build/', line: 'Websites, commerce and applications.', next: 'Demand',
     filters: ['All builds', 'Websites', 'Ecommerce', 'Applications'],
-    projects: [
-      { slug: 'once-upon-a-book-club', label: 'Shopify rebuild', summary: 'A rebuilt Shopify storefront for subscriptions, one-time releases and bookish gifts.', category: ['Ecommerce'], scene: 'build-ouabc' },
-      { slug: 'once-upon-a-book-club', title: 'OUABC BI Fusion', label: 'Application + business intelligence', summary: 'A dedicated business intelligence application connecting commerce, search, advertising, customer journeys and seasonal outlooks.', category: ['Applications'], scene: 'intelligence-ouabc', dark: true, status: 'In development', href: '/work/once-upon-a-book-club/#reporting' },
-      { slug: 'us-oil-solutions', label: 'Public website', summary: 'A new website for the complete oil-management program, from fresh supply to used-oil collection.', category: ['Websites'], scene: 'build-uos', dark: true, status: 'Second website in development', href: '/work/us-oil-solutions/#website' },
-      { slug: 'us-oil-solutions', label: 'Technician + supervisor app', summary: 'A separate operations application for assignments, fryer-service records, scheduling and visit reporting.', category: ['Applications'], asset: 'uos-current-technicians-desktop', href: '/work/us-oil-solutions/#operations-app' },
-      { slug: 'fraim-cawley-company', label: 'Website', summary: 'Website design for Fraim, Cawley & Company.', category: ['Websites'], asset: 'fraim-cawley-company-presentation' },
-      { slug: 'smoky-mountain-survival', label: 'Website', summary: 'Website design for Smoky Mountain Survival.', category: ['Websites'], asset: 'smoky-mountain-survival-presentation' },
-      { slug: 'andrew-neese', label: 'Website', summary: 'Website design for Andrew Neese.', category: ['Websites'], asset: 'andrew-neese-presentation' },
-      { slug: 'porsche-roanoke', label: 'Dealer website · Official Porsche merchandise website', summary: 'Dealer and official merchandise websites for the Porsche dealership in Roanoke, Virginia.', category: ['Websites'], asset: 'porsche-roanoke-presentation', status: 'Illustrative device presentation' },
-      { slug: 'miami-tactical', label: 'Website + logo design', summary: 'A monochrome identity and a category-led website for Miami Tactical.', category: ['Websites'], asset: 'miami-tactical-website' },
-      { slug: 'bear-claw-usa', label: 'Website design + development', summary: 'Product information, company background and a clear path to request a quote.', category: ['Websites'], asset: 'bear-claw-home-desktop' },
-      { slug: 'las-vegas-safety', label: 'Website + ecommerce', summary: 'A wholesale catalog, account ordering and warehouse capabilities brought into one rebuild.', category: ['Ecommerce', 'Websites'], asset: 'lvs-case-devices-restaurant' },
-      { slug: 'summit-marine-development', label: 'Website', summary: 'Seawalls, docks and waterfront construction, brought into view.', category: ['Websites'], asset: 'smd-devices' },
-      { slug: 'zinc-fusion-v16', label: 'Forecasting application', summary: 'A dedicated workspace for commodity markets and procurement decisions.', category: ['Applications'], asset: 'fusion-v16-dashboard', status: 'In development' },
-      { slug: 'the-lampstand-va', label: 'Pro bono website support', summary: 'Ongoing website management, hosting and Night of Hope support.', category: ['Websites'], asset: 'lampstand-home', community: true },
-      { slug: 'straight-street-ministries', label: 'Pro bono website support', summary: 'Website management and support for the Roanoke youth ministry.', category: ['Websites'], asset: 'straight-street-home', community: true },
-    ],
+    order: ['carla-funk-photography', 'felon-motorwerk', 'once-upon-a-book-club', 'us-oil-solutions', 'fraim-cawley-company', 'smoky-mountain-survival', 'andrew-neese', 'porsche-roanoke', 'miami-tactical', 'bear-claw-usa', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries'],
   },
   Demand: {
     path: '/work/demand/', line: 'Search. Campaigns. The path to a customer.', next: 'Intelligence',
     filters: ['All demand', 'SEO', 'Local search', 'Paid media', 'Content'],
-    projects: [
-      { slug: 'once-upon-a-book-club', label: 'SEO + Shopping + Meta + TikTok', summary: 'Search-led content and paid campaigns for subscriptions, pre-orders and gifts.', category: ['SEO', 'Paid media', 'Content'], scene: 'demand-ouabc', dark: true },
-      { slug: 'summit-marine-development', label: 'Local SEO + Google + LSA + Meta', summary: 'Search and advertising for seawalls, docks and waterfront construction.', category: ['Local search', 'SEO', 'Paid media', 'Content'], scene: 'demand-summit', flow: ['Local search', 'Service page', 'Inquiry'] },
-      { slug: 'us-oil-solutions', label: 'SEO + service content', summary: 'SEO for restaurant oil management in Las Vegas.', category: ['SEO', 'Content'], asset: 'uos-second-site-desktop' },
-      { slug: 'las-vegas-safety', label: 'Product SEO', summary: 'Search-focused product content, indexing and redirects for a wholesale catalog.', category: ['SEO', 'Content'], asset: 'lvs-case-devices-restaurant', href: '/work/las-vegas-safety/#catalog' },
-    ],
+    order: ['once-upon-a-book-club', 'summit-marine-development', 'us-oil-solutions', 'general-shale', 'ballad-health', 'meade-tractor', 'las-vegas-safety'],
   },
   Intelligence: {
     path: '/work/intelligence/', line: 'See the business. Make the next decision.', next: 'Build',
     filters: ['All intelligence', 'Reporting', 'Forecasting', 'Operational intelligence'],
-    projects: [
-      { slug: 'once-upon-a-book-club', title: 'OUABC BI Fusion', label: 'Business intelligence system', summary: 'A dedicated application for commerce, search visibility, advertising, customer journeys and seasonal outlooks. The system brings business records into one workspace for decisions.', category: ['Reporting'], scene: 'intelligence-ouabc', status: 'BI app · In development', flow: ['Sources', 'Context', 'Decisions'] },
-      { slug: 'zinc-fusion-v16', label: 'Commodity forecasting for Chris Stacy', summary: 'Market dashboards, procurement scenarios, policy and sentiment in a dedicated forecasting platform.', category: ['Forecasting'], scene: 'intelligence-fusion', dark: true, status: 'In development', flow: ['Market evidence', 'Scenarios', 'Procurement'] },
-      { slug: 'us-oil-solutions', label: 'Operational reporting', summary: 'Service records and reporting inside the operations app: technician visits, check-ins and fryer-service histories.', category: ['Operational intelligence', 'Reporting'], scene: 'intelligence-uos', flow: ['Visits', 'Service records', 'Reporting'] },
-    ],
+    order: ['once-upon-a-book-club', 'zinc-fusion-v16', 'us-oil-solutions'],
   },
 };
 
-export const laneNames = Object.keys(workLanes) as WorkLane[];
-export function projectLink(slug: string, lane: WorkLane) {
-  if (slug === 'once-upon-a-book-club' && lane !== 'Build') return '/work/' + slug + '/#' + (lane === 'Demand' ? 'campaigns' : 'reporting');
-  return '/work/' + slug + '/' + (lane === 'Build' ? '' : '#work-' + lane.toLowerCase());
+const rank = (order: string[], slug: string) => (order.includes(slug) ? order.indexOf(slug) : order.length);
+
+function laneProjects(lane: WorkLane): WorkProject[] {
+  const { order } = lanes[lane];
+  return clientWork
+    .flatMap(({ slug, engagements }) => engagements.filter((e) => e.layer === lane).map((e) => ({ slug, e })))
+    .sort((a, b) => rank(order, a.slug) - rank(order, b.slug))
+    .map(({ slug, e }) => ({
+      slug, label: e.label, summary: e.summary, category: e.category, href: laneHref(slug, e),
+      scene: e.scene, asset: e.asset, status: e.status, dark: e.dark, flow: e.flow, community: e.community,
+    }));
 }
+
+export const workLanes = Object.fromEntries(
+  (Object.keys(lanes) as WorkLane[]).map((lane) => {
+    const { order: _order, ...config } = lanes[lane];
+    return [lane, { ...config, projects: laneProjects(lane) }];
+  }),
+) as Record<WorkLane, Omit<LaneConfig, 'order'> & { projects: WorkProject[] }>;
+
+export const laneNames = Object.keys(workLanes) as WorkLane[];

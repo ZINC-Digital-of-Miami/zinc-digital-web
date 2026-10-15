@@ -1,0 +1,18 @@
+---
+import DeviceFrame from './DeviceFrame.astro';
+---
+<div class="build-art hero-art" aria-label="Bear Claw product website, Andrew Neese real estate website and U.S. Oil Solutions website upgrade">
+  <div class="hero-art__group">
+    <div class="build-laptop"><DeviceFrame device="laptop" asset="bear-claw-home-desktop" title="Bear Claw website built by ZINC" loading="eager" sizes="(max-width:700px) 80vw, 46vw" /></div>
+    <div class="build-tablet"><DeviceFrame device="tablet" asset="andrew-original-website" title="Andrew Neese real estate website — original design" loading="eager" sizes="(max-width:700px) 36vw, 22vw" /></div>
+    <div class="build-phone"><DeviceFrame device="phone" asset="uos-second-site-mobile" title="U.S. Oil Solutions website upgrade — mobile design in development" loading="eager" sizes="(max-width:700px) 16vw, 10vw" /></div>
+  </div>
+</div>
+<style>
+/* One group scales the whole composition by the smaller of its width and height allowance. */
+.build-art{--ratio:1.5;position:absolute;inset:0;z-index:-2;isolation:isolate}
+.build-laptop,.build-tablet,.build-phone{position:absolute;filter:drop-shadow(0 24px 18px #0007)}
+.build-laptop{width:80%;left:0;bottom:8%}
+.build-tablet{width:38%;right:0;top:0}
+.build-phone{width:17%;left:46%;bottom:0}
+</style>

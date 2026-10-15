@@ -1,6 +1,7 @@
 ---
 import Img from './Img.astro';
 import DeviceComposition from './DeviceComposition.astro';
+import DeviceFrame from './DeviceFrame.astro';
 import type { CaseScreensPresentation } from '../data/case-screens';
 
 interface Props {
@@ -56,14 +57,9 @@ const devices = [
             {page.url && <a class="cs-live" href={page.url} target="_blank" rel="noopener noreferrer" aria-label={`View the ${page.title.toLowerCase()} page (opens in a new tab)`}>View page <span aria-hidden="true">↗</span></a>}
           </header>
 
-          {!application && page.images.desktop ? <DeviceComposition title={page.title} desktop={page.images.desktop} tablet={page.images.tablet} mobile={page.images.mobile} /> : <div class:list={['cs-stage', `cs-count-${availableDevices.length}`, { 'cs-desktop-only': desktopOnly, 'cs-has-desktop': Boolean(page.images.desktop), 'cs-has-tablet': Boolean(page.images.tablet) }]}>
+          {presentation.slug === 'summit-marine-development' ? <details class="cs-archive-details"><summary>View the original responsive website presentation <span aria-hidden="true">+</span></summary><Img class="cs-archive" k="smd-devices" alt="Original Summit Marine website delivered by ZINC, shown in its archived device presentation" sizes="90vw" quality={95} /></details> : !application && page.images.desktop ? <DeviceComposition title={page.title} desktop={page.images.desktop} tablet={page.images.tablet} mobile={page.images.mobile} /> : <div class:list={['cs-stage', `cs-count-${availableDevices.length}`, { 'cs-desktop-only': desktopOnly, 'cs-has-desktop': Boolean(page.images.desktop), 'cs-has-tablet': Boolean(page.images.tablet) }]}>
             {availableDevices.map(device => <figure class={`cs-device cs-${device.key}`}>
-              <div class="cs-hardware">
-                {application && device.key === 'desktop' && <div class="cs-window-bar" aria-hidden="true"><span class="cs-window-dots"><i></i><i></i><i></i></span><span>{page.title}</span></div>}
-                <div class="cs-display">
-                  <Img k={page.images[device.key]!} alt={`${page.title} ${application ? 'application view' : 'page'} in its ${device.title.toLowerCase()} layout`} sizes={sizesFor(device)} widths={[...device.widths]} quality={95} />
-                </div>
-              </div>
+              <DeviceFrame device={device.key === 'desktop' ? 'monitor' : device.key === 'mobile' ? 'phone' : 'tablet'} asset={page.images[device.key]!} title={`${page.title} ${application ? 'application view' : 'page'} in its ${device.title.toLowerCase()} layout`} sizes={sizesFor(device)} fit="contain" />
               <figcaption><span>{application && device.key === 'desktop' ? 'Desktop workspace' : device.title}</span>{application && <span class="cs-status">In development</span>}</figcaption>
             </figure>)}
           </div>}
@@ -74,6 +70,8 @@ const devices = [
 </section>
 
 <style>
+.cs-page :global(.cs-archive){display:block;width:100%;height:auto;max-width:100%}
+
   .cs-screens{padding:clamp(64px,9vw,120px) 0;border-top:1px solid var(--line);color:var(--ink)}
   .cs-heading{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(32px,5vw,64px)}
   .cs-heading h2{max-width:13ch;font-size:clamp(44px,6vw,86px);margin-top:18px}
@@ -139,3 +137,5 @@ const devices = [
     .cs-device figcaption{gap:2px 10px;padding-top:12px;font-size:10px}
   }
 </style>
+
+<style>.cs-archive-details{border-block:1px solid #bbb}.cs-archive-details summary{padding:22px 0;display:flex;justify-content:space-between;gap:20px;cursor:pointer;font:13px/1.6 var(--fm)}.cs-archive-details summary:focus-visible{outline:2px solid #008d91;outline-offset:3px}.cs-archive-details[open] summary span{transform:rotate(45deg)}</style>

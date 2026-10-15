@@ -1,13 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { laneNames, workLanes, projectLink } from '../src/data/work-lanes.ts';
+import { laneNames, workLanes } from '../src/data/work-lanes.ts';
+import { clientWork } from '../src/data/engagements.ts';
 
-test('service lanes retain every existing case and let engagements span relevant services', () => {
+test('service lanes are a view of the client-first record', () => {
+  for (const lane of laneNames) {
+    const authored = clientWork.flatMap(c => c.engagements.filter(e => e.layer === lane).map(e => c.slug + ' / ' + e.label)).sort();
+    assert.deepEqual(workLanes[lane].projects.map(p => p.slug + ' / ' + p.label).sort(), authored, lane);
+  }
   assert.deepEqual([...new Set(workLanes.Build.projects.map(p => p.slug))].sort(), [
     'once-upon-a-book-club', 'us-oil-solutions', 'bear-claw-usa', 'las-vegas-safety',
     'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries',
     'miami-tactical', 'fraim-cawley-company', 'smoky-mountain-survival', 'andrew-neese', 'porsche-roanoke',
+    'carla-funk-photography', 'felon-motorwerk',
   ].sort());
   for (const slug of ['once-upon-a-book-club', 'us-oil-solutions']) {
     for (const lane of laneNames) assert.ok(workLanes[lane].projects.some(p => p.slug === slug));
@@ -31,19 +37,39 @@ test('every filter has work, every scene exists and next links make one complete
   assert.equal(workLanes.Intelligence.next, 'Build');
 });
 
-test('lane links take readers directly to the relevant part of a case', () => {
-  assert.equal(projectLink('once-upon-a-book-club','Demand'), '/work/once-upon-a-book-club/#campaigns');
-  assert.equal(projectLink('once-upon-a-book-club','Intelligence'), '/work/once-upon-a-book-club/#reporting');
-  assert.equal(projectLink('us-oil-solutions','Intelligence'), '/work/us-oil-solutions/#work-intelligence');
-  assert.equal(projectLink('las-vegas-safety','Build'), '/work/las-vegas-safety/');
+test('each lane keeps its approved order and destinations', () => {
+  const root = (slug: string) => '/work/' + slug + '/';
+  assert.deepEqual(workLanes.Build.projects.map(p => p.href), [
+    root('carla-funk-photography'), root('felon-motorwerk'), root('once-upon-a-book-club'), root('us-oil-solutions') + '#website',
+    root('fraim-cawley-company'), root('smoky-mountain-survival'), root('andrew-neese'), root('porsche-roanoke'), root('miami-tactical'),
+    root('bear-claw-usa'), root('las-vegas-safety'), root('summit-marine-development'), root('zinc-fusion-v16'),
+    root('the-lampstand-va'), root('straight-street-ministries'),
+  ]);
+  assert.deepEqual(workLanes.Demand.projects.map(p => p.href), [
+    root('once-upon-a-book-club') + '#campaigns', root('summit-marine-development') + '#work-demand', root('us-oil-solutions') + '#work-demand',
+    root('general-shale'), root('ballad-health'), root('meade-tractor'), root('las-vegas-safety') + '#catalog',
+  ]);
+  assert.deepEqual(workLanes.Intelligence.projects.map(p => p.href), [
+    root('once-upon-a-book-club') + '#reporting', root('zinc-fusion-v16') + '#work-intelligence', root('us-oil-solutions') + '#work-intelligence',
+  ]);
 });
 
-test('US Oil website and operations app stay in separate Build entries', () => {
+test('lane links open the case, or the engagement section for later engagements', () => {
+  const href = (lane: 'Build' | 'Demand' | 'Intelligence', slug: string) => workLanes[lane].projects.find(p => p.slug === slug)!.href;
+  assert.equal(href('Build', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/');
+  assert.equal(href('Demand', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/#campaigns');
+  assert.equal(href('Intelligence', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/#reporting');
+  assert.equal(href('Intelligence', 'us-oil-solutions'), '/work/us-oil-solutions/#work-intelligence');
+  assert.equal(href('Build', 'las-vegas-safety'), '/work/las-vegas-safety/');
+  assert.equal(href('Demand', 'las-vegas-safety'), '/work/las-vegas-safety/#catalog');
+  assert.equal(href('Demand', 'ballad-health'), '/work/ballad-health/');
+});
+
+test('US Oil keeps website and operations app scope under one client entry', () => {
   const projects = workLanes.Build.projects.filter(p => p.slug === 'us-oil-solutions');
-  assert.equal(projects.length, 2);
+  assert.equal(projects.length, 1);
   const website = projects.find(p => p.category.includes('Websites'))!;
   const app = projects.find(p => p.category.includes('Applications'))!;
-  assert.notEqual(website, app);
+  assert.equal(website, app);
   assert.equal(website.href, '/work/us-oil-solutions/#website');
-  assert.equal(app.href, '/work/us-oil-solutions/#operations-app');
 });

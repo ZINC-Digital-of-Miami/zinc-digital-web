@@ -1,0 +1,18 @@
+---
+import DeviceFrame from './DeviceFrame.astro';
+interface Props { lane: string }
+const {lane}=Astro.props;
+---
+<div class:list={['service-mockup','service-mockup--'+lane.toLowerCase()]}>
+  <div class="service-ground" aria-hidden="true"></div>
+  {lane === 'Build' ? <div class="service-laptop"><DeviceFrame device="laptop" asset="bear-claw-home-desktop" title="Bear Claw website built by ZINC" sizes="(max-width:700px) 90vw, 450px" /></div>
+  : lane === 'Demand' ? <div class="service-phone"><DeviceFrame device="phone" asset="ouabc-halloween-campaign-vertical" fill="#dddad5" title="Once Upon a Book Club original Halloween campaign creative" position="center" fit="contain" sizes="220px" /></div>
+  : <div class="service-monitor"><DeviceFrame device="monitor" fit="contain" fill="#fefefe" asset="ouabc-bi-demand-current" title="OUABC BI Fusion demand calendar — application in development" sizes="(max-width:700px) 90vw, 450px" /></div>}
+</div>
+<style>
+.service-mockup{position:relative;height:300px;isolation:isolate;background:#e9ebee;overflow:hidden}
+.service-ground{position:absolute;inset:0;z-index:-1;background:#f8f9fa;clip-path:polygon(0 0,100% 0,100% 24%,0 66%)}
+.service-mockup:after{content:'';position:absolute;inset:70% 0 0;background:#dde1e5;clip-path:polygon(0 48%,100% 0,100% 100%,0 100%);z-index:-1}
+.service-laptop,.service-monitor,.service-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 18px 12px #18212c28)}
+.service-laptop{width:min(94%,420px)}.service-phone{width:130px}.service-monitor{width:min(87%,360px)}
+</style>

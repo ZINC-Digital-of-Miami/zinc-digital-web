@@ -18,6 +18,7 @@ import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
 import { articleEditorial } from '../data/article-editorial';
 import { pillarFor } from '../data/blog-strategy';
+import { clientWork } from '../data/engagements';
 import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
 import '../styles/themes.css';
@@ -48,12 +49,12 @@ const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
 const approvedHeroes = import.meta.glob<{ default: ImageMetadata }>('../assets/approved/*.png', { eager: true });
-const heroName = path === '/' || path === '/work/' || path === '/work/build/' ? 'build-ouabc-neese.png' : path === '/work/demand/' ? 'demand-dark.png' : path === '/work/intelligence/' ? 'intelligence-vibrant.png' : undefined;
+const heroName = path === '/work/intelligence/' ? 'intelligence-vibrant.png' : undefined;
 const approvedHero = heroName ? approvedHeroes['../assets/approved/' + heroName]?.default : undefined;
 const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + asset('lvs-case-devices-restaurant').src]?.default : undefined;
 const heroFile = lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(approvedHero || lvsHero ? {quality:90} : {}) }) : undefined;
-const heroSizes = lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 100vw, 75vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (lvsHero ? [...new Set([480,960,1440,lvsHero.width])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(lvsHero ? {quality:95} : approvedHero ? {quality:90} : {}) }) : undefined;
+const heroSizes = lvsHero ? '(max-width: 700px) 92vw, 700px' : approvedHero ? path === '/' ? '(max-width: 760px) 100vw, 75vw' : path === '/work/' ? '100vw' : '100vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
 const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
 const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');
 const socialAlt = articleImage?.alt || 'ZINC Digital — ' + route.title;
@@ -81,7 +82,8 @@ if (t === 'author') {
   graph.push(person, {'@type':'ProfilePage', '@id':canonical+'#profile', url:canonical, name:author.name, mainEntity:{'@id':person['@id']}});
 }
 if (t === 'service') { const s = svcBy(route.slug!); graph.push({ '@type': 'Service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: 'US', url: canonical }, { '@type': 'FAQPage', mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
-if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, url: c.url } }); }
+if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.product ?? c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url ? { url: c.url } : {}) } }); }
+if (t === 'work' && path === '/work/') graph.push({ '@type': 'CollectionPage', '@id': canonical + '#work', url: canonical, name: route.title, mainEntity: { '@type': 'ItemList', itemListElement: clientWork.map(({ slug }, i) => ({ '@type': 'ListItem', position: i + 1, name: caseBy(slug).title, url: SITE + '/work/' + slug + '/' })) } });
 const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';

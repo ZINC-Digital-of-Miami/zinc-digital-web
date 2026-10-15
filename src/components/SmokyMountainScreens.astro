@@ -1,0 +1,16 @@
+---
+import Img from './Img.astro';
+---
+<section class="sms-source" aria-labelledby="sms-source-title">
+ <div class="wrap">
+  <header><p>Original website / Source captures</p><h2 class="disp" id="sms-source-title">Training. Gear.<br/>The outdoors.</h2></header>
+  <div class="sms-pair">
+   <figure><div class="sms-capture"><Img k="smoky-source-training" alt="Smoky Mountain Survival website homepage featuring training" sizes="(max-width: 700px) 90vw, 46vw" /></div><figcaption>Homepage / Training</figcaption></figure>
+   <figure><div class="sms-capture"><Img k="smoky-source-camping" alt="Smoky Mountain Survival website homepage featuring camping" sizes="(max-width: 700px) 90vw, 46vw" /></div><figcaption>Homepage / Camping</figcaption></figure>
+  </div>
+  <div class="sms-about"><div><p>Inside the website</p><h2 class="disp">The people.<br/>The preparation.</h2><p>The About page brings together outdoor equipment, family training, the founders and the company’s approach. The original page is shown alongside the homepage variations.</p></div><figure><div class="sms-capture sms-capture--about"><Img k="smoky-source-about" alt="Full original Smoky Mountain Survival About page, including training, founder and outdoor sections" sizes="(max-width: 700px) 90vw, 55vw" /></div><figcaption>About / Full original page</figcaption></figure></div>
+ </div>
+</section>
+<style>
+.sms-source{background:#171d17;color:#f4f2e9;padding:65px 0}.sms-source header{margin-bottom:35px}.sms-source header>p,.sms-about>div>p:first-child{font:10px/1.6 var(--fm);color:#d1b07e;text-transform:uppercase;letter-spacing:.1em}.sms-source h2{font-size:clamp(44px,6vw,82px);line-height:1.02;margin:18px 0 25px}.sms-pair{display:grid;grid-template-columns:1fr 1fr;gap:30px}.sms-source figure{margin:0;min-width:0}.sms-source :global(picture){display:block}.sms-source :global(img){width:100%;height:auto;display:block}.sms-capture{overflow:hidden;border:1px solid #68705f}.sms-capture :global(img){margin-top:-1.67%}.sms-capture--about :global(img){margin-top:-1.7%}.sms-source figcaption{font:10px/1.6 var(--fm);color:#c2c8bd;margin-top:12px}.sms-about{display:grid;grid-template-columns:1fr 1.4fr;gap:70px;align-items:start;margin-top:75px}.sms-about>div{position:sticky;top:110px}.sms-about p{font-size:17px;line-height:1.7;color:#cbd0c6;max-width:34ch}@media(max-width:700px){.sms-source{padding:40px 0}.sms-pair,.sms-about{grid-template-columns:1fr;gap:30px}.sms-about{margin-top:50px}.sms-about>div{position:static}.sms-source h2{font-size:44px}}
+</style>

@@ -10,6 +10,7 @@ import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { caseScreens } from '../src/data/case-screens.ts';
 import { laneNames, workLanes } from '../src/data/work-lanes.ts';
+import { clientWork, workFor } from '../src/data/engagements.ts';
 
 const root = process.cwd();
 // With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
@@ -58,7 +59,7 @@ for (const slug of ['the-lampstand-va', 'straight-street-ministries']) {
   check(!html.includes('The layers in use.'), slug + ' must use the nonprofit presentation');
 }
 // Every available source-backed comparison uses the shared accessible slider.
-for (const slug of ['once-upon-a-book-club','las-vegas-safety','carla-funk-photography','us-oil-solutions','summit-marine-development','the-lampstand-va']) {
+for (const slug of ['once-upon-a-book-club','las-vegas-safety','carla-funk-photography','us-oil-solutions','the-lampstand-va']) {
   const html = pages.find(p => p.rel === 'work/' + slug + '/index.html')?.html || '';
   check(html.includes('data-compare') && html.includes('type="range"') && html.includes('data-compare-to="100"') && html.includes('data-compare-to="0"'), slug + ' lacks before/after controls');
 }
@@ -195,7 +196,9 @@ if (home) {
   check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
   check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 2, 'homepage must have two matching case sliders');
   check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
-  for (const scene of ['build-ouabc','intelligence-ouabc','demand-dark','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('ouabc-bi-demand-current.'), 'homepage lacks the actual OUABC BI application capture');
+  for (const scene of ['intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('ouabc-site.'), 'homepage must feature the rebuilt OUABC storefront');
   check(home.html.includes('campaign-white.'), 'homepage lacks white campaign device stage');
   check(/class="band home-team" hidden/.test(home.html), 'saved staff must be hidden on home');
   check(home.html.includes('href="/work/us-oil-solutions/#website"') && home.html.includes('href="/work/us-oil-solutions/#operations-app"'), 'homepage must keep U.S. Oil website and app destinations separate');
@@ -212,11 +215,42 @@ for (const lane of laneNames) {
 }
 // ---- work + cases ----
 const work = pages.find((p) => p.rel === 'work/index.html');
-if (work) for (const s of CASE_SLUGS) check(hrefs(work.html).some(h => h.split('#')[0] === '/work/' + s + '/'), 'work/index.html is missing a link to /work/' + s + '/');
+if (work) for (const s of CASE_SLUGS) {
+  check(hrefs(work.html).some(h => h.split('#')[0] === '/work/' + s + '/'), 'work/index.html is missing a link to /work/' + s + '/');
+  check(work.html.split('data-client="' + s + '"').length - 1 === 1, 'work/index.html must show exactly one card for ' + s);
+  const card = work.html.split('data-client="' + s + '"')[1]?.split('data-client="')[0] || '';
+  const nested = hrefs((card.split('class="zn-engagements"')[1] || '').split('</ul>')[0]);
+  check(nested.length === workFor(s).length && nested.every((h) => h.startsWith('/work/' + s + '/#')), 'work/index.html card for ' + s + ' must nest each of its ' + workFor(s).length + ' engagements: ' + nested.join(', '));
+}
+if (work) {
+  const heads = Array.from(work.html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g), (m) => m[1].replace(/<[^>]+>/g, '').trim());
+  check(new Set(heads).size === heads.length, 'work/index.html repeats a client heading: ' + heads.join(' | '));
+  const list = Array.from(work.html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)).flatMap((b) => JSON.parse(b[1])['@graph'] || []).find((x) => x['@type'] === 'CollectionPage')?.mainEntity;
+  check(list?.['@type'] === 'ItemList' && list.itemListElement?.length === CASE_SLUGS.length, 'work/index.html JSON-LD lacks the client ItemList');
+}
+// Next case follows the /work/ client order and loops, so every case page leads on to the next client.
+const workOrder = clientWork.map((c) => c.slug);
+workOrder.forEach((s, i) => {
+  const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
+  const next = workOrder[(i + 1) % workOrder.length];
+  const others = [...new Set(hrefs(p?.html || '').filter((h) => /^\/work\/[a-z0-9-]+\/$/.test(h) && workOrder.includes(h.split('/')[2]) && h !== '/work/' + s + '/'))];
+  check(others.length === 1 && others[0] === '/work/' + next + '/', 'work/' + s + ' must link only to the next client, ' + next + ': ' + others.join(', '));
+});
+// Every client-work link (Work cards, lanes, case rails) must land on a section that exists on the case page.
+for (const page of pages) {
+  const railLinks = (page.html.match(/<nav\b[^>]*\bclass="(?:[^"]*\s)?page-rail-categories(?:\s[^"]*)?"[\s\S]*?<\/nav>/)?.[0] || '');
+  if (CASE_SLUGS.some((s) => page.rel === 'work/' + s + '/index.html')) check(hrefs(railLinks).filter((h) => h.startsWith('#')).length === workFor(page.rel.split('/')[1]).length, page.rel + ' rail must list each of the client\'s engagements');
+  const targets = [...hrefs(page.html).filter((h) => /^\/work\/[a-z0-9-]+\/#./.test(h)), ...hrefs(railLinks).filter((h) => h.startsWith('#')).map((h) => '/' + page.rel.replace(/index\.html$/, '') + h)];
+  for (const h of new Set(targets)) {
+    const [route, id] = h.split('#');
+    const target = pages.find((p) => p.rel === route.slice(1) + 'index.html');
+    check(!!target && target.html.includes('id="' + id + '"'), page.rel + ' links to ' + h + ', which has no matching section');
+  }
+}
 for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
   if (!p) continue;
-  if (!['ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-mockup="' + s + '"'), 'work/' + s + ' lacks its device mockup hero');
+  check(p.html.includes('data-case-hero="' + s + '"'), 'work/' + s + ' lacks its client case-study hero');
   if (!['bear-claw-usa','ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
@@ -243,12 +277,12 @@ for (const s of CASE_SLUGS) {
   } else if (s === 'once-upon-a-book-club') {
     for (const id of ['website', 'campaigns', 'search-content', 'reporting']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'OUABC lacks linked section ' + id);
     check(p.html.includes('data-compare') && p.html.includes('type="range"') && p.html.includes('data-compare-to="0"') && p.html.includes('data-compare-to="100"'), 'OUABC lacks an interactive before/after comparison');
-    check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');
+    check(p.html.includes('20250609025814') && p.html.includes('Rebuilt storefront'), 'OUABC comparison lacks dated archive sources');
     check(p.html.includes('BI app in development') && p.html.includes('private client figures removed'), 'OUABC lacks BI status or privacy context');
   } else {
-    check(p.html.includes('id="cOpen"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
+    check(p.html.includes('data-case-hero="' + s + '"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
     const nonprofit = ['the-lampstand-va', 'straight-street-ministries'].includes(s);
-    check(nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
+    check(s === 'bear-claw-usa' ? p.html.includes('Existing identity.') && p.html.includes('Show what it does.') : nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
   }
   if (s === 'bear-claw-usa') {
     for (const page of ['home','product','about','quote']) for (const device of ['desktop','tablet','mobile']) {
