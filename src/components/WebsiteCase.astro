@@ -4,18 +4,25 @@ import CaseStudyHero from './CaseStudyHero.astro';
 import SmokyMountainScreens from './SmokyMountainScreens.astro';
 import Img from './Img.astro';
 import ApprovedImage from './ApprovedImage.astro';
+import DeviceComposition from './DeviceComposition.astro';
 import {websiteCases, type WebsiteCaseSlug} from '../data/website-cases';
 interface Props {slug:WebsiteCaseSlug}
 const {slug}=Astro.props;
 const entry=websiteCases[slug];
 const porsche=slug==='porsche-roanoke';
+// Native captures shown in the shared device family; Smoky keeps its board until tablet and phone sources exist.
+const onScreen: Partial<Record<WebsiteCaseSlug,{desktop:string;tablet:string;mobile:string;title:string}>> = {
+  'fraim-cawley-company': {desktop:'case-fraim-services-desktop',tablet:'case-fraim-services-tablet',mobile:'case-fraim-services-mobile',title:'Fraim, Cawley & Company tax and business services page'},
+  'porsche-roanoke': {desktop:'case-porsche-dealers-desktop',tablet:'case-porsche-usa-tablet',mobile:'case-porsche-dealers-mobile',title:'Illustrative presentation using porsche.com dealer search and home screens'},
+};
+const screens=onScreen[slug];
 ---
 <article class="website-case" style={'--case-accent:'+entry.accent}>
   <CaseStudyHero study={caseBy(slug)} title={entry.name} description={entry.headline.replaceAll("\n", " ")} eyebrow={entry.eyebrow} href="#website" action="Explore the website work" caption={porsche ? "Illustrative device presentation" : "Website design · Across devices"} />
 
   {slug === 'smoky-mountain-survival' && <SmokyMountainScreens />}
   <section id="overview" class="overview wrap"><p class="kick">01 / The project</p><div class="overview-grid"><h2 class="disp">{entry.headline.split('\n').map(line=><span>{line}</span>)}</h2><div><p class="intro">{entry.intro}</p><p>{entry.description}</p><dl><div><dt>Client</dt><dd>{entry.name}</dd></div><div><dt>Scope</dt><dd>{porsche?'Dealer website · Official merchandise website':'Website'}</dd></div></dl></div></div></section>
-  <section id="website" class="presentation" data-case-pages={slug}><div class="wrap"><div class="section-top"><p class="kick">02 / {porsche?'Portfolio presentation':'On screen'}</p><span>{slug === "andrew-neese" ? "Original desktop capture" : "Desktop / Tablet / Mobile"}</span></div><figure data-case-mockup={slug}>{slug === 'andrew-neese' ? <div class="original-website-scroll" tabindex="0" role="region" aria-label="Scroll the original Andrew Neese website capture"><Img k="andrew-original-website" alt="Original Andrew Neese website — complete page" sizes="(max-width:700px) 90vw, 631px" /></div> : <ApprovedImage name={entry.image} alt={porsche?'Illustrative Porsche device presentation; not a capture of the Roanoke dealership websites':entry.name+' website presented across desktop and mobile devices'} sizes="90vw"/>}<figcaption>{porsche?'Illustrative device presentation. The Roanoke dealer and merchandise websites are the project scope described here.':entry.name+' / Website presentation'}</figcaption></figure></div></section>
+  <section id="website" class="presentation" data-case-pages={slug}><div class="wrap"><div class="section-top"><p class="kick">02 / {porsche?'Portfolio presentation':'On screen'}</p><span>{slug === "andrew-neese" ? "Original desktop capture" : "Desktop / Tablet / Mobile"}</span></div><figure data-case-mockup={slug}>{slug === 'andrew-neese' ? <div class="original-website-scroll" tabindex="0" role="region" aria-label="Scroll the original Andrew Neese website capture"><Img k="andrew-original-website" alt="Original Andrew Neese website — complete page" sizes="(max-width:700px) 90vw, 631px" /></div> : screens ? <DeviceComposition title={screens.title} desktop={screens.desktop} tablet={screens.tablet} mobile={screens.mobile} /> : <ApprovedImage name={entry.image} alt={porsche?'Illustrative Porsche device presentation; not a capture of the Roanoke dealership websites':entry.name+' website presented across desktop and mobile devices'} sizes="90vw"/>}<figcaption>{porsche?'Illustrative device presentation. The Roanoke dealer and merchandise websites are the project scope described here.':entry.name+' / Website presentation'}</figcaption></figure></div></section>
   <section id="website-details" class="details wrap"><p class="kick">03 / {porsche?'Two websites, one dealership':'Website details'}</p><div class="detail-grid">{entry.details.map(([title,body],i)=><div><span class="number">0{i+1}</span><h2>{title}</h2><p>{body}</p></div>)}</div><div class="next"><a href="/work/" class="arrow">← All work</a><a href={'/work/'+caseBy(slug).next+'/'} class="arrow">Next case / {caseBy(caseBy(slug).next).title} ↗</a></div></section>
 </article>
 <style>

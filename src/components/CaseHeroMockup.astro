@@ -8,9 +8,6 @@ import type { Case } from '../data/site';
 interface Props { study: Case; loading?: 'eager' | 'lazy' }
 const { study, loading = 'eager' } = Astro.props;
 const approved: Record<string, string> = {
-  'fraim-cawley-company': 'tax.jpeg',
-  'andrew-neese': 'andrew-white-devices.png',
-  'porsche-roanoke': 'porsche-white-devices.png',
   'felon-motorwerk': 'felon-white-devices.png',
 };
 const sources: Record<string, { desktop: string; tablet?: string; mobile?: string }> = {
@@ -23,11 +20,14 @@ const sources: Record<string, { desktop: string; tablet?: string; mobile?: strin
   'straight-street-ministries': { desktop: 'case-straight-street-home-desktop', tablet: 'case-straight-street-home-tablet', mobile: 'case-straight-street-home-mobile' },
   'miami-tactical': { desktop: 'miami-tactical-website' },
   'zinc-fusion-v16': { desktop: 'fusion-v16-dashboard' },
+  'fraim-cawley-company': { desktop: 'case-fraim-home-desktop', tablet: 'case-fraim-home-tablet', mobile: 'case-fraim-home-mobile' },
+  'porsche-roanoke': { desktop: 'case-porsche-usa-desktop', tablet: 'case-porsche-dealers-tablet', mobile: 'case-porsche-usa-mobile' },
+  'summit-marine-development': { desktop: 'smd-zinc-home-desktop' },
 };
 ---
 <figure data-case-mockup={study.slug} class="case-mockup">
   {study.slug === 'andrew-neese' ? <div class="seo-monitor"><DesktopMockup asset="andrew-original-website" ratio="1262 / 900" title="Andrew Neese original website built by ZINC" loading={loading} /></div> : ['ballad-health','meade-tractor','general-shale'].includes(study.slug) ? <div class="seo-monitor"><DesktopMockup asset={"seo-"+study.slug+"-current"} title={study.title+" — current website; past SEO engagement"} loading={loading} /></div> : approved[study.slug] ? <ApprovedImage name={approved[study.slug]} alt={study.title + ' — level desktop, laptop, tablet and phone presentation'} loading={loading} sizes="(max-width: 700px) 92vw, 65vw" />
-    : study.slug === 'summit-marine-development' ? <Img k="smd-devices" alt="Original Summit Marine website built by ZINC, from the project archive" loading={loading} quality={95} sizes="(max-width: 700px) 100vw, 85vw" /> : study.slug === 'las-vegas-safety' ? <Img k="lvs-case-devices-restaurant" alt="Las Vegas Safety & Supply — original ZINC storefront across desktop, laptop, tablet and phone" loading={loading} quality={95} sizes="(max-width: 700px) 100vw, 85vw" />
+    : study.slug === 'las-vegas-safety' ? <Img k="lvs-case-devices-restaurant" alt="Las Vegas Safety & Supply — original ZINC storefront across desktop, laptop, tablet and phone" loading={loading} quality={95} sizes="(max-width: 700px) 100vw, 85vw" />
     : <DeviceComposition title={study.title} {...(sources[study.slug] || { desktop: study.hero })} loading={loading} />}
 </figure>
 <style>
