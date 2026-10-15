@@ -1868,3 +1868,14 @@
 .bi-platform .bi-hero-bottom a:hover {
   color: var(--teal)
 }
+
+/* Preserve the small lane labels while providing distinct touch targets. */
+.bi-platform .bi-hero-bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.bi-platform .bi-custom-platform .bi-teal {
+  color: #057575;
+}
