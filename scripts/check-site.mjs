@@ -10,6 +10,7 @@ import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { caseScreens } from '../src/data/case-screens.ts';
 import { laneNames, workLanes } from '../src/data/work-lanes.ts';
+import { workFor } from '../src/data/engagements.ts';
 
 const root = process.cwd();
 // With on-demand routes, @astrojs/vercel builds in server mode: prerendered files land in dist/client/
@@ -218,7 +219,8 @@ if (work) for (const s of CASE_SLUGS) {
   check(hrefs(work.html).some(h => h.split('#')[0] === '/work/' + s + '/'), 'work/index.html is missing a link to /work/' + s + '/');
   check(work.html.split('data-client="' + s + '"').length - 1 === 1, 'work/index.html must show exactly one card for ' + s);
   const card = work.html.split('data-client="' + s + '"')[1]?.split('data-client="')[0] || '';
-  check(/class="zn-engagements"[^>]*>[\s\S]*?href="\/work\//.test(card), 'work/index.html card for ' + s + ' must nest its engagements');
+  const nested = hrefs((card.split('class="zn-engagements"')[1] || '').split('</ul>')[0]);
+  check(nested.length === workFor(s).length && nested.every((h) => h.startsWith('/work/' + s + '/#')), 'work/index.html card for ' + s + ' must nest each of its ' + workFor(s).length + ' engagements: ' + nested.join(', '));
 }
 if (work) {
   const heads = Array.from(work.html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g), (m) => m[1].replace(/<[^>]+>/g, '').trim());
@@ -228,7 +230,8 @@ if (work) {
 }
 // Every client-work link (Work cards, lanes, case rails) must land on a section that exists on the case page.
 for (const page of pages) {
-  const railLinks = (page.html.match(/<nav class="page-rail-categories"[\s\S]*?<\/nav>/)?.[0] || '');
+  const railLinks = (page.html.match(/<nav\b[^>]*\bclass="[^"]*\bpage-rail-categories\b[^"]*"[\s\S]*?<\/nav>/)?.[0] || '');
+  if (CASE_SLUGS.some((s) => page.rel === 'work/' + s + '/index.html')) check(hrefs(railLinks).filter((h) => h.startsWith('#')).length === workFor(page.rel.split('/')[1]).length, page.rel + ' rail must list each of the client\'s engagements');
   const targets = [...hrefs(page.html).filter((h) => /^\/work\/[a-z0-9-]+\/#./.test(h)), ...hrefs(railLinks).filter((h) => h.startsWith('#')).map((h) => '/' + page.rel.replace(/index\.html$/, '') + h)];
   for (const h of new Set(targets)) {
     const [route, id] = h.split('#');

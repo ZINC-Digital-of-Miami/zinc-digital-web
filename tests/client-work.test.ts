@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { clientWork, workFor, sectionHref, laneHref, clientLayers, clientServices, engagementsByLayer } from '../src/data/engagements.ts';
 
 // Service ownership (each engagement service exists in its layer; each service page's case lists it)
-// is enforced when src/data/site.ts loads, so a mismatch fails astro check and the build.
+// is enforced when src/data/site.ts loads, so a mismatch fails `npm run build`.
 const CASE_SLUGS = ['carla-funk-photography', 'ballad-health', 'meade-tractor', 'general-shale', 'once-upon-a-book-club', 'us-oil-solutions', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries', 'bear-claw-usa', 'felon-motorwerk', 'miami-tactical', 'fraim-cawley-company', 'smoky-mountain-survival', 'andrew-neese', 'porsche-roanoke'];
 
 test('Work authors every client exactly once', () => {

@@ -37,6 +37,23 @@ test('every filter has work, every scene exists and next links make one complete
   assert.equal(workLanes.Intelligence.next, 'Build');
 });
 
+test('each lane keeps its approved order and destinations', () => {
+  const root = (slug: string) => '/work/' + slug + '/';
+  assert.deepEqual(workLanes.Build.projects.map(p => p.href), [
+    root('carla-funk-photography'), root('felon-motorwerk'), root('once-upon-a-book-club'), root('us-oil-solutions') + '#website',
+    root('fraim-cawley-company'), root('smoky-mountain-survival'), root('andrew-neese'), root('porsche-roanoke'), root('miami-tactical'),
+    root('bear-claw-usa'), root('las-vegas-safety'), root('summit-marine-development'), root('zinc-fusion-v16'),
+    root('the-lampstand-va'), root('straight-street-ministries'),
+  ]);
+  assert.deepEqual(workLanes.Demand.projects.map(p => p.href), [
+    root('once-upon-a-book-club') + '#campaigns', root('summit-marine-development') + '#work-demand', root('us-oil-solutions') + '#work-demand',
+    root('general-shale'), root('ballad-health'), root('meade-tractor'), root('las-vegas-safety') + '#catalog',
+  ]);
+  assert.deepEqual(workLanes.Intelligence.projects.map(p => p.href), [
+    root('once-upon-a-book-club') + '#reporting', root('zinc-fusion-v16') + '#work-intelligence', root('us-oil-solutions') + '#work-intelligence',
+  ]);
+});
+
 test('lane links open the case, or the engagement section for later engagements', () => {
   const href = (lane: 'Build' | 'Demand' | 'Intelligence', slug: string) => workLanes[lane].projects.find(p => p.slug === slug)!.href;
   assert.equal(href('Build', 'once-upon-a-book-club'), '/work/once-upon-a-book-club/');

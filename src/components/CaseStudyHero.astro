@@ -76,7 +76,7 @@ const artworkLabel = caption || (seo ? 'Current website · Past SEO engagement' 
   </div>
   </div>
 </header>
-<PageRail path={"/work/"+study.slug+"/"} title={study.title} items={railItems} itemsLabel={"Work for " + study.title} />
+<PageRail path={"/work/"+study.slug+"/"} title={study.title} items={railItems} itemsLabel={"Work for " + (study.client || study.title)} />
 <section class="case-project-facts"><div class="wrap">
     <dl class="hero-details">
       <div><dt>Client</dt><dd>{study.client || study.title}</dd></div>

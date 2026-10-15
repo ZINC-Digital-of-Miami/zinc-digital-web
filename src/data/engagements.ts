@@ -69,7 +69,7 @@ export const clientWork: ClientWork[] = [
   ] },
   { slug: 'zinc-fusion-v16', engagements: [
     { layer: 'Build', label: 'Forecasting application', summary: 'A dedicated workspace for commodity markets and procurement decisions.', services: ['apps'], category: ['Applications'], anchor: 'work-build', asset: 'fusion-v16-dashboard', status: 'In development' },
-    { layer: 'Intelligence', label: 'Commodity forecasting for Chris Stacy', summary: 'Market dashboards, procurement scenarios, policy and sentiment in a dedicated forecasting platform.', services: ['business-intelligence'], category: ['Forecasting'], anchor: 'case-content', scene: 'intelligence-fusion', dark: true, status: 'In development', flow: ['Market evidence', 'Scenarios', 'Procurement'] },
+    { layer: 'Intelligence', label: 'Commodity forecasting for Chris Stacy', summary: 'Market dashboards, procurement scenarios, policy and sentiment in a dedicated forecasting platform.', services: ['business-intelligence'], category: ['Forecasting'], anchor: 'work-intelligence', scene: 'intelligence-fusion', dark: true, status: 'In development', flow: ['Market evidence', 'Scenarios', 'Procurement'] },
   ] },
   { slug: 'the-lampstand-va', engagements: [
     { layer: 'Build', label: 'Pro bono website support', summary: 'Ongoing website management, hosting and Night of Hope support.', services: [], category: ['Websites'], anchor: 'case-content', asset: 'lampstand-home', community: true },

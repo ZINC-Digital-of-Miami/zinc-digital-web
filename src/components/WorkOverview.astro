@@ -16,7 +16,7 @@ const clients=clientWork.map(({slug})=>({study:caseBy(slug),work:engagementsByLa
       {study.client && <p class="zn-client-name">Client · {study.client}</p>}
       <p>{study.scope}</p>
     </div>
-    <ul class="zn-engagements" aria-label={'Work for '+study.title}>
+    <ul class="zn-engagements" aria-label={'Work for '+(study.client||study.title)}>
       {work.map(e => <li data-layer={e.layer}><span class="zn-engagement-layer">{e.layer}</span><a href={sectionHref(study.slug,e)}>{e.label}</a>{e.status && <span class="zn-engagement-status">{e.status}</span>}</li>)}
     </ul>
   </li>)}
