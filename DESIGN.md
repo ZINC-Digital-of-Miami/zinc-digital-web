@@ -14,4 +14,6 @@ Owner update, 15 October 2026 CT: use five tabs in this exact order: Ecommerce, 
 
 Owner hero update, 15 October 2026 CT: the intelligence layer and connected nodes sit directly on the dark hero background. Remove the outer card, header, question panel, caption, and dotted card backdrop.
 
-Owner refinement, 15 October 2026 CT: the reference demonstrates clarity only. Both diagrams must be original neural networks, with readable unboxed labels, sparse clear connections and animated signals. No logo, orbital composition, globe or copied reference graphic. Keep the full-width hero background and provide animation pause/play plus reduced-motion support.
+Owner refinement, 15 October 2026 CT: the reference demonstrates clarity only. Both diagrams must be original neural networks, with readable unboxed labels, sparse clear connections and animated signals. No logo, orbital composition, globe or copied reference graphic. Keep the full-width hero background and reduced-motion support.
+
+Owner update, 15 October 2026 CT: remove the animation text controls from both diagrams and the “Intelligence layer” title from the hero. Enlarge the hero network in the available space while maintaining comfortable separation from the copy and readable labels. Retain animated signals and reduced-motion support.
