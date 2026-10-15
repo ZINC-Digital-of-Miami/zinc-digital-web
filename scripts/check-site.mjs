@@ -230,10 +230,15 @@ if (work) {
 }
 // Next case follows the /work/ client order and loops, so every case page leads on to the next client.
 const workOrder = clientWork.map((c) => c.slug);
-workOrder.forEach((s, i) => { const p = pages.find((x) => x.rel === 'work/' + s + '/index.html'); const next = workOrder[(i + 1) % workOrder.length]; check(!!p && hrefs(p.html).includes('/work/' + next + '/'), 'work/' + s + ' must link to the next client, ' + next); });
+workOrder.forEach((s, i) => {
+  const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
+  const next = workOrder[(i + 1) % workOrder.length];
+  const others = [...new Set(hrefs(p?.html || '').filter((h) => /^\/work\/[a-z0-9-]+\/$/.test(h) && workOrder.includes(h.split('/')[2]) && h !== '/work/' + s + '/'))];
+  check(others.length === 1 && others[0] === '/work/' + next + '/', 'work/' + s + ' must link only to the next client, ' + next + ': ' + others.join(', '));
+});
 // Every client-work link (Work cards, lanes, case rails) must land on a section that exists on the case page.
 for (const page of pages) {
-  const railLinks = (page.html.match(/<nav\b[^>]*\bclass="[^"]*\bpage-rail-categories\b[^"]*"[\s\S]*?<\/nav>/)?.[0] || '');
+  const railLinks = (page.html.match(/<nav\b[^>]*\bclass="(?:[^"]*\s)?page-rail-categories(?:\s[^"]*)?"[\s\S]*?<\/nav>/)?.[0] || '');
   if (CASE_SLUGS.some((s) => page.rel === 'work/' + s + '/index.html')) check(hrefs(railLinks).filter((h) => h.startsWith('#')).length === workFor(page.rel.split('/')[1]).length, page.rel + ' rail must list each of the client\'s engagements');
   const targets = [...hrefs(page.html).filter((h) => /^\/work\/[a-z0-9-]+\/#./.test(h)), ...hrefs(railLinks).filter((h) => h.startsWith('#')).map((h) => '/' + page.rel.replace(/index\.html$/, '') + h)];
   for (const h of new Set(targets)) {

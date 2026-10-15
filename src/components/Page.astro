@@ -9,6 +9,7 @@ import WorkOverview from "./WorkOverview.astro";
 import Img from './Img.astro';
 import WorkLane from './WorkLane.astro';
 import CaseStudyHero from './CaseStudyHero.astro';
+import NextCase from './NextCase.astro';
 import BearClawCase from './BearClawCase.astro';
 import DesktopMockup from './DesktopMockup.astro';
 import CaseScreens from './CaseScreens.astro';
@@ -244,7 +245,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {study?.slug === 'las-vegas-safety' && <LasVegasSafetyCase />}
 {study?.slug === 'bear-claw-usa' && <BearClawCase />}
 {study && study.slug in websiteCases && <WebsiteCase slug={study.slug as WebsiteCaseSlug} />}
-{study && ['carla-funk-photography','ballad-health','meade-tractor','general-shale','felon-motorwerk','las-vegas-safety'].includes(study.slug) && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{caseBy(study.next).title}</h2></div><div class="rv" style="align-self:end"><a class="arrow" href={'/work/' + study.next + '/'}>Continue through the work ↗</a></div></div></section>}
+{study && ['carla-funk-photography','ballad-health','meade-tractor','general-shale','felon-motorwerk','las-vegas-safety'].includes(study.slug) && <NextCase slug={study.slug} back />}
 {study && !(study.slug in websiteCases) && !['carla-funk-photography','ballad-health','meade-tractor','general-shale','once-upon-a-book-club','felon-motorwerk','miami-tactical','las-vegas-safety','bear-claw-usa'].includes(study.slug) && (<>
   <CaseStudyHero study={study} eyebrow={study.nonprofit ? "Community / Pro bono" : "Selected client work"} caption={study.application ? "Application · In development" : undefined} />
   <section class="p-band" id="case-content"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
@@ -269,7 +270,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k), mixed: /lvs-brand-/.test(k), light: ['lvs-logo-black','smd-logo-concepts','uos-archive-logo'].includes(k) }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
   {study.results.length > 0 && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.results} / The results</span><h2 class="disp p-sec">What changed.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.results.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>}
   {study.quote && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.quote} / In their words</span><h2 class="disp p-sec">{study.quote.who}</h2><p class="lab" style="margin:10px 0 0">{study.quote.org}</p></div><div class="rv"><blockquote class="p-body c-quote" style="margin:0">“{study.quote.text}”</blockquote></div></div></section>}
-  <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{caseBy(study.next).title}</h2></div><div class="rv" style="align-self:end"><a class="arrow" href={'/work/' + study.next + '/'}>Continue through the work ↗</a></div></div></section>
+  <NextCase slug={study.slug} />
 </>)}
 
 {t === 'about' && (<>

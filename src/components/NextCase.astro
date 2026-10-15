@@ -1,0 +1,10 @@
+---
+// The closing band for case pages that do not render their own next link.
+// The next client follows the /work/ order (see Case.next in src/data/site.ts).
+import { caseBy } from '../data/site';
+interface Props { slug: string; back?: boolean }
+const { slug, back = false } = Astro.props;
+const next = caseBy(caseBy(slug).next);
+---
+<section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Next case</span><h2 class="disp p-sec">{next.title}</h2></div><div class="rv next-case-links" style="align-self:end">{back && <a class="arrow" href="/work/">← Explore more work</a>}<a class="arrow" href={'/work/' + next.slug + '/'}>Continue through the work ↗</a></div></div></section>
+<style>.next-case-links{display:flex;flex-wrap:wrap;gap:12px 32px}</style>

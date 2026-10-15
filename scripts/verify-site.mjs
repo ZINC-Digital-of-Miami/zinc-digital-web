@@ -39,6 +39,9 @@ const posts = [...JSON.parse(await fs.readFile('src/data/posts.preview.json', 'u
 const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
 const { clientWork } = await import('../src/data/engagements.ts');
 const caseSlugs = clientWork.map((c) => c.slug);
+// The client record must match the case pages the build actually produced.
+const builtCases = (await fs.readdir('dist/client/work', { withFileTypes: true })).filter((d) => d.isDirectory() && !['build', 'demand', 'intelligence'].includes(d.name) && existsSync(path.join('dist/client/work', d.name, 'index.html'))).map((d) => d.name);
+assert.deepEqual([...builtCases].sort(), [...caseSlugs].sort(), 'built case pages must match the client record');
 const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ['/work/build/', 'work'], ['/work/demand/', 'work'], ['/work/intelligence/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
 assert.equal(routes.length, 23 + caseSlugs.length + posts.length + authors.length, 'route inventory must include every public case, article and author');
 const NOINDEX = new Set(['/thanks/']);
