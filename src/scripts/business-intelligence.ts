@@ -1,4 +1,4 @@
-/** Both examples remain readable when JavaScript is unavailable. */
+/** All examples remain readable when JavaScript is unavailable. */
 export function initBusinessIntelligence() {
   const root = document.querySelector<HTMLElement>('.bi-platform');
   const tablist = root?.querySelector<HTMLElement>('.bi-scenario-tabs');

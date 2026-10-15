@@ -1,0 +1,39 @@
+---
+interface Props { variant?: 'hero' | 'detail' }
+const { variant = 'hero' } = Astro.props;
+const id = `bi-neural-${variant}`;
+const labels = variant === 'hero' ? ['Commerce', 'Customers', 'Behavior', 'Operations', 'Demand'] : ['Activity', 'Customers', 'Channels', 'Markets', 'Timing'];
+const inputs = [90, 170, 250, 330, 410].map(y => ({ x: 190, y }));
+const first = [140, 250, 360].map(y => ({ x: 350, y }));
+const second = [180, 320].map(y => ({ x: 500, y }));
+const output = { x: 630, y: 250 };
+const curve = (a: {x:number;y:number}, b: {x:number;y:number}) => `M${a.x} ${a.y}C${(a.x+b.x)/2} ${a.y} ${(a.x+b.x)/2} ${b.y} ${b.x} ${b.y}`;
+const edges = inputs.flatMap((node, i) => (i < 2 ? [0,1] : i === 2 ? [0,1,2] : [1,2]).map(j => curve(node, first[j])))
+  .concat(first.flatMap(node => second.map(next => curve(node, next))), second.map(node => curve(node, output)));
+const active = [curve(inputs[1], first[1]), curve(first[1], second[0]), curve(second[0], output)];
+const signalPath = active[0] + active.slice(1).map(d => d.replace(/^M[\d.]+ [\d.]+/, '')).join('');
+---
+<figure class:list={['bi-neural', `bi-neural-${variant}`]} data-neural>
+  <div class="bi-neural-graphic" role="img" aria-label={`Conceptual neural network: ${labels.join(', ')} connect through an intelligence layer to inform the next decision. No live readings.`}>
+    <svg id={id} viewBox="0 0 720 500" aria-hidden="true">
+      <g class="bi-neural-links" fill="none">{edges.map(d => <path d={d} />)}</g>
+      <g class="bi-neural-route" fill="none">{active.map(d => <path d={d} />)}</g>
+      <g class="bi-neural-inputs">{inputs.map(node => <circle cx={node.x} cy={node.y} r="8" />)}</g>
+      <g class="bi-neural-junctions">{[...first, ...second].map(node => <circle cx={node.x} cy={node.y} r="7" />)}</g>
+      <circle class="bi-neural-output" cx={output.x} cy={output.y} r="12" />
+      <circle class="bi-neural-output-ring" cx={output.x} cy={output.y} r="21" fill="none" />
+      <g class="bi-neural-motion">
+        <circle class="bi-neural-pulse" r="5"><animateMotion path={signalPath} dur="4.5s" repeatCount="indefinite" /></circle>
+        <circle class="bi-neural-pulse bi-neural-pulse-secondary" r="4"><animateMotion path={signalPath} dur="4.5s" begin="-2.25s" repeatCount="indefinite" /></circle>
+      </g>
+    </svg>
+    <span class="bi-neural-heading" aria-hidden="true">{variant === 'hero' ? 'Intelligence layer' : 'Hidden relationships'}</span>
+    {labels.map((label, i) => <span class={`bi-neural-source bi-neural-source-${i}`} aria-hidden="true">{label}</span>)}
+    <span class="bi-neural-result" aria-hidden="true">{variant === 'hero' ? <>Next<br />decision</> : <>Point of<br />action</>}</span>
+  </div>
+  <button class="bi-motion-toggle" type="button" aria-controls={id} hidden>Pause animation</button>
+</figure>
+<script>
+  import { initNeuralAnimations } from '../scripts/neural-animation';
+  initNeuralAnimations();
+</script>

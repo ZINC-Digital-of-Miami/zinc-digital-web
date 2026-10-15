@@ -156,8 +156,8 @@ export const businessIntelligenceScenarios: IntelligenceScenario[] = [
     "label": "Financial Forecasting",
     "category": "Cash flow & scenario planning",
     "title": [
-      "What changes the outlook",
-      "before it changes the plan?"
+      "What could change",
+      "your financial outlook?"
     ],
     "description": "Connect revenue drivers, receivables, payables, payroll, and purchasing commitments to model the financial outlook. Compare scenarios with explicit assumptions, and trace forecast changes back to the operational signals behind them.",
     "decision": "Plan spending, hiring, purchasing, and cash requirements against a range of outcomes, with assumptions and uncertainty visible.",
