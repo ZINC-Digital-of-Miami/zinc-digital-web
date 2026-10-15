@@ -1,4 +1,4 @@
-import { businessIntelligenceLine, businessIntelligenceDescription, businessIntelligenceQuestions } from './business-intelligence';
+import { businessIntelligenceLine, businessIntelligenceDescription, businessIntelligenceQuestions } from './business-intelligence.ts';
 import { authoredArticles } from './article-library.ts';
 import { authors, authorPath } from './authors.ts';
 // site.ts — the redesign's data layer. Replaces the parts of mockup.ts that the
