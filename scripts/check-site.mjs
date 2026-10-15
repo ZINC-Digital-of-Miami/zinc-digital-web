@@ -298,7 +298,14 @@ for (const [from, to] of Object.entries(redirects)) for (const p of [from, from.
 const astroDir = path.join(distDir, '_astro');
 if (await exists(astroDir)) for (const f of (await readdir(astroDir, { recursive: true })).filter((e) => e.endsWith('.css'))) check(!(await readFile(path.join(astroDir, f), 'utf8')).toLowerCase().includes('underline'), '_astro/' + f + ' contains "underline"');
 // Page CSS is inlined (build.inlineStylesheets), so scan the <style> blocks too.
-for (const { rel, html } of pages) for (const m of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) check(!m[1].toLowerCase().includes('underline'), rel + ' has inline CSS containing "underline"');
+// Owner-approved BI design (15 Oct 2026): the emphasized heading and animation
+// controls use underlines. Exempt only those exact rules on that route.
+for (const { rel, html } of pages) for (const m of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) {
+  const css = rel === 'services/business-intelligence/index.html'
+    ? m[1].replace(/(^|[{}])\s*\.bi-platform\s+\.bi-(?:underlined|motion-toggle)\s*\{[^{}]*\}/g, '$1')
+    : m[1];
+  check(!css.toLowerCase().includes('underline'), rel + ' has inline CSS containing "underline"');
+}
 // ---- src scans: banned abbreviation, section sign ----
 const SRC_EXT = new Set(['.astro', '.ts', '.tsx', '.js', '.mjs', '.cjs', '.css', '.md', '.mdx', '.json']);
 const PROVENANCE = /^\s*"(sourceTitle|sourceSlug|sourceUrl)"\s*:/;
