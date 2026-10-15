@@ -33,6 +33,8 @@ Astro.csp?.insertDirective("font-src 'self' data:");
 Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
 if (analytics && Astro.csp) {
+  // Google Ads also loads its view-through conversion endpoint as a script.
+  Astro.csp.insertScriptResource('https://googleads.g.doubleclick.net');
   Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net");
   Astro.csp.insertDirective("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com");
   Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");

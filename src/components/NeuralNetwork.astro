@@ -15,7 +15,7 @@ const signalPath = active[0] + active.slice(1).map(d => d.replace(/^M[\d.]+ [\d.
 ---
 <figure class:list={['bi-neural', `bi-neural-${variant}`]} data-neural>
   <div class="bi-neural-graphic" role="img" aria-label={`Conceptual neural network: ${labels.join(', ')} connect through an intelligence layer to inform the next decision. No live readings.`}>
-    <svg id={id} viewBox="0 0 720 500" aria-hidden="true">
+    <svg id={id} viewBox={variant === 'hero' ? '0 40 690 420' : '0 0 720 500'} aria-hidden="true">
       <g class="bi-neural-links" fill="none">{edges.map(d => <path d={d} />)}</g>
       <g class="bi-neural-route" fill="none">{active.map(d => <path d={d} />)}</g>
       <g class="bi-neural-inputs">{inputs.map(node => <circle cx={node.x} cy={node.y} r="8" />)}</g>
@@ -27,11 +27,10 @@ const signalPath = active[0] + active.slice(1).map(d => d.replace(/^M[\d.]+ [\d.
         <circle class="bi-neural-pulse bi-neural-pulse-secondary" r="4"><animateMotion path={signalPath} dur="4.5s" begin="-2.25s" repeatCount="indefinite" /></circle>
       </g>
     </svg>
-    <span class="bi-neural-heading" aria-hidden="true">{variant === 'hero' ? 'Intelligence layer' : 'Hidden relationships'}</span>
+    {variant === 'detail' && <span class="bi-neural-heading" aria-hidden="true">Hidden relationships</span>}
     {labels.map((label, i) => <span class={`bi-neural-source bi-neural-source-${i}`} aria-hidden="true">{label}</span>)}
     <span class="bi-neural-result" aria-hidden="true">{variant === 'hero' ? <>Next<br />decision</> : <>Point of<br />action</>}</span>
   </div>
-  <button class="bi-motion-toggle" type="button" aria-controls={id} hidden>Pause animation</button>
 </figure>
 <script>
   import { initNeuralAnimations } from '../scripts/neural-animation';

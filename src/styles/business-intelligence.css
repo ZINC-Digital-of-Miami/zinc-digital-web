@@ -1656,7 +1656,6 @@
   margin: 0;
   min-width: 0;
   width: 100%;
-  padding-bottom: 44px;
 }
 .bi-platform .bi-hero-art-grid > .bi-neural { grid-column: 2; }
 .bi-platform .bi-neural-graphic {
@@ -1712,21 +1711,6 @@
   top: 60%;
   text-align: center;
 }
-.bi-platform .bi-motion-toggle {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  min-height: 44px;
-  padding: 10px 0 10px 14px;
-  border: 0;
-  background: transparent;
-  color: #c7d6df;
-  font: 12px/1.4 var(--body);
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  pointer-events: auto;
-}
-.bi-platform .bi-motion-toggle[hidden] { display: none; }
 .bi-platform .bi-neural-detail .bi-neural-links path { stroke: #759397; }
 .bi-platform .bi-neural-detail .bi-neural-route path { stroke: #057575; }
 .bi-platform .bi-neural-detail .bi-neural-inputs { fill: #057575; }
@@ -1734,12 +1718,11 @@
 .bi-platform .bi-neural-detail .bi-neural-source,
 .bi-platform .bi-neural-detail .bi-neural-result { color: #263b42; }
 .bi-platform .bi-neural-detail .bi-neural-heading { color: #057575; }
-.bi-platform .bi-neural-detail .bi-motion-toggle { color: #445c64; }
 .bi-platform .bi-neural-detail .bi-neural-pulse-secondary { fill: #057575; }
 .bi-platform .bi-motion-paused .bi-neural-motion,
 .bi-platform .bi-neural:not([data-motion-ready]) .bi-neural-motion { visibility: hidden; }
 @media (max-width: 800px) {
-  .bi-platform .bi-hero-art-grid > .bi-neural { width: min(620px, 100%); margin: auto; }
+  .bi-platform .bi-hero-art-grid > .bi-neural { width: 100%; margin: auto; }
   .bi-platform .bi-neural-heading,
   .bi-platform .bi-neural-source,
   .bi-platform .bi-neural-result { font-size: 14px; }
@@ -1750,5 +1733,22 @@
   .bi-platform .bi-neural-result { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bi-platform .bi-neural:not(:has(.bi-motion-toggle:not([hidden]))) .bi-neural-motion { display: none; }
+  .bi-platform .bi-neural-motion { display: none; }
+}
+
+/* Give the hero network more room while preserving a clear copy column. */
+.bi-platform .bi-neural-hero .bi-neural-graphic { aspect-ratio: 690 / 420; }
+.bi-platform .bi-neural-hero .bi-neural-source { width: 25%; }
+.bi-platform .bi-neural-hero .bi-neural-source-0 { top: 11.905%; }
+.bi-platform .bi-neural-hero .bi-neural-source-1 { top: 30.952%; }
+.bi-platform .bi-neural-hero .bi-neural-source-2 { top: 50%; }
+.bi-platform .bi-neural-hero .bi-neural-source-3 { top: 69.048%; }
+.bi-platform .bi-neural-hero .bi-neural-source-4 { top: 88.095%; }
+.bi-platform .bi-neural-hero .bi-neural-result { left: 81%; width: 20%; top: 62%; }
+@media (min-width: 1101px) {
+  .bi-platform .bi-hero-grid { grid-template-columns: .8fr 1.2fr; }
+  .bi-platform .bi-hero-art-grid {
+    width: min(1440px, calc(100% - 72px));
+    grid-template-columns: .7fr 1.3fr;
+  }
 }
