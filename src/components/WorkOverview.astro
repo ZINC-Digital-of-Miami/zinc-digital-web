@@ -13,6 +13,7 @@ import '../styles/editorial.css';
       <div class="art zn-device-stage"><CaseHeroMockup study={study} loading="lazy" /></div>
       <div class="meta"><h2>{study.title}</h2><p>{study.scope}</p></div>
       {study.slug === 'porsche-roanoke' && <p class="project-note">Illustrative device presentation</p>}
+      {['us-oil-solutions','carla-funk-photography'].includes(study.slug) && <p class="project-note">Website upgrade · In development</p>}
       {study.application && <p class="project-note">Application · In development</p>}
     </a>
   </article>)}

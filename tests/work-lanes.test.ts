@@ -8,6 +8,7 @@ test('service lanes retain every existing case and let engagements span relevant
     'once-upon-a-book-club', 'us-oil-solutions', 'bear-claw-usa', 'las-vegas-safety',
     'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries',
     'miami-tactical', 'fraim-cawley-company', 'smoky-mountain-survival', 'andrew-neese', 'porsche-roanoke',
+    'carla-funk-photography', 'felon-motorwerk',
   ].sort());
   for (const slug of ['once-upon-a-book-club', 'us-oil-solutions']) {
     for (const lane of laneNames) assert.ok(workLanes[lane].projects.some(p => p.slug === slug));
@@ -38,12 +39,11 @@ test('lane links take readers directly to the relevant part of a case', () => {
   assert.equal(projectLink('las-vegas-safety','Build'), '/work/las-vegas-safety/');
 });
 
-test('US Oil website and operations app stay in separate Build entries', () => {
+test('US Oil keeps website and operations app scope under one client entry', () => {
   const projects = workLanes.Build.projects.filter(p => p.slug === 'us-oil-solutions');
-  assert.equal(projects.length, 2);
+  assert.equal(projects.length, 1);
   const website = projects.find(p => p.category.includes('Websites'))!;
   const app = projects.find(p => p.category.includes('Applications'))!;
-  assert.notEqual(website, app);
+  assert.equal(website, app);
   assert.equal(website.href, '/work/us-oil-solutions/#website');
-  assert.equal(app.href, '/work/us-oil-solutions/#operations-app');
 });

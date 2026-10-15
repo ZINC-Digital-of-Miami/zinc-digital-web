@@ -60,7 +60,7 @@ html[data-theme="dark"] .sph,.mcard .sph,.cta .sph,.zn-page-hero .sph{background
 .work-lane--demand .wl-card-art:has([data-desktop-mockup]){padding:25px;background:#eeece8;border:0;overflow:visible}
 .work-lane--demand .wl-card-art:has(img[src*="us-oil-sharp"]){padding:60px;background:#fff}
 @media(max-width:900px){:root{--portfolio-hero-height:720px}}
-@media(max-width:600px){:root{--portfolio-hero-height:850px}.work-lane .wl-hero-copy{padding:38px 0 330px}.work-lane--demand .wl-opening::after{background:linear-gradient(#090d11 0%,#090d11f0 28%,transparent 57%)}.zn-work-overview .zn-hero-copy{padding-top:38px}}
+@media(max-width:600px){:root{--portfolio-hero-height:760px}.work-lane .wl-hero-copy{padding:38px 0 330px}.work-lane--demand .wl-opening::after{background:linear-gradient(#090d11 0%,#090d11f0 28%,transparent 57%)}.zn-work-overview .zn-hero-copy{padding-top:38px}}
 
 /* Owner: plain white surfaces and flat gray; no grain or material textures. */
 .zs-grain,.grain{display:none!important}
@@ -70,7 +70,7 @@ html:not([data-theme="dark"]){--bg:#fff;--bg2:#f3f4f5}
 
 /* Service evidence shares the section's planes instead of a boxed image surface. */
 #zsRoot .s-service-proof>a{background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;position:relative;z-index:1}
-#zsRoot .s-service-proof .desktop-mockup{width:105%;margin-left:-5%;transform:perspective(1600px) rotateY(-7deg);transform-origin:center}
+#zsRoot .s-service-proof .desktop-mockup{width:105%;margin-left:-5%;transform:none;transform-origin:center}
 #zsRoot .s-service-proof .desktop-mockup img{max-height:none}
 #zsRoot .s-service-proof figcaption{position:relative;z-index:2}
 @media(max-width:700px){#zsRoot .s-service-proof .desktop-mockup{width:96%;margin-left:0;transform:none}}
@@ -78,10 +78,14 @@ html:not([data-theme="dark"]){--bg:#fff;--bg2:#f3f4f5}
 .zn-hero .zn-stage{height:clamp(450px,45vw,680px);isolation:isolate}
 .zn-hero .zn-hero-picture{position:absolute;inset:0;z-index:0;isolation:isolate}
 .zn-hero-picture .build-art img,.zn-hero-picture .demand-art img{margin:0;mask-image:none;mix-blend-mode:normal}
-.zn-hero-picture .build-screen img,.zn-hero-picture .build-tablet img,.zn-hero-picture .demand-art .dm-screen img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
-.zn-hero-picture .build-phone img{width:100%;height:auto;aspect-ratio:9/18}
 .zn-hero-picture .demand-creative img{width:100%;height:auto;aspect-ratio:auto}
 @media(max-width:760px){.zn-hero .zn-stage{height:510px}}
 
 #zsRoot .zn-editorial .light{background:#fff}
 #zsRoot .studio-service-opening .s-service-proof>a{box-shadow:none;background:transparent}
+
+/* Service cards have their own artwork proportions; hero layouts stay full-size. */
+.studio-lane-image{position:relative;isolation:isolate;overflow:visible}
+
+/* Build planes belong to the full hero, outside the reusable hardware. */
+.zn-work-overview,.work-lane--build .wl-opening{background:linear-gradient(117deg,#101519 0 60%,#1b2228 60% 100%)}

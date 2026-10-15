@@ -1,25 +1,13 @@
 ---
-import Img from './Img.astro';
-interface Props { asset: string; title: string; loading?: 'eager' | 'lazy'; mobile?: string; sizes?: string }
+import DeviceFrame from './DeviceFrame.astro';
+interface Props { asset: string; title: string; loading?: 'eager' | 'lazy'; mobile?: string; sizes?: string; ratio?: string }
 const {asset,title,loading='lazy',mobile,sizes='(max-width: 700px) 90vw, 60vw'}=Astro.props;
 ---
-<div class="desktop-mockup" data-desktop-mockup>
-  <div class="dm-monitor">
-    <div class="dm-camera" aria-hidden="true"></div>
-    <div class="dm-screen"><Img k={asset} alt={title} loading={loading} fetchpriority={loading==='eager'?'high':undefined} sizes={sizes} widths={[640,960,1440,1920]} /></div>
-    <div class="dm-chin" aria-hidden="true"></div>
-  </div>
-  <div class="dm-stand" aria-hidden="true"></div><div class="dm-foot" aria-hidden="true"></div>
-  {mobile && <div class="dm-phone"><Img k={mobile} alt={title+' — mobile view'} loading={loading} sizes="(max-width: 700px) 24vw, 180px" widths={[280,480]} /></div>}
+<div class="desktop-mockup" data-desktop-mockup style="--mockup-fit:1.279">
+  <DeviceFrame device="monitor" fit={asset.startsWith('ouabc-bi-') ? 'contain' : 'cover'} asset={asset} title={title} loading={loading} sizes={sizes} />
+  {mobile && <div class="dm-phone"><DeviceFrame device="phone" asset={mobile} title={title+' — mobile view'} loading={loading} sizes="(max-width:700px) 24vw, 180px" /></div>}
 </div>
 <style>
-.desktop-mockup{position:relative;width:100%;padding-bottom:12%;filter:drop-shadow(0 24px 22px #0005);isolation:isolate}
-.dm-monitor{position:relative;padding:2.2% 1.5% 0;border:1px solid #8d9093;border-radius:13px 13px 7px 7px;background:linear-gradient(125deg,#292c30,#090a0b 35%,#1a1c1e);box-shadow:inset 0 1px 2px #fff7,3px 4px 0 #101214;overflow:hidden}
-.dm-camera{position:absolute;top:1.1%;left:50%;width:3px;height:3px;border-radius:50%;background:#6d7075}
-.dm-screen{aspect-ratio:16/10;overflow:hidden;background:#101214}.dm-screen :global(picture){display:block;width:100%;height:100%}.dm-screen :global(img){display:block;width:100%;height:100%;object-fit:cover;object-position:top;transform:none;filter:none}
-.dm-chin{height:28px;margin:1.4% -1.6% 0;background:linear-gradient(100deg,#767b80,#ced1d4 42%,#8b9095);border-top:1px solid #d3d4d5}
-.dm-stand{position:absolute;left:42%;bottom:2%;width:16%;height:13%;z-index:-1;clip-path:polygon(15% 0,85% 0,100% 100%,0 100%);background:linear-gradient(#3f4449,#92989c 65%,#d1d3d5)}
-.dm-foot{position:absolute;left:33%;bottom:1%;width:34%;height:6px;padding:0;border-radius:50% 50% 3px 3px;background:linear-gradient(#e0e3e5,#666c71);box-shadow:0 4px 3px #0006}
-.dm-phone{position:absolute;width:22%;right:-4%;bottom:0;padding:2.1% .7% 1.2%;border:1px solid #9ba0a5;border-radius:20px;background:#111316;box-shadow:-10px 12px 28px #0008;overflow:hidden}.dm-phone:before{content:'';position:absolute;top:1.6%;left:35%;width:30%;height:3px;background:#444;border-radius:4px}.dm-phone :global(img){display:block;width:100%;aspect-ratio:9/19;height:auto;object-fit:cover;object-position:top;border-radius:9px}.dm-phone :global(picture){display:block}
-@media(max-width:600px){.dm-monitor{border-radius:8px}.dm-chin{height:16px}.dm-phone{border-radius:11px}.dm-phone :global(img){border-radius:5px}}
+.desktop-mockup{position:relative;width:100%;isolation:isolate;filter:drop-shadow(0 24px 22px #0005)}
+.dm-phone{position:absolute;width:21%;right:-3%;bottom:0;z-index:2;filter:drop-shadow(-8px 10px 10px #0005)}
 </style>

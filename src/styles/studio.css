@@ -41,7 +41,7 @@
 #zsRoot .studio-lane-card .p-links a{font-size:12px}
 #zsRoot .studio-lane-image{display:block;margin:24px -25px 28px}
 #zsRoot .studio-lane-image .case-scene{margin:0}
-#zsRoot .studio-lane-image img{aspect-ratio:1.5;object-fit:cover}
+#zsRoot .studio-lane-image>.case-scene img{aspect-ratio:1.5;object-fit:cover}
 #zsRoot .studio-service-opening{position:relative;isolation:isolate;padding:90px 0}
 #zsRoot .studio-service-opening::before{content:"";position:absolute;inset:10% 0 -80px;background:var(--bg2);clip-path:polygon(0 38%,100% 0,100% 70%,0 100%);z-index:-1;pointer-events:none}
 #zsRoot .studio-service-opening .s-open-in{grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:55px;align-items:center}
@@ -76,7 +76,7 @@
   #zsRoot .studio-lanes .p-layers{gap:24px}
   #zsRoot .studio-lanes .studio-lane-card{padding:24px!important;border:1px solid var(--line)!important}
   #zsRoot .studio-lane-image{margin-left:-24px;margin-right:-24px}
-  #zsRoot .studio-lane-image img{aspect-ratio:1.8}
+  #zsRoot .studio-lane-image>.case-scene img{aspect-ratio:1.8}
   #zsRoot .studio-lane-card .p-layer-h{font-size:clamp(38px,8vw,60px)}
   #zsRoot .studio-lanes::before{inset:15% 0 -25px}
   #zsRoot .studio-service-opening{padding:55px 0}

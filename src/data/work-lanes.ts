@@ -12,6 +12,8 @@ export const workLanes: Record<WorkLane, {
     path: '/work/build/', line: 'Websites, commerce and applications.', next: 'Demand',
     filters: ['All builds', 'Websites', 'Ecommerce', 'Applications'],
     projects: [
+      { slug: 'carla-funk-photography', label: 'Website + one-year upgrade', summary: 'The original photography website and a one-year upgrade with a private admin image uploader.', category: ['Websites'], asset: 'carla-home-desktop', status: 'Upgrade in development' },
+      { slug: 'felon-motorwerk', label: 'Website + identity', summary: 'Website and identity work for Felon Motorwerk.', category: ['Websites'], asset: 'felon-web-mockup' },
       { slug: 'once-upon-a-book-club', label: 'Shopify website + BI application', summary: 'A rebuilt Shopify storefront for subscriptions, releases and gifts, with a separate business intelligence application in development.', category: ['Ecommerce','Applications'], asset: 'ouabc-site', status: 'BI application in development', href: '/work/once-upon-a-book-club/' },
       { slug: 'us-oil-solutions', label: 'Websites + operations app', summary: 'Public websites and a separate technician and supervisor app for assignments, fryer-service records, scheduling and reporting.', category: ['Websites','Applications'], scene: 'build-uos', dark: true, status: 'Second website in development', href: '/work/us-oil-solutions/#website' },
       { slug: 'fraim-cawley-company', label: 'Website', summary: 'Website design for Fraim, Cawley & Company.', category: ['Websites'], asset: 'fraim-cawley-company-presentation' },
@@ -32,7 +34,7 @@ export const workLanes: Record<WorkLane, {
     filters: ['All demand', 'SEO', 'Local search', 'Paid media', 'Content'],
     projects: [
       { slug: 'once-upon-a-book-club', label: 'SEO + Shopping + Meta + TikTok', summary: 'Search-led content and paid campaigns for subscriptions, pre-orders and gifts.', category: ['SEO', 'Paid media', 'Content'], scene: 'demand-ouabc', dark: true },
-      { slug: 'summit-marine-development', label: 'Local SEO + Google + LSA + Meta', summary: 'Search and advertising for seawalls, docks and waterfront construction.', category: ['Local search', 'SEO', 'Paid media', 'Content'], scene: 'demand-summit', flow: ['Local search', 'Service page', 'Inquiry'] },
+      { slug: 'summit-marine-development', label: 'Local SEO + Google + LSA + Meta', summary: 'Search and advertising for seawalls, docks and waterfront construction.', category: ['Local search', 'SEO', 'Paid media', 'Content'], scene: 'demand-summit', asset: 'smd-dock-ad-previews', flow: ['Local search', 'Service page', 'Inquiry'] },
       { slug: 'us-oil-solutions', label: 'Local SEO', summary: 'Local SEO within a broader relationship spanning websites and a separate operations app.', category: ['SEO', 'Local search'], asset: 'logo-us-oil', href: '/work/us-oil-solutions/#work-demand' },
       { slug: 'general-shale', label: 'National enterprise SEO', summary: 'A past national enterprise SEO engagement for General Shale.', category: ['SEO'], asset: 'seo-general-shale-current', status: 'Current website shown for context', href: '/work/general-shale/' },
       { slug: 'ballad-health', label: 'Enterprise SEO / 2018 merger', summary: 'SEO technician for the healthcare merger, spanning thousands of pages.', category: ['SEO'], asset: 'seo-ballad-health-current', status: 'Current website shown for context', href: '/work/ballad-health/' },
@@ -44,9 +46,9 @@ export const workLanes: Record<WorkLane, {
     path: '/work/intelligence/', line: 'See the business. Make the next decision.', next: 'Build',
     filters: ['All intelligence', 'Reporting', 'Forecasting', 'Operational intelligence'],
     projects: [
-      { slug: 'once-upon-a-book-club', title: 'OUABC BI Fusion', label: 'Business intelligence system', summary: 'A dedicated application for commerce, search visibility, advertising, customer journeys and seasonal outlooks. The system brings business records into one workspace for decisions.', category: ['Reporting'], scene: 'intelligence-ouabc', status: 'BI app · In development', flow: ['Sources', 'Context', 'Decisions'] },
+      { slug: 'once-upon-a-book-club', title: 'Once Upon a Book Club', label: 'OUABC BI Fusion · Business intelligence system', summary: 'A dedicated application for commerce, search visibility, advertising, customer journeys and seasonal outlooks. The system brings business records into one workspace for decisions.', category: ['Reporting'], scene: 'intelligence-ouabc', asset: 'ouabc-bi-demand-current', status: 'BI app · In development', flow: ['Sources', 'Context', 'Decisions'] },
       { slug: 'zinc-fusion-v16', label: 'Commodity forecasting for Chris Stacy', summary: 'Market dashboards, procurement scenarios, policy and sentiment in a dedicated forecasting platform.', category: ['Forecasting'], scene: 'intelligence-fusion', dark: true, status: 'In development', flow: ['Market evidence', 'Scenarios', 'Procurement'] },
-      { slug: 'us-oil-solutions', label: 'Operational reporting', summary: 'Service records and reporting inside the operations app: technician visits, check-ins and fryer-service histories.', category: ['Operational intelligence', 'Reporting'], scene: 'intelligence-uos', flow: ['Visits', 'Service records', 'Reporting'] },
+      { slug: 'us-oil-solutions', label: 'Operational reporting', summary: 'Service records and reporting inside the operations app: technician visits, check-ins and fryer-service histories.', category: ['Operational intelligence', 'Reporting'], scene: 'intelligence-uos', asset: 'uos-current-technicians-desktop', flow: ['Visits', 'Service records', 'Reporting'] },
     ],
   },
 };
@@ -54,5 +56,5 @@ export const workLanes: Record<WorkLane, {
 export const laneNames = Object.keys(workLanes) as WorkLane[];
 export function projectLink(slug: string, lane: WorkLane) {
   if (slug === 'once-upon-a-book-club' && lane !== 'Build') return '/work/' + slug + '/#' + (lane === 'Demand' ? 'campaigns' : 'reporting');
-  return '/work/' + slug + '/' + (lane === 'Build' ? '' : '#work-' + lane.toLowerCase());
+  return '/work/' + slug + '/' + (lane === 'Build' ? '' : slug === 'zinc-fusion-v16' ? '#case-content' : '#work-' + lane.toLowerCase());
 }

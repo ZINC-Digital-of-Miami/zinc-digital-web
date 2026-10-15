@@ -195,7 +195,8 @@ if (home) {
   check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
   check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 2, 'homepage must have two matching case sliders');
   check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
-  for (const scene of ['intelligence-ouabc','intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
+  check(home.html.includes('ouabc-bi-demand-current.'), 'homepage lacks the actual OUABC BI application capture');
+  for (const scene of ['intelligence-uos','build-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
   check(home.html.includes('ouabc-site.'), 'homepage must feature the rebuilt OUABC storefront');
   check(home.html.includes('campaign-white.'), 'homepage lacks white campaign device stage');
   check(/class="band home-team" hidden/.test(home.html), 'saved staff must be hidden on home');

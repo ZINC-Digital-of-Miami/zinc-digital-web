@@ -1,0 +1,16 @@
+---
+import DesktopMockup from './DesktopMockup.astro';
+import DeviceFrame from './DeviceFrame.astro';
+---
+<div class="intelligence-art" aria-label="Once Upon a Book Club business intelligence application in development">
+  <div class="intelligence-plane" aria-hidden="true"></div>
+  <div class="intelligence-monitor"><DesktopMockup asset="ouabc-bi-demand-current" title="OUABC BI Fusion demand calendar — application in development, private figures removed" loading="eager" /></div>
+  <div class="intelligence-tablet"><DeviceFrame device="tablet-landscape" fit="contain" asset="ouabc-bi-season-current" title="OUABC BI Fusion seasonal outlook — application in development" loading="eager" sizes="(max-width:600px) 55vw, 30vw" /></div>
+</div>
+<style>
+.intelligence-art{position:absolute;inset:0;isolation:isolate;overflow:hidden;background:#0e151b}
+.intelligence-plane{position:absolute;inset:0;clip-path:polygon(68% 0,100% 0,100% 100%,35% 100%);background:#1c2831}
+.intelligence-monitor{position:absolute;left:44%;right:4%;top:17%}
+.intelligence-tablet{position:absolute;width:29%;right:3%;bottom:13%;filter:drop-shadow(-15px 18px 18px #0007)}
+@media(max-width:600px){.intelligence-plane{clip-path:polygon(100% 30%,100% 100%,0 100%)}.intelligence-monitor{left:6%;right:9%;top:auto;bottom:15%}.intelligence-tablet{width:53%;right:4%;bottom:8%}}
+</style>

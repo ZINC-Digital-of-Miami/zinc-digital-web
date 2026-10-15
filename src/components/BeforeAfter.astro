@@ -2,18 +2,19 @@
 import Img from './Img.astro';
 import { asset } from '../data/site';
 interface Props {
+  maxWidth?: number;
   before: string; after: string; beforeAlt?: string; afterAlt?: string;
   beforeLabel?: string; afterLabel?: string; beforeName?: string; afterName?: string;
   fit?: 'cover' | 'contain'; aspectRatio?: string;
   /** Display the desktop region of a source design board without changing the original. */
   afterCrop?: { left: number; top: number; width: number };
 }
-const { before, after, beforeAlt='Earlier website design', afterAlt='Updated website design', beforeLabel='Before', afterLabel='After', beforeName='Before', afterName='After', fit='cover', aspectRatio='1610 / 905', afterCrop } = Astro.props;
+const { maxWidth, before, after, beforeAlt='Earlier website design', afterAlt='Updated website design', beforeLabel='Before', afterLabel='After', beforeName='Before', afterName='After', fit='cover', aspectRatio='1610 / 905', afterCrop } = Astro.props;
 const afterAsset = asset(after);
 const cropStyle = afterCrop ? `--crop-scale:${afterAsset.width / afterCrop.width * 100}%;--crop-x:${-afterCrop.left / afterAsset.width * 100}%;--crop-y:${-afterCrop.top / afterAsset.height * 100}%` : undefined;
 const helpId = 'comparison-help-' + before + '-' + after;
 ---
-<div class="compare" data-compare data-before-name={beforeName} data-after-name={afterName}>
+<div style={maxWidth ? `max-width:${maxWidth}px;margin-inline:auto` : undefined} class="compare" data-compare data-before-name={beforeName} data-after-name={afterName}>
   <div class="compare-stage" style={`--split:50%;--compare-fit:${fit};--compare-position:${fit === 'contain' ? 'center' : 'top'};aspect-ratio:${aspectRatio}`}>
     <div class:list={["compare-image",{crop:afterCrop}]} style={cropStyle}><slot name="after"><Img k={after} alt={afterAlt} sizes="(max-width: 900px) 92vw, 1200px" /></slot></div>
     <div class="compare-before"><div class="compare-image"><slot name="before"><Img k={before} alt={beforeAlt} sizes="(max-width: 900px) 92vw, 1200px" /></slot></div></div>

@@ -1,10 +1,7 @@
 ---
-import CaseHeroMockup from './CaseHeroMockup.astro';
 import CaseStudyHero from './CaseStudyHero.astro';
 import Img from './Img.astro';
 import CaseScene from './CaseScene.astro';
-import CaseScreens from './CaseScreens.astro';
-import { caseScreens } from '../data/case-screens';
 import BeforeAfter from './BeforeAfter.astro';
 import CasePresentations from './CasePresentations.astro';
 import { caseBy } from '../data/site';
@@ -20,13 +17,11 @@ const moreScreens=[['ouabc-bi-season-current','Season outlook'],['ouabc-bi-bookm
   <CaseStudyHero study={study} description="We rebuilt Once Upon a Book Club’s Shopify website. We manage its SEO, blogs, Google Shopping, Meta and TikTok ads. We’re also building OUABC BI Fusion, a dedicated application and business intelligence system." href="#website" action="Explore the website rebuild" caption="Shopify website · Campaigns · BI in development" />
 
   <nav class="ou-jump wrap" aria-label="Case study sections"><a href="#website">Website rebuild</a><a href="#campaigns">Paid campaigns</a><a href="#search-content">SEO &amp; content</a><a href="#reporting">OUABC BI Fusion · In progress</a></nav>
-  <section class="ou-section wrap" id="website" aria-labelledby="ouWebsiteTitle">
+  <section class="ou-section wrap" id="website" data-case-pages="once-upon-a-book-club" aria-labelledby="ouWebsiteTitle">
     <div class="ou-section-head rv"><div><span class="kick">Build / Shopify</span><h2 class="disp" id="ouWebsiteTitle">A new home for<br/>the reading experience.</h2></div><p>Once Upon a Book Club pairs books with wrapped gifts, opened at specific pages in the story. The website has to explain that experience while helping readers find subscriptions, one-time boxes and bookish gifts.</p></div>
-    <CaseHeroMockup study={caseBy("once-upon-a-book-club")} loading="lazy" />
     <BeforeAfter before="ouabc-website-after" after="ouabc-site" beforeLabel="Before · Archived site" afterLabel="Rebuilt storefront" beforeAlt="Earlier Once Upon a Book Club homepage with the flower-vase boutique presentation" afterAlt="Once Upon a Book Club rebuilt Shopify storefront">Earlier site: <a href="https://web.archive.org/web/20250609025814/https://www.onceuponabookclub.com/" target="_blank" rel="noopener noreferrer">June 9, 2025 archive ↗</a>. Compared with the supplied rebuilt storefront capture.</BeforeAfter>
     <div class="ou-notes rv-stag"><div><h3>Storefront rebuilt.</h3><p>A revised header and navigation connect book boxes, shopping and the wider catalog.</p></div><div><h3>Built for changing releases.</h3><p>Subscriptions, limited editions and pre-orders share the store with the growing boutique collection.</p></div><div><h3>Work continues after launch.</h3><p>We maintain product and collection content, search metadata and publication checks as the catalog changes.</p></div></div>
   </section>
-  <CaseScreens presentation={caseScreens[study.slug]} />
   <section class="ou-campaigns" id="campaigns" aria-label="Paid campaigns"><div class="wrap"><CaseScene name="demand-ouabc" alt="Once Upon a Book Club campaign creative on tablet and mobile devices" /></div><CasePresentations slug={study.slug} /></section>
   <section class="ou-section wrap ou-search" id="search-content" aria-labelledby="ouSearchTitle">
     <div class="rv"><span class="kick">Demand / Ongoing management</span><h2 class="disp" id="ouSearchTitle">Make each release<br/>easier to find.</h2><p class="ou-body">The work connects what readers search for with the boxes available to buy—and the articles, product pages and campaigns that introduce them.</p><dl class="ou-service-list"><div><dt>SEO &amp; blogs</dt><dd>Search research, article briefs, writing, client review and publication. Product and collection titles and descriptions are kept current.</dd></div><div><dt>Google Shopping</dt><dd>Product groups, performance and availability reviewed together, with sold-out stock distinguished from feed and publication problems.</dd></div><div><dt>Technical upkeep</dt><dd>Crawl traps from tracking paths, recommendation parameters and repeated locale URLs repaired.</dd></div></dl></div>
