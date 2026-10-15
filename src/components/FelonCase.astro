@@ -1,4 +1,6 @@
 ---
+import { caseBy } from '../data/site';
+import CaseStudyHero from './CaseStudyHero.astro';
 import type {ImageMetadata} from 'astro';
 import PageRail from './PageRail.astro';
 import ApprovedImage from './ApprovedImage.astro';
@@ -11,7 +13,7 @@ const brandItems=(group:string)=>brand.filter(x=>x.group===group).map(x=>({image
 const sections=[{id:'brand-creative',title:'Brand & campaign creative',line:'The Felon identity in campaign artwork.'},{id:'merchandise',title:'Merchandise',line:'The Felon emblems on mugs, a wall clock and stickers.'},{id:'shop-signage',title:'Shop & signage',line:'Brand details, signage and views of the retail space.'},{id:'around-the-shop',title:'Around the shop',line:'The owners, staff, motorcycles and everyday life at Felon.'}];
 ---
 <article class="felon-case">
-  <header class="zn-page-hero felon-hero"><div class="wrap felon-hero-grid"><div><p class="kick">ZINC / Selected work</p><h1 class="disp">Felon<br/>Motorwerk<span>.</span></h1><p class="felon-lede">Web design, apparel<br/>and brand applications.</p><a class="arrow" href="#apparel">Explore the apparel ↓</a></div><div class="felon-hero-art"><ApprovedImage name="felon.png" alt="Felon Motorwerk motorcycle brand creative" loading="eager" sizes="(max-width: 800px) 92vw, 52vw" /></div></div></header>
+  <CaseStudyHero study={caseBy("felon-motorwerk")} description="Web design, apparel and brand applications." href="#apparel" action="Explore the apparel" />
   <PageRail path="/work/felon-motorwerk/" title="Felon Motorwerk" />
   <nav class="felon-jumps wrap" aria-label="Felon case study sections"><a href="#website">Website</a><a href="#apparel">Apparel</a>{sections.map(s=><a href={'#'+s.id}>{s.title}</a>)}<a href="#outdoor-marketing">Outdoor marketing</a></nav>
   <section id="website" class="felon-section" data-case-pages="felon-motorwerk"><div class="wrap felon-website"><div><p class="kick">Digital / Website</p><h2 class="disp">On screen.</h2><p>The Felon Motorwerk website creative, presented across devices.</p></div><figure data-case-mockup="felon-motorwerk"><ApprovedImage name="felon-white-devices.png" alt="Felon Motorwerk website creative on desktop, laptop and phone" sizes="(max-width: 800px) 90vw, 55vw" /></figure></div><div class="wrap felon-website-gallery"><FelonGallery items={brandItems('website')} wide /></div></section>

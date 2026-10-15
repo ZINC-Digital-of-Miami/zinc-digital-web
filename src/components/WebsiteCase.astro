@@ -1,4 +1,6 @@
 ---
+import { caseBy } from '../data/site';
+import CaseStudyHero from './CaseStudyHero.astro';
 import PageRail from './PageRail.astro';
 import ApprovedImage from './ApprovedImage.astro';
 import {websiteCases, type WebsiteCaseSlug} from '../data/website-cases';
@@ -8,7 +10,7 @@ const entry=websiteCases[slug];
 const porsche=slug==='porsche-roanoke';
 ---
 <article class="website-case" style={'--case-accent:'+entry.accent}>
-  <header class="zn-page-hero website-hero"><div class="wrap hero-layout"><div><p class="kick">ZINC / {entry.eyebrow}</p><h1 class="disp">{entry.short.split('\n').map(line=><span>{line}</span>)}</h1><a class="arrow" href="#website">Explore the website work ↓</a></div><div class="hero-note"><p class="kick">Selected website work</p><p class="hero-line">{entry.headline.split('\n').map(line=><span>{line}</span>)}</p><p>{entry.industry}<span class="slash">/</span>{porsche?'Dealer + official merchandise websites':'Website design'}</p></div></div></header>
+  <CaseStudyHero study={caseBy(slug)} title={entry.name} description={entry.headline.replaceAll("\n", " ")} eyebrow={entry.eyebrow} href="#website" action="Explore the website work" caption={porsche ? "Illustrative device presentation" : "Website design · Across devices"} />
   <PageRail path={'/work/'+slug+'/'} title={entry.name}/>
   <section id="overview" class="overview wrap"><p class="kick">01 / The project</p><div class="overview-grid"><h2 class="disp">{entry.headline.split('\n').map(line=><span>{line}</span>)}</h2><div><p class="intro">{entry.intro}</p><p>{entry.description}</p><dl><div><dt>Client</dt><dd>{entry.name}</dd></div><div><dt>Scope</dt><dd>{porsche?'Dealer website · Official merchandise website':'Website'}</dd></div></dl></div></div></section>
   <section id="website" class="presentation" data-case-pages={slug}><div class="wrap"><div class="section-top"><p class="kick">02 / {porsche?'Portfolio presentation':'On screen'}</p><span>Desktop / Tablet / Mobile</span></div><figure data-case-mockup={slug}><ApprovedImage name={entry.image} alt={porsche?'Illustrative Porsche device presentation; not a capture of the Roanoke dealership websites':entry.name+' website presented across desktop and mobile devices'} sizes="90vw"/><figcaption>{porsche?'Illustrative device presentation. The Roanoke dealer and merchandise websites are the project scope described here.':entry.name+' / Website presentation'}</figcaption></figure></div></section>

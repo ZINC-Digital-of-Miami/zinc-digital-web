@@ -9,7 +9,7 @@ import ApprovedImage from "./ApprovedImage.astro";
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
 import WorkLane from './WorkLane.astro';
-import CaseHeroMockup from './CaseHeroMockup.astro';
+import CaseStudyHero from './CaseStudyHero.astro';
 import BearClawScreens from './BearClawScreens.astro';
 import CaseScreens from './CaseScreens.astro';
 import { caseScreens } from '../data/case-screens';
@@ -245,9 +245,9 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {study?.slug === 'las-vegas-safety' && <LasVegasSafetyCase />}
 {study && study.slug in websiteCases && <WebsiteCase slug={study.slug as WebsiteCaseSlug} />}
 {study && !(study.slug in websiteCases) && !['carla-funk-photography','ballad-health','meade-tractor','general-shale','once-upon-a-book-club','felon-motorwerk','miami-tactical','las-vegas-safety'].includes(study.slug) && (<>
-  <section class="c-open c-open-app zn-page-hero" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
+  <CaseStudyHero study={study} eyebrow={study.nonprofit ? "Community / Pro bono" : "Selected client work"} caption={study.application ? "Application · In development" : undefined} />
   <PageRail path={route.path} title={route.title} />
-  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
+  <section class="p-band" id="case-content"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
     <div class="c-site-links">{study.url && <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">{study.nonprofit ? 'Visit the ministry website ↗' : 'Visit the public client site ↗'}</a>}{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>
   <div class="wrap">{laneNames.flatMap(lane => workLanes[lane].projects.filter(project => project.slug === study.slug && study.slug !== 'us-oil-solutions' && project.scene).map(project => <CaseScene name={project.scene!} alt={study.title + " / " + project.label + ". " + (project.status || "") + (lane === "Intelligence" ? "; private figures removed" : "")} caption={lane + " / " + project.label + (project.status ? " · " + project.status : "")} />))}</div>

@@ -246,7 +246,7 @@ for (const s of CASE_SLUGS) {
     check(p.html.includes('20241001200820') && p.html.includes('20250609025814'), 'OUABC comparison lacks dated archive sources');
     check(p.html.includes('BI app in development') && p.html.includes('private client figures removed'), 'OUABC lacks BI status or privacy context');
   } else {
-    check(p.html.includes('id="cOpen"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
+    check(p.html.includes('data-case-hero="' + s + '"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
     const nonprofit = ['the-lampstand-va', 'straight-street-ministries'].includes(s);
     check(nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
   }

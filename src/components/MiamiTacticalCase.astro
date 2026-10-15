@@ -1,4 +1,5 @@
 ---
+import CaseStudyHero from './CaseStudyHero.astro';
 import PageRail from './PageRail.astro';
 import Img from './Img.astro';
 import CaseHeroMockup from './CaseHeroMockup.astro';
@@ -6,12 +7,7 @@ import {caseBy} from '../data/site';
 const study=caseBy('miami-tactical');
 ---
 <article class="miami-case">
-  <header class="zn-page-hero miami-hero">
-    <div class="wrap hero-grid">
-      <div><p class="kick">ZINC / Website + logo design</p><h1 class="disp">Miami<br/>Tactical<span>.</span></h1><p class="lede">A distinct mark.<br/>A direct digital presence.</p><a href="#overview" class="arrow">Explore the project ↓</a></div>
-      <div class="identity-stage"><span class="stage-label">Identity / Miami Tactical</span><Img k="miami-tactical-logo" alt="Miami Tactical logo: a circular crosshair beside the wordmark" loading="eager" sizes="(max-width: 800px) 90vw, 50vw" /><span class="stage-foot">Black. White. A clear point of focus.</span></div>
-    </div>
-  </header>
+  <CaseStudyHero study={study} title="Miami Tactical" description="A distinct mark. A direct digital presence." eyebrow="Website + logo design" href="#overview" action="Explore the project" />
   <PageRail path="/work/miami-tactical/" title="Miami Tactical" />
   <nav class="case-jumps wrap" aria-label="Miami Tactical case study sections"><a href="#overview">Overview</a><a href="#website">Website</a><a href="#logo">Logo design</a><a href="#design-details">Design details</a></nav>
   <section id="overview" class="case-section"><div class="wrap overview-grid"><div><p class="kick">01 / The project</p><h2 class="disp">A focused<br/>foundation.</h2></div><div><p class="intro">ZINC designed the Miami Tactical logo and website, giving the name a simple visual identity and a place on screen.</p><p>The work pairs a geometric mark with straightforward typography. On the website, a black-and-white foundation gives the photography room to lead, while search and category navigation sit clearly above it.</p><dl class="scope"><div><dt>Client</dt><dd>Miami Tactical</dd></div><div><dt>Work</dt><dd>Website · Logo design</dd></div></dl></div></div></section>
