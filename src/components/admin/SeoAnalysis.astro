@@ -1,4 +1,5 @@
 ---
+import {SEO_GUIDANCE} from '../../lib/seo-agent';
 interface Props { auto?: boolean }
 const { auto=false } = Astro.props;
 ---
@@ -7,4 +8,16 @@ const { auto=false } = Astro.props;
   <p class="a-muted" data-seo-status role="status" aria-live="polite">Analyze the draft metadata, pillar links, images and live page structure.</p>
   <div data-seo-results hidden><div class="a-seo-score"><strong data-seo-score></strong><div><span class="a-label" data-seo-grade></span><p class="a-muted" data-seo-summary></p></div></div><p class="a-count" data-seo-source></p><ul class="a-seo-checks" data-seo-checks></ul></div>
   <p class="a-error" data-seo-error role="alert" hidden></p><p class="a-count">An optimization score, not a ranking prediction. Each check shows its weight; unavailable measurements earn no points.</p>
+  <section class="a-seo-assistant" aria-label="SEO specialist">
+    <div class="a-seo-report-head"><div><span class="a-label a-muted">Codex subscription / SEO specialist</span><h2 class="a-heading">Make the next draft.</h2></div><button class="a-button primary" type="button" data-fix-seo>Fix for me</button></div>
+    <p class="a-muted">GPT-6.1 Sol · Medium. Reviews this page, search evidence and ZINC’s Miami and Panama City details. Validated edits save to the draft; Publish stays with you.</p>
+    <p class="a-count">Connect your subscription in <a href="/admin/backend/">Backend</a>. Your Mac must be awake and its Codex runner connected.</p>
+    <label class="a-field"><span>Revision instructions or comments</span><textarea class="a-input" data-seo-instructions rows="3" maxlength="2000" placeholder="Tell the specialist what to change or preserve."></textarea></label>
+    <div class="a-actions"><button class="a-button" type="button" data-regenerate-seo>Regenerate</button><button class="a-button" type="button" data-restore-seo hidden>Restore previous draft</button><button class="a-button" type="button" data-dismiss-seo hidden>Done reviewing</button></div>
+    <p class="a-muted" data-seo-fix-status role="status" aria-live="polite">Ready to request a draft.</p><p class="a-error" data-seo-fix-error role="alert" hidden></p>
+    <div data-seo-proposal hidden><h3 class="a-label">Before / proposed draft</h3><div class="a-seo-comparison" data-seo-comparison></div><h3 class="a-label">Remaining corrections and verification</h3><p class="a-count">These recommendations require a content or repository change; they have not been published or automatically applied.</p><ul class="a-seo-recommendations" data-seo-recommendations></ul></div>
+    <div class="a-seo-pixel-previews" data-seo-pixels aria-label="Measured search previews"></div>
+    <p class="a-count">Measured in browser pixels using Arial 20px titles and Arial 14px descriptions. Desktop: 580px title, 600px description over 2 lines. Mobile: 340px title and description over 3 description lines. Approximate display profiles; Google can rewrite or truncate results.</p>
+    <details><summary class="a-count">Specialist guidance</summary><p class="a-muted">Version 2026-10-16.1. Uses page facts and official guidance; this is a configured specialist, not model fine-tuning.</p><ul>{SEO_GUIDANCE.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">Google Search Central: {source.label}</a></li>)}</ul></details>
+  </section>
 </section>

@@ -2,6 +2,7 @@ import type { ContentItem } from './admin-data.ts';
 import { analyzeSeo } from './seo-analysis.ts';
 import { renderMarkdown } from './markdown.ts';
 import { parseFragment, type DefaultTreeAdapterMap } from 'parse5';
+import { pageEvidence } from './seo-agent.ts';
 
 // This boundary always reads the public ZINC host, never a request origin or editor-supplied URL.
 const SITE = 'https://www.zincdigital.co';
@@ -56,7 +57,7 @@ export function seoTarget(path: string) {
   if (!/^\/(?:[a-z0-9-]+\/)*$/.test(path) || /^\/(admin|api)\//.test(path)) throw new Error('Choose a public page from the SEO editor.');
   return new URL(path, SITE).href;
 }
-export async function analyzeContent(item: ContentItem, patch: Partial<ContentItem> = {}, request: typeof fetch = fetch) {
+export async function analyzeContent(item: ContentItem, patch: Partial<ContentItem> = {}, request: typeof fetch = fetch, includeEvidence = false) {
   const url = seoTarget(item.path);
   const effective = { ...item, ...patch };
   const read = (target: string) => request(target, { redirect:'manual', cache:'no-store', signal:AbortSignal.timeout(10000) });
@@ -98,5 +99,5 @@ export async function analyzeContent(item: ContentItem, patch: Partial<ContentIt
     httpStatus:isNewDraft?undefined:response.status, sitemapIncluded,
     overrides:{title:(effective.meta_title || effective.title)+' | ZINC',description:effective.meta_description || '',noindex:intendedNoindex,...(draftBody?{bodyHtml:renderMarkdown(effective.body || '')}:{})},
   });
-  return { analysis, path:item.path, source:isNewDraft?'Draft content · live checks unavailable':draftBody?'Draft metadata and body + live page structure':'Draft metadata + live page structure', checkedAt:new Date().toISOString() };
+  return { analysis, path:item.path, source:isNewDraft?'Draft content · live checks unavailable':draftBody?'Draft metadata and body + live page structure':'Draft metadata + live page structure', checkedAt:new Date().toISOString(), ...(includeEvidence?{evidence:pageEvidence(html)}:{}) };
 }

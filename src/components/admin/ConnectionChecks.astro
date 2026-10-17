@@ -1,0 +1,20 @@
+<section class="a-panel a-section" data-connection-checks>
+ <h2 class="a-heading">Connection checks</h2>
+ <p class="a-muted">Verify access to the services used by this admin.</p>
+ <button class="a-button" type="button" data-check-connections>Check connections</button>
+ <p class="a-count" data-connections-time role="status"></p>
+ <ul class="a-list" data-connections-results></ul>
+ <p class="a-error" data-connections-error role="alert" hidden></p>
+</section>
+<script>
+ document.addEventListener('click',async event=>{
+  const button=(event.target as Element).closest<HTMLButtonElement>('[data-check-connections]');if(!button)return;
+  const card=button.closest('[data-connection-checks]')!,error=card.querySelector<HTMLElement>('[data-connections-error]')!;
+  error.hidden=true;button.disabled=true;card.querySelector('[data-connections-time]')!.textContent='Checking connections…';
+  try{const response=await fetch('/api/admin/connections/'),data=await response.json();if(!response.ok)throw new Error(data.error||'Connections could not be checked.');
+   const list=card.querySelector('[data-connections-results]')!;list.replaceChildren();for(const check of data.checks){const row=document.createElement('li'),title=document.createElement('strong'),detail=document.createElement('p');title.textContent=check.name+' · '+check.status;detail.className='a-muted';detail.textContent=check.detail;row.append(title,detail);list.append(row);}
+   card.querySelector('[data-connections-time]')!.textContent='Checked '+new Intl.DateTimeFormat('en-US',{dateStyle:'medium',timeStyle:'short',timeZone:'America/Chicago'}).format(new Date(data.checkedAt))+' CT';
+  }catch(e){error.textContent=e instanceof Error?e.message:'Connections unavailable.';error.hidden=false;card.querySelector('[data-connections-time]')!.textContent='Checks incomplete.';}
+  finally{button.disabled=false;}
+ });
+</script>

@@ -434,15 +434,16 @@ Other rules:
 
 **Models:**
 
-| Design option | API | Model ID (env, default) |
+| Option | Connection | Model and reasoning |
 |---|---|---|
-| Claude | Anthropic Messages API | `ANTHROPIC_MODEL=claude-opus-5-5` |
-| GPT-6.1 · High | OpenAI Responses API, reasoning effort high | `OPENAI_MODEL_GPT61=gpt-6.1` |
-| GPT-6 Sol · High | OpenAI Responses API, reasoning effort high | `OPENAI_MODEL_SOL=gpt-6-sol` |
+| GPT-6.1 Sol · Medium | Owner's local Codex subscription, authenticated outbound Supabase jobs | `gpt-6.1-sol`, `medium` |
+| Claude, when separately configured | Existing Anthropic integration | Existing configured model |
 
-- The GPT IDs come from the package and are confirmed against OpenAI's model list when the owner enables the key.
-- A model is selectable only when its key is set. The UI shows "Needs ANTHROPIC_API_KEY" or "Needs OPENAI_API_KEY" otherwise.
-- **Client (`chat.ts` script):** streams into the log, disables Send while streaming, supports Cmd/Ctrl+Enter, auto-scrolls, renders notices and errors, and shows source chips from the saved sources.
+Owner correction, 16 Oct 2026 CT: the GPT API-key requirement is removed. Backend's Connect Codex queues supported local Codex sign-in, opens its official authorization page and updates automatically. A completed request verifies readiness; configuration and catalog availability alone do not. Subscription credentials remain on the Mac. The runner starts at login and reports availability; offline, authentication and quota errors preserve drafts and show actionable messages. No GPT API fallback.
+
+Research uses the same subscription runner as SEO. The server saves questions and retrieved sources, queues a request, and the browser polls its owned request. Completed results are citation-validated and saved idempotently; refresh resumes the existing request. Legacy conversations remain readable. Only the separately configured Claude path uses streaming provider responses.
+
+SEO adds Fix for me, draft saving, Regenerate, written revision instructions, comparison and restoration. The specialist uses current content, verified ZINC facts, Google guidance and available Search Console evidence for metadata, content, schema, local and AI search and technical corrections. Pixel previews measure the full title suffix on explicit desktop/mobile profiles; Google presentation remains an estimate. Repository-owned corrections remain visible until implemented. Publishing stays separate.
 
 ---
 
@@ -517,7 +518,7 @@ Values are entered by the owner in Vercel, or in the git-ignored local `.env`. A
 | `GOOGLE_SERVICE_ACCOUNT_JSON`, `GA4_PROPERTY_ID`, `GSC_SITE` | server | Dashboard, Stats, redirect map |
 | `VERCEL_API_TOKEN`, `VERCEL_PROJECT_ID`, `VERCEL_TEAM_ID`, `VERCEL_DEPLOY_HOOK_URL` | server | Backend, Publish, Redeploy |
 | `VERCEL_BYPASS_SECRET` | local `.env` only | automated checks on protected previews |
-| `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `OPENAI_API_KEY`, `OPENAI_MODEL_GPT61`, `OPENAI_MODEL_SOL`, `SERPAPI_KEY` | server, optional | research (paid; off when unset) |
+| `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `SERPAPI_KEY` | server, optional | optional existing Claude/search integrations; GPT uses the Codex subscription |
 | `RESEARCH_URL_ENABLED` | server | set to `true` with the passing fetch tests |
 
 `.env.example` lists every variable with a one-line description and no values.

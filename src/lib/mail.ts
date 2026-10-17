@@ -17,3 +17,10 @@ export async function sendMail(mail: Mail): Promise<void> {
   });
   await transport.sendMail({ from: { name: 'ZINC Website', address: user }, to: mail.to, replyTo: mail.replyTo, subject: mail.subject, text: mail.text });
 }
+
+/** Authenticates the existing SMTP connection without sending a message. Owner-only diagnostic. */
+export async function verifyMailConnection():Promise<void>{
+ const {user,pass}=env.smtp();if(!user||!pass)throw new Error('Workspace notification credentials are missing.');
+ const check=nodemailer.createTransport({host:'smtp.gmail.com',port:465,secure:true,auth:{user,pass},connectionTimeout:7000,greetingTimeout:7000,socketTimeout:7000});
+ try{await check.verify();}catch{throw new Error('Workspace notification login failed. Check the mailbox and its App Password.');}finally{check.close();}
+}
