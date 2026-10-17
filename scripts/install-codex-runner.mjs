@@ -6,17 +6,16 @@ import { homedir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 
 const xml = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');
+// Node opens the approved external-drive files after startup. launchd must not
+// chdir or pre-open logs there: macOS can refuse that before Node even starts.
 export function renderLaunchAgent({node,runner,envFile,stateDir,codex}) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
 <key>Label</key><string>co.zincdigital.codex-runner</string>
 <key>ProgramArguments</key><array>${[node,runner,'--env',envFile,'--state-dir',stateDir].map(v=>`<string>${xml(v)}</string>`).join('')}</array>
-<key>WorkingDirectory</key><string>${xml(stateDir)}</string>
 <key>EnvironmentVariables</key><dict><key>CODEX_BINARY</key><string>${xml(codex)}</string><key>PATH</key><string>${xml(dirname(node)+':'+dirname(codex)+':/usr/bin:/bin:/usr/sbin:/sbin')}</string></dict>
 <key>RunAtLoad</key><true/><key>KeepAlive</key><true/><key>ThrottleInterval</key><integer>15</integer>
-<key>StandardOutPath</key><string>${xml(join(stateDir,'runner.log'))}</string>
-<key>StandardErrorPath</key><string>${xml(join(stateDir,'runner-error.log'))}</string>
 </dict></plist>\n`;
 }
 

@@ -29,5 +29,6 @@ test('unknown queue work is rejected and cloud errors never expose credentials',
 test('launch agent uses absolute executables and keeps secrets out of plist',()=>{
   const plist=renderLaunchAgent({node:'/bin/node',runner:'/Volumes/Drive/a&b/runner.mjs',envFile:'/Volumes/Drive/.env',stateDir:'/Volumes/Drive/runtime',codex:'/bin/codex'});
   assert.match(plist,/<key>RunAtLoad<\/key><true\/>/);assert.match(plist,/<key>KeepAlive<\/key><true\/>/);
+  assert.doesNotMatch(plist,/<key>(WorkingDirectory|StandardOutPath|StandardErrorPath)<\/key>/,'launchd must not open removable-volume paths before Node starts');
   assert.match(plist,/a&amp;b/);assert.match(plist,/--env/);assert.doesNotMatch(plist,/SUPABASE_SERVICE_ROLE_KEY/);
 });

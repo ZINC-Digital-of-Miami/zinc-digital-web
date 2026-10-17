@@ -14,7 +14,7 @@ The admin sends private requests through Supabase. The runner on this Mac claims
 
    This prepares a plist under the external drive's ignored `.codex-runner/` directory. It does not activate it or install software. Choose a permanent checkout for the runner before activation; a temporary worktree must remain available while its launch agent refers to it.
 
-4. After the database setup and local activation are approved, run the same command with `--activate`. It creates the current user's `~/Library/LaunchAgents/co.zincdigital.codex-runner.plist` and starts the runner at login. An existing installation is never overwritten or unloaded automatically. External state and logs stay under `.codex-runner/`; credentials are not written there.
+4. After the database setup and local activation are approved, run the same command with `--activate`. It creates the current user's `~/Library/LaunchAgents/co.zincdigital.codex-runner.plist` and starts the runner at login. An existing installation is never overwritten or unloaded automatically. External runtime state stays under `.codex-runner/`; credentials are not written there. launchd does not pre-open files or change directory on the removable drive before Node starts.
 5. In **Backend → Codex subscription**, click **Connect Codex**. The browser opens Codex's authorization page. Complete sign-in on this Mac. Backend shows ready only after a completed model request. A valid existing ChatGPT login is reused; **Reconnect** can explicitly request a fresh supported sign-in flow without deleting credentials.
 
 The CLI's sign-in flow may temporarily use its own loopback OAuth callback. The runner creates no public listener. Subscription authorization URLs expire and are cleared from cloud connection state after sign-in; tokens never enter browser or Vercel state.
@@ -29,7 +29,7 @@ node scripts/codex-runner/run.mjs --verify
 
 This uses one short subscription request and prints only connection status, model, and reasoning effort. The installed CLI needs normal access to its existing local Codex state database. The Mac must be awake, online, and have its external drive mounted. Backend reports offline when its heartbeat is older than one minute.
 
-For a foreground runner, use `node scripts/codex-runner/run.mjs --env '<existing local environment file>'`. Do not run another foreground instance while its launch agent is active. Stop that foreground instance with Control-C. Logs contain fixed diagnostic messages, never Codex stderr or request content.
+For a foreground runner, use `node scripts/codex-runner/run.mjs --env '<existing local environment file>'`. Do not run another foreground instance while its launch agent is active. Stop that foreground instance with Control-C. Foreground diagnostics contain fixed messages, never Codex stderr or request content. For the login service, inspect Backend connection state and `launchctl` process status; launchd file redirection is omitted to avoid removable-volume startup failures.
 
 ## Transport contract
 
