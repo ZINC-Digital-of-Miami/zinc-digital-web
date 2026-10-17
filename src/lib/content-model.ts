@@ -6,20 +6,24 @@ export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snaps
   const postMap=new Map<string,Record<string,any>>(rows.filter(x=>x.live).map(x=>[x.live!.slug,{...x.live!,live_at:x.live_at}]));
   const posts:Post[]=repoPosts.filter(p=>postMap.get(p.slug)?.status!=='draft').map(p=>{
     const live=postMap.get(p.slug);if(!live)return p;
-    return {...p,title:live.title||p.title,layer:live.layer||p.layer,excerpt:live.excerpt||p.excerpt,author:live.author?{...p.author,name:live.author}:p.author};
+    const modified=live.updated_at&&Number.isFinite(Date.parse(live.updated_at))&&Date.parse(live.updated_at)>Date.parse(p.modifiedGmt||p.dateGmt)?live.updated_at:p.modifiedGmt;
+    return {...p,title:live.title||p.title,layer:live.layer||p.layer,excerpt:live.excerpt||p.excerpt,author:live.author?{...p.author,name:live.author}:p.author,...(modified?{modified,modifiedGmt:modified}:{})};
   });
   for(const live of postMap.values())if(live.origin==='admin'&&live.status==='published'&&!repoPosts.some(p=>p.slug===live.slug)) {
     const date=live.published_at||live.live_at;
     if(!date)throw new Error('Published post is missing its publication date.');
-    posts.push({id:live.id,slug:live.slug,title:live.title,date,dateGmt:date,modified:date,modifiedGmt:date,link:'/blog/'+live.slug+'/',author:{id:0,name:live.author||'Team ZINC',description:''},blocks:[],layer:live.layer as Layer,related:[],excerpt:live.excerpt,markdown:live.body||''} as unknown as Post);
+    const modified=live.updated_at&&Number.isFinite(Date.parse(live.updated_at))&&Date.parse(live.updated_at)>=Date.parse(date)?live.updated_at:date;
+    posts.push({id:live.id,slug:live.slug,title:live.title,date,dateGmt:date,modified,modifiedGmt:modified,link:'/blog/'+live.slug+'/',author:{id:0,name:live.author||'Team ZINC',description:''},blocks:[],layer:live.layer as Layer,related:[],excerpt:live.excerpt,markdown:live.body||''} as unknown as Post);
   }
   posts.sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
   const routes=repoRoutes.filter(r=>r.template!=='article'||posts.some(p=>p.slug===r.slug)).map(r=>({...r}));
   for(const p of posts)if(!routes.some(r=>r.template==='article'&&r.slug===p.slug))routes.push({path:'/blog/'+p.slug+'/',template:'article',title:p.title,slug:p.slug,layer:p.layer,published:p.date});
   for(const route of routes){
     const p=route.template==='article'?posts.find(p=>p.slug===route.slug):null;
-    if(p){route.title=p.title;route.layer=p.layer;route.published=p.date;}
-    const fields=effectiveSeo(pageMap.get(route.path),p?postMap.get(p.slug):undefined);
+    if(p){route.title=p.title;route.layer=p.layer;route.published=p.date;route.modified=p.modifiedGmt;}
+    const page=pageMap.get(route.path);
+    if(!p&&page?.updated_at&&Number.isFinite(Date.parse(page.updated_at)))route.modified=page.updated_at;
+    const fields=effectiveSeo(page,p?postMap.get(p.slug):undefined);
     if(fields.meta_title)route.metaTitle=fields.meta_title;
     if(fields.meta_description)route.metaDescription=fields.meta_description;
     if(typeof fields.noindex==='boolean')route.noindex=fields.noindex;

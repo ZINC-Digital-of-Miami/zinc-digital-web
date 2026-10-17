@@ -18,6 +18,7 @@ import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
 import { articleEditorial } from '../data/article-editorial';
 import { pillarFor } from '../data/blog-strategy';
+import {brandTitle,pageEntity,serializeSchema} from '../lib/public-seo';
 import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
 import '../styles/themes.css';
@@ -42,7 +43,7 @@ if (analytics && Astro.csp) {
 const {posts}=await (await import('../lib/content')).loadPublished();
 const t = route.template;
 const path = route.path;
-const title = (route.metaTitle || route.title) + ' | ZINC';
+const title = brandTitle(route.metaTitle || route.title);
 const desc = route.metaDescription || (route.template==='article'?excerpt(posts.find(p=>p.slug===route.slug)!,155):describe(route));
 const canonical = SITE + path;
 const articleImage = t === 'article' ? articleImages[route.slug!] : undefined;
@@ -63,28 +64,29 @@ const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
 // ---- JSON-LD ----
-const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, telephone: PHONE, sameAs: SOCIAL.map(([, u]) => u) };
-const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name.replace(' satellite', ''), parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/', telephone: PHONE, image: ogImg, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
+const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, telephone: PHONE, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
+const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/about/', telephone: PHONE, email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
 const seg = path.split('/').filter(Boolean);
 const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', authors: 'Authors', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
 const crumbs = [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
-const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital', publisher: { '@id': SITE + '/#org' } }, { '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
+const webpage=pageEntity(SITE,route,title,desc,ogImg);
+const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital',inLanguage:'en-US', publisher: { '@id': SITE + '/#org' } },webpage, { '@type': 'BreadcrumbList','@id':canonical+'#breadcrumb', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
 const personNode = (author: typeof authors[number]) => ({ '@type':'Person', '@id':SITE+authorPath(author.id)+'#person', name:author.schemaName, ...(author.suffix?{honorificSuffix:author.suffix}:{}), url:SITE+authorPath(author.id), jobTitle:author.role, description:author.bio, image:SITE+asset(author.photo).src, worksFor:{'@id':SITE+'/#org'} });
 if (t === 'article') {
   const p = posts.find(x=>x.slug===route.slug)!;
   const author = authorFor(p.author.name);
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
-  graph.push({'@type':'Article', '@id':canonical+'#article', headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg, keywords:articleEditorial[p.slug]?.keywords, articleSection:pillarFor(p.slug)?.title, author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:canonical});
+  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:pillarFor(p.slug)?.title, author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
 }
 if (t === 'author') {
   const author = authors.find(a=>a.id===route.slug)!;
   const person = personNode(author);
-  graph.push(person, {'@type':'ProfilePage', '@id':canonical+'#profile', url:canonical, name:author.name, mainEntity:{'@id':person['@id']}});
+  webpage.mainEntity={'@id':person['@id']};graph.push(person);
 }
-if (t === 'service') { const s = svcBy(route.slug!); graph.push({ '@type': 'Service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: 'US', url: canonical }, { '@type': 'FAQPage', mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
-if (t === 'case') { const c = caseBy(route.slug!); graph.push({ '@type': 'CreativeWork', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, url: c.url } }); }
-const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+if (t === 'service') { const s = svcBy(route.slug!);webpage.mainEntity={'@id':canonical+'#service'}; graph.push({ '@type': 'Service','@id':canonical+'#service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: {'@type':'Country',name:'United States'}, url: canonical }, { '@type': 'FAQPage','@id':canonical+'#faq',isPartOf:{'@id':canonical+'#webpage'}, mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
+if (t === 'case') { const c = caseBy(route.slug!);webpage.mainEntity={'@id':canonical+'#work'}; graph.push({ '@type': 'CreativeWork','@id':canonical+'#work', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url?{url:c.url}:{}) } }); }
+const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
 const showCta = false;
@@ -95,10 +97,11 @@ const showCta = false;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={desc} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta property="og:site_name" content="ZINC Digital" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={route.metaTitle || route.title} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
@@ -122,9 +125,9 @@ const showCta = false;
       // Design default is light; only a stored choice switches to dark (no OS-preference drift).
       (function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('zinc-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
     </script>
-    <script type="application/ld+json" set:html={ld} />
+    <script type="application/ld+json" set:html={ld}></script>
     {analytics && <>
-      <script is:inline set:html={googleTagScript(import.meta.env.PUBLIC_ADS_CONVERSION_LABEL)} />
+      <script is:inline set:html={googleTagScript(import.meta.env.PUBLIC_ADS_CONVERSION_LABEL)}></script>
     </>}
   </head>
   <body>

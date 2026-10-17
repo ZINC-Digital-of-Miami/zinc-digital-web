@@ -1,9 +1,9 @@
 import {post} from './shell';
-let checking=false,authWindow:Window|null=null,lastAuth='',pendingJob='';
+let checking=false,authWindow:Window|null=null,lastAuth='',pendingJob='',attempt=0,submitting=false;
 async function check(){
- const card=document.querySelector<HTMLElement>('[data-codex-connection]');if(!card||checking||document.hidden)return;checking=true;
+ const card=document.querySelector<HTMLElement>('[data-codex-connection]');if(!card||checking||document.hidden)return;checking=true;const version=attempt,requestedJob=pendingJob;
  try{
-  const res=await fetch('/api/admin/codex/'+(pendingJob?'?id='+encodeURIComponent(pendingJob):'')),state=await res.json();if(!res.ok)throw new Error(state.error||'The Codex connection could not be checked.');
+  const res=await fetch('/api/admin/codex/'+(pendingJob?'?id='+encodeURIComponent(pendingJob):'')),state=await res.json();if(version!==attempt||requestedJob!==pendingJob||submitting)return;if(!res.ok)throw new Error(state.error||'The Codex connection could not be checked.');
   const waiting=['queued','running'].includes(state.jobStatus);
   card.querySelector('[data-codex-status]')!.textContent=waiting&&state.jobStatus==='queued'?'Waiting for the Codex runner…':state.message;
   card.querySelector('[data-codex-verified]')!.textContent=state.verifiedAt?'Verified '+new Intl.DateTimeFormat('en-US',{dateStyle:'medium',timeStyle:'short',timeZone:'America/Chicago'}).format(new Date(state.verifiedAt))+' CT':state.online?'Runner online · subscription verification pending':'Runner offline';
@@ -19,9 +19,9 @@ async function check(){
 document.addEventListener('click',async event=>{
  const button=(event.target as Element).closest<HTMLButtonElement>('[data-codex-connect],[data-codex-verify]');if(!button)return;
  const card=button.closest('[data-codex-connection]')!,error=card.querySelector<HTMLElement>('[data-codex-error]')!;error.hidden=true;button.disabled=true;
- const connect=button.matches('[data-codex-connect]');
+ const connect=button.matches('[data-codex-connect]');attempt++;submitting=true;pendingJob='';
  if(connect){authWindow=window.open('about:blank','_blank');if(authWindow){authWindow.opener=null;authWindow.document.body.textContent='Preparing Codex subscription sign-in…';}}
- try{const job=await post('/api/admin/codex/',{action:connect?'connect':'verify',reconnect:connect&&button.textContent?.includes('Reconnect')});pendingJob=job.id;card.querySelector('[data-codex-status]')!.textContent=connect?'Preparing sign-in on your Mac…':'Verifying your subscription…';await check();}
- catch(e){error.textContent=e instanceof Error?e.message:'Could not connect Codex.';error.hidden=false;authWindow?.close();authWindow=null;button.disabled=false;}
+ try{const job=await post('/api/admin/codex/',{action:connect?'connect':'verify',reconnect:connect&&button.textContent?.includes('Reconnect')});pendingJob=job.id;submitting=false;card.querySelector('[data-codex-status]')!.textContent=connect?'Preparing sign-in on your Mac…':'Verifying your subscription…';await check();}
+ catch(e){submitting=false;error.textContent=e instanceof Error?e.message:'Could not connect Codex.';error.hidden=false;authWindow?.close();authWindow=null;button.disabled=false;}
 });
 void check();setInterval(()=>void check(),3000);document.addEventListener('admin:refresh',()=>void check());

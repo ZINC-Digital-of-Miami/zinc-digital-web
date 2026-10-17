@@ -42,3 +42,7 @@ For a foreground runner, use `node scripts/codex-runner/run.mjs --env '<existing
 - Only service-role server/runner clients mutate transport state. Staff can read their own jobs and public connection fields under RLS; anonymous users cannot. The authorization URL column is inaccessible to staff REST clients; only the owner-authorized server route returns it.
 
 Focused checks: `node --test tests/codex-runner*.test.ts`. Database claim/permission checks are prepared in `supabase/tests/96_codex_subscription.sql`; applying or rehearsing against a live database still requires the exact project approval.
+
+## Published SEO date provenance
+
+The same release prepares `supabase/migrations/0007_publish_content_dates.sql`. It keeps an actual content-edit timestamp inside published snapshots, advances it only when meaningful snapshot fields change, and preserves an unknown legacy date rather than substituting the bulk publication time. This connects admin edits to article schema and sitemap modification dates. It preserves the existing owner check, publication lock, first-publication date and service-only publish entry point. Apply only with the owner's exact database approval; permission and provenance checks are prepared in `supabase/tests/97_publish_content_dates.sql`.

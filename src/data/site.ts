@@ -1,6 +1,7 @@
 import { businessIntelligenceLine, businessIntelligenceDescription, businessIntelligenceQuestions } from './business-intelligence.ts';
 import { authoredArticles } from './article-library.ts';
 import { authors, authorPath } from './authors.ts';
+import { pageEditorial } from './page-editorial.ts';
 // site.ts — the redesign's data layer. Replaces the parts of mockup.ts that the
 // Oct 2026 redesign changed (services copy, cases, clients with logos,
 // case assets, layer copy, legal copy). posts.preview.json is untouched.
@@ -259,13 +260,13 @@ export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; 
 
 // ---- routes ----
 export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'privacy' | 'terms' | '404';
-export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; metaTitle?:string; metaDescription?:string; noindex?:boolean };
-const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra });
+export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; modified?:string; metaTitle?:string; metaDescription?:string; noindex?:boolean };
+const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra,metaTitle:extra.metaTitle||pageEditorial[path]?.metaTitle,metaDescription:extra.metaDescription||pageEditorial[path]?.metaDescription });
 export const routes: Route[] = [
   route('/', 'home', 'ZINC — Build. Demand. Intelligence.'),
   route('/services/', 'services', 'Services'),
   ...services.map((s) => route('/services/' + s.slug + '/', 'service', s.title, { slug: s.slug, layer: s.layer })),
-  route('/work/', 'work', 'Selected work', {metaDescription:'Explore websites, campaigns and applications built by ZINC Digital.'}),
+  route('/work/', 'work', 'Selected work'),
   route('/work/build/', 'work', 'Build — Websites, Ecommerce & Applications', {layer:'Build',metaDescription:'Explore ZINC’s website, ecommerce and application work in Build. Shopify storefronts, business apps and ongoing pro bono website support.'}),
   route('/work/demand/', 'work', 'Demand — Search & Campaigns', {layer:'Demand',metaDescription:'Explore SEO, content and paid campaigns for Once Upon a Book Club, Summit Marine, U.S. Oil Solutions and Las Vegas Safety & Supply.'}),
   route('/work/intelligence/', 'work', 'Intelligence — Reporting & Forecasting', {layer:'Intelligence',metaDescription:'Explore business reporting, OUABC BI Fusion, commodity forecasting and operational intelligence. See the applications and the decisions they support.'}),
@@ -274,7 +275,7 @@ export const routes: Route[] = [
   route('/contact/', 'contact', 'Start an Inquiry'),
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
-  ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
+  ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, modified:p.modifiedGmt, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
   ...authors.map(a => route(authorPath(a.id), 'author', a.name, {slug:a.id,metaTitle:'Articles by '+a.schemaName,metaDescription:a.bio})),
   route('/privacy/', 'privacy', 'Privacy'),
   route('/terms/', 'terms', 'Terms'),

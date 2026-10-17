@@ -23,6 +23,12 @@ test('a published layer edit reaches the article route and preserves its first p
  assert.equal(result.posts[0].layer,'Demand');assert.equal(result.routes[0].layer,'Demand');
  assert.equal(result.routes[0].published,date);assert.equal(result.posts[0].date,date);
 });
+test('real published modification dates reach article schema and sitemap without resetting publication history',()=>{
+ const original='2026-09-01T12:00:00Z',updated='2026-10-05T14:00:00Z';
+ const post:any={slug:'existing',title:'Original',date:original,dateGmt:original,modifiedGmt:original,author:{name:'Team ZINC'},layer:'Build',blocks:[],related:[]};
+ const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',published:original}],[post],[],[{live:{slug:'existing',title:'Updated',status:'published',updated_at:updated},live_at:'2026-10-06T12:00:00Z'}]);
+ assert.equal(result.posts[0].modifiedGmt,updated);assert.equal(result.routes[0].modified,updated);assert.equal(result.posts[0].dateGmt,original);assert.equal(result.routes[0].published,original);
+});
 test('article SEO inherits legacy page snapshots until explicit post fields override',()=>{
  const repo:any={slug:'existing',title:'Original',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],related:[]};
  const route:any={path:'/blog/existing/',template:'article',title:'Original',slug:'existing'};
@@ -33,4 +39,10 @@ test('article SEO inherits legacy page snapshots until explicit post fields over
  }
  const published=publishedContent([route],[repo],[legacy],[{live:{slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
  assert.equal(published.metaTitle,'Post title');assert.equal(published.metaDescription,'Post description');assert.equal(published.noindex,false);
+});
+test('page modification comes from its actual saved snapshot rather than bulk publish time',()=>{
+ const route:any={path:'/',template:'home',title:'ZINC'};
+ const result=publishedContent([route],[],[{live:{path:'/',updated_at:'2026-10-10T12:00:00Z'},live_at:'2026-10-16T12:00:00Z'}],[]);
+ assert.equal(result.routes[0].modified,'2026-10-10T12:00:00Z');
+ assert.equal(publishedContent([route],[],[{live:{path:'/'},live_at:'2026-10-16T12:00:00Z'}],[]).routes[0].modified,undefined);
 });
