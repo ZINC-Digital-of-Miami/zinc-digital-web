@@ -7,4 +7,5 @@ dist/
 !.env.example
 .DS_Store
 .scratch/
+.codex-runner/
 *.log

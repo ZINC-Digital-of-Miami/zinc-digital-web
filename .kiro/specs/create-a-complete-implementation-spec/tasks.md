@@ -322,13 +322,13 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [x] 24.1 Build `src/lib/research/chat.ts` and the chat route:
       - retrieval through `search_chunks`;
       - numbered, quoted sources;
-      - Anthropic and OpenAI streaming adapters with no tools;
+      - subscription-backed GPT-6.1 Sol/Medium requests and the separately configured Claude adapter, with no tools;
       - citation mapping;
       - message persistence and a per-staff rate limit.
       - **Verify:** `tests/chat.test.ts` with mocked providers covers streaming, `[n]` mapped only to supplied sources, invented numbers dropped, the `error` status, and the 8,000-character limit.
       - _Requirements: R13.5, R13.6, R13.8_
     - [x] 24.2 Build the chat client script: streaming log, Send disabled while streaming, Cmd/Ctrl+Enter, auto-scroll, a model picker with disabled states, and source chips.
-      - **Verify:** with no keys set, every model shows its "Needs …" reason; with a mocked stream in dev, the UI behaves as specified.
+      - **Verify:** Codex availability reflects the local runner and completed subscription verification; GPT requires no API key. Existing research conversations and citations remain intact.
       - _Requirements: R13.5, R13.7_
   - [ ] 25. Research visual review
     - [ ] 25.1 Run capture and review rounds for the research view, including the empty, loading, streaming and error states, until a round finds no mistakes.
@@ -413,3 +413,11 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 33.1 After the last merge, remove the Kiro worktree and branch, and the scratch folder `/Volumes/Satechi Hub/zinc-spec-scratch/` (**Owner go:** for deletion). Keep the review evidence under `zinc-digital-web-review/`.
       - **Verify:** `git worktree list` no longer shows the spec worktree; a report of what was kept and removed is sent to the owner.
       - _Requirements: R18.1_
+
+
+## Owner correction — Admin subscription and SEO, 16 Oct 2026 CT
+
+- [ ] Subscription connection: remove GPT API-key wiring; Backend Connect/Reconnect; Mac runner starts at login; actual `gpt-6.1-sol`/Medium completion verifies readiness. Preserve Research and sources.
+- [ ] Connection repairs: check staff/Supabase, GA4, Search Console, SMTP authentication, Vercel reporting and publishing; distinguish configuration from verified operation.
+- [ ] SEO assistance: saved drafts, regeneration/comments, manual editing, comparison/restoration, measured title/description previews, both Florida locations, AI search/content/schema/technical recommendations, conflict protection; Publish remains separate.
+- [ ] Delivery: focused tests, preview and fresh-agent review. Migration 0006 and production activation remain pending exact owner approval; source/test completion does not imply deployed functionality.

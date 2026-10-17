@@ -61,3 +61,14 @@ export async function verifyGoogleService(kind:string,c:GoogleSettings){
   if(!res.ok)throw new Error('Google has not granted this account access to that Search Console property.');
  }else throw new Error('Choose Analytics or Search Console.');
 }
+/** Page-specific Search Console evidence; missing access stays an explicit source gap. */
+export async function seoSearchEvidence(path:string,c:GoogleSettings){
+ if(!/^\/(?:[a-z0-9-]+\/)*$/.test(path))throw new Error('Choose a public content page.');
+ if(!c.site)throw new Error('Select and connect a Search Console property in Backend.');
+ const range=googleReportRange(Date.now(),'America/Los_Angeles');
+ const data=await request('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(c.site)+'/searchAnalytics/query',{
+  startDate:range.start,endDate:range.end,dimensions:['query'],rowLimit:20,dataState:'final',
+  dimensionFilterGroups:[{filters:[{dimension:'page',operator:'equals',expression:SITE+path}]}],
+ });
+ return {available:true,property:c.site,page:SITE+path,range,timeZone:'America/Los_Angeles',dataState:'final',rows:data.rows||[],note:'Top returned query rows only; privacy filtering and Search Console aggregation can omit queries.'};
+}

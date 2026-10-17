@@ -12,6 +12,9 @@ export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/ap
 export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/', '/api/research/'];
 
 export const PRIVATE_ROUTES: PrivateRoute[] = [
+  {path:'/api/admin/codex/',kind:'api',role:'editor',file:'src/pages/api/admin/codex.ts'},
+  {path:'/api/admin/connections/',kind:'api',role:'editor',file:'src/pages/api/admin/connections.ts'},
+  {path:'/api/admin/seo-fix/',kind:'api',role:'editor',file:'src/pages/api/admin/seo-fix.ts'},
   {path:'/api/admin/seo-analysis/',kind:'api',role:'editor',file:'src/pages/api/admin/seo-analysis.ts'},
   { path: '/api/admin/google/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/google.ts' },
   { path: '/admin/research/', kind: 'page', role: 'editor', file: 'src/pages/admin/research.astro' },

@@ -2,5 +2,7 @@
 export const prerender=false;
 import type {APIRoute} from 'astro';
 import {requireStaff} from '../../../lib/auth';
-import {POST as chat} from '../admin/research/chat';
+import {GET as status,POST as chat} from '../admin/research/chat';
 export const POST:APIRoute=ctx=>{const staff=requireStaff(ctx);return staff instanceof Response?staff:chat(ctx);};
+
+export const GET:APIRoute=ctx=>{const staff=requireStaff(ctx);return staff instanceof Response?staff:status(ctx);};

@@ -1,5 +1,18 @@
 import {post,openDialog} from './shell';
 import {events} from '../../lib/research/sse';
+async function* codexFrames(jobId:string):AsyncGenerator<any>{
+ for(let i=0;i<600;i++){
+  const response=await fetch('/api/admin/research/chat/?id='+encodeURIComponent(jobId)),frame=await response.json();
+  if(!response.ok)throw new Error(frame.error||'The subscription request could not be checked. Refresh to resume.');
+  yield frame;if(frame.done||frame.error)return;
+  await new Promise(resolve=>setTimeout(resolve,1500));
+ }
+ throw new Error('Codex is still working. Refresh this conversation to resume checking its saved request.');
+}
+async function* chatFrames(response:Response):AsyncGenerator<any>{
+ if(response.status===202){const job=await response.json();yield{chat_id:job.chat_id};yield* codexFrames(job.job_id);}
+ else if(response.body)yield* events(response.body);
+}
 const syncSourceFields=(form:HTMLFormElement)=>{
  const kind=form.querySelector<HTMLSelectElement>('[data-source-kind]');if(!kind)return;
  for(const label of form.querySelectorAll<HTMLElement>('[data-source-field]'))label.hidden=label.dataset.sourceField!==kind.value;
@@ -47,7 +60,7 @@ document.addEventListener('submit',async e=>{
    const res=await fetch('/api/admin/research/chat/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({project_id:form.dataset.project,chat_id:form.dataset.chat||null,text,model:model.value})});
    if(!res.ok||!res.body){const data=await res.json();throw new Error(data.error||'The chat could not be reached.');}
    let done=false;
-   for await(const frame of events(res.body)){
+   for await(const frame of chatFrames(res)){
     if(frame.chat_id){form.dataset.chat=frame.chat_id;const url=new URL(location.href);url.searchParams.set('chat',frame.chat_id);history.replaceState(null,'',url);}
     if(frame.delta){content+=frame.delta;assistant.textContent=content;log.scrollTop=log.scrollHeight;}
     if(frame.done||frame.error){done=true;assistant.textContent=frame.content||content;const chips=document.createElement('div');chips.className='a-actions a-section';for(const source of frame.sources||[]){const chip=document.createElement('button');chip.className='a-chip';chip.type='button';chip.dataset.sourceId=source.document_id;chip.textContent='['+source.n+'] '+source.title;chips.append(chip);}assistant.append(chips);if(frame.error)throw new Error(frame.error);}
@@ -58,3 +71,25 @@ document.addEventListener('submit',async e=>{
  }
 });
 document.addEventListener('keydown',e=>{const field=e.target as HTMLTextAreaElement;if(field.matches('[data-chat-form] [name=text]')&&(e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();field.form?.requestSubmit();}});
+
+// A refresh resumes each unfinished assistant's own request, including work from other tabs.
+const pendingLog=document.querySelector<HTMLElement>('[data-chat-pending]');
+if(pendingLog?.dataset.chatPending){
+ const form=document.querySelector<HTMLFormElement>('[data-chat-form]');
+ if(form){
+  form.dataset.chatSending='true';const button=form.querySelector<HTMLButtonElement>('button[type=submit]');if(button)button.disabled=true;
+  void(async()=>{try{
+   const jobs=JSON.parse(pendingLog.dataset.chatPending!) as {id:string;assistant_id:number}[];
+   await Promise.all(jobs.map(async job=>{
+    for await(const frame of codexFrames(job.id)){
+     if(frame.error)throw new Error(frame.error);
+     if(frame.done){
+      const assistant=pendingLog.querySelector<HTMLElement>('[data-message-id="'+job.assistant_id+'"]');
+      if(assistant){assistant.textContent=frame.content;for(const source of frame.sources||[]){const chip=document.createElement('button');chip.type='button';chip.className='a-chip';chip.dataset.sourceId=source.document_id;chip.textContent='['+source.n+'] '+source.title;assistant.append(chip);}}
+     }
+    }
+   }));
+  }catch(e){const error=form.querySelector<HTMLElement>('[data-chat-error]');if(error){error.hidden=false;error.textContent=e instanceof Error?e.message:'Could not resume the request.';}}
+  finally{delete form.dataset.chatSending;if(button)button.disabled=false;}})();
+ }
+}

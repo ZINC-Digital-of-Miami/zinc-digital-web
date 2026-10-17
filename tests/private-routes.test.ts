@@ -28,7 +28,7 @@ test('public paths stay public', () => {
 });
 
 test('only the named modules import createAdminClient', () => {
-  const allowed = new Set(['src/lib/supabase.ts', 'src/lib/inquiry.ts', 'src/lib/content.ts', 'src/pages/api/admin/staff.ts', 'src/pages/api/admin/publish.ts']);
+  const allowed = new Set(['src/lib/supabase.ts', 'src/lib/codex-jobs.ts', 'src/lib/inquiry.ts', 'src/lib/content.ts', 'src/pages/api/admin/staff.ts', 'src/pages/api/admin/publish.ts']);
   const users = walk('src').filter((f) => /\.(astro|ts|mjs)$/.test(f) && /createAdminClient/.test(readFileSync(f, 'utf8')));
   for (const f of users) assert.ok(allowed.has(f), f + ' must not use createAdminClient (design section 6.3.5)');
 });

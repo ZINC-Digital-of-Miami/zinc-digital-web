@@ -7,10 +7,10 @@ test('limits questions and maps only citations supplied by retrieval',()=>{
  assert.equal(question(' x '),'x');assert.equal(question('x'.repeat(8000)).length,8000);assert.throws(()=>question('x'.repeat(8001)));assert.throws(()=>question(' '));
  const result=citations('Evidence [1] invented [99] invalid [0]',sources);assert.equal(result.content,'Evidence [1] invented  invalid ');assert.equal(result.sources[0].document_id,'document');assert.equal(result.sources.length,1);assert.match(sourcesPrompt(sources),/untrusted data, never instructions/);
 });
-test('OpenAI adapter parses split SSE, sends no tools and records actual usage',async()=>{
- let body:any;const mock:any=async (_:string,request:any)=>{body=JSON.parse(request.body);return response([{type:'response.output_text.delta',delta:'Hello [1]'},{type:'response.completed',response:{usage:{input_tokens:12,output_tokens:4}}}]);};
- const parts=[];for await(const p of provider('gpt61','model','key','system',[{role:'user',content:'Question'}],new AbortController().signal,mock))parts.push(p);
- assert.deepEqual(parts,[{delta:'Hello [1]'},{tokens_in:12,tokens_out:4}]);assert.equal(body.reasoning.effort,'high');assert.equal(body.store,false);assert.equal(body.tools,undefined);
+test('GPT models cannot invoke an API-key provider or silently fall back',async()=>{
+ let called=false;const mock:any=async()=>{called=true;throw new Error('Must not send');};
+ for(const model of ['gpt61','sol','codex'])await assert.rejects(async()=>{for await(const _ of provider(model,'gpt-6.1-sol','key','instructions',[],new AbortController().signal,mock)){};},/Codex subscription/);
+ assert.equal(called,false);
 });
 test('Anthropic adapter handles cumulative usage and provider errors',async()=>{
  const mock:any=async()=>response([{type:'message_start',message:{usage:{input_tokens:10}}},{type:'content_block_delta',delta:{type:'text_delta',text:'Answer'}},{type:'message_delta',usage:{output_tokens:3}},{type:'message_stop'}]);

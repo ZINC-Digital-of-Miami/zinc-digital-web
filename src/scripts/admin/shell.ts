@@ -43,13 +43,13 @@ export async function post(endpoint:string,body:unknown){
 }
 let refreshing=false;
 async function refresh(){
-  if(refreshing||document.querySelector('[data-dirty]'))return;refreshing=true;
+  if(refreshing||document.querySelector('[data-dirty],[data-seo-active]'))return;refreshing=true;
   try{
     const res=await fetch(location.href,{headers:{'x-admin-refresh':'1'}});if(res.redirected){location.assign(res.url);return;}if(!res.ok)throw new Error('The view could not be refreshed.');
     const next=new DOMParser().parseFromString(await res.text(),'text/html').querySelector('[data-admin-region]');
     if(!next)throw new Error('The view could not be refreshed.');
     // Input may have changed while the request was in flight. Never replace a draft.
-    if(document.querySelector('[data-dirty]'))return;
+    if(document.querySelector('[data-dirty],[data-seo-active]'))return;
     const open=document.querySelector<HTMLDialogElement>('dialog[open]');const id=open?.id;
     const active=(document.activeElement as HTMLInputElement|null)?.name;
     const trigger=lastFocus?.dataset.openDialog;
@@ -122,11 +122,11 @@ document.addEventListener('submit',async e=>{
   try{
     const body=JSON.parse(form.dataset.body||'{}');for(const [name,value]of new FormData(form))body[name]=value;
     for(const check of form.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))body[check.name]=check.checked;
-    await post(form.dataset.endpoint!,body);delete form.dataset.dirty;toast('Saved.');await refresh();
+    const saved=await post(form.dataset.endpoint!,body);if(saved.updated_at)form.dataset.updatedAt=saved.updated_at;delete form.dataset.dirty;delete form.dataset.seoActive;toast('Saved.');await refresh();
   }catch(e){error.textContent=(e as Error).message;error.hidden=false;error.focus();}finally{buttons.forEach(b=>b.disabled=false);}
 });
 const theme=document.querySelector('[data-theme-toggle]');if(theme)theme.textContent=document.documentElement.dataset.theme==='dark'?'Light mode':'Dark mode';
-const idleRefresh=()=>{if(document.visibilityState==='visible'&&!document.querySelector('[data-dirty],dialog[open]')&&!document.querySelector('[data-chat-sending]')&&!document.querySelector<HTMLTextAreaElement>('[data-chat-form] [name=text]')?.value.trim())void refresh();};
+const idleRefresh=()=>{if(document.visibilityState==='visible'&&!document.querySelector('[data-dirty],[data-seo-active],dialog[open]')&&!document.querySelector('[data-chat-sending]')&&!document.querySelector<HTMLTextAreaElement>('[data-chat-form] [name=text]')?.value.trim())void refresh();};
 window.addEventListener('focus',idleRefresh);setInterval(idleRefresh,60000);
 
 // A compact mobile shell keeps the current task above the fold; no-JS keeps all navigation visible.

@@ -180,8 +180,8 @@ Each choice is the smallest one that delivers the requested feature.
    - **Redeploy** uses the same deploy hook as Publish.
 8. **Research:**
    - Retrieval uses Postgres full-text search: no embeddings and no OpenAI cost.
-   - The Design's model choices call the Anthropic and OpenAI APIs directly, each enabled only once the owner sets its key. Both are metered.
-   - This replaces the Codex bridge, a custom server on the owner's machine that would run commands. The trade-off: GPT answers bill the API instead of using the ChatGPT Pro plan.
+   - Owner correction, 16 Oct 2026 CT: GPT uses the owner's Codex subscription on this Mac, with GPT-6.1 Sol at Medium. Remove the OpenAI API-key requirement; never fall back to paid GPT API usage. Backend provides Connect Codex and supported browser sign-in.
+   - The local runner uses outbound authenticated Supabase requests. Codex credentials remain local; existing Research projects, sources and conversations are preserved.
    - SERP sources work once the owner supplies a provider key.
 9. **Inquiry board updates:** the board refreshes when the window regains focus and every 60 seconds while visible. No realtime connection.
 10. **Tests:**
@@ -438,11 +438,11 @@ Each choice is the smallest one that delivers the requested feature.
    Until these checks pass their tests, URL sources SHALL show as not enabled.
 5. Chat SHALL:
    - answer from the project's sources, found by full-text search;
-   - stream answers and disable Send while streaming;
+   - show request progress and disable Send while working; subscription requests SHALL resume after refresh without duplicating questions;
    - support Cmd/Ctrl+Enter and auto-scroll;
    - save each message with its status and model.
 6. Citations `[n]` SHALL refer only to sources actually supplied to the model. Questions SHALL be capped at 8,000 characters.
-7. THE model picker SHALL show the Design's options. Each SHALL be selectable only once the owner sets its API key; otherwise it SHALL say why it is unavailable.
+7. The GPT model picker SHALL use GPT-6.1 Sol at Medium through the Codex subscription, available after the local runner completes verification. Backend SHALL provide Connect Codex, Reconnect and actual connection status. Any separately configured Claude option remains independent.
 8. Models SHALL receive sources as quoted text and SHALL have no tools.
 9. All research data SHALL be staff-only.
 
