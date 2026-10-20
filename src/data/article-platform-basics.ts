@@ -200,8 +200,6 @@ Treat the sample as evidence for [generative search work](/services/ai-search-op
 
 Choose a decision with an owner: which products need attention, where checkout stalls or whether a campaign is producing useful demand. Write what could change after the answer.
 
-For [Once Upon a Book Club](/work/once-upon-a-book-club/), we proactively invested two months in a reporting app beyond the original requested scope. The app remains in development. It brings commerce, search, advertising, products and funnel views into one reporting interface.
-
 ## 2. Identify the source records
 
 Name the system behind each measure. Store orders, search impressions and platform-attributed purchases represent different records. Preserve that distinction when connecting them.
@@ -216,7 +214,7 @@ For purchase measurement, check the [GA4 purchase specification](https://develop
 
 ## 4. Build the view around the decision
 
-Put the comparison, relevant breakdown and source date where the operator can see them. OUABC's app includes product pre-orders, advertising comparisons and a visit-to-purchase funnel, with attribution limits and incomplete records identified.
+Put the comparison, relevant breakdown and source date where the operator can see them. Identify attribution limits and incomplete records in the view itself.
 
 [U.S. Oil Solutions](/work/us-oil-solutions/) illustrates an operational use: visit records and fryer-service histories support reporting inside its separate operations app. That app is distinct from its public website. Different business, different workflow, same need for understandable records.
 

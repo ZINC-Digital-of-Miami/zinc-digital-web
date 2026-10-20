@@ -446,15 +446,15 @@ a,button,input,textarea,select { -webkit-tap-highlight-color:transparent; }
   max-width: 22ch;
 }
 
-/* Case-study phone screenshots (ouabc-mobile.jpg, uos-app-phone.png) are
- * native only 460px / 430px wide — measured directly against the original
+/* Case-study phone screenshots (uos-app-phone.png) are
+ * native only 430px wide — measured directly against the original
  * source files in the project's asset zip (T3 responsive review,
  * 2026-09-26); no higher-resolution asset exists to swap in. At device
  * pixel ratios of 2.5x and up (the owner's 390x844 size ships at 3x) the
  * phone-frame's usual ~191px rendered width would ask the browser to
  * upscale past that real source density, so it renders smaller instead —
- * same "never upscale a soft image further" rule already applied to the
- * OUABC desktop shot (home.css .home-shots). */
+ * same "never upscale a soft image further" rule used for desktop shots
+ * (home.css .home-shots). */
 @media (min-resolution: 2.5dppx) {
   .screens-grid .phone-frame {
     flex-basis: 145px;

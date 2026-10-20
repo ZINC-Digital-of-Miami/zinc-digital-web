@@ -44,33 +44,6 @@
     "sourceHeight": 2066,
     "sha256": "5cc31b3f095bc9eabb6b59e489e13973ac91bfc1e305680153edb17195d5d4d6"
   },
-  "ouabc-hero": {
-    "src": "/mockup/ouabc-hero.webp",
-    "width": 1415,
-    "height": 867,
-    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-hero.png",
-    "sourceWidth": 1415,
-    "sourceHeight": 867,
-    "sha256": "7b43fc99e56356922fd0db56171fbf8a062047defda79d6b89b76d5043687bba"
-  },
-  "ouabc-site": {
-    "src": "/mockup/ouabc-site.webp",
-    "width": 1000,
-    "height": 4841,
-    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-site.jpg",
-    "sourceWidth": 1000,
-    "sourceHeight": 4841,
-    "sha256": "7b8d661b3eb94263955a6edaa05b500383bf69e706c4a19310874520b3886337"
-  },
-  "ouabc-mobile": {
-    "src": "/mockup/ouabc-mobile.webp",
-    "width": 460,
-    "height": 9940,
-    "source": "/Volumes/Satechi Hub/ZINC Digital Agency/ZINC Digital Agency Website V2.zip#assets/ouabc-mobile.jpg",
-    "sourceWidth": 460,
-    "sourceHeight": 9940,
-    "sha256": "a99c11763b58fc90b06673c05c3e94dbc4be73d735159506b9e696b1ae5ca11f"
-  },
   "uos-app-desktop": {
     "src": "/mockup/uos-app-desktop.webp",
     "width": 966,

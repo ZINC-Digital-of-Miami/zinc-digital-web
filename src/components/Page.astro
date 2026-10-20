@@ -19,7 +19,6 @@ import ArticleSources from './ArticleSources.astro';
 import ArticleIllustration from './ArticleIllustration.astro';
 import { articleIllustrations } from '../data/article-illustrations';
 import { authors, authorFor, authorPath } from '../data/authors';
-import OUABCCase from './OUABCCase.astro';
 import FelonCase from './FelonCase.astro';
 import MiamiTacticalCase from './MiamiTacticalCase.astro';
 import WebsiteCase from './WebsiteCase.astro';
@@ -40,12 +39,12 @@ const {posts}=await (await import('../lib/content')).loadPublished();
 const {renderArticleMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
-const serviceCase = svc ? caseBy(svc.caseSlug) : null;
-const serviceProofAssets: Record<string, string> = { apps: 'uos-current-technicians-desktop', 'business-intelligence': 'ouabc-bi-ads-current', 'shopping-ads': 'ouabc-shopping-creative-2024', 'social-ads': 'ouabc-halloween-campaign-square', 'tiktok-ads': 'ouabc-bridgerton-campaign-product' };
+const serviceCase = svc?.caseSlug ? caseBy(svc.caseSlug) : null;
+const serviceProofAssets: Record<string, string> = { apps: 'uos-current-technicians-desktop' };
 const serviceProof = svc && serviceCase ? serviceProofAssets[svc.slug] || serviceCase.hero : null;
-const serviceScene = svc ? ({shopify:'build-ouabc', 'web-design':'build-uos', apps:'intelligence-uos', 'business-intelligence':'intelligence-ouabc'} as Record<string,string>)[svc.slug] || (serviceCase?.slug === 'once-upon-a-book-club' ? 'demand-ouabc' : undefined) : undefined;
-const serviceCaseHref = serviceCase ? '/work/' + serviceCase.slug + '/' + (svc?.slug === 'apps' ? '#operations-app' : svc?.slug === 'web-design' ? '#website' : svc?.slug === 'business-intelligence' ? '#reporting' : svc?.layer === 'Demand' ? serviceCase.slug === 'once-upon-a-book-club' ? '#campaigns' : '#work-demand' : '') : '';
-const laneScenes: Record<string,string> = {Build:'build-hero', Demand:'demand-hero', Intelligence:'intelligence-hero'};
+const serviceScene = svc ? ({'web-design':'build-uos', apps:'intelligence-uos', 'business-intelligence':'intelligence-fusion'} as Record<string,string>)[svc.slug] : undefined;
+const serviceCaseHref = serviceCase ? '/work/' + serviceCase.slug + '/' + (svc?.slug === 'apps' ? '#operations-app' : svc?.slug === 'web-design' ? '#website' : svc?.layer === 'Demand' ? '#work-demand' : '') : '';
+const laneScenes: Record<string,string> = {Build:'build-uos', Demand:'demand-summit', Intelligence:'intelligence-fusion'};
 const study = t === 'case' ? caseBy(route.slug!) : null;
 const profile = t === 'author' ? authors.find(a=>a.id===route.slug)! : null;
 const authorPosts = profile ? posts.filter(p=>authorFor(p.author.name)?.id===profile.id) : [];
@@ -90,15 +89,6 @@ const imageLabels: Record<string, string> = {
   'fusion-v16-strategy': 'Forecasting platform · procurement strategy and scenarios · in development, October 2026 · private figures removed',
   'fusion-v16-legislation': 'Forecasting platform · policy intelligence · in development, October 2026 · private figures removed',
   'fusion-v16-sentiment': 'Forecasting platform · fund positioning and market sentiment · in development, October 2026 · private figures removed',
-  'ouabc-bi-products-current': 'BI app · Seasonal product records · in progress, October 2026 · private figures removed',
-  'ouabc-bi-demand-current': 'BI app · Search demand calendar · in progress, October 2026 · private figures removed',
-  'ouabc-bi-season-current': 'BI app · Season outlook and projections · in progress, October 2026 · private figures removed',
-  'ouabc-bi-ads-current': 'BI app · Advertising overview · in progress, October 2026 · private figures removed',
-  'ouabc-bi-bookmark-current': 'BI app · Guided page walkthrough · in progress, October 2026 · private figures removed',
-  'ouabc-bi-funnel-current': 'BI app · Visits, carts, checkout and purchase · in progress, October 2026 · private figures removed',
-  'ouabc-bi-work-current': 'BI app · Content, advertising and dated work · in progress, October 2026 · private figures removed',
-  'ouabc-bi-meetings-current': 'BI app · Meeting records · in progress, October 2026 · private figures removed',
-  'ouabc-bi-admin-current': 'BI app · Work-record correction controls · in progress, October 2026 · private figures removed',
 
   'uos-current-technicians-desktop': 'Supervisor dashboard · technician assignments and check-ins · identifying details removed',
   'uos-current-technicians-mobile': 'Mobile technician roster · identifying details removed',
@@ -112,14 +102,6 @@ const imageLabels: Record<string, string> = {
   'uos-current-special-mobile': 'Special-task scheduling · identifying details removed',
   'uos-second-site-desktop': 'Second public website · desktop design in development, October 2026',
   'uos-second-site-mobile': 'Second public website · mobile design in development, October 2026',
-  'ouabc-bi-today-wip': 'BI app · connected commerce and advertising view · in progress, October 2026',
-  'ouabc-bi-creative-wip': 'BI design package · ad artwork and copy analysis · in progress, September 2026 · private figures removed',
-  'ouabc-bi-funnel-wip': 'BI design package · visits, cart, checkout and purchase · in progress, September 2026 · private figures removed',
-  'ouabc-bi-checkout-wip': 'BI design package · mobile and desktop checkout behavior · in progress, September 2026 · private figures removed',
-  'ouabc-bi-market-context-wip': 'BI design package · modeled competitor traffic and market context · in progress, September 2026',
-  'ouabc-hero': 'Ecommerce storefront preview',
-  'ouabc-site': 'Desktop storefront',
-  'ouabc-mobile': 'Mobile storefront',
   'uos-app-desktop': 'Operations application · desktop sign-in',
   'uos-app-phone': 'Operations application · mobile sign-in',
   'uos-opening-checklist': 'Shift opening · oil supply and equipment checks',
@@ -130,9 +112,6 @@ const imageLabels: Record<string, string> = {
   'uos-special-tasks': 'Supervisor workflow · special tasks and visit completion',
   'uos-restaurant-mobile': 'Mobile workflow · restaurant settings and fryer details',
   'uos-visit-list': 'Technician shift · assigned locations and visit start',
-  'ouabc-halloween-campaign-square': 'Seasonal campaign · client-approved Halloween artwork',
-  'ouabc-bridgerton-campaign-product': 'Campaign source · Bridgerton box, book and numbered gifts',
-  'ouabc-shopping-creative-2024': 'Shopping campaign source · book, numbered gifts and box',
   'lvs-hero': 'Rebuilt ecommerce store across devices',
   'lvs-before': 'Ecommerce site before the rebuild',
   'lvs-laptop': 'Rebuilt ecommerce store · laptop view',
@@ -239,15 +218,14 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {t === 'work' && (route.path === '/work/' ? <WorkOverview /> : <WorkLane lane={route.layer || 'Build'} />)}
 
 {study && ['carla-funk-photography','ballad-health','meade-tractor','general-shale'].includes(study.slug) && <ClientMaterialCase study={study} />}
-{study?.slug === 'once-upon-a-book-club' && <OUABCCase />}
 {study?.slug === 'felon-motorwerk' && <FelonCase />}
 {study?.slug === 'miami-tactical' && <MiamiTacticalCase />}
 {study?.slug === 'las-vegas-safety' && <LasVegasSafetyCase />}
 {study && study.slug in websiteCases && <WebsiteCase slug={study.slug as WebsiteCaseSlug} />}
-{study && !(study.slug in websiteCases) && !['carla-funk-photography','ballad-health','meade-tractor','general-shale','once-upon-a-book-club','felon-motorwerk','miami-tactical','las-vegas-safety'].includes(study.slug) && (<>
+{study && !(study.slug in websiteCases) && !['carla-funk-photography','ballad-health','meade-tractor','general-shale','felon-motorwerk','miami-tactical','las-vegas-safety'].includes(study.slug) && (<>
   <section class="c-open c-open-app zn-page-hero" id="cOpen"><div class="c-open-pin"><div class="c-open-visual"><CaseHeroMockup study={study} /></div><div class="c-open-veil"></div><div class="wrap c-open-txt" id="cOpenTxt"><div class="meta lab" style="padding-top:0"><span>ZINC / case</span><span>{study.heroLabel || (study.slug === "us-oil-solutions" ? "New website / In progress" : study.slug === "las-vegas-safety" ? "Ecommerce / Brand identity" : "Website / Brand identity")}</span></div><hr class="rule" /><div class="disp c-open-no" aria-hidden="true">{pad(cases.indexOf(study))}</div><h1 class="disp c-open-h">{study.title}</h1><p class="p-lede">{study.line}</p><p class="lab" style="margin:22px 0 0">{study.nonprofit ? 'Ongoing pro bono community support' : 'Layers in use / ' + study.layers.join(' · ')}</p></div></div></section>
   <PageRail path={route.path} title={route.title} />
-  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || (study.slug === 'once-upon-a-book-club' ? 'Business model' : 'Location')}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
+  <section class="p-band"><div class="wrap"><div class="c-facts rv rv-stag"><div><span class="lab">{study.nonprofit ? 'Organization' : 'Client'}</span><p>{study.client || study.title}</p></div><div><span class="lab">{study.contextLabel || 'Location'}</span><p>{study.location}</p></div>{study.timeline && <div><span class="lab">Timeline</span><p>{study.timeline}</p></div>}<div><span class="lab">Scope</span><p>{study.scope}</p></div></div>
     {study.receipts.length > 0 && <><span class="kick rv">Results</span><div class="p-receipts rv rv-stag">{study.receipts.map((r) => <p class="p-receipt">{r}</p>)}</div></>}
     <div class="c-site-links">{study.url && <a class="arrow rv" href={study.url} rel="noopener noreferrer" target="_blank">{study.nonprofit ? 'Visit the ministry website ↗' : 'Visit the public client site ↗'}</a>}{study.relatedSites?.map(site => <a class="arrow rv" href={site.url} rel="noopener noreferrer" target="_blank">{site.label} ↗</a>)}</div></div></section>
   <div class="wrap">{laneNames.flatMap(lane => workLanes[lane].projects.filter(project => project.slug === study.slug && study.slug !== 'us-oil-solutions' && project.scene).map(project => <CaseScene name={project.scene!} alt={study.title + " / " + project.label + ". " + (project.status || "") + (lane === "Intelligence" ? "; private figures removed" : "")} caption={lane + " / " + project.label + (project.status ? " · " + project.status : "")} />))}</div>
@@ -265,7 +243,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
   <CasePresentations slug={study.slug} />
   {caseScreens[study.slug] && study.slug !== 'zinc-fusion-v16' && <CaseScreens presentation={caseScreens[study.slug]} />}
   {study.slug === 'bear-claw-usa' ? <BearClawScreens /> : study.slug === 'zinc-fusion-v16' ? <CaseScreens presentation={caseScreens[study.slug]} /> : <section class="c-hz" id="cHz"><div class="c-hz-pin"><div class="c-hz-track" id="cHzTrack"><div class="c-hz-intro rv"><span class="kick">{sec.shots} / The work on screen</span><h2 class="disp p-sec">{study.nonprofit ? 'Making the mission visible.' : study.application ? 'Inside the forecasting platform.' : study.slug === 'us-oil-solutions' ? 'Inside the operations app.' : 'Built for the work.'}</h2><p class="p-muted" style="margin:18px 0 0">{study.nonprofit ? 'Desktop and mobile views of the ministry’s public website, supported by ZINC pro bono.' : study.application ? 'Dashboard, strategy, policy intelligence and sentiment views from the platform in development. Private figures removed.' : study.slug === 'us-oil-solutions' ? 'Supervisor dashboards, restaurant groups, fryer records, on-call visits and special tasks in the standalone operations app.' : 'Interfaces, campaign materials and deliverables from the engagement.'}</p></div>
-    {galleryImages.map((k) => <figure class:list={['c-hz-shot rv', { phone: isPhone(k), cutout: isDevicePresentation(k), app: study.application || k.startsWith('ouabc-bi-') }]}>{study.application ? <div class="c-shot-status">Forecasting platform <span>In development</span></div> : k.startsWith('uos-second-site-') ? <div class="c-shot-status">New website <span>In progress</span></div> : <div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div>}<div class="vp"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></div><figcaption class="lab">{cap(k)} </figcaption></figure>)}
+    {galleryImages.map((k) => <figure class:list={['c-hz-shot rv', { phone: isPhone(k), cutout: isDevicePresentation(k), app: study.application }]}>{study.application ? <div class="c-shot-status">Forecasting platform <span>In development</span></div> : k.startsWith('uos-second-site-') ? <div class="c-shot-status">New website <span>In progress</span></div> : <div class="chrome" aria-hidden="true">{isPhone(k) ? '—' : '○ ○ ○'}</div>}<div class="vp"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '300px' : '(max-width: 1000px) 82vw, 820px'} /></div><figcaption class="lab">{cap(k)} </figcaption></figure>)}
   </div></div></section>}
   {websiteImages.length > 0 && <section class="p-band c-new-website" id="website" aria-labelledby="newWebsiteTitle"><div class="wrap">
     <div class="p-split"><div class="rv"><span class="kick">Public website / Second build · In progress</span><h2 class="disp p-sec" id="newWebsiteTitle">The new website.</h2></div><div class="rv"><p class="p-body">A second public website is being built around the complete oil-management program: filtration, top-offs, fresh-oil delivery, oil changes and used-oil collection.</p><p class="p-body p-muted">These desktop and mobile designs show the website in development. The technician and supervisor app is a separate product.</p><a class="arrow" href="https://usos-website-blush.vercel.app/" target="_blank" rel="noopener noreferrer">Preview the website in development ↗</a></div></div>

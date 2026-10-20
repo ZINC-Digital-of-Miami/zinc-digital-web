@@ -13,20 +13,6 @@ export type CaseScreensPresentation = {
 };
 
 export const caseScreens: Record<string, CaseScreensPresentation> = {
-  'once-upon-a-book-club': {
-    slug: 'once-upon-a-book-club',
-    title: 'The storefront, across screens.',
-    intro: 'The rebuilt Shopify storefront, shown on desktop and mobile.',
-    pages: [
-      {
-        key: 'storefront',
-        title: 'The storefront',
-        url: 'https://www.onceuponabookclub.com/',
-        detail: 'Subscription boxes, one-time releases and bookish gifts brought into one shopping experience.',
-        images: { desktop: 'ouabc-website-after', mobile: 'ouabc-mobile' },
-      },
-    ],
-  },
   'zinc-fusion-v16': {
     slug: 'zinc-fusion-v16',
     title: 'Inside the forecasting workspace.',

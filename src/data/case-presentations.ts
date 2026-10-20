@@ -20,16 +20,6 @@ interface CasePresentation {
 // Platform treatments present approved source artwork; they do not assert a
 // particular campaign, platform interface, delivery state or performance result.
 export const casePresentations: Record<string, CasePresentation> = {
-  'once-upon-a-book-club': {
-    client: 'Once Upon a Book Club',
-    title: 'Google Shopping. Meta. TikTok.',
-    intro: 'We manage all three paid channels around subscription boxes, limited editions and seasonal releases. These presentations use the client’s campaign artwork.',
-    frames: [
-      { asset: 'ouabc-halloween-campaign-square', kind: 'feed', surface: 'Meta', label: 'Creative presentation', title: 'A seasonal story.', caption: 'Client-approved Halloween artwork, presented for the Meta feed.', alt: 'Once Upon a Book Club Halloween campaign artwork in a Meta creative presentation.' },
-      { asset: 'ouabc-bridgerton-campaign-product', kind: 'vertical', surface: 'TikTok', label: 'Creative presentation', title: 'The box becomes the story.', caption: 'Bridgerton product artwork in a vertical creative presentation for TikTok.', alt: 'Once Upon a Book Club Bridgerton box and book artwork in a TikTok creative presentation.' },
-      { asset: 'ouabc-shopping-creative-2024', kind: 'shopping', surface: 'Google Shopping', label: 'Creative presentation', title: 'Show what arrives.', caption: 'Shopping campaign source artwork from 2024: the book, box and gifts shown together.', alt: 'Once Upon a Book Club Shopping source artwork showing Love of My Lives, its box and numbered gifts.' },
-    ],
-  },
   'summit-marine-development': {
     client: 'Summit Marine Development',
     title: 'The waterfront work comes first.',
