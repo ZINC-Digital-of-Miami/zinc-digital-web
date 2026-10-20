@@ -7,7 +7,6 @@ import type { Case } from '../data/site';
 interface Props { study: Case; loading?: 'eager' | 'lazy' }
 const { study, loading = 'eager' } = Astro.props;
 const approved: Record<string, string> = {
-  'once-upon-a-book-club': 'ouabc-white-devices.png',
   'bear-claw-usa': 'bear-white-devices.png',
   'smoky-mountain-survival': 'smoky-white-devices.png',
   'fraim-cawley-company': 'tax.jpeg',

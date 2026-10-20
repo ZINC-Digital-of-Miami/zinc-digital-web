@@ -51,7 +51,7 @@ const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
 const approvedHeroes = import.meta.glob<{ default: ImageMetadata }>('../assets/approved/*.png', { eager: true });
-const heroName = path === '/' || path === '/work/' || path === '/work/build/' ? 'build-ouabc-neese.png' : path === '/work/demand/' ? 'demand-dark.png' : path === '/work/intelligence/' ? 'intelligence-vibrant.png' : undefined;
+const heroName = path === '/' || path === '/work/' || path === '/work/build/' ? 'build-uos.png' : path === '/work/demand/' ? 'demand-summit.png' : path === '/work/intelligence/' ? 'intelligence-fusion.png' : undefined;
 const approvedHero = heroName ? approvedHeroes['../assets/approved/' + heroName]?.default : undefined;
 const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + asset('lvs-case-devices-restaurant').src]?.default : undefined;
 const heroFile = lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);

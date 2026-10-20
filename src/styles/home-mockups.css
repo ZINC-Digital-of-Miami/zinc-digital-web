@@ -58,7 +58,6 @@
 .hz-vis.home-scene{width:56%;height:auto;flex:0 1 56%}
 .hz-vis.home-scene .case-scene{width:100%}
 .hz-text{min-width:0}
-.home-ouabc-store{align-self:center}
 .home-case-scenes{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:55px}
 .home-case-scenes>a{display:flex;flex-direction:column;border-top:1px solid var(--line);padding-top:22px;gap:20px}
 .home-scene-link{font:12px/1.6 var(--fm);padding-bottom:12px;border-bottom:1px solid var(--tealt);align-self:flex-start}

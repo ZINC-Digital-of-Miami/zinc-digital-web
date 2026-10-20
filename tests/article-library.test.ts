@@ -30,7 +30,7 @@ test('new guides are short, sourced and connected to published pillar and servic
     for (const [, href] of post.markdown.matchAll(/\]\((\/[^)]+)\)/g)) {
       if (href.startsWith('/blog/')) assert.ok(all.some(p=>href==='/blog/'+p.slug+'/'), post.slug+' links to an unavailable article');
       else if (href.startsWith('/services/')) assert.ok(serviceSlugs.has(href.split('/')[2]), post.slug+' links to an unavailable service');
-      else assert.ok(['/work/once-upon-a-book-club/','/work/us-oil-solutions/'].includes(href), post.slug+' has an unexpected internal destination');
+      else assert.ok(['/work/us-oil-solutions/'].includes(href), post.slug+' has an unexpected internal destination');
     }
   }
 });

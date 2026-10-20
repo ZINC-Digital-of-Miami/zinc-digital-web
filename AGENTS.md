@@ -43,6 +43,10 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
 - **Time:** everything shown to the owner is America/Chicago (CT).
 - **Storage:** all work, scratch and worktrees stay under `/Volumes/Satechi Hub/`.
 
+## Removed client — owner, 20 Oct 2026
+
+Once Upon a Book Club (OUABC, including OUABC BI Fusion) is removed from the public site: no case study, page, link, logo, copy, caption or image that shows its brand or work. `/work/once-upon-a-book-club/` returns 410. This overrides every earlier spec, plan, design or approved-image reference to OUABC; do not restore it.
+
 ## Approved illustration direction — owner, 6 Oct 2026
 
 Use the approved smooth studio mockup illustrations across articles and case studies where they help explain the work. Vary GSC, GA4, Shopping, storefront and workflow compositions by topic; case studies use the client's own branding and appropriate screens. Keep report values private, with placeholder bars or em dashes, and remove browser URLs and cursors.
