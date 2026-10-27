@@ -1,4 +1,5 @@
 ---
+import { clientOrder } from '../data/client-work';
 import Closing from "../components/Closing.astro";
 import criticalDisplayFont from '../assets/fonts/manrope-latin-800.woff2?inline';
 import criticalLogo from '../assets/zinc-white.webp?inline';
@@ -87,7 +88,11 @@ if (t === 'author') {
   webpage.mainEntity={'@id':person['@id']};graph.push(person);
 }
 if (t === 'service') { const s = svcBy(route.slug!);webpage.mainEntity={'@id':canonical+'#service'}; graph.push({ '@type': 'Service','@id':canonical+'#service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: {'@type':'Country',name:'United States'}, url: canonical }, { '@type': 'FAQPage','@id':canonical+'#faq',isPartOf:{'@id':canonical+'#webpage'}, mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
-if (t === 'case') { const c = caseBy(route.slug!);webpage.mainEntity={'@id':canonical+'#work'}; graph.push({ '@type': 'CreativeWork','@id':canonical+'#work', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url?{url:c.url}:{}) } }); }
+if (t === 'case') { const c = caseBy(route.slug!);webpage.mainEntity={'@id':canonical+'#work'}; graph.push({ '@type': 'CreativeWork','@id':canonical+'#work', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.slug === 'zinc-fusion-v16' ? 'ZINC Fusion v16' : c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url?{url:c.url}:{}) } }); }
+if (path === '/work/') {
+  webpage.mainEntity = {'@id':canonical+'#projects'};
+  graph.push({'@type':'ItemList','@id':canonical+'#projects',itemListElement:clientOrder.map((slug,index)=>({'@type':'ListItem',position:index+1,name:caseBy(slug).title,url:SITE+'/work/'+slug+'/'}))});
+}
 const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph });
 
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';

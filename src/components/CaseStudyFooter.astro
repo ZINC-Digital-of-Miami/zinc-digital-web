@@ -1,8 +1,9 @@
 ---
+import { nextClient } from '../data/client-work';
 import { caseBy, type Case } from '../data/site';
 interface Props { study: Case }
 const { study } = Astro.props;
-const next = caseBy(study.next);
+const next = caseBy(nextClient(study.slug));
 const service = study.services[0] || 'web-design';
 ---
 <footer class="case-end" data-case-footer={study.slug}>
