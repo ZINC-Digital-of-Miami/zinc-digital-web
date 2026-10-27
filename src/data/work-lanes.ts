@@ -14,6 +14,8 @@ export const workLanes: Record<WorkLane, {
     projects: [
       { slug: 'us-oil-solutions', label: 'Public website', summary: 'A new website for the complete oil-management program, from fresh supply to used-oil collection.', category: ['Websites'], scene: 'build-uos', dark: true, status: 'Second website in development', href: '/work/us-oil-solutions/#website' },
       { slug: 'us-oil-solutions', label: 'Technician + supervisor app', summary: 'A separate operations application for assignments, fryer-service records, scheduling and visit reporting.', category: ['Applications'], asset: 'uos-current-technicians-desktop', href: '/work/us-oil-solutions/#operations-app' },
+      { slug: 'carla-funk-photography', label: 'Website + image management', summary: 'A photography portfolio, a one-year upgrade and a private image uploader.', category: ['Websites'], asset: 'carla-home-desktop' },
+      { slug: 'felon-motorwerk', label: 'Website + brand applications', summary: 'Website creative connected to apparel, signage and the retail space.', category: ['Websites'], asset: 'felon-motorwerk-presentation' },
       { slug: 'fraim-cawley-company', label: 'Website', summary: 'Website design for Fraim, Cawley & Company.', category: ['Websites'], asset: 'fraim-cawley-company-presentation' },
       { slug: 'smoky-mountain-survival', label: 'Website', summary: 'Website design for Smoky Mountain Survival.', category: ['Websites'], asset: 'smoky-mountain-survival-presentation' },
       { slug: 'andrew-neese', label: 'Website', summary: 'Website design for Andrew Neese.', category: ['Websites'], asset: 'andrew-neese-presentation' },
@@ -33,6 +35,9 @@ export const workLanes: Record<WorkLane, {
     projects: [
       { slug: 'summit-marine-development', label: 'Local SEO + Google + LSA + Meta', summary: 'Search and advertising for seawalls, docks and waterfront construction.', category: ['Local search', 'SEO', 'Paid media', 'Content'], scene: 'demand-summit', flow: ['Local search', 'Service page', 'Inquiry'] },
       { slug: 'us-oil-solutions', label: 'SEO + service content', summary: 'SEO for restaurant oil management in Las Vegas.', category: ['SEO', 'Content'], asset: 'uos-second-site-desktop' },
+      { slug: 'ballad-health', label: 'Enterprise SEO', summary: 'Merger SEO management across thousands of pages in 2018.', category: ['SEO'], asset: 'ballad-logo', href: '/work/ballad-health/' },
+      { slug: 'meade-tractor', label: 'Enterprise local SEO', summary: 'Local search work for the equipment dealership business.', category: ['SEO', 'Local search'], asset: 'meade-tractor-logo', href: '/work/meade-tractor/' },
+      { slug: 'general-shale', label: 'National enterprise SEO', summary: 'Enterprise search work with a national scope.', category: ['SEO'], asset: 'general-shale-logo', href: '/work/general-shale/' },
       { slug: 'las-vegas-safety', label: 'Product SEO', summary: 'Search-focused product content, indexing and redirects for a wholesale catalog.', category: ['SEO', 'Content'], asset: 'lvs-case-devices-restaurant', href: '/work/las-vegas-safety/#catalog' },
     ],
   },

@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import frame from '../assets/devices/level-device-frame.png';
 import Img from './Img.astro';
 
 interface Props {
@@ -12,28 +10,28 @@ interface Props {
 }
 const { title, desktop, tablet, mobile, loading = 'lazy' } = Astro.props;
 // Real source captures beneath level hardware. Narrow screens use the supplied
-// responsive captures when available, otherwise a detail crop of the wide source.
+// responsive captures when available; desktop-only evidence stays on desktop.
 const screens = [
   { device: 'desktop', asset: desktop, sizes: '(max-width: 700px) 50vw, 680px', widths: [480, 768, 1100, 1536] },
-  { device: 'laptop', asset: desktop, sizes: '(max-width: 700px) 37vw, 500px', widths: [480, 768, 1100] },
-  { device: 'tablet', asset: tablet || mobile || desktop, sizes: '(max-width: 700px) 16vw, 220px', widths: [280, 480, 768] },
-  { device: 'mobile', asset: mobile || tablet || desktop, sizes: '(max-width: 700px) 10vw, 140px', widths: [280, 420, 640] },
+  ...(tablet ? [{ device: 'tablet', asset: tablet, sizes: '(max-width: 700px) 16vw, 220px', widths: [280, 480, 768] }] : []),
+  ...(mobile ? [{ device: 'mobile', asset: mobile, sizes: '(max-width: 700px) 10vw, 140px', widths: [280, 420, 640] }] : []),
 ];
 ---
-<div class="device-composition" data-device-composition>
+{!mobile && !tablet ? <div class="desktop-capture"><Img k={desktop} alt={`${title} — desktop view`} loading={loading} sizes="(max-width: 700px) 92vw, 900px" /></div> : <div class="device-composition" data-device-composition>
   {screens.map(screen => <div class={`device-composition__screen device-composition__${screen.device}`} data-device={screen.device}>
     <Img k={screen.asset} alt={`${title} — source screen presented on ${screen.device === 'mobile' ? 'a phone' : 'a ' + screen.device}`} loading={loading} fetchpriority={loading === 'eager' && screen.device === 'desktop' ? 'high' : 'low'} sizes={screen.sizes} widths={screen.widths} quality={95} />
   </div>)}
-  <Image src={frame} alt="" aria-hidden="true" class="device-composition__frame" format="webp" quality={95} widths={[768, 1100, 1536]} sizes="(max-width: 700px) 100vw, 1320px" loading={loading} />
-</div>
+
+</div>}
 <style>
-  .device-composition{position:relative;isolation:isolate;width:100%;aspect-ratio:3/2;overflow:hidden;background:#fff}
-  .device-composition__screen{position:absolute;overflow:hidden;background:#111;line-height:0}
+  .desktop-capture{width:100%;padding:12px;background:transparent;border:1px solid #555;border-radius:8px}.desktop-capture :global(img){width:100%;height:auto;display:block}
+  .device-composition{position:relative;isolation:isolate;width:100%;aspect-ratio:3/2;overflow:visible;background:transparent}
+  .device-composition__screen{position:absolute;overflow:hidden;background:#111;line-height:0;border:5px solid #222629;border-radius:9px;box-shadow:0 14px 32px #0005}
   .device-composition__screen :global(picture){display:block;width:100%;height:100%}
   .device-composition__screen :global(img){display:block;width:100%;height:100%;object-fit:cover;object-position:top center;filter:none;transform:none}
-  .device-composition__desktop{left:18.75%;top:14.55%;width:50.15%;height:43.2%;z-index:1}
-  .device-composition__laptop{left:56.95%;top:45.6%;width:36.8%;height:33%;z-index:2}
-  .device-composition__tablet{left:3.77%;top:39.55%;width:15.8%;height:36.1%;z-index:3}
-  .device-composition__mobile{left:15.89%;top:58.4%;width:9.3%;height:25%;z-index:4}
+  .device-composition__desktop{border-bottom-width:16px;left:0;top:5%;width:85%;height:72%;z-index:1}
+  .device-composition__laptop{border-bottom-width:9px;left:56.95%;top:45.6%;width:36.8%;height:33%;z-index:2}
+  .device-composition__tablet{left:61%;top:36%;width:26%;height:55%;z-index:3}
+  .device-composition__mobile{border-radius:16px;left:81%;top:52%;width:17%;height:43%;z-index:4}
   .device-composition :global(.device-composition__frame){position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;object-fit:contain}
 </style>

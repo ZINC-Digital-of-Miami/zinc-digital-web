@@ -1,6 +1,6 @@
 ---
 import Closing from "../components/Closing.astro";
-import criticalDisplayFont from '../assets/fonts/big-shoulders-display-latin-800.woff2?inline';
+import criticalDisplayFont from '../assets/fonts/manrope-latin-800.woff2?inline';
 import criticalLogo from '../assets/zinc-white.webp?inline';
 import { createHash } from 'node:crypto';
 import "../styles/closing.css";
@@ -24,12 +24,14 @@ import '../styles/tokens.css';
 import '../styles/themes.css';
 import '../styles/site.css';
 import '../styles/studio.css';
+import '../styles/typography.css';
+import CaseGalleryViewer from '../components/CaseGalleryViewer.astro';
 import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
 // The unchanged 14 KB display face is available before first paint; no fallback rewrap.
-const criticalDisplayCss = '@font-face{font-family:"Big Shoulders Display-critical";src:url("' + criticalDisplayFont + '") format("woff2");font-weight:800;font-style:normal;font-display:block;} :root{--font-display:"Big Shoulders Display-critical",sans-serif;}';
+const criticalDisplayCss = '@font-face{font-family:"Manrope-critical";src:url("' + criticalDisplayFont + '") format("woff2");font-weight:800;font-style:normal;font-display:block;} :root{--font-display:"Manrope-critical",sans-serif;}';
 Astro.csp?.insertDirective("font-src 'self' data:");
 Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
@@ -161,8 +163,8 @@ const showCta = false;
       <dialog class="mobile-menu" id="mobileMenu" aria-labelledby="mobileMenuTitle">
         <div class="menu-background" aria-hidden="true"><img src={wordmark.src} alt="" width={wordmark.width} height={wordmark.height} /></div>
         <div class="menu-head"><a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} /></a><button type="button" class="menu-close" data-menu-close aria-label="Close navigation" autofocus><span aria-hidden="true"></span></button></div>
-        <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Insights','/blog/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span><span class="menu-arrow" aria-hidden="true">↗</span></a>)}</nav></div>
-        <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href={SMS}>Text {PHONE_LABEL} <span aria-hidden="true">↗</span></a></div>
+        <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Insights','/blog/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span></a>)}</nav></div>
+        <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href={SMS}>Text {PHONE_LABEL} </a></div>
       </dialog>
 
       <main id="main"><slot /></main>
@@ -188,17 +190,18 @@ const showCta = false;
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
             {STUDIOS.map((s) => <div><h2>{s.name}</h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
-            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href={SMS}>Text {PHONE_LABEL} ↗</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} ↗</a>)}</div></div>
+            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href={SMS}>Text {PHONE_LABEL} </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
             <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>{ADMIN_PATH && <> · <a href={ADMIN_PATH}>Admin</a></>}</span>
-            <span><span class="mdot" style="margin-right:10px"></span>Coded in Miami. With cafecitos.</span>
+            <span><span class="mdot" style="margin-right:10px"></span>ZINC Digital · Miami</span>
           </div>
         </div>
       </footer>
     </div>
 
+    {t === 'case' && <CaseGalleryViewer />}
     <script>
       import { initShell } from '../scripts/shell';
       initShell();

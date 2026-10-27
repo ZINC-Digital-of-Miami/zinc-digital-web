@@ -8,7 +8,7 @@ const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
  <p class="a-muted">Uses your Codex subscription on this Mac. Keep the Mac awake and connected while requests run.</p>
  <p data-codex-status role="status" aria-live="polite">Checking the subscription connection…</p>
  <p class="a-count" data-codex-verified></p>
- {staff.role==='owner'&&<div class="a-actions a-section"><button class="a-button primary" type="button" data-codex-connect>Connect Codex</button><button class="a-button" type="button" data-codex-verify>Verify connection</button><a class="a-button" data-codex-auth hidden target="_blank" rel="noopener noreferrer">Continue Codex sign-in ↗</a></div>}
+ {staff.role==='owner'&&<div class="a-actions a-section"><button class="a-button primary" type="button" data-codex-connect>Connect Codex</button><button class="a-button" type="button" data-codex-verify>Verify connection</button><a class="a-button" data-codex-auth hidden target="_blank" rel="noopener noreferrer">Continue Codex sign-in </a></div>}
  <p class="a-error" data-codex-error role="alert" hidden></p>
 </section>
 <script>import '../../scripts/admin/codex';</script>

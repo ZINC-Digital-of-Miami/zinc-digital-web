@@ -3,7 +3,16 @@
     "file": "campaign.png",
     "label": "Felon Cycles / campaign creative",
     "group": "brand-creative",
-    "sourceId": "1_97IW4AdLZfZFWQglzrD0UAX--GN0PB-"
+    "sourceId": "1_97IW4AdLZfZFWQglzrD0UAX--GN0PB-",
+    "category": "Campaigns"
+  },
+  {
+    "file": "spade-rocker-lifestyle.png",
+    "label": "Spade rocker / lifestyle creative",
+    "group": "brand-creative",
+    "category": "Apparel creative",
+    "sourceFile": "Downloads/Organized_Projects/Other_Misc_Files/Images/felonstreett.png",
+    "sourceSha256": "adf03aaf638e9ecd0ba6c5fd530ae81735025d7aa2a1e07d97230f2872b6451c"
   },
   {
     "file": "mugs.jpg",
@@ -57,7 +66,8 @@
     "file": "felon-cycles-logo.jpg",
     "label": "Felon Cycles / Miami Beach logo",
     "group": "brand-creative",
-    "sourceId": "11mFUVgUbSPmMYn_BI9Hm3VGuvx0E7IAN"
+    "sourceId": "11mFUVgUbSPmMYn_BI9Hm3VGuvx0E7IAN",
+    "category": "Logos"
   },
   {
     "file": "website-homepage-mockup.png",
@@ -91,12 +101,6 @@
     "sourceId": "1K4gOplIyU_6NQYyfsizaweCMAYV9-5GT"
   },
   {
-    "file": "red-bandana.jpg",
-    "label": "Red bandana / workshop portrait",
-    "group": "around-the-shop",
-    "sourceId": "1awFD7JzNzj-13eOKBhDu5WQlZjGwqJOo"
-  },
-  {
     "file": "sticker-tool-chest-original.png",
     "label": "Workshop / sticker-covered tool chest",
     "group": "around-the-shop",
@@ -106,7 +110,7 @@
     "file": "leather-vest-portrait.png",
     "label": "Leather vest / motorcycle portrait",
     "group": "around-the-shop",
-    "sourceFile": "Screenshot 2026-10-10 at 12.45.36 PM.png"
+    "sourceFile": "Screenshot 2026-10-10 at 12.45.36\u202fPM.png"
   },
   {
     "file": "flame-motorcycle-original.png",
@@ -119,12 +123,6 @@
     "label": "Rider / motorcycle in the workshop",
     "group": "around-the-shop",
     "sourceId": "1ejhWUKH78lWOi7mCZmFA1fzHlqfdoF1g"
-  },
-  {
-    "file": "shop-portrait-monochrome.jpg",
-    "label": "Around the shop / monochrome portrait",
-    "group": "around-the-shop",
-    "sourceFile": "20200621_090035~2.jpg"
   },
   {
     "file": "skull-mug.jpg",
@@ -149,5 +147,61 @@
     "label": "Red spade / wall clock",
     "group": "merchandise",
     "sourceId": "1uxFQL7XWfwiVkioYJ3YN1QoAeRR8bRvl"
+  },
+  {
+    "file": "spade-rocker-red.jpg",
+    "label": "Spade rocker / red on black",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/Copy of Main Felon Rocker on Black.jpg",
+    "sourceSha256": "ea8f17bc9e232ae24070b6c7ee7e19f3730b76673a371c495c4188e03cca5417"
+  },
+  {
+    "file": "crossed-tools-mark.png",
+    "label": "Crossed tools / workshop emblem",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/Copy of Copy of Copy of Copy of felon (3).png",
+    "sourceSha256": "1279333761b8cf02eaaf3adbbc409b35a0eb62ed8ca048f8150cf77871f30172"
+  },
+  {
+    "file": "top-hat-skull-mark.png",
+    "label": "Top hat skull / red and black",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/FELON Motorwerk Skull (2).png",
+    "sourceSha256": "21ccc964882a53765c9d677e4f52b3fe671cc4f42d0a5bac25c1410cc1af9c51"
+  },
+  {
+    "file": "skull-star-mark.png",
+    "label": "Skull and stars / roundel",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/FELON Motorwerk Skull (3).png",
+    "sourceSha256": "12832d72580e7ad697ec0b522963f8a350b19fc8f096da95dbbd8d1fea02f258"
+  },
+  {
+    "file": "skull-rocker-mark.png",
+    "label": "Skull rocker / red accents",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/Graphics/Copy of Copy of felon (10).png",
+    "sourceSha256": "1e501c7affbd05464e9a883e43b5b903ad967234a65113edac32868aad059081"
+  },
+  {
+    "file": "cycles-spade-mark.png",
+    "label": "Felon Cycles / black spade",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/Graphics/FELON MAIN.png",
+    "sourceSha256": "a0a24017e0628e2ab0179f7d9ce2daf2794711d14535d74ad0c1ea937ad97937"
+  },
+  {
+    "file": "cycles-red-spade-mark.png",
+    "label": "Felon Cycles / red spade",
+    "group": "brand-creative",
+    "category": "Logos",
+    "sourceFile": "Google Storage Archive/zincmiami_drive_sync/Felon Motorwerk Co/Graphics/FELON SITE/FELON MAIN (3).png",
+    "sourceSha256": "bbcd47eebcc127bb8db5fcd982da335ccc175038b254df94fd352230fbf831df"
   }
 ]

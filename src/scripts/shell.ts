@@ -152,7 +152,7 @@ function initScroll() {
     if (noMotion) return;
     if (!opener?.classList.contains('c-open-app')) pin(opener, (p) => { if (openImg) openImg.style.transform = 'translateY(' + -p * 12 + '%) scale(' + (1 + p * 0.06) + ')'; if (openTxt) { openTxt.style.opacity = String(1 - Math.max(0, (p - 0.6) / 0.4)); openTxt.style.transform = 'translateY(' + -p * 48 + 'px)'; } });
     pin(ba, (p) => baStage?.style.setProperty('--ba', (100 - p * 100).toFixed(2) + '%'));
-    pin(hz, (p) => { if (hzTrack) { const max = Math.max(0, hzTrack.scrollWidth - innerWidth); hzTrack.style.transform = 'translateX(' + -p * max + 'px)'; } });
+    if (innerWidth <= 900) { if (hzTrack) hzTrack.style.transform = ''; } else pin(hz, (p) => { if (hzTrack) { const max = Math.max(0, hzTrack.scrollWidth - innerWidth); hzTrack.style.transform = 'translateX(' + -p * max + 'px)'; } });
     q('.rv:not(.in),.rv-stag:not(.in)').forEach((el) => { const b = el.getBoundingClientRect(); if (b.top < vh * 0.9 && b.bottom > 0 && b.left < innerWidth && b.right > 0) el.classList.add('in'); });
     pars.forEach((el) => { const s = parseFloat(el.dataset.par || '0'); const b = el.parentElement!.getBoundingClientRect(); const d = b.top + b.height / 2 - vh / 2; el.style.transform = 'translateY(' + -d * s + 'px)'; });
   };
@@ -173,3 +173,12 @@ function initTeamShuffle() {
     cards.sort(() => Math.random() - 0.5).forEach((c) => grid.append(c));
   });
 }
+
+// Expanding a case archive reveals its contents immediately, including from the keyboard.
+document.addEventListener('toggle', (event) => {
+  const archive = event.target;
+  if (archive instanceof HTMLDetailsElement && archive.open && archive.classList.contains('case-archive')) {
+    archive.querySelectorAll('.rv,.rv-stag').forEach(element => element.classList.add('in'));
+    dispatchEvent(new Event('zinc-layout'));
+  }
+}, true);

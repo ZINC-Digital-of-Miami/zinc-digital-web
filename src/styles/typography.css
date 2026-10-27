@@ -1,0 +1,43 @@
+/* Owner direction, 26 October: modern, open typography throughout the site. */
+.zb .disp{line-height:1.08;letter-spacing:-.045em;text-transform:none}
+#zsRoot .p-title,#zsRoot .zn-page-hero .p-title{font-size:clamp(42px,6.6vw,100px);line-height:1.07;letter-spacing:-.05em;max-width:18ch}
+#zsRoot .p-title.long,#zsRoot .zn-long-title .p-title{font-size:clamp(36px,4.8vw,74px)}
+#zsRoot .p-sec,#zsRoot .section h2,#zsRoot .case-section h2,#zsRoot .felon-section h2,#zsRoot .overview h2{font-size:clamp(32px,4vw,62px);line-height:1.1;letter-spacing:-.045em}
+#zsRoot .p-layer-h{font-size:clamp(28px,3.4vw,48px)}
+#zsRoot .wl-hero h1,#zsRoot .zn-work-overview h1{font-size:clamp(42px,6.2vw,88px);line-height:1.06;letter-spacing:-.05em}
+.zb .mobile-menu .menu-links a{font-size:clamp(30px,8vw,44px);line-height:1.15;letter-spacing:-.04em;text-transform:none}
+.zb .zn-copy h2{font-size:clamp(42px,6vw,94px);line-height:1.04;letter-spacing:-.05em;text-transform:none}
+.zb .zn-stage[data-lane=demand] h2{font-size:clamp(36px,5vw,76px)}
+.zb .zn-stage[data-lane=intelligence] h2{font-size:clamp(28px,4vw,62px)}
+.zb .zn-closing-top h2{font-size:clamp(46px,6vw,88px);line-height:1.05;letter-spacing:-.055em}
+.zb .lab,.zb .kick{letter-spacing:.05em}
+.zb .nlink,.zb .theme-t,.zb .menu-toggle{font-size:12px;letter-spacing:.05em}
+@media(max-width:760px){
+ #zsRoot .p-title,#zsRoot .zn-page-hero .p-title{font-size:clamp(36px,9vw,60px)}
+ #zsRoot .p-title.long,#zsRoot .zn-long-title .p-title{font-size:clamp(30px,7.8vw,48px)}
+ #zsRoot .p-sec,#zsRoot .section h2,#zsRoot .case-section h2,#zsRoot .felon-section h2,#zsRoot .overview h2{font-size:clamp(29px,7.5vw,42px)}
+ #zsRoot .wl-hero h1,#zsRoot .zn-work-overview h1{font-size:clamp(36px,9vw,56px)}
+ .zb .zn-closing-top h2{font-size:clamp(44px,12vw,68px)}
+}
+/* Wider display lettering needs room in the editorial service list. */
+.zb .zn-editorial .service-layout{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+.zb .zn-editorial .service-layout h2{font-size:clamp(32px,4.4vw,62px);line-height:1.08;text-transform:none}
+.zb .zn-editorial .service h3{font-size:clamp(24px,2.9vw,42px);line-height:1.1;text-transform:none}
+.zb .zn-editorial .service{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto}
+.zb .zn-editorial .section-head h2{font-size:clamp(36px,5vw,70px);line-height:1.08;text-transform:none}
+@media(max-width:760px){
+ .zb .zn-editorial .service-layout{grid-template-columns:minmax(0,1fr)}
+ .zb .zn-editorial .service{grid-template-columns:minmax(0,1fr) auto;gap:14px}
+ .zb .zn-editorial .service h3{font-size:clamp(25px,7vw,34px)}
+ .zb .zn-editorial .service p{grid-row:2;grid-column:1/-1;font-size:14px}
+ .zb .zn-editorial .service a{grid-column:2;grid-row:1}
+}
+.zb .fbig{font-size:clamp(42px,7vw,100px);letter-spacing:-.05em}
+@media(max-width:760px){.zb .fbig{font-size:clamp(31px,9.8vw,56px)}}
+@media(max-width:600px){
+ .zb .wl-cards--build .wl-card-link{grid-template-columns:minmax(0,1fr)}
+ .zb .wl-cards--build .wl-card-art{aspect-ratio:1.6;padding:20px}
+ .zb .wl-cards--build .wl-card-copy{padding:22px}
+ .zb .wl-cards--build .wl-card-copy h3{font-size:clamp(24px,6.8vw,32px);line-height:1.15}
+ .zb .home-notes .home-notes-title{font-size:clamp(32px,9vw,44px);letter-spacing:-.04em}
+}

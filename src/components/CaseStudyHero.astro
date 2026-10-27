@@ -1,0 +1,53 @@
+---
+import Img from './Img.astro';
+import { caseHeroes } from '../data/case-heroes';
+import { asset, type Case } from '../data/site';
+interface Props { study: Case }
+const { study } = Astro.props;
+const hero = caseHeroes[study.slug];
+if (!hero) throw new Error('Missing case hero: ' + study.slug);
+const titleId = study.slug === 'bear-claw-usa' ? 'bear-title' : 'case-title';
+const crops: Record<string, [string,string]> = { smoky:['1536 / 740','-9.4%'], andrew:['1536 / 820','-7.1%'], porsche:['1536 / 750','-7.8%'], fraim:['2048 / 830','-1.36%'], felon:['1536 / 860','-4.4%'] };
+const crop = hero.mask ? crops[hero.mask] : undefined;
+const logoWidth = asset(study.hero).src.endsWith('.svg') ? 500 : Math.min(asset(study.hero).width,500);
+const longTitle = hero.title.some(part => part.length > 12);
+const desktopRatio = hero.desktop && !hero.mobile ? asset(hero.desktop).width + ' / ' + asset(hero.desktop).height : undefined;
+const imageAlt = study.slug === 'porsche-roanoke'
+  ? 'Illustrative Porsche device presentation; not screenshots of the Roanoke dealership websites'
+  : study.title + ' — ' + hero.note;
+---
+<header class:list={['case-hero', { 'long-title':longTitle, 'identity-hero':hero.identity }]} aria-labelledby={titleId} data-case-hero={study.slug} style={'--case-accent:'+hero.accent}>
+  <div class="wrap">
+    <div class="case-topline"><p>ZINC / Selected work</p><p>{hero.scope}</p><span>{study.location}</span></div>
+    <h1 id={titleId}>{hero.title[0]} <span>{hero.title[1]}</span></h1>
+    <div class="case-deck"><p>{hero.deck}</p><a href="#case-story">Explore the {study.slug==='bear-claw-usa'?'build':'project'} </a></div>
+  </div>
+  <div class:list={['case-showcase','wrap',{'has-mobile':hero.mobile,'is-montage':hero.montage}]} data-case-mockup={study.slug}>
+    <div class="case-accent-field" aria-hidden="true"></div>
+    {hero.identity ? <figure class="case-identity" style={'--logo-width:'+logoWidth+'px'}>
+      <div class="identity-meta"><span>{hero.scope}</span><span>ZINC / Selected engagement</span></div>
+      <Img k={study.hero} alt={study.title} loading="eager" fetchpriority="high" sizes="(max-width:760px) 65vw, 500px" />
+      <figcaption>{study.line}</figcaption>
+    </figure> : hero.montage ? <figure class="case-montage" style={hero.mask ? '--device-mask:url(/masks/'+hero.mask+'.svg);--montage-ratio:'+crop![0]+';--montage-offset:'+crop![1] : undefined}>
+      <Img k={hero.montage} alt={imageAlt} loading="eager" fetchpriority="high" sizes="(min-width:1600px) 1456px, 92vw" widths={[768,1100,1536,1920,2560]} quality={95}/>
+    </figure> : <>
+      <figure class="case-desktop">
+        <div class="case-window" aria-hidden="true"><span>● ● ●</span><span>{study.title} / {study.application?'APPLICATION':'WEBSITE'}</span></div>
+        <div class="case-desktop-screen" style={desktopRatio ? '--screen-ratio:'+desktopRatio : undefined}><Img k={hero.desktop!} alt={imageAlt} loading="eager" fetchpriority="high" sizes="(max-width:760px) 89vw, (min-width:1600px) 1456px, 84vw" widths={[960,1440,1920,2560,2880]} quality={95}/></div>
+      </figure>
+      {hero.mobile && <figure class="case-mobile"><div class="case-mobile-screen"><Img k={hero.mobile} alt={study.title+' — actual mobile website layout'} loading="eager" sizes="(max-width:760px) 24vw, 230px" widths={[390,780]} quality={95}/></div></figure>}
+    </>}
+    <div class="case-caption">{hero.captions.map((caption,i)=><span>0{i+1} / {caption}</span>)}<span>{hero.note}</span></div>
+  </div>
+</header>
+<style>
+.case-hero{position:relative;overflow:hidden;background:#0b0c0d;color:#f5f3ed;--ink:#f5f3ed;--muted:#b7b7b0;--line:#353637;padding:42px 0 44px}
+.case-topline{display:flex;justify-content:space-between;gap:24px;font:10px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.08em;color:#aaa9a3;border-bottom:1px solid #383937;padding-bottom:18px}.case-topline p{margin:0}
+.case-hero h1{font:800 clamp(50px,7.4vw,112px)/1.02 var(--fd);letter-spacing:-.055em;margin:30px 0 22px;text-transform:none;color:#f4f2ec}.case-hero h1 span{color:var(--case-accent)}.long-title h1{font-size:clamp(44px,6.4vw,96px)}.long-title h1 span{display:block}
+.case-deck{display:flex;justify-content:space-between;align-items:end;gap:30px;padding-bottom:38px}.case-deck p{font:400 clamp(18px,1.7vw,26px)/1.35 var(--fb);letter-spacing:-.02em;margin:0;color:#c0c0b9;max-width:46ch}.case-deck a{display:inline-flex;align-items:center;gap:35px;min-height:44px;flex-shrink:0;border-bottom:1px solid var(--case-accent);color:#f5f3ed!important;font:11px/1.5 var(--fm);text-transform:uppercase;letter-spacing:.05em}.case-deck a span{font-size:21px;color:var(--case-accent)}.case-deck a:hover{border-color:#f5f3ed}.case-deck a:focus-visible{outline:2px solid var(--case-accent);outline-offset:6px}
+.case-showcase{position:relative;padding-bottom:0;isolation:isolate}.case-accent-field{position:absolute;z-index:-1;left:calc(50% - 50vw);right:calc(50% - 50vw);top:37%;bottom:34px;background:var(--case-accent)}.case-showcase figure{margin:0}
+.case-desktop{position:relative;width:91%;border:1px solid #55544f;border-radius:8px;overflow:hidden;background:#111;box-shadow:0 14px 32px #0005}.case-window{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#252627;color:#b9b8b2;font:8px/1 var(--fm);letter-spacing:.07em;text-transform:uppercase}.case-window>span:first-child{letter-spacing:3px;font-size:6px}.case-desktop-screen{aspect-ratio:var(--screen-ratio,1.9);overflow:hidden}.case-showcase :global(picture){display:block;width:100%}.case-showcase :global(img){display:block;width:100%;height:auto;image-rendering:auto}
+.case-mobile{position:absolute;right:0;bottom:73px;width:18%;padding:6px;background:#151515;border:1px solid #67645c;border-radius:24px;box-shadow:0 14px 28px #0005}.case-mobile-screen{aspect-ratio:390/844;overflow:hidden;border-radius:18px}.case-caption{display:flex;gap:36px;align-items:center;padding:23px 0 0;min-height:56px;font:10px/1.5 var(--fm);color:#aaa9a3;text-transform:uppercase;letter-spacing:.06em}.case-caption span:last-child{margin-left:auto}
+.case-montage{aspect-ratio:var(--montage-ratio,1800 / 760);overflow:hidden}.case-montage :global(picture){margin-top:var(--montage-offset,0);mask-image:var(--device-mask,none);mask-size:100% 100%;mask-repeat:no-repeat}.is-montage .case-accent-field{top:43%}.case-identity{position:relative;min-height:420px;width:91%;background:var(--case-accent);border:1px solid #0003;padding:32px clamp(24px,5vw,80px);display:flex;flex-direction:column;justify-content:space-between;gap:50px;box-shadow:0 14px 32px #0005}.identity-meta{display:flex;justify-content:space-between;gap:20px;font:10px/1.5 var(--fm);color:#242424;text-transform:uppercase}.case-identity :global(picture){max-width:var(--logo-width);margin:auto}.case-identity :global(img){max-width:var(--logo-width);max-height:150px;object-fit:contain;margin:auto}.case-identity figcaption{font:400 clamp(24px,3.4vw,48px)/1.15 var(--fb);max-width:30ch;color:#181a1c;letter-spacing:-.03em}
+@media(max-width:760px){.case-hero{padding:28px 0 30px}.case-topline{font-size:8px;gap:12px}.case-topline>span{display:none}.case-hero h1{font-size:clamp(38px,10vw,68px);margin:28px 0 20px;overflow-wrap:normal}.case-hero h1 span{display:block}.long-title h1{font-size:clamp(29px,7.6vw,52px)}.case-deck{align-items:start;padding-bottom:28px;gap:14px}.case-deck p{font-size:17px;max-width:22ch}.case-deck a{font-size:9px;gap:12px;white-space:nowrap}.case-desktop{width:95%;border-radius:4px}.case-window{height:18px;padding:0 7px;font-size:5px}.case-window>span:first-child{font-size:4px}.case-desktop-screen{aspect-ratio:var(--screen-ratio,1.45)}.case-mobile{width:25%;bottom:70px;right:8px;padding:3px;border-radius:12px}.case-mobile-screen{border-radius:9px}.case-accent-field{top:38%;bottom:58px}.case-caption{padding-top:20px;gap:10px;justify-content:space-between;font-size:8px;flex-wrap:wrap}.case-caption span:last-child{margin:0;width:100%;font-size:8px;color:#aaa9a3}.case-identity{width:95%;min-height:320px;padding:24px;gap:35px}.identity-meta{font-size:8px}.identity-meta span:last-child{display:none}.case-identity figcaption{font-size:25px}.case-identity :global(img){max-height:100px}.identity-hero .case-accent-field{bottom:72px}}
+</style>

@@ -65,7 +65,7 @@ for (const slug of ['las-vegas-safety','carla-funk-photography','us-oil-solution
 const carla = pages.find(p => p.rel === 'work/carla-funk-photography/index.html')?.html || '';
 check(carla.includes('Admin image uploader') && carla.includes('In progress') && carla.includes('2025'), 'Carla must distinguish the existing website from the upgrade and admin uploader');
 const ballad = pages.find(p => p.rel === 'work/ballad-health/index.html')?.html || '';
-check(ballad.includes('Past client') && ballad.includes('Enterprise SEO') && ballad.includes('2018') && ballad.includes('thousands of pages') && ballad.includes('SEO technician'), 'Ballad must remain a past enterprise SEO engagement');
+check(ballad.includes('Enterprise SEO') && ballad.includes('2018') && ballad.includes('thousands of pages') && ballad.includes('SEO technician'), 'Ballad must retain its 2018 enterprise SEO role and scale');
 // Owner, 20 Oct 2026: Once Upon a Book Club is removed from the public site, with every image of it.
 for (const p of pages) check(!/once upon a book club|once-upon-a-book-club|onceuponabookclub|ouabc/i.test(p.html), p.rel + ' still references Once Upon a Book Club');
 for (const file of await readdir(distDir, { recursive: true })) check(!/ouabc|once-upon|book-?club/i.test(String(file)), 'dist/' + file + ' is a Once Upon a Book Club file');
@@ -170,7 +170,10 @@ for (const { rel, html } of pages) {
   const m = PLACEHOLDER.exec(t);
   check(!m, rel + ' renders a placeholder marker: "' + (m && m[0]) + '"');
   // Site copy only: migrated article bodies may use these words in their own sense ("mockup" in a design article).
-  const pw = PREVIEW_WORDING.exec(text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' ')));
+  const copy = text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' '));
+  // Owner-confirmed Felon deliverables include mockups; the term describes the work, not a preview site.
+  const productionCopy = rel === 'work/felon-motorwerk/index.html' ? copy.replace(/\bmockups?\b/gi, 'design presentations') : copy;
+  const pw = PREVIEW_WORDING.exec(productionCopy);
   check(!pw, rel + ' renders demo or preview wording: "' + (pw && pw[0]) + '"');
   for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
   const woff2 = new Set(Array.from(html.matchAll(/url\("([^"]+\.woff2(?:\?[^"]*)?)"\)/g), (m) => m[1]));
@@ -218,7 +221,8 @@ if (work) for (const s of CASE_SLUGS) check(hrefs(work.html).some(h => h.split('
 for (const s of CASE_SLUGS) {
   const p = pages.find((x) => x.rel === 'work/' + s + '/index.html');
   if (!p) continue;
-  if (!['ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-mockup="' + s + '"'), 'work/' + s + ' lacks its device mockup hero');
+  check(p.html.includes('data-case-hero="' + s + '"') && p.html.includes('data-case-mockup="' + s + '"') && p.html.includes('id="case-story"'), 'work/' + s + ' lacks the shared case-study layout');
+  check(p.html.includes('data-case-footer="' + s + '"'), 'work/' + s + ' lacks the shared next-project navigation');
   if (!['bear-claw-usa','ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
@@ -226,7 +230,7 @@ for (const s of CASE_SLUGS) {
   if (s === 'carla-funk-photography') {
     for (const id of ['website','upgrade','image-manager','identity']) check(p.html.includes('id="'+id+'"'), 'Carla lacks '+id);
   } else if (['meade-tractor','general-shale'].includes(s)) {
-    check(p.html.includes(s+'-logo.') && p.html.includes('Past client'), s+' lacks its logo or past engagement status');
+    check(p.html.includes(s+'-logo.') && p.html.includes('enterprise'), s+' lacks its logo or enterprise SEO context');
     check(!p.html.includes('data-device-composition'), s+' SEO case must not imply website design work');
   } else if (s === 'ballad-health') {
     check(p.html.includes('ballad-logo.') && p.html.includes('https://www.balladhealth.org/'), 'Ballad lacks its supplied logo or official website link');
@@ -236,19 +240,19 @@ for (const s of CASE_SLUGS) {
   } else if (s === 'las-vegas-safety') {
     for (const id of ['before-after','website','identity','catalog','production','flyers']) check(p.html.includes('id="'+id+'"') && p.html.includes('href="#'+id+'"'), 'LVS lacks linked section '+id);
     check(!p.html.includes('case-lvs-'), 'LVS must not present the later client refresh as ZINC work');
-    check(p.html.includes('Christmas Eve') && p.html.includes('no extra charge') && p.html.includes('manually upscaled'), 'LVS lacks owner-confirmed production context');
+    check(p.html.includes('catalog-image preparation') && p.html.includes('no additional charge') && p.html.includes('launch collateral'), 'LVS lacks owner-confirmed production context');
   } else if (s === 'miami-tactical') {
     for (const id of ['overview','website','logo','design-details']) check(p.html.includes('id="' + id + '"') && p.html.includes('href="#' + id + '"'), 'Miami Tactical lacks linked section ' + id);
   } else if (s === 'felon-motorwerk') {
     for (const id of ['website','apparel','brand-creative','merchandise','shop-signage','around-the-shop']) check(p.html.includes('id="' + id + '"'), 'Felon lacks gallery ' + id);
     check((p.html.match(/data-apparel-item/g)||[]).length === 25, 'Felon must show 25 selected apparel designs');
   } else {
-    check(p.html.includes('id="cOpen"') && p.html.includes(s === 'bear-claw-usa' ? 'id="bc-screens-title"' : s === 'zinc-fusion-v16' ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
+    check((s === 'bear-claw-usa' ? p.html.includes('id="bear-title"') : p.html.includes('id="case-title"')) && p.html.includes(['bear-claw-usa','zinc-fusion-v16'].includes(s) ? 'data-case-pages="' + s + '"' : 'id="cHz"'), 'work/' + s + ' lacks the opener or website screenshots');
     const nonprofit = ['the-lampstand-va', 'straight-street-ministries'].includes(s);
     check(nonprofit ? /\/ The mission/.test(p.html) && /\/ Our support/.test(p.html) : /\/ The situation/.test(p.html) && /\/ The approach/.test(p.html), 'work/' + s + ' lacks its mission/support or situation/approach sections');
   }
   if (s === 'bear-claw-usa') {
-    for (const page of ['home','product','about','quote']) for (const device of ['desktop','tablet','mobile']) {
+    for (const page of ['home','product','applications','about','quote']) for (const device of ['desktop','tablet','mobile']) {
       check(p.html.includes('bear-claw-' + page + '-' + device + '.'), 'Bear Claw lacks its ' + page + ' ' + device + ' screenshot');
     }
     check(!p.html.includes('Brand and collateral') && !p.html.includes('business-card') && !p.html.includes('Product packaging'), 'Bear Claw must describe website work only');

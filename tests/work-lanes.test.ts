@@ -5,7 +5,7 @@ import { laneNames, workLanes, projectLink } from '../src/data/work-lanes.ts';
 
 test('service lanes retain every existing case and let engagements span relevant services', () => {
   assert.deepEqual([...new Set(workLanes.Build.projects.map(p => p.slug))].sort(), [
-    'us-oil-solutions', 'bear-claw-usa', 'las-vegas-safety',
+    'us-oil-solutions', 'bear-claw-usa', 'las-vegas-safety', 'carla-funk-photography', 'felon-motorwerk',
     'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries',
     'miami-tactical', 'fraim-cawley-company', 'smoky-mountain-survival', 'andrew-neese', 'porsche-roanoke',
   ].sort());
@@ -44,4 +44,13 @@ test('US Oil website and operations app stay in separate Build entries', () => {
   assert.notEqual(website, app);
   assert.equal(website.href, '/work/us-oil-solutions/#website');
   assert.equal(app.href, '/work/us-oil-solutions/#operations-app');
+});
+
+test('enterprise SEO engagements are discoverable through Demand and SEO', () => {
+  for (const slug of ['ballad-health','meade-tractor','general-shale']) {
+    const project=workLanes.Demand.projects.find(p=>p.slug===slug);
+    assert.ok(project, slug);
+    assert.ok(project.category.includes('SEO'));
+    assert.equal(project.href, '/work/'+slug+'/');
+  }
 });

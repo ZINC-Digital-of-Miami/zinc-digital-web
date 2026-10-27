@@ -9,5 +9,5 @@ const image=images['../assets'+asset(k).src]?.default;
 if(!image) throw new Error('Missing original LVS asset: '+k);
 const widths=[...new Set([...requestedWidths,Math.min(image.width,1920)].filter(w=>w<=image.width))];
 ---
-<a class="original-image" href={image.src} target="_blank" rel="noopener" aria-label={alt+' — view original image in a new tab'}><Picture src={image} formats={['avif','webp']} fallbackFormat="webp" widths={widths} sizes={sizes} quality={90} alt={alt} loading={loading} fetchpriority={fetchpriority}/></a>
+<a class="original-image" href={image.src} target="_blank" rel="noopener" aria-label={alt+' — view detail'}><Picture src={image} formats={['avif','webp']} fallbackFormat="webp" widths={widths} sizes={sizes} quality={90} alt={alt} loading={loading} fetchpriority={fetchpriority}/></a>
 <style>.original-image{display:block}.original-image:focus-visible{outline:3px solid #00898d;outline-offset:4px}.original-image :global(img){display:block;width:100%;height:auto;object-fit:contain}</style>
