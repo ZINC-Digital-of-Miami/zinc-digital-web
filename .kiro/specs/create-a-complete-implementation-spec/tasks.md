@@ -423,3 +423,12 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
 - [ ] Delivery: focused tests, preview and fresh-agent review. Migration 0006 and production activation remain pending exact owner approval; source/test completion does not imply deployed functionality.
 
 Owner expansion, 16 Oct 2026 CT: optimize the complete public site for SEO and AI search. Search-only metadata, linked factual structured data, safe JSON-LD, published-content-aware discovery and accurate article lastmod are implemented in the admin/SEO task. Migration 0007 preserves actual edit timestamps across publishing without inventing dates for unchanged or legacy content; application and SQL verification remain approval-dependent. Approved Privacy/Terms bodies remain required owner content, not generated or retired.
+
+
+### Owner-authorized editorial cadence — 27 October 2026 CT
+
+- [x] Configure three weekly editorial runs (Monday/Wednesday/Friday09:00 CT), beginning28October, using the existing app heartbeat mechanism. Automation: zinc-three-weekly-articles.
+- [x] Establish twelve dated article briefs, with Wendy6/Kirk3/Jaymie3 and author-specific voice/scope in docs/editorial/schedule.md.
+- [x] Draft Kirk's WordPress/PHP security and Astro migration article with current primary sources.
+- [ ] Publish first due article through existing review/Docker/protected-release workflow and verify live; complete its featured image and recheck PHP advisories before release.
+- [ ] Continue the scheduled mix, recording actual publication URLs, dates and checks separately from target dates.
