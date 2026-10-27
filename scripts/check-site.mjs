@@ -9,6 +9,7 @@ import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { caseScreens } from '../src/data/case-screens.ts';
+import { clientOrder, workFor, nextClient } from '../src/data/client-work.ts';
 import { laneNames, workLanes } from '../src/data/work-lanes.ts';
 
 const root = process.cwd();
@@ -330,6 +331,24 @@ for (const { rel, html } of pages) {
   const bytes = chunks.reduce((n, b) => n + gzipSync(b).length, 0);
   check(bytes <= JS_BUDGET, rel + ' ships ' + bytes + ' gzip bytes of script, over ' + JS_BUDGET);
 }
+
+// Reconciled client grouping: one card per client, complete links and one next-project loop.
+const overview = pages.find(p => p.rel === 'work/index.html')?.html || '';
+const listedClients = [...overview.matchAll(/data-client="([^"]+)"/g)].map(m => m[1]);
+check(JSON.stringify(listedClients) === JSON.stringify(clientOrder), 'Work must list each current client once, in portfolio order');
+for (const slug of clientOrder) {
+  const page = pages.find(p => p.rel === 'work/'+slug+'/index.html')?.html || '';
+  const footer = page.match(/<footer[^>]*data-case-footer[^>]*>([\s\S]*?)<\/footer>/)?.[1] || '';
+  check(footer.includes('href="/work/'+nextClient(slug)+'/"'), slug+' has an incorrect next-project destination');
+  for (const entry of workFor(slug)) {
+    check(overview.includes('href="'+entry.href+'"'), slug+' lacks an engagement link on Work');
+    check(page.includes('href="'+entry.href+'"'), slug+' lacks an engagement link in its rail');
+    const anchor = entry.href.split('#')[1];
+    if(anchor) check(page.includes('id="'+anchor+'"'), slug+' engagement points to missing section '+anchor);
+  }
+}
+check(overview.includes('"@type":"ItemList"'), 'Work lacks its portfolio ItemList');
+check(fusion.includes('"name":"ZINC Fusion v16"'), 'Fusion application schema must retain its registered product name');
 
 // ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
 for (const { rel, html } of pages) {
