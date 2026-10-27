@@ -1,0 +1,39 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Img from './Img.astro';
+import { asset } from '../data/site';
+const originals = import.meta.glob<{default:ImageMetadata}>('../assets/work/**/*.{png,jpg,webp}', {eager:true});
+const pieces = [
+ ['smd-logo-primary','Primary logo','The wave and wordmark combine the company name with a direct reference to its waterfront work.','dark'],
+ ['smd-logo-light','Light logo variation','A second treatment carries the same identity onto darker backgrounds.','dark'],
+ ['smd-brand-icon','Standalone brand icon','The compact S and wave mark gives the identity a smaller-format application.','light'],
+ ['smd-logo-concepts','Logo development','Explorations of the wordmark, symbol and supporting arrangements.','light'],
+ ['smd-city-graphic','Location-page graphic','Angled panels and the Summit wordmark frame local service content.','light'],
+ ['smd-project-graphic','Project photography treatment','Wave linework ties the waterfront photograph back to the identity.','light'],
+ ['smd-footer-graphic','Branded footer artwork','A compass motif and marine teal carry the visual language into the page ending.','light'],
+ ['smd-site-icon','Supporting website icon','Custom supporting graphics extend the identity into service-page details.','light'],
+ ['smd-before-after-creative','Before-and-after creative','A designed project comparison brings construction photographs into a shared visual treatment.','light'],
+] as const;
+const keys = ['smd-brand-book', ...pieces.map(p=>p[0])];
+const full = Object.fromEntries(await Promise.all(keys.map(async key=>{
+ const src=originals['../assets'+asset(key).src].default;
+ return [key,(await getImage({src,width:Math.min(src.width,2400),format:'webp',quality:95})).src];
+})));
+---
+<section class="summit-brand p-band" id="brand" aria-labelledby="summitBrandTitle" data-gallery-group>
+ <div class="wrap">
+  <header class="brand-heading"><div><span class="kick">Brand identity / Design system</span><h2 class="disp" id="summitBrandTitle">A waterfront identity.<br/>Across every detail.</h2></div><p>ZINC designed the logo, brand identity and supporting graphics, then carried that work through the website and campaign creative. The project included the marks, color palette, typography and page artwork shown here.</p></header>
+  <div class="brand-book"><div><h3>The brand, defined.</h3><p>The brand book brings the logo variations, teal-and-gray palette and typography together. Montserrat and Open Sans provide the original heading and supporting type treatments; the wave and compact S mark connect the system to marine construction.</p><p>The same design language appears in service and location pages, photographic treatments, icons and footer graphics. These are the original project assets.</p><a href="#summit-brand-book">Explore the brand book</a></div><figure id="summit-brand-book"><a href={full['smd-brand-book']} data-gallery-image data-gallery-title="Summit Marine Development / Brand book"><Img k="smd-brand-book" alt="Summit Marine brand book showing logo variations, teal and gray colors, Montserrat and Open Sans typography, and website application" sizes="(max-width:800px) 90vw, 45vw" /></a><figcaption>Identity, palette, typography and website application · Select to enlarge</figcaption></figure></div>
+  <div class="brand-pieces">{pieces.map(([key,title,caption,surface])=><figure><a class:list={['brand-art',surface]} href={full[key]} data-gallery-image data-gallery-title={'Summit Marine / '+title}><Img k={key} alt={'Summit Marine Development / '+title} sizes="(max-width:800px) 90vw, 44vw" /></a><figcaption><h3>{title}</h3><p>{caption}</p><span class="detail-hint">Select image to enlarge</span></figcaption></figure>)}</div>
+  <p class="brand-connection">The dock and seawall campaign artwork above shows this identity carried into advertising. The website captures show it working across the homepage and individual service pages.</p>
+ </div>
+</section>
+<style>
+.summit-brand{border-top:1px solid var(--line);color:var(--ink);background:var(--bg)}
+.brand-heading{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:end;margin-bottom:60px}.brand-heading h2{font-size:clamp(38px,4.7vw,76px);line-height:1.06;margin:22px 0 0;letter-spacing:-.035em}.brand-heading p,.brand-book p,.brand-pieces p,.brand-connection{font:17px/1.65 var(--fb);color:var(--muted);max-width:56ch}
+.brand-book{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,7vw,110px);align-items:start;padding-bottom:65px;border-bottom:1px solid var(--line);margin-bottom:50px}.brand-book h3{font:600 clamp(28px,3vw,44px)/1.15 var(--fb);margin:0 0 24px}.brand-book p+p{margin-top:20px}.brand-book figure{margin:0}.brand-book :global(img){display:block;width:100%;height:auto}.brand-book figcaption{font:12px/1.6 var(--fb);color:var(--muted);padding-top:16px}
+.summit-brand a:focus-visible{outline:3px solid var(--tealt);outline-offset:5px}.brand-book>div>a,.brand-pieces .detail-hint{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;border-bottom:1px solid currentColor;font:14px var(--fb);color:var(--ink);text-decoration:none}
+.brand-pieces{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:45px 28px}.brand-pieces figure{margin:0;min-width:0}.brand-art{display:flex;align-items:center;justify-content:center;aspect-ratio:1.7;padding:clamp(20px,3vw,40px);overflow:hidden}.brand-art.light{background:#f4f4f4}.brand-art.dark{background:#103e49}.brand-art :global(picture){display:block;width:100%;height:100%;min-height:0}.brand-art :global(img){display:block;width:100%;height:100%;max-height:100%;object-fit:contain;filter:none}.brand-pieces h3{font:600 23px/1.3 var(--fb);margin:22px 0 10px}.brand-pieces p{margin:0;font-size:16px}.brand-connection{border-top:1px solid var(--line);padding-top:30px;margin-top:50px;max-width:70ch}
+@media(max-width:800px){.brand-heading,.brand-book,.brand-pieces{grid-template-columns:1fr;gap:28px}.brand-heading{margin-bottom:35px}.brand-book{padding-bottom:40px;margin-bottom:35px}.brand-pieces{gap:38px}.brand-art{padding:22px}.brand-heading h2{font-size:clamp(36px,9vw,52px)}}
+</style>

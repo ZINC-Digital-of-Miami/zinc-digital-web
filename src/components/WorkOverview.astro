@@ -4,8 +4,8 @@ import ApprovedImage from './ApprovedImage.astro';
 import { clientOrder, workFor } from '../data/client-work';
 import CaseHeroMockup from './CaseHeroMockup.astro';
 import {cases} from '../data/site';
-const previewAssets: Record<string,string> = {'bear-claw-usa':'bear-white-devices.png','smoky-mountain-survival':'smoky-white-devices.png','fraim-cawley-company':'tax.jpeg','andrew-neese':'andrew-white-devices.png','porsche-roanoke':'porsche-white-devices.png','felon-motorwerk':'felon-white-devices.png','summit-marine-development':'summit.jpeg','us-oil-solutions':'oil-white-devices.png'};
-const previewLabels: Record<string,string> = {'bear-claw-usa':'Industrial · Website','smoky-mountain-survival':'Outdoor · Website','fraim-cawley-company':'Accounting · Website','andrew-neese':'Real estate · Website','porsche-roanoke':'Dealer & merchandise websites','felon-motorwerk':'Motorcycles · Web work','summit-marine-development':'Marine · Website & campaigns','us-oil-solutions':'Commercial services · Website'};
+const previewAssets: Record<string,string> = {'bear-claw-usa':'bear-white-devices.png','smoky-mountain-survival':'smoky-white-devices.png','fraim-cawley-company':'tax.jpeg','andrew-neese':'andrew-white-devices.png','porsche-roanoke':'porsche-white-devices.png','felon-motorwerk':'felon-white-devices.png','us-oil-solutions':'oil-white-devices.png'};
+const previewLabels: Record<string,string> = {'bear-claw-usa':'Industrial · Website','smoky-mountain-survival':'Outdoor · Website','fraim-cawley-company':'Accounting · Website','andrew-neese':'Real estate · Website','porsche-roanoke':'Dealer & merchandise websites','felon-motorwerk':'Motorcycles · Web work','summit-marine-development':'Marine · Identity, website & campaigns','us-oil-solutions':'Commercial services · Website'};
 const clients = clientOrder.map(slug => cases.find(c => c.slug === slug)!);
 import '../styles/editorial.css';
 ---

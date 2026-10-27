@@ -8,6 +8,9 @@ import WorkOverview from "./WorkOverview.astro";
 import ApprovedImage from "./ApprovedImage.astro";
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
+import SummitBrand from './SummitBrand.astro';
+import { articleTables } from '../lib/article-tables';
+import { articleSources } from '../data/article-sources';
 import WorkLane from './WorkLane.astro';
 import CaseImage from './CaseImage.astro';
 import CaseStudyHero from './CaseStudyHero.astro';
@@ -145,7 +148,7 @@ const presentedAssets = new Set(study ? [...(casePresentations[study.slug]?.fram
 const archiveGallery = study?.slug === 'us-oil-solutions' || Boolean(study?.nonprofit);
 const GalleryContainer = archiveGallery ? 'details' : 'div';
 const websiteImages = study?.slug === 'us-oil-solutions' ? study.images.filter(k => k.startsWith('uos-second-site-')) : [];
-const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k)) || [];
+const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k) && !(study.slug === 'summit-marine-development' && k === 'smd-brand-book')) || [];
 const brandImages = study?.brand.filter(k => !presentedAssets.has(k)) || [];
 const markdownArticle = post?.markdown !== undefined ? renderArticleMarkdown(post.markdown) : undefined;
 const articleSections = (markdownArticle?.sections || post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || []).map(section => ({...section,label:section.label.replace(/^(?:Step )?\d+[.:]\s+/, '')}));
@@ -159,13 +162,10 @@ const illustrationBlock = blockHeadings[Math.floor(blockHeadings.length / 2)] ??
 const articlePillar = post ? pillarFor(post.slug) : undefined;
 const publishedPillar = articlePillar && posts.find(p => p.slug === articlePillar.slug);
 const nextArticles = post ? readingPath(post.slug, posts) : [];
-// The imported SEO comparison lost its table markup. Reconstruct only its exact
-// known header and eight complete rows; other article prose is never split.
-const comparisonHeader = 'Question · If The Answer Is No · Likely Bottleneck';
-const comparisonIndex = post?.slug === 'how-long-seo-actually-takes' ? post.blocks.findIndex(b => b.type === 'p' && b.runs?.map(r => r.text).join('') === comparisonHeader) ?? -1 : -1;
-const comparisonBlocks = comparisonIndex >= 0 ? post!.blocks.slice(comparisonIndex + 1, comparisonIndex + 9) : [];
-const comparisonRows = comparisonBlocks.map(b => b.runs?.map(r => r.text).join('').split(' · ') || []);
-const hasComparison = comparisonRows.length === 8 && comparisonBlocks.every(b => b.type === 'p' && b.runs?.every(r => !r.href)) && comparisonRows.every(row => row.length === 3);
+const restoredTables = articleTables(post?.slug || '',post?.blocks || []);
+const sourceListBlocks = post?.blocks.flatMap((block,i)=>block.type==='heading' && block.runs?.map(r=>r.text).join('')==='Trusted Source Links' && post.blocks[i+1]?.type==='ul' ? [post.blocks[i+1]] : []) || [];
+const repeatedTakeaway = new Set(post?.blocks.flatMap((block,i) => block.type === 'p' && block.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' && post.blocks[i-1]?.type === 'heading' && post.blocks[i-1]?.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' ? [i] : []) || []);
+const listedSourceUrls = articleSources({blocks:sourceListBlocks}).map(s=>s.url);
 const feat = posts[0];
 const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
@@ -256,7 +256,8 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     <CaseScene name="build-uos" alt="U.S. Oil Solutions new public website on laptop and phone screens" caption="Public website / Second build in development. Desktop and mobile website views." />
     <CaseScreens presentation={caseScreens[study.slug]} /><details class="case-archive"><summary>Additional website captures</summary><div class="c-website-screens">{websiteImages.map(k => <figure class:list={['c-website-screen rv', { phone: isPhone(k) }]}><div class="c-shot-status">New website <span>In progress</span></div><div class="c-website-view"><Img k={k} alt={study.title + ' — ' + cap(k)} sizes={isPhone(k) ? '(max-width: 600px) 70vw, 300px' : '(max-width: 900px) 90vw, 900px'} /></div><figcaption class="lab">{cap(k)}</figcaption></figure>)}</div></details>
   </div></section>}
-  {study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k), mixed: /lvs-brand-/.test(k), light: ['lvs-logo-black','smd-logo-concepts','uos-archive-logo'].includes(k) }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
+  {study.slug === 'summit-marine-development' && <SummitBrand />}
+  {study.slug !== 'summit-marine-development' && study.brand.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick rv">{sec.brand} / Brand and collateral</span><h2 class="disp p-sec rv">Identity that holds up.</h2><div class="c-brand rv rv-stag">{brandImages.map((k) => <figure class:list={['c-brand-tile', { dark: /product-/.test(k), mixed: /lvs-brand-/.test(k), light: ['lvs-logo-black','smd-logo-concepts','uos-archive-logo'].includes(k) }]}><Img k={k} alt={study.title + ' — ' + cap(k)} sizes="(max-width: 900px) 50vw, 33vw" /></figure>)}</div></div></section>}
   {study.results.length > 0 && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.results} / The results</span><h2 class="disp p-sec">What changed.</h2></div><div class="rv"><ol class="c-list rv-stag">{study.results.map((c, i) => <li><span class="lab">{pad(i)}</span><p>{c}</p></li>)}</ol></div></div></section>}
   {study.quote && <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">{sec.quote} / In their words</span><h2 class="disp p-sec">{study.quote.who}</h2><p class="lab" style="margin:10px 0 0">{study.quote.org}</p></div><div class="rv"><blockquote class="p-body c-quote" style="margin:0">“{study.quote.text}”</blockquote></div></div></section>}
 </>)}
@@ -287,8 +288,8 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     <aside class="p-aside rv"><div class="p-article-date"><p class="lab">Published</p><p class="p-muted">{dateLabel(post.dateGmt)}</p></div>{articleSections.length > 0 && <nav class="p-article-nav" aria-label="Article sections"><details><summary>In this article</summary><ol>{articleSections.map((section) => <li><a href={'#' + section.id}>{section.label}</a></li>)}</ol></details></nav>}<a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles </a></aside>
     <article class="p-prose rv" data-source-id={post.id}>
       {markdownArticle && <><div set:html={markdownParts[0]} />{supportingIllustration && <ArticleIllustration illustration={supportingIllustration} />}<div set:html={markdownParts[1]} /></>}
-      {post.blocks.map((block, i) => <>{supportingIllustration && i === illustrationBlock && <ArticleIllustration illustration={supportingIllustration} />}{hasComparison && i > comparisonIndex && i <= comparisonIndex + 8 ? null : hasComparison && i === comparisonIndex ? <div class="p-comparison"><table><caption>The Bottleneck Test</caption><thead><tr>{comparisonHeader.split(' · ').map(label => <th scope="col">{label}</th>)}</tr></thead><tbody>{comparisonRows.map(row => <tr><th scope="row">{row[0]}</th><td data-label="If the answer is no">{row[1]}</td><td data-label="Likely bottleneck">{row[2]}</td></tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>}</>)}
-      <ArticleSources post={post} />
+      {post.blocks.map((block, i) => <>{supportingIllustration && i === illustrationBlock && <ArticleIllustration illustration={supportingIllustration} />}{restoredTables.skipped.has(i) || repeatedTakeaway.has(i) ? null : restoredTables.tables.has(i) ? <div class="p-comparison"><table><caption>{restoredTables.tables.get(i)!.caption}</caption><thead><tr>{restoredTables.tables.get(i)!.headers.map(label=><th scope="col">{label}</th>)}</tr></thead><tbody>{restoredTables.tables.get(i)!.rows.map(row=><tr><th scope="row">{row[0]}</th>{row.slice(1).map((cell,j)=><td data-label={restoredTables.tables.get(i)!.headers[j+1]}>{cell}</td>)}</tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>}</>)}
+      <ArticleSources post={post} exclude={listedSourceUrls} />
     </article>
     {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articlePillar?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedPillar && articlePillar?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedPillar.slug + '/'}>{articlePillar?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span></a></li>)}</ul></nav>}
   </div></section>

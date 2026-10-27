@@ -39,7 +39,7 @@ Choose a test order whose quantities, discounts and payment route are easy to in
 
 Compare the sent fields with the order record. Google's [purchase reference](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) specifies a unique **transaction_id** and an **items** array. Include **currency** when sending **value**.
 
-Check product or variant identity, numeric prices and quantities, and the merchandise value: item price multiplied by quantity, summed across items. Keep shipping and tax in their separate parameters. A green tag cannot verify that arithmetic.
+Check product or variant identity, numeric prices and quantities, and the merchandise value: item price multiplied by quantity, summed across items. Keep shipping and tax in their separate parameters. Check the amounts even when the tag fires successfully.
 
 ## 3. Follow the journey in DebugView
 
@@ -104,11 +104,11 @@ Point relevant internal links and sitemap entries to the intended address. Use [
 
 Inspect HTTP responses, robots rules and indexing directives separately. Google's [robots.txt guide](https://developers.google.com/search/docs/crawling-indexing/robots/intro) explains that crawling controls do not reliably prevent indexing. Its [robots meta guidance](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) covers directives the crawler must be able to read. Private pages need actual access protection.
 
-Repair the evidenced conflict and retest the deployed page. Request indexing when appropriate, then inspect the next crawl. A completed release and Google's subsequent selection are separate observations.
+Fix the conflict you found and retest the published page. Request indexing when appropriate, then inspect the next crawl. A completed release and Google's subsequent selection are separate observations.
 
 **Inspection record:** intended URL; selected URL; crawl date; response; canonical; access rules; conflicting signals; repair; next check.
 
-Use the [Search Console operator's guide](/blog/google-search-console-the-operators-guide/) for recurring review. [Technical SEO](/services/seo/) earns a URL-level explanation before the next site-wide guessing exercise.`,
+Use the [Search Console operator's guide](/blog/google-search-console-the-operators-guide/) for recurring review. For [technical SEO](/services/seo/), identify the affected URLs and the conflicting signals before changing a shared template.`,
   },
   {
     id: 90003,

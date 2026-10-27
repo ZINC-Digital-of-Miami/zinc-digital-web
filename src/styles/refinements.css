@@ -32,3 +32,12 @@ html.js .case-slider .uso-track,.case-slider .uso-track{display:flex!important;f
 .case-slider .uso-intro{background:#101112}.case-slider .uso-intro .kick{color:#bfc1c5!important}.case-slider .uso-intro .chips li{background:#191b1e!important;color:#d8d9db!important}.case-slider .stamp.next .lab{color:#bfc1c5!important}
 /* Selected Work keeps its pale surface in both themes. */
 .zb .zn-editorial .small-link,.zb .zn-editorial .all-work{color:#101112}
+
+/* Restore the two-plane notch above Insights instead of a single flat edge. */
+.zb .home-notes::before{background:linear-gradient(174deg,#292c30 0 47%,#0a0a0b 47% 100%);clip-path:polygon(0 72%,72% 0,72% 28%,100% 0,100% 100%,0 100%)}
+.zb .cta{overflow:visible;background:#0a0a0b;color:#f5f6f7}
+.zb .home-contact-story{padding-top:90px;padding-bottom:70px}
+@media(max-width:760px){.zb .home-contact-story{padding-top:55px;padding-bottom:45px}}
+
+/* Join the charcoal story and inquiry planes without a pale body-color seam. */
+.zb .home-contact-story + .cta{margin-top:0}

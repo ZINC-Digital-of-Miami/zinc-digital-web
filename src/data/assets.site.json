@@ -220,5 +220,13 @@
   "felon-motorwerk-presentation": {"src":"/approved/felon-white-devices.png","width":1536,"height":1024},
   "bear-claw-hero-desktop": {"src":"/work/bear-claw-hero-desktop.png","width":2880,"height":2000,"source":"https://bear-claw-usa.vercel.app/","captured":"2026-10-26"},
   "bear-claw-hero-mobile": {"src":"/work/bear-claw-hero-mobile.png","width":780,"height":1688,"source":"https://bear-claw-usa.vercel.app/","captured":"2026-10-26"},
-  "bear-claw-applications-tablet": {"src":"/work/bear-claw-applications-tablet.png","width":1638,"height":5144,"source":"https://bear-claw-usa.vercel.app/applications","captured":"2026-10-26"}
+  "bear-claw-applications-tablet": {"src":"/work/bear-claw-applications-tablet.png","width":1638,"height":5144,"source":"https://bear-claw-usa.vercel.app/applications","captured":"2026-10-26"},
+  "smd-logo-primary": {"src": "/work/case-material/smd-logo-primary.png", "width": 1900, "height": 500, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Summit Marine Development Logo.png"},
+  "smd-logo-light": {"src": "/work/case-material/smd-logo-light.png", "width": 5938, "height": 1563, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Light Summit Logo.png"},
+  "smd-brand-icon": {"src": "/work/case-material/smd-brand-icon.png", "width": 1000, "height": 1000, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/SUMMIT MARINE ICON.png"},
+  "smd-city-graphic": {"src": "/work/case-material/smd-city-graphic.png", "width": 1400, "height": 550, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/SUMMIT City Page Hero Graphic (1400 x 550 px).png"},
+  "smd-project-graphic": {"src": "/work/case-material/smd-project-graphic.png", "width": 2300, "height": 1000, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Summit Hero Sized Images wUpscaling.png"},
+  "smd-footer-graphic": {"src": "/work/case-material/smd-footer-graphic.png", "width": 1600, "height": 600, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Summit Footer BG .png"},
+  "smd-site-icon": {"src": "/work/case-material/smd-site-icon.png", "width": 500, "height": 500, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Summit Home Page Graphics.png"},
+  "smd-before-after-creative": {"src": "/work/case-material/smd-before-after-creative.png", "width": 1920, "height": 1283, "source": "/Users/zincdigital/Downloads/Organized_Projects/Summit_Marine_Development/Images/Untitled design (18).png"}
 }

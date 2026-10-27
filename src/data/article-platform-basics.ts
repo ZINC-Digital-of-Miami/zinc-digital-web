@@ -210,13 +210,13 @@ Google's [GA4 Data API guide](https://developers.google.com/analytics/devguides/
 
 Write what each metric includes, excludes and counts. Specify the time zone, period and source freshness. Distinguish recorded results from projections. Show incomplete coverage rather than treating missing records as zero.
 
-For purchase measurement, check the [GA4 purchase specification](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) and trace an order using our [event validation guide](/blog/ga4-ecommerce-event-validation/). The glossary is part of the report, not optional meeting decor.
+For purchase measurement, check the [GA4 purchase specification](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#purchase) and trace an order using our [event validation guide](/blog/ga4-ecommerce-event-validation/). Keep those definitions available alongside the report.
 
 ## 4. Build the view around the decision
 
 Put the comparison, relevant breakdown and source date where the operator can see them. Identify attribution limits and incomplete records in the view itself.
 
-[U.S. Oil Solutions](/work/us-oil-solutions/) illustrates an operational use: visit records and fryer-service histories support reporting inside its separate operations app. That app is distinct from its public website. Different business, different workflow, same need for understandable records.
+[U.S. Oil Solutions](/work/us-oil-solutions/) illustrates an operational use: visit records and fryer-service histories support reporting inside its separate operations app. That app is distinct from its public website.
 
 ## 5. Assign an action and verify it
 

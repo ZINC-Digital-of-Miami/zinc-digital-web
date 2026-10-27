@@ -1,0 +1,3701 @@
+{
+  "ai-search-results-and-generative-search-optimization": {
+    "remove": [
+      29,
+      31,
+      32,
+      33,
+      41,
+      49,
+      55,
+      57,
+      78,
+      79,
+      90,
+      178,
+      179,
+      180,
+      188,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      211,
+      214,
+      215,
+      216,
+      217,
+      98
+    ],
+    "replace": [
+      {
+        "index": 5,
+        "text": "This work builds on SEO: clear, crawlable information, useful pages, and reliable evidence about the business.",
+        "original": {
+          "runs": [
+            {
+              "text": "It is not a replacement for SEO. It is not a secret schema trick. It is not a prompt you paste into a tool and call strategy. It is a new visibility layer sitting on top of the same old requirement: the web has to contain clear, crawlable, useful, trusted evidence about your business."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 18,
+        "text": "What Generative Search Optimization Means",
+        "original": {
+          "runs": [
+            {
+              "text": "What generative search optimization Means"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 30,
+        "text": "How AI Search Builds on SEO",
+        "original": {
+          "runs": [
+            {
+              "text": "generative search optimization Vs. SEO: What Changes And What Does Not"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 54,
+        "text": "Start With the Available Evidence",
+        "original": {
+          "runs": [
+            {
+              "text": "The Category Error Behind generative search optimization"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 81,
+        "text": "Research on AI Search Visibility",
+        "original": {
+          "runs": [
+            {
+              "text": "What Industry Research Says About generative search optimization And AI Visibility"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 117,
+        "text": "Unsupported or contradictory information can lead to inaccurate summaries or make a page less useful as a source.",
+        "original": {
+          "runs": [
+            {
+              "text": "AI search rewards clarity, but it also punishes unsupported noise by ignoring it or misrepresenting it."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 143,
+        "text": "Examples by Business Type",
+        "original": {
+          "runs": [
+            {
+              "text": "What generative search optimization Looks Like In The Field"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 150,
+        "text": "The goal is to describe the business and its service area accurately.",
+        "original": {
+          "runs": [
+            {
+              "text": "The goal is not to make a robot love the business. The goal is to make the business unmistakable."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 166,
+        "text": "Mistakes to Avoid",
+        "original": {
+          "runs": [
+            {
+              "text": "What Not To Do With generative search optimization"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 187,
+        "text": "We use AI for research, comparison, analysis and QA. The team reviews the evidence, implements changes and measures the result.",
+        "original": {
+          "runs": [
+            {
+              "text": "We are not building content workflows for other businesses to run. We are not selling a prompt pack. We are not using AI to pump out content and hope the algorithm is too distracted to notice. We use AI for research, comparison, analysis, forecasting, and QA. Then we do the SEO work: diagnose, repair, rewrite where needed, connect the pages, clean the evidence, verify the draft, and measure whether visibility improves."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 189,
+        "text": "AI Search Readiness Checklist",
+        "original": {
+          "runs": [
+            {
+              "text": "The Practical generative search optimization Checklist"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 207,
+        "text": "Making Your Site Easier to Understand",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 146,
+        "text": "Illustrative Example: Local Service Business",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Example: Local Service Business"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 151,
+        "text": "Illustrative Example: Ecommerce Site",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Example: Ecommerce Site"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 156,
+        "text": "Illustrative Example: SaaS Or B2B Company",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Example: SaaS Or B2B Company"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 161,
+        "text": "Illustrative Example: Professional Service Firm",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Example: Professional Service Firm"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 9,
+        "text": "Clear information and accessible pages give search systems useful material to work with. They do not guarantee that a business will appear in a particular AI answer.",
+        "original": {
+          "runs": [
+            {
+              "text": "AI search visibility is not a magic placement. It is the result of cleaner evidence, stronger pages, better entity signals, and proof that the work moved."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "google-shopping-ad-management-2026": {
+    "remove": [
+      3,
+      4,
+      26,
+      31,
+      32,
+      102,
+      137,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      151,
+      156
+    ],
+    "replace": [
+      {
+        "index": 5,
+        "text": "Feed and tracking checks help prevent avoidable spend.",
+        "original": {
+          "runs": [
+            {
+              "text": "The work is disciplined, technical, and not very glamorous. That is fine. The unglamorous work is usually where the money stops leaking."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 34,
+        "text": "Performance Max can serve across Google inventory, including Search, Shopping, YouTube, Display, Discover, Gmail and Maps. Available placements depend on campaign settings, assets and eligibility.",
+        "original": {
+          "runs": [
+            {
+              "text": "Performance Max is goal-based and uses Google AI across many Google channels. For retailers with Merchant Center feeds, it can serve Shopping ads, local product ads, Search placements, YouTube, Display, Gmail, Demand Gen, Maps through local inventory, and other eligible inventory. It can be powerful when the account has strong conversion data, clean product segmentation, enough budget, and good creative."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 38,
+        "text": "Standard Shopping offers direct product-group bidding and campaign priorities. Performance Max combines more inventory and automation, and also supports negative keywords for Search and Shopping. Choose between them based on the control, assets, measurement and campaign coverage the account needs.",
+        "runs": [
+          {
+            "text": "Standard Shopping offers direct product-group bidding and campaign priorities. Performance Max combines more inventory and automation, and also supports "
+          },
+          {
+            "text": "negative keywords for Search and Shopping",
+            "href": "https://support.google.com/google-ads/answer/15726455"
+          },
+          {
+            "text": ". Choose between them based on the control, assets, measurement and campaign coverage the account needs."
+          }
+        ],
+        "original": {
+          "runs": [
+            {
+              "text": "Use "
+            },
+            {
+              "text": "Standard Shopping"
+            },
+            {
+              "text": " when the account is new, search-term learning matters, negative keyword control is needed, product-level bids matter, or the business does not yet trust its conversion data."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 136,
+        "text": "For ecommerce clients, product-page structured data should agree with Merchant Center, variant URLs, feed IDs, checkout pricing, shipping, returns and availability.",
+        "original": {
+          "runs": [
+            {
+              "text": "We also check the schema layer. For ZINC posts, that means the article graph, author, publisher, source citations, and service-area context are clean. For ecommerce clients, it means product-page structured data agrees with Merchant Center, variant URLs, feed IDs, checkout reality, shipping, returns, and product availability."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 139,
+        "text": "We use crawl data and exports to identify recurring errors, then review each finding against the account and storefront.",
+        "original": {
+          "runs": [
+            {
+              "text": "We use AI, crawl data, exports, and structured review workflows to move faster through the mess. The judgment still comes from the operator reading the evidence."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 153,
+        "text": "If tracking is inconsistent, validate it before using reported ROAS to make budget decisions.",
+        "original": {
+          "runs": [
+            {
+              "text": "If the feed is weak, fix the feed. If the campaign type is wrong, change the structure. If tracking is messy, stop trusting the ROAS. If the catalog has different margins, stop treating every product the same. If the store has local inventory, connect the local proof and stock data properly."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 150,
+        "text": "Before You Increase Spend",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 54,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Common Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 28,
+        "text": "Consistency matters across all of these placements:",
+        "original": {
+          "runs": [
+            {
+              "text": "That does not create a separate magic playbook. It makes consistency more important:"
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "shopify-seo-launch-checklist": {
+    "remove": [
+      36,
+      141,
+      144,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      164
+    ],
+    "replace": [
+      {
+        "index": 54,
+        "text": "Product structured data belongs on product pages and should describe the product information visitors can see.",
+        "original": {
+          "runs": [
+            {
+              "text": "For a client Shopify store, product structured data belongs on product pages, not on this ZINC blog post."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 70,
+        "text": "Check the existing theme and apps before adding another tool.",
+        "original": {
+          "runs": [
+            {
+              "text": "Apps are tools. They are not a strategy. If the store is technically confused, another app often gives the confusion a subscription plan."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 89,
+        "text": "This requires product administration, feed maintenance and quality checks.",
+        "original": {
+          "runs": [
+            {
+              "text": "This is not glamorous work. It is spreadsheet work, product admin work, feed"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nwork, and QA work. Very Prada-level quality control, minus the boutique lighting."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 97,
+        "text": "Resolve launch-blocking issues before release and assign an owner and date to the rest.",
+        "original": {
+          "runs": [
+            {
+              "text": "If the sweep finds a critical issue, fix the issue. Do not bury it under “phase"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ntwo.” Phase two is where good intentions go to become archaeology."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 101,
+        "text": "Inconsistent variant details can produce Merchant Center warnings and make it harder to match products accurately.",
+        "original": {
+          "runs": [
+            {
+              "text": "What it caused: Google could see product variations, but the relationship between parent product, variant URL, size, color, price, and availability was muddy. Merchant Center diagnostics started doing their usual impression of a smoke alarm."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 148,
+        "text": "Avoid generic product descriptions that omit useful buying details.",
+        "original": {
+          "runs": [
+            {
+              "text": "Avoid product descriptions that sound like a generic paragraph generator got trapped in a catalog."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 160,
+        "text": "Before You Launch",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 98,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Common Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 140,
+        "text": "Identify whether the issue belongs to site architecture, the product feed, content, measurement or the theme before assigning the repair.",
+        "original": {
+          "runs": [
+            {
+              "text": "Some issues are architecture problems. Some are feed problems. Some are content problems. Some are tracking problems. Some are Shopify theme problems wearing a marketing hat."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "four-pillars-of-seo-operators-view": {
+    "remove": [
+      4,
+      79,
+      91,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165
+    ],
+    "replace": [
+      {
+        "index": 60,
+        "text": "Evaluate the relevance of potential links and the quality of the destination pages.",
+        "original": {
+          "runs": [
+            {
+              "text": "They chase links without asking whether the links make sense. They publish"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nguest posts nobody should read. They buy directory placements with all the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsubtlety of a billboard in a courtroom. Then they act surprised when the work"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndoes not age well."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 104,
+        "text": "Publishing needs a clear topic structure and an ongoing maintenance plan.",
+        "original": {
+          "runs": [
+            {
+              "text": "The lesson: random publishing is not a strategy. It is a habit with invoices."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 114,
+        "text": "Scattered information can make it harder for readers and search systems to understand the business accurately.",
+        "original": {
+          "runs": [
+            {
+              "text": "What it caused: AI-assisted search summarized the business in bland category"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nlanguage because the site never connected its expertise, services, authors,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nlocations, and proof clearly."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 166,
+        "text": "Putting the Four Pillars to Work",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 54,
+        "text": "Articles need useful examples, sources and clear explanations. Service pages need to explain the offer, who it suits and what happens next. Product pages need accurate product facts and answers to buying questions.",
+        "original": {
+          "runs": [
+            {
+              "text": "For model ZINC posts, that usually means examples, source links, a practical"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nframework, a clear operator takeaway, and a CTA that fits the reader’s stage."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nFor a service page, it means offer clarity, proof, process, fit, and next"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\naction. For a product or ecommerce page, it means product facts, buyer"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nquestions, structured data, and conversion support."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 92,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Common Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 159,
+        "text": "Publishing more content does not fix weak technical access, poor organization or missing evidence.",
+        "original": {
+          "runs": [
+            {
+              "text": "And avoid the cheerful promise that SEO is easy if you simply publish more."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nThat one has caused enough landfill."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 16,
+        "text": "Technical access, useful content, relevant authority and measurement depend on one another. A crawlable page still needs to answer a real question, and new content needs a clear purpose and a way to assess its usefulness.",
+        "original": {
+          "runs": [
+            {
+              "text": "Technical work without content creates an empty but crawlable site. Content"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nwithout technical access creates a library Google may not understand. Authority"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nwithout page quality sends attention to weak pages. Strategy without"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmeasurement becomes calendar theater."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ],
+    "itemReplacements": [
+      {
+        "index": 50,
+        "item": 1,
+        "text": "the main page heading;",
+        "original": [
+          {
+            "text": "the H1 owned by the template;"
+          }
+        ]
+      }
+    ]
+  },
+  "technical-seo-ten-fixes-that-move-rankings": {
+    "remove": [
+      2,
+      38,
+      139,
+      164,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177
+    ],
+    "replace": [
+      {
+        "index": 82,
+        "text": "Only mark up facts supported by the visible page.",
+        "original": {
+          "runs": [
+            {
+              "text": "Structured data is not a costume. Google has policies for this for a reason."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 117,
+        "text": "What it caused: readers had no clear route to related services or useful next steps.",
+        "original": {
+          "runs": [
+            {
+              "text": "What it caused: traffic arrived, read, and left. Lovely little field trip."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 143,
+        "text": "This creates an ordered backlog with clear owners.",
+        "original": {
+          "runs": [
+            {
+              "text": "That turns technical SEO from a scavenger hunt into a managed queue."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 163,
+        "text": "We prioritize the blocker, verify the public result, review the data and then address the next issue.",
+        "original": {
+          "runs": [
+            {
+              "text": "For ZINC, technical SEO is not a report you admire in a folder. It is a cleanup"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsequence. Fix the blocker. Verify the output. Watch the data. Move to the next"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nconstraint."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 178,
+        "text": "Prioritize the Technical Blocker",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 95,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Common Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 39,
+        "text": "Redirect cleanup preserves useful paths to existing content, reduces unnecessary hops and makes reporting easier to interpret.",
+        "original": {
+          "runs": [
+            {
+              "text": "Redirect cleanup can protect old equity, reduce crawl waste, and improve user"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nexperience. It also prevents analytics from turning into a haunted spreadsheet."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 171,
+        "text": "Technical SEO needs ongoing monitoring and maintenance after the initial audit.",
+        "original": {
+          "runs": [
+            {
+              "text": "Avoid anyone who says “technical SEO is done” after one audit. It is monitored,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmaintained, and improved. Done is for invoices, not websites."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "local-seo-2026-operators-manual": {
+    "remove": [
+      2,
+      3,
+      8,
+      9,
+      23,
+      39,
+      47,
+      73,
+      74,
+      75,
+      84,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      128,
+      129,
+      134,
+      183,
+      184,
+      185,
+      194,
+      195,
+      208,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      221,
+      222,
+      223,
+      107,
+      98,
+      140
+    ],
+    "replace": [
+      {
+        "index": 33,
+        "text": "The website and profile should identify the services and areas the business can actually support.",
+        "original": {
+          "runs": [
+            {
+              "text": "The Google Business Profile says one thing. The service page says another. The"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nreviews mention a third. The city page says “serving all of Florida,” which is"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nnot proof. It is a geography-shaped shrug."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 38,
+        "text": "False or ineligible addresses can put the profile at risk.",
+        "original": {
+          "runs": [
+            {
+              "text": "Fake offices, virtual offices, keyword-stuffed address lines, and imaginary"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncity coverage are not clever."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 85,
+        "text": "For example, a review that describes the service received and the customer’s experience offers more useful detail than a star rating alone. Ask for honest feedback without scripting the response.",
+        "original": {
+          "runs": [
+            {
+              "text": "“Jaymie’s team helped us fix our Google Business Profile categories, rebuild"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nour Miami service pages, and clean up wrong phone numbers across directories”"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nis evidence."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 89,
+        "text": "Do not publish interchangeable city pages with no useful local information.",
+        "original": {
+          "runs": [
+            {
+              "text": "It should not create 80 city pages that say the same thing with a different"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmunicipality dropped into the heading like a sad little garnish."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 216,
+        "text": "Building a Reliable Local Presence",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 148,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 72,
+        "text": "Choose the fewest categories needed to describe the business. Show an address only when it is eligible; hide it for a service-area business that does not serve customers there. Keep services accurate and use the real business name.",
+        "original": {
+          "runs": [
+            {
+              "text": "Choose the fewest categories needed to describe the business. Use a real"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\naddress only when it is eligible. Hide the address when the business is truly a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nservice-area business. Keep services accurate. Do not use the business name"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nfield as a keyword confetti cannon."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 166,
+        "text": "If customers are not served at the address, Google says it should not be shown publicly. Define service areas that accurately reflect where the team can work.",
+        "original": {
+          "runs": [
+            {
+              "text": "Google’s guidance for service-area businesses is clear: if customers are not"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nserved at the address, the address should not be shown publicly. The business"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncan define service areas, but those areas need to be credible. A service radius"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthat tries to eat half the state is not local strategy. It is optimism with a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmap."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 187,
+        "text": "Avoid promises of guaranteed placement in local results.",
+        "original": {
+          "runs": [
+            {
+              "text": "Ignore anyone selling a magic map-pack switch."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "content-marketing-plan-that-produces-pipeline": {
+    "remove": [
+      2,
+      3,
+      5,
+      6,
+      26,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      48,
+      49,
+      50,
+      62,
+      63,
+      64,
+      65,
+      72,
+      96,
+      97,
+      119,
+      120,
+      150,
+      151,
+      171,
+      172,
+      181,
+      182,
+      183,
+      208,
+      209,
+      230,
+      231,
+      232,
+      233,
+      234,
+      235,
+      245,
+      246,
+      247
+    ],
+    "replace": [
+      {
+        "index": 33,
+        "text": "Each article should connect to a buyer question and a relevant service.",
+        "original": {
+          "runs": [
+            {
+              "text": "For ZINC, content cannot float around the site looking thoughtful but homeless."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 125,
+        "text": "For example, a local contractor might build a cluster around a primary service, with guides covering costs, repairs, materials and local requirements.",
+        "original": {
+          "runs": [
+            {
+              "text": "For this article, the broad hub is "
+            },
+            {
+              "href": "/services/",
+              "text": "ZINC Services"
+            },
+            {
+              "text": ", with SEO,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nPPC, Web Design, Local SEO, Shopify SEO, and Business Intelligence as supporting"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nservice surfaces."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 149,
+        "text": "Choose the next cluster from the results of that review.",
+        "original": {
+          "runs": [
+            {
+              "text": "Then choose the next cluster from evidence, not vibes."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 168,
+        "text": "Specific explanations give buyers and search systems more to work with than broad claims about custom solutions.",
+        "original": {
+          "runs": [
+            {
+              "text": "It also gives AI and search systems more source material than “we provide"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncustom solutions,” which is not a sentence. It is a fog machine."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 207,
+        "text": "Investigate a cluster with no clear distribution, measurement or path to relevant services.",
+        "original": {
+          "runs": [
+            {
+              "text": "Do panic if the whole cluster has no path to service pages, no distribution, no"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmeasurement, and no one can explain what will happen next."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 221,
+        "text": "We review the existing material:",
+        "original": {
+          "runs": [
+            {
+              "text": "We start with the mess:"
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 236,
+        "text": "Turn the Plan Into Published Work",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "when-web-design-trends-actually-matter": {
+    "remove": [
+      38,
+      47,
+      62,
+      80,
+      93,
+      115,
+      165,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      200,
+      201,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      236
+    ],
+    "replace": [
+      {
+        "index": 37,
+        "text": "Reject treatments that hide the offer or make the next step harder to find.",
+        "original": {
+          "runs": [
+            {
+              "text": "If it hides that answer behind clever composition, oversized visuals, vague"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncopy, or a floating animation with main-character energy, send it home."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 48,
+        "text": "Accessibility is part of usable design.",
+        "original": {
+          "runs": [
+            {
+              "text": "That is good design with fewer excuses."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 61,
+        "text": "Choose a design the team can maintain safely.",
+        "original": {
+          "runs": [
+            {
+              "text": "A site that looks good but cannot be updated safely will rot."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 126,
+        "text": "Plan dark appearance as part of the design system and test both themes.",
+        "original": {
+          "runs": [
+            {
+              "text": "The lesson: dark mode is a product decision, not a toggle someone sneaks into"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthe footer for vibes."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 129,
+        "text": "Avoid motion that delays content, overrides normal scrolling or makes mobile interactions sluggish.",
+        "original": {
+          "runs": [
+            {
+              "text": "Reject motion when it delays content, hijacks scrolling, harms INP, or makes"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nmobile users wait for the designer’s feelings to finish loading."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 133,
+        "text": "Use art direction and human review for published assets, and verify usage rights before release.",
+        "original": {
+          "runs": [
+            {
+              "text": "Defer them for core brand assets unless they are heavily edited, art-directed,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nand legally reviewed. Generic AI art already has a smell. It is glossy, smooth,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nand somehow both expensive and cheap."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 138,
+        "text": "Incorrect personalization can undermine trust.",
+        "original": {
+          "runs": [
+            {
+              "text": "The lesson: bad personalization is worse than no personalization because it"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nproves the site is both watching and confused."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 141,
+        "text": "Avoid layouts that obscure navigation or make common tasks harder.",
+        "original": {
+          "runs": [
+            {
+              "text": "Reject it for most service, healthcare, finance, local, ecommerce, and B2B"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsites. Users do not need to earn the contact form through interpretive design."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 232,
+        "text": "Choose Design Changes With a Purpose",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 244,
+        "text": "ZINC reviews the site, its performance, inquiry paths and search data to determine what needs attention. That may mean a redesign, a focused repair or clearer content on a few important pages.",
+        "original": {
+          "runs": [
+            {
+              "text": "ZINC Digital helps operators decide whether a site needs a redesign, a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nperformance sprint, a conversion-path repair, or simply better words in the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nright places. Bring us the site, analytics, Search Console, Core Web Vitals,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nforms, service map, and the pages that make you wince. We will separate design"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nwork from design theater."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "shopify-seo-problems-real-fixes": {
+    "remove": [
+      5,
+      40,
+      41,
+      42,
+      53,
+      70,
+      71,
+      72,
+      109,
+      110,
+      136,
+      169,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211
+    ],
+    "replace": [
+      {
+        "index": 98,
+        "text": "Remove unnecessary apps and duplicate functionality.",
+        "original": {
+          "runs": [
+            {
+              "text": "Cut the app stack like a grown-up."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 108,
+        "text": "Blog posts should link to relevant products, collections or guides.",
+        "original": {
+          "runs": [
+            {
+              "text": "Maybe a blog exists somewhere, bravely publishing recipes, outfit ideas, buying"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nguides, or brand stories that never link back into commercial pages."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 134,
+        "text": "Prioritize useful collection pages before expanding supporting content.",
+        "original": {
+          "runs": [
+            {
+              "text": "Collections come before blog fireworks."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 183,
+        "text": "Without review, generated product descriptions can become repetitive and omit important distinctions.",
+        "original": {
+          "runs": [
+            {
+              "text": "It can also make 400 products sound like the same politely bored intern wrote"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthem in one sitting."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 220,
+        "text": "Connect the changes to revenue and conversion data.",
+        "original": {
+          "runs": [
+            {
+              "text": "And for the love of clean dashboards, connect the work to revenue."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 212,
+        "text": "Start With the Storefront",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "seven-digital-channels-which-to-skip": {
+    "remove": [
+      2,
+      3,
+      16,
+      17,
+      18,
+      30,
+      32,
+      33,
+      52,
+      61,
+      70,
+      96,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      224,
+      225
+    ],
+    "replace": [
+      {
+        "index": 15,
+        "text": "Consider the severity of each gap and whether the team can resolve it within the budget and review period.",
+        "original": {
+          "runs": [
+            {
+              "text": "If a channel fails one test, cap it."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 78,
+        "text": "Judge creative tests by qualified response and business outcomes, not activity alone.",
+        "original": {
+          "runs": [
+            {
+              "text": "Meta, TikTok, LinkedIn, and other paid social surfaces can make weak ideas look"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nbusy. Busy is not profitable."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 119,
+        "text": "Check tracking, call quality, reviews and landing pages before expanding the channel mix.",
+        "original": {
+          "runs": [
+            {
+              "text": "The operator lesson: local service marketing usually fails because tracking,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncall quality, reviews, and landing pages are weak, not because the business"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nforgot to post more motivational reels."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 180,
+        "text": "When to Pause a Channel",
+        "original": {
+          "runs": [
+            {
+              "text": "The Channel Kill Criteria"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 182,
+        "text": "Set review criteria in advance.",
+        "original": {
+          "runs": [
+            {
+              "text": "Use kill criteria."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 183,
+        "text": "Pause or Reduce a Channel When",
+        "original": {
+          "runs": [
+            {
+              "text": "Kill Or Park A Channel When:"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 218,
+        "text": "Choose a Manageable Channel Mix",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 43,
+        "text": "SEO takes sustained work on useful content, technical access and search relevance.",
+        "original": {
+          "runs": [
+            {
+              "text": "SEO is not a panic button. It is an authority system."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ]
+  },
+  "three-years-of-algorithm-updates-what-moved-rankings": {
+    "remove": [
+      5,
+      15,
+      16,
+      57,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      190,
+      191,
+      192,
+      193,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      215,
+      216
+    ],
+    "replace": [
+      {
+        "index": 3,
+        "text": "Across these updates, useful content, technical access and policy compliance remained practical priorities. The impact on an individual site still needs to be established from its own data.",
+        "original": {
+          "runs": [
+            {
+              "text": "From 2023 through 2026, the durable pattern is clear: Google kept making weak"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "SEO",
+              "href": "/services/seo/"
+            },
+            {
+              "text": " systems harder to hide. Thin content, anonymous authorship, scaled output,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nunclear service-page ownership, duplicate URL structures, low-trust ecommerce,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nand content written for search engines instead of buyers all became more"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nexpensive."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 54,
+        "text": "Start by checking whether affected pages serve a clear purpose.",
+        "original": {
+          "runs": [
+            {
+              "text": "Pages that had a clear job held up better."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 59,
+        "text": "Related pages can help cover a broad topic and make useful information easier to find.",
+        "original": {
+          "runs": [
+            {
+              "text": "One post rarely carries a competitive topic anymore."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 60,
+        "text": "A coherent site gives service pages, supporting guides, local pages and product pages distinct roles.",
+        "original": {
+          "runs": [
+            {
+              "text": "The stronger sites had hubs, spokes, internal links, and page roles. The service"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\npage owned the buyer intent. Supporting content answered questions around the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndecision. Technical pages explained the problems. Local pages proved geography."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nEcommerce pages connected product data to collection intent."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 64,
+        "text": "Show relevant experience in the content and make authorship and sources clear.",
+        "original": {
+          "runs": [
+            {
+              "text": "But anonymous, generic, and low-proof publishing became weaker. Named authors,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nclear expertise, company context, source links, original examples, and"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nconsistent topic ownership helped search systems understand why the page should"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nbe trusted."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 70,
+        "text": "Technical issues to investigate include:",
+        "original": {
+          "runs": [
+            {
+              "text": "Updates did not forgive:"
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 76,
+        "text": "A generic summary gives readers little reason to prefer or cite it.",
+        "original": {
+          "runs": [
+            {
+              "text": "You cannot optimize for an AI citation if the page is generic."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 138,
+        "text": "Check whether commercial pages answer the buyer’s question and whether supporting articles link to them.",
+        "original": {
+          "runs": [
+            {
+              "text": "A strong SEO program decides which page owns which buyer intent. Algorithm"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nupdates exposed sites where commercial pages were weak and blogs were asked to"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndo too much."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 144,
+        "text": "Review local pages, reviews, mobile usability, service areas and profile consistency together.",
+        "original": {
+          "runs": [
+            {
+              "text": "Reviews, local pages, city relevance, mobile UX, service-area proof, and"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nbusiness-profile consistency became more important as generic national content"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ngot easier to produce."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 147,
+        "text": "Check that products, variants, collections, buying guides and feeds describe a consistent catalog.",
+        "original": {
+          "runs": [
+            {
+              "text": "Products, filters, variants, collections, buying guides, and Merchant Center"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndata need to tell one story. If the store fragments demand, updates expose the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nfragmentation."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 163,
+        "text": "The matrix turns a broad traffic change into specific hypotheses to investigate.",
+        "original": {
+          "runs": [
+            {
+              "text": "The matrix forces the site to prove the cause."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 170,
+        "text": "Evaluate the usefulness and reliability of the affected pages rather than relying on a single ranking explanation.",
+        "original": {
+          "runs": [
+            {
+              "text": "Google kept rewarding sites that looked more like real operators and less like"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nSEO output machines."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 214,
+        "text": "An update history is useful when it helps explain a measured change.",
+        "original": {
+          "runs": [
+            {
+              "text": "The last three years did not create a brand-new SEO discipline."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 213,
+        "text": "Use Update History Carefully",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "shopify-google-merchant-center-checklist": {
+    "remove": [
+      2,
+      81,
+      88,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      134,
+      137,
+      142
+    ],
+    "replace": [
+      {
+        "index": 4,
+        "text": "Before relying on Google product listings, verify the feed, landing pages, policies and conversion tracking together.",
+        "original": {
+          "runs": [
+            {
+              "text": "Before a Shopify store leans on free listings, "
+            },
+            {
+              "text": "Shopping ads",
+              "href": "/services/shopping-ads/"
+            },
+            {
+              "text": ", Performance Max, or local inventory, the Merchant Center setup needs an actual operating check. Not a ceremonial check. Not “the app says connected.” A real one."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 22,
+        "text": "The connection creates a data pipeline. It still needs checks and clear ownership.",
+        "original": {
+          "runs": [
+            {
+              "text": "The practical translation is simple: the Shopify product admin and Merchant Center do not become one perfect brain just because they are connected. They become a data pipeline. Pipelines need controls."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 28,
+        "text": "Keep product facts consistent for shoppers and the systems that process the feed.",
+        "original": {
+          "runs": [
+            {
+              "text": "AI-search rule:"
+            },
+            {
+              "text": " Do not optimize product data for a robot voice. Make the commercial facts so clean that a buyer, a crawler, a feed processor, and an ad system all reach the same conclusion."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 38,
+        "text": "Start with Merchant Center warnings before changing campaigns.",
+        "original": {
+          "runs": [
+            {
+              "text": "If the Merchant Center diagnostics page is already unhappy, the ad account is not the first place to start."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 50,
+        "text": "First confirm the product is published and eligible for the intended channel in Shopify.",
+        "original": {
+          "runs": [
+            {
+              "text": "Do not debug Merchant Center for an hour before confirming the product is eligible in Shopify. The glamorous work sometimes starts with a checkbox. Annoying, but true."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 55,
+        "text": "A successful sync does not establish full eligibility. Review remaining warnings and limitations.",
+        "original": {
+          "runs": [
+            {
+              "text": "If those fields are incomplete or inconsistent, product visibility becomes fragile. A product may sync, but limited visibility is not success. It is a warning in a prettier outfit."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 66,
+        "text": "Price, availability and variant selection should agree across the page, feed, structured data and checkout.",
+        "original": {
+          "runs": [
+            {
+              "text": "Lesson:"
+            },
+            {
+              "text": " Price truth has to be boring. If 4 systems report 3 prices, Google is not the unreasonable party."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 82,
+        "text": "Reliable feed data makes it easier to group campaigns around product economics.",
+        "original": {
+          "runs": [
+            {
+              "text": "If your feed is weak, paid media becomes expensive guesswork. If your feed is clean, campaigns can be segmented by actual economics. That is where Shopping starts to behave like a managed channel instead of a slot machine with a logo."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 89,
+        "text": "Use Product markup on product pages and Article or BlogPosting markup on editorial pages, matching the visible content.",
+        "original": {
+          "runs": [
+            {
+              "text": "Schema rule:"
+            },
+            {
+              "text": " Product schema belongs on product pages where customers can evaluate or buy the item. A ZINC advisory post gets BlogPosting schema with honest topic and source relationships."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 105,
+        "text": "Review Merchant Center on a regular schedule and after catalog changes.",
+        "original": {
+          "runs": [
+            {
+              "text": "Merchant Center does not need drama. It needs rhythm."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 123,
+        "text": "Avoid keyword-stuffed product titles that make the item harder to understand.",
+        "original": {
+          "runs": [
+            {
+              "text": "Avoid anyone who treats product titles like SEO title tags and stuffs them until they look like a luggage receipt."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 126,
+        "text": "Document and preserve product IDs during feed migrations wherever possible.",
+        "original": {
+          "runs": [
+            {
+              "text": "Avoid anyone who changes product IDs casually. That is how you turn a campaign history into a glittery spreadsheet crime scene."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 133,
+        "text": "Before Sending Traffic to Products",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 56,
+        "text": "Illustrative Examples",
+        "original": {
+          "runs": [
+            {
+              "text": "Common Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "marketing-budgets-during-economic-stress": {
+    "remove": [
+      14,
+      15,
+      24,
+      151,
+      166,
+      187,
+      188,
+      190,
+      191,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      214,
+      215,
+      217,
+      218
+    ],
+    "replace": [
+      {
+        "index": 62,
+        "text": "A flat percentage cut can overlook differences in performance and dependencies.",
+        "original": {
+          "runs": [
+            {
+              "text": "A flat 20 percent marketing cut is almost never the smartest move."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 213,
+        "text": "Protect What Produces Value",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "how-to-read-a-google-algorithm-update": {
+    "remove": [
+      106,
+      107,
+      199,
+      212,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      231,
+      232
+    ],
+    "replace": [
+      {
+        "index": 4,
+        "text": "Before interpreting a traffic change, check Google’s Search Status Dashboard for the update’s published start and completion dates. Compare that timeline with changes made to your own site.",
+        "original": {
+          "runs": [
+            {
+              "text": "As of May 25, 2026, Google’s May 2026 core update is actively rolling out. That"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nis the exact moment when calm process matters. The first move is not rewriting"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthe site. The first move is preserving a clean baseline and waiting until the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nrollout finishes before treating partial movement as truth."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 34,
+        "text": "Use the published rollout status rather than assuming early movement represents the final result.",
+        "original": {
+          "runs": [
+            {
+              "text": "The May 2026 core update was announced with a rollout window of up to two"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nweeks. That means day-two movement is not final evidence. It is a moving"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsystem."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 43,
+        "text": "Whole-site totals can hide different patterns across page groups.",
+        "original": {
+          "runs": [
+            {
+              "text": "The whole-site number can lie."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 81,
+        "text": "In this example, blog clicks decline while service-page impressions, calls and form submissions remain steady.",
+        "original": {
+          "runs": [
+            {
+              "text": "A service business loses 18 percent of blog clicks during a core update, but"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nservice-page impressions, calls, and form fills stay flat."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 97,
+        "text": "Changing several unrelated elements at once makes it harder to identify what affected the result.",
+        "original": {
+          "runs": [
+            {
+              "text": "If you change title tags, service copy, internal links, schema, templates,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncanonicals, and blog content in the same week, you destroy attribution."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 230,
+        "text": "Make Changes From Evidence",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "google-search-console-the-operators-guide": {
+    "remove": [
+      3,
+      199,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      218,
+      219,
+      222,
+      223
+    ],
+    "replace": [
+      {
+        "index": 49,
+        "text": "The reporting question is:",
+        "original": {
+          "runs": [
+            {
+              "text": "For ZINC-style reporting, the question is not “what did the chart say?”"
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 89,
+        "text": "Check sitemap output after CMS or plugin changes. A public, indexable page can still be missing from a cached sitemap.",
+        "original": {
+          "runs": [
+            {
+              "text": "This is why ZINC checks sitemap behavior after live WordPress and Rank Math"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nchanges. A page can be public, indexable, and useful while still missing from a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncached sitemap. That is a follow-up, not a reason to duplicate the content or"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nchange the slug blindly."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 98,
+        "text": "Set a recurring review time appropriate to the size and complexity of the site.",
+        "original": {
+          "runs": [
+            {
+              "text": "It takes 20 to 30 minutes if the property is clean."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 175,
+        "text": "Segment the reports around the business: service areas for local sites, collections and products for stores, and priority pages for technical reviews.",
+        "original": {
+          "runs": [
+            {
+              "text": "A local SEO report that never separates mobile service-area demand is too weak."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nA Shopify report that never separates products from collections is too weak. A"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ntechnical SEO report that never maps exclusions to priority pages is too weak."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nA content report that never connects articles to service hubs is too weak."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 198,
+        "text": "Test the explanation against the data, including evidence that does not support it.",
+        "original": {
+          "runs": [
+            {
+              "text": "The most expensive mistake is using Search Console to confirm a story you"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nalready wanted to believe."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 217,
+        "text": "Turn Search Data Into Decisions",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 72,
+        "text": "URL Inspection shows indexing status, Google’s selected canonical and crawl information. Use the live test to check whether Google can access the current page; it does not guarantee indexing.",
+        "original": {
+          "runs": [
+            {
+              "text": "The tool can show the indexed status, canonical selected by Google, crawl"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndetails, mobile usability, and structured data found on the page. A live test"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncan confirm the current rendered page before requesting indexing."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ],
+    "itemReplacements": [
+      {
+        "index": 88,
+        "item": 5,
+        "text": "new articles are omitted because the sitemap cache or SEO plugin state is stale.",
+        "original": [
+          {
+            "text": "new model-standard posts are published but omitted because the sitemap cache"
+          },
+          {
+            "text": "\n"
+          },
+          {
+            "text": "\n  or SEO plugin state is stale."
+          }
+        ]
+      }
+    ]
+  },
+  "how-long-seo-actually-takes": {
+    "remove": [
+      21,
+      86,
+      90,
+      101,
+      102,
+      150,
+      151,
+      152,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      182
+    ],
+    "replace": [
+      {
+        "index": 29,
+        "text": "Agree on these deliverables and deadlines before judging progress.",
+        "original": {
+          "runs": [
+            {
+              "text": "If none of that exists after the first month, the timeline has already slipped."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 83,
+        "text": "Existing content or technical weaknesses are worth investigating, but timing alone does not establish the cause.",
+        "original": {
+          "runs": [
+            {
+              "text": "If the site already had weak content, poor service-page ownership, and thin"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nauthority, the update did not create the problem. It exposed it."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 92,
+        "text": "Use the phases below as a planning example, then adjust them to the site and scope.",
+        "original": {
+          "runs": [
+            {
+              "text": "Here is the timeline we use when the site has no hidden disaster."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 161,
+        "text": "We tie expectations to the work, dependencies and evidence available.",
+        "original": {
+          "runs": [
+            {
+              "text": "The timeline is not guessed. It is diagnosed."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 179,
+        "text": "Ask for a diagnosis, an implementation sequence and measurable signs of progress.",
+        "original": {
+          "runs": [
+            {
+              "text": "Do not buy a timeline. Buy a diagnosis, a sequence, and proof that the right"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsignals are moving."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 171,
+        "text": "Set Expectations Around the Work",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 59,
+        "text": "Did the technical fixes actually ship? · The audit has not led to implementation. · Implementation",
+        "original": {
+          "runs": [
+            {
+              "text": "Did the technical fixes actually ship? · The audit was theater. · Implementation"
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ],
+    "itemReplacements": [
+      {
+        "index": 6,
+        "item": 0,
+        "text": "Technical repairs need to be crawled and processed before search results can reflect them.",
+        "original": [
+          {
+            "text": "Technical and indexing fixes can show early signals in days or weeks."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "item": 1,
+        "text": "Look for early changes in indexing and relevant impressions before expecting sustained traffic growth.",
+        "original": [
+          {
+            "text": "Search Console impressions can start moving within the first one to three months."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "item": 2,
+        "text": "Ranking progress depends on competition, the starting site and how much useful work is implemented.",
+        "original": [
+          {
+            "text": "Commercial ranking movement often takes three to six months."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "item": 3,
+        "text": "Revenue impact also depends on conversion rates, sales cycles and the quality of incoming traffic.",
+        "original": [
+          {
+            "text": "Competitive revenue impact usually takes six to twelve months."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "item": 4,
+        "text": "New sites and substantial technical or content repairs generally need a longer planning horizon.",
+        "original": [
+          {
+            "text": "New domains, hard national markets, weak authority, ecommerce cleanup, and local trust gaps can take twelve months or more."
+          }
+        ]
+      },
+      {
+        "index": 42,
+        "item": 3,
+        "text": "important page content was missing from the rendered template;",
+        "original": [
+          {
+            "text": "a WordPress post had a body H1 competing with the template H1;"
+          }
+        ]
+      }
+    ]
+  },
+  "seo-in-2026-what-changed-what-to-ignore": {
+    "remove": [
+      15,
+      16,
+      20,
+      24,
+      31,
+      41,
+      44,
+      61,
+      64,
+      78,
+      90,
+      91,
+      104,
+      134,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      183,
+      185,
+      188,
+      189
+    ],
+    "replace": [
+      {
+        "index": 2,
+        "text": "In 2026, search teams need to account for AI features, ranking updates and changing search behavior while keeping pages useful, accessible and measurable.",
+        "original": {
+          "runs": [
+            {
+              "text": "The work in 2026 is not “do AI SEO now” or “stop caring about rankings” or"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\n“publish more because freshness wins.” That is conference oxygen. The real"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nwork is building a search system that survives AI features, core updates,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncontent quality pressure, technical drift, and measurement noise without"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthrashing every time a dashboard twitches."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 3,
+        "text": "During a core update, record the baseline and investigate confirmed defects before making broad content changes. Check the published rollout dates before interpreting short-term movement.",
+        "original": {
+          "runs": [
+            {
+              "text": "As of May 25, 2026, that matters more than usual because Google’s May 2026 core"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nupdate is actively rolling out. That is a terrible moment to rewrite half a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsite because one keyword moved yesterday. It is a good moment to document the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nbaseline, audit weak controls, and decide what deserves attention after the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nrollout settles."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 11,
+        "text": "Ranking volatility · Core and spam updates can affect different page groups in different ways. · Compare affected pages with a baseline and review the evidence after the rollout.",
+        "original": {
+          "runs": [
+            {
+              "text": "Ranking volatility · The May 2026 core update is rolling out, following a March 2026 core update and March spam update. · Core updates still require patience, baseline comparison, and post-rollout review."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 33,
+        "text": "Core updates can take time to roll out. Check Google’s published start and completion dates before drawing conclusions from traffic or ranking changes.",
+        "original": {
+          "runs": [
+            {
+              "text": "The May 2026 core update began on May 21, 2026, and Google says the rollout may"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ntake up to 2 weeks. That means traffic and rankings can move while the systems"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nare still settling."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 57,
+        "text": "New Labels for AI Search",
+        "original": {
+          "runs": [
+            {
+              "text": "“AEO” And “generative search optimization” As Separate Disciplines"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 67,
+        "text": "Machine-readable files may help some tools find information about a site, but their use and support vary.",
+        "original": {
+          "runs": [
+            {
+              "text": "There are good reasons to maintain machine-readable brand and content guidance"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nfor AI systems. ZINC has done that work where it belongs."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 69,
+        "text": "Keep any AI-facing files accurate, and assess their value separately from search eligibility or ranking claims.",
+        "original": {
+          "runs": [
+            {
+              "text": "Use AI-facing files for brand clarity and source safety. Do not sell them as a"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nshortcut around content quality, crawlability, and service authority."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 79,
+        "text": "Organizing the SEO Work",
+        "original": {
+          "runs": [
+            {
+              "text": "The Search Control Plane"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 80,
+        "text": "Assign responsibility for each part of the program.",
+        "original": {
+          "runs": [
+            {
+              "text": "The fresh work for 2026 is not a trend list. It is a search control plane."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 81,
+        "text": "Record who owns each area, which evidence they review and what action they take when a problem appears.",
+        "original": {
+          "runs": [
+            {
+              "text": "A control plane says who owns each search surface, what signal proves it is"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nhealthy, and what action happens when it breaks."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 92,
+        "text": "Illustrative Scenarios",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 106,
+        "text": "A team publishes a large batch of AI-assisted articles. The articles are readable but generic, lightly sourced and disconnected from service pages.",
+        "original": {
+          "runs": [
+            {
+              "text": "A team uses AI to publish 90 articles in 45 days. The articles are readable."
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nThey are also generic, lightly sourced, and disconnected from service pages."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 107,
+        "text": "The team should investigate whether those pages add useful information, are indexed and attract relevant readers before expanding production.",
+        "original": {
+          "runs": [
+            {
+              "text": "The site gets a short impressions lift, then most pages settle into “crawled,"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncurrently not indexed” or low-click positions. The business has more URLs, but"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nnot more authority."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 128,
+        "text": "For a service business, the main service page should explain the offer. Supporting articles can answer narrower questions and direct readers to the relevant service.",
+        "original": {
+          "runs": [
+            {
+              "text": "For ZINC’s model, the SEO hub owns organic visibility strategy. Supporting"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\narticles should answer narrower questions and send qualified readers back to"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nthe right service path."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 139,
+        "text": "An explanation of documentation can be useful when it adds context, examples or guidance for a specific audience.",
+        "original": {
+          "runs": [
+            {
+              "text": "If the article only repeats Google’s documentation in friendlier language, it"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ndoes not need to exist."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 184,
+        "text": "AI features change how people explore search results, but the practical work remains familiar: accessible pages, reliable information, clear site structure and measurement tied to business outcomes.",
+        "original": {
+          "runs": [
+            {
+              "text": "The interface changed. AI Overviews and AI Mode are more important. Google’s"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nMay 2026 core update is active as of this writing. Scaled, generic content has"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nless room to work. Search Console reporting does not give operators a neat"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nAI-only attribution box. Query fan-out rewards stronger topic architecture."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 182,
+        "text": "Priorities for the Year",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 74,
+        "text": "Changing Dates Without Updating Content",
+        "original": {
+          "runs": [
+            {
+              "text": "Content Freshness Theater"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 120,
+        "text": "1. Avoid Broad, Unmeasured Changes During Updates",
+        "original": {
+          "runs": [
+            {
+              "text": "1. Freeze Panic Work During Active Updates"
+            }
+          ],
+          "type": "heading"
+        }
+      }
+    ]
+  },
+  "duplicate-content-isnt-a-penalty-but-its-a-tax": {
+    "remove": [
+      2,
+      3,
+      26,
+      33,
+      43,
+      61,
+      83,
+      103,
+      125,
+      142,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      198,
+      199
+    ],
+    "replace": [
+      {
+        "index": 68,
+        "text": "When a collection filter generates many duplicate URLs, fix the underlying rule rather than editing each URL separately.",
+        "original": {
+          "runs": [
+            {
+              "text": "If 2,000 duplicate URLs come from one collection filter, fixing one URL is"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ntheater. Fix the rule."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 92,
+        "text": "Do not point unrelated pages to the homepage with a canonical tag. Choose a representative page with equivalent content.",
+        "original": {
+          "runs": [
+            {
+              "text": "Do not canonical everything to the homepage. That is a signal that the page does"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nnot have a real owner. It also destroys reporting."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 112,
+        "text": "Illustrative Scenarios",
+        "original": {
+          "runs": [
+            {
+              "text": "Field Examples"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 114,
+        "text": "A WordPress site has many tags used on only one or two posts. Their archives repeat excerpts already available in stronger category archives and topic hubs.",
+        "original": {
+          "runs": [
+            {
+              "text": "A WordPress site has 180 posts and 420 tags. Most tags appear on one or two"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nposts. Each tag archive displays excerpts from posts that already live in better"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncategory archives and internal topic hubs."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 138,
+        "text": "A service business publishes many location pages with nearly identical body copy. The city name and CTA change, but the evidence, examples and supporting information are copied.",
+        "original": {
+          "runs": [
+            {
+              "text": "A service business publishes 32 location pages. The body copy is nearly the"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nsame. The city name, neighborhood references, and CTA change, but the service"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nproof, examples, FAQs, and internal links are all copied."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 144,
+        "text": "Clear page identity remains useful when content is retrieved or summarized by search systems.",
+        "original": {
+          "runs": [
+            {
+              "text": "AI search does not replace canonicalization. It makes page identity more"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nimportant."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 146,
+        "text": "A practical page-identity check includes:",
+        "original": {
+          "runs": [
+            {
+              "text": "For ZINC, duplicate-content cleanup now includes AI-source hygiene:"
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 195,
+        "text": "Duplicate-content work begins with deciding which URL should represent the content.",
+        "original": {
+          "runs": [
+            {
+              "text": "Duplicate content is not usually a manual penalty problem. It is a control"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nproblem."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 194,
+        "text": "Choose the Right URL, Then Align the Signals",
+        "original": {
+          "runs": [
+            {
+              "text": "The Operator Takeaway"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 41,
+        "text": "Syndicated article copy · Original publisher URL · Ask the partner to noindex the syndicated copy when it should not appear in Search.",
+        "original": {
+          "runs": [
+            {
+              "text": "Syndicated article copy · Original publisher URL · Cross-domain canonical where possible, or use noindex on syndication copy."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 180,
+        "text": "Syndication · Agree which copy should appear in Search. · Partner noindex and clear source attribution.",
+        "original": {
+          "runs": [
+            {
+              "text": "Syndication · Original URL owns the article. · Cross-domain canonical, noindex, or source attribution."
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 134,
+        "text": "For syndicated copies that should not appear in Search, Google recommends asking partners to block indexing rather than relying on a canonical annotation.",
+        "runs": [
+          {
+            "text": "For syndicated copies that should not appear in Search, "
+          },
+          {
+            "text": "Google recommends asking partners to block indexing",
+            "href": "https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting#syndicated-content"
+          },
+          {
+            "text": " rather than relying on a canonical annotation."
+          }
+        ],
+        "original": {
+          "runs": [
+            {
+              "text": "The operator fix:"
+            }
+          ],
+          "type": "p"
+        }
+      },
+      {
+        "index": 106,
+        "text": "4. Use Noindex When a Page Should Stay Out of Search",
+        "original": {
+          "runs": [
+            {
+              "text": "4. Use Noindex Or Crawl Blocking Only When The Page Should Not Compete"
+            }
+          ],
+          "type": "heading"
+        }
+      },
+      {
+        "index": 110,
+        "text": "Google must be able to crawl a page to read its noindex directive. A robots.txt block alone does not reliably keep a URL out of Search. Use crawl controls for crawl management, and protect private or staging content with access controls.",
+        "original": {
+          "runs": [
+            {
+              "text": "Be careful with robots.txt. If a URL is blocked from crawling, Google may not be"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\nable to see the canonical tag on the page. Blocking can be right for crawl"
+            },
+            {
+              "text": "\n"
+            },
+            {
+              "text": "\ncontrol, but it should not be used as the first canonical fix."
+            }
+          ],
+          "type": "p"
+        }
+      }
+    ],
+    "itemReplacements": [
+      {
+        "index": 147,
+        "item": 6,
+        "text": "a clear heading hierarchy;",
+        "original": [
+          {
+            "text": "no body-level H1 fighting the theme title;"
+          }
+        ]
+      },
+      {
+        "index": 147,
+        "item": 7,
+        "text": "consistent, accurate byline information;",
+        "original": [
+          {
+            "text": "no old byline block duplicated above the article body;"
+          }
+        ]
+      },
+      {
+        "index": 172,
+        "item": 3,
+        "text": "CMS canonical settings;",
+        "original": [
+          {
+            "text": "Rank Math canonical settings;"
+          }
+        ]
+      },
+      {
+        "index": 184,
+        "item": 0,
+        "text": "the published page contains the intended content;",
+        "original": [
+          {
+            "text": "REST or admin object state matches the intended category, tags, author, and"
+          },
+          {
+            "text": "\n"
+          },
+          {
+            "text": "\n  body content;"
+          }
+        ]
+      },
+      {
+        "index": 184,
+        "item": 4,
+        "text": "headings and content render correctly;",
+        "original": [
+          {
+            "text": "H1 count is correct;"
+          }
+        ]
+      },
+      {
+        "index": 184,
+        "item": 5,
+        "text": "the page remains usable on mobile;",
+        "original": [
+          {
+            "text": "required article markers render publicly;"
+          }
+        ]
+      },
+      {
+        "index": 184,
+        "item": 6,
+        "text": "structured data matches visible content;",
+        "original": [
+          {
+            "text": "forbidden schema is absent;"
+          }
+        ]
+      },
+      {
+        "index": 184,
+        "item": 9,
+        "text": "the changes and verification results are recorded.",
+        "original": [
+          {
+            "text": "after-audit evidence is saved."
+          }
+        ]
+      },
+      {
+        "index": 90,
+        "item": 4,
+        "text": "equivalent duplicate pages on the same site;",
+        "original": [
+          {
+            "text": "syndicated content where the partner will honor cross-domain canonical;"
+          }
+        ]
+      },
+      {
+        "index": 135,
+        "item": 0,
+        "text": "ask the partner to use noindex if the syndicated copy should stay out of Search;",
+        "original": [
+          {
+            "text": "ask the partner for a cross-domain canonical to the original article;"
+          }
+        ]
+      },
+      {
+        "index": 135,
+        "item": 1,
+        "text": "keep that copy crawlable so Google can read its noindex directive;",
+        "original": [
+          {
+            "text": "if they cannot provide that, ask for noindex on the syndicated version;"
+          }
+        ]
+      }
+    ]
+  }
+}

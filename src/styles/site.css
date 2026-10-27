@@ -557,3 +557,7 @@ html.js .case-archive .c-hz{height:auto}html.js .case-archive .c-hz-pin{position
 
 /* Shared case-study opening: keep in-page navigation clear of the fixed site header. */
 .case-story-anchor{scroll-margin-top:90px}
+
+/* Restored comparisons retain readable columns and full-width mobile captions. */
+@media(min-width:601px){.p-comparison table:has(thead th:nth-child(4)) tbody th{width:22%}}
+@media(max-width:600px){.p-comparison caption{display:block;width:100%}}

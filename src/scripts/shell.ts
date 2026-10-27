@@ -76,8 +76,11 @@ function initMobileMenu() {
 function initTheme() {
   const root = document.documentElement;
   const btn = document.getElementById('themeToggle');
-  const label = btn?.querySelector<HTMLElement>('[data-theme-label]');
-  const paint = () => { if (label) label.textContent = root.getAttribute('data-theme') === 'dark' ? 'Light mode' : 'Dark mode'; };
+  const paint = () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    btn?.setAttribute('aria-label', dark ? 'Switch to light appearance' : 'Switch to dark appearance');
+    btn?.setAttribute('aria-pressed', String(dark));
+  };
   paint();
   btn?.addEventListener('click', () => {
     const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';

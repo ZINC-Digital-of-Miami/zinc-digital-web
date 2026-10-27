@@ -162,7 +162,7 @@ const showCta = false;
             <a class={navOn('about')} href="/about/" aria-current={t === 'about' ? 'page' : undefined}>About</a>
             <a class={navOn('blog')} href="/blog/" aria-current={t === 'blog' ? 'page' : undefined}>Insights</a>
           </nav>
-          <button type="button" class="theme-t" id="themeToggle" aria-label="Switch between light and dark"><span class="ic"></span><span data-theme-label>Dark mode</span></button>
+          <button type="button" class="theme-t" id="themeToggle" aria-label="Switch between light and dark"><span class="ic" aria-hidden="true"></span></button>
           <a class="btn fill" href="/contact/" style="min-height:44px;padding:0 18px">Start an inquiry</a>
           <button type="button" class="menu-toggle" id="mobileMenuToggle" aria-haspopup="dialog" aria-controls="mobileMenu" aria-expanded="false"><span>Menu</span><span class="menu-glyph" aria-hidden="true"><i></i><i></i></span></button>
         </div>
@@ -197,7 +197,7 @@ const showCta = false;
         </section>
       )}
 
-      {!customClosing && <Closing />}
+      {!customClosing && t !== 'home' && t !== 'contact' && t !== 'thanks' && <Closing />}
       <footer class="foot">
         {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">
