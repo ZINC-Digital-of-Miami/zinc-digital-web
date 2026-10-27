@@ -22,12 +22,12 @@ export function initHome() {
   const update = () => {
     ticking = false;
     const vh = innerHeight, wide = innerWidth > 900;
-    // Decorative depth follows scroll; reading content and artwork stay anchored.
+    // Counter the section's scroll so the diagonal stays fixed while content passes it.
     if (editorial && pillars && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const r = pillars.getBoundingClientRect();
       if (r.top < vh + 200 && r.bottom > -200) {
         const progress = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
-        editorial.style.setProperty('--stripe-shift', ((progress - .5) * (wide ? 120 : 64)).toFixed(2) + 'px');
+        editorial.style.setProperty('--stripe-shift', (-r.top).toFixed(2) + 'px');
         editorial.style.setProperty('--seal-shift', ((progress - .5) * 18).toFixed(2) + 'px');
         serviceRows.forEach(row => {
           const reveal = Math.max(0, Math.min(1, (vh * .9 - row.getBoundingClientRect().top) / (vh * .7)));

@@ -1,5 +1,6 @@
 ---
 import { clientOrder } from '../data/client-work';
+import { caseHeroes } from '../data/case-heroes';
 import Closing from "../components/Closing.astro";
 import criticalDisplayFont from '../assets/fonts/manrope-latin-800.woff2?inline';
 import criticalLogo from '../assets/zinc-white.webp?inline';
@@ -60,9 +61,17 @@ const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + as
 const heroFile = lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
 const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(approvedHero || lvsHero ? {quality:90} : {}) }) : undefined;
 const heroSizes = lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 100vw, 75vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
-const socialImage = imageFile ? await getImage({ src: imageFile, width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 82 }) : undefined;
-const ogImg = SITE + (socialImage?.src || '/og/' + ogKind(route) + '.png');
-const socialAlt = articleImage?.alt || 'ZINC Digital — ' + route.title;
+const caseHero = t === 'case' ? caseHeroes[route.slug!] : undefined;
+const caseImageKey = caseHero?.montage || caseHero?.desktop;
+const caseImage = caseImageKey ? imageFiles['../assets' + asset(caseImageKey).src]?.default : undefined;
+const socialSource = imageFile || caseImage || approvedHero;
+const socialImage = socialSource ? await getImage({ src: socialSource, width: 1200, height: 630, fit: caseHero?.montage ? 'contain' : 'cover', format: 'webp', quality: 82 }) : undefined;
+// Astro maps contain to an inside resize: report the actual uncropped dimensions.
+const socialScale = socialSource && caseHero?.montage ? Math.min(1200 / socialSource.width, 630 / socialSource.height) : undefined;
+const socialWidth = socialScale && socialSource ? Math.round(socialSource.width * socialScale) : 1200;
+const socialHeight = socialScale && socialSource ? Math.round(socialSource.height * socialScale) : 630;
+const ogImg = SITE + (socialImage?.src || '/og/' + (caseHero?.identity ? route.slug : ogKind(route)) + '.png');
+const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + ' — ' + caseHero.note : 'ZINC Digital — ' + route.title);
 const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
@@ -88,7 +97,7 @@ if (t === 'author') {
   webpage.mainEntity={'@id':person['@id']};graph.push(person);
 }
 if (t === 'service') { const s = svcBy(route.slug!);webpage.mainEntity={'@id':canonical+'#service'}; graph.push({ '@type': 'Service','@id':canonical+'#service', name: s.title, serviceType: s.title, description: s.line, provider: { '@id': SITE + '/#org' }, areaServed: {'@type':'Country',name:'United States'}, url: canonical }, { '@type': 'FAQPage','@id':canonical+'#faq',isPartOf:{'@id':canonical+'#webpage'}, mainEntity: s.questions.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }); }
-if (t === 'case') { const c = caseBy(route.slug!);webpage.mainEntity={'@id':canonical+'#work'}; graph.push({ '@type': 'CreativeWork','@id':canonical+'#work', name: c.title + ' — case study', description: c.line, url: canonical, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.slug === 'zinc-fusion-v16' ? 'ZINC Fusion v16' : c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url?{url:c.url}:{}) } }); }
+if (t === 'case') { const c = caseBy(route.slug!);webpage.mainEntity={'@id':canonical+'#work'}; graph.push({ '@type': 'CreativeWork','@id':canonical+'#work', name: c.title + ' — case study', description: c.line, url: canonical, image: ogImg, creator: { '@id': SITE + '/#org' }, about: c.application ? { '@type': 'SoftwareApplication', name: c.slug === 'zinc-fusion-v16' ? 'ZINC Fusion v16' : c.title, applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : { '@type': 'Organization', name: c.title, ...(c.url?{url:c.url}:{}) } }); }
 if (path === '/work/') {
   webpage.mainEntity = {'@id':canonical+'#projects'};
   graph.push({'@type':'ItemList','@id':canonical+'#projects',itemListElement:clientOrder.map((slug,index)=>({'@type':'ListItem',position:index+1,name:caseBy(slug).title,url:SITE+'/work/'+slug+'/'}))});
@@ -115,8 +124,8 @@ const showCta = false;
     <meta property="og:type" content={t === 'article' ? 'article' : 'website'} />
     <meta property="og:image" content={ogImg} />
     <meta property="og:image:alt" content={socialAlt} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content={String(socialWidth)} />
+    <meta property="og:image:height" content={String(socialHeight)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={route.metaTitle || route.title} />
     <meta name="twitter:description" content={desc} />
