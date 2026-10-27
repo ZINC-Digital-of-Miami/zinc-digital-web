@@ -1,0 +1,16 @@
+---
+import { caseBy, type Case } from '../data/site';
+interface Props { study: Case }
+const { study } = Astro.props;
+const next = caseBy(study.next);
+const service = study.services[0] || 'web-design';
+---
+<footer class="case-end" data-case-footer={study.slug}>
+  <div class="wrap">
+    <div class="case-end-links"><a href="/work/">All work</a><a href={'/contact/?service='+service}>Discuss a similar project </a></div>
+    <a class="case-next" href={'/work/'+next.slug+'/'}><span class="case-next-label">Next project / {next.layers.join(' + ')}</span><span class="case-next-title">{next.title}</span><span class="case-next-scope">{next.scope}</span></a>
+  </div>
+</footer>
+<style>
+.case-end{background:#0b0c0d;color:#f5f3ed;padding:34px 0 70px}.case-end a{color:inherit}.case-end-links{display:flex;justify-content:space-between;gap:20px;font:11px/1.6 var(--fm);padding-bottom:32px;border-bottom:1px solid #454644}.case-end-links a{padding:8px 0}.case-next{display:block;padding-top:35px}.case-next-label{font:11px/1.7 var(--fm);text-transform:uppercase;color:#b7b7b0}.case-next-title{display:flex;justify-content:space-between;align-items:center;gap:20px;font:700 clamp(32px,4.5vw,68px)/1.1 var(--fd);text-transform:none;margin:18px 0}.case-next-title>span{font:400 .7em var(--fb)}.case-next-scope{display:block;max-width:70ch;font:14px/1.6 var(--fb);color:#b7b7b0}.case-next:hover .case-next-title{color:#a9d8d7}.case-end a:focus-visible{outline:2px solid #f5f3ed;outline-offset:6px}@media(max-width:760px){.case-end{padding-bottom:45px}.case-end-links{font-size:10px}.case-next-title{font-size:clamp(28px,7.2vw,44px)}.case-next-scope{font-size:13px}}
+</style>

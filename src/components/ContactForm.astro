@@ -18,8 +18,8 @@ const chosen = values.services || [];
   <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000">{v.message}</textarea></label></div><p class="p-muted" style="margin:14px 0 0">Sending adds your inquiry to our board and emails the team. Nothing else is shared.</p></fieldset>
   <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value="/contact/" />
   <p class="p-err" id="inquiry-error" role="alert" data-form-error>{error && <>{error}. <a href={SMS}>Text us instead</a> and we will pick it up.</>}</p>
-  <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>← Back</button></div>
-  <p class="p-muted" data-nojs-note style="margin:14px 0 0">Without JavaScript the three steps show as one page; the button below submits.</p>
+  <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>Back</button></div>
+  <p class="p-muted" data-nojs-note style="margin:14px 0 0">Tell us about your project and how to reach you.</p>
   <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button>
 </form>
-<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} ↗</a></aside>
+<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} </a></aside>

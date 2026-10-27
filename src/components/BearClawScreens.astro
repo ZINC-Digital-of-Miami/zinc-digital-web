@@ -1,58 +1,12 @@
 ---
-import DeviceComposition from './DeviceComposition.astro';
-
-const pages = [
-  { key: 'home', title: 'Home', path: '/', detail: 'The product introduction, adapted to each screen.' },
-  { key: 'product', title: 'Product', path: '/product', detail: 'Product information with room for the details.' },
-  { key: 'about', title: 'About', path: '/about', detail: 'The company story in the same visual language.' },
-  { key: 'quote', title: 'Request a quote', path: '/quote', detail: 'A dedicated page for the next conversation.' },
+import CaseScreens from './CaseScreens.astro';
+const pages=[
+ {key:'product',title:'Choose the supply size',path:'/product',detail:'The product page compares 5-gallon, 55-gallon and 275-gallon options before the quote request.'},
+ {key:'applications',title:'Start with the application',path:'/applications',detail:'Concrete forms, asphalt beds and tools each lead to a dedicated application page.'},
+ {key:'about',title:'Meet the company',path:'/about',detail:'The company page connects the product story with a direct contact at Bear Claw.'},
+ {key:'quote',title:'Bring the job details',path:'/quote',detail:'The quote form asks for application, estimated volume, timeline and project details.'},
 ];
-
 ---
+<CaseScreens presentation={{slug:'bear-claw-usa',title:'From the job to the quote.',intro:'The updated website connects product sizes, applications and company information with a dedicated quote request. Actual desktop and mobile captures, October 2026.',pages:pages.map(p=>({...p,url:'https://bear-claw-usa.vercel.app'+p.path,images:{desktop:`bear-claw-${p.key}-desktop`,mobile:`bear-claw-${p.key}-mobile`,tablet:`bear-claw-${p.key}-tablet`}}))}}/>
 
-<section class="bc-screens" aria-labelledby="bc-screens-title">
-  <div class="wrap">
-    <header class="bc-heading">
-      <div>
-        <span class="kick">Responsive website</span>
-        <h2 class="disp" id="bc-screens-title">Every page.<br />Every screen.</h2>
-      </div>
-      <p>Home, product, about and quote pages, shown on desktop, tablet and mobile.</p>
-    </header>
-
-    <div class="bc-pages">
-      {pages.map(page => <article class="bc-page" aria-labelledby={`bc-page-${page.key}`}>
-        <header class="bc-page-heading">
-          <div>
-            <h3 class="disp" id={`bc-page-${page.key}`}>{page.title}</h3>
-            <p>{page.detail}</p>
-          </div>
-          <a class="bc-live" href={`https://bear-claw-usa.vercel.app${page.path}`} target="_blank" rel="noopener noreferrer" aria-label={`View the Bear Claw ${page.title.toLowerCase()} page (opens in a new tab)`}>View page <span aria-hidden="true">↗</span></a>
-        </header>
-
-        <DeviceComposition title={'Bear Claw ' + page.title} desktop={`bear-claw-${page.key}-desktop`} tablet={`bear-claw-${page.key}-tablet`} mobile={`bear-claw-${page.key}-mobile`} />
-      </article>)}
-    </div>
-  </div>
-</section>
-
-<style>
-  .bc-screens{padding:clamp(64px,9vw,120px) 0;border-top:1px solid var(--line);color:var(--ink)}
-  .bc-heading{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
-  .bc-heading h2{font-size:clamp(44px,6vw,86px);margin-top:18px}
-  .bc-heading p{margin:0;max-width:38ch;font-size:18px;line-height:1.65;color:var(--muted)}
-  .bc-pages{display:grid;gap:clamp(48px,7vw,96px)}
-  .bc-page{min-width:0}
-  .bc-page-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 0 26px}
-  .bc-page-heading h3{font-size:clamp(30px,3.3vw,46px);line-height:1}
-  .bc-page-heading p{margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--muted)}
-  .bc-live{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:44px;flex-shrink:0;border-bottom:1px solid var(--ink);font-family:var(--fm);font-size:13px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
-  .bc-live:hover{color:var(--tealt);border-color:var(--tealt)}
-  .bc-live:focus-visible{outline:2px solid var(--tealt);outline-offset:5px}
-  @media(max-width:720px){
-    .bc-heading{grid-template-columns:1fr;gap:24px}
-    .bc-heading p{font-size:17px}
-    .bc-page-heading{align-items:flex-start;flex-direction:column;gap:12px}
-    .bc-page-heading p{max-width:32ch}
-  }
-</style>
+<details class="case-archive wrap"><summary>Explore the homepage layouts</summary><CaseScreens presentation={{slug:'bear-claw-home',title:'The first impression.',intro:'The homepage introduces the product and leads into applications and quote requests.',pages:[{key:'home',title:'Homepage',detail:'Desktop, tablet and mobile views of the updated homepage.',url:'https://bear-claw-usa.vercel.app/',images:{desktop:'bear-claw-home-desktop',tablet:'bear-claw-home-tablet',mobile:'bear-claw-home-mobile'}}]}}/></details>

@@ -535,3 +535,25 @@ html[data-theme="dark"] .c-open-app .c-open-img{box-shadow:none}
 /* Case hero devices use their own surfaces, separate from the source-screen gallery. */
 .c-open-app .c-open-visual{grid-column:2;grid-row:1;min-width:0}
 @media(max-width:700px){.c-open-app .c-open-visual{grid-column:1;grid-row:2}}
+
+/* Narrow case galleries follow normal page scrolling; every capture stays reachable. */
+@media(max-width:900px){
+ html.js .c-hz{height:auto}
+ html.js .c-hz-pin{position:static;height:auto;overflow:visible;padding:48px 0}
+ html.js .c-hz-track{display:grid;grid-template-columns:minmax(0,1fr);gap:36px;transform:none!important;will-change:auto;padding:0 24px}
+ .c-hz-intro,.c-hz-shot,.c-hz-shot.phone{width:100%;max-width:100%;padding:0}
+ .c-hz-shot.phone{max-width:390px;margin-inline:auto}
+ .c-hz-shot .vp,.c-hz-shot.phone .vp{max-height:520px;overflow:auto}
+ .c-hz-shot img{max-height:none}
+}
+.case-archive{margin:28px 0;border-block:1px solid var(--line,#ccc);padding:12px 0}
+.case-archive>summary{cursor:pointer;min-height:44px;display:list-item;padding:12px 4px;font:14px/1.5 var(--fm);color:inherit}
+.case-archive>summary:focus-visible{outline:2px solid var(--tealt);outline-offset:4px}
+.case-archive[open]>summary{margin-bottom:24px}
+
+.c-project-stages{display:flex;flex-wrap:wrap;gap:16px 30px;padding-block:24px;border-bottom:1px solid var(--line);font:12px/1.6 var(--fm)}.c-project-stages a{min-height:44px;display:flex;align-items:center}
+
+html.js .case-archive .c-hz{height:auto}html.js .case-archive .c-hz-pin{position:static;height:auto;overflow:visible;padding:24px 0}html.js .case-archive .c-hz-track{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));padding:0;transform:none!important}.case-archive .c-hz-intro,.case-archive .c-hz-shot,.case-archive .c-hz-shot.phone{width:100%}.case-archive .c-hz-shot .vp{max-height:480px;overflow:auto}
+
+/* Shared case-study opening: keep in-page navigation clear of the fixed site header. */
+.case-story-anchor{scroll-margin-top:90px}

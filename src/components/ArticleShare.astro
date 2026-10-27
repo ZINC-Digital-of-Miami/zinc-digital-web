@@ -11,7 +11,7 @@ const links = [
 ];
 ---
 <nav class="p-share" aria-label="Share this article" data-article-share data-share-url={url} data-share-title={title}>
-  <span class="lab">Share the article</span><div class="p-share-actions">{links.map(([name, href]) => <a href={href} target="_blank" rel="noopener noreferrer" aria-label={'Share on ' + name}>{name}<span aria-hidden="true">↗</span></a>)}<button type="button" data-copy-article hidden>Copy link<span aria-hidden="true">↗</span></button><button type="button" data-native-share hidden>Share<span aria-hidden="true">↗</span></button></div><p class="lab p-share-status" data-share-status role="status" aria-live="polite"></p>
+  <span class="lab">Share the article</span><div class="p-share-actions">{links.map(([name, href]) => <a href={href} target="_blank" rel="noopener noreferrer" aria-label={'Share on ' + name}>{name}</a>)}<button type="button" data-copy-article hidden>Copy link</button><button type="button" data-native-share hidden>Share</button></div><p class="lab p-share-status" data-share-status role="status" aria-live="polite"></p>
 </nav>
 <script>
   import { initArticleShare } from '../scripts/article-share';

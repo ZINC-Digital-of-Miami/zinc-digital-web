@@ -7,7 +7,6 @@ import type { Case } from '../data/site';
 interface Props { study: Case; loading?: 'eager' | 'lazy' }
 const { study, loading = 'eager' } = Astro.props;
 const approved: Record<string, string> = {
-  'bear-claw-usa': 'bear-white-devices.png',
   'smoky-mountain-survival': 'smoky-white-devices.png',
   'fraim-cawley-company': 'tax.jpeg',
   'andrew-neese': 'andrew-white-devices.png',
@@ -15,6 +14,7 @@ const approved: Record<string, string> = {
   'felon-motorwerk': 'felon-white-devices.png',
 };
 const sources: Record<string, { desktop: string; tablet?: string; mobile?: string }> = {
+  'bear-claw-usa': { desktop:'bear-claw-home-desktop', mobile:'bear-claw-home-mobile' },
   'carla-funk-photography': { desktop: 'carla-home-desktop', tablet: 'carla-home-tablet', mobile: 'carla-home-mobile' },
   'us-oil-solutions': { desktop: 'case-uos-home-desktop', tablet: 'case-uos-home-tablet', mobile: 'case-uos-home-mobile' },
   'the-lampstand-va': { desktop: 'case-lampstand-home-desktop', tablet: 'case-lampstand-home-tablet', mobile: 'case-lampstand-home-mobile' },
@@ -30,7 +30,7 @@ const sources: Record<string, { desktop: string; tablet?: string; mobile?: strin
     : <DeviceComposition title={study.title} {...(sources[study.slug] || { desktop: study.hero })} loading={loading} />}
 </figure>
 <style>
-  .case-mockup{width:100%;aspect-ratio:3/2;margin:0;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}
+  .case-mockup{width:100%;aspect-ratio:3/2;margin:0;display:flex;align-items:center;justify-content:center;background:transparent;overflow:visible}
   .case-mockup> :global(picture){display:block;width:100%}
   .case-mockup> :global(img),.case-mockup> :global(picture)> :global(img){display:block;width:100%;height:auto;object-fit:contain;transform:none;filter:none}
 </style>

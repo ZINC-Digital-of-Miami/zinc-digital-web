@@ -25,7 +25,8 @@ The new `www.zincdigital.co`: one Astro project on Vercel that replaces the Word
   - Lighthouse runs and reports, but a score below 100 never fails a check.
   - The Google tag loads asynchronously and is counted separately (owner, 4 Oct 2026).
   - Accessibility: WCAG 2.2 AA.
-- **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace). No Cloudflare and no Docker. Paid AI and search providers stay off until the owner sets their keys.
+- **No paid services** beyond current subscriptions (Vercel Pro, Google Workspace). No Cloudflare. Paid AI and search providers stay off until the owner sets their keys.
+- **Release workflow (owner, 26 Oct 2026):** use `scripts/verify-docker.sh` for Node 24 Docker validation before push and release. Do not use GitHub Actions for checks, builds or deployments. Report the required `Docker validation` commit status only after the script succeeds on the exact clean PR head, then use the protected PR merge path. Preserve other branch protections.
 - **Git (Kiro flow):**
   - Work runs in the spec's Kiro worktree on its `spec/<spec-slug>` branch. Milestones are the task groups in `tasks.md`.
   - Each milestone reaches `main` by squash-merged PR, with a fresh agent review of the final head using specific, non-generic instructions for the actual changes. The branch is then reset to `main`.

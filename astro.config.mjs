@@ -10,9 +10,9 @@ const analytics = analyticsEnabled(process.env.PUBLIC_ANALYTICS, process.env.VER
 const analyticsHash = 'sha256-' + createHash('sha256').update(googleTagScript(process.env.PUBLIC_ADS_CONVERSION_LABEL)).digest('base64');
 
 const fontFamilies = [
-  { name: 'Big Shoulders Display', cssVariable: '--font-display', provider: fontProviders.fontsource(), weights: [800], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
-  { name: 'Inter', cssVariable: '--font-body', provider: fontProviders.google(), weights: [400], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
-  { name: 'JetBrains Mono', cssVariable: '--font-mono', provider: fontProviders.google(), weights: [400], styles: ['normal'], subsets: ['latin'], fallbacks: ['monospace'] },
+  { name: 'Manrope', cssVariable: '--font-display', provider: fontProviders.fontsource(), weights: [800], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
+  { name: 'DM Sans', cssVariable: '--font-body', provider: fontProviders.google(), weights: [400], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
+  { name: 'IBM Plex Sans', cssVariable: '--font-mono', provider: fontProviders.google(), weights: [400], styles: ['normal'], subsets: ['latin'], fallbacks: ['sans-serif'] },
 ];
 
 // Every page uses the three configured faces: embedded display, preloaded body and mono.

@@ -2,7 +2,7 @@
 
 
 .home-team[hidden]{display:none!important}
-.zn-closing{background:#090909;color:#efefeb;padding:70px 0 42px;position:relative}
+.zn-closing{--ink:#efefeb;--muted:#b3b5b7;background:#090909;color:#efefeb;padding:70px 0 42px;position:relative}
 .zn-closing-inner{width:calc(100% - 80px);max-width:1600px;margin:0 auto}
 .zn-closing-top{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
 .zn-closing-top h2{font:800 clamp(62px,8vw,125px)/.96 var(--fd),sans-serif;letter-spacing:-.045em;margin:0;color:#efefeb}
