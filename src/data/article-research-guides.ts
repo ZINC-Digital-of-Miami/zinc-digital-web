@@ -239,7 +239,7 @@ Use this structure:
 - **Unknown:** missing evidence and next check
 - **Action:** recommendation, owner and review date
 
-Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous.`,
+Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous. For a marketing decision, use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to compare the options against budget and team capacity.`,
   },
   {
     id: 90017,
@@ -294,7 +294,7 @@ A second model is another analytical pass, not independent evidence. Resolve dis
 
 Save the question, source table, corrections and recommendation. Record the model or tool used and the research date so the work can be repeated.
 
-Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning.`,
+Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning. When the question concerns marketing investment, compare the researched options using the [channel selection criteria](/blog/seven-digital-channels-which-to-skip/).`,
   },
   {
     id: 90018,
@@ -350,6 +350,6 @@ Ask a separate review pass to find mismatched products, expired pages, currencie
 
 Select one change to your own explanation, offer or inquiry path. Record its owner, baseline and review date through [business intelligence](/services/business-intelligence/).
 
-The output is a testable decision supported by public records. Private numbers stay unknown.`,
+The output is a testable decision supported by public records. Private numbers stay unknown. If the comparison suggests a new marketing channel, check its fit against your own resources with the [channel planning guide](/blog/seven-digital-channels-which-to-skip/).`,
   },
 ];
