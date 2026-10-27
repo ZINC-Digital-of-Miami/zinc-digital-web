@@ -8,7 +8,7 @@ Monday, Wednesday and Friday at 09:00 America/Chicago, beginning Wednesday 28 Oc
 
 Use the existing Codex thread heartbeat to execute this schedule. No new database scheduler, GitHub Actions workflow, paid service or CMS scheduling claim. Each run reads this register, current main and the live archive, resumes any in-progress article, and avoids duplicate slugs. Due work is authorized for normal protected publication; failed checks or access gaps stay visible and do not justify bypassing controls.
 
-Owner requested the first article early on 27 October. Its rewritten body and studio featured image are integrated; desktop/mobile review and the protected Docker release are in progress. This fulfills the original 28 October slot once live: do not publish it twice or move another article into that slot. All remaining dates stay unchanged, starting Wendy on 30 October. Record the actual live URL and release evidence after verification.
+Owner requested the first article early on 27 October. Its rewritten body and studio featured image are live after desktop/mobile review and protected Docker release (PR40). This fulfills the original 28 October slot once live: do not publish it twice or move another article into that slot. All remaining dates stay unchanged, starting Wendy on 30 October. Record the actual live URL and release evidence after verification.
 
 ## Author assignments and voice
 
@@ -19,12 +19,12 @@ Owner requested the first article early on 27 October. Its rewritten body and st
 
 ## Initial queue
 
-Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Only item 01 has a drafted body; other items are planned briefs, not completed or scheduled CMS records.
+Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Item 01 is live; item 02 has a prepared draft and featured artwork. Later items are planned briefs, not completed articles or scheduled CMS records.
 
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
-| 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Integrated and reviewed; Docker/protected release pending |
-| 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Planned |
+| 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
+| 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Draft and distinct studio artwork prepared; hold until Friday30October; release checks pending |
 | 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Planned |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Planned |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
@@ -54,3 +54,7 @@ Follow current AGENTS.md and the approved Docker workflow: fresh scoped review, 
 
 After a run, update this queue with actual author, title, URL, publication time, PR and verification result. Keep draft, scheduled run, merged and live distinct. If a required connection or check fails, preserve the draft and report the concrete blocker. Do not fabricate successful publication.
 
+
+Release receipt: [first article](https://www.zincdigital.co/blog/wordpress-php-security-moving-to-astro/) verified live 2026-10-27T06:12:45.114395-05:00 (CT), PR40, merge c83fa42b57d13819189782fb5bca99ec07371f76, Vercel dpl_DRHdT3mTXXAu2TTL22JM2vg4AwxV READY on both production domains. October28 slot is fulfilled; next due article is Wendy on October30.
+
+Item02 preparation: docs/editorial/articles/build-a-content-hub-people-can-use.md and docs/editorial/images/content-hub-studio.png. Business-owner language, Wendy British English, labelled cleaning-business example, six practical steps and a copyable brief. Three current Google primary sources checked27October. Draft body/table/artwork inspected in an unpublished local preview using the existing article renderer and styles at1440/390/320 widths. No public import, route, production push or early release. Friday must use these retained files, recheck sources, set actual publication date, integrate into the existing article system, verify real Wendy metadata/schema and hero/social assets, obtain scoped review and run required Docker checks before protected publication.
