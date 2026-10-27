@@ -430,5 +430,6 @@ Owner expansion, 16 Oct 2026 CT: optimize the complete public site for SEO and A
 - [x] Configure three weekly editorial runs (Monday/Wednesday/Friday09:00 CT), beginning28October, using the existing app heartbeat mechanism. Automation: zinc-three-weekly-articles.
 - [x] Establish twelve dated article briefs, with Wendy6/Kirk3/Jaymie3 and author-specific voice/scope in docs/editorial/schedule.md.
 - [x] Draft Kirk's WordPress/PHP security and Astro migration article with current primary sources.
-- [ ] Publish first due article through existing review/Docker/protected-release workflow and verify live; complete its featured image and recheck PHP advisories before release.
+- [x] Rewrite the first article for business owners in Kirk Voice, verify current PHP/Astro claims, and create distinct on-brand studio artwork.
+- [ ] Publish the first article early on 27 October through Docker/protected release and verify live; this fulfills the 28 October slot. Preserve every later date.
 - [ ] Continue the scheduled mix, recording actual publication URLs, dates and checks separately from target dates.

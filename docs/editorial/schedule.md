@@ -8,22 +8,22 @@ Monday, Wednesday and Friday at 09:00 America/Chicago, beginning Wednesday 28 Oc
 
 Use the existing Codex thread heartbeat to execute this schedule. No new database scheduler, GitHub Actions workflow, paid service or CMS scheduling claim. Each run reads this register, current main and the live archive, resumes any in-progress article, and avoids duplicate slugs. Due work is authorized for normal protected publication; failed checks or access gaps stay visible and do not justify bypassing controls.
 
-First article is drafted in articles/wordpress-php-security-moving-to-astro.md. It is not imported into the public site or published yet. Its first slot is 28 October. Before that release, recheck the fast-moving PHP advisories, create suitable featured artwork, integrate it into the current article path, then verify actual live publication. Record real publication dates, never a backdated missed target.
+Owner requested the first article early on 27 October. Its rewritten body and studio featured image are integrated; desktop/mobile review and the protected Docker release are in progress. This fulfills the original 28 October slot once live: do not publish it twice or move another article into that slot. All remaining dates stay unchanged, starting Wendy on 30 October. Record the actual live URL and release evidence after verification.
 
 ## Author assignments and voice
 
-- **Kirk Musick, MS, MBA — CEO:** AI industry, technical web choices, WordPress/Astro, measurement, business intelligence and KPI methodology. Apply the installed kirk-voice skill to his bylines: direct thesis, technical receipts, specific advice, at most one dry joke. Keep public blog language clean. No invented personal experience or measured result.
+- **Kirk Musick, MS, MBA — CEO:** AI industry, technical web choices, WordPress/Astro, measurement, business intelligence and KPI methodology. Apply the installed kirk-voice skill to his bylines: direct thesis, sourced facts explained for business owners, specific advice, at most one dry joke. Keep public blog language clean. No invented personal experience or measured result.
 - **Wendy Funnell — Chief Content Officer:** all content-led subjects: content hubs, topical authority, briefs, internal linking, editorial planning, article optimisation for AI search, refreshing and content performance. British English, confident, pointed, wry; lightly spicy through opinion and precision. No forced slang, caricature, insults or repetitive jokes. Never call the author a girl in public copy. She owns content-related how-tos even when AI or analytics appears in the title.
 - **Jaymie Wilhoit — Managing Partner:** ecommerce, Shopify, paid media, Shopping/Merchant Center and platform execution. Warm, lively, practical Miami energy; confident conversational explanations. No forced cafecito references, invented local anecdotes or gimmicky dialect.
 - Initial 12 articles: Wendy 6, Kirk 3, Jaymie 3. Continue approximately half Wendy, one quarter each Kirk/Jaymie across rolling four-week blocks. Assign by expertise, not by random byline rotation. Do not retrospectively reattribute existing work.
 
 ## Initial queue
 
-All dates below are target run dates at 09:00 CT. Only item 01 has a drafted body; other items are planned briefs, not completed or scheduled CMS records.
+Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Only item 01 has a drafted body; other items are planned briefs, not completed or scheduled CMS records.
 
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
-| 01 | 2026-10-28 Wed | Kirk | Web/security decision guide | WordPress, PHP security and the case for moving to Astro — current advisory, host checklist, three architecture options, migration acceptance checklist | Draft written; artwork/integration/release pending |
+| 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Integrated and reviewed; Docker/protected release pending |
 | 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Planned |
 | 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Planned |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Planned |
@@ -44,7 +44,9 @@ Every article must resolve a reader's specific question. How-tos include prerequ
 
 Use fresh primary sources for security/platform claims. Recheck time-sensitive claims at publication; distinguish affected software/configurations and supported versions. No claims that WordPress is universally unsafe, Astro is unhackable, schema guarantees rankings, or AI tools guarantee inclusion.
 
-Use current approved typography/layout. Each released article gets a purposeful featured image, descriptive alt text, excerpt, unique metadata, actual author identity, Article schema, useful existing internal links and real dates. Prefer diagrams, annotated examples or contextual artwork over stock robots and generic glowing graphics. Test relevant desktop/mobile rendering and tables. Do not alter shared designs as part of an article.
+Write for business owners, not fellow developers. Explain necessary technical terms plainly. Astro itself does not use PHP; retaining WordPress for editing retains PHP on that side.
+
+Use current approved typography/layout. Match the existing light studio illustration family while varying composition by topic: black equipment, restrained teal accents, white mugs and a matte black code() notebook where useful. Each released article gets a purposeful featured image, descriptive alt text, excerpt, unique metadata, actual author identity, Article schema, useful existing internal links and real dates. Prefer diagrams, annotated examples or contextual artwork over stock robots and generic glowing graphics. Test relevant desktop/mobile rendering and tables. Do not alter shared designs as part of an article.
 
 ## Release and evidence
 

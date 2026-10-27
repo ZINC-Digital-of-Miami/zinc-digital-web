@@ -11,15 +11,18 @@ const migrated = JSON.parse(readFileSync(new URL('../src/data/posts.preview.json
 const all = [...migrated, ...authoredArticles];
 const serviceSlugs = new Set(['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence']);
 
-test('new guides are short, sourced and connected to published pillar and service pages', () => {
-  assert.equal(authoredArticles.length, 23);
+test('articles retain sources and reading paths; short guides retain their instructional format', () => {
+  assert.equal(authoredArticles.filter(p=>p.format!=='feature').length, 23);
+  assert.equal(authoredArticles.filter(p=>p.format==='feature').length, 1);
   assert.equal(new Set(all.map(p=>p.slug)).size, all.length);
   assert.equal(new Set(all.map(p=>p.id)).size, all.length);
   for (const post of authoredArticles) {
     const { html, sections } = renderArticleMarkdown(post.markdown);
     const words = html.replace(/<[^>]+>/g,' ').trim().split(/\s+/).length;
+    if (post.format !== 'feature') {
     assert.ok(words >= 250 && words <= 500, post.slug+' must stay a short useful guide');
     assert.ok(sections.filter(s=>/^(?:Step )?\d+[.:]/.test(s.label)).length >= 5, post.slug+' needs action steps');
+    }
     assert.ok(articleSources(post).length > 0, post.slug+' needs real source references');
     assert.equal(blogPillars.filter(p=>(p.members as readonly string[]).includes(post.slug)).length, 1);
     const pillar = pillarFor(post.slug)!;

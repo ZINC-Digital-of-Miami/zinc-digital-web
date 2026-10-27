@@ -3,6 +3,7 @@
 import siteAssets from './assets.site.json';
 
 const topicArtwork: Record<string, { asset: string; alt: string }> = {
+  "wordpress-php-security-moving-to-astro": {asset:"article-wordpress-astro",alt:"Studio illustration of website panels leading to a clean desktop display, with a black code notebook and white mug."},
   "ga4-utm-naming-conventions": {"asset": "article-ga4-utm-naming", "alt": "Illustrated traffic acquisition report beside a UTM naming sheet, with source, medium and campaign fields."},
   "search-console-query-page-review": {"asset": "article-gsc-query-page", "alt": "Illustrated Search Console query and page review with a matching query-to-page worksheet and private values omitted."},
   "shopify-product-page-seo": {"asset": "article-shopify-product-seo", "alt": "Illustrated storefront product editor, search preview and matching mobile desk-lamp product page."},
