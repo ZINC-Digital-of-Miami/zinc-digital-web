@@ -139,7 +139,7 @@ for (const { rel, html } of pages) {
   check(/<title>[^<]+<\/title>/.test(html), rel + ' has no <title>');
   check(/<meta name="description" content="[^"]{20,}"/.test(html), rel + ' has no usable meta description');
   check(/<link rel="canonical" href="https:\/\/www\.zincdigital\.co\/[^"]*"/.test(html), rel + ' has no canonical');
-  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z]+\.png|_astro\/[^/?]+\.webp(?:\?dpl=[A-Za-z0-9_-]+)?)"/.test(html), rel + ' has no valid og:image');
+  check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z-]+\.png|_astro\/[^/?]+\.webp(?:\?dpl=[A-Za-z0-9_-]+)?)"/.test(html), rel + ' has no valid og:image');
   const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
@@ -154,7 +154,9 @@ for (const { rel, html } of pages) {
   if (rel.startsWith('authors/')) check(types.includes('Person') && types.includes('ProfilePage'), rel + ' lacks Person/ProfilePage structured data');
   const hasNoindex = /<meta name="robots" content="[^"]*noindex/.test(html);
   check(hasNoindex === NOINDEX_OK.has(rel), rel + (hasNoindex ? ' is noindex but should be indexable' : ' must be noindex'));
-  check(html.includes('id="themeToggle"') && /<span data-theme-label>Dark mode<\/span>/.test(html), rel + ' is missing the light/dark toggle with its "Dark mode" label');
+  const themeToggle = html.match(/<button\b[^>]*\bid="themeToggle"[^>]*>[\s\S]*?<\/button>/)?.[0] || '';
+  check(/\btype="button"/.test(themeToggle) && /\baria-label="[^"]+"/.test(themeToggle) && /class="ic"[^>]*aria-hidden="true"/.test(themeToggle), rel + ' is missing the accessible icon-only appearance toggle');
+  check(themeToggle.replace(/<[^>]+>/g, '').trim() === '' && !themeToggle.includes('data-theme-label'), rel + ' appearance toggle must not render a visible text label');
   check(!/mix-blend-mode:\s*difference/.test(html), rel + ' cursor still uses mix-blend-mode difference');
   check(html.includes('id="zsCur"') && html.includes('class="zs-grain"'), rel + ' is missing the shell cursor/grain');
   check(html.includes('href="sms:+17865754837"'), rel + ' is missing the sms link');
@@ -267,8 +269,11 @@ for (const s of POST_SLUGS) {
   const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
   if (!p) continue;
   check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*?<p(?: class="first")?>/.test(p.html), 'blog/' + s + ' does not render the article body');
-  check(p.html.includes('data-article-sources') && p.html.includes('id="article-sources-title"'), 'blog/' + s + ' lacks bottom source links');
-  check(p.html.includes('data-article-illustration'), 'blog/' + s + ' lacks a supporting illustration');
+  const sourceSection = p.html.match(/<section[^>]*data-article-sources[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  const authoredSources = p.html.match(/<h2[^>]*>Trusted Source Links<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
+  check(/<a\s[^>]*href="https:\/\/[^" ]+"/.test(sourceSection || authoredSources || ''), 'blog/' + s + ' lacks linked source references');
+  const noInlineArtwork = ['research-consensus-report','ai-research-workflow','ai-competitor-research-prompts'].includes(s);
+  check(noInlineArtwork ? !p.html.includes('data-article-illustration') : p.html.includes('data-article-illustration'), 'blog/' + s + ' has an unexpected supporting illustration state');
   check(p.html.includes('aria-label="Share this article"') && p.html.includes('data-author-card') && p.html.includes('data-share-url="' + SITE + '/blog/' + s + '/"'), 'blog/' + s + ' lacks sharing or author attribution');
   check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');
   check(/<nav class="p-reading" aria-label="Related articles">/.test(p.html), 'blog/' + s + ' lacks a published reading path');

@@ -1752,3 +1752,19 @@
     grid-template-columns: .7fr 1.3fr;
   }
 }
+
+/* Preserve the platform composition while honoring the site's appearance control. */
+html[data-theme="dark"] .bi-platform .bi-light{
+ --ink:#f5f6f7;--snow:#101112;--white:#191b1e;--muted:#b7b9bf;--line:#383b40;--teal-ink:#32c5c8;
+ background:var(--snow);color:var(--ink)
+}
+html[data-theme="dark"] .bi-platform .bi-custom-platform{background:#191b1e;border-color:#383b40}
+.bi-platform .bi-shell{width:calc(100% - 112px)}
+@media(max-width:700px){.bi-platform .bi-shell{width:calc(100% - 40px)}}
+
+html[data-theme="dark"] .bi-platform .bi-neural-detail :is(.bi-neural-source,.bi-neural-result){color:#e7eff2}
+html[data-theme="dark"] .bi-platform .bi-neural-detail .bi-neural-heading{color:#53d5d3}
+html[data-theme="dark"] .bi-platform .bi-neural-detail .bi-neural-route path{stroke:#32c5c8}
+html[data-theme="dark"] .bi-platform .bi-neural-detail :is(.bi-neural-inputs,.bi-neural-junctions){fill:#32c5c8}
+
+html[data-theme="dark"] .bi-platform .bi-custom-platform .bi-teal{color:#32c5c8}

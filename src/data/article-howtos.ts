@@ -13,7 +13,7 @@ export const articleHowtos: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'google-search-ads'],
     dateGmt: '2026-10-06T12:00:00',
-    markdown: `Campaign names are data. Inconsistent spelling makes the report describe the naming committee instead of the campaign.
+    markdown: `Inconsistent campaign names split related traffic across separate rows and make results harder to compare.
 
 I use one vocabulary, a link register and a click test. Start with the channel decisions in our [planning guide](/blog/seven-digital-channels-which-to-skip/).
 
@@ -101,7 +101,7 @@ A filtered export is not the entire property. Review query mix before interpreti
 
 Choose a specific edit or investigation. Record the page, observed query group, supporting view and intended reader benefit. Leave accurate useful pages alone.
 
-[SEO work](/services/seo/) owns the search repair. [Business intelligence](/services/business-intelligence/) connects search observations with approved outcomes. Our [Search Console guide](/blog/google-search-console-the-operators-guide/) provides broader context.
+Use [SEO review](/services/seo/) to investigate the search issue and [business intelligence](/services/business-intelligence/) to compare it with lead or order records. Our [Search Console guide](/blog/google-search-console-the-operators-guide/) provides broader context.
 
 ## Use this action record
 
@@ -236,7 +236,7 @@ Recheck linked specifications when maintaining the integration. The durable test
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    markdown: `A useful page can exist without a useful route to it. Leaving discovery to a search box and optimism is not much of a handoff.
+    markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
 
 I start with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
 
@@ -368,7 +368,7 @@ Verify service area, supported platforms, access requirements and customer respo
 
 Write the sequence from inquiry to handover. Name the information collected and decisions made.
 
-Have an operator confirm it matches actual delivery. [Web design](/services/web-design/) connects the described process with the form and surrounding journey.
+Ask the person responsible for delivering the service to confirm the description. [Web design](/services/web-design/) connects the described process with the form and surrounding journey.
 
 ## 4. Support important claims
 

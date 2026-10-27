@@ -10,6 +10,9 @@ export function initHome() {
   setTimeout(() => hero?.classList.add('in'), 120);
 
   const heroIn = document.getElementById('heroIn');
+  const editorial = document.querySelector<HTMLElement>('.zn-editorial');
+  const pillars = editorial?.querySelector<HTMLElement>('.services');
+  const serviceRows = pillars ? q<HTMLElement>('.service') : [];
   const loop = document.getElementById('loop'), draw = document.getElementById('loopDraw'), pulse = document.getElementById('loopPulse'), status = document.getElementById('loopStatus');
   const hz = document.getElementById('hz'), hzTrack = document.getElementById('hzTrack'), hzDots = q('#hzDots i');
   const uso = document.getElementById('uso'), track = document.getElementById('usoTrack'), prog = document.getElementById('usoProg');
@@ -19,6 +22,19 @@ export function initHome() {
   const update = () => {
     ticking = false;
     const vh = innerHeight, wide = innerWidth > 900;
+    // Counter the section's scroll so the diagonal stays fixed while content passes it.
+    if (editorial && pillars && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const r = pillars.getBoundingClientRect();
+      if (r.top < vh + 200 && r.bottom > -200) {
+        const progress = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+        editorial.style.setProperty('--stripe-shift', (-r.top).toFixed(2) + 'px');
+        editorial.style.setProperty('--seal-shift', ((progress - .5) * 18).toFixed(2) + 'px');
+        serviceRows.forEach(row => {
+          const reveal = Math.max(0, Math.min(1, (vh * .9 - row.getBoundingClientRect().top) / (vh * .7)));
+          row.style.setProperty('--rule-progress', String(.15 + reveal * .85));
+        });
+      }
+    }
     if (heroIn) { const p = Math.max(0, Math.min(1, scrollY / (vh * 0.7))); heroIn.style.opacity = String(1 - p * 0.9); heroIn.style.transform = 'translateY(' + p * 50 + 'px) scale(' + (1 - p * 0.06) + ')'; }
     q('.commit li:not(.in)').forEach((el) => { const r = el.getBoundingClientRect(); if (r.top < vh * 0.88 && r.bottom > 0) el.classList.add('in'); });
     if (loop && draw && pulse && wide) {

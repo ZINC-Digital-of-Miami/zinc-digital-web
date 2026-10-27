@@ -4,8 +4,8 @@ import ApprovedImage from './ApprovedImage.astro';
 import { clientOrder, workFor } from '../data/client-work';
 import CaseHeroMockup from './CaseHeroMockup.astro';
 import {cases} from '../data/site';
-const previewAssets: Record<string,string> = {'bear-claw-usa':'bear-white-devices.png','smoky-mountain-survival':'smoky-white-devices.png','fraim-cawley-company':'tax.jpeg','andrew-neese':'andrew-white-devices.png','porsche-roanoke':'porsche-white-devices.png','felon-motorwerk':'felon-white-devices.png','summit-marine-development':'summit.jpeg','us-oil-solutions':'oil-white-devices.png'};
-const previewLabels: Record<string,string> = {'bear-claw-usa':'Industrial · Website','smoky-mountain-survival':'Outdoor · Website','fraim-cawley-company':'Accounting · Website','andrew-neese':'Real estate · Website','porsche-roanoke':'Dealer & merchandise websites','felon-motorwerk':'Motorcycles · Web work','summit-marine-development':'Marine · Website & campaigns','us-oil-solutions':'Commercial services · Website'};
+const previewAssets: Record<string,string> = {'bear-claw-usa':'bear-white-devices.png','smoky-mountain-survival':'smoky-white-devices.png','fraim-cawley-company':'tax.jpeg','andrew-neese':'andrew-white-devices.png','porsche-roanoke':'porsche-white-devices.png','felon-motorwerk':'felon-white-devices.png','us-oil-solutions':'oil-white-devices.png'};
+const previewLabels: Record<string,string> = {'bear-claw-usa':'Industrial · Website','smoky-mountain-survival':'Outdoor · Website','fraim-cawley-company':'Accounting · Website','andrew-neese':'Real estate · Website','porsche-roanoke':'Dealer & merchandise websites','felon-motorwerk':'Motorcycles · Web work','summit-marine-development':'Marine · Identity, website & campaigns','us-oil-solutions':'Commercial services · Website'};
 const clients = clientOrder.map(slug => cases.find(c => c.slug === slug)!);
 import '../styles/editorial.css';
 ---
@@ -15,5 +15,5 @@ import '../styles/editorial.css';
 </article>)}</div></div></div></section>
 <style>
 .zn-project-link{height:auto}
-.client-engagements{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line,#d4d4d0)}.client-engagements a{display:flex;align-items:baseline;gap:16px;padding:12px 0;color:inherit;font:14px/1.5 var(--fb);min-height:44px}.client-engagements span{flex:0 0 84px;font:11px/1.5 var(--fm);color:var(--muted,#616161)}.client-engagements a:focus-visible{outline:2px solid currentColor;outline-offset:3px}@media(max-width:600px){.client-engagements a{gap:10px}.client-engagements span{flex-basis:76px}}
+.client-engagements{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line,#d4d4d0)}.client-engagements a{display:flex;align-items:baseline;gap:16px;padding:12px 0;color:inherit;font:14px/1.5 var(--fb);min-height:44px}.client-engagements span{flex:0 0 84px;font:11px/1.5 var(--fm);color:#616161}.client-engagements a:focus-visible{outline:2px solid currentColor;outline-offset:3px}@media(max-width:600px){.client-engagements a{gap:10px}.client-engagements span{flex-basis:76px}}
 </style>

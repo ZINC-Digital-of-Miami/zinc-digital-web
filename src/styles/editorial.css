@@ -27,3 +27,26 @@
 .zn-editorial .project .art .device-composition__screen img{object-fit:cover;object-position:top center}
 
 .zn-editorial .service a{font:500 13px/1.4 var(--fb);padding:12px 0}
+
+/* A fixed visual plane, revealed by the moving section. Keep its original overlap. */
+.zn-editorial .services{clip-path:inset(-100px 0 -120px)}
+.zn-editorial .services::before{transform:translate3d(0,var(--stripe-shift,0px),0)}
+.zn-editorial .signature picture{transform:translate3d(0,var(--seal-shift,0px),0)}
+.zn-editorial .service{position:relative}
+.zn-editorial .service::after{content:'';position:absolute;left:0;right:0;top:-1px;height:1px;background:#99999b;opacity:.45;transform:scaleX(var(--rule-progress,.15));transform-origin:left;pointer-events:none}
+.zn-editorial .service a{transition:color .22s ease,transform .22s ease}
+.zn-editorial .service a:hover,.zn-editorial .service a:focus-visible{color:#8edddd;transform:translateX(3px)}
+.zn-editorial .small-link,.zn-editorial .all-work{transition:color .22s ease,border-color .22s ease}
+.zn-editorial .small-link:hover,.zn-editorial .small-link:focus-visible,.zn-editorial .all-work:hover,.zn-editorial .all-work:focus-visible{color:#007679;border-color:#007679}
+@media(prefers-reduced-motion:reduce){
+  .zn-editorial .services::before,.zn-editorial .signature picture,.zn-editorial .service::after,.zn-editorial .service a{transform:none!important}
+  .zn-editorial .service a,.zn-editorial .small-link,.zn-editorial .all-work{transition:none}
+}
+
+/* Keep the signature mark clear of the two-line statement on narrow screens. */
+@media(max-width:760px){
+  .zn-editorial .signature{display:grid;grid-template-columns:1fr auto;gap:24px}
+  .zn-editorial .signature p{grid-column:1/-1;max-width:none}
+  .zn-editorial .signature picture{position:static;width:64px;grid-row:2}
+  .zn-editorial .signature code{grid-row:2;justify-self:end}
+}

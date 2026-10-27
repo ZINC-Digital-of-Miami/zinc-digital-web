@@ -133,7 +133,8 @@ html[data-theme="dark"] .logo-c img{filter:grayscale(1) invert(1)}
 .uso-intro{flex:none;width:min(560px,80vw);display:flex;flex-direction:column;justify-content:center;padding-right:24px}
 .uso-h{font-size:clamp(56px,6.4vw,112px)}
 .stamp{flex:none;width:340px;min-height:440px;border-top:3px solid var(--ink);padding:26px 26px 26px 0;display:flex;flex-direction:column;justify-content:space-between;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s}
-html.js .stamp:not(.in){transform:translateY(28px) rotate(-3deg) scale(.96);opacity:.35}
+/* Horizontal gallery text must be readable before and after script initialization. */
+html.js .stamp:not(.in){transform:none;opacity:1}
 .stamp-k{font-size:clamp(44px,4vw,68px);margin:14px 0}
 .stamp-p{font-size:19px;line-height:1.55;color:var(--ink);margin:26px 0 0;max-width:27ch}
 .stamp.next .stamp-k{color:var(--tealt)}

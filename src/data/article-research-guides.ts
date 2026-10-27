@@ -12,7 +12,7 @@ export const articleResearchGuides: AddedArticle[] = [
     dateGmt: '2026-10-07T00:18:00Z',
     markdown: `A traffic drop is an observation, not a diagnosis.
 
-Use this routine to decide which pages need investigation after a confirmed core update. Keep it beside the [SEO framework](/blog/four-pillars-of-seo-operators-view/) and your existing [SEO work queue](/services/seo/).
+Use this routine to decide which pages need investigation after a confirmed core update. Keep it beside the [SEO framework](/blog/four-pillars-of-seo-operators-view/) and your ongoing [SEO work](/services/seo/).
 
 ## Step 1: Confirm the update and comparison dates
 
@@ -199,7 +199,7 @@ I use a consensus report to find what the evidence supports, where it conflicts 
 
 Use a bounded question: “Which checkout issue should we investigate first?” Include the market, period and decision deadline.
 
-State what would change the decision. That keeps [business intelligence](/services/business-intelligence/) tied to an action instead of an expanding reading list. Our [channel framework](/blog/seven-digital-channels-which-to-skip/) supplies the wider planning context.
+State what would change the decision. That keeps [business intelligence](/services/business-intelligence/) tied to an action instead of an expanding reading list.
 
 ## Step 2: Build a source register
 
@@ -225,7 +225,7 @@ These labels describe the evidence collected, not universal certainty. A documen
 
 ## Step 5: Challenge the draft
 
-Give a second reasoning pass the source register and draft, rather than asking for another opinion from memory.
+Have a reviewer or model check the draft against the source register. Ask it to identify specific errors and unsupported conclusions.
 
 > Audit this brief using only the supplied sources. For each claim, identify its evidence family, supporting passage and limits. Flag copied evidence, incompatible definitions and conclusions stronger than the records. Do not add facts. List the smallest checks that could change the recommendation.
 
@@ -239,7 +239,7 @@ Use this structure:
 - **Unknown:** missing evidence and next check
 - **Action:** recommendation, owner and review date
 
-Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous.`,
+Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous. For a marketing decision, use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to compare the options against budget and team capacity.`,
   },
   {
     id: 90017,
@@ -251,7 +251,7 @@ Remove any recommendation that cannot survive its own source register. Keep unce
     dateGmt: '2026-10-07T00:18:00Z',
     markdown: `A fluent answer is not a research record.
 
-I split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect. Use the [channel framework](/blog/seven-digital-channels-which-to-skip/) to keep the research attached to a business decision.
+I split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
 
 ## Step 1: Define the question and boundaries
 
@@ -294,7 +294,7 @@ A second model is another analytical pass, not independent evidence. Resolve dis
 
 Save the question, source table, corrections and recommendation. Record the model or tool used and the research date so the work can be repeated.
 
-Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table; delete the unsupported certainty.`,
+Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning. When the question concerns marketing investment, compare the researched options using the [channel selection criteria](/blog/seven-digital-channels-which-to-skip/).`,
   },
   {
     id: 90018,
@@ -304,9 +304,9 @@ Use [business intelligence](/services/business-intelligence/) to connect the fin
     keywords: ['AI competitor research prompts', 'competitor analysis', 'public evidence', 'competitive research'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
-    markdown: `Public evidence can compare an offer. It cannot reveal a competitor's bank account.
+    markdown: `Public pages can show a competitor's offer, pricing and buying process. They usually cannot establish revenue, profit or advertising spend.
 
-I begin with a small set of businesses and a specific buying decision. Use the [channel framework](/blog/seven-digital-channels-which-to-skip/) to define the question before collecting screenshots.
+I begin with a small set of businesses and a specific buying decision.
 
 ## Step 1: Fix the comparison
 
@@ -350,6 +350,6 @@ Ask a separate review pass to find mismatched products, expired pages, currencie
 
 Select one change to your own explanation, offer or inquiry path. Record its owner, baseline and review date through [business intelligence](/services/business-intelligence/).
 
-The output is a testable decision supported by public records. Private numbers stay unknown.`,
+The output is a testable decision supported by public records. Private numbers stay unknown. If the comparison suggests a new marketing channel, check its fit against your own resources with the [channel planning guide](/blog/seven-digital-channels-which-to-skip/).`,
   },
 ];

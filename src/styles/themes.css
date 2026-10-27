@@ -16,3 +16,27 @@ html[data-theme="dark"] {
   color-scheme: dark;
 }
 body { background-color: var(--bg); color: var(--ink); margin: 0; }
+
+/* Dark appearance covers editorial surfaces as well as the shared shell.
+   Original artwork keeps its own colors. */
+html[data-theme="dark"] .zb :is(.home-introduction,.home-trust,.home-commit,.home-team,.zn-editorial .light,.felon-case,.website-case,.material-case,.miami-case,.lvs-case){
+  --bg:#101112;--bg2:#191b1e;--pn:#191b1e;--ink:#f5f6f7;
+  --muted:#b7b9bf;--line:#383b40;--tealt:#32c5c8;
+  background:var(--bg);color:var(--ink);
+}
+html[data-theme="dark"] .zb :is(.zn-editorial .project,.work-gallery .project){--ink:#f5f6f7;--line:#383b40;background:#191b1e;color:#f5f6f7;border-color:#383b40;box-shadow:none}
+html[data-theme="dark"] .zb :is(.zn-editorial .small-link,.zn-editorial .all-work){color:#f5f6f7}
+html[data-theme="dark"] .zb .client-engagements span{color:#b7b9bf}
+html[data-theme="dark"] .zb .work-lane{--wl-bg:#101112;--wl-ink:#f5f6f7;--wl-muted:#b7b9bf}
+html[data-theme="dark"] .zb .wl-filterbar{background:#191b1e;color:#f5f6f7;border-color:#383b40}
+html[data-theme="dark"] .zb :is(.wl-filters button,.wl-count){color:#b7b9bf}
+html[data-theme="dark"] .zb .wl-filters button[aria-pressed=true]{color:#fff;border-color:#32c5c8}
+html[data-theme="dark"] .zb :is(.wl-eyebrow,.wl-flow i,.home-commit .lock){color:#32c5c8}
+html[data-theme="dark"] .zb .wl-feature-art img{mix-blend-mode:normal}
+html[data-theme="dark"] .zb .home-commit .commit li{border-color:#383b40}
+/* Broad compositions use the viewport; prose retains its existing line lengths. */
+.zb .wrap,.zb .zn-editorial .wrap,.zb .zn-closing-inner,.zb .hz-in{max-width:none}
+.zb .theme-t{min-width:44px;justify-content:center;padding:0}
+.zb .theme-t .ic{display:block}
+
+html.js .zb .c-open-app .c-open-pin,.zb .c-open-app .c-open-pin{max-width:none}

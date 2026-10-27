@@ -15,7 +15,7 @@ html.js .case-slider .uso-track,.case-slider .uso-track{display:flex!important;f
 .case-slider .stamp-k{color:#efefeb}.case-slider .stamp-p{color:#b9b9bb}.case-slider .stamp.next{background:#18191b}
 .case-slider .uso-shot .kick,.case-slider .uso-shot .uso-shot-label{position:static;color:#444!important;background:transparent;border:0;font-size:10px!important}
 .case-slider .uso-shot .case-scene{display:block;width:100%;margin:auto 0!important}.case-slider .uso-shot .case-scene img{aspect-ratio:1.5;object-fit:contain}
-.case-controls{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 48px 0;color:#aaa}.case-controls>div{display:flex;gap:12px}.case-controls button{width:48px;height:44px;border:1px solid #555;background:none;color:#fff;font:22px var(--fb);cursor:pointer}.case-controls button:hover{border-color:#fa268c}.case-controls button:disabled{opacity:.25;cursor:default}.case-controls button:focus-visible,.case-slider .uso-track:focus-visible{outline:2px solid #00b7ba;outline-offset:4px}
+.case-controls{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 48px 0;color:#aaa}.case-controls>div{display:flex;gap:12px}.case-controls button{min-width:70px;padding:0 12px;height:44px;border:1px solid #555;background:none;color:#fff;font:13px var(--fb);cursor:pointer}.case-controls button:hover{border-color:#fa268c}.case-controls button:disabled{opacity:.25;cursor:default}.case-controls button:focus-visible,.case-slider .uso-track:focus-visible{outline:2px solid #00b7ba;outline-offset:4px}
 @media(max-width:760px){.case-slider{padding-top:40px!important}.case-slider .uso-track,html.js .case-slider .uso-track{padding:12px 20px 24px;gap:18px;scroll-padding:20px}.case-slider .uso-track>*,.case-slider .uso-track>.uso-shot{flex-basis:calc(100vw - 56px);min-height:460px}.case-slider .uso-intro h2{font-size:44px}.case-slider .uso-intro>p{font-size:15px!important}.case-slider .stamp{padding:24px}.case-controls{padding:20px 20px 0}.case-slider .uso-shot{margin-top:0}.home-notes .home-notes-title{font-size:clamp(44px,11.2vw,60px);line-height:1.25}}
 .case-slider .stamp .lab,.case-slider .case-controls .lab{color:#aaa}
 /* Every portfolio image uses the same landscape stage and device scale. */
@@ -32,3 +32,12 @@ html.js .case-slider .uso-track,.case-slider .uso-track{display:flex!important;f
 .case-slider .uso-intro{background:#101112}.case-slider .uso-intro .kick{color:#bfc1c5!important}.case-slider .uso-intro .chips li{background:#191b1e!important;color:#d8d9db!important}.case-slider .stamp.next .lab{color:#bfc1c5!important}
 /* Selected Work keeps its pale surface in both themes. */
 .zb .zn-editorial .small-link,.zb .zn-editorial .all-work{color:#101112}
+
+/* Restore the two-plane notch above Insights instead of a single flat edge. */
+.zb .home-notes::before{background:linear-gradient(174deg,#292c30 0 47%,#0a0a0b 47% 100%);clip-path:polygon(0 72%,72% 0,72% 28%,100% 0,100% 100%,0 100%)}
+.zb .cta{overflow:visible;background:#0a0a0b;color:#f5f6f7}
+.zb .home-contact-story{padding-top:90px;padding-bottom:70px}
+@media(max-width:760px){.zb .home-contact-story{padding-top:55px;padding-bottom:45px}}
+
+/* Join the charcoal story and inquiry planes without a pale body-color seam. */
+.zb .home-contact-story + .cta{margin-top:0}

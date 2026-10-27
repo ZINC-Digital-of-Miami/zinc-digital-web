@@ -49,3 +49,6 @@
 .zb[data-template=home]>.nav{background:var(--color-near-black);color:var(--color-snow);border-color:var(--color-line-dark)}.zb[data-template=home]>.nav a{color:var(--color-snow)}.zb[data-template=home]>.nav .btn.fill{background:var(--color-snow);color:var(--color-near-black)!important;border-color:var(--color-snow)}.p-layer[id]{scroll-margin-top:110px}
 
 .zb[data-template=home]>.nav .theme-t{color:var(--color-snow)}
+
+/* Keep complete client names together in the wide featured compositions. */
+@media(min-width:1001px){.wl-feature-grid{grid-template-columns:36% 64%}.wl-project-copy h2{font-size:clamp(38px,3.8vw,60px);overflow-wrap:normal}}
