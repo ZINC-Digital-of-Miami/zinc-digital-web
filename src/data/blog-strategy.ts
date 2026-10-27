@@ -7,6 +7,7 @@ export const blogPillars = [
     description: 'Crawling, content, authority and the pages people actually use. Start with the framework, then trace the bottleneck.',
     members: [
       'four-pillars-of-seo-operators-view',
+      'wordpress-php-security-moving-to-astro',
       'technical-seo-ten-fixes-that-move-rankings',
       'duplicate-content-isnt-a-penalty-but-its-a-tax',
       'google-search-console-the-operators-guide',

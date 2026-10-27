@@ -1,5 +1,6 @@
 export type AddedArticle = {
   id: number;
+  format?: 'feature';
   slug: string;
   title: string;
   description: string;
