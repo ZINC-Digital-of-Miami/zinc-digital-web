@@ -1,4 +1,5 @@
-// Existing articles form the hubs; publishing a new page is not required.
+// Reading-guide groups within service-aligned blog categories.
+// The legacy export names below describe guide relationships, not pillar categories.
 export const blogPillars = [
   {
     id: 'content',

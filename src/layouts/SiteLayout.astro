@@ -19,7 +19,6 @@ import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
 import { articleEditorial } from '../data/article-editorial';
-import { pillarFor } from '../data/blog-strategy';
 import {brandTitle,pageEntity,serializeSchema} from '../lib/public-seo';
 import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
@@ -28,7 +27,7 @@ import '../styles/site.css';
 import '../styles/studio.css';
 import '../styles/typography.css';
 import CaseGalleryViewer from '../components/CaseGalleryViewer.astro';
-import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
+import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
@@ -90,7 +89,7 @@ if (t === 'article') {
   const author = authorFor(p.author.name);
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
-  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:pillarFor(p.slug)?.title, author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
+  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>p.related.includes(s.slug)).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
 }
 if (t === 'author') {
   const author = authors.find(a=>a.id===route.slug)!;
