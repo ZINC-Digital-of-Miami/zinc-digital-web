@@ -236,7 +236,10 @@ Recheck linked specifications when maintaining the integration. The durable test
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-10-30T14:31:30Z',
     markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
+
+Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 I start with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
 
@@ -292,7 +295,10 @@ A newly added link should explain a relationship. Verify that the intended page 
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-10-30T14:31:30Z',
     markdown: `Refresh the answer, not just the date. Review what changed, what the reader needs and whether the existing page still serves that task.
+
+Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to keep content and technical questions distinct.
 
@@ -348,7 +354,10 @@ Preserve the evidence behind the edit. A future reviewer should understand what 
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-10-30T14:31:30Z',
     markdown: `A service page should explain fit: what the work includes, its boundaries and what happens next.
+
+Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to connect that answer with search discovery.
 

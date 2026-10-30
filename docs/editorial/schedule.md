@@ -70,3 +70,6 @@ These are planned briefs, with current sources to be selected when drafting; ori
 |---|---|---|---|---|---|
 |13|2026-11-25 Wed|Kirk|Web industry analysis|What browser and search changes mean for your business website — verify current platform developments, explain affected customer tasks and practical decisions without predicting guaranteed outcomes|Planned|
 |14|2026-11-27 Fri|Jaymie|Ecommerce how-to|Read your store’s returns data before you reorder — return reasons, product/variant breakdown, a labelled worked example and checks before an inventory decision|Planned|
+
+
+Owner correction30October: a pillar is a blog category aligned with a primary service or product collection, housing blogs in that main topic. A broad guide can sit inside it but is not the category. Practical how-tos need instructional graphics and usable downloadable worksheets/checklists where they help the task, not only a featured mockup. Verify PDF contents/forms/download routes and the complete checklist before publication. Wendy article correction is in progress under this definition.

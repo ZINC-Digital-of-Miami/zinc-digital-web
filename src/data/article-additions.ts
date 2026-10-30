@@ -11,6 +11,7 @@ export type AddedArticle = {
   related: string[];
   markdown: string;
   dateGmt: string;
+  modifiedGmt?: string;
 };
 
 // Original editorial additions. Examples describe test procedures, not client results.
@@ -169,7 +170,10 @@ Use the [Merchant Center checklist](/blog/shopify-google-merchant-center-checkli
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-10-30T14:31:30Z',
     markdown: `A useful brief tells the writer what the reader needs to decide, which evidence supports the answer and where to link next.
+
+Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 ## 1. Name the reader and task
 

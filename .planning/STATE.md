@@ -281,3 +281,10 @@ Due scheduled article integrated from retained draft/art without rewriting or re
 
 
 Friday release complete 2026-10-30T09:12:37.855132-05:00 CT: PR41 merged4ce569e8c7badbd2a8fcb20044f99162743f7eae. Validated clean head81ff04c0e73e1eae760d4172ef8dce0003ae8149,166tests, Astro241files/0errors/0warnings, build and87HTMLchecks passed. Container7a783037895e removed and slot released. Vercel dpl_FBcHiNj5esBq1GuMQq4HwW79xu73 READY on both production domains. Article200, Wendy ChiefContentOfficer schema, current hero/social image and both Florida offices verified; live desktop/mobile table and archivefeature inspected with no overflow. Draft body retained exactly. Receipt .scratch/wendy-friday-release-receipt.json. Task preview4334 PID88527 stopped; owner4328 preserved. Schedule extended with planned25/27November briefs to retain four-week runway; next dueJaymie2November, all original dates unchanged. Postrelease records retained for next editorial commit.
+
+
+### Owner correction: pillar categories and article tools — 30 October 2026 CT
+
+Owner defines a pillar as a blog category aligned with a primary service or product collection, housing the blogs on that main topic. A guide is an article within that category. Earlier article used guide-as-pillar terminology and lacked complete instructional tools. Corrected article, two exact diagrams and PDFs use the owner model consistently. Service-aligned archive pages are generated from registered services and existing article service relationships; no invented primary assignment. SEO category houses Wendy article and related content blogs. Existing reading guides remain subordinate topic guides.
+
+Correction includes scope/intent mapping, page audit, category/guide/commercial roles, linking,24 pass/fix/NA launch checks, measurement/ownership, six-page fillable workbook111fields and two-page printable reference. Article/sourcePDFs generated from retained docs source; no scratch dependency. Focused tests passed; final source review, full Docker and production release pending. Current preview4334 PID4056 belongs to this correction; owner4328 preserved.

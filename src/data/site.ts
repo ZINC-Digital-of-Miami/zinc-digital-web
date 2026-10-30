@@ -267,7 +267,7 @@ function articleBlocks(slug:string,blocks:Block[]):Block[] {
 const editoriallyRevised = new Set(['ga4-ecommerce-event-validation','search-console-canonical-indexing-debugging','ga4-utm-naming-conventions','internal-link-audit','search-console-query-page-review','service-page-content-checklist','business-intelligence-basics','google-core-update-review','research-consensus-report','ai-research-workflow','ai-competitor-research-prompts']);
 export const posts: Post[] = [
   ...snapshot.posts.map((p) => ({ ...p, blocks: articleBlocks(p.slug, reviseArticle(p.slug, p.blocks as Block[])), modified:ARTICLE_REVISION, modifiedGmt:ARTICLE_REVISION, ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt })),
-  ...authoredArticles.map(p => ({ id:p.id, slug:p.slug, title:p.title, date:p.dateGmt, dateGmt:p.dateGmt, modified:editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt, modifiedGmt:editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt, link:'/blog/'+p.slug+'/', author:{id:p.authorId,name:p.authorName,description:authors.find(a=>a.name===p.authorName)?.bio||''}, blocks:[], markdown:p.markdown, layer:p.layer, related:p.related, excerpt:p.description } as unknown as Post)),
+  ...authoredArticles.map(p => ({ id:p.id, slug:p.slug, title:p.title, date:p.dateGmt, dateGmt:p.dateGmt, modified:p.modifiedGmt || (editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt), modifiedGmt:p.modifiedGmt || (editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt), link:'/blog/'+p.slug+'/', author:{id:p.authorId,name:p.authorName,description:authors.find(a=>a.name===p.authorName)?.bio||''}, blocks:[], markdown:p.markdown, layer:p.layer, related:p.related, excerpt:p.description } as unknown as Post)),
 ].sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
 export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(new Date(date.endsWith('Z') ? date : date + 'Z'));
 // The Design's own excerpt when there is one; otherwise the first paragraph, cut at a word boundary.
@@ -275,7 +275,7 @@ export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; 
 
 // ---- routes ----
 export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'privacy' | 'terms' | '404';
-export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; modified?:string; metaTitle?:string; metaDescription?:string; noindex?:boolean };
+export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; modified?:string; metaTitle?:string; metaDescription?:string; noindex?:boolean; blogCategory?:string };
 const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra,metaTitle:extra.metaTitle||pageEditorial[path]?.metaTitle,metaDescription:extra.metaDescription||pageEditorial[path]?.metaDescription });
 export const routes: Route[] = [
   route('/', 'home', 'ZINC — Build. Demand. Intelligence.'),
@@ -290,6 +290,7 @@ export const routes: Route[] = [
   route('/contact/', 'contact', 'Start an Inquiry'),
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
+  ...services.filter(s=>posts.some(p=>p.related.includes(s.slug))).map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:'Browse ZINC articles about '+s.title+', aligned with our '+s.title+' service. Practical guidance, examples and useful next steps.'})),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, modified:p.modifiedGmt, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
   ...authors.map(a => route(authorPath(a.id), 'author', a.name, {slug:a.id,metaTitle:'Articles by '+a.schemaName,metaDescription:a.bio})),
   route('/privacy/', 'privacy', 'Privacy'),
