@@ -5,11 +5,11 @@ author: "Wendy Funnell"
 author_id: 3
 layer: Demand
 format: feature
-status: prepared-draft
+status: release-in-progress
 publish_not_before: 2026-10-30
 target_run: "2026-10-30 09:00 America/Chicago"
 timezone: America/Chicago
-source_checked: 2026-10-27
+source_checked: 2026-10-30
 description: "Turn scattered articles into a useful customer guide. Wendy walks through a content hub with a worked page map, linking examples and practical launch checks."
 featured_image: docs/editorial/images/content-hub-studio.png
 featured_image_alt: "Studio view of a tablet displaying a customer guide, surrounded by editorial planning cards, a black notebook and a white mug."

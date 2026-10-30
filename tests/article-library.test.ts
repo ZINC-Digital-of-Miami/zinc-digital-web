@@ -13,7 +13,7 @@ const serviceSlugs = new Set(['shopify','web-design','apps','seo','local-seo','a
 
 test('articles retain sources and reading paths; short guides retain their instructional format', () => {
   assert.equal(authoredArticles.filter(p=>p.format!=='feature').length, 23);
-  assert.equal(authoredArticles.filter(p=>p.format==='feature').length, 1);
+  assert.equal(authoredArticles.filter(p=>p.format==='feature').length, 2);
   assert.equal(new Set(all.map(p=>p.slug)).size, all.length);
   assert.equal(new Set(all.map(p=>p.id)).size, all.length);
   for (const post of authoredArticles) {

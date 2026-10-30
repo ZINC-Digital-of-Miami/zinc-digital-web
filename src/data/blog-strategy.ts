@@ -8,6 +8,7 @@ export const blogPillars = [
     members: [
       'four-pillars-of-seo-operators-view',
       'wordpress-php-security-moving-to-astro',
+      'build-a-content-hub-people-can-use',
       'technical-seo-ten-fixes-that-move-rankings',
       'duplicate-content-isnt-a-penalty-but-its-a-tax',
       'google-search-console-the-operators-guide',
