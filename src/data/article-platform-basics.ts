@@ -147,7 +147,10 @@ Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to
     layer: 'Intelligence',
     related: ['ai-search-optimization', 'seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-10-30T14:31:30Z',
     markdown: `An AI citation is an observation. It is not a content strategy.
+
+Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Google says its [existing SEO practices apply to AI Overviews and AI Mode](https://developers.google.com/search/docs/appearance/ai-features). There is no special markup required for those features. Start with the customer question and the evidence available to answer it.
 

@@ -1,5 +1,20 @@
-// Existing articles form the hubs; publishing a new page is not required.
+// Reading-guide groups within service-aligned blog categories.
+// The legacy export names below describe guide relationships, not pillar categories.
 export const blogPillars = [
+  {
+    id: 'content',
+    title: 'Content hubs & planning',
+    slug: 'build-a-content-hub-people-can-use',
+    description: 'Plan the pillar, assign distinct answers, connect the pages and check the complete customer journey.',
+    members: [
+      'build-a-content-hub-people-can-use',
+      'content-briefs-search-intent-internal-links',
+      'internal-link-audit',
+      'content-refresh-review',
+      'service-page-content-checklist',
+      'ai-search-content-strategy',
+    ],
+  },
   {
     id: 'seo',
     title: 'Search & SEO',
@@ -8,17 +23,12 @@ export const blogPillars = [
     members: [
       'four-pillars-of-seo-operators-view',
       'wordpress-php-security-moving-to-astro',
-      'build-a-content-hub-people-can-use',
       'technical-seo-ten-fixes-that-move-rankings',
       'duplicate-content-isnt-a-penalty-but-its-a-tax',
       'google-search-console-the-operators-guide',
       'search-console-canonical-indexing-debugging',
       'search-console-query-page-review',
-      'internal-link-audit',
-      'content-refresh-review',
-      'service-page-content-checklist',
       'google-core-update-review',
-      'ai-search-content-strategy',
       'how-long-seo-actually-takes',
       'local-seo-2026-operators-manual',
       'ai-search-results-and-generative-search-optimization',
@@ -62,7 +72,6 @@ export const blogPillars = [
       'tiktok-ads-basics',
       'meta-ads-basics',
       'business-intelligence-basics',
-      'content-briefs-search-intent-internal-links',
       'marketing-budgets-during-economic-stress',
       'when-web-design-trends-actually-matter',
     ],

@@ -19,7 +19,6 @@ import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
 import { articleEditorial } from '../data/article-editorial';
-import { pillarFor } from '../data/blog-strategy';
 import {brandTitle,pageEntity,serializeSchema} from '../lib/public-seo';
 import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
@@ -28,7 +27,7 @@ import '../styles/site.css';
 import '../styles/studio.css';
 import '../styles/typography.css';
 import CaseGalleryViewer from '../components/CaseGalleryViewer.astro';
-import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
+import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
@@ -44,7 +43,8 @@ if (analytics && Astro.csp) {
   Astro.csp.insertDirective("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com");
   Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");
 }
-const {posts}=await (await import('../lib/content')).loadPublished();
+const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
+const posts=route.blogCategory?allPosts.filter(p=>p.related.includes(route.blogCategory!)):allPosts;
 const t = route.template;
 const path = route.path;
 const title = brandTitle(route.metaTitle || route.title);
@@ -80,7 +80,7 @@ const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digita
 const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/about/', telephone: PHONE, email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
 const seg = path.split('/').filter(Boolean);
 const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', authors: 'Authors', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
-const crumbs = [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
+const crumbs = route.blogCategory ? [{name:'Home',url:SITE+'/'},{name:'Articles',url:SITE+'/blog/'},{name:route.title,url:canonical}] : [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
 const webpage=pageEntity(SITE,route,title,desc,ogImg);
 const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital',inLanguage:'en-US', publisher: { '@id': SITE + '/#org' } },webpage, { '@type': 'BreadcrumbList','@id':canonical+'#breadcrumb', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
 const personNode = (author: typeof authors[number]) => ({ '@type':'Person', '@id':SITE+authorPath(author.id)+'#person', name:author.schemaName, ...(author.suffix?{honorificSuffix:author.suffix}:{}), url:SITE+authorPath(author.id), jobTitle:author.role, description:author.bio, image:SITE+asset(author.photo).src, worksFor:{'@id':SITE+'/#org'} });
@@ -89,7 +89,7 @@ if (t === 'article') {
   const author = authorFor(p.author.name);
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
-  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:pillarFor(p.slug)?.title, author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
+  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>p.related.includes(s.slug)).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
 }
 if (t === 'author') {
   const author = authors.find(a=>a.id===route.slug)!;

@@ -435,4 +435,4 @@ Owner expansion, 16 Oct 2026 CT: optimize the complete public site for SEO and A
 - [ ] Continue the scheduled mix, recording actual publication URLs, dates and checks separately from target dates.
 
 - [x] Prepare Wendy’s30October content-hub draft and distinct studio artwork; inspect unpublished desktop/mobile preview.
-- [ ] On30October, integrate prepared Wendy article, verify metadata/author/schema, fresh review, Docker and protected release; do not publish early.
+- [x] On30October, publish retained Wendy draft/art through fresh scoped review, Docker and protected PR41; verify live author/schema, desktop/mobile and featured listing.

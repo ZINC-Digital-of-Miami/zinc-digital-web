@@ -561,3 +561,8 @@ html.js .case-archive .c-hz{height:auto}html.js .case-archive .c-hz-pin{position
 /* Restored comparisons retain readable columns and full-width mobile captions. */
 @media(min-width:601px){.p-comparison table:has(thead th:nth-child(4)) tbody th{width:22%}}
 @media(max-width:600px){.p-comparison caption{display:block;width:100%}}
+
+/* Exact article diagrams remain legible at narrow widths; prose carries their full meaning. */
+.p-prose img[src^="/media/content-hub/"]{display:block;width:100%;max-width:560px;height:auto;margin:28px auto;border:1px solid var(--line);border-radius:6px}
+
+.p-article-categories{display:flex;flex-wrap:wrap;gap:10px 18px;margin:24px 0}.p-article-categories a{border-bottom:1px solid currentColor;min-height:32px;display:inline-flex;align-items:center}.p-category-nav{padding-block:28px;border-bottom:1px solid var(--line)}.p-category-nav>div{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.p-category-nav .p-chip[aria-current="page"]{background:var(--ink);color:var(--bg)}

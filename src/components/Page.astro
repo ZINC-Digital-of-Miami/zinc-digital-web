@@ -35,12 +35,16 @@ import { workLanes, laneNames } from '../data/work-lanes';
 import { casePresentations } from '../data/case-presentations';
 import ContactForm from './ContactForm.astro';
 import { articleImages } from '../data/article-images';
+import {categoryPosts} from '../data/blog-categories';
 import { blogPillars, pillarFor, readingPath } from '../data/blog-strategy';
 import type { Inquiry } from '../lib/inquiry';
 import { services, cases, layers, layerMeta, contract, readout, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
-const {posts}=await (await import('../lib/content')).loadPublished();
+const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
+const posts=route.blogCategory?categoryPosts(route.blogCategory,allPosts):allPosts;
+const categoryService=route.blogCategory?services.find(s=>s.slug===route.blogCategory):undefined;
+const pillarCategories=services.filter(s=>allPosts.some(p=>p.related.includes(s.slug)));
 const {renderArticleMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
@@ -57,7 +61,7 @@ const post = t === 'article' ? posts.find((p) => p.slug === route.slug)! : null;
 const postAuthor = post ? authorFor(post.author.name) : undefined;
 const urlLabel = 'zincdigital.co' + route.path;
 const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as Record<string, string>)[t] || t);
-const pageLede = svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
+const pageLede = categoryService ? 'Articles about '+categoryService.title+', organised around the questions that help you choose, set up and improve the work.' : svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
 const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
 const titleCls = route.title.length > 34 ? 'long' : '';
 const revealHeader = t !== 'blog' && t !== 'article' && t !== 'author';
@@ -167,6 +171,7 @@ const sourceListBlocks = post?.blocks.flatMap((block,i)=>block.type==='heading' 
 const repeatedTakeaway = new Set(post?.blocks.flatMap((block,i) => block.type === 'p' && block.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' && post.blocks[i-1]?.type === 'heading' && post.blocks[i-1]?.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' ? [i] : []) || []);
 const listedSourceUrls = articleSources({blocks:sourceListBlocks}).map(s=>s.url);
 const feat = posts[0];
+const categoryGuides = blogPillars.filter(pillar=>posts.some(p=>p.slug===pillar.slug));
 const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 import { canonicalContentLink } from '../data/redirects';
@@ -179,15 +184,17 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     <div class:list={["wrap", {"zn-service-hero":t === "services"}]}>
       <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span></div>
       <hr class="rule" />
-      <h1 class:list={['disp p-title', titleCls, {'zn-insights-title':t === 'blog'}, { rv: revealHeader }]}>{t === "blog" ? <>&lt;insights<span>.py</span>/&gt;</> : route.title}</h1>
+      <h1 class:list={['disp p-title', titleCls, {'zn-insights-title':t === 'blog'}, { rv: revealHeader }]}>{t === "blog" && !categoryService ? <>&lt;insights<span>.py</span>/&gt;</> : route.title}</h1>
       {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
       {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
       {svc && <a class="zn-hero-action" href={'/contact/?service='+svc.slug}>Discuss this service </a>}
       {t === 'services' && <><a class="zn-hero-action" href="#service-directory">Find your service </a><div class="zn-service-art"><ServicesVisual /></div></>}
+      {post && <nav class="p-article-categories lab" aria-label="Blog categories">Categories: {services.filter(s=>post.related.includes(s.slug)).map(s=><a href={"/blog/category/"+s.slug+"/"}>{s.title}</a>)}</nav>}
+      {categoryService && <p><a class="arrow" href={"/services/"+categoryService.slug+"/"}>Explore our {categoryService.title} service</a></p>}
       {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
   </section>
-  <PageRail path={route.path} title={t === "blog" ? "Insights" : route.title} />
+  <PageRail path={route.path} title={t === "blog" && !categoryService ? "Insights" : route.title} />
 )}
 
 {svc && (<>
@@ -272,15 +279,16 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 </>)}
 
 {t === 'blog' && feat && (<>
+  <nav class="wrap p-category-nav" aria-label="Service-aligned blog categories"><span class="lab">Browse by service</span><div><a class="p-chip" href="/blog/">All articles</a>{pillarCategories.map(s=><a class="p-chip" href={'/blog/category/'+s.slug+'/'} aria-current={s.slug===route.blogCategory?'page':undefined}>{s.title}</a>)}</div></nav>
   <section class="p-band studio-feature"><div class="wrap"><a class="p-feat p-feat-illustrated" href={'/blog/' + feat.slug + '/'}>{articleImages[feat.slug] && <Img k={articleImages[feat.slug].asset} alt={articleImages[feat.slug].alt} class="p-feat-image" sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px" widths={[480,640,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" />}<div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article </span></div></a></div></section>
-  <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{blogPillars.filter(pillar => posts.some(p => p.slug === pillar.slug)).map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide </span></a>)}</nav></div></section>
-  <section class="p-band thin"><div class="wrap" data-blog>
+{categoryGuides.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{categoryGuides.map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide </span></a>)}</nav></div></section>}
+  {posts.length > 1 && <section class="p-band thin"><div class="wrap" data-blog>
     <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
     <div class="p-filter rv" style="margin-top:14px" data-blog-topics><span class="lab" style="margin-right:10px">Topic</span><button type="button" class="p-chip sm on" data-topic="All" aria-pressed="true">All topics</button>{topics.map((s) => <button type="button" class="p-chip sm" data-topic={s.slug} aria-pressed="false">{s.title}</button>)}</div>
     <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{posts.length - 1} articles</p>
     <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.related.join(' ')}>{articleImages[p.slug] && <a class="p-art-image" href={'/blog/' + p.slug + '/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><a class="arrow" href={'/blog/' + p.slug + '/'}>Read the full article </a></article>)}</div>
     <div class="p-empty" data-empty hidden><h2 class="disp p-sec">No articles in this view yet.</h2><p class="p-muted">Clear the filters to see the full archive.</p><button class="btn fill" type="button" data-clear-filter>Clear filters</button></div>
-  </div></section>
+  </div></section>}
 </>)}
 
 {post && (<>

@@ -37,10 +37,13 @@ const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
 const POST_SLUGS = [...postsPreview.posts, ...authoredArticles].map((p) => p.slug);
 check(postsPreview.posts.length === 18, 'posts.preview.json should preserve the 18 migrated posts');
+const listedCategories = [...(pages.find(p=>p.rel==='blog/index.html')?.html || '').matchAll(/href="\/blog\/category\/([a-z-]+)\/"/g)].map(m=>m[1]);
+const CATEGORY_SLUGS = [...new Set([...authoredArticles.flatMap(p=>p.related),...listedCategories])].filter(s=>SERVICE_SLUGS.includes(s));
 const expected = [
   ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
   ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
   ...CASE_SLUGS.map((s) => 'work/' + s + '/index.html'),
+  ...CATEGORY_SLUGS.map(s=>'blog/category/'+s+'/index.html'),
   ...POST_SLUGS.map((s) => 'blog/' + s + '/index.html'),
   ...authors.map((a) => 'authors/' + a.id + '/index.html'),
 ];
@@ -144,7 +147,8 @@ for (const { rel, html } of pages) {
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
   if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
-  if (rel.startsWith('blog/') && rel !== 'blog/index.html') {
+  if (rel.startsWith('blog/category/')) check(types.includes('CollectionPage') && !types.includes('Article'),rel+' must describe a category collection');
+  if (rel.startsWith('blog/') && rel !== 'blog/index.html' && !rel.startsWith('blog/category/')) {
     const a = ld.find((x) => x['@type'] === 'Article');
     const profile = a?.author?.name && authorFor(a.author.name);
     check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' has an inaccurate Article author');
@@ -264,6 +268,18 @@ for (const s of CASE_SLUGS) {
 // ---- blog ----
 const blog = pages.find((p) => p.rel === 'blog/index.html');
 if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === POST_SLUGS.length - 1, 'blog/index.html should list every post except the featured one'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
+for (const category of CATEGORY_SLUGS) {
+  const p=pages.find(p=>p.rel==='blog/category/'+category+'/index.html');
+  check(p?.html.includes('Service-aligned blog categories'),category+' lacks pillar category navigation');
+  check(p?.html.includes('/services/'+category+'/'),category+' lacks its aligned service');
+  check(!p?.html.includes('https://www.zincdigital.co/blog/category/\"'),category+' breadcrumb has a nonexistent intermediate page');
+}
+const hub=pages.find(p=>p.rel==='blog/build-a-content-hub-people-can-use/index.html');
+for (const file of ['content-hub-workbook.pdf','content-hub-architecture.pdf']) {
+  check(await exists(path.join(distDir,'downloads',file)),'missing built download '+file);
+  check(hub?.html.includes('/downloads/'+file),'article lacks '+file);
+}
+for (const file of ['pillar-map.svg','link-plan.svg']) check(hub?.html.includes('/media/content-hub/'+file),'article lacks inline '+file);
 const articleSocialImages = new Set();
 for (const s of POST_SLUGS) {
   const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
