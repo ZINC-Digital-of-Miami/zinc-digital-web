@@ -5,11 +5,14 @@ author: "Wendy Funnell"
 author_id: 3
 layer: Demand
 format: feature
-status: release-in-progress
+status: published
 publish_not_before: 2026-10-30
 target_run: "2026-10-30 09:00 America/Chicago"
 timezone: America/Chicago
 source_checked: 2026-10-30
+published_at: "2026-10-30T14:04:34Z"
+live_url: https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/
+release_pr: 41
 description: "Turn scattered articles into a useful customer guide. Wendy walks through a content hub with a worked page map, linking examples and practical launch checks."
 featured_image: docs/editorial/images/content-hub-studio.png
 featured_image_alt: "Studio view of a tablet displaying a customer guide, surrounded by editorial planning cards, a black notebook and a white mug."

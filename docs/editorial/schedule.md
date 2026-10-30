@@ -19,12 +19,12 @@ Owner requested the first article early on 27 October. Its rewritten body and st
 
 ## Initial queue
 
-Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Item 01 is live; item 02 has a prepared draft and featured artwork. Later items are planned briefs, not completed articles or scheduled CMS records.
+Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Item 01 is live; item 02 is also live. Later items are planned briefs, not completed articles or scheduled CMS records.
 
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
 | 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
-| 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Due today; retained draft/art integrated, source and rendered checks complete; Docker/protected release pending |
+| 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
 | 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Planned |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Planned |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
@@ -58,3 +58,15 @@ After a run, update this queue with actual author, title, URL, publication time,
 Release receipt: [first article](https://www.zincdigital.co/blog/wordpress-php-security-moving-to-astro/) verified live 2026-10-27T06:12:45.114395-05:00 (CT), PR40, merge c83fa42b57d13819189782fb5bca99ec07371f76, Vercel dpl_DRHdT3mTXXAu2TTL22JM2vg4AwxV READY on both production domains. October28 slot is fulfilled; next due article is Wendy on October30.
 
 Item02 preparation: docs/editorial/articles/build-a-content-hub-people-can-use.md and docs/editorial/images/content-hub-studio.png. Business-owner language, Wendy British English, labelled cleaning-business example, six practical steps and a copyable brief. Three current Google primary sources checked27October. Draft body/table/artwork inspected in an unpublished local preview using the existing article renderer and styles at1440/390/320 widths. No public import, route, production push or early release. Friday must use these retained files, recheck sources, set actual publication date, integrate into the existing article system, verify real Wendy metadata/schema and hero/social assets, obtain scoped review and run required Docker checks before protected publication.
+
+
+Release receipt30October: [Wendy’s content-hub article](https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/) verified live 2026-10-30T09:12:37.855132-05:00 CT; PR41, merge4ce569e8c7badbd2a8fcb20044f99162743f7eae, Vercel dpl_FBcHiNj5esBq1GuMQq4HwW79xu73 READY on both production domains. Retained draft/art used; sources rechecked; author/schema/hero/table/featured listing and desktop/mobile verified. Next due: Jaymie2November.
+
+## Forward queue extension
+
+These are planned briefs, with current sources to be selected when drafting; original dates and assignments above are unchanged.
+
+| # | Date (09:00 CT) | Author | Format | Working title and practical deliverable | Status |
+|---|---|---|---|---|---|
+|13|2026-11-25 Wed|Kirk|Web industry analysis|What browser and search changes mean for your business website — verify current platform developments, explain affected customer tasks and practical decisions without predicting guaranteed outcomes|Planned|
+|14|2026-11-27 Fri|Jaymie|Ecommerce how-to|Read your store’s returns data before you reorder — return reasons, product/variant breakdown, a labelled worked example and checks before an inventory decision|Planned|
