@@ -431,5 +431,8 @@ Owner expansion, 16 Oct 2026 CT: optimize the complete public site for SEO and A
 - [x] Establish twelve dated article briefs, with Wendy6/Kirk3/Jaymie3 and author-specific voice/scope in docs/editorial/schedule.md.
 - [x] Draft Kirk's WordPress/PHP security and Astro migration article with current primary sources.
 - [x] Rewrite the first article for business owners in Kirk Voice, verify current PHP/Astro claims, and create distinct on-brand studio artwork.
-- [ ] Publish the first article early on 27 October through Docker/protected release and verify live; this fulfills the 28 October slot. Preserve every later date.
+- [x] Publish the first article early on 27 October through Docker/protected release and verify live (PR40, 166tests/86HTMLchecks, live desktop/mobile); this fulfills the 28 October slot. Preserve every later date.
 - [ ] Continue the scheduled mix, recording actual publication URLs, dates and checks separately from target dates.
+
+- [x] Prepare Wendy’s30October content-hub draft and distinct studio artwork; inspect unpublished desktop/mobile preview.
+- [ ] On30October, integrate prepared Wendy article, verify metadata/author/schema, fresh review, Docker and protected release; do not publish early.
