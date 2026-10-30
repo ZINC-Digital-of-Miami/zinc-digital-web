@@ -37,7 +37,8 @@ const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
 const POST_SLUGS = [...postsPreview.posts, ...authoredArticles].map((p) => p.slug);
 check(postsPreview.posts.length === 18, 'posts.preview.json should preserve the 18 migrated posts');
-const CATEGORY_SLUGS = [...new Set(authoredArticles.flatMap(p=>p.related))].filter(s=>SERVICE_SLUGS.includes(s));
+const listedCategories = [...(pages.find(p=>p.rel==='blog/index.html')?.html || '').matchAll(/href="\/blog\/category\/([a-z-]+)\/"/g)].map(m=>m[1]);
+const CATEGORY_SLUGS = [...new Set([...authoredArticles.flatMap(p=>p.related),...listedCategories])].filter(s=>SERVICE_SLUGS.includes(s));
 const expected = [
   ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
   ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
@@ -146,7 +147,8 @@ for (const { rel, html } of pages) {
   const types = ld.map((x) => x['@type']);
   check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
   if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
-  if (rel.startsWith('blog/') && rel !== 'blog/index.html') {
+  if (rel.startsWith('blog/category/')) check(types.includes('CollectionPage') && !types.includes('Article'),rel+' must describe a category collection');
+  if (rel.startsWith('blog/') && rel !== 'blog/index.html' && !rel.startsWith('blog/category/')) {
     const a = ld.find((x) => x['@type'] === 'Article');
     const profile = a?.author?.name && authorFor(a.author.name);
     check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' has an inaccurate Article author');

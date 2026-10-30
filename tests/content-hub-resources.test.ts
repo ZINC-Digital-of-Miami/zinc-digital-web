@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {extractText} from 'unpdf';
 import {categoryPosts,categoryPath} from '../src/data/blog-categories.ts';
+import {renderArticleMarkdown} from '../src/lib/markdown.ts';
 import {articleFeatures} from '../src/data/article-features.ts';
 import {authoredArticles} from '../src/data/article-library.ts';
 import {pillarFor,readingPath} from '../src/data/blog-strategy.ts';
@@ -41,6 +42,10 @@ test('in-article vector references are real, descriptive static assets',()=>{
     const path='/media/content-hub/'+file;
     assert.ok(hub.markdown.includes(']('+path+')'));
     const svg=readFileSync(new URL('../public'+path,import.meta.url),'utf8');
+    const html=renderArticleMarkdown(hub.markdown).html;
+    assert.ok(html.includes('src="'+path+'"'));
+    const height=file==='pillar-map.svg'?1010:790;
+    assert.ok(html.includes('width="560" height="'+height+'"'));
     assert.match(svg,/<title/);
     assert.match(svg,/<desc/);
     assert.doesNotMatch(svg,/<script|onload=|javascript:/i);
