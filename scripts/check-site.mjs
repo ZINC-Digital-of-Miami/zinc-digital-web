@@ -262,7 +262,9 @@ for (const s of CASE_SLUGS) {
     for (const page of ['home','product','applications','about','quote']) for (const device of ['desktop','tablet','mobile']) {
       check(p.html.includes('bear-claw-' + page + '-' + device + '.'), 'Bear Claw lacks its ' + page + ' ' + device + ' screenshot');
     }
-    check(!p.html.includes('Brand and collateral') && !p.html.includes('business-card') && !p.html.includes('Product packaging'), 'Bear Claw must describe website work only');
+    check(!p.html.includes('Brand and collateral') && !p.html.includes('business-card') && !p.html.includes('Product packaging'), 'Bear Claw must not claim its existing identity or collateral as ZINC work');
+    for (const image of ['package-pail','package-drum','package-tote','admin-leads','admin-lead']) check(p.html.includes('bear-claw-' + image + '.'), 'Bear Claw lacks its ' + image + ' image');
+    check(p.html.includes('id="behind-the-website"'), 'Bear Claw lacks its Behind the website section');
   }
 }
 // ---- blog ----
