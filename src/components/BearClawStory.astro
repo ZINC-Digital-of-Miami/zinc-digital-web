@@ -1,0 +1,40 @@
+---
+interface Props { sit: string; app: string; situation: string; challenge: string[]; approach: string[] }
+const { sit, app, situation, challenge, approach } = Astro.props;
+const needTags = ['The product', 'Every screen', 'The quote path'];
+const routeTags = ['Product first', 'Page by page', 'Every screen size', 'Packaging', 'Foundations'];
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+<section class="p-band thin" id="the-situation">
+  <div class="wrap">
+    <div class="p-split">
+      <div class="rv"><span class="kick">{sit} / The situation</span><h2 class="disp p-sec">What they arrived with.</h2></div>
+      <div class="rv"><p class="bc-lead">{situation}</p></div>
+    </div>
+    <ol class="bc-needs rv-stag">{challenge.map((c, i) => <li class="rv"><span class="bc-n">{pad(i)}</span><h3 class="disp">{needTags[i]}</h3><p>{c}</p></li>)}</ol>
+  </div>
+</section>
+<section class="p-band thin" id="the-approach">
+  <div class="wrap p-split">
+    <div class="rv bc-sticky"><span class="kick">{app} / The approach</span><h2 class="disp p-sec">What ZINC did.</h2></div>
+    <ol class="bc-route rv-stag">{approach.map((c, i) => <li class="rv"><span class="bc-n bc-node">{pad(i)}</span><div><h3 class="disp">{routeTags[i]}</h3><p>{c}</p></div></li>)}</ol>
+  </div>
+</section>
+<style>
+.bc-lead{margin:0;font-size:clamp(20px,2.2vw,27px);line-height:1.4;text-wrap:pretty}
+.bc-needs{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.bc-needs li{position:relative;background:var(--bg2);border:1px solid var(--line);padding:44px 28px 32px}
+.bc-needs li::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(-45deg,#ff850a 0 7px,transparent 7px 14px)}
+.bc-needs h3{margin:22px 0 10px;font-size:clamp(22px,2vw,28px);line-height:1.15}
+.bc-needs p{margin:0;line-height:1.55;color:var(--muted);text-wrap:pretty}
+.bc-n{display:inline-grid;place-items:center;min-width:48px;height:48px;padding:0 10px;background:#ff850a;color:#0A0A0B;font-family:var(--fm);font-size:15px;letter-spacing:.06em}
+.bc-sticky{position:sticky;top:120px}
+.bc-route{list-style:none;margin:0;padding:0}
+.bc-route li{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);gap:24px;padding-bottom:40px}
+.bc-route li:last-child{padding-bottom:0}
+.bc-route li:not(:last-child)::before{content:"";position:absolute;left:27px;top:60px;bottom:4px;width:2px;background:repeating-linear-gradient(to bottom,var(--muted) 0 6px,transparent 6px 12px);opacity:.55}
+.bc-node{width:56px;height:56px;border-radius:50%;padding:0}
+.bc-route h3{margin:2px 0 8px;font-size:clamp(24px,2.4vw,34px);line-height:1.1}
+.bc-route p{margin:0;font-size:17px;line-height:1.55;color:var(--muted);text-wrap:pretty;max-width:60ch}
+@media(max-width:900px){.bc-needs{grid-template-columns:1fr;margin-top:40px}.bc-sticky{position:static}.bc-route li{grid-template-columns:48px minmax(0,1fr);gap:16px}.bc-node{width:48px;height:48px}.bc-route li:not(:last-child)::before{left:23px;top:52px}}
+</style>

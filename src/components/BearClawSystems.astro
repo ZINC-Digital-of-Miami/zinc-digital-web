@@ -1,0 +1,40 @@
+---
+import CaseImage from './CaseImage.astro';
+interface Props { number: string }
+const { number } = Astro.props;
+const systems = [
+  ['Domain and hosting', 'Connected bearclawusa.com to Vercel with DNS kept at GoDaddy. The www address is the main site, the bare domain redirects to it, and HTTPS covers both.'],
+  ['Company email', 'Set up Google Workspace on the domain with the first company mailbox. MX, SPF, DKIM and DMARC records are in place, so mail sends and arrives under the Bear Claw name.'],
+  ['Site email', 'Verified the domain with Resend for site email. Each quote request sends an alert to the company mailbox, and replying to that alert goes straight to the customer.'],
+  ['Server and database', 'Built server routes on Vercel with a Postgres database. Each request is validated, screened for spam and saved before any email goes out, so a delivery failure does not lose the lead. A scheduled job removes leads after 24 months.'],
+  ['Private lead admin', 'A private admin lists every quote request with search, status filters and full details. Sign-in uses a one-time email link limited to one approved address, and the pages stay out of search.'],
+  ['Release and search', 'Production builds run through a dedicated Docker setup, with automated tests and type checks. The public pages carry unique titles, structured data, canonical URLs, a sitemap and robots rules.'],
+];
+const screens = [
+  ['bear-claw-admin-leads', 'Bear Claw quote leads list with search, status filter and fictional sample leads', 'Quote leads list'],
+  ['bear-claw-admin-lead', 'Bear Claw quote lead detail with status control and fictional sample data', 'Lead detail and status'],
+];
+---
+<section class="p-band thin" id="behind-the-website">
+  <div class="wrap">
+    <div class="p-split">
+      <div class="rv"><span class="kick">{number} / Behind the website</span><h2 class="disp p-sec">Built to run the business.</h2></div>
+      <div class="rv"><p class="p-body">The public pages are one part of the build. ZINC also set up the domain, company email, server, database and private admin, then connected them so every quote request reaches the team and stays on record.</p></div>
+    </div>
+    <ol class="bc-systems rv-stag">{systems.map(([title, body], i) => <li class="rv"><span class="lab">{String(i + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></li>)}</ol>
+    <div class="bc-admin rv">
+      {screens.map(([k, alt, label]) => <figure><CaseImage k={k} alt={alt} sizes="(max-width: 900px) 92vw, 46vw" /><figcaption class="lab">{label} · sample data, every name is fictional</figcaption></figure>)}
+    </div>
+  </div>
+</section>
+<style>
+.bc-systems{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 40px}
+.bc-systems li{border-top:1px solid var(--line);padding-top:16px}
+.bc-systems h3{margin:10px 0 8px;font-size:20px;line-height:1.2}
+.bc-systems p{margin:0;line-height:1.55;color:var(--muted)}
+.bc-admin{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:48px}
+.bc-admin figure{margin:0;min-width:0}
+.bc-admin :global(img){display:block;width:100%;height:auto;border:1px solid var(--line)}
+.bc-admin figcaption{margin-top:10px}
+@media(max-width:900px){.bc-systems,.bc-admin{grid-template-columns:1fr}}
+</style>

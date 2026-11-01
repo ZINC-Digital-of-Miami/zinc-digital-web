@@ -168,9 +168,9 @@ export const cases: Case[] = [
     slug: 'bear-claw-usa', title: 'Bear Claw USA',
     heroLabel: 'Website design / Responsive development',
     line: 'A product website that connects plant-based form release with its uses and a clear path to request a quote.',
-    url: 'https://bear-claw-usa.vercel.app/', layers: ['Build'],
+    url: 'https://www.bearclawusa.com/', layers: ['Build'],
     location: 'Las Vegas, NV', timeline: '',
-    scope: 'Website design and development · Product, applications, about and quote pages · Desktop, tablet and mobile layouts',
+    scope: 'Website design and development · Product, applications, about and quote pages · Desktop, tablet and mobile layouts · Packaging labels and product renders · Domain, company email, server, database and private lead admin',
     situation: 'Bear Claw USA makes plant-based form release for concrete forms, asphalt beds and tools. ZINC designed and built the website using Bear Claw’s existing brand identity, connecting product information, company background and quote requests across screen sizes.',
     receipts: [],
     challenge: [
@@ -181,13 +181,15 @@ export const cases: Case[] = [
     approach: [
       'Built the website around the product, its applications and a visible quote-request path.',
       'Designed home, product, applications, about and quote pages using Bear Claw’s existing logos, colors and product imagery.',
-      'Adapted page layouts and navigation for desktop, tablet and mobile screens.'
+      'Adapted page layouts and navigation for desktop, tablet and mobile screens.',
+      'Designed the pail, drum and tote labels and rendered each container in 3D, so the product page shows clear, consistent packaging. Renders are shown for reference.',
+      'Set up the domain, company email, server, database and private lead admin behind the website.'
     ],
     results: [], before: null,
-    brand: [],
+    brand: ['bear-claw-package-pail','bear-claw-package-drum','bear-claw-package-tote'],
     quote: null,
     work: {
-      Build: 'Website design and development, including product information, company background and quote requests across desktop, tablet and mobile.',
+      Build: 'Website design and development, including product information, company background and quote requests across desktop, tablet and mobile, plus packaging labels, product renders, company email, hosting, the lead database and a private admin.',
       Demand: 'Search and paid-media management are outside the work shown here.',
       Intelligence: 'Reporting and analytics are outside the work shown here.'
     },
