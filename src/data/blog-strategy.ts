@@ -44,6 +44,7 @@ export const blogPillars = [
     description: 'Connect the storefront, product catalog and shopping listings. An ad cannot rescue a product nobody can buy.',
     members: [
       'shopify-seo-launch-checklist',
+      'what-can-you-afford-to-spend-on-an-order',
       'shopify-seo-problems-real-fixes',
       'shopify-google-merchant-center-checklist',
       'google-shopping-ad-management-2026',

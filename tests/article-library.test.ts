@@ -13,7 +13,7 @@ const serviceSlugs = new Set(['shopify','web-design','apps','seo','local-seo','a
 
 test('articles retain sources and reading paths; short guides retain their instructional format', () => {
   assert.equal(authoredArticles.filter(p=>p.format!=='feature').length, 23);
-  assert.equal(authoredArticles.filter(p=>p.format==='feature').length, 2);
+  assert.equal(authoredArticles.filter(p=>p.format==='feature').length, 3);
   assert.equal(new Set(all.map(p=>p.slug)).size, all.length);
   assert.equal(new Set(all.map(p=>p.id)).size, all.length);
   for (const post of authoredArticles) {
@@ -34,7 +34,7 @@ test('articles retain sources and reading paths; short guides retain their instr
       if (href==='/blog/category/seo/') continue;
       if (href.startsWith('/blog/')) assert.ok(all.some(p=>href==='/blog/'+p.slug+'/'), post.slug+' links to an unavailable article');
       else if (href.startsWith('/services/')) assert.ok(serviceSlugs.has(href.split('/')[2]), post.slug+' links to an unavailable service');
-      else assert.ok(['/work/us-oil-solutions/','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
+      else assert.ok(['/work/us-oil-solutions/','/downloads/order-acquisition-calculator.xlsx','/downloads/order-acquisition-worksheet.pdf','/media/order-economics/spending-bridge.svg','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
     }
   }
 });

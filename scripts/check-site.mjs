@@ -282,6 +282,12 @@ for (const file of ['content-hub-workbook.pdf','content-hub-architecture.pdf']) 
   check(hub?.html.includes('/downloads/'+file),'article lacks '+file);
 }
 for (const file of ['pillar-map.svg','link-plan.svg']) check(hub?.html.includes('/media/content-hub/'+file),'article lacks inline '+file);
+const economics=pages.find(p=>p.rel==='blog/what-can-you-afford-to-spend-on-an-order/index.html');
+for(const file of ['order-acquisition-calculator.xlsx','order-acquisition-worksheet.pdf']) {
+  check(await exists(path.join(distDir,'downloads',file)),'missing built download '+file);
+  check(economics?.html.includes('/downloads/'+file),'order article lacks '+file);
+}
+check(economics?.html.includes('/media/order-economics/spending-bridge.svg'),'order article lacks instructional diagram');
 const articleSocialImages = new Set();
 for (const s of POST_SLUGS) {
   const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
@@ -290,7 +296,7 @@ for (const s of POST_SLUGS) {
   const sourceSection = p.html.match(/<section[^>]*data-article-sources[^>]*>([\s\S]*?)<\/section>/)?.[1];
   const authoredSources = p.html.match(/<h2[^>]*>Trusted Source Links<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
   check(/<a\s[^>]*href="https:\/\/[^" ]+"/.test(sourceSection || authoredSources || ''), 'blog/' + s + ' lacks linked source references');
-  const noInlineArtwork = ['research-consensus-report','ai-research-workflow','ai-competitor-research-prompts','wordpress-php-security-moving-to-astro','build-a-content-hub-people-can-use'].includes(s);
+  const noInlineArtwork = ['research-consensus-report','ai-research-workflow','ai-competitor-research-prompts','wordpress-php-security-moving-to-astro','build-a-content-hub-people-can-use','what-can-you-afford-to-spend-on-an-order'].includes(s);
   check(noInlineArtwork ? !p.html.includes('data-article-illustration') : p.html.includes('data-article-illustration'), 'blog/' + s + ' has an unexpected supporting illustration state');
   check(p.html.includes('aria-label="Share this article"') && p.html.includes('data-author-card') && p.html.includes('data-share-url="' + SITE + '/blog/' + s + '/"'), 'blog/' + s + ' lacks sharing or author attribution');
   check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');

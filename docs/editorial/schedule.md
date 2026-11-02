@@ -25,7 +25,7 @@ Dates below are target run dates at 09:00 CT, except the owner-requested immedia
 |---|---|---|---|---|---|
 | 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
 | 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
-| 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Planned |
+| 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | In progress: retained draft, studio image, instructional diagram, calculator and fillable checklist; release checks pending |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Planned |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
 | 06 | 2026-11-09 Mon | Kirk | BI/KPI setup how-to | Build a KPI dictionary before you build the dashboard — formula, grain, owner, source, refresh, exclusions and a reconciliation example | Planned |
@@ -50,7 +50,7 @@ Use current approved typography/layout. Match the existing light studio illustra
 
 ## Release and evidence
 
-Follow current AGENTS.md and the approved Docker workflow: fresh scoped review, exact clean-head scripts/verify-docker.sh, truthful Docker validation status, protected PR, normal Vercel deployment and live readback. Coordinate shared Docker capacity with the existing build coordinator when needed; the owner has authorized that coordination. No GitHub Actions, protection changes or unsupported deployment shortcuts.
+Follow current AGENTS.md and the approved Docker workflow: fresh scoped review, exact clean-head scripts/verify-docker.sh, truthful Docker validation status, protected PR, normal Vercel deployment and live readback. Inspect local Docker capacity from this chat; do not open or message OUABC. No GitHub Actions, protection changes or unsupported deployment shortcuts.
 
 After a run, update this queue with actual author, title, URL, publication time, PR and verification result. Keep draft, scheduled run, merged and live distinct. If a required connection or check fails, preserve the draft and report the concrete blocker. Do not fabricate successful publication.
 
@@ -72,4 +72,4 @@ These are planned briefs, with current sources to be selected when drafting; ori
 |14|2026-11-27 Fri|Jaymie|Ecommerce how-to|Read your store’s returns data before you reorder — return reasons, product/variant breakdown, a labelled worked example and checks before an inventory decision|Planned|
 
 
-Owner correction30October: a pillar is a blog category aligned with a primary service or product collection, housing blogs in that main topic. A broad guide can sit inside it but is not the category. Practical how-tos need instructional graphics and usable downloadable worksheets/checklists where they help the task, not only a featured mockup. Verify PDF contents/forms/download routes and the complete checklist before publication. Wendy article correction is in progress under this definition.
+Owner correction30October: a pillar is a blog category aligned with a primary service or product collection, housing blogs in that main topic. A broad guide can sit inside it but is not the category. Practical how-tos need instructional graphics and usable downloadable worksheets/checklists where they help the task, not only a featured mockup. Verify PDF contents/forms/download routes and the complete checklist before publication. Wendy article correction released viaPR42: two instructional diagrams, six-page fillable workbook, two-page illustrated reference,24-check launch checklist and real service categoryarchives. Live download/article/category readback passed30October.
