@@ -13,9 +13,10 @@ export const articleHowtos: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'google-search-ads'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Inconsistent campaign names split related traffic across separate rows and make results harder to compare.
 
-I use one vocabulary, a link register and a click test. Start with the channel decisions in our [planning guide](/blog/seven-digital-channels-which-to-skip/).
+Use one vocabulary, a link register and a click test. Start with the channel decisions in our [planning guide](/blog/seven-digital-channels-which-to-skip/).
 
 ## 1. Define the fields
 
@@ -56,7 +57,13 @@ Investigate the actual link, redirects and reporting dimensions when values diff
 - Observed destination and processed values.
 - Exceptions or unresolved measurement limits.
 
-Do not rename an existing campaign casually. Record changes so later comparisons have a reliable explanation.`,
+Do not rename an existing campaign casually. Record changes so later comparisons have a reliable explanation.
+
+## A completed link-register row
+
+Illustrative destination: /services/business-intelligence/?utm_source=newsletter&utm_medium=email&utm_campaign=reporting_workshop&utm_content=main_button. The source names the publication, medium identifies email, campaign groups the promotion and content distinguishes this button. Use your real domain when building the final URL.
+
+Before distribution, open the exact link, confirm the correct page and record the processed session dimensions after a consented test visit. Keep the sent version in the register even if a later campaign uses different names. Do not add UTMs to ordinary links between pages on your own site: that confuses campaign interpretation. Use navigation or event measurement for those internal interactions instead.`,
   },
   {
     id: 90006,
@@ -69,6 +76,7 @@ Do not rename an existing campaign casually. Record changes so later comparisons
     layer: 'Intelligence',
     related: ['seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `End a Search Console review with a page decision: improve an answer, investigate a technical issue or leave the page alone.
 
 Choose important pages using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/), then review them consistently.
@@ -111,7 +119,13 @@ Use [SEO review](/services/seo/) to investigate the search issue and [business i
 - Proposed change, owner and release date.
 - Comparable view to check next.
 
-Preserve the original evidence. Later movement is an observation, not automatic proof that the edit caused it.`,
+Preserve the original evidence. Later movement is an observation, not automatic proof that the edit caused it.
+
+## Example: two pages appear for one question
+
+A buying guide and a service page both appear for a query about dashboard costs. Read their roles before merging them: the guide may explain cost drivers while the service page explains ZINC’s engagement. They can legitimately serve different needs.
+
+Compare the same query group, page filters, country, device and dates. If the guide attracts research questions but omits a useful link to the service, improve that path. If the service page fails to explain scope, repair the commercial answer. Do not automatically redirect the guide because both URLs appeared. Log the evidence, chosen edit and review date, and compare valid enquiries separately from Search Console clicks.`,
   },
   {
     id: 90007,
@@ -124,6 +138,7 @@ Preserve the original evidence. Later movement is an observation, not automatic 
     layer: 'Demand',
     related: ['shopify', 'seo'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Improve the product information and search presentation together. Start with one representative item before applying a catalog-wide template.
 
 Use our [Shopify SEO launch guide](/blog/shopify-seo-launch-checklist/) for the wider storefront checks.
@@ -167,7 +182,13 @@ Save, then open the public URL on mobile. Check descriptions, options, images, m
 - Collection and guide links work.
 - The published buying path has been tested.
 
-Record the release before reviewing comparable search periods. An edited title does not guarantee better rankings.`,
+Record the release before reviewing comparable search periods. An edited title does not guarantee better rankings.
+
+## Example: complete the buyer’s missing information
+
+For an illustrative insulated bottle, “premium quality” does not answer whether it fits a cup holder or can go in a dishwasher. Gather the verified capacity, dimensions, materials, care instructions and option differences from the product record. State delivery and return information where the buyer can find it.
+
+Choose images that show the actual color and useful scale; do not invent certifications or performance claims. After saving, inspect the page on a phone, change variants and check that price, image and availability follow the selection. Compare rendered product markup with the visible item. A complete page helps a buyer make a decision; it does not guarantee a rich result or a ranking.`,
   },
   {
     id: 90008,
@@ -180,6 +201,7 @@ Record the release before reviewing comparable search periods. An edited title d
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Review the product family and each submitted option separately. A correct family name can still lead to the wrong variant.
 
 Start with [the ecommerce launch guide](/blog/shopify-seo-launch-checklist/) for the broader setup.
@@ -223,7 +245,13 @@ Our [feed diagnostics guide](/blog/merchant-center-feed-diagnostics/) traces bro
 - Source correction and processed result.
 - Current issue status.
 
-Recheck linked specifications when maintaining the integration. The durable test is whether the submitted item and the shopper's selected offer agree.`,
+Recheck linked specifications when maintaining the integration. The durable test is whether the submitted item and the shopper's selected offer agree.
+
+## A two-variant inspection
+
+Illustrative group BAG-01 has black and tan variants. Each receives its own stable item ID; both use the appropriate shared group ID. The black item’s link must open black, its image must show black and its price must match that option. Repeat the check for tan rather than assuming one working variant proves the group.
+
+Record item ID, group ID, option values, landing URL, image, availability and price in a row for each variant. Use genuine manufacturer identifiers where applicable; never invent a GTIN to clear a warning. Recheck the processed items after the source update. A group passes only when its individual advertised options are accurate.`,
   },
   {
     id: 90009,
@@ -236,12 +264,10 @@ Recheck linked specifications when maintaining the integration. The durable test
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-10-30T14:31:30Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
 
-Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
-
-I start with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
+Begin with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
 
 ## 1. Name the pages worth reaching
 
@@ -282,7 +308,13 @@ Fix a broken header link in the header. Fix outdated generated URLs in the templ
 - Template or editorial owner.
 - Mobile and desktop retest result.
 
-A newly added link should explain a relationship. Verify that the intended page became easier to reach before calling the audit complete.`,
+A newly added link should explain a relationship. Verify that the intended page became easier to reach before calling the audit complete.
+
+## Map one useful path
+
+Take a hypothetical reporting service and its business-intelligence category. The category should help readers find the metric-definition and data-preparation articles. A metric article might link to data preparation when the reader is ready to gather records, and to the service when implementation help becomes relevant.
+
+Use a simple table: source page, reader’s next question, destination, proposed anchor and result. “Define net revenue” tells a reader more than “click here”. Open every changed destination and confirm that it returns the intended content without a redirect chain. Check mobile and keyboard navigation too. A page with many links can still hide its most important next step.`,
   },
   {
     id: 90010,
@@ -295,10 +327,8 @@ A newly added link should explain a relationship. Verify that the intended page 
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-10-30T14:31:30Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Refresh the answer, not just the date. Review what changed, what the reader needs and whether the existing page still serves that task.
-
-Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to keep content and technical questions distinct.
 
@@ -341,7 +371,13 @@ Open the published page and test updated links. [Generative search optimization]
 - Actual modification date and release check.
 - Next review trigger, such as a platform or product change.
 
-Preserve the evidence behind the edit. A future reviewer should understand what changed and why.`,
+Preserve the evidence behind the edit. A future reviewer should understand what changed and why.
+
+## Example: an obsolete setup instruction
+
+Suppose a guide refers to a platform setting that has moved and includes a screenshot of the old menu. Verify the current official instructions and the available interface before editing. Replace the outdated step, explain any meaningful change in behavior and update the screenshot only if it helps the task.
+
+Keep sections that still answer the reader’s question. Check downloadable copies and related articles for the same obsolete instruction. Record the substantive revision and its date; preserve the original publication date. After release, follow the full procedure from a clean starting point. A title change and a newer date do not repair a broken how-to.`,
   },
   {
     id: 90011,
@@ -354,10 +390,8 @@ Preserve the evidence behind the edit. A future reviewer should understand what 
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-10-30T14:31:30Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A service page should explain fit: what the work includes, its boundaries and what happens next.
-
-Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to connect that answer with search discovery.
 
@@ -403,7 +437,13 @@ Check title, metadata and links. Google's [title-link guidance](https://develope
 
 Use our [content brief guide](/blog/content-briefs-search-intent-internal-links/) to capture sources and reviewers. [SEO work](/services/seo/) connects the page to relevant topics while preserving its service-selection purpose.
 
-The useful result is fewer important assumptions in the first conversation.`,
+The useful result is fewer important assumptions in the first conversation.
+
+## Write the missing buying details
+
+For a hypothetical reporting engagement, replace “unlock insights” with specific scope: agree on one decision, identify approved data sources, define the measures, build the view and test it against source records. Explain what the customer must provide, such as account access and a person who can approve metric definitions.
+
+State exclusions that affect the purchase, including unavailable integrations or separately scoped historical cleanup. Use only supported examples and results. Ask an unfamiliar reader to describe what they would receive and what happens after submitting the form. If they cannot, improve the offer explanation before adding another testimonial or decorative section.`,
   },
   {
     id: 90012,
@@ -416,6 +456,7 @@ The useful result is fewer important assumptions in the first conversation.`,
     layer: 'Demand',
     related: ['google-search-ads', 'social-ads', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Test the path from the ad promise to an accepted inquiry or purchase. A polished page alone cannot establish that the journey works.
 
 Start with the campaign purpose in our [channel planning guide](/blog/seven-digital-channels-which-to-skip/).
@@ -459,6 +500,12 @@ Use [GA4 campaign naming](/blog/ga4-utm-naming-conventions/) for consistent traf
 - Measurement evidence and its limits.
 - Defect owner and retest result.
 
-Treat campaign outcomes as a later observation requiring reliable data. The launch check establishes that the visitor can complete the intended path.`,
+Treat campaign outcomes as a later observation requiring reliable data. The launch check establishes that the visitor can complete the intended path.
+
+## Test the promise, including the exception
+
+Imagine an ad offering delivery before a holiday deadline. Open its exact destination on a phone, select the advertised item and check the relevant postcode and shipping option. A banner promising fast delivery does not help if checkout contradicts it.
+
+Record ad, URL, device, product or service, stated terms, form or checkout result and measurement observation. Use an authorized test transaction where completion is required; avoid creating real orders accidentally. Check errors as well as success: invalid details should produce readable guidance, and a failed submission must not fire a successful-lead event. Repeat after the actual campaign URL is saved.`,
   },
 ];

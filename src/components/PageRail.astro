@@ -4,7 +4,7 @@ import {routes} from '../data/site';
 interface Props {path:string; title:string}
 const {path,title}=Astro.props;
 const parts=path.split('/').filter(Boolean);
-const parent=parts.length>1?(parts[0]==='authors'?'/blog/':'/'+parts[0]+'/'):undefined;
+const parent=parts[0]==='locations'?undefined:parts.length>1?(parts[0]==='authors'?'/blog/':'/'+parts[0]+'/'):undefined;
 const parentTitle=parent==='/blog/'?'Insights':parent==='/work/'?'Work':routes.find(r=>r.path===parent)?.title || parts[0];
 const category=parts[0]==='work'?'work':parts[0]==='services'?'services':undefined;
 const clientLinks=parts[0]==='work' && parts.length===2 ? workFor(parts[1]).map(work => [work.label,work.href]) : [];

@@ -1,3 +1,4 @@
+import { articleRewrite } from './article-copy.ts';
 import { authoredArticles } from './article-library.ts';
 /** Search presentation; article headings and source provenance stay in posts.preview.json. */
 export const articleEditorial: Record<string, {
@@ -108,7 +109,7 @@ export const articleEditorial: Record<string, {
   },
   "three-years-of-algorithm-updates-what-moved-rankings": {
     "title": "Google Algorithm Updates: What Moved Rankings",
-    "description": "Review the patterns behind Google algorithm updates from 2023 through 2026. Separate durable technical, content, and trust issues from short-term noise.",
+    "description": "Review selected documented Google Search updates from 2023 through 2026, and separate the historical record from claims about what caused a site's rankings.",
     "keywords": [
       "Google algorithm updates",
       "ranking changes",
@@ -128,7 +129,7 @@ export const articleEditorial: Record<string, {
   },
   "marketing-budgets-during-economic-stress": {
     "title": "Marketing Budgets: What to Cut, Keep, and Prove",
-    "description": "Review marketing budgets under economic pressure by payback window, evidence, and risk. Decide what to cut or protect without treating every channel alike.",
+    "description": "Review marketing costs, contribution, commitments and cash timing. Use a decision sheet to choose what to retain, repair or pause when budgets tighten.",
     "keywords": [
       "marketing budget planning",
       "channel economics",
@@ -178,7 +179,7 @@ export const articleEditorial: Record<string, {
   },
   "duplicate-content-isnt-a-penalty-but-its-a-tax": {
     "title": "Duplicate Content: The Cost and the Fixes",
-    "description": "Understand duplicate content as a crawl, canonical, and reporting problem. Choose when to consolidate, redirect, rewrite, or noindex the affected pages.",
+    "description": "Choose the right response to duplicate URLs: canonicalize equivalent pages, redirect replacements and preserve distinct products. Includes practical checks.",
     "keywords": [
       "duplicate content",
       "canonical tags",
@@ -187,3 +188,9 @@ export const articleEditorial: Record<string, {
     ]
   }
 };
+
+// Reviewed rewrites retain their URLs while search titles follow the actual article.
+for (const slug of Object.keys(articleEditorial)) {
+  const rewrite=articleRewrite(slug);
+  if(rewrite) articleEditorial[slug].title=rewrite.title;
+}

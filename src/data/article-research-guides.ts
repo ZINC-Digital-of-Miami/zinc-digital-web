@@ -10,6 +10,7 @@ export const articleResearchGuides: AddedArticle[] = [
     keywords: ['Google core update review', 'Search Console comparison', 'ranking changes', 'SEO reporting'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['seo', 'business-intelligence'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A traffic drop is an observation, not a diagnosis.
 
 Use this routine to decide which pages need investigation after a confirmed core update. Keep it beside the [SEO framework](/blog/four-pillars-of-seo-operators-view/) and your ongoing [SEO work](/services/seo/).
@@ -60,7 +61,13 @@ Use this record:
 
 Save the original comparison and the release date. Recheck the same page group after the change has had time to be processed.
 
-Keep fixes, observed outcomes and assumptions in separate columns. A clear record makes the next decision easier; a hurried rewrite only creates another variable.`,
+Keep fixes, observed outcomes and assumptions in separate columns. A clear record makes the next decision easier; a hurried rewrite only creates another variable.
+
+## Separate the observation from the diagnosis
+
+Illustrative finding: several guides lost clicks while service-page enquiries stayed stable. That is worth investigating, but it does not yet establish a commercial decline or a content penalty. Group the affected queries, compare complete periods and inspect whether search appearances changed.
+
+Add site releases, stock changes, promotions and tracking changes to the same timeline. Write two columns: what the records show, and what might explain it. Choose the smallest check that distinguishes the explanations. If an indexing restriction is confirmed, repair it; if the evidence remains inconclusive, continue monitoring rather than prescribing a wholesale rewrite.`,
   },
   {
     id: 90014,
@@ -70,6 +77,7 @@ Keep fixes, observed outcomes and assumptions in separate columns. A clear recor
     keywords: ['holiday ecommerce preparation', 'Shopify launch checklist', 'holiday shopping feed', 'checkout testing'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['shopify', 'shopping-ads'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A holiday campaign needs a store that can keep its promises.
 
 Use one checklist across the storefront, product feed and campaign. Start with the [Shopify launch guide](/blog/shopify-seo-launch-checklist/); keep [Shopping management](/services/shopping-ads/) tied to the products shoppers can actually order.
@@ -122,7 +130,13 @@ Approve the launch only when the offer is consistent and the relevant tests pass
 - Measurement checked with a controlled order
 - Expired messages and campaigns have an owner
 
-If stock or fulfillment changes, update the promise and distribution together. The campaign is ready when the store can deliver it.`,
+If stock or fulfillment changes, update the promise and distribution together. The campaign is ready when the store can deliver it.
+
+## Run a launch rehearsal
+
+Choose one promoted product, one discount and one shipping destination representative of the offer. Check stock, discount eligibility, delivery cutoff, taxes, payment, confirmation email and the return information. Record which combinations the promotion excludes.
+
+Assign a person to stock exceptions, customer messages and stopping ads when the promise cannot be fulfilled. Test a sold-out variant and an invalid discount as well as the successful order. The launch record should include the observed result, owner and fallback for each condition. A campaign is not ready because the artwork is finished; the business must be able to honor what it says.`,
   },
   {
     id: 90015,
@@ -132,6 +146,7 @@ If stock or fulfillment changes, update the promise and distribution together. T
     keywords: ['seasonal ecommerce campaign plan', 'campaign planning', 'seasonal demand', 'ecommerce promotion'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['shopping-ads', 'google-search-ads', 'business-intelligence'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A useful seasonal plan starts with demand and stock, not a list of holidays.
 
 Choose one buying moment, one customer need and a product group you can fulfill. Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide which channels deserve work.
@@ -181,7 +196,13 @@ Review stock, delivery capacity and the agreed outcome together. Record whether 
 
 Do not interpret one day's variation as a trend. Keep attribution windows and reporting dates visible, and separate campaign claims from store totals.
 
-Remove expired offers and delivery messages at the agreed cutoff. The finished plan has a launch, a review and an ending.`,
+Remove expired offers and delivery messages at the agreed cutoff. The finished plan has a launch, a review and an ending.
+
+## Work backward from the last useful order date
+
+In an illustrative campaign, the business confirms a final order date for the advertised delivery promise. Work backward from that date to shipping checks, page approval, creative production and measurement tests. Do not borrow another retailer’s deadline.
+
+Give each channel a job: email may reach opted-in existing customers, search may capture relevant demand and social may demonstrate the product. Keep the offer and terms consistent. Set a stock-based stop rule and a named person who can change the message. At review, compare spend and actual order contribution for the defined period; do not add the platforms’ overlapping attributed purchases.`,
   },
   {
     id: 90016,
@@ -191,9 +212,10 @@ Remove expired offers and delivery messages at the agreed cutoff. The finished p
     keywords: ['research consensus report', 'source triangulation', 'evidence review', 'decision brief'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'seo'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Three summaries of the same press release are still one source.
 
-I use a consensus report to find what the evidence supports, where it conflicts and what remains unknown. Agreement between models is not a substitute for agreement between independent sources.
+Use a consensus report to find what the evidence supports, where it conflicts and what remains unknown. Agreement between models is not a substitute for agreement between independent sources.
 
 ## Step 1: Write the decision as a question
 
@@ -239,7 +261,13 @@ Use this structure:
 - **Unknown:** missing evidence and next check
 - **Action:** recommendation, owner and review date
 
-Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous. For a marketing decision, use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to compare the options against budget and team capacity.`,
+Remove any recommendation that cannot survive its own source register. Keep uncertainty visible; the brief should make the decision clearer, not merely sound unanimous. For a marketing decision, use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to compare the options against budget and team capacity.
+
+## A worked evidence-family check
+
+Suppose three articles report the same survey result and a fourth describes a small experiment. The three articles belong to one survey evidence family, not three independent confirmations. The experiment may use a different population and outcome, so it may neither confirm nor contradict the survey.
+
+In the source register, record original study, population, period, measure, finding and limitation. A useful conclusion might be that the survey suggests a question worth testing locally, while the experiment offers a possible method. That is weaker than a universal claim, but more actionable. Keep the original URLs and relevant passages with the decision so another person can challenge it.`,
   },
   {
     id: 90017,
@@ -249,9 +277,10 @@ Remove any recommendation that cannot survive its own source register. Keep unce
     keywords: ['AI research workflow', 'AI source verification', 'research prompts', 'model selection'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A fluent answer is not a research record.
 
-I split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
+Split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
 
 ## Step 1: Define the question and boundaries
 
@@ -294,7 +323,13 @@ A second model is another analytical pass, not independent evidence. Resolve dis
 
 Save the question, source table, corrections and recommendation. Record the model or tool used and the research date so the work can be repeated.
 
-Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning. When the question concerns marketing investment, compare the researched options using the [channel selection criteria](/blog/seven-digital-channels-which-to-skip/).`,
+Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning. When the question concerns marketing investment, compare the researched options using the [channel selection criteria](/blog/seven-digital-channels-which-to-skip/).
+
+## Try the workflow on a real buying question
+
+A business owner comparing website platforms could ask: which options support our editing workflow, product needs and maintenance capacity? Supply the required functions and current public documentation. Ask for a comparison with a source and limitation in every factual row.
+
+Then open the sources. Separate what the platform supports from what a particular plan, integration or implementation supplies. Mark costs and limitations with their observation date. The final recommendation should explain which requirement drives the choice and what must be tested before purchase. If the evidence does not establish a capability, keep it unknown rather than letting the model fill the cell with a confident guess.`,
   },
   {
     id: 90018,
@@ -304,9 +339,10 @@ Use [business intelligence](/services/business-intelligence/) to connect the fin
     keywords: ['AI competitor research prompts', 'competitor analysis', 'public evidence', 'competitive research'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Public pages can show a competitor's offer, pricing and buying process. They usually cannot establish revenue, profit or advertising spend.
 
-I begin with a small set of businesses and a specific buying decision.
+Begin with a small set of businesses and a specific buying decision.
 
 ## Step 1: Fix the comparison
 
@@ -350,6 +386,12 @@ Ask a separate review pass to find mismatched products, expired pages, currencie
 
 Select one change to your own explanation, offer or inquiry path. Record its owner, baseline and review date through [business intelligence](/services/business-intelligence/).
 
-The output is a testable decision supported by public records. Private numbers stay unknown. If the comparison suggests a new marketing channel, check its fit against your own resources with the [channel planning guide](/blog/seven-digital-channels-which-to-skip/).`,
+The output is a testable decision supported by public records. Private numbers stay unknown. If the comparison suggests a new marketing channel, check its fit against your own resources with the [channel planning guide](/blog/seven-digital-channels-which-to-skip/).
+
+## Use a comparison that stays honest
+
+For an illustrative agency comparison, record whether each public service page explains deliverables, responsibilities, evidence and the enquiry process. “No public price found” is an observation. “This agency is expensive” is an unsupported conclusion unless you have comparable current quotes and scope.
+
+If your own page omits delivery responsibilities, test a clearer explanation there. Do not copy a competitor’s claims or invent a differentiator. Save the observed pages and dates so later changes can be distinguished from research errors. Rankings and reviews can suggest where to look; they do not reveal the competitor’s revenue or profitability.`,
   },
 ];

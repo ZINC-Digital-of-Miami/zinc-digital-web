@@ -308,7 +308,7 @@ for (const s of POST_SLUGS) {
   const ld = p.html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   if (ld) {
     const article = JSON.parse(ld)['@graph']?.find(node => node['@type'] === 'Article');
-    check(article?.image === social && article?.keywords?.length >= 3 && article?.articleSection, 'blog/' + s + ' article metadata disagrees with its image or topic');
+    check((article?.image === social || (article?.image?.['@id'] === SITE+'/blog/'+s+'/#primaryimage' && JSON.parse(ld)['@graph']?.find(node=>node['@type']==='WebPage')?.primaryImageOfPage?.url===social)) && article?.keywords?.length >= 3 && article?.articleSection, 'blog/' + s + ' article metadata disagrees with its image or topic');
   }
 }
 if (blog) check(/aria-label="Article guides"/.test(blog.html), 'blog/index.html lacks the guide navigation');

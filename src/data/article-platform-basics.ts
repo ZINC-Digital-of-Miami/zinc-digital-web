@@ -12,6 +12,7 @@ export const articlePlatformBasics: AddedArticle[] = [
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Merchant Center holds the product information Google uses to understand your catalog. Start with accurate records and a repeatable update process. Advertising comes after that foundation.
 
 ## 1. Confirm the business and website
@@ -44,7 +45,13 @@ Change an authorized test product, wait for the source's expected update and con
 
 **Setup checklist:** business access; verified website; named product source; update owner; accurate sample products; shipping and returns reviewed; current issues assigned.
 
-Product eligibility does not guarantee visibility or sales. Connect this setup to the broader [Shopify SEO checklist](/blog/shopify-seo-launch-checklist/) and the product review behind [Shopping ads management](/services/shopping-ads/).`,
+Product eligibility does not guarantee visibility or sales. Connect this setup to the broader [Shopify SEO checklist](/blog/shopify-seo-launch-checklist/) and the product review behind [Shopping ads management](/services/shopping-ads/).
+
+## Start with a small inspection sample
+
+Before assuming the entire catalog is ready, choose a simple product, a product with variants and an item with a delivery restriction. Record the supplying system and compare each processed item with its landing page and checkout terms. Include the intended market and currency.
+
+If an item is disapproved, read its specific issue and fix the source responsible. Do not create another feed merely to hide the error. Confirm that shipping and returns describe what customers actually receive. Keep a setup record with access owner, source owner, sample results, unresolved issues and next review date. Eligibility and paid campaign performance are separate checks.`,
   },
   {
     id: 90020,
@@ -57,6 +64,7 @@ Product eligibility does not guarantee visibility or sales. Connect this setup t
     layer: 'Demand',
     related: ['social-ads', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:10:55Z',
     markdown: `A first TikTok campaign needs one clear outcome, an offer people can understand and a working way to measure the result. Use a small, defined test instead of changing every setting at once.
 
 ## 1. Choose the outcome
@@ -83,13 +91,37 @@ Use one understandable offer. Match the video's promise, text and call to action
 
 Follow TikTok's [ad creation guidance](https://ads.tiktok.com/resources/help/article/ad-set-up) and inspect the available placement previews. Then open the destination on a phone and complete the intended journey. Our [landing-page checklist](/blog/paid-media-landing-page-checklist/) makes that review concrete.
 
+![Campaign submission, approval, delivery, correct measurement and useful outcomes are separate checkpoints.](/media/blog-review/campaign-checkpoints.svg)
+
 ## 5. Review delivery and real outcomes
 
 After submission, check review and delivery status. At the planned review, compare spend with the agreed outcome and inspect the underlying inquiries or orders. Keep platform attribution separate from the business's order record.
 
 **Launch checklist:** outcome; business access; tested event; budget and dates; approved creative; working destination; named review owner.
 
-Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide where this test fits. Ongoing [social ads management](/services/social-ads/) should turn each review into a specific next action.`,
+Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide where this test fits. Ongoing [social ads management](/services/social-ads/) should turn each review into a specific next action.
+
+## Work through a first website-sales test
+
+This is an illustrative planning example, not a recommended budget or a client result. A shop wants to test one in-stock travel bag. Its owner has worked out a $20 media allowance per first order after product, delivery and other costs, and authorizes a maximum $400 experiment. That means 20 first orders would be needed to meet that particular allowance if the full amount is spent. It is not a forecast that the campaign will deliver them.
+
+Before opening Ads Manager, gather the product URL, approved videos, offer terms, linked identity, event setup and the person who can approve spending. Use the [order acquisition calculator](/blog/what-can-you-afford-to-spend-on-an-order/) to derive your own allowance.
+
+In the current campaign flow, choose the objective and destination matching website sales. Follow TikTok’s [campaign setup instructions](https://ads.tiktok.com/resources/help/article/campaign-set-up), then review the ad-group audience, placements, schedule and optimization event. Automated and manual flows can expose different controls; record what your account actually offers.
+
+Set budget and dates within the approved total, accounting for the platform’s current minimums and spending rules. Do not force a test your business cannot afford simply to meet an interface minimum. Save the final settings and confirm who will stop the test if measurement or checkout fails.
+
+At ad level, check the correct identity, video, caption, destination and call to action. One video could demonstrate packing capacity; another could show the bag’s compartments. Keep the offer consistent so the difference you are testing is understandable. Creative approval and music or usage rights belong in the launch check too.
+
+## Decide what the result means
+
+Suppose the example spends $400 and the store confirms 16 eligible first orders for the reviewed cohort. That is $25 of media spend per first order, above its $20 allowance. TikTok’s attributed purchase count may differ because of attribution settings and customer behavior. Record both definitions; do not select whichever number makes the test look better.
+
+A next step might be to inspect the product page, offer and creative before spending again. The sample does not prove the platform cannot work, nor does a single profitable day justify a larger budget.
+
+**Before submitting:** test event once; verify product availability and shipping; preview each placement; open the destination on a phone; check identity and rights; confirm budget, dates and time zone; name the review owner. After submission, verify approval and delivery separately.
+
+[Download the campaign test brief](/downloads/campaign-test-brief.pdf). The three-page fillable PDF includes worked sales and lead examples, your setup record and 12 launch checks.`,
   },
   {
     id: 90021,
@@ -102,6 +134,7 @@ Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to
     layer: 'Demand',
     related: ['social-ads', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:10:55Z',
     markdown: `Start a Meta campaign with a business question: can this offer generate the kind of response we need at a cost we can sustain? The setup should make that question answerable.
 
 ## 1. Match the objective to the goal
@@ -128,13 +161,45 @@ Review the displayed identity, image or video, text, offer and call to action to
 
 Open the landing page on a phone. Confirm the advertised product or service is available and the next action works. Use the [landing-page checklist](/blog/paid-media-landing-page-checklist/) before approving traffic.
 
+![Campaign submission, approval, delivery, correct measurement and useful outcomes are separate checkpoints.](/media/blog-review/campaign-checkpoints.svg)
+
 ## 5. Compare results with the records
 
 Set a review date and name the person responsible. Compare spend, reported outcomes and the actual order or lead records for the same period. State attribution differences instead of adding unlike totals together.
 
 **Test brief:** goal; qualifying outcome; offer; audience; budget; dates; destination; measurement; reviewer. Save the final settings with it.
 
-Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to place Meta in the wider plan. Strong [social ads management](/services/social-ads/) connects the campaign review to a decision about creative, targeting or the customer journey.`,
+Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to place Meta in the wider plan. Strong [social ads management](/services/social-ads/) connects the campaign review to a decision about creative, targeting or the customer journey.
+
+## A worked lead-generation brief
+
+Consider a hypothetical local service business testing consultation enquiries. It needs genuine requests within its service area, not every form submission. Define a qualified enquiry before launch: a reachable person, a relevant service need and a location the business serves. Collect only the information needed for that decision.
+
+| Decision | Example setting or requirement |
+| --- | --- |
+| Goal | Qualified consultation enquiries |
+| Offer | A clearly described initial conversation, without invented guarantees |
+| Destination | The matching service page and working enquiry form |
+| Measurement | Successful form completion, followed by manual qualification |
+| Audience | The actual service area and relevant permitted settings |
+| Creative | Two approved ways to explain the same offer |
+| Review | Check delivery and form health first, then cost and lead quality over the agreed period |
+
+In Ads Manager, select the appropriate lead objective and the conversion location that matches this journey. An instant form and a website form are different paths; do not select one and test the other. Meta’s [objective guidance](https://www.facebookblueprint.com/student/path/211544-ads-manager-objectives) explains the relationship between goals and setup.
+
+At ad-set level, review the available conversion, audience, placement and scheduling controls. Confirm the business’s spending authorization against the budget type and current platform rules; a daily setting should not be assumed to mean an exact lifetime cap. At ad level, check the correct Facebook or Instagram identity, creative, offer, destination and call to action.
+
+Save the setup before submitting. Automated options and account interfaces change, so the saved record should show what was actually selected rather than what an old tutorial called it.
+
+## Review qualified outcomes, not just the cheapest form
+
+Illustrative figures: $300 in spend produces 15 valid, distinct enquiries, of which six meet the business’s qualification definition. Cost per valid enquiry is $20; cost per qualified enquiry is $50. Neither number is customer acquisition cost unless you know which enquiries became customers.
+
+Inspect the rejected enquiries. If most fall outside the service area, check targeting, the ad’s wording and the page’s location explanation. If the business never contacted them, the immediate problem may be follow-up rather than the creative.
+
+**Launch check:** identity and permissions; objective and conversion location; tested form and completion event; accurate service area; creative rights; mobile previews; clear terms; approved spending limits; named follow-up owner. Submit only after those checks, then verify review status and delivery. A campaign can be approved without yet producing useful enquiries.
+
+[Download the campaign test brief](/downloads/campaign-test-brief.pdf). The three-page fillable PDF includes worked sales and lead examples, your setup record and 12 launch checks.`,
   },
   {
     id: 90022,
@@ -147,10 +212,8 @@ Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to
     layer: 'Intelligence',
     related: ['ai-search-optimization', 'seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-10-30T14:31:30Z',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `An AI citation is an observation. It is not a content strategy.
-
-Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 Google says its [existing SEO practices apply to AI Overviews and AI Mode](https://developers.google.com/search/docs/appearance/ai-features). There is no special markup required for those features. Start with the customer question and the evidence available to answer it.
 
@@ -158,7 +221,7 @@ Google says its [existing SEO practices apply to AI Overviews and AI Mode](https
 
 Collect questions from actual inquiries, search data and product or service reviews. Choose one decision: which option fits, what preparation is needed or how to solve a specific problem.
 
-Write the reader, question and intended next step on one line. Our [SEO pillar guide](/blog/four-pillars-of-seo-operators-view/) puts this work in the broader search plan. A list of fashionable prompts does not replace a useful page.
+Write the reader, question and intended next step on one line. Our [SEO framework guide](/blog/four-pillars-of-seo-operators-view/) puts this work in the broader search plan. A list of fashionable prompts does not replace a useful page.
 
 ## 2. Assemble the facts first
 
@@ -184,7 +247,13 @@ Record the exact question, system, date, location where relevant, displayed cita
 
 **Review record:** question; customer decision; source page; verified claims; indexing check; observed citation; date; next action.
 
-Treat the sample as evidence for [generative search work](/services/ai-search-optimization/), alongside search traffic and business outcomes. It cannot prove universal visibility or predict a future algorithm. Publish useful answers. Verify what happened.`,
+Treat the sample as evidence for [generative search work](/services/ai-search-optimization/), alongside search traffic and business outcomes. It cannot prove universal visibility or predict a future algorithm. Publish useful answers. Verify what happened.
+
+## Turn one question into an editorial assignment
+
+A business considering a reporting dashboard needs to know which data to prepare. Put that article inside the business-intelligence category, list the records and permissions required, and show an illustrative source checklist. Link to metric definitions when the reader needs to resolve conflicting revenue figures.
+
+The assignment is complete when a business owner can prepare for the conversation, not when it repeats “AI” often enough. Verify platform claims, keep the core instructions in HTML and inspect the page’s actual search eligibility. Use the [AI-search visibility guide](/blog/ai-search-results-and-generative-search-optimization/) for the platform-specific checks and reporting limits.`,
   },
   {
     id: 90023,
@@ -197,6 +266,7 @@ Treat the sample as evidence for [generative search work](/services/ai-search-op
     layer: 'Intelligence',
     related: ['business-intelligence', 'apps'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `Business intelligence turns business records into decisions people can act on. It connects sources, defines the measures and shows what changed. You need it when separate reports leave the team arguing about what a number means.
 
 ## 1. Start with a business question
@@ -227,6 +297,12 @@ Record the observation, proposed action, owner and review date. After the change
 
 **Decision record:** question; source; metric definition; coverage dates; finding; limitation; action; owner; next check.
 
-Start with one question through [business intelligence](/services/business-intelligence/). The [channel planning guide](/blog/seven-digital-channels-which-to-skip/) helps choose which marketing decisions deserve attention first.`,
+Start with one question through [business intelligence](/services/business-intelligence/). The [channel planning guide](/blog/seven-digital-channels-which-to-skip/) helps choose which marketing decisions deserve attention first.
+
+## Define one measure before drawing the chart
+
+Illustrative question: did the store’s net sales improve? Agree whether net sales subtract discounts and refunds, whether tax and shipping are excluded, which currency applies and whether refunds belong to their processing date or the original order cohort. Different valid definitions answer different questions.
+
+Take a small sample of source orders and calculate the agreed measure by hand before trusting the dashboard total. Record source, grain, formula, exclusions, time zone, freshness and owner. If an order feed is missing, show the incomplete coverage rather than a zero. The acceptance test is that a second person can reproduce the result and understand what action it supports.`,
   },
 ];

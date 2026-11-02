@@ -22,8 +22,10 @@ import CaseScreens from './CaseScreens.astro';
 import { caseScreens } from '../data/case-screens';
 import AuthorCard from './AuthorCard.astro';
 import ArticleShare from './ArticleShare.astro';
+import LocalMarket from './LocalMarket.astro';
 import ArticleSources from './ArticleSources.astro';
 import ArticleIllustration from './ArticleIllustration.astro';
+import { articleSummaries } from '../data/article-summaries';
 import { articleIllustrations } from '../data/article-illustrations';
 import { authors, authorFor, authorPath } from '../data/authors';
 import FelonCase from './FelonCase.astro';
@@ -60,14 +62,9 @@ const study = t === 'case' ? caseBy(route.slug!) : null;
 const profile = t === 'author' ? authors.find(a=>a.id===route.slug)! : null;
 const authorPosts = profile ? posts.filter(p=>authorFor(p.author.name)?.id===profile.id) : [];
 const post = t === 'article' ? posts.find((p) => p.slug === route.slug)! : null;
-const featureSummaries: Record<string,string> = {
-  'what-can-you-afford-to-spend-on-an-order': 'Start with revenue after discounts and refunds. Subtract product, delivery, fulfillment and return costs, then reserve money for overhead, profit and other acquisition costs. What remains is your media spending ceiling. Count first orders and new customers separately, and test the downside before raising the budget.',
-  'build-a-content-hub-people-can-use': 'Build each pillar around a primary service or product collection. Its blog category houses the related articles; each article answers a distinct customer question and links to the next useful page. Map the scope, audit existing content and check the complete journey before publishing.',
-  'wordpress-php-security-moving-to-astro': 'Ask your host to confirm current PHP security fixes and test the website afterward. Astro itself does not use PHP, but retaining WordPress for editing still requires PHP maintenance. Choose a platform around your business needs, and protect editing workflows, useful URLs and customer journeys during migration.',
-};
 const postAuthor = post ? authorFor(post.author.name) : undefined;
 const urlLabel = 'zincdigital.co' + route.path;
-const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case' } as Record<string, string>)[t] || t);
+const eyebrow = 'ZINC / ' + (route.layer || ({ '404': '404', case: 'case', location:'Florida' } as Record<string, string>)[t] || t);
 const pageLede = categoryService ? 'Articles about '+categoryService.title+', organised around the questions that help you choose, set up and improve the work.' : svc ? svc.line : study ? study.line : t === 'privacy' || t === 'terms' || t === 'article' ? '' : lede[t] || '';
 const meta = post ? dateLabel(post.dateGmt) + ' / ' + post.author.name + ' / ' + post.layer : t === 'work' ? cases.length + ' cases / Build · Demand · Intelligence / Miami · Panama City · Las Vegas' : t === 'services' ? services.length + ' services / 3 layers / one connected system' : '';
 const titleCls = route.title.length > 34 ? 'long' : '';
@@ -306,8 +303,8 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 {post && (<>
   <section class="p-band"><div class="wrap p-article">
     <aside class="p-aside p-article-sidebar"><AuthorCard name={post.author.name} description={post.author.description}/><div class="p-article-date"><p class="lab">Published</p><p class="p-muted">{dateLabel(post.dateGmt)}</p></div>{articleSections.length > 0 && <nav class="p-article-nav" aria-label="Article sections"><details><summary>In this article</summary><ol>{articleSections.map((section) => <li><a href={'#' + section.id}>{section.label}</a></li>)}</ol></details></nav>}<a class="arrow" href="/blog/" style="margin-top:6px;align-self:flex-start">Back to articles </a></aside>
-    <article class="p-prose rv" data-source-id={post.id}>
-      <section class="p-article-summary" aria-label="Article summary" data-article-summary><span class="kick">TL;DR</span><p>{featureSummaries[post.slug] || excerpt(post)}</p></section>
+    <article class="p-prose" data-source-id={post.id}>
+      <section class="p-article-summary" aria-label="Article summary" data-article-summary><span class="kick">TL;DR</span><p>{articleSummaries[post.slug] || excerpt(post)}</p></section>
       {markdownArticle && <><div set:html={markdownParts[0]} />{supportingIllustration && <ArticleIllustration illustration={supportingIllustration} />}<div set:html={markdownParts[1]} /></>}
       {post.blocks.map((block, i) => <>{supportingIllustration && i === illustrationBlock && <ArticleIllustration illustration={supportingIllustration} />}{restoredTables.skipped.has(i) || repeatedTakeaway.has(i) ? null : restoredTables.tables.has(i) ? <div class="p-comparison"><table><caption>{restoredTables.tables.get(i)!.caption}</caption><thead><tr>{restoredTables.tables.get(i)!.headers.map(label=><th scope="col">{label}</th>)}</tr></thead><tbody>{restoredTables.tables.get(i)!.rows.map(row=><tr><th scope="row">{row[0]}</th>{row.slice(1).map((cell,j)=><td data-label={restoredTables.tables.get(i)!.headers[j+1]}>{cell}</td>)}</tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>}</>)}
       <ArticleSources post={post} exclude={listedSourceUrls} />
@@ -321,6 +318,7 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
+{t === 'location' && <LocalMarket city={route.slug as 'miami'|'panama-city'} />}
 {t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={form?.values} error={form?.error} /></div></section>}
 
 {t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/work/">Explore the work </a><a class="arrow" href="/" style="margin-top:0">Return home </a></div></div></section>}

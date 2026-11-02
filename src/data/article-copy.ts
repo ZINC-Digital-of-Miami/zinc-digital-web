@@ -2,7 +2,10 @@ import edits from './article-copy-edits.json' with {type:'json'};
 import type {Block, Run} from './site';
 
 type Revision = {remove:number[];replace:{index:number;text:string;runs?:Run[]}[];itemReplacements?:{index:number;item:number;text:string}[]};
-export const ARTICLE_REVISION = '2026-10-27T10:04:00Z';
+export function articleRewrite(slug:string): {title:string;markdown:string;modifiedGmt:string} | undefined {
+  return (edits as Record<string,Revision & {rewrite?:{title:string;markdown:string;modifiedGmt:string}}>)[slug]?.rewrite;
+}
+export const ARTICLE_REVISION = '2026-11-02T18:24:00Z';
 
 /** Reviewed copy changes over the retained migration snapshot. */
 export function reviseArticle(slug:string, blocks:Block[]):Block[] {

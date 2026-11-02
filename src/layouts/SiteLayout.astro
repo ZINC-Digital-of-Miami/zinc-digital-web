@@ -64,7 +64,8 @@ const heroSizes = lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? pat
 const caseHero = t === 'case' ? caseHeroes[route.slug!] : undefined;
 const caseImageKey = caseHero?.montage || caseHero?.desktop;
 const caseImage = caseImageKey ? imageFiles['../assets' + asset(caseImageKey).src]?.default : undefined;
-const socialSource = imageFile || caseImage || approvedHero;
+const localImage = t === 'location' ? imageFiles['../assets' + asset(route.slug === 'miami' ? 'felon-web-mockup' : 'smd-brand-book').src]?.default : undefined;
+const socialSource = imageFile || caseImage || approvedHero || localImage;
 const socialImage = socialSource ? await getImage({ src: socialSource, width: 1200, height: 630, fit: caseHero?.montage ? 'contain' : 'cover', format: 'webp', quality: 82 }) : undefined;
 // Astro maps contain to an inside resize: report the actual uncropped dimensions.
 const socialScale = socialSource && caseHero?.montage ? Math.min(1200 / socialSource.width, 630 / socialSource.height) : undefined;
@@ -77,20 +78,29 @@ const wordmark = asset('wordmark-black');
 
 // ---- JSON-LD ----
 const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, telephone: PHONE, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
-const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/about/', telephone: PHONE, email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
+const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/locations/'+s.id+'/', telephone: PHONE, email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
 const seg = path.split('/').filter(Boolean);
 const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', authors: 'Authors', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
-const crumbs = route.blogCategory ? [{name:'Home',url:SITE+'/'},{name:'Articles',url:SITE+'/blog/'},{name:route.title,url:canonical}] : [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
+const crumbs = t==='location' ? [{name:'Home',url:SITE+'/'},{name:route.title,url:canonical}] : route.blogCategory ? [{name:'Home',url:SITE+'/'},{name:'Articles',url:SITE+'/blog/'},{name:route.title,url:canonical}] : [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
 const webpage=pageEntity(SITE,route,title,desc,ogImg);
+webpage.primaryImageOfPage={'@type':'ImageObject','@id':canonical+'#primaryimage',url:ogImg,contentUrl:ogImg,width:socialWidth,height:socialHeight,caption:socialAlt};
 const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital',inLanguage:'en-US', publisher: { '@id': SITE + '/#org' } },webpage, { '@type': 'BreadcrumbList','@id':canonical+'#breadcrumb', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
 const personNode = (author: typeof authors[number]) => ({ '@type':'Person', '@id':SITE+authorPath(author.id)+'#person', name:author.schemaName, ...(author.suffix?{honorificSuffix:author.suffix}:{}), url:SITE+authorPath(author.id), jobTitle:author.role, description:author.bio, image:SITE+asset(author.photo).src, worksFor:{'@id':SITE+'/#org'} });
 if (t === 'article') {
   const p = posts.find(x=>x.slug===route.slug)!;
   const author = authorFor(p.author.name);
+  webpage.inLanguage=author?.id==='wendy-funnell'?'en-GB':'en-US';
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
-  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:ogImg,inLanguage:'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>p.related.includes(s.slug)).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'}});
+  const {articleSources}=await import('../data/article-sources');
+  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:{'@id':canonical+'#primaryimage'},inLanguage:author?.id==='wendy-funnell'?'en-GB':'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>p.related.includes(s.slug)).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'},citation:articleSources(p).map(source=>({'@type':'CreativeWork',name:source.title,url:source.url})),isPartOf:p.related.filter(slug=>services.some(s=>s.slug===slug)).map(slug=>({'@id':SITE+'/blog/category/'+slug+'/#webpage'}))});
 }
+if(t==='blog' && route.blogCategory){
+  const members=posts.filter(p=>p.related.includes(route.blogCategory!));
+  webpage.mainEntity={'@id':canonical+'#articles'};
+  graph.push({'@type':'ItemList','@id':canonical+'#articles',numberOfItems:members.length,itemListElement:members.map((p,index)=>({'@type':'ListItem',position:index+1,name:p.title,url:SITE+'/blog/'+p.slug+'/'}))});
+}
+if(t==='location'){ webpage.about={'@id':SITE+'/#'+route.slug}; webpage.spatialCoverage={'@type':'Place',name:route.slug==='miami'?'Miami, Florida':'Panama City, Florida'}; }
 if (t === 'author') {
   const author = authors.find(a=>a.id===route.slug)!;
   const person = personNode(author);
@@ -203,7 +213,7 @@ const showCta = false;
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
-            {STUDIOS.map((s) => <div><h2>{s.name}</h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
+            {STUDIOS.map((s) => <div><h2><a href={'/locations/'+s.id+'/'}>{s.name}</a></h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
             <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href={SMS}>Text {PHONE_LABEL} </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
           <div class="fbot">
