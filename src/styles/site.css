@@ -566,3 +566,14 @@ html.js .case-archive .c-hz{height:auto}html.js .case-archive .c-hz-pin{position
 .p-prose img[src^="/media/content-hub/"],.p-prose img[src^="/media/order-economics/"]{display:block;width:100%;max-width:560px;height:auto;margin:28px auto;border:1px solid var(--line);border-radius:6px}
 
 .p-article-categories{display:flex;flex-wrap:wrap;gap:10px 18px;margin:24px 0}.p-article-categories a{border-bottom:1px solid currentColor;min-height:32px;display:inline-flex;align-items:center}.p-category-nav{padding-block:28px;border-bottom:1px solid var(--line)}.p-category-nav>div{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.p-category-nav .p-chip[aria-current="page"]{background:var(--ink);color:var(--bg)}
+
+/* Shared article reading layout: wider body, author first in the sidebar. */
+.wrap.p-article{max-width:1680px;grid-template-columns:240px minmax(0,1fr);gap:clamp(36px,4vw,64px)}
+.p-article>.p-prose{width:100%;max-width:80ch}
+.p-article-sidebar .p-author-card{grid-template-columns:64px minmax(0,1fr);gap:16px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.p-article-sidebar .p-author-card h2{font-size:22px;line-height:1.15;margin:8px 0}
+.p-article-sidebar .p-author-card p{font-size:13px;line-height:1.6;margin:12px 0}
+.p-article-sidebar .p-author-card .lab{font-size:10px}
+.p-article-summary{padding:24px 28px;margin:0 0 40px;border-left:3px solid var(--tealt);background:var(--pn)}
+.p-prose .p-article-summary p{margin:12px 0 0;font-size:20px;line-height:1.55}
+@media(max-width:900px){.wrap.p-article{grid-template-columns:minmax(0,1fr);gap:28px}.p-article-sidebar .p-author-card{grid-template-columns:64px minmax(0,1fr)}.p-article-summary{padding:20px;margin-bottom:32px}.p-prose .p-article-summary p{font-size:18px}}
