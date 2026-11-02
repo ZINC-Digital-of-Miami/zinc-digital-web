@@ -31,7 +31,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['carla-funk-photography','ballad-health','meade-tractor','general-shale','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
-const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'locations/miami', 'locations/panama-city', 'thanks', 'blog', 'privacy', 'terms', '404'];
 const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
@@ -179,7 +179,7 @@ for (const { rel, html } of pages) {
   // Site copy only: migrated article bodies may use these words in their own sense ("mockup" in a design article).
   const copy = text(html.replace(/<article class="p-prose[\s\S]*?<\/article>/g, ' '));
   // Owner-confirmed Felon deliverables include mockups; the term describes the work, not a preview site.
-  const productionCopy = rel === 'work/felon-motorwerk/index.html' ? copy.replace(/\bmockups?\b/gi, 'design presentations') : copy;
+  const productionCopy = ['work/felon-motorwerk/index.html','locations/miami/index.html'].includes(rel) ? copy.replace(/\bmockups?\b/gi, 'design presentations') : copy;
   const pw = PREVIEW_WORDING.exec(productionCopy);
   check(!pw, rel + ' renders demo or preview wording: "' + (pw && pw[0]) + '"');
   for (const h of hrefs(html)) check(await resolves(h), rel + ' links to "' + h + '" which does not resolve in dist/');
@@ -292,7 +292,7 @@ const articleSocialImages = new Set();
 for (const s of POST_SLUGS) {
   const p = pages.find((x) => x.rel === 'blog/' + s + '/index.html');
   if (!p) continue;
-  check(/<article class="p-prose rv" data-source-id="\d+">[\s\S]*?<p(?: class="first")?>/.test(p.html), 'blog/' + s + ' does not render the article body');
+  check(/<article class="p-prose" data-source-id="\d+">[\s\S]*?<p(?: class="first")?>/.test(p.html), 'blog/' + s + ' does not render the article body');
   const sourceSection = p.html.match(/<section[^>]*data-article-sources[^>]*>([\s\S]*?)<\/section>/)?.[1];
   const authoredSources = p.html.match(/<h2[^>]*>Trusted Source Links<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
   check(/<a\s[^>]*href="https:\/\/[^" ]+"/.test(sourceSection || authoredSources || ''), 'blog/' + s + ' lacks linked source references');
