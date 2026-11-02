@@ -3,6 +3,7 @@
 import siteAssets from './assets.site.json';
 
 const topicArtwork: Record<string, { asset: string; alt: string }> = {
+  "what-can-you-afford-to-spend-on-an-order": {asset:"article-order-economics",alt:"Light studio still life with a packed ecommerce order, black laptop, calculator and label printer beside an order-cost worksheet."},
   "build-a-content-hub-people-can-use": {asset:"article-content-hub",alt:"Studio view of a tablet displaying a customer guide, surrounded by editorial planning cards, a black notebook and a white mug."},
   "wordpress-php-security-moving-to-astro": {asset:"article-wordpress-astro",alt:"Studio illustration of website panels leading to a clean desktop display, with a black code notebook and white mug."},
   "ga4-utm-naming-conventions": {"asset": "article-ga4-utm-naming", "alt": "Illustrated traffic acquisition report beside a UTM naming sheet, with source, medium and campaign fields."},
