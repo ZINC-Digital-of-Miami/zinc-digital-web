@@ -1,23 +1,29 @@
 #!/usr/bin/env node
-// Pulls the case images that still live on the WordPress site into src/assets/work/
-// (rendered through astro:assets) so nothing hot-links once WP is retired. Idempotent: skips files that exist.
-// Run once before build: `node scripts/fetch-live-assets.mjs`
-// Also converts nothing — keep PNG so the dims in assets.site.json stay true.
-import { mkdir, writeFile, access } from 'node:fs/promises';
+// Validate the committed asset manifest. Source fields are provenance, never download endpoints.
+import { stat } from 'node:fs/promises';
 import path from 'node:path';
 import assets from '../src/data/assets.site.json' with { type: 'json' };
 
-const out = path.join(process.cwd(), 'src', 'assets');
-let fetched = 0, skipped = 0, failed = 0;
-for (const [key, a] of Object.entries(assets)) {
-  if (!a.source) continue;
-  const dest = path.join(out, a.src.replace(/^\//, ''));
-  try { await access(dest); skipped++; continue; } catch {}
-  await mkdir(path.dirname(dest), { recursive: true });
-  const res = await fetch(a.source);
-  if (!res.ok) { failed++; console.error('FAIL', key, res.status, a.source); continue; }
-  await writeFile(dest, Buffer.from(await res.arrayBuffer()));
-  fetched++; console.log('ok  ', key, '→', a.src);
+const roots = ['src/assets', 'public'].map(root => path.resolve(root));
+const failures = [];
+for (const [key, asset] of Object.entries(assets)) {
+  if (typeof asset.src !== 'string' || !asset.src.startsWith('/') || asset.src.startsWith('//') || asset.src.split('/').includes('..')) {
+    failures.push(`${key}: expected an approved local asset path`);
+    continue;
+  }
+  if (!(asset.width > 0 && asset.height > 0)) failures.push(`${key}: missing image dimensions`);
+  let found = false;
+  for (const root of roots) {
+    try {
+      const file = await stat(path.join(root, asset.src.slice(1)));
+      if (file.isFile() && file.size > 0) { found = true; break; }
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+  if (!found) failures.push(`${key}: missing local file ${asset.src}`);
 }
-console.log(`fetched ${fetched}, skipped ${skipped}, failed ${failed}`);
-if (failed) process.exitCode = 1;
+if (failures.length) {
+  for (const failure of failures) console.error(failure);
+  process.exitCode = 1;
+} else console.log(`Verified ${Object.keys(assets).length} committed assets; no remote sources requested.`);

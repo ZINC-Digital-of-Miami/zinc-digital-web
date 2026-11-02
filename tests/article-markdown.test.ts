@@ -15,3 +15,10 @@ test('article navigation preserves the Markdown sanitization boundary',()=>{
   assert.ok(result.html.includes('href="/services/seo/"'));
   assert.equal(result.sections[0].label,'Useful link');
 });
+
+
+test('article tables retain semantic rows and keyboard access for narrow layouts',()=>{
+ const {html}=renderArticleMarkdown('| Item | Value |\n| --- | --- |\n| Order | 60 |');
+ assert.match(html,/<table tabindex="0" aria-label="[^"]+">/);
+ assert.match(html,/<th>Item<\/th>/);assert.match(html,/<td>60<\/td>/);
+});

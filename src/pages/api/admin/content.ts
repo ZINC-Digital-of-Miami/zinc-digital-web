@@ -10,9 +10,6 @@ export const POST: APIRoute = async ctx => {
   const staff = requireStaff(ctx); if (staff instanceof Response) return staff;
   try {
     const body = await input(ctx);
-    // Older SEO links/forms may still identify an article as a page. Keep one write owner.
-    const article = body.kind === 'page' && routes.find(r => r.path === body.path && r.template === 'article');
-    if (article) { body.kind = 'post'; body.slug = article.slug; }
     const {kind,key,patch} = contentInput(body,routes.filter(r=>r.template!=='article').map(r=>r.path));
     const sb=createServerClient(ctx), table=kind==='page'?'pages':'posts', field=kind==='page'?'path':'slug';
     const existing=await sb.from(table).select('id,updated_at').eq(field,key).maybeSingle();

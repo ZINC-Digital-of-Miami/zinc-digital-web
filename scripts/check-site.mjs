@@ -32,11 +32,9 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['carla-funk-photography','ballad-health','meade-tractor','general-shale','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
 const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'locations/miami', 'locations/panama-city', 'thanks', 'blog', 'privacy', 'terms', '404'];
-const postsPreview = JSON.parse(await readFile(path.join(root, 'src/data/posts.preview.json'), 'utf8'));
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
-const POST_SLUGS = [...postsPreview.posts, ...authoredArticles].map((p) => p.slug);
-check(postsPreview.posts.length === 18, 'posts.preview.json should preserve the 18 migrated posts');
+const POST_SLUGS = authoredArticles.map((p) => p.slug);
 const listedCategories = [...(pages.find(p=>p.rel==='blog/index.html')?.html || '').matchAll(/href="\/blog\/category\/([a-z-]+)\/"/g)].map(m=>m[1]);
 const CATEGORY_SLUGS = [...new Set([...authoredArticles.flatMap(p=>p.related),...listedCategories])].filter(s=>SERVICE_SLUGS.includes(s));
 const expected = [
@@ -111,12 +109,12 @@ if (robots !== null) {
   check(!lines.some((l) => /^Disallow:\s*\/\s*$/.test(l)), 'robots.txt disallows the whole site');
 }
 for (const img of ['og/home.png','og/work.png','og/build.png','og/demand.png','og/intelligence.png','og/article.png','logos/general-shale.png','logos/us-oil.png','logos/google-partner.png']) check(await exists(path.join(distDir, img)), 'dist/' + img + ' missing');
-// Case images live in src/assets/work/ (fetched by scripts/fetch-live-assets.mjs) and ship through astro:assets.
+// Approved assets may be optimized from src/assets or served directly from public.
+// A source field records provenance; it is not an instruction to fetch a retired host.
 const siteAssets = JSON.parse(await readFile(path.join(root, 'src/data/assets.site.json'), 'utf8'));
-for (const [key, a] of Object.entries(siteAssets)) if (a.source) {
-  // Vector artwork is served unchanged from public; raster sources use astro:assets.
-  const directory = a.src.endsWith('.svg') ? 'public' : 'src/assets';
-  check(await exists(path.join(root, directory, a.src)), directory + a.src + ' missing for ' + key + ' (run npm run assets)');
+for (const [key, a] of Object.entries(siteAssets)) {
+  const present = await exists(path.join(root, 'src/assets', a.src)) || await exists(path.join(root, 'public', a.src));
+  check(present, 'Local asset ' + a.src + ' missing for ' + key);
 }
 
 // ---- per page ----
@@ -344,7 +342,6 @@ for (const e of await readdir(path.join(root, 'src'), { recursive: true })) {
   if (!SRC_EXT.has(path.extname(e))) continue;
   const file = path.join(root, 'src', e); let buf; try { buf = await readFile(file); } catch { continue; }
   let s = buf.toString('utf8');
-  if (e.endsWith('posts.preview.json')) s = s.split('\n').filter((l) => !PROVENANCE.test(l)).join('\n');
   check(!BANNED_ABBREVIATION.test(s), 'src/' + e + ' contains the banned abbreviation for generative search');
   check(!buf.includes(sectionSign), 'src/' + e + ' contains the U+00A7 section-sign character');
   if (e !== path.join('styles', 'tokens.css') && e.endsWith('.css')) { /* colors allowed in site.css/home.css for shadows/alpha; tokens hold the palette */ }

@@ -69,7 +69,7 @@ for(let offset=0;;offset+=25000){
 sources.push({source:'search-console',count:gscCount,...range});
 const sitemap=await readFile('dist/client/sitemap.xml','utf8');
 const current=new Set(Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g),m=>new URL(m[1]).pathname));
-const posts=JSON.parse(await readFile('src/data/posts.preview.json','utf8')).posts;
+const {authoredArticles:posts}=await import('../src/data/article-library.ts');
 const postById=new Map(posts.map(post=>[post.id,'/blog/'+post.slug+'/']));
 const proposals=Array.from(inventory.values()).sort((a,b)=>a.path.localeCompare(b.path)).map(item=>{
  const post=item.wordpress.find(w=>w.type==='posts');

@@ -70,3 +70,40 @@ The old remote editorial branch retained previously merged history. Released thr
 A single IndexNow POST submitted98verified public URLs after live ownership-file verification. Response202 means key validation is pending, not indexing or citation proof. Payload/receipt, full production comparison and screenshots remain in `.scratch/blog-*`, `.scratch/live-repair-*` and `.scratch/live-city-*`; compact receipt is in the accompanying audit JSON. No native sitemap submission was possible without verified ZINC account access.
 
 Follow-up review dates: **2December2026, 1January2027 and31January2027 CT**. At each, compare the defined Miami/PanamaCity observations and available native metrics with the baseline; preserve unavailable data. These are recorded review dates, not a claim that future audits have run or a new automation was created. The three-post weekly calendar remains unchanged. The owner has confirmed the website phone and addresses. External profile corrections still require authorized account access; customer-visit arrangements, staffed hours, genuine crawler evidence and account-level measurement remain unresolved as described above.
+
+## Reopened correction checkpoint — 2 November 2026 CT
+
+The earlier release receipt proves deployment, not substantive acceptance. Owner rejected the repair as incomplete. All44 current bodies received a fresh read-only editorial review; seven additional concrete defects were corrected and reread. The per-article matrix is retained in the accompanying audit JSON. Copy review passed within its stated scope; release remains open.
+
+Current local evidence: 44/44 article bodies match the canonical Markdown; 264 computed layout/theme checks (1440,390,320; light/dark) found no overflow, failed images, missing author card or TL;DR. These are structural checks, not a claim that 264 screenshots were individually judged. Mobile core-update tables and the new GA4 purchase-value diagram were visually inspected. Table columns were widened after actual narrow-screen review exposed excessive wrapping. All19 linked downloads returned200 and matched local bytes. CSV/PDF types resolved; the existing XLSX has no Content-Type in the development server, so its production header still requires readback. The current content-brief PDF has4pages/27fields; text and checkbox values survived save/reopen. Twelve CSV files have consistent columns and no formula-prefixed cells.
+
+Primary-source correction evidence: Google Search spam policies were opened on2November; current site-reputation wording centres on third-party content hosted mainly for established ranking signals, with regional enforcement differences. The history article now cites that current policy rather than implying editorial participation is an exemption. Direct status incidents for September2023, March2024, March2025 and May2026 were checked; March2024 completion and announcement dates are distinguished. Google report/filtering, Analytics DebugView/ecommerce/session acquisition, Merchant Center issue details, Shopify product/alt-text/Google connection, TikTok budget documentation, OpenAI crawler and Perplexity crawler pages were checked against the revised instructions. PHP's2026 archive confirms the October21/23/26 notices used by the preserved feature. Meta's publicly available course overview does not prove a specific current Ads Manager control; the2023 official lead-generation PDF supports the base objective/location distinction but does not establish2026 interface freshness. Exact current Meta setup verification remains open.
+
+Native ZINC-only configuration/read audit: Vercel production and preview both contain PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_PUBLISHABLE_KEY and SUPABASE_SECRET_KEY. No configuration write occurred. The verified project zeetlqskfvsfbllrhzre returned1page row,0post rows and0article page rows through its native API. Credentials were handled in process memory and not written to evidence. Therefore there are no saved article-page observations to migrate. The obsolete article metadata fallback and write alias were removed locally; current page/post behavior, null/default handling and pending edits pass focused tests. The unrelated page row was left unchanged. Supabase connector's unrelated project was never queried.
+
+### Exact repository retirement proposal — awaiting deletion approval
+
+Automatic approval review rejected deletion of the following16paths because exact-path approval and full reader/writer closure were not established. No deletion or asset-manifest rewrite ran. Original18articles,18revision records, all76table-reconstruction observations and13preview asset observations compare exactly with canonical provenance in docs/editorial/article-history.json. Current44article rendering already uses canonical Markdown. Active remaining asset reader/writer changes are explicit: merge the13non-colliding asset entries into assets.site.json; change site.ts and prepare-team-photos.mjs to that manifest; preserve every existing approved asset entry. The inactive prototype readers and commands below reference one another and are not imported by current route entrypoints or package commands. The obsolete table test is replaced by canonical article/provenance/render checks, not silently omitted from acceptance.
+
+Proposed removals:
+
+- src/data/posts.preview.json
+- src/data/article-copy-edits.json
+- src/data/article-copy.ts
+- src/data/article-table-layouts.json
+- src/lib/article-tables.ts
+- tests/article-tables.test.ts
+- src/data/mockup.ts
+- src/layouts/PreviewLayout.astro
+- src/components/MockupPage.astro
+- src/components/SiteFooter.astro
+- src/components/TeamBand.astro
+- scripts/prepare-mockup.mjs
+- scripts/verify-mockup.mjs
+- scripts/verify-local.mjs
+- scripts/gate-preview.mjs
+- src/data/assets.preview.json
+
+After authorization, recheck unchanged-file ownership, preserve canonical observations, update both asset consumers, remove this exact dependency set, inspect all remaining references and run the normal checks. This is a proposal, not completed retirement. No correction push, Docker status or production completion is claimed.
+
+Final Meta evidence treatment: official2023LeadGenerationGuide.pdf search-index excerpt explicitly lists Leads with Website/Instant forms and website conversion performance goal. Full PDF retrieval timed out and is not claimed as a complete read. Current Blueprint course253165 was opened and names campaign objectives and ad-set conversion settings; lesson660186 requireslogin. The article now labels the2023guide date, treats the table as an illustrative intended setup, requires checking currentaccount choices, and requires testing all enabled paths if a combined destination is offered. No claim of a universal current screen or a tested advertiser account is made. Account-specific controls remain an external verification limit, not invented evidence.

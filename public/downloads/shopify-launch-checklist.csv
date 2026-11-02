@@ -1,0 +1,7 @@
+Record type,Test case,Product / variant / market,Expected result,Observed result,Source / screenshot,Owner,Retest date,Release decision
+ILLUSTRATIVE,Direct variant link,Tan bag / variant102 / US,Tan selected;65USD; matching cart,Not yet tested,,Store owner,,Open
+ILLUSTRATIVE,Unavailable item,Sold-out size / US,Availability and purchase controls agree,Not yet tested,,Store owner,,Open
+ILLUSTRATIVE,Discount boundary,Eligible and excluded basket,Discount applies only to eligible items,Not yet tested,,Store owner,,Open
+ILLUSTRATIVE,Shipping terms,Standard and excluded address,Rates and delivery terms match public policy,Not yet tested,,Fulfilment owner,,Open
+ILLUSTRATIVE,Order and measurement,Controlled test purchase,Order accepted; unique event; values reconcile,Not yet tested,,Measurement owner,,Open
+YOUR RECORD,,,,,,,,

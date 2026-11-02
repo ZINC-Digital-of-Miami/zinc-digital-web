@@ -12,7 +12,7 @@ export const articlePlatformBasics: AddedArticle[] = [
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Merchant Center holds the product information Google uses to understand your catalog. Start with accurate records and a repeatable update process. Advertising comes after that foundation.
 
 ## 1. Confirm the business and website
@@ -21,11 +21,13 @@ Create or open the business's Merchant Center account. Check the business detail
 
 Google's [website verification guide](https://support.google.com/merchants/answer/11586344?hl=en) explains the available methods. Use an account the business controls, and record who maintains access. Check that checkout, contact details and store policies are easy to find on the public website.
 
-## 2. Choose the product source
+## 2. Connect the system that owns the product records
 
-Identify where prices, inventory and product identifiers are maintained. Connect that system through the appropriate supported source: a store integration, file, spreadsheet or another documented method.
+Identify where prices, inventory and product identifiers are maintained. Record the person responsible for updates and how often the data changes. Avoid overlapping sources unless you understand which supplies each item.
 
-Review Google's [product upload options](https://support.google.com/merchants/answer/11586438?hl=en). Avoid creating overlapping sources without understanding which supplies each product. Record the source owner and update schedule.
+If Shopify maintains the catalogue, follow our [Google & YouTube connection walkthrough](/blog/shopify-google-merchant-center-checklist/) before adding another source. It covers store prerequisites, authorised account selection, ownership checks and the first synced-product review. Do not create a second Merchant Center account merely because the existing one is missing from an account selector.
+
+For another platform, identify its maintained Google integration first. A file-based source is a reasonable alternative when the business can reliably generate and refresh the required fields; it is a poor choice if prices and availability will be left stale. Google's [product upload options](https://support.google.com/merchants/answer/11586438?hl=en) describe the supported routes. Choose the route whose update responsibility the business can actually sustain.
 
 ## 3. Inspect a small product sample
 
@@ -47,11 +49,20 @@ Change an authorized test product, wait for the source's expected update and con
 
 Product eligibility does not guarantee visibility or sales. Connect this setup to the broader [Shopify SEO checklist](/blog/shopify-seo-launch-checklist/) and the product review behind [Shopping ads management](/services/shopping-ads/).
 
-## Start with a small inspection sample
+## Worked check: one product, one market
 
-Before assuming the entire catalog is ready, choose a simple product, a product with variants and an item with a delivery restriction. Record the supplying system and compare each processed item with its landing page and checkout terms. Include the intended market and currency.
+Suppose your store sells a navy bottle for $28 in the United States. These values are illustrative. Keep the product ID, variant and market fixed while comparing the records.
 
-If an item is disapproved, read its specific issue and fix the source responsible. Do not create another feed merely to hide the error. Confirm that shipping and returns describe what customers actually receive. Keep a setup record with access owner, source owner, sample results, unresolved issues and next review date. Eligibility and paid campaign performance are separate checks.`,
+| Record | Value inspected | Result |
+| --- | --- | --- |
+| Store catalogue | BOTTLE-NAVY, 750 ml, USD 28, in stock | Defines the intended item |
+| Submitted source | Same ID, size, currency and price; link selects navy | Agrees with the catalogue |
+| Processed Merchant Center item | USD 28, in stock; no unresolved issue shown for the intended destination | Confirms what processing currently holds |
+| Public product and cart | Navy, 750 ml, USD 28; delivery and returns match the destination | Confirms what the customer can buy |
+
+Now imagine the catalogue changes to $30 while the processed item still says $28. Check the source's latest update time and submitted value before changing anything else. If the submission is stale, repair the update path; if it contains $30 but processing still shows $28, inspect processing and the stated issue. Recheck the same item after the correction. Do not mark it complete solely because the source file was saved.
+
+Use the [product comparison sheet](/downloads/product-variant-comparison.csv) to record the source, processed values and customer journey. Repeat for a variant, an unavailable item and a delivery-restricted product before assuming the catalogue is ready. Keep unresolved issues with an owner and next check date.`,
   },
   {
     id: 90020,
@@ -64,7 +75,7 @@ If an item is disapproved, read its specific issue and fix the source responsibl
     layer: 'Demand',
     related: ['social-ads', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:10:55Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A first TikTok campaign needs one clear outcome, an offer people can understand and a working way to measure the result. Use a small, defined test instead of changing every setting at once.
 
 ## 1. Choose the outcome
@@ -109,19 +120,29 @@ Before opening Ads Manager, gather the product URL, approved videos, offer terms
 
 In the current campaign flow, choose the objective and destination matching website sales. Follow TikTok’s [campaign setup instructions](https://ads.tiktok.com/resources/help/article/campaign-set-up), then review the ad-group audience, placements, schedule and optimization event. Automated and manual flows can expose different controls; record what your account actually offers.
 
+Treat campaign, ad group and ad as three different decisions:
+
+| Level | What to enter for this example | What to verify |
+| --- | --- | --- |
+| Campaign | Website sales goal and a clear test name | The selected flow supports the intended website purchase outcome |
+| Ad group | Website destination, correct event source and purchase event; actual selling market; schedule and budget | The event test succeeds, delivery area is accurate and authorised spend covers the schedule |
+| Ad | Correct identity, bag video, offer, product URL and call to action | The same bag and terms appear on the phone destination, with a working checkout |
+
+For a bounded example, a ten-day, single-ad-group test with a $400 lifetime allocation must still be checked against the account's current controls and any campaign-level limit. TikTok's [budget documentation](https://ads.tiktok.com/resources/help/article/budget) states that a daily campaign budget must exceed $50 and a daily ad-group budget must exceed $20; lifetime ad-group minimums depend on the number of days. A $400 total is therefore not interchangeable with $40 per day at campaign level. Choose the supported configuration before authorising the test, and do not quietly raise the total to satisfy a minimum. Lifetime spend can be uneven between days, and budget type cannot be switched after launch.
+
 Set budget and dates within the approved total, accounting for the platform’s current minimums and spending rules. Do not force a test your business cannot afford simply to meet an interface minimum. Save the final settings and confirm who will stop the test if measurement or checkout fails.
 
 At ad level, check the correct identity, video, caption, destination and call to action. One video could demonstrate packing capacity; another could show the bag’s compartments. Keep the offer consistent so the difference you are testing is understandable. Creative approval and music or usage rights belong in the launch check too.
 
 ## Decide what the result means
 
-Suppose the example spends $400 and the store confirms 16 eligible first orders for the reviewed cohort. That is $25 of media spend per first order, above its $20 allowance. TikTok’s attributed purchase count may differ because of attribution settings and customer behavior. Record both definitions; do not select whichever number makes the test look better.
+Suppose the example spends $400 and the store records 16 distinct first orders during the test period. Dividing gives $25 of TikTok spend per new store order. This is a blended planning indicator: those customers may also have arrived through search, email or other activity. It is not proof that TikTok acquired 16 customers, and it cannot be labelled TikTok customer acquisition cost. Record TikTok-attributed purchases separately with the attribution window and reporting date. Investigate matched orders where authorised, without treating a tracking match as proof that the ad caused the purchase.
 
 A next step might be to inspect the product page, offer and creative before spending again. The sample does not prove the platform cannot work, nor does a single profitable day justify a larger budget.
 
 **Before submitting:** test event once; verify product availability and shipping; preview each placement; open the destination on a phone; check identity and rights; confirm budget, dates and time zone; name the review owner. After submission, verify approval and delivery separately.
 
-[Download the campaign test brief](/downloads/campaign-test-brief.pdf). The three-page fillable PDF includes worked sales and lead examples, your setup record and 12 launch checks.`,
+[Download the campaign test brief](/downloads/campaign-test-brief.pdf) for the outcome, spending authorisation and 12 launch checks. Use the [platform settings record](/downloads/social-campaign-settings.csv) alongside it to compare the planned campaign/ad-group-or-ad-set/ad choices with the actual saved settings. The CSV examples are a planning aid; no example row is evidence of a tested account.`,
   },
   {
     id: 90021,
@@ -134,7 +155,7 @@ A next step might be to inspect the product page, offer and creative before spen
     layer: 'Demand',
     related: ['social-ads', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:10:55Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Start a Meta campaign with a business question: can this offer generate the kind of response we need at a cost we can sustain? The setup should make that question answerable.
 
 ## 1. Match the objective to the goal
@@ -185,7 +206,20 @@ Consider a hypothetical local service business testing consultation enquiries. I
 | Creative | Two approved ways to explain the same offer |
 | Review | Check delivery and form health first, then cost and lead quality over the agreed period |
 
-In Ads Manager, select the appropriate lead objective and the conversion location that matches this journey. An instant form and a website form are different paths; do not select one and test the other. Meta’s [objective guidance](https://www.facebookblueprint.com/student/path/211544-ads-manager-objectives) explains the relationship between goals and setup.
+For this illustrative consultation test, the intended configuration is **Leads** as the objective and **Website** as the conversion location. Meta’s [lead-generation guide (2023)](https://about.fb.com/ltam/wp-content/uploads/sites/14/2023/11/LeadGenerationGuide.pdf) documents the distinction between website and instant-form paths; its [objectives and conversion-settings course](https://www.facebookblueprint.com/student/path/253165-selecting-objectives-course) covers the campaign and ad-set decisions. Confirm the choices offered in your current account rather than copying an old screenshot. An instant form keeps the form within Meta's experience and needs a different receiving/follow-up check. If the account offers a combined destination, identify and test every enabled path; do not assume a website test also validates an instant form.
+
+Use the following as a setup specification to check in the current account, not a claim that every account exposes the same screen layout:
+
+| Level | Decision for this example | Validation before submission |
+| --- | --- | --- |
+| Campaign | Leads; a name identifying the consultation test | The objective matches enquiries, not merely page visits |
+| Ad set | Website location; the actual website event source and successful-form event | Event belongs to this site and fires after successful submission, not on button click |
+| Ad set | Actual served area; permitted audience controls | Location wording and delivery settings agree; no unsupported market included |
+| Ad set / budget controls shown | Authorised total, budget type, start/end dates and account time zone | Record the actual spending controls; daily budget is not assumed to be a lifetime ceiling |
+| Placements | Only placements whose creative and destination have passed review | Crop, text, offer and action remain intelligible in each preview |
+| Ad | Correct business identity, approved creative, service-page URL and call to action | Phone journey delivers one valid request to the responsible team |
+
+If the website event source or completion event is missing, stop setup and have the measurement owner fix it. Selecting a page-view event just to make the form proceed changes what the campaign is being asked to achieve. Meta’s [objective guidance](https://www.facebookblueprint.com/student/path/211544-ads-manager-objectives) explains the relationship between goals and setup.
 
 At ad-set level, review the available conversion, audience, placement and scheduling controls. Confirm the business’s spending authorization against the budget type and current platform rules; a daily setting should not be assumed to mean an exact lifetime cap. At ad level, check the correct Facebook or Instagram identity, creative, offer, destination and call to action.
 
@@ -199,7 +233,7 @@ Inspect the rejected enquiries. If most fall outside the service area, check tar
 
 **Launch check:** identity and permissions; objective and conversion location; tested form and completion event; accurate service area; creative rights; mobile previews; clear terms; approved spending limits; named follow-up owner. Submit only after those checks, then verify review status and delivery. A campaign can be approved without yet producing useful enquiries.
 
-[Download the campaign test brief](/downloads/campaign-test-brief.pdf). The three-page fillable PDF includes worked sales and lead examples, your setup record and 12 launch checks.`,
+[Download the campaign test brief](/downloads/campaign-test-brief.pdf) for the outcome, spending authorisation and 12 launch checks. Use the [platform settings record](/downloads/social-campaign-settings.csv) alongside it to compare the planned campaign/ad-group-or-ad-set/ad choices with the actual saved settings. The CSV examples are a planning aid; no example row is evidence of a tested account.`,
   },
   {
     id: 90022,
@@ -212,7 +246,7 @@ Inspect the rejected enquiries. If most fall outside the service area, check tar
     layer: 'Intelligence',
     related: ['ai-search-optimization', 'seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `An AI citation is an observation. It is not a content strategy.
 
 Google says its [existing SEO practices apply to AI Overviews and AI Mode](https://developers.google.com/search/docs/appearance/ai-features). There is no special markup required for those features. Start with the customer question and the evidence available to answer it.
@@ -251,7 +285,20 @@ Treat the sample as evidence for [generative search work](/services/ai-search-op
 
 ## Turn one question into an editorial assignment
 
-A business considering a reporting dashboard needs to know which data to prepare. Put that article inside the business-intelligence category, list the records and permissions required, and show an illustrative source checklist. The [content-hub planning worksheet](/blog/build-a-content-hub-people-can-use/) helps map these category and article relationships. Link to metric definitions when the reader needs to resolve conflicting revenue figures.
+Here is an illustrative assignment the writer can use, rather than a request to “write something about AI”.
+
+| Field | Completed assignment |
+| --- | --- |
+| Customer question | What information should we prepare before commissioning a reporting dashboard? |
+| Category | Business intelligence, aligned with the reporting service |
+| Direct answer | Name the decision, list the source systems and agree on the measures before choosing the display |
+| Evidence to gather | Current system documentation, approved metric definitions and a sanitised sample showing how a total is calculated |
+| Demonstration | A checklist containing source name, business owner, available dates, permissions needed and the measure supplied |
+| Limits | No credentials in the worksheet; access is arranged through the business's approved process; unsupported integrations stay unresolved |
+| Useful links | [Metric definitions and a small calculation](/blog/business-intelligence-basics/), followed by the relevant [reporting service](/services/business-intelligence/) |
+| Review test | A business owner can assemble the requirements without sending passwords or guessing what a figure means |
+
+A sample checklist row could be “Store orders; commerce manager; prior complete 12 months; read access to approved order fields; net merchandise sales with a recorded refund cutoff”. It describes what to request, not evidence that access already exists. Use the [brief worksheet](/downloads/content-brief-worksheet.pdf) to assign sources, reviewer and the completed example. The [content-hub plan](/blog/build-a-content-hub-people-can-use/) supplies the wider category architecture.
 
 The assignment is complete when a business owner can prepare for the conversation, not when it repeats “AI” often enough. Verify platform claims, keep the core instructions in HTML and inspect the page’s actual search eligibility. Use the [AI-search visibility guide](/blog/ai-search-results-and-generative-search-optimization/) for the platform-specific checks and reporting limits.`,
   },
@@ -266,7 +313,7 @@ The assignment is complete when a business owner can prepare for the conversatio
     layer: 'Intelligence',
     related: ['business-intelligence', 'apps'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Business intelligence turns business records into decisions people can act on. It connects sources, defines the measures and shows what changed. You need it when separate reports leave the team arguing about what a number means.
 
 ## 1. Start with a business question
@@ -302,6 +349,17 @@ Start with one question through [business intelligence](/services/business-intel
 ## Define one measure before drawing the chart
 
 Illustrative question: did the store’s net sales improve? Agree whether net sales subtract discounts and refunds, whether tax and shipping are excluded, which currency applies and whether refunds belong to their processing date or the original order cohort. Different valid definitions answer different questions.
+
+Here is an illustrative definition and sample: **net merchandise sales for an order cohort = merchandise charged after discounts minus merchandise refunds for those same orders as of the review date**. Exclude tax and shipping from both sides. Use USD, the store's CT order dates and a stated refund-review cutoff. This is a cohort definition; it differs from subtracting all refunds processed today from today's new orders.
+
+| Order | Merchandise after discounts | Merchandise refunded by cutoff | Net merchandise sales |
+| --- | --- | --- | --- |
+| A | $80 | $0 | $80 |
+| B | $100 | $20 | $80 |
+| C | $60 | $60 | $0 |
+| Total | $240 | $80 | $160 |
+
+A dashboard showing $240 has not yet applied these refunds. A dashboard showing $150 might include an unrelated $10 refund from a different order cohort. Neither discrepancy is solved by choosing the more flattering total. Trace the contributing records and use the agreed definition. Keep later refunds as dated revisions instead of pretending the earlier observation never existed.
 
 Take a small sample of source orders and calculate the agreed measure by hand before trusting the dashboard total. Record source, grain, formula, exclusions, time zone, freshness and owner. If an order feed is missing, show the incomplete coverage rather than a zero. The acceptance test is that a second person can reproduce the result and understand what action it supports.`,
   },

@@ -443,12 +443,14 @@ Scope/evidence: existing State and docs/editorial/research/2026-11-02-blog-repai
 
 - [x] Reconcile44published articles and record per-article repair/preservation decisions; retain explicit external-access and business-identity gaps.
 - [x] Repair shared summaries, content visibility, illustration fit and connected publishing/discovery metadata.
-- [ ] Complete and substantively verify the eight priority article repairs with useful examples and resources.
-- [ ] Complete and substantively verify remaining33article repairs; preserve the three recent feature bodies and approved resources.
+- [x] Complete and substantively verify the eight priority article repairs with useful examples and resources; fresh correction review2November, local validation passed.
+- [x] Complete and substantively verify remaining33article repairs; preserve the three recent feature bodies and approved resources; all44specific decisions retained.
 - [ ] Recheck metadata/schema/resource and rendered completeness against the full owner plan; fresh independent editorial/source review remains part of the final-head release gate.
-- [ ] Complete distinct Miami and PanamaCity pages and required category connections; prepare listing corrections and neutral review process. External profile changes await verified facts/access.
+- [x] Complete distinct Miami and PanamaCity pages and required category connections; prepare listing corrections and neutral review process. Owner confirmed websitephone/addresses; external profile edits and visitorhours remain unverified.
 - [x] Fresh scoped final-head review, Node24Docker, protected PR47 merge, production readback and bounded discovery submission (IndexNow202; indexing unverified).
 - [x] Record actualrelease date2November2026 and follow-up dates2December2026,1January2027,31January2027 CT; distinguish deployed,indexed,cited and qualifiedinquiries.
 - [ ] Perform the30/60/90day measurement reviews when due; native ZINC access and verified business-profile facts remain open dependencies.
 
 Owner rejected completeness after PR47. The recorded technical release remains factual, but the affected content/local milestones are reopened. Every article needs a specific observed finding and reader-task acceptance result, not a shared generic repair description.
+
+2November latestowner: STOP USING DOCKER. Correction uses localNode24 tests/check/build/siteaudit; retainprotectedPR/Vercelrelease. Approved16file retirementcomplete; all44blogsretained. Localacceptance passed176tests/237Astrofiles/100HTML,44metadata/schema checks,19downloads and264structuralviewport/themechecks. Corrected sevenadditionaleditorialfindings and assetvalidatorregressions. Correction protectedrelease/productionreadback remains open; earlierPR47receipt is not this correctionreceipt.

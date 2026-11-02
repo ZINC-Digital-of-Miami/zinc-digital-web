@@ -1,0 +1,4 @@
+Record type,Item ID,Item group ID,Colour,Size,Submitted URL,Submitted price,Source price,Landing selected option,Landing price,Availability,Actual image check,Processed result,Reviewer / date
+ILLUSTRATIVE,BAG-01-BLK,BAG-01,black,standard,https://example.com/products/day-bag?variant=101,60 USD,60 USD,black / standard,60 USD,in_stock,Black bag,Pending verification,
+ILLUSTRATIVE,BAG-01-TAN,BAG-01,tan,standard,https://example.com/products/day-bag?variant=102,65 USD,65 USD,tan / standard,65 USD,in_stock,Tan bag,Pending verification,
+YOUR RECORD,,,,,,,,,,,,,

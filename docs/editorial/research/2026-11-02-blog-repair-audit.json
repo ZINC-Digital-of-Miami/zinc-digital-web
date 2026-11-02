@@ -113,8 +113,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: source-bound prompts and unknown private finances.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -239,8 +260,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Capability checks, completed source row and API versus business-interface distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -362,8 +404,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed service-category assignment and source requirements; no guaranteed citations.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -507,8 +570,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Page inspection, access/index/citation distinctions and repeatable prompt worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -655,8 +739,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve approved category model, 24 checks and instructional resource pack.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -778,8 +883,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Explicit order cohort/refund cutoff and reconciled net merchandise calculation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -908,8 +1034,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Consolidated prerequisites-to-handover sequence, completed brief, exact links and fillable four-page worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1029,8 +1176,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Service/category/article plan, 28-hour capacity example and enquiry/pipeline definitions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1151,8 +1319,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed article/diagram/worksheet correction without representing owner terminology as a Google mandate.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1292,8 +1481,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Equivalence, replacement, distinct products and syndication with paired URL investigation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1424,8 +1634,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Dedicated calendar/stock/budget worksheet; 90-unit campaign allocation separate from 10-unit reserve.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1554,8 +1785,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: SEO disciplines distinguished from service-aligned categories.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1683,8 +1935,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed purchase payload, merchandise/tax/shipping graphic and discount/refund/duplicate test cases.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1806,8 +2079,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed campaign URL and session-report validation with auto-tagging limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1933,8 +2227,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Comparable date windows, correct CTR arithmetic and non-causal interpretation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2068,8 +2383,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Concrete report filters/export, worked drill-down and privacy/aggregation limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2198,8 +2534,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Campaign-type decisions and contribution allowance arithmetic with attribution limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2330,8 +2687,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Two identified variants with shared group and distinct selected URLs/prices.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2452,8 +2830,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Labelled cutoff, discount calculation and excluded/stock/destination tests.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2582,8 +2981,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: implementation, discovery, indexing, visibility and business response separated.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2707,8 +3127,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Corrected yes/no triage table; immediate defects separated from rollout analysis.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2830,8 +3271,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Complete intended inventory versus discovered crawl; missing incoming link repair and retest.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2954,8 +3416,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Verified-value listing process; staffing and eligibility limits; duplicate download invitation removed.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3079,8 +3562,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Subscription dependency, cancellation deadline and cash-effective example with worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3206,8 +3710,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Consolidated setup, filled source/processed/customer record and stale-price investigation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3339,8 +3864,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed large/medium price example identifying the URL-selection defect.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3469,8 +4015,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Website-lead specification and correct lead/qualified-lead arithmetic; exact current controls remain source-gated.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3591,8 +4158,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Ad-to-receiving-record tests, invalid/valid submissions and event/delivery distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3707,8 +4295,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Independent evidence families, duplicate-source treatment and explicit fictional sample limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3846,8 +4455,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Paired indexed/live inspection and explicit canonical-selection limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3968,8 +4598,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Exact filter switching and worked page/query comparison.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4103,8 +4754,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Access/training distinction and detector rejection; current reporting evidence retained separately.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4225,8 +4897,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Filled offer, scope, exclusions, responsibilities and inquiry outline.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4355,8 +5048,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: seven distinct jobs, capacity and economics decision example.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4482,8 +5196,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Supported connection sequence, ownership prerequisites and processed-item validation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4614,8 +5349,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Actual editing locations and completed bottle copy, search fields and image descriptions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4743,8 +5499,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Corrected merchandise-value versus tax/shipping comparison; full journey checklist.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4878,8 +5655,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Filled inventory/page/connector/processed-record comparison and source-owned correction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5007,8 +5805,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Observable checks and precise public noindex handoff preserving private exclusions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5147,8 +5966,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Dated incident chronology and current site-reputation policy wording, no causal ranking claims.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5287,8 +6127,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Campaign/ad-group/ad specification, current budget evidence and blended-order versus channel CAC distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5424,8 +6285,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve approved order/customer economics, calculator and downside assumptions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5539,8 +6421,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: task-based design decisions, contrast, motion and journey validation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -5660,8 +6563,29 @@
         }
       },
       "substantiveReaudit": {
-        "status": "pending",
-        "scope": "Read full article against title promise, required decisions, instructions, worked example, resources, voice, claims and local/category relationships. Preserve passing content."
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: PHP/WordPress/Astro distinction; October PHP primary notices rechecked.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     }
   ],
@@ -5735,5 +6659,31 @@
       "2027-01-31"
     ]
   },
-  "acceptanceStatus": "reopened after owner rejection; deployment checks do not establish editorial completeness"
+  "acceptanceStatus": "LOCAL ACCEPTANCE PASSED; correction not yet pushed or deployed. External visibility/access limits remain explicit.",
+  "correctionVerification": {
+    "articles": 44,
+    "uniqueTitles": 44,
+    "uniqueDescriptions": 44,
+    "originalPublicationDatesPreserved": true,
+    "fullCanonicalBodyMatches": 44,
+    "renderedStructuralChecks": 264,
+    "linkedDownloadsByteMatched": 19,
+    "localAssets": 251,
+    "localNode24Tests": 176,
+    "astroFiles": 237,
+    "astroErrors": 0,
+    "astroWarnings": 0,
+    "builtHTMLChecks": 100,
+    "dockerUsedForFinalValidation": false,
+    "reviewScopes": [
+      "All44article bodies and selected resources",
+      "Current code, migration, assets, admin metadata and guide terminology"
+    ],
+    "externalLimits": [
+      "Native Google authorized-user access could not be established; no alternate client account used.",
+      "Meta current account UI not inspected; article uses dated official guide and illustrative settings, requiring current account verification.",
+      "No verified Bing/profile access or genuine crawler logs.",
+      "No proof of indexing, citation, rankings or leads."
+    ]
+  }
 }

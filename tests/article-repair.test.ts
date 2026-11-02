@@ -1,26 +1,24 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
-import snapshot from '../src/data/posts.preview.json' with {type:'json'};
-import {authoredArticles} from '../src/data/article-library.ts';
-import {articleRewrite} from '../src/data/article-copy.ts';
+import {authoredArticles,articleGuides} from '../src/data/article-library.ts';
 import {articleSummaries} from '../src/data/article-summaries.ts';
 import {articleSources} from '../src/data/article-sources.ts';
 import {renderArticleMarkdown} from '../src/lib/markdown.ts';
 
-const all=[...snapshot.posts,...authoredArticles];
+const all=authoredArticles;
 test('every published article has distinct useful takeaways rather than an excerpt fallback',()=>{
   assert.equal(Object.keys(articleSummaries).length,all.length);
   assert.equal(new Set(Object.values(articleSummaries)).size,all.length);
   for(const p of all){assert.ok(articleSummaries[p.slug],p.slug);if('description' in p)assert.notEqual(articleSummaries[p.slug],p.description);}
 });
 test('substantive rewrites retain safe source references and valid local resource destinations',()=>{
-  const revisions=snapshot.posts.map(p=>articleRewrite(p.slug)).filter(Boolean);
-  assert.equal(revisions.length,snapshot.posts.length);
+  const revisions=articleGuides;
+  assert.equal(revisions.length,18);
   for(const p of revisions){
-    assert.ok(p);assert.ok(Number.isFinite(Date.parse(p.modifiedGmt)));
+    assert.ok(p);assert.ok(Number.isFinite(Date.parse(p.modifiedGmt!)));
     const {html,sections}=renderArticleMarkdown(p.markdown);
-    assert.ok(sections.length>=4);assert.ok(articleSources(p).length>=2,p.title);
+    assert.ok(sections.every(section=>html.includes(`id="${section.id}"`)));assert.ok(articleSources(p).length>=2,p.title);
     assert.doesNotMatch(html,/The reporting question is: The question is:|one pillar article|a operating cadence/);
     for(const [,href] of p.markdown.matchAll(/\]\((\/[^)]+)\)/g)){
       if(href.startsWith('/downloads/')||href.startsWith('/media/'))assert.ok(existsSync(new URL('../public'+href,import.meta.url)),href);

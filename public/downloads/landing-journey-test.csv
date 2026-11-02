@@ -1,0 +1,4 @@
+Record type,Ad / placement,Destination URL,Scenario,Expected outcome,Observed page / form result,Receiving record / ID,Measurement result,Device / consent / date,Owner
+ILLUSTRATIVE,Consultation ad / mobile feed,https://example.com/services/reporting,Valid enquiry,Confirmation and one delivered request,Not yet tested,Not yet checked,Not yet checked,Mobile / document consent / actual date,
+ILLUSTRATIVE,Same ad,Same URL,Missing required contact field,Clear error; no false success and no delivered lead,Not yet tested,Not yet checked,Not yet checked,,
+YOUR RECORD,,,,,,,,,

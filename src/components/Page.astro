@@ -9,8 +9,6 @@ import ApprovedImage from "./ApprovedImage.astro";
 // Page.astro — every non-home template, ported from ZINC Site.dc.html.
 import Img from './Img.astro';
 import SummitBrand from './SummitBrand.astro';
-import { articleTables } from '../lib/article-tables';
-import { articleSources } from '../data/article-sources';
 import WorkLane from './WorkLane.astro';
 import CaseImage from './CaseImage.astro';
 import CaseStudyHero from './CaseStudyHero.astro';
@@ -40,7 +38,7 @@ import { casePresentations } from '../data/case-presentations';
 import ContactForm from './ContactForm.astro';
 import { articleImages } from '../data/article-images';
 import {categoryPosts} from '../data/blog-categories';
-import { blogPillars, pillarFor, readingPath } from '../data/blog-strategy';
+import { readingGuides, guideFor, readingPath } from '../data/blog-strategy';
 import type { Inquiry } from '../lib/inquiry';
 import { services, cases, layers, layerMeta, contract, readout, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
@@ -162,28 +160,19 @@ const websiteImages = study?.slug === 'us-oil-solutions' ? study.images.filter(k
 const galleryImages = study?.images.filter(k => !presentedAssets.has(k) && !websiteImages.includes(k) && !(study.slug === 'summit-marine-development' && k === 'smd-brand-book')) || [];
 const brandImages = study?.brand.filter(k => !presentedAssets.has(k)) || [];
 const markdownArticle = post?.markdown !== undefined ? renderArticleMarkdown(post.markdown) : undefined;
-const articleSections = (markdownArticle?.sections || post?.blocks.flatMap((block, i) => block.type === 'heading' ? [{ id: 'section-' + i, label: (block.runs || []).map((run) => run.text).join('') }] : []) || []).map(section => ({...section,label:section.label.replace(/^(?:Step )?\d+[.:]\s+/, '')}));
+const articleSections = (markdownArticle?.sections || []).map(section => ({...section,label:section.label.replace(/^(?:Step )?\d+[.:]\s+/, '')}));
 const articleImage = post ? articleImages[post.slug] : undefined;
 const supportingIllustration = post ? articleIllustrations[post.slug] : undefined;
 const markdownHeadings = markdownArticle ? [...markdownArticle.html.matchAll(/<h[2-6] id=/g)] : [];
 const illustrationOffset = markdownHeadings[Math.floor(markdownHeadings.length / 2)]?.index ?? markdownArticle?.html.length ?? 0;
 const markdownParts = markdownArticle ? [markdownArticle.html.slice(0, illustrationOffset), markdownArticle.html.slice(illustrationOffset)] : [];
-const blockHeadings = post?.blocks.flatMap((block, i) => block.type === 'heading' ? [i] : []) || [];
-const illustrationBlock = blockHeadings[Math.floor(blockHeadings.length / 2)] ?? Math.floor((post?.blocks.length || 0) / 2);
-const articlePillar = post ? pillarFor(post.slug) : undefined;
-const publishedPillar = articlePillar && posts.find(p => p.slug === articlePillar.slug);
+const articleGuide = post ? guideFor(post.slug) : undefined;
+const publishedGuide = articleGuide && posts.find(p => p.slug === articleGuide.slug);
 const nextArticles = post ? readingPath(post.slug, posts) : [];
-const restoredTables = articleTables(post?.slug || '',post?.blocks || []);
-const sourceListBlocks = post?.blocks.flatMap((block,i)=>block.type==='heading' && block.runs?.map(r=>r.text).join('')==='Trusted Source Links' && post.blocks[i+1]?.type==='ul' ? [post.blocks[i+1]] : []) || [];
-const repeatedTakeaway = new Set(post?.blocks.flatMap((block,i) => block.type === 'p' && block.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' && post.blocks[i-1]?.type === 'heading' && post.blocks[i-1]?.runs?.map(r=>r.text).join('') === 'The Operator Takeaway' ? [i] : []) || []);
-const listedSourceUrls = articleSources({blocks:sourceListBlocks}).map(s=>s.url);
 const feat = posts[0];
-const categoryGuides = blogPillars.filter(pillar=>posts.some(p=>p.slug===pillar.slug));
+const categoryGuides = readingGuides.filter(pillar=>posts.some(p=>p.slug===pillar.slug));
 const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
-import { canonicalContentLink } from '../data/redirects';
-type Run = { text: string; href?: string };
-const runsOf = (b: { runs?: Run[] }) => b.runs || [];
 ---
 {t !== 'case' && t !== 'work' && (
   <section class:list={["p-intro", "zn-page-hero", { "zn-long-title": route.title.length > 35, "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
@@ -306,10 +295,9 @@ const runsOf = (b: { runs?: Run[] }) => b.runs || [];
     <article class="p-prose" data-source-id={post.id}>
       <section class="p-article-summary" aria-label="Article summary" data-article-summary><span class="kick">TL;DR</span><p>{articleSummaries[post.slug] || excerpt(post)}</p></section>
       {markdownArticle && <><div set:html={markdownParts[0]} />{supportingIllustration && <ArticleIllustration illustration={supportingIllustration} />}<div set:html={markdownParts[1]} /></>}
-      {post.blocks.map((block, i) => <>{supportingIllustration && i === illustrationBlock && <ArticleIllustration illustration={supportingIllustration} />}{restoredTables.skipped.has(i) || repeatedTakeaway.has(i) ? null : restoredTables.tables.has(i) ? <div class="p-comparison"><table><caption>{restoredTables.tables.get(i)!.caption}</caption><thead><tr>{restoredTables.tables.get(i)!.headers.map(label=><th scope="col">{label}</th>)}</tr></thead><tbody>{restoredTables.tables.get(i)!.rows.map(row=><tr><th scope="row">{row[0]}</th>{row.slice(1).map((cell,j)=><td data-label={restoredTables.tables.get(i)!.headers[j+1]}>{cell}</td>)}</tr>)}</tbody></table></div> : block.type === 'heading' ? <h2 id={'section-' + i}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</h2> : block.type === 'ol' ? <ol>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ol> : block.type === 'ul' ? <ul>{(block.items || []).map((item) => <li>{item.map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</li>)}</ul> : block.type === 'quote' ? <blockquote>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</blockquote> : <p class={i === 0 ? 'first' : ''}>{runsOf(block).map((r) => r.href ? <a href={canonicalContentLink(r.href)}>{r.text}</a> : r.text)}</p>}</>)}
-      <ArticleSources post={post} exclude={listedSourceUrls} />
+      <ArticleSources post={post} />
     </article>
-    {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articlePillar?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedPillar && articlePillar?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedPillar.slug + '/'}>{articlePillar?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span></a></li>)}</ul></nav>}
+    {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articleGuide?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedGuide && articleGuide?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedGuide.slug + '/'}>{articleGuide?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span></a></li>)}</ul></nav>}
   </div></section>
   <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><div class="p-author-services"><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles </a></div></div></div></section>
 </>)}

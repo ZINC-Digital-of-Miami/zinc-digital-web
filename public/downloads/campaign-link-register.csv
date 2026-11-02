@@ -1,0 +1,3 @@
+Record type,Destination,Placement,Source,Medium,Campaign,Content,Expected session row,Observed processed row / date,Owner
+ILLUSTRATIVE,https://example.com/services/reporting?utm_source=newsletter&utm_medium=email&utm_campaign=reporting_workshop&utm_content=main_button,Opted-in newsletter,newsletter,email,reporting_workshop,main_button,newsletter / email; reporting_workshop,Not tested,
+YOUR RECORD,,,,,,,,,

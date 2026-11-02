@@ -1,0 +1,4 @@
+Record type,Affected URL,Preferred URL,Equivalent content?,HTTP status before,Declared canonical before,Google-selected canonical / crawl date,Conflicting internal link,Change,Live response / canonical after,Later indexed result / date,Owner
+ILLUSTRATIVE,https://example.com/products/blue-bag?campaign=email,https://example.com/products/blue-bag,Yes: identical blue bag,200,Parameter URL,Not checked,Category uses parameter URL,Canonical and internal link point to clean URL,200 / clean URL,Pending; do not infer indexing,Site owner
+ILLUSTRATIVE,https://example.com/old-guide,https://example.com/guides/packing,Yes: permanently moved guide,200,Old URL,Not checked,Newsletter archive uses old URL,Permanent redirect to equivalent replacement,301 to replacement; replacement 200,Pending,Site owner
+YOUR RECORD,,,,,,,,,,,

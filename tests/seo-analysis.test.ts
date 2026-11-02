@@ -92,11 +92,11 @@ test('navigation, footer, scripts and hidden markup never inflate content or lin
   assert.equal(check(good.replace(/<article class="p-prose">.*?<\/article>/s, '<article class="p-prose"><p>Just the article.</p></article>'), 'internal-links').status, 'warn');
 });
 
-test('the mapped pillar must be linked in the prose, rather than merely in related navigation', () => {
-  assert.equal(check(good, 'pillar-links').status, 'pass');
+test('the mapped reading guide must be linked in the prose, rather than merely in related navigation', () => {
+  assert.equal(check(good, 'reading-guide-links').status, 'pass');
   const without = good.replace('<a href="/blog/four-pillars-of-seo-operators-view/">search guide</a>', 'search guide');
-  assert.equal(check(without.replace('</main>', '<nav><a href="/blog/four-pillars-of-seo-operators-view/">Guide</a></nav></main>'), 'pillar-links').status, 'warn');
-  assert.equal(check(good, 'pillar-links', { url: 'https://www.zincdigital.co/blog/new-unmapped-article/' }).status, 'info');
+  assert.equal(check(without.replace('</main>', '<nav><a href="/blog/four-pillars-of-seo-operators-view/">Guide</a></nav></main>'), 'reading-guide-links').status, 'warn');
+  assert.equal(check(good, 'reading-guide-links', { url: 'https://www.zincdigital.co/blog/new-unmapped-article/' }).status, 'info');
 });
 
 test('image metadata distinguishes missing alt, intentional decoration and reserved geometry', () => {

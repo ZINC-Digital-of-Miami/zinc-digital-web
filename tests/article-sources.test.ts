@@ -65,8 +65,8 @@ test('references are taken only from the article body, never metadata or unrelat
   assert.deepEqual(articleSources(post), [{ title: 'SEO guide', url: seo }]);
 });
 
-test('all 18 migrated articles already have primary references without fabricated fallbacks', () => {
-  const posts = JSON.parse(readFileSync(new URL('../src/data/posts.preview.json', import.meta.url), 'utf8')).posts;
+test('all18canonical long guides have primary references in the published body', () => {
+  const posts = JSON.parse(readFileSync(new URL('../src/data/article-guides.json', import.meta.url), 'utf8'));
   assert.equal(posts.length, 18);
   for (const post of posts) {
     const sources = articleSources(post);
@@ -96,4 +96,11 @@ test('blank link labels receive a readable source name rather than a raw URL', (
   assert.equal(sources.length, 1);
   assert.match(sources[0].title, /Google.*seo starter guide/i);
   assert.ok(!sources[0].title.includes('https://'));
+});
+
+
+test('visible Google policy sources survive citation extraction',()=>{
+ const urls=['https://support.google.com/adspolicy/answer/6368661','https://support.google.com/contributionpolicy/answer/7400114','https://support.google.com/news/publisher-center/answer/9606800'];
+ const result=articleSources({markdown:urls.map((u,i)=>`[Policy ${i+1}](${u})`).join('\n\n')});
+ assert.deepEqual(result.map(s=>s.url),urls);
 });

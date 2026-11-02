@@ -244,7 +244,7 @@ function placeMaskOnCanvas(maskRawData, scaledW, scaledH, left, top, canvasW, ca
 await fs.mkdir(scratch, { recursive: true });
 await fs.mkdir('public/mockup', { recursive: true });
 
-const assetsJsonPath = 'src/data/assets.preview.json';
+const assetsJsonPath = 'src/data/assets.site.json';
 const assets = JSON.parse(await fs.readFile(assetsJsonPath, 'utf8'));
 
 // ---------- Phase 1: measure — derive the shared FACE_WIDTH_FRACTION ----------
@@ -459,4 +459,4 @@ for (const r of rendered) {
 await fs.writeFile(assetsJsonPath, JSON.stringify(assets, null, 2) + '\n');
 await fs.mkdir('assets/team', { recursive: true });
 await fs.writeFile('assets/team/manifest.json', JSON.stringify(manifest, null, 2) + '\n');
-console.log('PASS: regenerated ' + people.length + ' team photos, updated assets.preview.json and assets/team/manifest.json');
+console.log('PASS: regenerated ' + people.length + ' team photos, updated assets.site.json and assets/team/manifest.json');

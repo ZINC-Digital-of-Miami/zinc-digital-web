@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="760" viewBox="0 0 560 760" role="img" aria-labelledby="title desc">
+<title id="title">A seventy-dollar order is not a seventy-dollar purchase value</title>
+<desc id="desc">Illustrative order TEST-1001 contains two thirty-dollar bags. Merchandise value is sixty dollars. Shipping is six dollars and tax four dollars, recorded separately. Total paid is seventy dollars. Compare the same transaction and currency.</desc>
+<rect width="560" height="760" fill="#f5f6f7"/>
+<g font-family="Arial, sans-serif" fill="#101112">
+<text x="32" y="44" font-size="13" letter-spacing="2">ZINC / MEASUREMENT FIELD GUIDE</text>
+<text x="32" y="90" font-size="32" font-weight="700">Trace the same order.</text>
+<text x="32" y="121" font-size="18">Keep the amounts in their proper fields.</text>
+<rect x="32" y="155" width="496" height="265" rx="4" fill="#fff" stroke="#bfc5c8"/>
+<text x="54" y="190" font-size="14" letter-spacing="1">ILLUSTRATIVE ORDER · TEST-1001 · USD</text>
+<path d="M54 210H506" stroke="#bfc5c8"/>
+<text x="54" y="247" font-size="20">2 black day bags × $30</text>
+<text x="506" y="247" text-anchor="end" font-size="22" font-weight="700">$60</text>
+<text x="54" y="286" font-size="20">Shipping</text><text x="506" y="286" text-anchor="end" font-size="20">$6</text>
+<text x="54" y="323" font-size="20">Tax</text><text x="506" y="323" text-anchor="end" font-size="20">$4</text>
+<path d="M54 344H506" stroke="#101112"/>
+<text x="54" y="384" font-size="23" font-weight="700">Total paid</text><text x="506" y="384" text-anchor="end" font-size="30" font-weight="700">$70</text>
+<path d="M280 421V455" stroke="#007d82" stroke-width="3"/>
+<rect x="32" y="455" width="496" height="208" rx="4" fill="#101112"/>
+<text x="54" y="489" font-size="14" letter-spacing="1" fill="#77d5d7">PURCHASE EVENT / MATCH THE DEFINITION</text>
+<g fill="#fff" font-size="22"><text x="54" y="532">value</text><text x="506" y="532" text-anchor="end" font-weight="700">60</text><text x="54" y="571">shipping</text><text x="506" y="571" text-anchor="end">6</text><text x="54" y="610">tax</text><text x="506" y="610" text-anchor="end">4</text></g>
+<text x="54" y="641" font-size="14" fill="#c9ced0">Same transaction_id, currency and item quantities.</text>
+<text x="32" y="703" font-size="18">Check the fields, not just whether the event fires.</text>
+<text x="32" y="731" font-size="15" fill="#50585a">Discounts and refunds need their own test cases.</text>
+</g></svg>

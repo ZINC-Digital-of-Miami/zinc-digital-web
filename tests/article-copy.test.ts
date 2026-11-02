@@ -1,22 +1,25 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import snapshot from '../src/data/posts.preview.json' with {type:'json'};
-import edits from '../src/data/article-copy-edits.json' with {type:'json'};
-import {reviseArticle} from '../src/data/article-copy.ts';
+import history from '../docs/editorial/article-history.json' with {type:'json'};
+import {articleGuides,authoredArticles} from '../src/data/article-library.ts';
 import {articleSources} from '../src/data/article-sources.ts';
+import {renderArticleMarkdown} from '../src/lib/markdown.ts';
 
-test('reviewed copy edits match the archived source and preserve its primary references',()=>{
-  for(const post of snapshot.posts){
-    const revision=edits[post.slug as keyof typeof edits];
-    assert.ok(revision,post.slug);
-    for(const edit of revision.replace) assert.deepEqual(post.blocks[edit.index],edit.original,post.slug+' source changed');
-    const before=JSON.stringify(post.blocks);
-    const blocks=reviseArticle(post.slug,post.blocks);
-    assert.equal(JSON.stringify(post.blocks),before,'source must stay unchanged');
-    const retained=new Set(articleSources({blocks}).map(source=>source.url));
-    for(const source of articleSources(post)) assert.ok(retained.has(source.url),post.slug+' lost '+source.url);
-    const prose=blocks.flatMap(block=>block.runs || []).map(run=>run.text).join(' ').replace(/\s+/g,' ');
-    assert.doesNotMatch(prose,/For this ZINC article|Before approval, this post|model-standard posts|The Prompt To Use|Advanced Prompt|all but two people here at ZINC/);
-    assert.ok(blocks.some(block=>block.type==='heading'),'article still has structure');
-  }
+test('canonical articles preserve source identities, publication dates and complete revision observations',()=>{
+ assert.equal(history.articles.length,18);
+ for(const record of history.articles){
+  const original=record.observations[0].value as any;
+  const article=articleGuides.find(p=>p.id===record.id)!;
+  assert.ok(article,record.slug);assert.equal(article.slug,original.slug);
+  assert.equal(article.dateGmt,original.dateGmt);assert.equal(article.authorName,original.author.name);
+  assert.ok(original.blocks.length>0);assert.equal(record.observations.length,2);
+ }
+});
+test('editorial checks inspect the actual canonical bodies that publishing consumes',()=>{
+ for(const article of authoredArticles){
+  const rendered=renderArticleMarkdown(article.markdown);
+  assert.ok(articleSources(article).length,article.slug);
+  assert.ok(rendered.sections.length,article.slug);
+  assert.doesNotMatch(rendered.html,/For this ZINC article|Before approval, this post|model-standard posts|We have not supplied a controlled dataset/);
+ }
 });

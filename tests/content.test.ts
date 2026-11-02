@@ -29,15 +29,11 @@ test('real published modification dates reach article schema and sitemap without
  const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',published:original}],[post],[],[{live:{slug:'existing',title:'Updated',status:'published',updated_at:updated},live_at:'2026-10-06T12:00:00Z'}]);
  assert.equal(result.posts[0].modifiedGmt,updated);assert.equal(result.routes[0].modified,updated);assert.equal(result.posts[0].dateGmt,original);assert.equal(result.routes[0].published,original);
 });
-test('article SEO inherits legacy page snapshots until explicit post fields override',()=>{
+test('article SEO comes only from its published post snapshot',()=>{
  const repo:any={slug:'existing',title:'Original',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],related:[]};
  const route:any={path:'/blog/existing/',template:'article',title:'Original',slug:'existing'};
- const legacy={live:{path:route.path,meta_title:'Legacy title',meta_description:'Legacy description',noindex:true}};
- for(const post of [[],[{live:{slug:'existing',meta_title:null,meta_description:null}}]]) {
-  const published=publishedContent([route],[repo],[legacy],post).routes[0];
-  assert.equal(published.metaTitle,'Legacy title');assert.equal(published.metaDescription,'Legacy description');assert.equal(published.noindex,true);
- }
- const published=publishedContent([route],[repo],[legacy],[{live:{slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
+ assert.throws(()=>publishedContent([route],[repo],[{live:{path:route.path,meta_title:'Wrong owner'}}],[]),/must be stored in Posts/);
+ const published=publishedContent([route],[repo],[],[{live:{slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
  assert.equal(published.metaTitle,'Post title');assert.equal(published.metaDescription,'Post description');assert.equal(published.noindex,false);
 });
 test('page modification comes from its actual saved snapshot rather than bulk publish time',()=>{
