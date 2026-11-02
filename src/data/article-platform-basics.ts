@@ -251,7 +251,7 @@ Treat the sample as evidence for [generative search work](/services/ai-search-op
 
 ## Turn one question into an editorial assignment
 
-A business considering a reporting dashboard needs to know which data to prepare. Put that article inside the business-intelligence category, list the records and permissions required, and show an illustrative source checklist. Link to metric definitions when the reader needs to resolve conflicting revenue figures.
+A business considering a reporting dashboard needs to know which data to prepare. Put that article inside the business-intelligence category, list the records and permissions required, and show an illustrative source checklist. The [content-hub planning worksheet](/blog/build-a-content-hub-people-can-use/) helps map these category and article relationships. Link to metric definitions when the reader needs to resolve conflicting revenue figures.
 
 The assignment is complete when a business owner can prepare for the conversation, not when it repeats “AI” often enough. Verify platform claims, keep the core instructions in HTML and inspect the page’s actual search eligibility. Use the [AI-search visibility guide](/blog/ai-search-results-and-generative-search-optimization/) for the platform-specific checks and reporting limits.`,
   },

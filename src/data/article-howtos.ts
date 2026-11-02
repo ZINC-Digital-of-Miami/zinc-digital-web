@@ -273,7 +273,7 @@ Begin with important reader tasks, using [the four-pillar framework](/blog/four-
 
 List important services, categories and core guides. Write each page's purpose and the reader task it supports.
 
-Do not prescribe an arbitrary link count. Decide which connections help someone use the content.
+Do not prescribe an arbitrary link count. Decide which connections help someone use the content. The [content-hub planning guide](/blog/build-a-content-hub-people-can-use/) shows how to connect a service-aligned category with its supporting articles.
 
 ## 2. Walk the public routes
 
@@ -377,7 +377,7 @@ Preserve the evidence behind the edit. A future reviewer should understand what 
 
 Suppose a guide refers to a platform setting that has moved and includes a screenshot of the old menu. Verify the current official instructions and the available interface before editing. Replace the outdated step, explain any meaningful change in behavior and update the screenshot only if it helps the task.
 
-Keep sections that still answer the reader’s question. Check downloadable copies and related articles for the same obsolete instruction. Record the substantive revision and its date; preserve the original publication date. After release, follow the full procedure from a clean starting point. A title change and a newer date do not repair a broken how-to.`,
+Keep sections that still answer the reader’s question. Check downloadable copies and related articles for the same obsolete instruction. Use the category map from the [content-hub workbook](/blog/build-a-content-hub-people-can-use/) to find the other pages affected by the change. Record the substantive revision and its date; preserve the original publication date. After release, follow the full procedure from a clean starting point. A title change and a newer date do not repair a broken how-to.`,
   },
   {
     id: 90011,
@@ -436,6 +436,8 @@ Check title, metadata and links. Google's [title-link guidance](https://develope
 - An authorized inquiry reaches the receiving system.
 
 Use our [content brief guide](/blog/content-briefs-search-intent-internal-links/) to capture sources and reviewers. [SEO work](/services/seo/) connects the page to relevant topics while preserving its service-selection purpose.
+
+Plan supporting explanations through the [content-hub guide](/blog/build-a-content-hub-people-can-use/): the service page explains the offer, while its aligned blog category houses the related how-tos.
 
 The useful result is fewer important assumptions in the first conversation.
 
