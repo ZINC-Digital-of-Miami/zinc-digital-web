@@ -1,5 +1,4 @@
 import type {Post,Route,Layer} from '../data/site';
-import {effectiveSeo} from './admin-content-model.ts';
 type Snapshot={live:Record<string,any>|null;live_at?:string|null};
 export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snapshot[],rows:Snapshot[]) {
   const pageMap=new Map(pages.filter(x=>x.live).map(x=>[x.live!.path,x.live!]));
@@ -23,7 +22,8 @@ export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snaps
     if(p){route.title=p.title;route.layer=p.layer;route.published=p.date;route.modified=p.modifiedGmt;}
     const page=pageMap.get(route.path);
     if(!p&&page?.updated_at&&Number.isFinite(Date.parse(page.updated_at)))route.modified=page.updated_at;
-    const fields=effectiveSeo(page,p?postMap.get(p.slug):undefined);
+    if(p&&page)throw new Error('Article metadata must be stored in Posts.');
+    const fields=(p?postMap.get(p.slug):page)||{};
     if(fields.meta_title)route.metaTitle=fields.meta_title;
     if(fields.meta_description)route.metaDescription=fields.meta_description;
     if(typeof fields.noindex==='boolean')route.noindex=fields.noindex;

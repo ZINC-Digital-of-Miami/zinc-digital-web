@@ -1,0 +1,8 @@
+Record type,Platform / example,Level,Decision,Planned setting / value,Actual saved setting,Evidence / test,Reviewer / date
+ILLUSTRATIVE,TikTok website sale,Campaign,Outcome,Website sale,,Current account objective checked,
+ILLUSTRATIVE,TikTok website sale,Ad group,Event and destination,Correct website event source; completed purchase,,Controlled event test,
+ILLUSTRATIVE,TikTok website sale,Ad group,Budget and dates,400USD lifetime; ten-day example; check minimums,,Saved total and schedule readback,
+ILLUSTRATIVE,Meta consultation lead,Campaign,Objective,Leads,,Current account flow checked,
+ILLUSTRATIVE,Meta consultation lead,Ad set,Conversion location,Website form; correct dataset and completion event,,One valid and one invalid submission tested,
+ILLUSTRATIVE,Meta consultation lead,Ad,Identity and destination,Approved Page/Instagram identity; matching service URL,,Placement and phone preview,
+YOUR RECORD,,,,,,,

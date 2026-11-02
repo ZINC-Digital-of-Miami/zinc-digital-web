@@ -1,0 +1,5 @@
+Record type,Scenario,Source order / test ID,Consent state,Expected event,Expected item / quantity / value,Observed event / parameters,Duplicate submission?,Processed report check / date,Issue owner
+ILLUSTRATIVE,Two units at 30 USD; shipping 6; tax 4,TEST-1001,Granted for controlled test,purchase,BAG-BLK / 2 / value60 currencyUSD shipping6 tax4,To be observed,To be checked,Pending,
+ILLUSTRATIVE,Confirmation page reloaded,TEST-1001,Same as initial test,No new purchase submission,Same transaction ID; no second order,To be observed,To be checked,Pending,
+ILLUSTRATIVE,Refund one unit of the original purchase,TEST-1001,Document actual state,refund,BAG-BLK / 1 / merchandise value30; original transaction ID,To be observed,To be checked,Pending,
+YOUR RECORD,,,,,,,,,

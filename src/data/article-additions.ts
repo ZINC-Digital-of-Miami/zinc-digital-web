@@ -27,7 +27,7 @@ export const articleAdditions: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A purchase event firing is not the same as a purchase being measured correctly.
 
 Trace one controlled order before trusting the revenue chart.
@@ -46,7 +46,11 @@ Check product or variant identity, numeric prices and quantities, and the mercha
 
 ## 3. Follow the journey in DebugView
 
-Enable debug mode for the test device and inspect the intended property using Google's [DebugView guidance](https://support.google.com/analytics/answer/7201382?hl=en). Select a variant, add to cart, change quantity and complete the authorized test purchase. Compare each action with its event and parameters.
+Ask the person maintaining tracking to join the test. You need access to the intended Analytics property, a working tag installation and permission to place a controlled order. Establish how the order will be identified and refunded or cancelled in the store's accounting process before testing.
+
+For a website, open Google's Tag Assistant, connect the public test URL and use the connected browser tab. Tag Manager users can start through Preview. Then open **Analytics → Admin → Data display → DebugView**, select the test device and perform one shopping action at a time. Open each event to inspect its parameters. This is the personal-device route in Google's [DebugView instructions](https://support.google.com/analytics/answer/7201382?hl=en); it avoids turning on debugging for every customer.
+
+Select a variant, add to cart, change quantity and complete the controlled purchase. If nothing appears, first check the property, connected tab, selected debug device and consent state. A missing DebugView event is a problem to diagnose, not permission to add another tracking integration on top of the existing one.
 
 Record the consent state. Privacy controls or denied Analytics-cookie consent can prevent events appearing in DebugView. Diagnose that condition through the approved consent implementation; do not disable consent to produce a successful test.
 
@@ -68,7 +72,35 @@ Repeat relevant checks after [Shopify changes](/services/shopify/). The [channel
 
 Use an authorized test order and record its ID before opening Analytics. In this illustrative example, two units at $30 each plus $6 shipping and $4 tax produce a $70 order total. The purchase event’s item revenue is $60, with shipping and tax supplied in their separate fields; inspect the current event specification rather than placing the whole order total in every field.
 
-Check quantity, item ID, currency and the unique transaction ID. Reload the confirmation page and verify that the implementation does not create a second purchase. Test the approved consent states separately; do not bypass consent to make the report look complete. Keep the test order identifiable and exclude it from commercial conclusions. Pass the check only when the captured event, item details and source order reconcile under the documented definitions.`,
+![Illustrative order: two thirty-dollar bags produce sixty dollars in purchase value; six dollars shipping and four dollars tax are separate, making seventy dollars paid in total.](/media/blog-review/purchase-value-map.svg)
+
+This is the corresponding illustrative event data. It is a comparison specimen for the person checking tracking, not code to paste into a live store:
+
+\`\`\`json
+{
+  "event": "purchase",
+  "transaction_id": "TEST-1001",
+  "currency": "USD",
+  "value": 60,
+  "shipping": 6,
+  "tax": 4,
+  "items": [
+    { "item_id": "BAG-BLK", "item_name": "Black day bag", "price": 30, "quantity": 2 }
+  ]
+}
+\`\`\`
+
+The event name is shown with its parameters for readability. The actual sending format depends on the installed integration. Google supplies both tag and Tag Manager examples in its [ecommerce implementation guide](https://developers.google.com/analytics/devguides/collection/ga4/ecommerce).
+
+| Test | Expected comparison | What a failure tells you |
+| --- | --- | --- |
+| Original purchase | Two units × $30 = $60 merchandise value; $6 shipping and $4 tax remain separate | $70 in merchandise value would mix definitions |
+| $5 discount per unit in a separate test | Discounted item price $25, quantity two, merchandise value $50 | Subtracting that discount again would understate the purchase |
+| Confirmation reload | No new purchase submission; original transaction identity retained | A second sender or repeated trigger needs investigation |
+| One-unit refund | Original transaction ID and refunded item's quantity one; merchandise refund $30 | A refund without the item detail cannot support the same item-level check |
+| Declined payment | No completed purchase for an order that never succeeded | The trigger may be tied to a button click instead of completion |
+
+[Download the order-event test sheet](/downloads/ga4-order-test.csv). Record expected and observed values separately, including the consent state and the later report check. Keep the test orders out of commercial conclusions. Close the test session afterwards; if a developer added a debug parameter manually, they should remove it rather than assuming setting it to false disables debugging.`,
   },
   {
     id: 90002,
@@ -81,7 +113,7 @@ Check quantity, item ID, currency and the unique transaction ID. Reload the conf
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A canonical tag is a preference. It is not a command.
 
 When Google chooses another URL, inspect the disagreement before changing the template.
@@ -120,11 +152,15 @@ Fix the conflict you found and retest the published page. Request indexing when 
 
 Use the [Search Console operator's guide](/blog/google-search-console-the-operators-guide/) for recurring review. For [technical SEO](/services/seo/), identify the affected URLs and the conflicting signals before changing a shared template.
 
-## Work one pair of URLs
+## Fill the inspection record before asking for a fix
 
-Suppose a campaign parameter URL and a clean product URL show the same item. Record both addresses, their responses and their canonical declarations. If internal links favor the parameter URL while the sitemap lists the clean URL, fix that disagreement before requesting another inspection.
+Use the paired-URL example in our [duplicate-content guide](/blog/duplicate-content-isnt-a-penalty-but-its-a-tax/) and [download its canonical inspection sheet](/downloads/canonical-inspection.csv). Here is how to populate the Google-specific fields.
 
-A product and its collection are not an equivalent pair merely because their text overlaps. Preserve their separate buying purposes. After the change, verify the live signals immediately and record Google’s indexed selection separately when it updates. The live test can show current accessibility; it cannot guarantee the selected canonical. Your investigation record should contain the preferred URL, reason, conflicting signal, correction and next inspection date.`,
+Paste the exact affected URL into Search Console's inspection bar and run the inspection. Expand the indexing details and copy the user-declared and Google-selected canonical values where available, plus the last-crawl date. Repeat for the preferred URL. Missing information stays “not available”; it does not mean that Google agrees with your preference.
+
+Illustrative result: the parameter URL declares itself, Google selects the clean URL, and both show the same product. This may already be a sensible Google selection. The repair is the site's conflicting declaration and internal link—not an attempt to force Google to index both copies. If instead Google selects an unrelated collection, first compare the actual product content and inspect whether the intended page redirects or has an access problem.
+
+After the developer changes the conflicting signal, open the published URL and repeat the live check. Record, for example, “200; clean product canonical; category link corrected” in the live-result column. Leave the indexed-result column pending until the inspected crawl reflects the change. A screenshot of the deployment succeeding cannot fill that column.`,
   },
   {
     id: 90003,
@@ -137,12 +173,14 @@ A product and its collection are not an equivalent pair merely because their tex
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A Merchant Center issue needs a product-level explanation. Changing a campaign budget cannot repair a price or an unavailable variant.
 
 ## 1. Record the reported issue
 
-Capture the item ID, exact issue, destination, market and observation time. Group affected products by shared field or template before editing.
+Open **Products → Needs attention** in Merchant Center and select the relevant issue. The [issue details page](https://support.google.com/merchants/answer/16431300?hl=en) explains the issue, affected product samples and available corrective or review actions. Download the affected-product list when you need to check a group rather than the displayed sample.
+
+Capture the item ID, exact issue, destination, market and observation time. Open the affected item's details and identify the data source supplying it. Compare the processed fields with that source's latest submission and the actual linked product page. Group affected products by shared field or template before editing.
 
 Use Google's [product data specification](https://support.google.com/merchants/answer/7052112?hl=en) to identify the relevant requirements. Missing attributes, landing-page mismatches and policy issues need different investigations.
 
@@ -178,7 +216,17 @@ Use the [Merchant Center checklist](/blog/shopify-google-merchant-center-checkli
 
 Imagine a shirt whose medium costs $40 and large costs $45. The submitted large variant says $45, but its link opens the medium by default at $40. Changing the feed price to $40 would conceal the wrong landing selection rather than repair the large item.
 
-Open the submitted URL as a customer, confirm the selected size, inspect the visible price and continue far enough to verify the purchase terms. Correct the variant link or source mapping, then wait for the next processing cycle and inspect that same item again. Keep item ID, market, source timestamp, landing option and issue status in the record. If eligibility remains blocked, follow the actual issue’s review instructions; do not repeatedly resubmit unrelated changes.`,
+The filled comparison looks like this. All values are illustrative.
+
+| Layer | Large shirt record | Conclusion |
+| --- | --- | --- |
+| Store catalogue | SHIRT-L, size large, $45 | Source price describes large |
+| Submitted item | SHIRT-L, $45, URL selecting medium | The link mapping disagrees with the item |
+| Merchant Center processed item | Same submitted large ID and $45 | Processing retained the submitted price |
+| Landing page | Medium selected, $40 | The customer reaches the wrong variant |
+| After correction | URL selects large; visible page and cart show $45 | Live journey repaired; processed issue status still requires recheck |
+
+Use the [variant comparison sheet](/downloads/product-variant-comparison.csv) to retain those fields for each affected item. Open the submitted URL as a customer, confirm the selected size, inspect the visible price and continue far enough to verify the purchase terms. Correct the variant link or source mapping, then wait for the next processing cycle and inspect that same item again. Keep item ID, market, source timestamp, landing option and issue status in the record. If eligibility remains blocked, follow the actual issue’s review instructions; do not repeatedly resubmit unrelated changes.`,
   },
   {
     id: 90004,
@@ -191,42 +239,20 @@ Open the submitted URL as a customer, confirm the selected size, inspect the vis
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:10:55Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A useful brief tells the writer what the reader needs to decide, which evidence supports the answer and where to link next.
 
-## 1. Name the reader and task
+## Start with the existing pages and a real customer question
 
-Describe the reader in one sentence. State the decision or task the article should support. “Desk lamps” is a topic; “choose lighting for a small desk without screen glare” is an assignment.
+Before you start, gather your service or collection list, the existing blog URLs, the customer question and any approved source material. A spreadsheet is enough. Search your own site for the question and inspect the closest existing pages. If one already answers it, commission an update with a precise gap list instead of another competing article.
 
-List what the reader already knows and what needs explanation. Place the assignment in the blog category aligned with its primary service or product collection. The [SEO category](/blog/category/seo/) is one example; the [SEO framework guide](/blog/four-pillars-of-seo-operators-view/) is an article within it.
+Describe the reader in one sentence and name the task. “Desk lamps” is a topic; “choose lighting for a small desk without screen glare” is an assignment. List the questions the answer must resolve and the evidence you can actually supply.
 
-## 2. Review queries and page formats
+The pillar is the category aligned with the service or collection. The article sits inside it. A commercial service page has a different job: helping someone choose and enquire about the offer. Do not turn all three into copies of the same sales pitch.
 
-Search the relevant questions and record the formats you see: guides, comparisons, categories or troubleshooting pages. Date the observation. Use it to test the task you identified, rather than copying competitors' headings.
+![Business intelligence service aligns with its blog category; the dashboard preparation article sits in that category and links to a useful supporting guide and the service when relevant.](/media/blog-review/content-brief-map.svg)
 
-Google's [SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) recommends considering the language different readers use. Combine closely related questions when one useful page can answer them.
-
-## 3. Specify the evidence
-
-For each substantive claim, name the source: verified specifications, approved expert input, a demonstration or official documentation. Mark missing information before drafting. Label hypothetical examples as examples; keep private client figures out of public copy.
-
-Google's [people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) emphasizes original value, clear sourcing and usefulness. It has no preferred word count. Include what completes the answer, then stop.
-
-## 4. Outline the answer and links
-
-Open with the answer or practical starting point. Give each section a clear job and identify its supporting evidence. Add exceptions where they change the decision.
-
-Link to the appropriate category, a useful supporting article and a relevant next step. Specify the reason for each link. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) calls for crawlable links and descriptive, relevant anchor text. Verify destinations rather than inserting the same link list everywhere.
-
-## 5. Assign review and maintenance
-
-Name the writer and factual reviewer. Before publishing, check the opening, claims, examples, title, description, images and links. Set a review trigger, such as a specification change or a new unanswered customer question.
-
-After publication, inspect relevant queries and page behavior against the original task. Use observations to improve missing explanations without turning one isolated query into a new strategy.
-
-**Brief template:** reader; task; main question; verified sources; section jobs; pillar; supporting links; next step; writer; reviewer; update trigger.
-
-Use the [channel planning framework](/blog/seven-digital-channels-which-to-skip/) to give content a job alongside the other channels. Connect assignments through the [content planning guide](/blog/content-marketing-plan-that-produces-pipeline/) and [SEO work](/services/seo/). Clear sourcing also supports [generative search optimization](/services/ai-search-optimization/), without promising citations.
+Google's [people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) emphasises original value, clear sourcing and usefulness. It has no preferred word count. Decide what the reader needs to finish the task, then commission that work.
 
 ## A completed brief: choosing a reporting dashboard
 
@@ -246,14 +272,46 @@ Here is an illustrative assignment for a business that sells reporting services.
 
 Notice that the brief gives the writer a decision to help with, not a keyword to repeat. The category holds this article alongside related guidance. The service page explains the commercial offer.
 
-## Test the brief before commissioning it
+## Specify the links and their purpose
 
-Ask someone unfamiliar with the assignment to explain what the finished reader should be able to do. If the answer is “understand business intelligence”, the task is still too broad. In this example, they should be able to list the decision, source systems, definition questions and acceptance checks for their dashboard.
+For the dashboard example, make the linking instructions specific enough to implement:
 
-For each proposed link, finish the sentence “The reader needs this next because…”. Remove links without a useful answer. Use [Google’s link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) for the technical checks, not as a reason to squeeze a link into every paragraph.
+| Placement | Link text and destination | Why it belongs there |
+| --- | --- | --- |
+| Category navigation | [Business intelligence articles](/blog/category/business-intelligence/) | Houses this and other articles about reporting decisions |
+| Section explaining conflicting figures | [Define the reporting measures](/blog/business-intelligence-basics/) | Helps the owner identify definitions before comparing tools |
+| Section on website purchase records | [Check an ecommerce purchase event](/blog/ga4-ecommerce-event-validation/) | Relevant only when the example uses website purchase tracking; omit it for other data |
+| Final implementation step | [Business intelligence support](/services/business-intelligence/) | Gives the reader somewhere to ask for help with the requirements they have assembled |
 
-Use the downloadable workbook in the [content hub guide](/blog/build-a-content-hub-people-can-use/) to map the category and supporting pages. Your final brief should leave the writer room to write, while making the required evidence and outcome unmistakable.
+Also choose an existing article that should link **to** the new one. Note the paragraph and proposed link wording, then review that change when the new article goes live. A link plan needs incoming routes as well as exits. There is no useful universal quota for links.
 
-[Download the content hub workbook](/downloads/content-hub-workbook.pdf) to record category scope, article assignments, links and launch checks. Complete the example brief above before handing the assignment to a writer.`,
+Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains crawlable links and useful anchor text. Verify each destination and the reason for including it; a link quota is not an editorial strategy.
+
+## Copy this assignment into your next brief
+
+Complete the fields below. The downloadable version has space for the answers, a worked example and a separate review checklist.
+
+- **Reader and starting knowledge:** who is doing the task, and what can we reasonably assume they know?
+- **One question and finished outcome:** what will the reader be able to decide, prepare or do?
+- **Category and commercial connection:** which service or collection does the category support? Which existing article could be updated instead?
+- **Required answer:** write a provisional two-sentence answer. List anything that still needs confirmation.
+- **Section plan:** give each section a reader question, an answer to develop and a piece of evidence or a demonstration.
+- **Evidence register:** record each consequential claim, its exact source, what the source supports, the date checked and the reviewer. Mark any example figures as illustrative.
+- **Link plan:** record source paragraph, destination, proposed link text and reader benefit. Include an incoming link from an existing page.
+- **Instructional resource:** specify what the reader should fill in or learn from the diagram. A decorative featured image does not do this job.
+- **Boundaries:** list what the article will not cover, including topics already handled elsewhere.
+- **Delivery and review:** name the writer, factual reviewer, due date, approval owner and event that should trigger an update.
+
+For the dashboard assignment, the opening answer might be: “Before buying a dashboard, write down the decision it must support, the source records and the definitions behind its numbers. Agree on a small example that both you and the supplier can calculate before approving the full report.” The article then shows how to do each part. “Explore the power of data” can remain in the bin.
+
+## Run a practical handover check
+
+Give the brief to the writer and ask them to describe the planned example, the source they will use and the finished reader outcome. Resolve disagreements before drafting. If a claim has no usable evidence, remove it or commission the missing research; an empty source field is not permission to improvise.
+
+When the draft returns, work through its instructions as the intended reader. Can you produce the promised requirements list using the article alone? Open every source and check the actual claim, test the download, and follow the links on a phone. Send back specific omissions such as “show how the owner checks the refund definition”, rather than “make this more authoritative”.
+
+After publication, open the final URL, confirm its category listing and incoming link, and check that the title, summary and search description describe the article you actually published. Record a review date and a change trigger. Search appearances and enquiries can inform later improvements; one new query does not justify rewriting the whole assignment.
+
+[Download the content brief and review worksheet](/downloads/content-brief-worksheet.pdf). It includes the dashboard example, a fillable assignment, a source-and-link record and the handover checks. Use the [content hub guide](/blog/build-a-content-hub-people-can-use/) and its [planning workbook](/downloads/content-hub-workbook.pdf) when deciding how this assignment fits the wider category and article collection.`,
   },
 ];

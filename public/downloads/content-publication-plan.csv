@@ -1,0 +1,6 @@
+Record type,Week,Category,Article task,Writer hours,Reviewer hours,Publishing hours,Owner,Distribution,Reader next step,Measurement,Review trigger
+ILLUSTRATIVE,1,Business intelligence,Inventory pages; confirm offer and enquiry path,0,2,2,Content lead,Existing category and service navigation,Choose the appropriate guide,Baseline valid enquiries and source availability,Offer or form changes
+ILLUSTRATIVE,2,Business intelligence,Define net sales consistently,5,2,1,Writer + finance reviewer,Link from reporting basics; approved customer email,Complete definition sheet,Valid reporting enquiries; article self-report,Definition or source-system change
+ILLUSTRATIVE,3,Business intelligence,Prepare source records,5,2,1,Writer + delivery reviewer,Link from definition article; sales follow-up when relevant,Gather requirements,Prepared enquiries; missing-data questions,Access or integration changes
+ILLUSTRATIVE,4,Business intelligence,Check a dashboard before approval,5,2,1,Writer + delivery reviewer,Category listing; link from preparation article,Run sample acceptance check,Qualified opportunities and next questions,New recurring buyer question
+YOUR RECORD,,,,,,,,,,,

@@ -35,7 +35,7 @@ const mode = option('--mode', 'quick'); assert.ok(['quick', 'full'].includes(mod
 const root = process.cwd(); const out = path.join(root, '.scratch/verify-site');
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors } = await import('../src/data/authors.ts');
-const posts = [...JSON.parse(await fs.readFile('src/data/posts.preview.json', 'utf8')).posts, ...authoredArticles.map(p => ({...p, blocks:[]}))];
+const posts = authoredArticles.map(p => ({...p, blocks:[]}));
 const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
 const caseSlugs = ['us-oil-solutions', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries', 'bear-claw-usa', 'felon-motorwerk', 'miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
 const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ['/work/build/', 'work'], ['/work/demand/', 'work'], ['/work/intelligence/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
@@ -53,7 +53,7 @@ let server, driver;
 // ChromeDriver must match the installed Chrome (the npm chromedriver package tracks the newest Chrome for Testing,
 // so a local Chrome one major behind fails with SessionNotCreatedError). Order: CHROMEDRIVER_PATH, the CI runner's
 // paired driver ($CHROMEWEBDRIVER), a driver matched to the local Chrome major installed once with
-// @puppeteer/browsers into node_modules/.cache (as verify-local.mjs did), and the npm package only as a last resort.
+// @puppeteer/browsers into node_modules/.cache, and the npm package only as a last resort.
 const matchedDriver = () => {
   if (process.env.CHROMEDRIVER_PATH) return process.env.CHROMEDRIVER_PATH;
   if (process.env.CHROMEWEBDRIVER) return path.join(process.env.CHROMEWEBDRIVER, 'chromedriver');

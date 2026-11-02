@@ -98,6 +98,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: source-bound prompts and unknown private finances.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -207,6 +245,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Capability checks, completed source row and API versus business-interface distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -313,6 +389,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed service-category assignment and source requirements; no guaranteed citations.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -441,6 +555,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Page inspection, access/index/citation distinctions and repeatable prompt worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -468,7 +620,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content hub",
           "content planning",
@@ -572,6 +724,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve approved category model, 24 checks and instructional resource pack.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -678,6 +868,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Explicit order cohort/refund cutoff and reconciled net merchandise calculation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -705,7 +933,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/content-briefs-search-intent-internal-links/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content brief",
           "search intent",
@@ -791,6 +1019,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Consolidated prerequisites-to-handover sequence, completed brief, exact links and fillable four-page worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -895,6 +1161,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Service/category/article plan, 28-hour capacity example and enquiry/pipeline definitions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -922,7 +1226,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/content-refresh-review/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content refresh review",
           "evergreen content",
@@ -1000,6 +1304,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed article/diagram/worksheet correction without representing owner terminology as a Google mandate.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1124,6 +1466,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Equivalence, replacement, distinct products and syndication with paired URL investigation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1239,6 +1619,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Dedicated calendar/stock/budget worksheet; 90-unit campaign allocation separate from 10-unit reserve.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1352,6 +1770,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: SEO disciplines distinguished from service-aligned categories.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1464,6 +1920,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed purchase payload, merchandise/tax/shipping graphic and discount/refund/duplicate test cases.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1570,6 +2064,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed campaign URL and session-report validation with auto-tagging limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1680,6 +2212,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Comparable date windows, correct CTR arithmetic and non-causal interpretation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1798,6 +2368,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Concrete report filters/export, worked drill-down and privacy/aggregation limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -1911,6 +2519,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Campaign-type decisions and contribution allowance arithmetic with attribution limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2026,6 +2672,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Two identified variants with shared group and distinct selected URLs/prices.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2131,6 +2815,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Labelled cutoff, discount calculation and excluded/stock/destination tests.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2244,6 +2966,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: implementation, discovery, indexing, visibility and business response separated.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2352,6 +3112,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Corrected yes/no triage table; immediate defects separated from rollout analysis.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2458,6 +3256,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Complete intended inventory versus discovered crawl; missing incoming link repair and retest.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2565,6 +3401,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Verified-value listing process; staffing and eligibility limits; duplicate download invitation removed.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2673,6 +3547,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Subscription dependency, cancellation deadline and cash-effective example with worksheet.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2783,6 +3695,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Consolidated setup, filled source/processed/customer record and stale-price investigation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -2899,6 +3849,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Completed large/medium price example identifying the URL-selection defect.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3012,6 +4000,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Website-lead specification and correct lead/qualified-lead arithmetic; exact current controls remain source-gated.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3117,6 +4143,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Ad-to-receiving-record tests, invalid/valid submissions and event/delivery distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3216,6 +4280,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Independent evidence families, duplicate-source treatment and explicit fictional sample limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3338,6 +4440,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Paired indexed/live inspection and explicit canonical-selection limits.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3443,6 +4583,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Exact filter switching and worked page/query comparison.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3561,6 +4739,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Access/training distinction and detector rejection; current reporting evidence retained separately.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3588,7 +4804,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/service-page-content-checklist/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "service page content checklist",
           "service page SEO",
@@ -3666,6 +4882,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Filled offer, scope, exclusions, responsibilities and inquiry outline.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3779,6 +5033,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: seven distinct jobs, capacity and economics decision example.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -3889,6 +5181,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Supported connection sequence, ownership prerequisites and processed-item validation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4004,6 +5334,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Actual editing locations and completed bottle copy, search fields and image descriptions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4116,6 +5484,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Corrected merchandise-value versus tax/shipping comparison; full journey checklist.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4234,6 +5640,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Filled inventory/page/connector/processed-record comparison and source-owned correction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4346,6 +5790,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Observable checks and precise public noindex handoff preserving private exclusions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4469,6 +5951,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Dated incident chronology and current site-reputation policy wording, no causal ranking claims.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4592,6 +6112,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Campaign/ad-group/ad specification, current budget evidence and blended-order versus channel CAC distinction.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4712,6 +6270,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve approved order/customer economics, calculator and downside assumptions.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4810,6 +6406,44 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: task-based design decisions, contrast, motion and journey validation.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     },
     {
@@ -4914,7 +6548,142 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
+      },
+      "substantiveReaudit": {
+        "status": "copy-reviewed and locally validated",
+        "finding": "Preserve: PHP/WordPress/Astro distinction; October PHP primary notices rechecked.",
+        "reviewer": "correction_content_review",
+        "reviewedAt": "2026-11-02",
+        "remaining": [
+          "Protected release and production verification; external indexing/citation/lead outcomes are not established by publication."
+        ]
+      },
+      "correctionLayoutChecks": {
+        "widths": [
+          1440,
+          390,
+          320
+        ],
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "overflow": false,
+        "failedImages": 0,
+        "authorCard": true,
+        "tldr": true,
+        "scope": "Computed rendered checks; not a substitute for individual visual inspection."
       }
     }
-  ]
+  ],
+  "productionCheckedAtCT": "2026-11-02T13:12:13.423195-06:00",
+  "release": {
+    "pr": "https://github.com/ZINC-Digital-of-Miami/zinc-digital-web/pull/47",
+    "reviewedDockerHead": "b777d5db0bbece1229c12b7bbd3997ea6ac992b3",
+    "merge": "3eacd4f816bf17a2e9721334214ab829e52169f6",
+    "deployment": "dpl_9TShM7Q7Bc6ymFN34C8msoCqVLzU",
+    "state": "READY",
+    "publicRoutesVerified": 98,
+    "socialImagesVerified": 70,
+    "downloadFiles": [
+      {
+        "path": "/downloads/campaign-test-brief.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 21012,
+        "sha256": "ab88e56fe87f548e86c488fe43fca8f5894a8f64156b717b8aa5768803a737ad",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/content-hub-architecture.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 36318,
+        "sha256": "8136723a0cc37236175c2b2366dd71c5efcf414be725d433510835b62ed90600",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/content-hub-workbook.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 110967,
+        "sha256": "75556831d0f3381ab46c488b97ac300f452141979889bc7733efdb33351a2c3a",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/order-acquisition-calculator.xlsx",
+        "status": 200,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "bytes": 9630,
+        "sha256": "02c0ef0bf5f85077d06b274ca5cf384fbca52a2204050b0c1a573a31030a033d",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/order-acquisition-worksheet.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 82492,
+        "sha256": "5163e9bdd660111f27293f2ce0134d779d852aee1415a8370e494d88d9ee6949",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/search-review-workbook.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 21124,
+        "sha256": "651feddcc673370f2623a1ad213f662b5d90af139424632108bdf8c48f622e2c",
+        "matchesReviewed": true
+      }
+    ],
+    "indexNow": {
+      "status": 202,
+      "body": "",
+      "urlCount": 98
+    },
+    "followUpDatesCT": [
+      "2026-12-02",
+      "2027-01-01",
+      "2027-01-31"
+    ]
+  },
+  "acceptanceStatus": "LOCAL ACCEPTANCE PASSED; correction not yet pushed or deployed. External visibility/access limits remain explicit.",
+  "correctionVerification": {
+    "articles": 44,
+    "uniqueTitles": 44,
+    "uniqueDescriptions": 44,
+    "originalPublicationDatesPreserved": true,
+    "fullCanonicalBodyMatches": 44,
+    "renderedStructuralChecks": 264,
+    "linkedDownloadsByteMatched": 19,
+    "localAssets": 251,
+    "localNode24Tests": 176,
+    "astroFiles": 237,
+    "astroErrors": 0,
+    "astroWarnings": 0,
+    "builtHTMLChecks": 100,
+    "dockerUsedForFinalValidation": false,
+    "reviewScopes": [
+      "All44article bodies and selected resources",
+      "Current code, migration, assets, admin metadata and guide terminology"
+    ],
+    "externalLimits": [
+      "Native Google authorized-user access could not be established; no alternate client account used.",
+      "Meta current account UI not inspected; article uses dated official guide and illustrative settings, requiring current account verification.",
+      "No verified Bing/profile access or genuine crawler logs.",
+      "No proof of indexing, citation, rankings or leads."
+    ]
+  }
 }

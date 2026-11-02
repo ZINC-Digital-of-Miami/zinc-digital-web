@@ -1,5 +1,5 @@
 import { parse, parseFragment, type DefaultTreeAdapterMap } from 'parse5';
-import { pillarFor } from '../data/blog-strategy.ts';
+import { guideFor } from '../data/blog-strategy.ts';
 
 export interface SeoAnalysisOptions {
   url: string;
@@ -190,11 +190,11 @@ export function analyzeSeo(html: string, options: SeoAnalysisOptions): SeoAnalys
   add('internal-links', 'Contextual internal links', 'Links', internal.length ? 'pass' : 'warn', 6,
     internal.length ? `${internal.length} internal links in ${prose ? 'the article prose' : 'main content'}. Global navigation and same-page anchors do not count.` : 'Add a useful contextual link to a relevant service, guide or related article. Global navigation does not count.');
   const slug = pageUrl?.pathname.match(/^\/blog\/([^/]+)\/?$/)?.[1];
-  const pillar = options.kind === 'post' && slug ? pillarFor(slug) : undefined;
-  const isPillar = pillar?.slug === slug;
-  const pillarLinks = pillar ? internal.filter(link => isPillar ? pillar.members.some(member => member !== slug && link.url!.pathname.replace(/\/$/, '') === '/blog/' + member) : link.url!.pathname.replace(/\/$/, '') === '/blog/' + pillar.slug) : [];
-  add('pillar-links', 'Pillar connections', 'Links', !pillar ? 'info' : pillarLinks.length ? 'pass' : 'warn', 6,
-    !pillar ? options.kind === 'post' ? 'No pillar assignment is known for this article. Assign it before claiming a verified pillar connection.' : 'Pillar checks apply to assigned articles.' : pillarLinks.length ? `The prose links to ${isPillar ? 'an article in' : 'the guide for'} ${pillar.title}.` : `Link ${isPillar ? 'from this guide to a supporting article' : 'from the prose to /blog/' + pillar.slug + '/'} to connect ${pillar.title}.`);
+  const guide = options.kind === 'post' && slug ? guideFor(slug) : undefined;
+  const isGuide = guide?.slug === slug;
+  const guideLinks = guide ? internal.filter(link => isGuide ? guide.members.some(member => member !== slug && link.url!.pathname.replace(/\/$/, '') === '/blog/' + member) : link.url!.pathname.replace(/\/$/, '') === '/blog/' + guide.slug) : [];
+  add('reading-guide-links', 'Reading-guide connections', 'Links', !guide ? 'info' : guideLinks.length ? 'pass' : 'warn', 6,
+    !guide ? options.kind === 'post' ? 'No reading-guide group is registered for this article. Its service-aligned category is a separate relationship.' : 'Reading-guide checks apply to assigned articles.' : guideLinks.length ? `The prose links to ${isGuide ? 'an article in' : 'the guide for'} ${guide.title}.` : `Link ${isGuide ? 'from this guide to a supporting article' : 'from the prose to /blog/' + guide.slug + '/'} to connect ${guide.title}.`);
   add('link-availability', 'Linked page availability', 'Links', 'info', 0, 'Links have not been fetched. Broken destinations, redirects and access restrictions are unverified.');
 
   const images = contentNodes.filter(node => node.tagName === 'img');

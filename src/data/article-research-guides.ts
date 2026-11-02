@@ -10,7 +10,7 @@ export const articleResearchGuides: AddedArticle[] = [
     keywords: ['Google core update review', 'Search Console comparison', 'ranking changes', 'SEO reporting'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['seo', 'business-intelligence'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A traffic drop is an observation, not a diagnosis.
 
 Use this routine to decide which pages need investigation after a confirmed core update. Keep it beside the [SEO framework](/blog/four-pillars-of-seo-operators-view/) and your ongoing [SEO work](/services/seo/).
@@ -63,6 +63,21 @@ Save the original comparison and the release date. Recheck the same page group a
 
 Keep fixes, observed outcomes and assumptions in separate columns. A clear record makes the next decision easier; a hurried rewrite only creates another variable.
 
+## Work a completed-rollout comparison
+
+Google records the [May 2026 core update](https://status.search.google.com/incidents/wdAXJk6LRRihEjpzEeWE) as ending on 2 June. An illustrative review on 10 June could compare **13–19 May** with **3–9 June**: two complete Wednesday-to-Tuesday windows, one before rollout and one after it. Check the property's available data and seasonal context before using that pattern; the dates alone do not make the periods commercially comparable.
+
+In Search Console, open Search results, use the date comparison and keep search type, country and device fixed. Open Pages and select the affected page. Switch to Queries; export the visible rows with the filters. For a selected query, remove the page filter and open Pages to check which URLs appeared. The [query/page routine](/blog/search-console-query-page-review/) walks through that switch.
+
+| Illustrative page/query pair | Earlier clicks / impressions | Later clicks / impressions | Finding and next action |
+| --- | --- | --- | --- |
+| Reporting guide / dashboard requirements | 40 /1,000 | 24 /1,000 | CTR fell from 4% to 2.4%; inspect the same query's results, page answer and device detail |
+| Reporting service / reporting consultant | 20 /500 | 21 /525 | CTR held at 4%; preserve the useful page while checking actual enquiries |
+
+The guide lost 16 clicks. That is not 16 lost leads, nor proof of a core-update cause. If the page inspection reveals a broken example or missing requirement, document that concrete repair. If it reveals no actionable defect, retain the finding and investigate the competing explanations instead of rewriting all pages.
+
+Use the [search review workbook](/downloads/search-review-workbook.pdf) to retain the filters, source views, hypothesis and next check. Record the repair date separately from any later movement.
+
 ## Separate the observation from the diagnosis
 
 Illustrative finding: several guides lost clicks while service-page enquiries stayed stable. That is worth investigating, but it does not yet establish a commercial decline or a content penalty. Group the affected queries, compare complete periods and inspect whether search appearances changed.
@@ -77,7 +92,7 @@ Add site releases, stock changes, promotions and tracking changes to the same ti
     keywords: ['holiday ecommerce preparation', 'Shopify launch checklist', 'holiday shopping feed', 'checkout testing'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['shopify', 'shopping-ads'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A holiday campaign needs a store that can keep its promises.
 
 Use one checklist across the storefront, product feed and campaign. Start with the [Shopify launch guide](/blog/shopify-seo-launch-checklist/); keep [Shopping management](/services/shopping-ads/) tied to the products shoppers can actually order.
@@ -134,7 +149,17 @@ If stock or fulfillment changes, update the promise and distribution together. T
 
 ## Run a launch rehearsal
 
-Choose one promoted product, one discount and one shipping destination representative of the offer. Check stock, discount eligibility, delivery cutoff, taxes, payment, confirmation email and the return information. Record which combinations the promotion excludes.
+Illustrative offer: 10% off two selected bottles, excluding accessories, for orders placed by **3 December 2026 at 2 p.m. CT**. Assume the fulfilment team has approved the eligible destination and delivery wording; this is not a real carrier deadline or a promise for your store.
+
+| Rehearsal | Expected outcome |
+| --- | --- |
+| Two eligible $30 bottles before cutoff | $6 discount; $54 merchandise subtotal before the stated shipping and tax |
+| One $30 bottle plus a $10 excluded accessory | Fails the two-bottle condition; no promotion discount |
+| Sold-out bottle variant | Cannot be purchased under the offer; feed availability agrees |
+| Same eligible basket after cutoff | Promotion no longer applies; page and campaign messages no longer promise it |
+| Destination outside the approved area | Checkout does not offer an unsupported delivery promise |
+
+Put the **observed** result beside each expectation in the [launch checklist](/downloads/shopify-launch-checklist.csv). These expected outcomes are a test plan, not evidence the store passed. Include the actual order total, confirmation and receiving order record for a permitted test.
 
 Assign a person to stock exceptions, customer messages and stopping ads when the promise cannot be fulfilled. Test a sold-out variant and an invalid discount as well as the successful order. The launch record should include the observed result, owner and fallback for each condition. A campaign is not ready because the artwork is finished; the business must be able to honor what it says.`,
   },
@@ -146,7 +171,7 @@ Assign a person to stock exceptions, customer messages and stopping ads when the
     keywords: ['seasonal ecommerce campaign plan', 'campaign planning', 'seasonal demand', 'ecommerce promotion'],
     authorName: 'Jaymie Wilhoit', authorId: 2, layer: 'Demand', related: ['shopping-ads', 'google-search-ads', 'business-intelligence'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A useful seasonal plan starts with demand and stock, not a list of holidays.
 
 Choose one buying moment, one customer need and a product group you can fulfill. Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide which channels deserve work.
@@ -200,7 +225,22 @@ Remove expired offers and delivery messages at the agreed cutoff. The finished p
 
 ## Work backward from the last useful order date
 
-In an illustrative campaign, the business confirms a final order date for the advertised delivery promise. Work backward from that date to shipping checks, page approval, creative production and measurement tests. Do not borrow another retailer’s deadline.
+Illustrative plan: promote 100 available gift sets from 23 November until an internally confirmed **3 December 2026, 2 p.m. CT** order cutoff. Reserve ten sets for fulfilment exceptions, leaving a campaign allocation of 90. Track that allocation separately from the reserve; the campaign stops when its remaining allocation reaches zero. These dates and quantities are teaching examples, not shipping guidance.
+
+| Date or trigger | Owner and completed task |
+| --- | --- |
+| 9 November | Operations confirms stock, reserve, delivery area and cutoff wording |
+| 13 November | Merchandising confirms product page, offer economics and feed values |
+| 18 November | Creative owner delivers approved assets; marketing records final campaign links |
+| 20 November | Store owner completes eligible/ineligible checkout and measurement tests |
+| 23 November | Marketing launches only after the checks pass |
+| Each selling day | Operations checks saleable stock and dispatch capacity; marketing checks spend and failed journeys |
+| Remaining campaign allocation reaches zero, or dispatch cannot meet the promise | Named owner pauses distribution and updates the offer before more orders are encouraged |
+| 3 December, 2 p.m. CT | End the offer and remove cutoff messages from ads, email destinations and the store |
+
+Illustrative $900 media ceiling: $600 assigned to the chosen Shopping test, $300 held unspent for a review decision. Email uses an existing opted-in list and separately budgeted production time. The reserve is not permission to exceed $900, and splitting money among every platform would not improve this plan. Keep the exact platform spending controls consistent with that ceiling.
+
+Download the [seasonal campaign plan](/downloads/seasonal-campaign-plan.csv) for the stock reserve, spending ceiling, production dates and stop rules shown above. Replace the illustrative values with your confirmed figures and assign each task to a named person. The [campaign test brief](/downloads/campaign-test-brief.pdf) records the media setup and launch checks.
 
 Give each channel a job: email may reach opted-in existing customers, search may capture relevant demand and social may demonstrate the product. Keep the offer and terms consistent. Set a stock-based stop rule and a named person who can change the message. At review, compare spend and actual order contribution for the defined period; do not add the platforms’ overlapping attributed purchases.`,
   },
@@ -212,7 +252,7 @@ Give each channel a job: email may reach opted-in existing customers, search may
     keywords: ['research consensus report', 'source triangulation', 'evidence review', 'decision brief'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'seo'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Three summaries of the same press release are still one source.
 
 Use a consensus report to find what the evidence supports, where it conflicts and what remains unknown. Agreement between models is not a substitute for agreement between independent sources.
@@ -265,7 +305,26 @@ Remove any recommendation that cannot survive its own source register. Keep unce
 
 ## A worked evidence-family check
 
-Suppose three articles report the same survey result and a fourth describes a small experiment. The three articles belong to one survey evidence family, not three independent confirmations. The experiment may use a different population and outcome, so it may neither confirm nor contradict the survey.
+The following evidence is wholly fictional, showing how to reason rather than claiming real research results. The business question is whether a retailer should test clearer delivery costs before changing its checkout design.
+
+| Record | Evidence family | Finding | Limit |
+| --- | --- | --- | --- |
+| Survey A | One shopper survey | 40 of 100 respondents say unexpected delivery costs concern them | Self-reported concern; not measured abandonment |
+| Articles B and C | Both repeat Survey A | Repeat the same 40-of-100 figure | No independent observations added |
+| Store log D | Retailer's own coded support requests | Six of 20 checkout-related requests ask about delivery charges | Support contacts are not all shoppers |
+| Experiment E | A different retailer's small test | Eight purchases in one group and ten in the other | Different population; insufficient detail to claim a reliable effect |
+
+A finished one-page decision could say:
+
+**Decision:** test whether clearer delivery information addresses a known customer question before redesigning the checkout.
+
+**Supported:** the fictional survey and the store's separate support log both identify concern about delivery costs, within their different populations. Three publications do not turn the survey into three sources.
+
+**Not established:** how much abandonment the issue causes, or whether the small experiment generalises to this store. The two purchase counts alone do not establish a meaningful improvement.
+
+**Next action:** verify the current delivery explanation, fix any factual omission, and design a proportionate test with a defined outcome and adequate observation period. The commerce owner records the decision and review date.
+
+That recommendation is narrower than “transparent shipping always increases conversion”. It is also something the business can act on.
 
 In the source register, record original study, population, period, measure, finding and limitation. A useful conclusion might be that the survey suggests a question worth testing locally, while the experiment offers a possible method. That is weaker than a universal claim, but more actionable. Keep the original URLs and relevant passages with the decision so another person can challenge it.`,
   },
@@ -277,7 +336,7 @@ In the source register, record original study, population, period, measure, find
     keywords: ['AI research workflow', 'AI source verification', 'research prompts', 'model selection'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A fluent answer is not a research record.
 
 Split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
@@ -297,7 +356,9 @@ Do not paste customer records, account credentials or private client documents i
 | Challenge a conclusion | Reasoning applied to evidence and assumptions |
 | Produce a table | Consistent structured output that you validate |
 
-[OpenAI's model selection guidance](https://developers.openai.com/api/docs/guides/model-selection) provides a starting point. Test the available option on your actual question; do not select it from a leaderboard alone.
+In the application you actually use, check whether web search is enabled and whether a returned citation opens the original source. For document work, supply a short public passage and ask the tool to identify the sentence supporting its answer. Open that passage yourself. If it cannot read the source, use a tool that can or supply an approved excerpt; asking more firmly will not grant access.
+
+For teams building their own integration, [OpenAI's model selection guidance](https://developers.openai.com/api/docs/guides/model-selection) provides a technical reference. A business owner using a chat interface does not need to build an API integration to follow this workflow.
 
 ## Step 3: Gather the evidence
 
@@ -328,6 +389,14 @@ Use [business intelligence](/services/business-intelligence/) to connect the fin
 ## Try the workflow on a real buying question
 
 A business owner comparing website platforms could ask: which options support our editing workflow, product needs and maintenance capacity? Supply the required functions and current public documentation. Ask for a comparison with a source and limitation in every factual row.
+
+A completed evidence row could be:
+
+| Question | Source and supported fact | Limit | Decision |
+| --- | --- | --- | --- |
+| Can a Shopify editor change product image descriptions? | [Shopify's alt-text instructions](https://help.shopify.com/en/manual/products/product-media/add-alt-text) show editing and saving alt text for product media | Does not establish the store's staff permissions or prove its current images have useful descriptions | Test one product with the authorised editor and inspect the published image |
+
+That row supports a narrow capability claim. It does not support “Shopify fixes all image SEO automatically”. Keep the source URL, date checked and test result with the recommendation.
 
 Then open the sources. Separate what the platform supports from what a particular plan, integration or implementation supplies. Mark costs and limitations with their observation date. The final recommendation should explain which requirement drives the choice and what must be tested before purchase. If the evidence does not establish a capability, keep it unknown rather than letting the model fill the cell with a confident guess.`,
   },

@@ -13,7 +13,7 @@ export const articleHowtos: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'google-search-ads'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Inconsistent campaign names split related traffic across separate rows and make results harder to compare.
 
 Use one vocabulary, a link register and a click test. Start with the channel decisions in our [planning guide](/blog/seven-digital-channels-which-to-skip/).
@@ -44,7 +44,11 @@ For ecommerce, continue with [purchase-event validation](/blog/ga4-ecommerce-eve
 
 ## 5. Check the processed names
 
-Inspect the relevant session source, medium and campaign dimensions after processing. Compare them with the register.
+After processing, open **Reports → Acquisition → Traffic acquisition** in the intended GA4 property and choose a date range containing the test. If the report is missing from the navigation, ask the property editor to locate or restore it; do not switch properties to find a convenient chart.
+
+Choose **Session source / medium** as the table dimension and search for the expected row. Change to **Session campaign**, or add it as a secondary dimension where available, to check the campaign name. For the newsletter example below, expect newsletter / email and reporting_workshop. Use session-scoped fields for this check; User acquisition describes a different question. Google's [Traffic acquisition instructions](https://support.google.com/analytics/answer/12923437?hl=en) explain those dimensions.
+
+Compare the processed result with the register. One consented test visit is a diagnostic check, not a forecast of campaign traffic. If the row is missing, check date processing, property, consent and the final redirected URL before renaming the campaign.
 
 Investigate the actual link, redirects and reporting dimensions when values differ. For [Google Search Ads](/services/google-search-ads/), preserve the account's intended integration. [Business intelligence](/services/business-intelligence/) connects stable campaign records to outcome data.
 
@@ -57,7 +61,9 @@ Investigate the actual link, redirects and reporting dimensions when values diff
 - Observed destination and processed values.
 - Exceptions or unresolved measurement limits.
 
-Do not rename an existing campaign casually. Record changes so later comparisons have a reliable explanation.
+[Download the campaign link register](/downloads/campaign-link-register.csv). It includes an illustrative email link, separate expected and observed fields, and space for your own rows.
+
+This manual email example does not instruct you to turn off Google Ads auto-tagging or overwrite platform click identifiers. Keep the existing integration intact and ask its owner which fields the reporting view uses when manual and automatic information coexist. Do not rename an existing campaign casually; keep the sent URL in the register so later comparisons remain explainable.
 
 ## A completed link-register row
 
@@ -76,7 +82,7 @@ Before distribution, open the exact link, confirm the correct page and record th
     layer: 'Intelligence',
     related: ['seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `End a Search Console review with a page decision: improve an answer, investigate a technical issue or leave the page alone.
 
 Choose important pages using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/), then review them consistently.
@@ -89,13 +95,15 @@ Google's [filtering guidance](https://support.google.com/webmasters/answer/17011
 
 ## 2. Filter to one page
 
-Inspect the queries associated with the page, alongside clicks and impressions. Group them by the reader's likely task.
+In the Pages tab, click the exact page row and confirm the page filter appears above the chart. Switch to Queries to see the associated visible query rows. Keep the dates and other filters unchanged; export this view and label the file with the page and comparison periods. Group the queries by the reader's likely task, alongside clicks and impressions.
 
 Open the page. Does it answer those tasks clearly? An unexpected do-it-yourself query on a service page warrants investigation; it does not automatically justify a tutorial rewrite.
 
 ## 3. Reverse the view
 
-Filter to an important query and inspect its pages. Read each before treating multiple results as a problem. A guide and service page can serve different needs.
+Click a query row to add its filter, then remove the page filter and switch to Pages. Check that the query filter remains. You are now asking which pages appeared for that query. Export that view separately. Leaving the page filter on would hide the other pages you are trying to find.
+
+Read each page before treating multiple results as a problem. A guide and service page can serve different needs.
 
 Google's [dimensions documentation](https://support.google.com/webmasters/answer/17011259?hl=en) notes that most performance is assigned to canonical URLs. Use [canonical debugging](/blog/search-console-canonical-indexing-debugging/) when the address differs from the expected page.
 
@@ -123,7 +131,14 @@ Preserve the original evidence. Later movement is an observation, not automatic 
 
 ## Example: two pages appear for one question
 
-A buying guide and a service page both appear for a query about dashboard costs. Read their roles before merging them: the guide may explain cost drivers while the service page explains ZINC’s engagement. They can legitimately serve different needs.
+Illustrative complete four-week comparison for the same dashboard-cost query, country, device and search type:
+
+| Page | Earlier clicks | Later clicks | Page review | Decision |
+| --- | --- | --- | --- | --- |
+| Cost guide | 40 | 32 | Explains cost drivers but omits the requirements needed for a quote | Add the missing preparation explanation and relevant service link |
+| Reporting service | 12 | 14 | Scope and enquiry path are clear | Preserve; review actual enquiry quality separately |
+
+Those rows show two different page jobs, not proof of duplicate content or lost revenue. Query privacy and aggregation can prevent a table from reconciling to all report totals. Keep the exported view with the page decision in the [search review workbook](/downloads/search-review-workbook.pdf).
 
 Compare the same query group, page filters, country, device and dates. If the guide attracts research questions but omits a useful link to the service, improve that path. If the service page fails to explain scope, repair the commercial answer. Do not automatically redirect the guide because both URLs appeared. Log the evidence, chosen edit and review date, and compare valid enquiries separately from Search Console clicks.`,
   },
@@ -138,7 +153,7 @@ Compare the same query group, page filters, country, device and dates. If the gu
     layer: 'Demand',
     related: ['shopify', 'seo'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Improve the product information and search presentation together. Start with one representative item before applying a catalog-wide template.
 
 Use our [Shopify SEO launch guide](/blog/shopify-seo-launch-checklist/) for the wider storefront checks.
@@ -157,7 +172,9 @@ An illustrative lamp page could explain dimensions and adjustment instead of cla
 
 ## 3. Edit the search listing
 
-Write a concise title and unique description that match the actual product. Shopify's [metadata guidance](https://help.shopify.com/en/manual/promoting-marketing/seo/adding-keywords) recommends readable wording and notes that search engines may display different text.
+In Shopify admin, open **Products**, select the product and find **Search engine listing**. Use its edit control to change the page title and meta description, then save. Shopify's [product editing instructions](https://help.shopify.com/en/manual/products/add-update-products) distinguish these fields from the product title and description customers see on the page.
+
+Write a concise title and unique description that match the actual product. Shopify's [metadata guidance](https://help.shopify.com/en/manual/promoting-marketing/seo/adding-keywords) recommends readable wording and notes that search engines may display different text. The preview is not a promise of the exact Google result.
 
 Keep a working URL unless a change has a real purpose. Plan redirects and connected-data updates when an address must change.
 
@@ -165,7 +182,7 @@ Keep a working URL unless a change has a real purpose. Plan redirects and connec
 
 Review each important media item's alt text. Describe the actual view and relevant variant; avoid unrelated keywords.
 
-Shopify's [alt text instructions](https://help.shopify.com/en/manual/products/product-media/add-alt-text) explain saving the value in the media editor. Check suggestions before accepting them.
+From the same product, open a media item, choose **Add alt text**, enter the description and save it. Repeat for each meaningful view, describing what actually changes. Shopify's [alt text instructions](https://help.shopify.com/en/manual/products/product-media/add-alt-text) also cover the app's media information control. Check generated suggestions against the image before accepting them.
 
 ## 5. Connect and test the page
 
@@ -186,7 +203,18 @@ Record the release before reviewing comparable search periods. An edited title d
 
 ## Example: complete the buyer’s missing information
 
-For an illustrative insulated bottle, “premium quality” does not answer whether it fits a cup holder or can go in a dishwasher. Gather the verified capacity, dimensions, materials, care instructions and option differences from the product record. State delivery and return information where the buyer can find it.
+Here is one complete illustrative item. Assume the product record confirms a 750 ml steel bottle, navy finish, screw lid, 7.5 cm diameter, 27 cm height and hand-wash-only care. Do not transfer these invented specifications to a real product.
+
+| Field | Example copy |
+| --- | --- |
+| Product title | 750 ml steel water bottle — navy |
+| Description opening | A navy steel bottle with a screw lid and 750 ml capacity. It measures 7.5 cm across and 27 cm high. Hand wash only; check your bag pocket or cup holder dimensions before ordering. |
+| Search page title | Navy 750 ml Steel Water Bottle — Example Store |
+| Meta description | See the navy 750 ml steel water bottle with a screw lid. Check dimensions, hand-wash care, delivery and returns before ordering. |
+| Front-photo alt text | Navy steel water bottle with its screw lid closed |
+| Detail-photo alt text | Open screw lid beside the navy bottle's mouth |
+
+The photo descriptions must match the actual views. Add verified delivery and return links near the buying controls. Avoid inventing temperature-retention claims or saying it fits every cup holder. Keep the existing URL unless there is a separate reason to change it.
 
 Choose images that show the actual color and useful scale; do not invent certifications or performance claims. After saving, inspect the page on a phone, change variants and check that price, image and availability follow the selection. Compare rendered product markup with the visible item. A complete page helps a buyer make a decision; it does not guarantee a rich result or a ranking.`,
   },
@@ -201,7 +229,7 @@ Choose images that show the actual color and useful scale; do not invent certifi
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Review the product family and each submitted option separately. A correct family name can still lead to the wrong variant.
 
 Start with [the ecommerce launch guide](/blog/shopify-seo-launch-checklist/) for the broader setup.
@@ -249,9 +277,21 @@ Recheck linked specifications when maintaining the integration. The durable test
 
 ## A two-variant inspection
 
-Illustrative group BAG-01 has black and tan variants. Each receives its own stable item ID; both use the appropriate shared group ID. The black item’s link must open black, its image must show black and its price must match that option. Repeat the check for tan rather than assuming one working variant proves the group.
+Use these illustrative records to see what you are comparing. The example URLs and IDs are invented for teaching; replace them with the store's actual records. The shared group is BAG-01 and both sizes are standard.
 
-Record item ID, group ID, option values, landing URL, image, availability and price in a row for each variant. Use genuine manufacturer identifiers where applicable; never invent a GTIN to clear a warning. Recheck the processed items after the source update. A group passes only when its individual advertised options are accurate.`,
+| Submitted field | Black option | Tan option |
+| --- | --- | --- |
+| Item ID | BAG-01-BLK | BAG-01-TAN |
+| Item group ID | BAG-01 | BAG-01 |
+| Colour | black | tan |
+| Landing URL | https://example.com/products/day-bag?variant=101 | https://example.com/products/day-bag?variant=102 |
+| Price | 60 USD | 65 USD |
+| Availability | in_stock | in_stock |
+| Image must show | The black bag | The tan bag |
+
+Open each URL directly, not by navigating from the other variant. Confirm the selected colour and price before adding it to the cart, then check the cart preserves that choice. If the tan URL opens black at $60, repair the URL or storefront selection; changing tan's submitted price to $60 would create another error.
+
+Record item ID, group ID, option values, landing URL, image, availability and price in a row for each variant. Use genuine manufacturer identifiers where applicable; never invent a GTIN to clear a warning. Recheck the processed items after the source update. A group passes only when its individual advertised options are accurate. [Download the variant comparison sheet](/downloads/product-variant-comparison.csv) for the paired example and columns for source, submitted, landing-page and processed results.`,
   },
   {
     id: 90009,
@@ -264,7 +304,7 @@ Record item ID, group ID, option values, landing URL, image, availability and pr
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
 
 Begin with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
@@ -283,7 +323,11 @@ Google's [ecommerce structure guidance](https://developers.google.com/search/doc
 
 ## 3. Inspect destinations and labels
 
-Use an existing crawler or inspect rendered links. Record source, destination and visible text. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) recommends real crawlable destinations and descriptive text.
+Compare two lists: the pages you intend to publish, and the URLs discoverable by following internal links from the homepage. Export the intended list from the current CMS or route inventory and reconcile it with the sitemap. A sitemap can itself be incomplete, so do not treat it as the only inventory.
+
+Use an existing crawler to follow internal links from the homepage, or inspect the links manually for a small site. If the crawler also accepts a supplied URL list, keep that inspection separate: a page fetched because you supplied its address has not thereby been discovered through an internal link. Compare the intended URLs with the crawl's discovered URLs and incoming-link report. Normalise the verified preferred hostname and redirects before declaring a mismatch.
+
+A published page missing from the homepage crawl is a candidate orphan, not an automatic verdict. Check whether navigation needs rendering, a section requires access, or the crawl stopped early. Resolve those limits, then inspect the page's actual incoming links. Record source, destination and visible text. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) recommends real crawlable destinations and descriptive text.
 
 Check missing pages, unnecessary redirects and label/destination disagreements. Resolve [canonical questions](/blog/search-console-canonical-indexing-debugging/) before replacing URL versions everywhere.
 
@@ -310,6 +354,12 @@ Fix a broken header link in the header. Fix outdated generated URLs in the templ
 
 A newly added link should explain a relationship. Verify that the intended page became easier to reach before calling the audit complete.
 
+## A missing-link finding you can actually repair
+
+Illustrative inventory: the CMS lists /blog/net-sales-definition/, and it loads successfully, but the homepage crawl finds no incoming internal links. The business-intelligence category lists the other reporting articles but omits this one. Searching for the URL directly proves the page exists; it does not prove visitors can discover it.
+
+The category omission belongs in its article-listing logic. A second useful editorial route is the existing dashboard-preparation article's paragraph about inconsistent revenue: link “define net sales” to the definition article there. After repair, rerun the crawl from the homepage without supplying the missing URL. Confirm the category and contextual links are recorded, and follow both on mobile. That verifies the specific discovery gap rather than merely increasing a link count.
+
 ## Map one useful path
 
 Take a hypothetical reporting service and its business-intelligence category. The category should help readers find the metric-definition and data-preparation articles. A metric article might link to data preparation when the reader is ready to gather records, and to the service when implementation help becomes relevant.
@@ -327,7 +377,7 @@ Use a simple table: source page, reader’s next question, destination, proposed
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Refresh the answer, not just the date. Review what changed, what the reader needs and whether the existing page still serves that task.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to keep content and technical questions distinct.
@@ -375,7 +425,20 @@ Preserve the evidence behind the edit. A future reviewer should understand what 
 
 ## Example: an obsolete setup instruction
 
-Suppose a guide refers to a platform setting that has moved and includes a screenshot of the old menu. Verify the current official instructions and the available interface before editing. Replace the outdated step, explain any meaningful change in behavior and update the screenshot only if it helps the task.
+Here is a completed illustrative refresh record for an article that incorrectly calls a long guide the pillar itself:
+
+| Field | Filled review |
+| --- | --- |
+| Reader task | Organise advice around the services the business sells |
+| Before | “Write one pillar page and put every related topic underneath it.” |
+| Problem | The wording confuses the service-aligned blog category with an individual guide and encourages overlapping articles |
+| After | “Use a blog category aligned with the service. House distinct articles inside it; a substantial guide can be one of those articles.” |
+| Basis | The site's actual service/category architecture and the approved editorial model—not a claim that Google requires one naming convention |
+| Affected material | Article explanation, architecture diagram, worksheet labels and related briefs |
+| Decision | Revise those items together; retain useful linking and measurement guidance |
+| Verification | Open the category and its articles; check the diagram and downloaded worksheet use the same relationships |
+
+The example changes an instruction, not merely the article date. Copy these fields into your [content brief worksheet](/downloads/content-brief-worksheet.pdf) when assigning the correction.
 
 Keep sections that still answer the reader’s question. Check downloadable copies and related articles for the same obsolete instruction. Use the category map from the [content-hub workbook](/blog/build-a-content-hub-people-can-use/) to find the other pages affected by the change. Record the substantive revision and its date; preserve the original publication date. After release, follow the full procedure from a clean starting point. A title change and a newer date do not repair a broken how-to.`,
   },
@@ -390,7 +453,7 @@ Keep sections that still answer the reader’s question. Check downloadable copi
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `A service page should explain fit: what the work includes, its boundaries and what happens next.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to connect that answer with search discovery.
@@ -445,6 +508,20 @@ The useful result is fewer important assumptions in the first conversation.
 
 For a hypothetical reporting engagement, replace “unlock insights” with specific scope: agree on one decision, identify approved data sources, define the measures, build the view and test it against source records. Explain what the customer must provide, such as account access and a person who can approve metric definitions.
 
+A completed illustrative outline could read:
+
+| Page section | Draft substance to confirm with the business |
+| --- | --- |
+| Offer | Reporting setup for a business whose teams use conflicting definitions |
+| Included | One agreed decision, source map, metric definitions, reporting view and handover |
+| Customer responsibilities | Provide authorised source access and a person who can approve the definitions |
+| Boundaries | Additional integrations and historical cleanup require separate assessment |
+| Process | Scope conversation; sample-record check; agreed build; review against the sample; handover |
+| Proof | A permitted annotated example showing how a figure traces to its source; no invented savings |
+| Enquiry | Ask about the decision, systems and current problem; explain who follows up |
+
+Treat that as an example to verify, not ZINC's universal package or a promise for every supplier. For each of the seven review checks above, add the page section or evidence, pass/fix result and responsible person to the [brief worksheet](/downloads/content-brief-worksheet.pdf). Use the [journey test sheet](/downloads/landing-journey-test.csv) for the actual form delivery check.
+
 State exclusions that affect the purchase, including unavailable integrations or separately scoped historical cleanup. Use only supported examples and results. Ask an unfamiliar reader to describe what they would receive and what happens after submitting the form. If they cannot, improve the offer explanation before adding another testimonial or decorative section.`,
   },
   {
@@ -458,7 +535,7 @@ State exclusions that affect the purchase, including unavailable integrations or
     layer: 'Demand',
     related: ['google-search-ads', 'social-ads', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-02T20:44:16Z',
     markdown: `Test the path from the ad promise to an accepted inquiry or purchase. A polished page alone cannot establish that the journey works.
 
 Start with the campaign purpose in our [channel planning guide](/blog/seven-digital-channels-which-to-skip/).
@@ -508,6 +585,8 @@ Treat campaign outcomes as a later observation requiring reliable data. The laun
 
 Imagine an ad offering delivery before a holiday deadline. Open its exact destination on a phone, select the advertised item and check the relevant postcode and shipping option. A banner promising fast delivery does not help if checkout contradicts it.
 
-Record ad, URL, device, product or service, stated terms, form or checkout result and measurement observation. Use an authorized test transaction where completion is required; avoid creating real orders accidentally. Check errors as well as success: invalid details should produce readable guidance, and a failed submission must not fire a successful-lead event. Repeat after the actual campaign URL is saved.`,
+Record ad, URL, device, product or service, stated terms, form or checkout result and measurement observation. Use an authorized test transaction where completion is required; avoid creating real orders accidentally. Check errors as well as success: invalid details should produce readable guidance, and a failed submission must not fire a successful-lead event. Repeat after the actual campaign URL is saved.
+
+[Download the ad-to-enquiry test sheet](/downloads/landing-journey-test.csv). Use one row per valid or invalid scenario and record the receiving system separately from the on-page confirmation. The example rows are untested specimens; they are not completed checks.`,
   },
 ];

@@ -1,0 +1,13 @@
+Record type,Workstream,Date or trigger,Owner role,Planned decision or task,Actual owner,Confirmed value or evidence,Status
+ILLUSTRATIVE,Inventory,2026-11-09,Operations,100 available sets; reserve 10; campaign allocation 90,,,
+ILLUSTRATIVE,Merchandising,2026-11-13,Merchandising,"Confirm product page, economics and feed agree",,,
+ILLUSTRATIVE,Creative and links,2026-11-18,Marketing,Approve assets and record tested campaign URLs,,,
+ILLUSTRATIVE,Journey test,2026-11-20,Store owner,"Test eligible and excluded baskets, checkout and measurement",,,
+ILLUSTRATIVE,Launch,2026-11-23,Marketing,Publish only after all required checks pass,,,
+ILLUSTRATIVE,Spending,Before launch,Budget owner,900 USD ceiling; 600 allocated; 300 held unspent pending review,,,
+ILLUSTRATIVE,Daily review,Each selling day,Operations and marketing,"Check saleable stock, dispatch capacity, spend and failed journeys",,,
+ILLUSTRATIVE,Stock stop,Remaining campaign allocation reaches zero,Operations,Pause distribution and update availability; do not sell the reserved units,,,
+ILLUSTRATIVE,Capacity stop,Dispatch cannot meet promised date,Operations,Pause distribution and revise the promise before further promotion,,,
+ILLUSTRATIVE,End offer,2026-12-03 14:00 America/Chicago,Marketing and store owner,End offer; remove cutoff messages from ads and destinations; verify checkout,,,
+ILLUSTRATIVE,Review,After chosen return and reporting window,Marketing and finance,Compare spend and store contribution; keep platform attribution separate,,,
+YOUR RECORD,,,,,,,

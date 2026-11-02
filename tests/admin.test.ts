@@ -12,6 +12,7 @@ test('SEO score matches the approved formula and explains deductions', () => {
 });
 test('content input rejects arbitrary page paths, reserved slugs and oversized fields', () => {
   assert.throws(() => contentInput({ kind: 'page', path: '/admin/' }, ['/']));
+  assert.throws(() => contentInput({ kind: 'page', path: '/blog/story/', meta_title: 'Wrong owner' }, ['/']));
   assert.throws(() => contentInput({ kind: 'post', slug: '../admin', title: 'Bad' }, []));
   assert.throws(() => contentInput({ kind: 'post', slug: 'fine', title: 'A'.repeat(201) }, []));
   const saved = contentInput({ kind: 'post', slug: 'new-post', title: 'New post', layer: 'Build', status: 'draft', noindex: false, live: { title: 'attack' }, updated_by: 'attack' }, []);

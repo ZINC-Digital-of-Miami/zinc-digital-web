@@ -6,11 +6,11 @@ import {categoryPosts,categoryPath} from '../src/data/blog-categories.ts';
 import {renderArticleMarkdown} from '../src/lib/markdown.ts';
 import {articleFeatures} from '../src/data/article-features.ts';
 import {authoredArticles} from '../src/data/article-library.ts';
-import {pillarFor,readingPath} from '../src/data/blog-strategy.ts';
+import {guideFor,readingPath} from '../src/data/blog-strategy.ts';
 
 test('content planning hub and published supporting guides link in both directions',()=>{
   const hub=articleFeatures.find(p=>p.slug==='build-a-content-hub-people-can-use')!;
-  const cluster=pillarFor(hub.slug)!;
+  const cluster=guideFor(hub.slug)!;
   assert.equal(cluster.slug,hub.slug);
   for(const slug of cluster.members.filter(s=>s!==hub.slug)){
     const child=authoredArticles.find(p=>p.slug===slug)!;

@@ -1,11 +1,10 @@
 // Reading-guide groups within service-aligned blog categories.
-// The legacy export names below describe guide relationships, not pillar categories.
-export const blogPillars = [
+export const readingGuides = [
   {
     id: 'content',
     title: 'Content hubs & planning',
     slug: 'build-a-content-hub-people-can-use',
-    description: 'Plan the pillar, assign distinct answers, connect the pages and check the complete customer journey.',
+    description: 'Plan the category, assign distinct answers, connect the pages and check the complete customer journey.',
     members: [
       'build-a-content-hub-people-can-use',
       'content-briefs-search-intent-internal-links',
@@ -79,14 +78,14 @@ export const blogPillars = [
   },
 ] as const;
 
-export const pillarFor = (slug: string) => blogPillars.find(pillar => (pillar.members as readonly string[]).includes(slug));
+export const guideFor = (slug: string) => readingGuides.find(guide => (guide.members as readonly string[]).includes(slug));
 
 // Use only currently published articles, including after an admin draft change.
 export function readingPath<T extends { slug: string }>(slug: string, published: T[]) {
-  const pillar = pillarFor(slug);
-  if (!pillar) return [];
-  const slugs = pillar.slug === slug ? pillar.members : [pillar.slug, ...pillar.members];
+  const guide = guideFor(slug);
+  if (!guide) return [];
+  const slugs = guide.slug === slug ? guide.members : [guide.slug, ...guide.members];
   const available = slugs.filter((candidate, i, all) => candidate !== slug && all.indexOf(candidate) === i)
     .flatMap(candidate => published.find(post => post.slug === candidate) || []);
-  return pillar.slug === slug ? available : available.slice(0, 3);
+  return guide.slug === slug ? available : available.slice(0, 3);
 }

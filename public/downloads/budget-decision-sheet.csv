@@ -1,0 +1,5 @@
+Record type,Item,Current cost / period,Evidence,Decision,Cash-effective date,Dependency / contract constraint,Decision owner,Next review
+ILLUSTRATIVE,Unused reporting subscription,120USD monthly,No active use; exports retained; no dependent reports,Cancel before next renewal if contract permits,Next renewal; not today,Confirm data export and cancellation notice,Finance owner,Before renewal
+ILLUSTRATIVE,Checkout event repair,One-time500USD quoted,Purchase values inconsistent with source orders,Bounded repair,Invoice terms determine cash date,Test order and implementation access,Marketing owner,After validated release
+ILLUSTRATIVE,Campaign,600USD next month,Outcome data incomplete,Hold expansion; diagnose within current authorised cap,Budget change takes effect after saved change,Existing commitments and conversion lag,Marketing owner,Named review date
+YOUR RECORD,,,,,,,,
