@@ -447,5 +447,6 @@ Scope/evidence: existing State and docs/editorial/research/2026-11-02-blog-repai
 - [x] Implement remaining33article repairs; preserve the three recent feature bodies and approved resources.
 - [x] Complete metadata/schema/resource and rendered checks; fresh independent editorial/source review remains part of the final-head release gate.
 - [x] Implement distinct Miami and PanamaCity pages; prepare listing corrections and neutral review process. External profile changes await verified facts/access.
-- [ ] Fresh scoped final-head review, Node24Docker, protected PR merge, production readback and bounded discovery submission.
-- [ ] Record actualrelease date and30/60/90day measurement reviews; distinguish deployed,indexed,cited and qualifiedinquiries.
+- [x] Fresh scoped final-head review, Node24Docker, protected PR47 merge, production readback and bounded discovery submission (IndexNow202; indexing unverified).
+- [x] Record actualrelease date2November2026 and follow-up dates2December2026,1January2027,31January2027 CT; distinguish deployed,indexed,cited and qualifiedinquiries.
+- [ ] Perform the30/60/90day measurement reviews when due; native ZINC access and verified business-profile facts remain open dependencies.

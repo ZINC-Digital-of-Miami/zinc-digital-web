@@ -1,6 +1,6 @@
 # Blog repair and local discovery evidence — 2 November 2026 CT
 
-Owner-approved scope is recorded in `.planning/STATE.md`. This record supports that work; it does not replace the editorial calendar or the implementation spec. Release is pending until final review, Docker validation and production readback.
+Owner-approved scope is recorded in `.planning/STATE.md`. This record supports that work; it does not replace the editorial calendar or the implementation spec. The website remediation is live through PR47; the release receipt below records verification. External access and identity gaps remain open.
 
 ## Inventory and changes
 
@@ -61,6 +61,12 @@ Native ZINC Search Console, GA4, Bing Webmaster/AI Performance, Google Business 
 
 At release, record the deployment commit and actual date. Review at +30/+60/+90 days separately for Miami and Panama City: relevant query/page appearances and clicks; available native AI visibility; sampled prompts with product/date/location/citations; identifiable referrals; profile observations; valid inquiries and qualified leads. Preserve missing data and attribution limits. Do not fabricate a baseline from directory results or attribute all subsequent movement to this release.
 
-## Release checks still required
+## Verified release — 2026-11-02T13:12:13.423195-06:00 CT
 
-Fresh scoped final-head review, exact clean-head Docker validation, protected merge, deployment commit match, all changed production routes/downloads, and bounded discovery submission. Until those receipts exist, changes are local and not deployed.
+PR47 protected squash merged `3eacd4f816bf17a2e9721334214ab829e52169f6`. Fresh scoped review PASS and Node24 Docker exit0 on clean head `b777d5db0bbece1229c12b7bbd3997ea6ac992b3`: 176 tests; Astro249files/0errors/0warnings; build; 100HTMLchecks. Earlier failed runs are not passing evidence. The final assertions recognize the approved city routes and visible article bodies, while preserving sitemap/content checks.
+
+The old remote editorial branch retained previously merged history. Released through `codex/blog-repair-local-search` without overwriting it. Vercel `dpl_9TShM7Q7Bc6ymFN34C8msoCqVLzU` is READY at the exact merge on www/apex domains. All98indexable routes returned200; all44article bodies, titles, descriptions, canonicals and Article schema match the reviewed build. Vercel's deployment query parameter on social images is expected. All70unique social images returned200/image types. All6linked downloads returned200 with correct types and byte-identical reviewed content. Sitemap contains98routes with no missing pages. Production88article desktop/mobile checks and4city checks found no overflow or failedimages; four live contact sheets inspected; browser recorded0consoleerrors. Local pre-release176article viewport/theme checks covered both themes at both widths.
+
+A single IndexNow POST submitted98verified public URLs after live ownership-file verification. Response202 means key validation is pending, not indexing or citation proof. Payload/receipt, full production comparison and screenshots remain in `.scratch/blog-*`, `.scratch/live-repair-*` and `.scratch/live-city-*`; compact receipt is in the accompanying audit JSON. No native sitemap submission was possible without verified ZINC account access.
+
+Follow-up review dates: **2December2026, 1January2027 and31January2027 CT**. At each, compare the defined Miami/PanamaCity observations and available native metrics with the baseline; preserve unavailable data. These are recorded review dates, not a claim that future audits have run or a new automation was created. The three-post weekly calendar remains unchanged. External profile edits, address/phone reconciliation, genuine crawler evidence and account-level measurement remain unresolved as described above.

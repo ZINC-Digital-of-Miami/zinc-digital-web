@@ -98,6 +98,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -207,6 +220,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -313,6 +339,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -441,6 +480,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -468,7 +520,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content hub",
           "content planning",
@@ -572,6 +624,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -678,6 +743,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -705,7 +783,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/content-briefs-search-intent-internal-links/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content brief",
           "search intent",
@@ -791,6 +869,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -895,6 +986,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -922,7 +1026,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/content-refresh-review/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "content refresh review",
           "evergreen content",
@@ -1000,6 +1104,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1124,6 +1241,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1239,6 +1369,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1352,6 +1495,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1464,6 +1620,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1570,6 +1739,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1680,6 +1862,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1798,6 +1993,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -1911,6 +2119,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2026,6 +2247,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2131,6 +2365,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2244,6 +2491,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2352,6 +2612,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2458,6 +2731,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2565,6 +2851,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2673,6 +2972,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2783,6 +3095,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -2899,6 +3224,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3012,6 +3350,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3117,6 +3468,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3216,6 +3580,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3338,6 +3715,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3443,6 +3833,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3561,6 +3964,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3588,7 +4004,7 @@
         "image": {
           "@id": "https://www.zincdigital.co/blog/service-page-content-checklist/#primaryimage"
         },
-        "inLanguage": "en-US",
+        "inLanguage": "en-GB",
         "keywords": [
           "service page content checklist",
           "service page SEO",
@@ -3666,6 +4082,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3779,6 +4208,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -3889,6 +4331,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4004,6 +4459,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4116,6 +4584,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4234,6 +4715,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4346,6 +4840,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4469,6 +4976,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4592,6 +5112,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4712,6 +5245,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4810,6 +5356,19 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     },
     {
@@ -4914,7 +5473,90 @@
         ],
         "overflow": false,
         "missingImages": false
+      },
+      "production": {
+        "status": 200,
+        "errors": [],
+        "contentMetadataAndArticleSchemaMatchReviewedBuild": true,
+        "desktop1440Light": {
+          "overflow": false,
+          "missingImages": []
+        },
+        "mobile390Dark": {
+          "overflow": false,
+          "missingImages": []
+        }
       }
     }
-  ]
+  ],
+  "productionCheckedAtCT": "2026-11-02T13:12:13.423195-06:00",
+  "release": {
+    "pr": "https://github.com/ZINC-Digital-of-Miami/zinc-digital-web/pull/47",
+    "reviewedDockerHead": "b777d5db0bbece1229c12b7bbd3997ea6ac992b3",
+    "merge": "3eacd4f816bf17a2e9721334214ab829e52169f6",
+    "deployment": "dpl_9TShM7Q7Bc6ymFN34C8msoCqVLzU",
+    "state": "READY",
+    "publicRoutesVerified": 98,
+    "socialImagesVerified": 70,
+    "downloadFiles": [
+      {
+        "path": "/downloads/campaign-test-brief.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 21012,
+        "sha256": "ab88e56fe87f548e86c488fe43fca8f5894a8f64156b717b8aa5768803a737ad",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/content-hub-architecture.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 36318,
+        "sha256": "8136723a0cc37236175c2b2366dd71c5efcf414be725d433510835b62ed90600",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/content-hub-workbook.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 110967,
+        "sha256": "75556831d0f3381ab46c488b97ac300f452141979889bc7733efdb33351a2c3a",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/order-acquisition-calculator.xlsx",
+        "status": 200,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "bytes": 9630,
+        "sha256": "02c0ef0bf5f85077d06b274ca5cf384fbca52a2204050b0c1a573a31030a033d",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/order-acquisition-worksheet.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 82492,
+        "sha256": "5163e9bdd660111f27293f2ce0134d779d852aee1415a8370e494d88d9ee6949",
+        "matchesReviewed": true
+      },
+      {
+        "path": "/downloads/search-review-workbook.pdf",
+        "status": 200,
+        "type": "application/pdf",
+        "bytes": 21124,
+        "sha256": "651feddcc673370f2623a1ad213f662b5d90af139424632108bdf8c48f622e2c",
+        "matchesReviewed": true
+      }
+    ],
+    "indexNow": {
+      "status": 202,
+      "body": "",
+      "urlCount": 98
+    },
+    "followUpDatesCT": [
+      "2026-12-02",
+      "2027-01-01",
+      "2027-01-31"
+    ]
+  }
 }
