@@ -1,4 +1,4 @@
-import {reviseArticle, ARTICLE_REVISION} from './article-copy';
+import {reviseArticle, articleRewrite, ARTICLE_REVISION} from './article-copy';
 import { businessIntelligenceLine, businessIntelligenceDescription, businessIntelligenceQuestions } from './business-intelligence.ts';
 import { authoredArticles } from './article-library.ts';
 import { authors, authorPath } from './authors.ts';
@@ -26,8 +26,8 @@ export const SOCIAL = [
   ['LinkedIn', 'https://www.linkedin.com/company/zinc-digital-of-miami/'],
 ] as const;
 export const STUDIOS = [
-  { id: 'miami', name: 'Miami HQ', street: '1900 N Bayshore Dr', city: 'Miami', zip: '33132' },
-  { id: 'panama-city', name: 'Panama City satellite', street: '97 Oak Ave, Suite 7', streetLabel: '97 Oak Ave Suite 7', city: 'Panama City', zip: '32401' },
+  { id: 'miami', name: 'Miami', street: '1900 N Bayshore Dr', city: 'Miami', zip: '33132' },
+  { id: 'panama-city', name: 'Panama City', street: '97 Oak Ave, Suite 7', streetLabel: '97 Oak Ave Suite 7', city: 'Panama City', zip: '32401' },
 ] as const;
 
 export type Layer = 'Build' | 'Demand' | 'Intelligence';
@@ -268,15 +268,15 @@ function articleBlocks(slug:string,blocks:Block[]):Block[] {
 }
 const editoriallyRevised = new Set(['ga4-ecommerce-event-validation','search-console-canonical-indexing-debugging','ga4-utm-naming-conventions','internal-link-audit','search-console-query-page-review','service-page-content-checklist','business-intelligence-basics','google-core-update-review','research-consensus-report','ai-research-workflow','ai-competitor-research-prompts']);
 export const posts: Post[] = [
-  ...snapshot.posts.map((p) => ({ ...p, blocks: articleBlocks(p.slug, reviseArticle(p.slug, p.blocks as Block[])), modified:ARTICLE_REVISION, modifiedGmt:ARTICLE_REVISION, ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt })),
+  ...snapshot.posts.map((p) => ({ ...p, title:articleEditorial[p.slug]?.title || p.title, blocks: articleBlocks(p.slug, reviseArticle(p.slug, p.blocks as Block[])), modified:ARTICLE_REVISION, modifiedGmt:ARTICLE_REVISION, ...articleMap[p.id], excerpt: articleEditorial[p.slug]?.description || articleMap[p.id]?.excerpt })),
   ...authoredArticles.map(p => ({ id:p.id, slug:p.slug, title:p.title, date:p.dateGmt, dateGmt:p.dateGmt, modified:p.modifiedGmt || (editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt), modifiedGmt:p.modifiedGmt || (editoriallyRevised.has(p.slug) ? '2026-10-27T09:57:14Z' : p.dateGmt), link:'/blog/'+p.slug+'/', author:{id:p.authorId,name:p.authorName,description:authors.find(a=>a.name===p.authorName)?.bio||''}, blocks:[], markdown:p.markdown, layer:p.layer, related:p.related, excerpt:p.description } as unknown as Post)),
-].sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
+].map(p => { const rewrite=articleRewrite(p.slug); return rewrite ? {...p,...rewrite,modified:rewrite.modifiedGmt,blocks:[]} : p; }).sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
 export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(new Date(date.endsWith('Z') ? date : date + 'Z'));
 // The Design's own excerpt when there is one; otherwise the first paragraph, cut at a word boundary.
 export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; const t = p.blocks.find((b) => b.type === 'p')?.runs?.map((r) => r.text).join('') || ''; return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
 
 // ---- routes ----
-export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'privacy' | 'terms' | '404';
+export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'location' | 'privacy' | 'terms' | '404';
 export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; modified?:string; metaTitle?:string; metaDescription?:string; noindex?:boolean; blogCategory?:string };
 const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra,metaTitle:extra.metaTitle||pageEditorial[path]?.metaTitle,metaDescription:extra.metaDescription||pageEditorial[path]?.metaDescription });
 export const routes: Route[] = [
@@ -290,6 +290,8 @@ export const routes: Route[] = [
   ...cases.map((c) => route('/work/' + c.slug + '/', 'case', c.title, { slug: c.slug, metaTitle: c.application ? c.title + ' Forecasting Platform' : c.nonprofit ? c.title + ' · Pro Bono Website Support' : undefined })),
   route('/about/', 'about', 'The people behind the work'),
   route('/contact/', 'contact', 'Start an Inquiry'),
+  route('/locations/miami/', 'location', 'AI Search & Business Intelligence in Miami', {slug:'miami',metaTitle:'Miami AI Search Optimization & Business Intelligence',metaDescription:'ZINC serves Miami businesses with AI-search optimization, business intelligence and connected website work. Explore the approach and local design projects.'}),
+  route('/locations/panama-city/', 'location', 'AI Search & Business Intelligence in Panama City', {slug:'panama-city',metaTitle:'Panama City AI Search Optimization & Business Intelligence',metaDescription:'Work with ZINC from our Panama City base on AI-search visibility, business intelligence and connected websites. See local work and prepare your first inquiry.'}),
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
   ...services.filter(s=>posts.some(p=>p.related.includes(s.slug))).map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:'Browse ZINC articles about '+s.title+', aligned with our '+s.title+' service. Practical guidance, examples and useful next steps.'})),

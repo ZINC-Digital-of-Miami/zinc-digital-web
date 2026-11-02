@@ -27,6 +27,7 @@ export const articleAdditions: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A purchase event firing is not the same as a purchase being measured correctly.
 
 Trace one controlled order before trusting the revenue chart.
@@ -61,7 +62,13 @@ After report processing, compare the controlled order using the same property, d
 
 **Test record:** scenario; expected event; observed fields; consent state; transaction ID; report check; issue owner.
 
-Repeat relevant checks after [Shopify changes](/services/shopify/). The [channel planning guide](/blog/seven-digital-channels-which-to-skip/) connects measurement to the decisions behind [business intelligence](/services/business-intelligence/).`,
+Repeat relevant checks after [Shopify changes](/services/shopify/). The [channel planning guide](/blog/seven-digital-channels-which-to-skip/) connects measurement to the decisions behind [business intelligence](/services/business-intelligence/).
+
+## Worked check: one order, one purchase
+
+Use an authorized test order and record its ID before opening Analytics. In this illustrative example, two units at $30 each plus $6 shipping and $4 tax produce a $70 order total. The purchase event’s item revenue is $60, with shipping and tax supplied in their separate fields; inspect the current event specification rather than placing the whole order total in every field.
+
+Check quantity, item ID, currency and the unique transaction ID. Reload the confirmation page and verify that the implementation does not create a second purchase. Test the approved consent states separately; do not bypass consent to make the report look complete. Keep the test order identifiable and exclude it from commercial conclusions. Pass the check only when the captured event, item details and source order reconcile under the documented definitions.`,
   },
   {
     id: 90002,
@@ -74,6 +81,7 @@ Repeat relevant checks after [Shopify changes](/services/shopify/). The [channel
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A canonical tag is a preference. It is not a command.
 
 When Google chooses another URL, inspect the disagreement before changing the template.
@@ -110,7 +118,13 @@ Fix the conflict you found and retest the published page. Request indexing when 
 
 **Inspection record:** intended URL; selected URL; crawl date; response; canonical; access rules; conflicting signals; repair; next check.
 
-Use the [Search Console operator's guide](/blog/google-search-console-the-operators-guide/) for recurring review. For [technical SEO](/services/seo/), identify the affected URLs and the conflicting signals before changing a shared template.`,
+Use the [Search Console operator's guide](/blog/google-search-console-the-operators-guide/) for recurring review. For [technical SEO](/services/seo/), identify the affected URLs and the conflicting signals before changing a shared template.
+
+## Work one pair of URLs
+
+Suppose a campaign parameter URL and a clean product URL show the same item. Record both addresses, their responses and their canonical declarations. If internal links favor the parameter URL while the sitemap lists the clean URL, fix that disagreement before requesting another inspection.
+
+A product and its collection are not an equivalent pair merely because their text overlaps. Preserve their separate buying purposes. After the change, verify the live signals immediately and record Google’s indexed selection separately when it updates. The live test can show current accessibility; it cannot guarantee the selected canonical. Your investigation record should contain the preferred URL, reason, conflicting signal, correction and next inspection date.`,
   },
   {
     id: 90003,
@@ -123,6 +137,7 @@ Use the [Search Console operator's guide](/blog/google-search-console-the-operat
     layer: 'Demand',
     related: ['shopping-ads', 'shopify'],
     dateGmt: '2026-10-06T12:00:00',
+    modifiedGmt: '2026-11-02T18:13:42Z',
     markdown: `A Merchant Center issue needs a product-level explanation. Changing a campaign budget cannot repair a price or an unavailable variant.
 
 ## 1. Record the reported issue
@@ -145,7 +160,7 @@ Inspect sale prices, dates and currency, including initial page data. Today's co
 
 ## 4. Verify stock and variant identity
 
-Test whether the affected option can actually be ordered. Google's [availability documentation](https://support.google.com/merchants/answer/6324448?hl=en) distinguishes in-stock, out-of-stock, preorder and backorder states; preorder requires an availability date.
+Test whether the affected option can actually be ordered. Google's [availability documentation](https://support.google.com/merchants/answer/6324448?hl=en) distinguishes in-stock, out-of-stock, preorder and backorder states; preorder and backorder require an availability date.
 
 Compare sibling variants: individual IDs, option details, images and landing selections must describe the right item. Use genuine manufacturer identifiers where applicable. Do not invent identifiers or confuse a published page with available inventory.
 
@@ -157,7 +172,13 @@ After the next update, inspect the processed item and issue status. Keep submitt
 
 **Diagnostic record:** item; issue; market; variant; source/page disagreement; correction owner; update time; current status.
 
-Use the [Merchant Center checklist](/blog/shopify-google-merchant-center-checklist/) and [Shopify SEO pillar](/blog/shopify-seo-launch-checklist/) for the wider setup. [Shopping ads](/services/shopping-ads/) decisions follow product eligibility; [Shopify work](/services/shopify/) fixes the storefront when the disagreement begins there.`,
+Use the [Merchant Center checklist](/blog/shopify-google-merchant-center-checklist/) and [Shopify SEO launch guide](/blog/shopify-seo-launch-checklist/) for the wider setup. [Shopping ads](/services/shopping-ads/) decisions follow product eligibility; [Shopify work](/services/shopify/) fixes the storefront when the disagreement begins there.
+
+## Example: a price mismatch on one size
+
+Imagine a shirt whose medium costs $40 and large costs $45. The submitted large variant says $45, but its link opens the medium by default at $40. Changing the feed price to $40 would conceal the wrong landing selection rather than repair the large item.
+
+Open the submitted URL as a customer, confirm the selected size, inspect the visible price and continue far enough to verify the purchase terms. Correct the variant link or source mapping, then wait for the next processing cycle and inspect that same item again. Keep item ID, market, source timestamp, landing option and issue status in the record. If eligibility remains blocked, follow the actual issue’s review instructions; do not repeatedly resubmit unrelated changes.`,
   },
   {
     id: 90004,
@@ -170,16 +191,14 @@ Use the [Merchant Center checklist](/blog/shopify-google-merchant-center-checkli
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-10-30T14:31:30Z',
+    modifiedGmt: '2026-11-02T18:10:55Z',
     markdown: `A useful brief tells the writer what the reader needs to decide, which evidence supports the answer and where to link next.
-
-Start with the [content hub planning guide](/blog/build-a-content-hub-people-can-use/) to place this work in the complete collection.
 
 ## 1. Name the reader and task
 
 Describe the reader in one sentence. State the decision or task the article should support. “Desk lamps” is a topic; “choose lighting for a small desk without screen glare” is an assignment.
 
-List what the reader already knows and what needs explanation. Place the assignment under a relevant hub, such as the [four-pillar SEO guide](/blog/four-pillars-of-seo-operators-view/).
+List what the reader already knows and what needs explanation. Place the assignment in the blog category aligned with its primary service or product collection. The [SEO category](/blog/category/seo/) is one example; the [SEO framework guide](/blog/four-pillars-of-seo-operators-view/) is an article within it.
 
 ## 2. Review queries and page formats
 
@@ -197,7 +216,7 @@ Google's [people-first content guidance](https://developers.google.com/search/do
 
 Open with the answer or practical starting point. Give each section a clear job and identify its supporting evidence. Add exceptions where they change the decision.
 
-Choose the main pillar, a useful supporting guide and a relevant next step. Specify the reason for each link. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) calls for crawlable links and descriptive, relevant anchor text. Verify destinations rather than inserting the same link list everywhere.
+Link to the appropriate category, a useful supporting article and a relevant next step. Specify the reason for each link. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) calls for crawlable links and descriptive, relevant anchor text. Verify destinations rather than inserting the same link list everywhere.
 
 ## 5. Assign review and maintenance
 
@@ -207,6 +226,34 @@ After publication, inspect relevant queries and page behavior against the origin
 
 **Brief template:** reader; task; main question; verified sources; section jobs; pillar; supporting links; next step; writer; reviewer; update trigger.
 
-Use the [channel planning framework](/blog/seven-digital-channels-which-to-skip/) to give content a job alongside the other channels. Connect assignments through the [content planning guide](/blog/content-marketing-plan-that-produces-pipeline/) and [SEO work](/services/seo/). Clear sourcing also supports [generative search optimization](/services/ai-search-optimization/), without promising citations.`,
+Use the [channel planning framework](/blog/seven-digital-channels-which-to-skip/) to give content a job alongside the other channels. Connect assignments through the [content planning guide](/blog/content-marketing-plan-that-produces-pipeline/) and [SEO work](/services/seo/). Clear sourcing also supports [generative search optimization](/services/ai-search-optimization/), without promising citations.
+
+## A completed brief: choosing a reporting dashboard
+
+Here is an illustrative assignment for a business that sells reporting services. It is not a client case study.
+
+| Brief field | Completed example |
+| --- | --- |
+| Reader | A business owner comparing reporting options after receiving conflicting revenue reports |
+| Main question | What should we check before paying for a dashboard? |
+| Category/pillar | Business intelligence, aligned with the reporting service |
+| Article’s job | Help the owner prepare a short requirements list |
+| Evidence | Approved source definitions, a labelled sample report and documentation for the source systems |
+| Sections | Decision to support; records required; metric definitions; access; acceptance checks |
+| Useful next links | Metric-definition guide, data-preparation guide, then the reporting service if implementation help is needed |
+| Exclusions | No invented savings, no promise that connecting two tools reconciles their definitions |
+| Deliverable | A one-page requirements checklist the reader can complete |
+
+Notice that the brief gives the writer a decision to help with, not a keyword to repeat. The category holds this article alongside related guidance. The service page explains the commercial offer.
+
+## Test the brief before commissioning it
+
+Ask someone unfamiliar with the assignment to explain what the finished reader should be able to do. If the answer is “understand business intelligence”, the task is still too broad. In this example, they should be able to list the decision, source systems, definition questions and acceptance checks for their dashboard.
+
+For each proposed link, finish the sentence “The reader needs this next because…”. Remove links without a useful answer. Use [Google’s link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) for the technical checks, not as a reason to squeeze a link into every paragraph.
+
+Use the downloadable workbook in the [content hub guide](/blog/build-a-content-hub-people-can-use/) to map the category and supporting pages. Your final brief should leave the writer room to write, while making the required evidence and outcome unmistakable.
+
+[Download the content hub workbook](/downloads/content-hub-workbook.pdf) to record category scope, article assignments, links and launch checks. Complete the example brief above before handing the assignment to a writer.`,
   },
 ];

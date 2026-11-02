@@ -12,6 +12,9 @@ export type SourceArticle = {
 // Public first-party documentation, standards and original research. A provider's
 // ads, account screens and sharing endpoints are not reference material.
 const primary: Record<string, { path: RegExp; name: string }> = {
+  'blogs.bing.com': {path: /^\/webmaster\//, name:'Bing Webmaster Blog'},
+  'about.ads.microsoft.com': {path: /^\/en\/blog\/post\//, name:'Microsoft Advertising'},
+  'docs.perplexity.ai': {path: /^\/docs\/resources\//, name:'Perplexity documentation'},
   'www.php.net': {path: /^\/(?:archive\/\d{4}\.php|index\.php|supported-versions\.php)$/, name: 'PHP project'},
   'docs.astro.build': {path: /^\/en\/guides\//, name: 'Astro documentation'},
   'developers.google.com': { path: /^\/(?:search\/(?:docs|blog|help)|analytics\/devguides|crawling\/docs|tag-platform|google-ads\/api\/docs|tag-manager|web)\//, name: 'Google documentation' },

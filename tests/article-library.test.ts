@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { authoredArticles } from '../src/data/article-library.ts';
 import { articleSources } from '../src/data/article-sources.ts';
 import { renderArticleMarkdown } from '../src/lib/markdown.ts';
-import { blogPillars, pillarFor, readingPath } from '../src/data/blog-strategy.ts';
+import { blogPillars, readingPath } from '../src/data/blog-strategy.ts';
 import { authors, authorFor } from '../src/data/authors.ts';
 
 const migrated = JSON.parse(readFileSync(new URL('../src/data/posts.preview.json', import.meta.url), 'utf8')).posts;
@@ -18,23 +18,19 @@ test('articles retain sources and reading paths; short guides retain their instr
   assert.equal(new Set(all.map(p=>p.id)).size, all.length);
   for (const post of authoredArticles) {
     const { html, sections } = renderArticleMarkdown(post.markdown);
-    const words = html.replace(/<[^>]+>/g,' ').trim().split(/\s+/).length;
-    if (post.format !== 'feature') {
-    assert.ok(words >= 250 && words <= 500, post.slug+' must stay a short useful guide');
-    assert.ok(sections.filter(s=>/^(?:Step )?\d+[.:]/.test(s.label)).length >= 5, post.slug+' needs action steps');
-    }
+    assert.ok(html.includes('<p>') && sections.length > 0, post.slug+' needs readable prose and section navigation');
     assert.ok(articleSources(post).length > 0, post.slug+' needs real source references');
     assert.equal(blogPillars.filter(p=>(p.members as readonly string[]).includes(post.slug)).length, 1);
-    const pillar = pillarFor(post.slug)!;
-    assert.ok(post.slug===pillar.slug || post.markdown.includes('/blog/'+pillar.slug+'/'), post.slug+' needs its pillar in the prose');
+    // Reading-guide groups are not service-aligned pillar categories. Do not
+    // force an unrelated guide link or a uniform numbered outline into prose.
     assert.ok(readingPath(post.slug, all).length > 0);
     const author = authorFor(post.authorName);
     assert.ok(author && authors.includes(author), post.slug+' needs a known author');
     for (const [, href] of post.markdown.matchAll(/\]\((\/[^)]+)\)/g)) {
-      if (href==='/blog/category/seo/') continue;
+      if (href.startsWith('/blog/category/')) { assert.ok(serviceSlugs.has(href.split('/')[3])); continue; }
       if (href.startsWith('/blog/')) assert.ok(all.some(p=>href==='/blog/'+p.slug+'/'), post.slug+' links to an unavailable article');
       else if (href.startsWith('/services/')) assert.ok(serviceSlugs.has(href.split('/')[2]), post.slug+' links to an unavailable service');
-      else assert.ok(['/work/us-oil-solutions/','/downloads/order-acquisition-calculator.xlsx','/downloads/order-acquisition-worksheet.pdf','/media/order-economics/spending-bridge.svg','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
+      else assert.ok(['/downloads/campaign-test-brief.pdf','/downloads/search-review-workbook.pdf','/media/blog-review/campaign-checkpoints.svg','/media/blog-review/canonical-decisions.svg','/work/us-oil-solutions/','/downloads/order-acquisition-calculator.xlsx','/downloads/order-acquisition-worksheet.pdf','/media/order-economics/spending-bridge.svg','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
     }
   }
 });

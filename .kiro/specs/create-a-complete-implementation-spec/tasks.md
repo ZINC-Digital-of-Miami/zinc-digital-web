@@ -436,3 +436,16 @@ Owner expansion, 16 Oct 2026 CT: optimize the complete public site for SEO and A
 
 - [x] Prepare Wendy’s30October content-hub draft and distinct studio artwork; inspect unpublished desktop/mobile preview.
 - [x] On30October, publish retained Wendy draft/art through fresh scoped review, Docker and protected PR41; verify live author/schema, desktop/mobile and featured listing.
+
+### Owner-approved blog remediation and local growth — 2 November 2026 CT
+
+Scope/evidence: existing State and docs/editorial/research/2026-11-02-blog-repair.md; preserve editorial schedule and original bylines/dates/URLs. No push until the complete remediation audit passes.
+
+- [x] Reconcile44published articles and record per-article repair/preservation decisions; retain explicit external-access and business-identity gaps.
+- [x] Repair shared summaries, content visibility, illustration fit and connected publishing/discovery metadata.
+- [x] Implement the eight priority article repairs with useful examples and resources.
+- [x] Implement remaining33article repairs; preserve the three recent feature bodies and approved resources.
+- [x] Complete metadata/schema/resource and rendered checks; fresh independent editorial/source review remains part of the final-head release gate.
+- [x] Implement distinct Miami and PanamaCity pages; prepare listing corrections and neutral review process. External profile changes await verified facts/access.
+- [ ] Fresh scoped final-head review, Node24Docker, protected PR merge, production readback and bounded discovery submission.
+- [ ] Record actualrelease date and30/60/90day measurement reviews; distinguish deployed,indexed,cited and qualifiedinquiries.
