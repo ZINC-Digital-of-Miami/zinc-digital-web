@@ -19,13 +19,13 @@ Owner requested the first article early on 27 October. Its rewritten body and st
 
 ## Initial queue
 
-Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Item 01 is live; item 02 is also live. Later items are planned briefs, not completed articles or scheduled CMS records.
+Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Items 01–03 are live. Later items are planned briefs, not completed articles or scheduled CMS records.
 
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
 | 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
 | 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
-| 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | In progress: retained draft, studio image, instructional diagram, calculator and fillable checklist; release checks pending |
+| 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Live 2 November; PR45; Docker173tests/98pages; production desktop/mobile and downloads verified |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Planned |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
 | 06 | 2026-11-09 Mon | Kirk | BI/KPI setup how-to | Build a KPI dictionary before you build the dashboard — formula, grain, owner, source, refresh, exclusions and a reconciliation example | Planned |
@@ -73,3 +73,6 @@ These are planned briefs, with current sources to be selected when drafting; ori
 
 
 Owner correction30October: a pillar is a blog category aligned with a primary service or product collection, housing blogs in that main topic. A broad guide can sit inside it but is not the category. Practical how-tos need instructional graphics and usable downloadable worksheets/checklists where they help the task, not only a featured mockup. Verify PDF contents/forms/download routes and the complete checklist before publication. Wendy article correction released viaPR42: two instructional diagrams, six-page fillable workbook, two-page illustrated reference,24-check launch checklist and real service categoryarchives. Live download/article/category readback passed30October.
+
+
+Release receipt 2 November: [Jaymie’s order economics guide](https://www.zincdigital.co/blog/what-can-you-afford-to-spend-on-an-order/) verified live 2026-11-02T09:28:50.466915-06:00 CT. PR45 protected squash merge d48144e09f34be2b95ed018124054092b32233ad; exact reviewed/validated head8b99560686fdfad10b1275db07375f1c4d15ccfb. Fresh scoped review PASS, Node24 Docker173tests/0failures, Astro246files/0errors/0warnings, build and98HTMLchecks passed. Vercel dpl_9zNwB61MQnsdT97amzewrepaS4NC READY on www/apex, matching merge. Article author/schema/featured and social images, service categories/author archive/sitemap, desktop1440 and mobile390/320 verified; no horizontal overflow or page errors. Distinct studio artwork plus exact cost bridge, four-page fillable12-check PDF/63fields and three-sheet Excel calculator included. Live downloads200/correcttypes, byte-identical to reviewed files; actual LibreOffice recalculation and invalid-input/downside cases passed. Source published/modified timestamp2026-11-02T15:13:34Z; first live readback after deployment at09:27CT. No future dates changed. Next due Wendy Wednesday4November.
