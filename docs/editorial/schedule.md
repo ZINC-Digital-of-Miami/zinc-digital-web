@@ -4,7 +4,7 @@ Owner-approved direction: 27 October 2026 CT. Three articles weekly, with accura
 
 ## Cadence and publication
 
-Monday, Wednesday and Friday at 09:00 America/Chicago, beginning Wednesday 28 October 2026. The scheduled run starts work at 09:00; publication follows research, editorial review, Docker checks and protected release, not a guaranteed instantaneous release at 09:00. One article per slot. Do not bulk-publish missed slots or publish future dates early.
+Monday, Wednesday and Friday at 09:00 America/Chicago, beginning Wednesday 28 October 2026. The scheduled run starts work at 09:00; publication follows research, editorial review, local Node 24 checks and protected release, not a guaranteed instantaneous release at 09:00. One article per slot. Do not bulk-publish missed slots or publish future dates early.
 
 Use the existing Codex thread heartbeat to execute this schedule. No new database scheduler, GitHub Actions workflow, paid service or CMS scheduling claim. Each run reads this register, current main and the live archive, resumes any in-progress article, and avoids duplicate slugs. Due work is authorized for normal protected publication; failed checks or access gaps stay visible and do not justify bypassing controls.
 
@@ -50,14 +50,14 @@ Use current approved typography/layout. Match the existing light studio illustra
 
 ## Release and evidence
 
-Follow current AGENTS.md and the approved Docker workflow: fresh scoped review, exact clean-head scripts/verify-docker.sh, truthful Docker validation status, protected PR, normal Vercel deployment and live readback. Inspect local Docker capacity from this chat; do not open or message OUABC. No GitHub Actions, protection changes or unsupported deployment shortcuts.
+Follow current AGENTS.md and the owner's 2 November 2026 correction: do not use Docker. Run the current checks locally with Node 24 on the exact clean PR head, retain fresh scoped review, report local validation truthfully without posting a Docker status, then use the protected PR, normal Vercel deployment and live readback. Resolve any incompatible required release check before publishing. Do not open or message OUABC. No GitHub Actions, protection changes or unsupported deployment shortcuts.
 
 After a run, update this queue with actual author, title, URL, publication time, PR and verification result. Keep draft, scheduled run, merged and live distinct. If a required connection or check fails, preserve the draft and report the concrete blocker. Do not fabricate successful publication.
 
 
 Release receipt: [first article](https://www.zincdigital.co/blog/wordpress-php-security-moving-to-astro/) verified live 2026-10-27T06:12:45.114395-05:00 (CT), PR40, merge c83fa42b57d13819189782fb5bca99ec07371f76, Vercel dpl_DRHdT3mTXXAu2TTL22JM2vg4AwxV READY on both production domains. October28 slot is fulfilled; next due article is Wendy on October30.
 
-Item02 preparation: docs/editorial/articles/build-a-content-hub-people-can-use.md and docs/editorial/images/content-hub-studio.png. Business-owner language, Wendy British English, labelled cleaning-business example, six practical steps and a copyable brief. Three current Google primary sources checked27October. Draft body/table/artwork inspected in an unpublished local preview using the existing article renderer and styles at1440/390/320 widths. No public import, route, production push or early release. Friday must use these retained files, recheck sources, set actual publication date, integrate into the existing article system, verify real Wendy metadata/schema and hero/social assets, obtain scoped review and run required Docker checks before protected publication.
+Item02 preparation: docs/editorial/articles/build-a-content-hub-people-can-use.md and docs/editorial/images/content-hub-studio.png. Business-owner language, Wendy British English, labelled cleaning-business example, six practical steps and a copyable brief. Three current Google primary sources checked27October. Draft body/table/artwork inspected in an unpublished local preview using the existing article renderer and styles at1440/390/320 widths. No public import, route, production push or early release. Friday must use these retained files, recheck sources, set actual publication date, integrate into the existing article system, verify real Wendy metadata/schema and hero/social assets, obtain scoped review and run the current local Node 24 checks before protected publication.
 
 
 Release receipt30October: [Wendy’s content-hub article](https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/) verified live 2026-10-30T09:12:37.855132-05:00 CT; PR41, merge4ce569e8c7badbd2a8fcb20044f99162743f7eae, Vercel dpl_FBcHiNj5esBq1GuMQq4HwW79xu73 READY on both production domains. Retained draft/art used; sources rechecked; author/schema/hero/table/featured listing and desktop/mobile verified. Next due: Jaymie2November.
