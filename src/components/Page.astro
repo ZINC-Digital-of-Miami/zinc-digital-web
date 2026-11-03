@@ -213,6 +213,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 
 
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Before the work begins</span><h2 class="disp p-sec">Useful questions.</h2></div><div class="p-faq rv">{svc.questions.map(([qq, a]) => <details><summary>{qq}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></div></section>
+  {categoryPosts(svc.slug, allPosts).length > 0 && <section class="p-band thin"><div class="wrap"><p><a class="arrow" href={'/blog/category/' + svc.slug + '/'}>Read our {svc.title} articles</a></p></div></section>}
   <section class="p-band thin"><div class="wrap"><span class="kick rv">Connect the next part</span><h2 class="disp p-sec rv">Start with {svc.title.toLowerCase()}.</h2><div class="p-related rv"><a class="btn fill" href={link('/contact/', { service: svc.slug })}>Start an Inquiry</a><span class="brk"></span>{svc.related.map((s) => <a href={'/services/' + s + '/'}>{svcBy(s).title} </a>)}</div></div></section>
 </>)}
 

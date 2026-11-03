@@ -1,0 +1,3 @@
+"row_type","question","claim","original_source_url","checked_at_with_timezone","supporting_passage","scope_and_limit","expected_test","observed_result","owner"
+"specimen; source must be reopened","Can editors change product alt text?","Shopify documents product-media alt text editing","https://help.shopify.com/en/manual/products/product-media/add-alt-text","","Record exact current passage","Capability does not prove store permissions or image quality","Authorised editor saves text; inspect public image","Pending; not tested",""
+"your row","","","","","","","","",""
