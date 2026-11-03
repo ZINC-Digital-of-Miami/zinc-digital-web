@@ -46,22 +46,26 @@ The editorial register below is authoritative for editorial recommendations. Eve
 Return JSON only: {"summary":"...","checks":[{"area":"...","status":"checked|needs attention|unavailable","detail":"...","evidenceIds":["supplied ID"]}],"recommendations":[{"priority":"high|medium|low","area":"...","path":"supplied path, / for sitewide","problem":"specific observed issue","action":"specific proposed change","reason":"evidence-backed benefit or explicitly labelled hypothesis","evidenceIds":["supplied ID"],"validation":"how to verify the proposed change"}]}. Include exactly one check for each area: ${REVIEW_AREAS.join(', ')}. Cite only supplied evidence IDs. Up to 30 recommendations, highest priority first, consolidate repeated problems and name affected pages. Do not invent problems to fill the list. Unavailable evidence must never be marked checked. Changes are recommendations awaiting owner approval.
 <editorial-register>\n${register}\n</editorial-register>`;}
 
-export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch){
+export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch,onReceipt:(value:Record<string,unknown>)=>Promise<void>=async()=>{}){
  if(!key)throw new Error('Add the Claude API key securely in Vercel before running a review.');
  const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
  const access=await send('https://api.anthropic.com/v1/models/'+REVIEW_MODEL,{headers,signal:AbortSignal.timeout(10000)});
  if(!access.ok||(await access.json()).id!==REVIEW_MODEL)throw new Error('Opus 5.5 access could not be verified. Check the Claude key and model access.');
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
- const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(180000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:16000,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
+ // Opus 5.5 counts adaptive thinking and report text against the same output allowance.
+ const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(420000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:32000,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
  if(!res.ok)throw new Error('Claude could not complete the review (HTTP '+res.status+'). Check the connection or account limits.');
  const data=await res.json();
- if(data.model!==REVIEW_MODEL)throw new Error('Claude returned an unexpected model. No fallback is permitted.');
- if(data.stop_reason!=='end_turn')throw new Error('Claude returned an incomplete review. No recommendations were accepted.');
- const answer=(data.content||[]).filter((c:{type:string})=>c.type==='text').map((c:{text:string})=>c.text).join('');
  const usage=object(data.usage);
  const number=(v:unknown)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<0)throw new Error('Claude did not return a valid usage receipt.');return v;};
- return {text:answer,model:REVIEW_MODEL,effort:REVIEW_EFFORT,messageId:typeof data.id==='string'?data.id:'',usage:{input_tokens:number(usage.input_tokens),output_tokens:number(usage.output_tokens)}};
+ const receipt={model:text(data.model,100),effort:REVIEW_EFFORT,messageId:text(data.id,200),stopReason:text(data.stop_reason,100),usage:{input_tokens:number(usage.input_tokens),output_tokens:number(usage.output_tokens)}};
+ // Retain the paid execution even when its model, stop reason or later JSON validation is rejected.
+ await onReceipt(receipt);
+ if(data.model!==REVIEW_MODEL)throw new Error('Claude returned an unexpected model. No fallback is permitted.');
+ if(data.stop_reason!=='end_turn')throw new Error('Claude returned an incomplete review ('+receipt.stopReason+'). No recommendations were accepted. Its usage receipt was retained.');
+ const answer=(data.content||[]).filter((c:{type:string})=>c.type==='text').map((c:{text:string})=>c.text).join('');
+ return {text:answer,...receipt};
 }
 
 export type SavedReview={status:'running'|'failed'|'complete';error?:string;startedAt:string;completedAt?:string;model?:string;effort?:string;report?:Review;usage?:{input_tokens:number;output_tokens:number};evidence?:{id:string;available?:boolean;gap?:unknown;[key:string]:unknown}[];commit?:string};

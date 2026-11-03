@@ -44,10 +44,17 @@ test('Claude verifies exact model access, sets High effort, records usage and ne
  assert.equal(calls[0].url,'https://api.anthropic.com/v1/models/claude-opus-5-5');
  assert.deepEqual(calls[1].body?.output_config,{effort:'high'});
  assert.equal(calls[1].body?.model,'claude-opus-5-5');
+ assert.equal(calls[1].body?.max_tokens,32000);
  assert.deepEqual(result.usage,{input_tokens:10,output_tokens:20});
  await assert.rejects(()=>reviewWithClaude('','','',send),/key/);
  await assert.rejects(()=>reviewWithClaude('test','',{},async()=>new Response('',{status:403})),/access/);
- await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>Response.json(String(url).includes('/models/')?{id:'claude-opus-5-5'}:{model:'other',stop_reason:'end_turn',content:[]})),/model/);
+ await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>Response.json(String(url).includes('/models/')?{id:'claude-opus-5-5'}:{id:'msg_other',model:'other',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[]})),/model/);
+});
+test('incomplete Claude responses retain the provider receipt and precise stop reason',async()=>{
+ let receipt:Record<string,unknown>|undefined;
+ const send:typeof fetch=async url=>Response.json(String(url).includes('/models/')?{id:'claude-opus-5-5'}:{id:'msg_budget',model:'claude-opus-5-5',stop_reason:'max_tokens',usage:{input_tokens:250000,output_tokens:16000},content:[{type:'text',text:'{"summary":"unfinished'}]});
+ await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/max_tokens/);
+ assert.equal(receipt?.messageId,'msg_budget');assert.equal(receipt?.stopReason,'max_tokens');assert.deepEqual(receipt?.usage,{input_tokens:250000,output_tokens:16000});
 });
 test('duplicate scheduled deliveries cannot repeat the paid operation; failures remain visible',async()=>{
  const rows=new Map<string,unknown>();let executions=0;

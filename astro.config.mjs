@@ -68,7 +68,7 @@ export default defineConfig({
   build: { inlineStylesheets: 'always' },
   integrations: [completeFonts, vercelRedirects],
   // Astro bundles the on-demand routes together. Allow the bounded weekly crawl + High-effort review.
-  adapter: vercel({maxDuration:300}),
+  adapter: vercel({maxDuration:600}),
   fonts: fontFamilies,
   // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style
   // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header
