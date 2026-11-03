@@ -1,0 +1,23 @@
+-- Run after 0009 with scripts/db-test.mjs inside its rollback-only transaction.
+set local role service_role;
+select dbtest.allowed('server records the scheduled review', $q$insert into public.admin_cache(key,value) values('seo_review:weekly:2099-11-09','{"status":"running"}')$q$);
+select dbtest.allowed('server completes the review', $q$update public.admin_cache set value='{"status":"complete"}' where key='seo_review:weekly:2099-11-09'$q$);
+reset role;
+select set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a002","role":"authenticated"}',true);
+set local role authenticated;
+select dbtest.allowed('editor reads report', $q$select * from public.admin_cache where key='seo_review:weekly:2099-11-09'$q$);
+select dbtest.blocked('editor cannot forge report', $q$update public.admin_cache set value='{}' where key='seo_review:weekly:2099-11-09'$q$);
+select dbtest.blocked('editor cannot preclaim next run', $q$insert into public.admin_cache(key,value) values('seo_review:weekly:2099-11-16','{}')$q$);
+select dbtest.allowed('ordinary metrics caching is preserved', $q$insert into public.admin_cache(key,value) values('dbtest-seo-metrics','{}')$q$);
+select dbtest.blocked('editor cannot rename metrics to a report', $q$update public.admin_cache set key='seo_review:manual:spoof' where key='dbtest-seo-metrics'$q$);
+select dbtest.blocked('publication receipt protection is preserved', $q$insert into public.admin_cache(key,value) values('last_publish','{}') on conflict(key) do update set value=excluded.value$q$);
+select dbtest.blocked('publishing-key protection is preserved', $q$insert into public.admin_cache(key,value) values('publish_lock','{}') on conflict(key) do update set value=excluded.value$q$);
+reset role;
+select set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a001","role":"authenticated"}',true);
+set local role authenticated;
+select dbtest.allowed('owner reads report', $q$select * from public.admin_cache where key='seo_review:weekly:2099-11-09'$q$);
+select dbtest.blocked('even owner browser writes cannot impersonate the reviewer', $q$insert into public.admin_cache(key,value) values('seo_review:manual:owner-spoof','{}')$q$);
+reset role;
+set local role anon;
+select dbtest.blocked('anonymous visitors cannot read reports', $q$select * from public.admin_cache where key='seo_review:weekly:2099-11-09'$q$);
+reset role;

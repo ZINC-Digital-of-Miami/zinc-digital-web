@@ -11,7 +11,7 @@ const MAX_BYTES = 2_000_000;
 const escape = (value: string) => value.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const contentType = (response: Response) => (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
 
-async function boundedText(response: Response) {
+export async function boundedText(response: Response) {
   if (Number(response.headers.get('content-length') || 0) > MAX_BYTES) {
     await response.body?.cancel();
     throw new Error('This page is too large to analyze.');
@@ -37,7 +37,7 @@ async function boundedText(response: Response) {
   } finally { reader.releaseLock(); }
 }
 
-function sitemapMembership(xml: string, url: string): boolean | undefined {
+export function sitemapMembership(xml: string, url: string): boolean | undefined {
   // Parse markup with the existing parser; no entity expansion or network access.
   const root = parseFragment(xml).childNodes.find(node => 'tagName' in node && node.tagName === 'urlset');
   if (!root) return;

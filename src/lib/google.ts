@@ -11,9 +11,18 @@ async function token(){
  if(credential&&credential.expires>Date.now()+60000)return credential.value;
  credential=await authorizeGoogle(googleConfig().account);return credential.value;
 }
-async function request(url:string,body:unknown){
+export async function request(url:string,body:unknown){
  const res=await fetch(url,{method:'POST',headers:{authorization:'Bearer '+await token(),'content-type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(10000)});
  if(!res.ok)throw new Error('Google data could not be loaded. Check the property and account permissions.');return res.json();
+}
+/** Verify the selected property contains this site's exact tag before a sitewide Claude review. */
+export async function verifyZincAnalytics(property:string){
+ if(!/^\d{1,20}$/.test(property))throw new Error('Choose a valid ZINC Analytics property.');
+ const res=await fetch('https://analyticsadmin.googleapis.com/v1beta/properties/'+property+'/dataStreams?pageSize=200',{headers:{authorization:'Bearer '+await token()},signal:AbortSignal.timeout(10000)});
+ if(!res.ok)throw new Error('ZINC Analytics ownership could not be verified through Google.');
+ const data=await res.json();
+ if(!(data.dataStreams||[]).some((s:{webStreamData?:{measurementId?:string}})=>s.webStreamData?.measurementId==='G-BV43HRVJ18'))throw new Error('The selected Analytics property does not contain the ZINC website tag.');
+ return {property,measurementId:'G-BV43HRVJ18'};
 }
 export async function metrics(c:GoogleSettings=googleConfig()){
  const requestedAt=Date.now();
@@ -43,7 +52,7 @@ export function googleAccountEmail(){
 }
 export function googleUsesExistingLogin(){try{return googleAccount(googleConfig().account).type==='authorized_user';}catch{return false;}}
 export async function savedGoogleSettings(sb:SupabaseClient):Promise<GoogleSettings>{
- const row=await sb.from('admin_cache').select('value').eq('key','google_connection').maybeSingle();
+ const row=await sb.from('admin_cache').select('value').eq('key','google_connection').abortSignal(AbortSignal.timeout(10000)).maybeSingle();
  if(row.error)throw new Error('Google connection settings could not be loaded.');
  return googleSettingsInput(row.data?.value||googleConfig());
 }
