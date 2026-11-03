@@ -71,9 +71,10 @@ export function savedReview(value:unknown):SavedReview{
  if(!['running','failed','complete'].includes(String(v.status))||typeof v.startedAt!=='string'||!Number.isFinite(Date.parse(v.startedAt)))throw new Error('The saved review is invalid.');
  const result:SavedReview={status:v.status as SavedReview['status'],startedAt:v.startedAt};
  for(const k of ['error','completedAt','model','effort','commit'] as const)if(v[k]!==undefined)result[k]=text(v[k]);
+ if(result.completedAt&&!Number.isFinite(Date.parse(result.completedAt)))throw new Error('The saved completion time is invalid.');
  if(v.usage){const u=object(v.usage);if(typeof u.input_tokens!=='number'||typeof u.output_tokens!=='number')throw new Error('Invalid usage receipt.');result.usage={input_tokens:u.input_tokens,output_tokens:u.output_tokens};}
  if(v.status==='complete'){
-  if(v.model!==REVIEW_MODEL||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
+  if(!result.completedAt||v.model!==REVIEW_MODEL||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
   const evidence=v.evidence.map(e=>{const row=object(e);text(row.id,1000);return row as NonNullable<SavedReview['evidence']>[number];});
   const paths=new Set(['/',...evidence.flatMap(e=>typeof e.path==='string'&&/^\/(?:[a-z0-9-]+\/)*$/.test(e.path)?[e.path]:[])]);
   result.evidence=evidence;result.report=validateReview(v.report,new Map(evidence.map(e=>[e.id,e])),paths);

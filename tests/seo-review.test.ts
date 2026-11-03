@@ -28,7 +28,11 @@ test('model output must cover every review area and cite only supplied evidence 
  assert.throws(()=>validateReview(falsePass,new Map([['settings',{}],['performance',{available:false}]]),new Set(['/'])),/Performance/);
  const falseTraffic=valid();falseTraffic.checks.find(c=>c.area==='traffic behavior')!.status='checked';
  assert.throws(()=>validateReview(falseTraffic,new Map([['settings',{}],['ga4',{available:false}],['gsc',{available:false}]]),new Set(['/'])),/Google/);
- assert.throws(()=>savedReview({status:'complete',startedAt:new Date().toISOString(),model:'claude-opus-5-5',effort:'high',report:{},evidence:[]}),/review/);
+ const stored={status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),model:'claude-opus-5-5',effort:'high',report:valid(),evidence:[{id:'settings'}]};
+ assert.equal(savedReview(stored).status,'complete');
+ assert.throws(()=>savedReview({...stored,report:{}}),/review/);
+ assert.throws(()=>savedReview({...stored,completedAt:'invalid'}),/completion time/);
+ assert.throws(()=>savedReview({...stored,completedAt:undefined}),/execution/);
 });
 test('Claude verifies exact model access, sets High effort, records usage and never silently falls back',async()=>{
  const calls:{url:string;body?:Record<string,unknown>}[]=[];
