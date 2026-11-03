@@ -1,0 +1,41 @@
+---
+import {createServerClient} from '../../lib/supabase';
+import {requireStaff} from '../../lib/auth';
+import {when} from '../../lib/admin-data';
+import {savedReview,type SavedReview} from '../../lib/seo-review';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+const configured=!!import.meta.env.ANTHROPIC_API_KEY,scheduled=configured&&!!import.meta.env.CRON_SECRET;
+const sb=createServerClient(Astro);
+const history=await sb.from('admin_cache').select('key,fetched_at').like('key','seo_review:%').order('fetched_at',{ascending:false}).limit(8);
+const requested=Astro.url.searchParams.get('review');
+const key=requested&&/^seo_review:(weekly:\d{4}-\d{2}-\d{2}|manual:[0-9a-f-]{36})$/.test(requested)?requested:history.data?.[0]?.key;
+const result=key?await sb.from('admin_cache').select('value').eq('key',key).maybeSingle():null;
+let data:SavedReview|undefined,invalid='';
+try{if(result?.data?.value)data=savedReview(result.data.value);}catch{invalid='The saved report could not be verified. The rest of the SEO editor remains available.';}
+const reviewLink=(key:string)=>{const query=new URLSearchParams(Astro.url.searchParams);query.set('review',key);return '/admin/seo/?'+query+'#weekly-review';};
+---
+<section id="weekly-review" class="a-panel a-section seo-review" data-seo-review>
+ <div class="review-head"><div><p class="a-label a-muted">Weekly site review</p><h2 class="a-heading">SEO, content &amp; traffic</h2></div><span class="a-count">Monday · 8 AM CT</span></div>
+ <p class="a-muted">Opus 5.5 · High effort. Reviews public pages, saved SEO settings and Google evidence. Recommendations await approval.</p>
+ {!scheduled&&<p class="a-notice">{configured?'The Claude key is present. Add the cron secret in Vercel to enable scheduled reviews.':'Setup required: add the Claude API key and cron secret securely in Vercel. The weekly review is not active yet.'} <a class="a-link" href="/admin/backend/">View connections</a></p>}
+ {history.error||result?.error?<p class="a-error" role="alert">Saved reviews could not be loaded. Refresh to try again.</p>:null}
+ {invalid&&<p class="a-error" role="alert">{invalid}</p>}
+ <div class="review-actions">{staff.role==='owner'&&<button class="a-button" type="button" data-run-review disabled={!configured}>Run site review</button>}<p class="a-muted" role="status" aria-live="polite" data-review-status></p></div>
+ {data?<>
+  <p class="a-count">{data.status==='complete'?'Completed '+when(data.completedAt):'Started '+when(data.startedAt)} · {data.status}{data.model?' · '+data.model+' / '+data.effort:''}</p>
+  {data.status==='failed'&&<p class="a-error" role="alert">{data.error}</p>}
+  {data.status==='running'&&<p class="a-notice">The review has not recorded completion. Refresh to check. If it was interrupted, it remains unverified; an owner can request a new review.</p>}
+  {data.report&&<>
+   <p class="review-summary">{data.report.summary}</p>
+   <div class="review-table" tabindex="0" role="region" aria-label="Review coverage"><table><caption class="a-label a-muted">Review coverage and evidence gaps</caption><thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Finding</th></tr></thead><tbody>{data.report.checks.map(c=><tr><th scope="row">{c.area}</th><td>{c.status}</td><td>{c.detail}</td></tr>)}</tbody></table></div>
+   <h3 class="a-heading a-section">Recommended actions</h3>
+   {data.report.recommendations.length?<ol class="review-recommendations">{data.report.recommendations.map(r=><li><p class="a-label a-muted">{r.priority} priority · {r.area} · <a class="a-link" href={r.path}>{r.path}</a></p><h4>{r.problem}</h4><p>{r.action}</p><p class="a-muted">{r.reason}</p><p><strong>Verify:</strong> {r.validation}</p><p class="a-count">Evidence: {r.evidenceIds.map(id=><a class="a-link" href={'#review-evidence-'+data.evidence?.findIndex(e=>e.id===id)}>{id} </a>)}</p></li>)}</ol>:<p class="a-muted">No changes were recommended within the collected evidence.</p>}
+  </>}
+  {data.evidence&&<details class="a-section"><summary>Inspect collected evidence</summary><p class="a-muted">Commit {data.commit}. {data.usage?`${data.usage.input_tokens} input tokens · ${data.usage.output_tokens} output tokens.`:''} Page excerpts and top traffic rows are limited; unavailable checks remain gaps.</p>{data.evidence.map((e,i)=><details id={'review-evidence-'+i} class="review-source"><summary>{e.id}</summary><pre>{JSON.stringify(e,null,2)}</pre></details>)}</details>}
+ </>:<p class="a-empty">No site review has been saved yet.</p>}
+ {history.data&&history.data.length>1&&<details class="a-section"><summary>Recent reviews</summary><ul>{history.data.map(row=><li><a class="a-link" href={reviewLink(row.key)}>{when(row.fetched_at)} · {row.key.includes(':weekly:')?'Weekly':'Requested'}</a></li>)}</ul></details>}
+</section>
+<style>
+ .review-head,.review-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.review-head p{margin:0 0 6px}.review-actions{justify-content:flex-start;margin:18px 0}.review-actions p{margin:0}.review-summary{white-space:pre-wrap;max-width:90ch}.review-table{overflow:auto;margin:24px 0}.review-table table{border-collapse:collapse;width:100%;font-size:14px}.review-table caption{text-align:left;padding-bottom:12px}.review-table th,.review-table td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.review-table th{font-weight:600}.review-table td:nth-child(2){min-width:125px}.review-recommendations{padding-left:24px}.review-recommendations li{padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.review-recommendations h4{font-size:18px;margin:8px 0}.review-source{padding:12px 0;border-bottom:1px solid var(--line)}.review-source pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:480px;overflow:auto;font-size:12px}summary{cursor:pointer;min-height:32px}summary:focus-visible{outline:2px solid var(--tealt);outline-offset:4px}@media(max-width:600px){.review-table table{min-width:520px}}
+</style>
+<script>import '../../scripts/admin/seo-review';</script>
