@@ -46,6 +46,7 @@ export async function collectPagePerformance(settings:GoogleSettings,posts:reado
   data.sources.ga4.available=any;if(!any)data.sources.ga4.gap='Native GA4 page reports could not be read.';
   const transitionResults=reports.slice(3);let transitionsAvailable=true;
   for(let i=0;i<2;i++){const result=transitionResults[i];if(result.status!=='fulfilled'){transitionsAvailable=false;continue;}const report=result.value;if((report.rowCount||0)>(report.rows?.length||0))data.notes.push('GA4 article-to-service referrer report truncated at 10000 rows.');
+   if(report.metadata?.subjectToThresholding||report.metadata?.samplingMetadatas?.length||report.metadata?.dataLossFromOtherRow)data.notes.push('GA4 article-to-service reports thresholding, sampling or other-row data loss; referred service views may be incomplete.');
    const key=i===0?'current':'previous';for(const p of pages.filter(p=>p.kind==='blog'))p.serviceReferrals![key]=null;
    const totals=new Map<string,number>();
    for(const row of report.rows||[]){const target=row.dimensionValues?.[0]?.value,from=sourcePath(row.dimensionValues?.[1]?.value||'',articlePaths),views=numeric(row.metricValues?.[0]?.value);if(!from||!target||!servicePaths.includes(target)||views===null)continue;for(const pillar of data.pillars.filter(g=>g.servicePath===target&&g.articlePaths.includes(from))){const groupKey=pillar.slug+'\n'+from;totals.set(groupKey,(totals.get(groupKey)||0)+views);}}

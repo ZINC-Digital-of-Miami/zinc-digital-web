@@ -23,7 +23,7 @@ test('native page performance preserves canonical pillars, source grain, missing
  (globalThis as any).__zincPerformanceFixture={verify:async()=>{verified++;},request:async(url:string,body:any)=>{
   calls.push({url,body});const dims=(body.dimensions||[]).map((d:any)=>typeof d==='string'?d:d.name),current=String(body.dateRanges?.[0]?.endDate||body.endDate)>new Date(Date.now()-15*86400000).toISOString().slice(0,10);
   if(url.includes('analyticsdata')){
-   if(dims.includes('pageReferrer'))return {rows:[{dimensionValues:[{value:'/services/seo/'},{value:'https://www.zincdigital.co/blog/a/?email=private@example.com'}],metricValues:[{value:current?'4':'2'}]},{dimensionValues:[{value:'/services/seo/'},{value:'https://evil.example/blog/a/'}],metricValues:[{value:'999'}]}]};
+   if(dims.includes('pageReferrer'))return {metadata:{subjectToThresholding:true},rows:[{dimensionValues:[{value:'/services/seo/'},{value:'https://www.zincdigital.co/blog/a/?email=private@example.com'}],metricValues:[{value:current?'4':'2'}]},{dimensionValues:[{value:'/services/seo/'},{value:'https://evil.example/blog/a/'}],metricValues:[{value:'999'}]}]};
    if(dims.includes('date'))return {metadata:{timeZone:'America/Chicago'},rows:[{dimensionValues:[{value:'/blog/a/'},{value:body.dateRanges[0].startDate.replaceAll('-','')}],metricValues:[{value:'10'},{value:'20'}]}]};
    return {metadata:{timeZone:'America/Chicago'},rows:[{dimensionValues:[{value:'/blog/a/'}],metricValues:[{value:current?'10':'8'},{value:'20'}]}]};
   }
@@ -37,6 +37,7 @@ test('native page performance preserves canonical pillars, source grain, missing
  assert.equal(result.pillars.find((p:any)=>p.slug==='seo').serviceReferrals.current,4);
  assert.equal(result.pillars.find((p:any)=>p.slug==='ai-search-optimization').serviceReferrals.current,null);
  assert.deepEqual(result.transitions,[{articlePath:'/blog/a/',servicePath:'/services/seo/',current:4,previous:2}]);
+ assert.ok(result.notes.some((note:string)=>/article-to-service.*thresholding/.test(note)));
  assert.doesNotMatch(JSON.stringify(result),/private@example|campaign=|evil\.example/);
  const analytics=calls.filter(c=>c.url.includes('analyticsdata'));assert.equal(analytics.length,5);assert.ok(analytics.every(c=>JSON.stringify(c.body.dimensionFilter).includes('hostName')));
  assert.ok(calls.filter(c=>!c.url.includes('analyticsdata')).every(c=>c.body.dataState==='final'));
