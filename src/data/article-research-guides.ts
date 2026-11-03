@@ -252,10 +252,12 @@ Give each channel a job: email may reach opted-in existing customers, search may
     keywords: ['research consensus report', 'source triangulation', 'evidence review', 'decision brief'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'seo'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `Three summaries of the same press release are still one source.
 
 Use a consensus report to find what the evidence supports, where it conflicts and what remains unknown. Agreement between models is not a substitute for agreement between independent sources.
+
+![Count origins before agreement. 01 / Trace the original: Survey A → article B → article C: One study, three publications: Record the shared family ID. 02 / Compare a separate record: Store log D has its own origin: Check population, dates and measure: Different scope may limit comparison. 03 / Make the narrow decision: Agreement, contradiction or unknown: Retain limitations and minority findings: Name the next check and owner](/media/blog-review/evidence-families.svg)
 
 ## Step 1: Write the decision as a question
 
@@ -326,7 +328,13 @@ A finished one-page decision could say:
 
 That recommendation is narrower than “transparent shipping always increases conversion”. It is also something the business can act on.
 
-In the source register, record original study, population, period, measure, finding and limitation. A useful conclusion might be that the survey suggests a question worth testing locally, while the experiment offers a possible method. That is weaker than a universal claim, but more actionable. Keep the original URLs and relevant passages with the decision so another person can challenge it.`,
+In the source register, record original study, population, period, measure, finding and limitation. A useful conclusion might be that the survey suggests a question worth testing locally, while the experiment offers a possible method. That is weaker than a universal claim, but more actionable. Keep the original URLs and relevant passages with the decision so another person can challenge it.
+
+## Keep the evidence family with the decision
+
+Use one row per claim and original evidence family. If two articles repeat one study, give them the same family ID. Preserve the relevant passage, population, limitation and next check; do not count model agreement as another source.
+
+[Download the evidence-family worksheet](/downloads/research-evidence-families.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
   {
     id: 90017,
@@ -336,10 +344,12 @@ In the source register, record original study, population, period, measure, find
     keywords: ['AI research workflow', 'AI source verification', 'research prompts', 'model selection'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `A fluent answer is not a research record.
 
 Split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
+
+![Turn a citation into checked evidence. 01 / Discover: Define the question and boundaries: Find an inspectable original URL: Record the tool and research date. 02 / Verify: Open the source and locate the passage: Check scope, dates and independence: Unsupported claim? Correct or remove. 03 / Decide: Separate fact from interpretation: Keep the limitation with the finding: Assign the action and review date](/media/blog-review/source-verification.svg)
 
 ## Step 1: Define the question and boundaries
 
@@ -398,7 +408,13 @@ A completed evidence row could be:
 
 That row supports a narrow capability claim. It does not support “Shopify fixes all image SEO automatically”. Keep the source URL, date checked and test result with the recommendation.
 
-Then open the sources. Separate what the platform supports from what a particular plan, integration or implementation supplies. Mark costs and limitations with their observation date. The final recommendation should explain which requirement drives the choice and what must be tested before purchase. If the evidence does not establish a capability, keep it unknown rather than letting the model fill the cell with a confident guess.`,
+Then open the sources. Separate what the platform supports from what a particular plan, integration or implementation supplies. Mark costs and limitations with their observation date. The final recommendation should explain which requirement drives the choice and what must be tested before purchase. If the evidence does not establish a capability, keep it unknown rather than letting the model fill the cell with a confident guess.
+
+## Put the citation check beside the claim
+
+Use one row per decisive factual claim. Open the original URL, record the supporting passage and date, and mark the verification result yourself. The example demonstrates a capability check; it is not a completed test of your store.
+
+[Download the AI research source-check sheet](/downloads/ai-research-source-check.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
   {
     id: 90018,
@@ -408,10 +424,12 @@ Then open the sources. Separate what the platform supports from what a particula
     keywords: ['AI competitor research prompts', 'competitor analysis', 'public evidence', 'competitive research'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-02T18:13:42Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `Public pages can show a competitor's offer, pricing and buying process. They usually cannot establish revenue, profit or advertising spend.
 
 Begin with a small set of businesses and a specific buying decision.
+
+![Keep the inference visible. 01 / Record what is public: Exact offer, price and stated terms: Source URL and observation date: Label the business’s own claims. 02 / Bound the comparison: Match scope, currency and conditions: Leave missing prices unknown: Do not infer revenue or private spend. 03 / Test your own explanation: Choose one useful hypothesis: Define your baseline and owner: Review your result, not their private data](/media/blog-review/public-evidence.svg)
 
 ## Step 1: Fix the comparison
 
@@ -461,6 +479,12 @@ The output is a testable decision supported by public records. Private numbers s
 
 For an illustrative agency comparison, record whether each public service page explains deliverables, responsibilities, evidence and the enquiry process. “No public price found” is an observation. “This agency is expensive” is an unsupported conclusion unless you have comparable current quotes and scope.
 
-If your own page omits delivery responsibilities, test a clearer explanation there. Do not copy a competitor’s claims or invent a differentiator. Save the observed pages and dates so later changes can be distinguished from research errors. Rankings and reviews can suggest where to look; they do not reveal the competitor’s revenue or profitability.`,
+If your own page omits delivery responsibilities, test a clearer explanation there. Do not copy a competitor’s claims or invent a differentiator. Save the observed pages and dates so later changes can be distinguished from research errors. Rankings and reviews can suggest where to look; they do not reveal the competitor’s revenue or profitability.
+
+## Keep public evidence separate from the hypothesis
+
+Use one row per competitor and comparable offer. Save the exact public URL, date and terms before proposing a change to your own site. A missing price stays unknown; the sheet does not estimate private revenue or ad spend.
+
+[Download the public competitor evidence matrix](/downloads/competitor-public-evidence.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
 ];

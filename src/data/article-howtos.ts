@@ -13,7 +13,7 @@ export const articleHowtos: AddedArticle[] = [
     layer: 'Intelligence',
     related: ['business-intelligence', 'google-search-ads'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `Inconsistent campaign names split related traffic across separate rows and make results harder to compare.
 
 Use one vocabulary, a link register and a click test. Start with the channel decisions in our [planning guide](/blog/seven-digital-channels-which-to-skip/).
@@ -68,6 +68,15 @@ This manual email example does not instruct you to turn off Google Ads auto-tagg
 ## A completed link-register row
 
 Illustrative destination: /services/business-intelligence/?utm_source=newsletter&utm_medium=email&utm_campaign=reporting_workshop&utm_content=main_button. The source names the publication, medium identifies email, campaign groups the promotion and content distinguishes this button. Use your real domain when building the final URL.
+
+| Parameter | Value in this example | Question it answers |
+| --- | --- | --- |
+| utm_source | newsletter | Which publication sent the visit? |
+| utm_medium | email | What kind of channel was it? |
+| utm_campaign | reporting_workshop | Which promotion groups these links? |
+| utm_content | main_button | Which link within that promotion was used? |
+
+These are expected labels for the illustrative link. The processed session values still need to be observed and recorded.
 
 Before distribution, open the exact link, confirm the correct page and record the processed session dimensions after a consented test visit. Keep the sent version in the register even if a later campaign uses different names. Do not add UTMs to ordinary links between pages on your own site: that confuses campaign interpretation. Use navigation or event measurement for those internal interactions instead.`,
   },
@@ -153,7 +162,7 @@ Compare the same query group, page filters, country, device and dates. If the gu
     layer: 'Demand',
     related: ['shopify', 'seo'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:56:43Z',
     markdown: `Improve the product information and search presentation together. Start with one representative item before applying a catalog-wide template.
 
 Use our [Shopify SEO launch guide](/blog/shopify-seo-launch-checklist/) for the wider storefront checks.
@@ -201,6 +210,8 @@ Save, then open the public URL on mobile. Check descriptions, options, images, m
 
 Record the release before reviewing comparable search periods. An edited title does not guarantee better rankings.
 
+On a client catalog project, our team manually prepared product images as part of the website work. A tidy background is useful, but it cannot supply a missing specification or tell a buyer which option they are looking at. Give the image and the product facts their own checks. Neither gets to borrow the other's tick.
+
 ## Example: complete the buyer’s missing information
 
 Here is one complete illustrative item. Assume the product record confirms a 750 ml steel bottle, navy finish, screw lid, 7.5 cm diameter, 27 cm height and hand-wash-only care. Do not transfer these invented specifications to a real product.
@@ -216,7 +227,13 @@ Here is one complete illustrative item. Assume the product record confirms a 750
 
 The photo descriptions must match the actual views. Add verified delivery and return links near the buying controls. Avoid inventing temperature-retention claims or saying it fits every cup holder. Keep the existing URL unless there is a separate reason to change it.
 
-Choose images that show the actual color and useful scale; do not invent certifications or performance claims. After saving, inspect the page on a phone, change variants and check that price, image and availability follow the selection. Compare rendered product markup with the visible item. A complete page helps a buyer make a decision; it does not guarantee a rich result or a ranking.`,
+Choose images that show the actual color and useful scale; do not invent certifications or performance claims. After saving, inspect the page on a phone, change variants and check that price, image and availability follow the selection. Compare rendered product markup with the visible item. A complete page helps a buyer make a decision; it does not guarantee a rich result or a ranking.
+
+## Check one product before editing the catalog
+
+Use one row per product field and variant. Put the approved fact and its source beside the current page value, then record the saved public result. The bottle row is fictional; replace it with your own verified specifications.
+
+[Download the product-page fact-check sheet](/downloads/product-page-fact-check.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
   {
     id: 90008,
@@ -304,7 +321,7 @@ Record item ID, group ID, option values, landing URL, image, availability and pr
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
 
 Begin with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
@@ -364,7 +381,22 @@ The category omission belongs in its article-listing logic. A second useful edit
 
 Take a hypothetical reporting service and its business-intelligence category. The category should help readers find the metric-definition and data-preparation articles. A metric article might link to data preparation when the reader is ready to gather records, and to the service when implementation help becomes relevant.
 
-Use a simple table: source page, reader’s next question, destination, proposed anchor and result. “Define net revenue” tells a reader more than “click here”. Open every changed destination and confirm that it returns the intended content without a redirect chain. Check mobile and keyboard navigation too. A page with many links can still hide its most important next step.`,
+| Introducing page | Reader's next question | Useful destination | Retest |
+| --- | --- | --- | --- |
+| Reporting service | What guidance supports this service? | Business-intelligence blog category | Follow its link from the service page |
+| Reporting category | How should this number be defined? | Metric-definition article | Find it by browsing the category |
+| Metric-definition article | Which records do I need? | Data-preparation article | Follow the descriptive link in context |
+| Metric-definition article | Who can implement the reporting? | Relevant reporting service | Check scope and the inquiry route |
+
+This is a hypothetical relationship map, not a claim that those example URLs are published. Replace it with actual pages in your inventory.
+
+Record the source page, reader’s next question, destination, proposed anchor and result. “Define net revenue” tells a reader more than “click here”. Open every changed destination and confirm that it returns the intended content without a redirect chain. Check mobile and keyboard navigation too. A page with many links can still hide its most important next step.
+
+## Retest the route that was missing
+
+Use one row per relationship. Record the introducing page, reader task, anchor and destination, then follow the repaired route on mobile and desktop. Keep crawl discovery separate from a URL fetched because you supplied it.
+
+[Download the internal-link repair sheet](/downloads/internal-link-repair.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
   {
     id: 90010,
@@ -535,7 +567,7 @@ State exclusions that affect the purchase, including unavailable integrations or
     layer: 'Demand',
     related: ['google-search-ads', 'social-ads', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `Test the path from the ad promise to an accepted inquiry or purchase. A polished page alone cannot establish that the journey works.
 
 Start with the campaign purpose in our [channel planning guide](/blog/seven-digital-channels-which-to-skip/).
@@ -586,6 +618,15 @@ Treat campaign outcomes as a later observation requiring reliable data. The laun
 Imagine an ad offering delivery before a holiday deadline. Open its exact destination on a phone, select the advertised item and check the relevant postcode and shipping option. A banner promising fast delivery does not help if checkout contradicts it.
 
 Record ad, URL, device, product or service, stated terms, form or checkout result and measurement observation. Use an authorized test transaction where completion is required; avoid creating real orders accidentally. Check errors as well as success: invalid details should produce readable guidance, and a failed submission must not fire a successful-lead event. Repeat after the actual campaign URL is saved.
+
+| Test scenario | Page behaviour to inspect | Separate evidence to retain |
+| --- | --- | --- |
+| Advertised item and eligible delivery address | Offer, selected option and checkout terms agree | Exact creative, URL, option and displayed terms |
+| Required field left blank | Readable error and a way to correct it | No accepted-lead record or success event for the failed attempt |
+| Valid authorised test | Customer sees an accurate confirmation | Receiving record and intended measurement event |
+| Repaired defect | Original failing path now works on the target device | Retest result, date and any remaining limitation |
+
+An untested row stays pending. Do not fill the receiving-record column from a screenshot of the confirmation page.
 
 [Download the ad-to-enquiry test sheet](/downloads/landing-journey-test.csv). Use one row per valid or invalid scenario and record the receiving system separately from the on-page confirmation. The example rows are untested specimens; they are not completed checks.`,
   },

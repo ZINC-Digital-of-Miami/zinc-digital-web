@@ -1,0 +1,3 @@
+"row_type","measure","source_and_grain","formula","exclusions","currency","timezone","cohort_and_cutoff","expected_sample","independent_observed_result","coverage_limit","owner"
+"fictional specimen","Order-cohort net merchandise sales","Source order and refund rows","Merchandise after discounts minus same-cohort refunds","Tax; shipping; other-cohort refunds","USD","America/Chicago","Specify order dates and refund review cutoff","240 minus 80 equals 160","Pending independent check","Fictional orders A B C only",""
+"your row","","","","","","","","","","",""

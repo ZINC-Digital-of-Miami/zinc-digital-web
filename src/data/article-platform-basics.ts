@@ -313,7 +313,7 @@ The assignment is complete when a business owner can prepare for the conversatio
     layer: 'Intelligence',
     related: ['business-intelligence', 'apps'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:56:43Z',
     markdown: `Business intelligence turns business records into decisions people can act on. It connects sources, defines the measures and shows what changed. You need it when separate reports leave the team arguing about what a number means.
 
 ## 1. Start with a business question
@@ -336,7 +336,7 @@ For purchase measurement, check the [GA4 purchase specification](https://develop
 
 Put the comparison, relevant breakdown and source date where the operator can see them. Identify attribution limits and incomplete records in the view itself.
 
-[U.S. Oil Solutions](/work/us-oil-solutions/) illustrates an operational use: visit records and fryer-service histories support reporting inside its separate operations app. That app is distinct from its public website.
+In client work, our team built reporting into a staff application alongside assignments and service-history records. The public website was a separate part of the engagement. A prospective buyer needs an explanation of the offer; an operator needs records that support the next task. Decide which person the report serves before deciding what belongs on its first screen.
 
 ## 5. Assign an action and verify it
 
@@ -361,6 +361,12 @@ Here is an illustrative definition and sample: **net merchandise sales for an or
 
 A dashboard showing $240 has not yet applied these refunds. A dashboard showing $150 might include an unrelated $10 refund from a different order cohort. Neither discrepancy is solved by choosing the more flattering total. Trace the contributing records and use the agreed definition. Keep later refunds as dated revisions instead of pretending the earlier observation never existed.
 
-Take a small sample of source orders and calculate the agreed measure by hand before trusting the dashboard total. Record source, grain, formula, exclusions, time zone, freshness and owner. If an order feed is missing, show the incomplete coverage rather than a zero. The acceptance test is that a second person can reproduce the result and understand what action it supports.`,
+Take a small sample of source orders and calculate the agreed measure by hand before trusting the dashboard total. Record source, grain, formula, exclusions, time zone, freshness and owner. If an order feed is missing, show the incomplete coverage rather than a zero. The acceptance test is that a second person can reproduce the result and understand what action it supports.
+
+## Make the definition reproducible
+
+Use one row per measure. Record the source, grain, formula, exclusions, time zone and cutoff, then reconcile a small sample independently. The specimen uses the article’s fictional $160 order-cohort example; it is not a live sales report.
+
+[Download the metric-definition worksheet](/downloads/metric-definition-check.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.`,
   },
 ];

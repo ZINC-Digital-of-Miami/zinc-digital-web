@@ -113,7 +113,7 @@ The event name is shown with its parameters for readability. The actual sending 
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:53:14Z',
     markdown: `A canonical tag is a preference. It is not a command.
 
 When Google chooses another URL, inspect the disagreement before changing the template.
@@ -159,6 +159,17 @@ Use the paired-URL example in our [duplicate-content guide](/blog/duplicate-cont
 Paste the exact affected URL into Search Console's inspection bar and run the inspection. Expand the indexing details and copy the user-declared and Google-selected canonical values where available, plus the last-crawl date. Repeat for the preferred URL. Missing information stays “not available”; it does not mean that Google agrees with your preference.
 
 Illustrative result: the parameter URL declares itself, Google selects the clean URL, and both show the same product. This may already be a sensible Google selection. The repair is the site's conflicting declaration and internal link—not an attempt to force Google to index both copies. If instead Google selects an unrelated collection, first compare the actual product content and inspect whether the intended page redirects or has an access problem.
+
+### Keep the two checks separate
+
+| Observation | What it establishes | What to do next |
+| --- | --- | --- |
+| Live page returns 200 and declares the intended canonical | The current response contains that signal | Check internal links, sitemap and the competing URL |
+| Live test succeeds, but the indexed crawl predates the repair | Current access may be fixed; the stored result is older | Keep the indexed outcome pending and inspect a later crawl |
+| Google selects the clean URL while a duplicate declares itself | The site's declarations disagree with Google's selection | Compare the content and align the duplicate's signals |
+| Selected URL serves a different purpose | This may involve more than an ordinary duplicate | Investigate content, redirects and access before consolidating |
+
+Use the sheet's live and indexed fields separately. “Not available” is a recorded limit, not a pass.
 
 After the developer changes the conflicting signal, open the published URL and repeat the live check. Record, for example, “200; clean product canonical; category link corrected” in the live-result column. Leave the indexed-result column pending until the inspected crawl reflects the change. A screenshot of the deployment succeeding cannot fill that column.`,
   },
@@ -239,8 +250,10 @@ Use the [variant comparison sheet](/downloads/product-variant-comparison.csv) to
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-03T14:56:43Z',
     markdown: `A useful brief tells the writer what the reader needs to decide, which evidence supports the answer and where to link next.
+
+In our client work, we have built distinct pages to explain different services rather than asking one page to introduce the whole offer. That gives a writer a rather useful starting question: what does this reader still need to understand? Put that question in the brief, along with the person who can answer it. Otherwise, a perfectly respectable title can end up doing an awful lot of guessing.
 
 ## Start with the existing pages and a real customer question
 
