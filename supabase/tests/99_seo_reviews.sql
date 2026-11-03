@@ -10,7 +10,7 @@ select dbtest.blocked('editor cannot forge report', $q$update public.admin_cache
 select dbtest.blocked('editor cannot preclaim next run', $q$insert into public.admin_cache(key,value) values('seo_review:weekly:2099-11-16','{}')$q$);
 select dbtest.allowed('ordinary metrics caching is preserved', $q$insert into public.admin_cache(key,value) values('dbtest-seo-metrics','{}')$q$);
 select dbtest.blocked('editor cannot rename metrics to a report', $q$update public.admin_cache set key='seo_review:manual:spoof' where key='dbtest-seo-metrics'$q$);
-select dbtest.blocked('Google owner protection is preserved', $q$insert into public.admin_cache(key,value) values('google_connection','{}') on conflict(key) do update set value=excluded.value$q$);
+select dbtest.blocked('publication receipt protection is preserved', $q$insert into public.admin_cache(key,value) values('last_publish','{}') on conflict(key) do update set value=excluded.value$q$);
 select dbtest.blocked('publishing-key protection is preserved', $q$insert into public.admin_cache(key,value) values('publish_lock','{}') on conflict(key) do update set value=excluded.value$q$);
 reset role;
 select set_config('request.jwt.claims','{"sub":"00000000-0000-4000-8000-00000000a001","role":"authenticated"}',true);
