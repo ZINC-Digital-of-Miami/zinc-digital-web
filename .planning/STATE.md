@@ -20,6 +20,14 @@ progress:
 
 # Project State
 
+### SEO Analysis preparation checkpoint — 3 November 2026 CT
+
+PR52 and PR53 are merged on main (`24989b3`, `efe2d8f`); report policies and dedicated production secrets are configured. The first Claude attempt failed safely and accepted no recommendations; no successful review is claimed. Latest owner direction pauses further Claude usage until the researched instructions are settled. Production `SEO_REVIEW_ENABLED=false` is configured; the pending Analysis branch implements enforcement. Keep Monday 8 AM CT, Opus 5.5 High, the Monday/Wednesday/Friday 9 AM CT article schedule and Wendy's unpublished draft unchanged. No Docker or Actions.
+
+In progress in `codex/seo-analysis-dashboard`: dedicated Analysis with actual ZINC fonts/design, versioned checklist gauges/history, anomalies, native article/service sparklines and category-to-service pillar areas. A pillar is the owner's blog category serving its mapped service page. Referrer evidence counts service-page views, not unique clicks or qualified enquiries. Current source, research/market estimates and unresolved proof are recorded in the existing Kiro tasks section. Next: integrated review/checks and rendered verification; protected release and token-free baseline; owner greenlight before another paid review. Public homepage metadata remains unchanged while the wording proposal is reviewed.
+
+Local integrated proof: 198 tests pass; Astro check has zero errors/warnings; production build and static checks pass across 100 HTML files. Actual component/admin-shell fixtures load the three existing ZINC fonts, show no desktop/mobile page overflow, retain missing-data gaps, and handle first-baseline/corrupt-report states. A fresh review identified a corrupt pillar-referral count guard, reproduced and corrected with a regression test. These local results do not establish production execution; subsequent release/runtime receipts belong in this change's protected PR. Article automation/register and Wendy manuscript/art hashes are unchanged.
+
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-09-25 CT)

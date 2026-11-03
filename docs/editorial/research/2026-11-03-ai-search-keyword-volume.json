@@ -1,0 +1,734 @@
+{
+  "retrievedAt": "2026-11-03T23:08:44Z",
+  "tool": "mcp__hypd__research_get_search_volume",
+  "purpose": "Owner-requested AI-search wording research; no account performance access.",
+  "priorResearchCheck": "No matching retained keyword-volume result found in .kiro, .planning or docs/editorial/research before lookup.",
+  "request": {
+    "keywords": [
+      "AI search optimization",
+      "generative engine optimization",
+      "answer engine optimization",
+      "AI optimization",
+      "AI SEO",
+      "AI search optimization agency",
+      "generative engine optimization services",
+      "answer engine optimization services",
+      "AI SEO services"
+    ],
+    "language": "English",
+    "location": "United States"
+  },
+  "budgetBefore": "RESEARCH BUDGET (Plus plan): premium research tools include 400 credits/day, 1,500 credits/month; used 0 today, 33 this month. Tool credits: 0 fund research calls once the windows are used up; top-ups at https://app.hypd.ai/usage?topUp=true. Windows reset on calendar UTC. Mention only when the user asks about limits or a tool reports one.",
+  "cost": "Included research window available before call. Exact debited credits and backend provider were not returned; no purchase or top-up authorized or made.",
+  "response": {
+    "result": {
+      "columns": [
+        "keyword",
+        "spell",
+        "location_code",
+        "language_code",
+        "search_partners",
+        "competition",
+        "competition_index",
+        "search_volume",
+        "low_top_of_page_bid",
+        "high_top_of_page_bid",
+        "cpc",
+        "monthly_searches",
+        "keyword_annotations"
+      ],
+      "expiresAt": "2026-11-04T23:08:44.438Z",
+      "page": 1,
+      "pageSize": 20,
+      "resultId": "1e448560-d3d3-4951-94ae-2e5a7bb32211",
+      "rowCount": 9,
+      "rows": [
+        {
+          "keyword": "ai seo",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "MEDIUM",
+          "competition_index": 48,
+          "search_volume": 6600,
+          "low_top_of_page_bid": 11.98,
+          "high_top_of_page_bid": 34.42,
+          "cpc": 41.45,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 8100
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 9900
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 8100
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 6600
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 9900
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 8100
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 6600
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 6600
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 5400
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 5400
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 4400
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 5400
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "generative engine optimization",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "MEDIUM",
+          "competition_index": 37,
+          "search_volume": 4400,
+          "low_top_of_page_bid": 10,
+          "high_top_of_page_bid": 30.31,
+          "cpc": 35.04,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 5400
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 4400
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 3600
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 5400
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 4400
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 5400
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 3600
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 3600
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 3600
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 2900
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 3600
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 4400
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "answer engine optimization",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "LOW",
+          "competition_index": 21,
+          "search_volume": 2400,
+          "low_top_of_page_bid": 7.36,
+          "high_top_of_page_bid": 20.59,
+          "cpc": 21.31,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 2400
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 2400
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 1900
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 1900
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 1900
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 2900
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 2400
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 2400
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 2400
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 2400
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 2900
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 4400
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "ai search optimization",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "MEDIUM",
+          "competition_index": 36,
+          "search_volume": 1300,
+          "low_top_of_page_bid": 15.32,
+          "high_top_of_page_bid": 46.01,
+          "cpc": 52.23,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 1000
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 1900
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 1600
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "ai optimization",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "MEDIUM",
+          "competition_index": 40,
+          "search_volume": 1300,
+          "low_top_of_page_bid": 8.43,
+          "high_top_of_page_bid": 23.72,
+          "cpc": 33.18,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 1300
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 1300
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 1900
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 1300
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "ai seo services",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "LOW",
+          "competition_index": 21,
+          "search_volume": 1000,
+          "low_top_of_page_bid": 19.5,
+          "high_top_of_page_bid": 47.13,
+          "cpc": 48.56,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 1000
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 880
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 1600
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 1300
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 880
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "generative engine optimization services",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "LOW",
+          "competition_index": 15,
+          "search_volume": 720,
+          "low_top_of_page_bid": 16.31,
+          "high_top_of_page_bid": 37.36,
+          "cpc": 49.08,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 880
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 880
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "answer engine optimization services",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "LOW",
+          "competition_index": 10,
+          "search_volume": 590,
+          "low_top_of_page_bid": 13.74,
+          "high_top_of_page_bid": 27.5,
+          "cpc": 51.67,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 390
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 390
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 880
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 880
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 880
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 720
+            }
+          ],
+          "keyword_annotations": null
+        },
+        {
+          "keyword": "ai search optimization agency",
+          "spell": null,
+          "location_code": 2840,
+          "language_code": "1000",
+          "search_partners": false,
+          "competition": "LOW",
+          "competition_index": 7,
+          "search_volume": 480,
+          "low_top_of_page_bid": 19.41,
+          "high_top_of_page_bid": 45.56,
+          "cpc": 78.9,
+          "monthly_searches": [
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 10
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 20
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 40
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 90
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 70
+            },
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 260
+            },
+            {
+              "year": 2026,
+              "month": 4,
+              "search_volume": 170
+            },
+            {
+              "year": 2026,
+              "month": 5,
+              "search_volume": 320
+            },
+            {
+              "year": 2026,
+              "month": 6,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 7,
+              "search_volume": 2900
+            },
+            {
+              "year": 2026,
+              "month": 8,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 9,
+              "search_volume": 320
+            }
+          ],
+          "keyword_annotations": null
+        }
+      ],
+      "totalPages": 1
+    }
+  }
+}

@@ -3,26 +3,39 @@ import {createServerClient} from '../../lib/supabase';
 import {requireStaff} from '../../lib/auth';
 import {when} from '../../lib/admin-data';
 import {savedReview,type SavedReview} from '../../lib/seo-review';
+import {parseScoreSnapshot,type ScoreHistory} from '../../lib/seo-review-dashboard';
+import SeoAnalysisDashboard from './SeoAnalysisDashboard.astro';
+import {seoResearch} from '../../data/seo-review-research';
 const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
-const configured=!!import.meta.env.ANTHROPIC_API_KEY,scheduled=configured&&!!import.meta.env.CRON_SECRET;
+const configured=!!import.meta.env.ANTHROPIC_API_KEY,approved=import.meta.env.SEO_REVIEW_ENABLED==='true',scheduled=configured&&approved&&!!import.meta.env.CRON_SECRET;
 const sb=createServerClient(Astro);
-const history=await sb.from('admin_cache').select('key,fetched_at').like('key','seo_review:%').order('fetched_at',{ascending:false}).limit(8);
+const history=await sb.from('admin_cache').select('key,fetched_at,scorecard:value->scorecard,scoringVersion:value->>scoringVersion,measuredAt:value->>measuredAt,status:value->>status,source:value->>source').like('key','seo\\_review:%').order('fetched_at',{ascending:false}).limit(24).abortSignal(AbortSignal.timeout(10000));
+const rows=(history.data||[]) as unknown as {key:string;fetched_at:string;scorecard?:unknown;scoringVersion?:string;measuredAt?:string;status?:string;source?:string}[];
 const requested=Astro.url.searchParams.get('review');
-const key=requested&&/^seo_review:(weekly:\d{4}-\d{2}-\d{2}|manual:[0-9a-f-]{36})$/.test(requested)?requested:history.data?.[0]?.key;
-const result=key?await sb.from('admin_cache').select('value').eq('key',key).maybeSingle():null;
+const key=requested&&/^seo_review:(weekly:\d{4}-\d{2}-\d{2}|(?:manual|scan):[0-9a-f-]{36})$/.test(requested)?requested:rows[0]?.key;
+const result=key?await sb.from('admin_cache').select('value').eq('key',key).abortSignal(AbortSignal.timeout(10000)).maybeSingle():null;
 let data:SavedReview|undefined,invalid='';
-try{if(result?.data?.value)data=savedReview(result.data.value);}catch{invalid='The saved report could not be verified. The rest of the SEO editor remains available.';}
-const reviewLink=(key:string)=>{const query=new URLSearchParams(Astro.url.searchParams);query.set('review',key);return '/admin/seo/?'+query+'#weekly-review';};
+try{if(result?.data?.value)data=savedReview(result.data.value);}catch{invalid='The saved report could not be verified. Refresh site checks to create a new measurement.';}
+const measurements:ScoreHistory[]=rows.flatMap(row=>{const card=parseScoreSnapshot(row.scorecard);return card&&card.scoringVersion===row.scoringVersion&&row.measuredAt&&Number.isFinite(Date.parse(row.measuredAt))?[{key:row.key,at:row.measuredAt,scorecard:card}]:[];}).sort((a,b)=>Date.parse(a.at)-Date.parse(b.at));
+const selectedMeasurement=data?.scorecard&&data.measuredAt?{key:key!,at:data.measuredAt,scorecard:data.scorecard}:measurements.at(-1);
+const chartHistory=selectedMeasurement?measurements.filter(m=>m.scorecard.scoringVersion===selectedMeasurement.scorecard.scoringVersion&&Date.parse(m.at)<=Date.parse(selectedMeasurement.at)).slice(-8):[];
+if(selectedMeasurement&&!chartHistory.some(m=>m.key===selectedMeasurement.key))chartHistory.push(selectedMeasurement);
+const reviewLink=(key:string)=>'/admin/analysis/?'+new URLSearchParams({review:key})+'#weekly-review';
+const anomaly=data?.report?.checks.find(c=>c.area==='anomalies');
 ---
-<section id="weekly-review" class="a-panel a-section seo-review" data-seo-review>
- <div class="review-head"><div><p class="a-label a-muted">Weekly site review</p><h2 class="a-heading">SEO, content &amp; traffic</h2></div><span class="a-count">Monday · 8 AM CT</span></div>
- <p class="a-muted">Opus 5.5 · High effort. Reviews public pages, saved SEO settings and Google evidence. Recommendations await approval.</p>
- {!scheduled&&<p class="a-notice">{configured?'The Claude key is present. Add the cron secret in Vercel to enable scheduled reviews.':'Setup required: add the Claude API key and cron secret securely in Vercel. The weekly review is not active yet.'} <a class="a-link" href="/admin/backend/">View connections</a></p>}
+<section id="weekly-review" class="seo-review" data-seo-review>
+ <div class="review-head"><div><p class="a-label a-muted">Site intelligence</p><h2 class="a-heading">SEO scores, traffic &amp; action</h2></div><span class="a-count">Monday · 8 AM CT</span></div>
+ <p class="a-muted">Site checks establish the measured baseline. Approved Claude reviews interpret the evidence and suggest changes for your decision.</p>
+ {!approved?<p class="a-notice">Claude reviews are paused while the research and instructions await approval. Refreshing site checks uses no Claude tokens. The Monday 8 AM CT schedule is preserved.</p>:!scheduled&&<p class="a-notice">{configured?'Add the cron secret in Vercel to enable scheduled reviews.':'Add the Claude API key and cron secret securely in Vercel.'} <a class="a-link" href="/admin/backend/">View connections</a></p>}
+
  {history.error||result?.error?<p class="a-error" role="alert">Saved reviews could not be loaded. Refresh to try again.</p>:null}
  {invalid&&<p class="a-error" role="alert">{invalid}</p>}
- <div class="review-actions">{staff.role==='owner'&&<button class="a-button" type="button" data-run-review disabled={!configured}>Run site review</button>}<p class="a-muted" role="status" aria-live="polite" data-review-status></p></div>
+ <div class="review-actions">{staff.role==='owner'&&<><button class="a-button" type="button" data-run-scan>Refresh site checks</button><button class="a-button" type="button" data-run-review disabled={!configured||!approved}>Run Claude review</button></>}<p class="a-muted" role="status" aria-live="polite" data-review-status></p></div>
+ <SeoAnalysisDashboard snapshot={selectedMeasurement?.scorecard||null} history={chartHistory} at={selectedMeasurement?.at} evidence={data?.evidence||[]} anomaly={anomaly}/>
+ <section class="research-positioning" aria-labelledby="research-positioning-title"><div><p class="a-label a-muted">Research before activation</p><h2 id="research-positioning-title">Search language &amp; homepage positioning</h2><p class="a-count">Checked {seoResearch.checkedAt} · {seoResearch.status}</p></div><div><p><strong>Proposed focus:</strong> {seoResearch.positioning.recommendedPhrase}</p><p class="a-muted">{seoResearch.positioning.basis}</p><blockquote>{seoResearch.positioning.proposedHomeDescription}</blockquote><p class="a-count">Proposed homepage description · awaiting approval · not published</p><p class="a-muted">{seoResearch.positioning.marketVolumeGap}</p><details><summary>Industry evidence and limits</summary>{seoResearch.sources.map(source=><article><p><a class="a-link" href={source.url} target="_blank" rel="noopener noreferrer">{source.publisher} · {source.title}</a></p><p class="a-count">{source.publishedAt} · {source.type}</p><p>{source.finding}</p><p class="a-muted">{source.limits}</p></article>)}</details></div></section>
+
  {data?<>
-  <p class="a-count">{data.status==='complete'?'Completed '+when(data.completedAt):'Started '+when(data.startedAt)} · {data.status}{data.model?' · '+data.model+' / '+data.effort:''}</p>
+  <p class="a-count">{data.status==='complete'?'Completed '+when(data.completedAt):'Started '+when(data.startedAt)} · {data.status}{data.source==='scan'?' · Site checks · no Claude call':''}{data.model?' · '+data.model+' / '+data.effort:''}</p>
   {data.status==='failed'&&<p class="a-error" role="alert">{data.error}</p>}
   {data.status==='running'&&<p class="a-notice">The review has not recorded completion. Refresh to check. If it was interrupted, it remains unverified; an owner can request a new review.</p>}
   {data.report&&<>
@@ -32,10 +45,10 @@ const reviewLink=(key:string)=>{const query=new URLSearchParams(Astro.url.search
    {data.report.recommendations.length?<ol class="review-recommendations">{data.report.recommendations.map(r=><li><p class="a-label a-muted">{r.priority} priority · {r.area} · <a class="a-link" href={r.path}>{r.path}</a></p><h4>{r.problem}</h4><p>{r.action}</p><p class="a-muted">{r.reason}</p><p><strong>Verify:</strong> {r.validation}</p><p class="a-count">Evidence: {r.evidenceIds.map(id=><a class="a-link" href={'#review-evidence-'+data.evidence?.findIndex(e=>e.id===id)}>{id} </a>)}</p></li>)}</ol>:<p class="a-muted">No changes were recommended within the collected evidence.</p>}
   </>}
   {data.evidence&&<details class="a-section"><summary>Inspect collected evidence</summary><p class="a-muted">Commit {data.commit}. {data.usage?`${data.usage.input_tokens} input tokens · ${data.usage.output_tokens} output tokens.`:''} Page excerpts and top traffic rows are limited; unavailable checks remain gaps.</p>{data.evidence.map((e,i)=><details id={'review-evidence-'+i} class="review-source"><summary>{e.id}</summary><pre>{JSON.stringify(e,null,2)}</pre></details>)}</details>}
- </>:<p class="a-empty">No site review has been saved yet.</p>}
- {history.data&&history.data.length>1&&<details class="a-section"><summary>Recent reviews</summary><ul>{history.data.map(row=><li><a class="a-link" href={reviewLink(row.key)}>{when(row.fetched_at)} · {row.key.includes(':weekly:')?'Weekly':'Requested'}</a></li>)}</ul></details>}
+ </>:<p class="a-empty">No analysis run has been saved yet. Refresh site checks to start the baseline.</p>}
+ {rows.length>1&&<details class="a-section"><summary>Recent reviews</summary><ul>{rows.map(row=><li><a class="a-link" href={reviewLink(row.key)}>{when(row.fetched_at)} · {row.key.includes(':weekly:')?'Weekly':row.key.includes(':scan:')?'Site checks':'Claude review'}</a></li>)}</ul></details>}
 </section>
 <style>
- .review-head,.review-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.review-head p{margin:0 0 6px}.review-actions{justify-content:flex-start;margin:18px 0}.review-actions p{margin:0}.review-summary{white-space:pre-wrap;max-width:90ch}.review-table{overflow:auto;margin:24px 0}.review-table table{border-collapse:collapse;width:100%;font-size:14px}.review-table caption{text-align:left;padding-bottom:12px}.review-table th,.review-table td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.review-table th{font-weight:600}.review-table td:nth-child(2){min-width:125px}.review-recommendations{padding-left:24px}.review-recommendations li{padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.review-recommendations h4{font-size:18px;margin:8px 0}.review-source{padding:12px 0;border-bottom:1px solid var(--line)}.review-source pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:480px;overflow:auto;font-size:12px}summary{cursor:pointer;min-height:32px}summary:focus-visible{outline:2px solid var(--tealt);outline-offset:4px}@media(max-width:600px){.review-table table{min-width:520px}}
+ .research-positioning h2,.review-recommendations h4{font-family:var(--font-display),sans-serif;font-weight:800;letter-spacing:-.025em} .research-positioning{display:grid;grid-template-columns:1fr 2fr;gap:28px;padding:28px 0;border-block:1px solid var(--line);margin-bottom:28px}.research-positioning h2{font-size:21px;margin:6px 0}.research-positioning blockquote{margin:18px 0;padding:14px 0 14px 18px;border-left:3px solid var(--tealt);font-size:17px;line-height:1.7}.research-positioning details summary{cursor:pointer}.research-positioning article{padding:16px 0;border-top:1px solid var(--line)}@media(max-width:760px){.research-positioning{grid-template-columns:1fr;gap:14px}} .review-head,.review-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.review-head p{margin:0 0 6px}.review-actions{justify-content:flex-start;margin:18px 0}.review-actions p{margin:0}.review-summary{white-space:pre-wrap;max-width:90ch}.review-table{overflow:auto;margin:24px 0}.review-table table{border-collapse:collapse;width:100%;font-size:14px}.review-table caption{text-align:left;padding-bottom:12px}.review-table th,.review-table td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.review-table th{font-weight:600}.review-table td:nth-child(2){min-width:125px}.review-recommendations{padding-left:24px}.review-recommendations li{padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.review-recommendations h4{font-size:18px;margin:8px 0}.review-source{padding:12px 0;border-bottom:1px solid var(--line)}.review-source pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:480px;overflow:auto;font-size:12px}summary{cursor:pointer;min-height:32px}summary:focus-visible{outline:2px solid var(--tealt);outline-offset:4px}@media(max-width:600px){.review-table table{min-width:520px}}
 </style>
 <script>import '../../scripts/admin/seo-review';</script>

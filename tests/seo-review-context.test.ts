@@ -1,0 +1,6 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{reviewContext}from'../src/lib/seo-review-context.ts';
+test('model context preserves all page identities, issues and period totals while retaining complete source data',()=>{
+ const evidence=[{id:'page:/blog/a/',path:'/blog/a/',analysis:{score:80,categories:[{name:'Metadata',score:100}],checks:[{id:'title',status:'pass'},{id:'canonical',status:'fail',detail:'Mismatch.'}]}},{id:'page-performance',pages:[{path:'/blog/a/',current:{views:5},previous:{views:2},series:{ga4:[{date:'2026-10-01',views:0},{date:'2026-10-03',views:5}],gsc:[]}}]}];
+ const original=JSON.stringify(evidence),packed=reviewContext(evidence) as any[];
+ assert.equal(JSON.stringify(evidence),original);assert.deepEqual(packed[0].analysis.passedCheckIds,['title']);assert.equal(packed[0].analysis.checks[0].detail,'Mismatch.');assert.equal(packed[1].pages[0].current.views,5);assert.equal(packed[1].pages[0].previous.views,2);assert.equal(packed[1].pages[0].dailySummary.views.observedDays,2);assert.equal(packed[1].pages[0].dailySummary.views.median,2.5);assert.equal(packed[1].pages[0].dailySummary.views.maxDate,'2026-10-03');assert.equal(packed[1].pages[0].dailySummary.clicks.min,null);assert.equal(packed[1].pages[0].series,undefined);
+});
