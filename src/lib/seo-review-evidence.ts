@@ -1,5 +1,5 @@
 import type {SupabaseClient} from '@supabase/supabase-js';
-import {SITE,services,STUDIOS,PHONE,EMAIL} from '../data/site';
+import {SITE,services,STUDIOS,PHONE,EMAIL,noindexPaths} from '../data/site';
 import {loadPublished} from './content';
 import {analyzeSeo} from './seo-analysis';
 import {pageEvidence} from './seo-agent';
@@ -51,7 +51,7 @@ export async function collectReviewEvidence(sb:SupabaseClient,deadline=Date.now(
     seoTarget(route.path);
     const live=await readPublic(route.path,fetch,deadline);
     if(live.status!==200||!live.headers.contentType?.includes('text/html')){scanned[i]={id,path:route.path,status:live.status,gap:'Live HTML unavailable; page checks were not completed.'};continue;}
-    const analysis=analyzeSeo(live.text,{url:SITE+route.path,kind:route.template==='article'?'post':'page',expectedNoindex:!!route.noindex,httpStatus:live.status,sitemapIncluded:sitemap&&'text' in sitemap?sitemapMembership(sitemap.text,SITE+route.path):undefined});
+    const analysis=analyzeSeo(live.text,{url:SITE+route.path,kind:route.template==='article'?'post':'page',expectedNoindex:!!route.noindex||noindexPaths.has(route.path),httpStatus:live.status,sitemapIncluded:sitemap&&'text' in sitemap?sitemapMembership(sitemap.text,SITE+route.path):undefined});
     const categoryPoints=new Map<string,{name:string;points:number;maxPoints:number;score:number|null}>();
     for(const check of analysis.checks){const c=categoryPoints.get(check.category)||{name:check.category,points:0,maxPoints:0,score:null};c.points+=check.points;c.maxPoints+=check.maxPoints;c.score=c.maxPoints?Math.round(100*c.points/c.maxPoints):null;categoryPoints.set(check.category,c);}
     const content=pageEvidence(live.text);

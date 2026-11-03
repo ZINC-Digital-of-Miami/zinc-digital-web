@@ -1,5 +1,5 @@
 /** Versioned, deterministic HTML checklist scores. These are not Google scores or ranking forecasts. */
-export const SCORING_VERSION='seo-html-2026-11-03.1';
+export const SCORING_VERSION='seo-html-2026-11-03.2';
 export type PageScore={path:string;score:number|null;grade:string;failed:number;warnings:number};
 export type ScoreSnapshot={scoringVersion:string;total:number;scored:number;blocked:number;excluded:number;unavailable:number;mean:number|null;categories:{name:string;points:number;maxPoints:number;score:number;pages:number}[];pages:PageScore[]};
 export type SnapshotComparison={available:boolean;reason:string;commonPages:number;meanDelta:number|null;improved:number|null;worsened:number|null;unchanged:number|null;pageDeltas:{path:string;before:number;after:number;delta:number}[]};
