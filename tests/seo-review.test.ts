@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {reviewSlot,cronAuthorized,reviewWithClaude,validateReview,savedReview,REVIEW_AREAS} from '../src/lib/seo-review.ts';
+import {reviewSlot,cronAuthorized,reviewWithClaude,validateReview,savedReview,reviewsEnabled,REVIEW_AREAS} from '../src/lib/seo-review.ts';
+import {scoreSnapshot,SCORING_VERSION} from '../src/lib/seo-review-dashboard.ts';
 import {storeReview} from '../src/lib/seo-review-store.ts';
 import {reviewSignals} from '../src/lib/seo-review-signals.ts';
 
@@ -13,6 +14,13 @@ test('cron denies missing or incorrect secrets',()=>{
  assert.equal(cronAuthorized(null,''),false);
  assert.equal(cronAuthorized('Bearer wrong','right'),false);
  assert.equal(cronAuthorized('Bearer right','right'),true);
+});
+test('paid reviews require explicit activation; a deterministic scan is stored without a Claude execution',()=>{
+ for(const flag of [undefined,'','false','TRUE','1'])assert.equal(reviewsEnabled(flag),false);
+ assert.equal(reviewsEnabled('true'),true);
+ const measured={source:'scan',status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),measuredAt:new Date().toISOString(),scoringVersion:SCORING_VERSION,scorecard:scoreSnapshot([]),evidence:[]};
+ assert.equal(savedReview(measured).source,'scan');assert.equal(savedReview(measured).model,undefined);
+ assert.throws(()=>savedReview({...measured,model:'claude-opus-5-5'}),/snapshot/);
 });
 test('public signals preserve deployed canonical/social settings and exclude executable scripts',()=>{
  const data=reviewSignals('<title>Page | ZINC</title><link rel="canonical" href="https://www.zincdigital.co/"><meta property="og:image:alt" content="A useful diagram"><meta name="private" content="excluded"><script>private runtime data</script><img src="/missing-alt.png">');
