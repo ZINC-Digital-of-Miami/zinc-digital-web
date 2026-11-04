@@ -12,11 +12,11 @@ export type ContentItem = {
   updated_at?: string; live_at?: string; live?: Record<string, unknown> | null; saved: boolean; pending?: boolean;
 };
 export type InquiryRow = {
-  intent?: import('./inquiry').InquiryIntent | null; id: string; company: string; name: string; email: string; website: string; services: string[];
+  updated_at:string; intent?: import('./inquiry').InquiryIntent | null; id: string; company: string; name: string; email: string; website: string; services: string[];
   budget: string; timeline: string; message: string; notes: string; next_step: string; stage: string;
   source_path: string; created_at: string; archived_at: string | null; notify_status: string;
 };
-export const stages = [['new','New','Reply within 24h'],['contacted','Contacted','Book discovery call'],['qualified','Qualified','Send proposal'],['closed','Closed','Archive']] as const;
+export {CRM_STAGES as stages} from './crm-model';
 export const when = (value: string | null | undefined) => value ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }).format(new Date(value)) + ' CT' : '—';
 export function repositoryContent(): ContentItem[] {
   const pages: ContentItem[] = routes.filter(r => r.template !== 'article').map(r => ({ kind: 'page', key: r.path, path: r.path, title: r.title, template: r.template, status: 'published', meta_title: r.metaTitle || r.title, meta_description: describe(r), focus_keyword: '', noindex: r.template === 'thanks', layer: r.layer || '', body: '', excerpt: '', author: '', origin: 'repo', saved: false }));

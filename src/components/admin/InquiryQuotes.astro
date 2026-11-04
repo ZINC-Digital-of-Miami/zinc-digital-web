@@ -1,0 +1,40 @@
+---
+import {randomUUID} from 'node:crypto';
+import type {Quote} from '../../lib/crm-model';
+import {money} from '../../lib/crm-model';
+import {when} from '../../lib/admin-data';
+interface Props{inquiryId:string;quotes:Quote[];owner:boolean;error:string;history?:{quote_id:string;created_at:string;actor:string|null;before_value:any;after_value:any}[]}
+const{inquiryId,quotes,owner,error,history=[]}=Astro.props;
+const newId=randomUUID();
+---
+<section class="a-section"><h3 class="a-heading">Quotes &amp; invoices</h3>
+{error?<p class="a-error">{error}</p>:<>
+<p class="a-muted">Record the scope, amount and client decision. Quotes use USD and the Miami Square location. Manage Square estimates in Square and retain their link here.</p>
+{quotes.map(q=><section class="a-panel a-section">
+<h4>{q.title}</h4><p><strong>{money(q.amount_cents)}</strong> · {q.status}</p>
+{q.invoice_request?<><p class="a-muted">Terms locked for invoice creation. Create a new quote for revised terms.</p><p style="white-space:pre-wrap">{q.scope}</p><p>Due {q.due_date}</p>{q.estimate_url&&<a class="a-link" href={q.estimate_url}>Square estimate</a>}</>:<details><summary>Edit quote</summary>
+<form class="a-form a-section" data-admin-form data-endpoint="/api/admin/quotes/" data-body={JSON.stringify({id:q.id,inquiry_id:inquiryId,updated_at:q.updated_at})}>
+<label class="a-field"><span>Title</span><input class="a-input" name="title" required maxlength="200" value={q.title}/></label>
+<label class="a-field"><span>Scope and terms</span><textarea class="a-input" name="scope" rows="5" required maxlength="4000">{q.scope}</textarea></label>
+<label class="a-field"><span>Total USD</span><input class="a-input" name="amount" inputmode="decimal" required value={(q.amount_cents/100).toFixed(2)}/></label>
+<label class="a-field"><span>Payment due date</span><input class="a-input" name="due_date" type="date" required value={q.due_date}/></label>
+<label class="a-field"><span>Client decision · recorded by staff</span><select class="a-input" name="status">{['draft','sent','accepted','declined'].map(s=><option selected={q.status===s}>{s}</option>)}</select></label>
+<label class="a-field"><span>Square estimate link</span><input class="a-input" name="estimate_url" type="url" maxlength="2000" value={q.estimate_url||''}/></label>
+<p class="a-error" data-form-error role="alert" hidden></p><button class="a-button" type="submit">Save quote</button>
+</form></details>}
+{q.square_invoice_id?<><p>Square invoice · {q.square_invoice_status}</p><p>Collected after refunds: {money(q.net_collected_cents)}</p><p class="a-count">Last checked {when(q.invoice_checked_at)}. Linked invoice only; before Square fees.</p>{q.square_invoice_url&&<a class="a-link" href={q.square_invoice_url}>View invoice</a>}
+{owner&&<div class="a-actions a-section"><button class="a-button" data-endpoint="/api/admin/square/" data-body={JSON.stringify({id:q.id,action:'sync'})} data-success="Square status refreshed.">Refresh invoice</button>
+{q.square_invoice_status==='DRAFT'&&<button class="a-button" data-endpoint="/api/admin/square/" data-body={JSON.stringify({id:q.id,action:'send',confirm:true,version:q.invoice_snapshot?.version})} data-confirm={`Send the Square invoice for ${money(q.amount_cents)} to ${(q.invoice_request as any)?.email}? Square will email the client. No card on file will be charged.`} data-success="Invoice sent through Square.">Send invoice</button>}</div>}</>:owner&&<button class="a-button a-section" disabled={q.status!=='accepted'} data-endpoint="/api/admin/square/" data-body={JSON.stringify({id:q.id,action:'draft',confirm:true,updated_at:q.updated_at})} data-confirm={`Create a Square draft invoice for ${money(q.amount_cents)}? This locks the quote terms. Nothing will be sent.`} data-success="Square draft saved. Nothing sent.">{q.invoice_request?'Resume invoice creation':'Create Square draft'}</button>}
+{q.invoice_error&&<p class="a-error" role="status">{q.invoice_error}</p>}
+<p class="a-count">Saved {when(q.updated_at)}</p><details><summary>Quote history</summary>{history.filter(e=>e.quote_id===q.id).map(e=><p class="a-event">{when(e.created_at)} · {e.actor?'Staff update':'Provider operation'}<br/>{e.after_value.title} · {money(e.after_value.amount_cents)} · {e.after_value.status}{e.after_value.square_invoice_status&&` · Square ${e.after_value.square_invoice_status}`}</p>)}</details>
+</section>)}
+<details class="a-section"><summary>New quote</summary>
+<form class="a-form a-section" data-admin-form data-endpoint="/api/admin/quotes/" data-body={JSON.stringify({id:newId,inquiry_id:inquiryId,create:true,status:'draft'})}>
+<label class="a-field"><span>Quote title</span><input class="a-input" name="title" required maxlength="200"/></label>
+<label class="a-field"><span>Scope and terms</span><textarea class="a-input" name="scope" rows="5" required maxlength="4000"></textarea></label>
+<label class="a-field"><span>Total USD</span><input class="a-input" name="amount" inputmode="decimal" required placeholder="2500.00"/></label>
+<label class="a-field"><span>Payment due date</span><input class="a-input" name="due_date" type="date" required/></label>
+<label class="a-field"><span>Square estimate link · optional</span><input class="a-input" name="estimate_url" type="url" maxlength="2000"/></label>
+<p class="a-error" data-form-error role="alert" hidden></p><button class="a-button" type="submit">Save draft quote</button>
+</form></details></>}
+</section>

@@ -87,8 +87,8 @@ document.addEventListener('click',async e=>{
   if(target.dataset.endpoint){
     if(target.dataset.confirm&&!await confirmAction(target.dataset.confirm,target.textContent?.trim()||'Confirm','Cancel'))return;
     target.setAttribute('disabled','');try{
-      const body=JSON.parse(target.dataset.body||'{}');await post(target.dataset.endpoint,body);
-      const reversible=body.archived===true?()=>post(target.dataset.endpoint!,{id:body.id,archived:false}):undefined;
+      const body=JSON.parse(target.dataset.body||'{}');const saved=await post(target.dataset.endpoint,body);
+      const reversible=body.archived===true?()=>post(target.dataset.endpoint!,{id:body.id,updated_at:saved.updated_at,archived:false}):undefined;
       toast(target.dataset.success||'Saved.',reversible);await refresh();
     }catch(e){toast((e as Error).message);}finally{target.removeAttribute('disabled');}
   }
@@ -122,7 +122,13 @@ document.addEventListener('submit',async e=>{
   try{
     const body=JSON.parse(form.dataset.body||'{}');for(const [name,value]of new FormData(form))body[name]=value;
     for(const check of form.querySelectorAll<HTMLInputElement>('input[type=checkbox]'))body[check.name]=check.checked;
-    const saved=await post(form.dataset.endpoint!,body);if(saved.updated_at)form.dataset.updatedAt=saved.updated_at;delete form.dataset.dirty;delete form.dataset.seoActive;toast('Saved.');await refresh();
+    const saved=await post(form.dataset.endpoint!,body);if(saved.updated_at){
+      form.dataset.updatedAt=saved.updated_at;
+      const current=JSON.parse(form.dataset.body||'{}');current.updated_at=saved.updated_at;form.dataset.body=JSON.stringify(current);
+      if(body.id)for(const control of document.querySelectorAll<HTMLElement>('[data-body]')){
+        try{const payload=JSON.parse(control.dataset.body||'{}');if(payload.id===body.id){payload.updated_at=saved.updated_at;control.dataset.body=JSON.stringify(payload);}}catch{}
+      }
+    }delete form.dataset.dirty;delete form.dataset.seoActive;toast('Saved.');await refresh();
   }catch(e){error.textContent=(e as Error).message;error.hidden=false;error.focus();}finally{buttons.forEach(b=>b.disabled=false);}
 });
 const theme=document.querySelector('[data-theme-toggle]');if(theme)theme.textContent=document.documentElement.dataset.theme==='dark'?'Light mode':'Dark mode';

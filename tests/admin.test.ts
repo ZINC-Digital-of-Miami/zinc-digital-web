@@ -24,6 +24,7 @@ test('inquiry mutations allow only board fields and valid IDs/stages', () => {
   assert.equal(uuid('00000000-0000-4000-8000-00000000b001'), true);
   assert.equal(uuid('id=anything'), false);
   assert.deepEqual(inquiryInput({ stage: 'qualified', notify_status: 'sent' }), { stage: 'qualified' });
-  assert.throws(() => inquiryInput({ stage: 'lost' }));
+  assert.deepEqual(inquiryInput({ stage: 'lost' }), {stage:'lost'});
+  assert.throws(() => inquiryInput({ stage: 'paid' }));
   assert.throws(() => inquiryInput({ notes: 'A'.repeat(20001) }));
 });

@@ -1,3 +1,4 @@
+import {CRM_STAGES} from './crm-model.ts';
 export const uuid = (value: unknown): value is string => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const text = (value: unknown, limit: number, required = false) => {
   if (value != null && typeof value !== 'string') throw new Error('Invalid text field.');
@@ -8,7 +9,7 @@ const text = (value: unknown, limit: number, required = false) => {
 export function inquiryInput(input: Record<string, unknown>): Record<string, unknown> {
   const patch: Record<string, unknown> = {};
   if ('stage' in input) {
-    if (!['new', 'contacted', 'qualified', 'closed'].includes(String(input.stage))) throw new Error('Choose a valid stage.');
+    if (!CRM_STAGES.some(([stage])=>stage===input.stage)) throw new Error('Choose a valid stage.');
     patch.stage = input.stage;
   }
   if ('notes' in input) patch.notes = text(input.notes, 20000);

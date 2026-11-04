@@ -561,3 +561,16 @@ Values are entered by the owner in Vercel, or in the git-ignored local `.env`. A
 | R16 | 4, 10, 11 |
 | R17 | 11 |
 | R18 | 2, 10, 11 |
+
+
+## Backend completion and CRM — 4 November 2026 CT
+
+Owner activates CRM plus Square quotes/invoicing; all Square work uses Miami. Extend the existing inquiry drawers and board rather than creating a separate CRM application. Proposal, won and lost are explicit staff decisions; existing closed records retain their unspecified outcome. Optimistic timestamps protect inquiry and quote saves from overwriting concurrent staff work.
+
+`crm_quotes` is canonical for quote scope, USD cents, due date, staff-recorded client decision and native Square estimate URL. `crm_quote_events` retains before/after revisions and actor/date. Square estimates remain native because the official API does not support them. A quote's invoice request is frozen before any provider write, retaining its original recipient/terms, location, environment, actor and idempotency identity. Revised terms require a new quote; native invoice records are never relabelled as estimates.
+
+The owner-only `/api/admin/square/` route is an additional named `createAdminClient` consumer (section 6.3.5): after staff authorization and same-origin input validation it freezes the request and records provider receipts. Editors cannot write provider IDs, paid amounts or frozen request fields through RLS. Creation uses stable Customer/Order/Invoice keys. Publication is separate, requires explicit confirmation, and checks current provider version, recipient, amount, currency, scope, due date and no automatic payment source. The agent's setup task does not itself send invoices or charge clients.
+
+Native Square invoice/order/payment reads provide observed invoice status and completed payment amounts minus refunds, before processing fees. Amounts must reconcile to the invoice; incomplete evidence remains unavailable. These saved receipts are not total company revenue or bank deposits. Staff outcomes remain separate. Access failures are explicit, including an unapplied migration or missing Square connection. MCP OAuth access for Codex is separate from the website's server credentials.
+
+Validation covers cent precision, hostile URLs, unknown provider outcomes/idempotent retries, authorization/column grants, frozen terms and concurrent changes, mismatched recipient/location, refunds/missing payments, and rendered drawers at desktop/narrow widths. No database activation, production-secret changes or external messages occur without their required authorization.
