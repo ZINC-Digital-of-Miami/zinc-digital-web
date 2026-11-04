@@ -16,7 +16,7 @@ modified_at: "2026-11-04T15:06:39Z"
 description: "AI discovery changes what an editorial calendar must account for. Plan evidence, maintenance and measurement without confusing visibility with business results."
 excerpt: "A calendar full of titles leaves several important jobs unassigned. Here is what current AI-search controls and reporting change about commissioning and reviewing content."
 tldr: "Give each editorial assignment an evidence owner, make room to refresh useful pages, and decide how you will judge the result. Current AI-search reports help you observe visibility; they do not turn an impression or citation into a customer. Commission new work when it fills a real gap, rather than adding another article to an already crowded subject."
-featured_image: docs/editorial/images/ai-editorial-planning-studio.png
+featured_image: src/assets/articles/ai-editorial-planning-studio.png
 featured_image_alt: "An open black editorial folio, clipped source notes and a paper calendar beside a laptop on a light studio desk."
 related_services:
   - ai-search-optimization
@@ -24,8 +24,8 @@ related_services:
   - business-intelligence
 planned_pillar: ai-search-optimization
 research_record: docs/editorial/research/2026-11-03-wendy-ai-editorial-plan.md
-instructional_graphic: docs/editorial/images/ai-editorial-commissioning-loop.svg
-download_resource: docs/editorial/resources/ai-editorial-decision-register.csv
+instructional_graphic: public/media/blog-review/ai-editorial-commissioning-loop.svg
+download_resource: public/downloads/ai-editorial-decision-register.csv
 ---
 
 Have you ever looked at a beautifully full content calendar and wondered when anyone was going to check what was actually going into it?
