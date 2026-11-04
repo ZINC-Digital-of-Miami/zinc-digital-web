@@ -6,7 +6,7 @@ author: "Wendy Funnell"
 author_id: 3
 layer: Demand
 format: industry-analysis
-status: integrated-release-pending
+status: live
 target_run: "2026-11-04 09:00 America/Chicago"
 publish_not_before: "2026-11-04T09:00:00-06:00"
 timezone: America/Chicago
