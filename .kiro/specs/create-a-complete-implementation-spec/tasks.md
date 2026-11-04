@@ -621,3 +621,72 @@ Google's current [posting instructions](https://support.google.com/business/answ
 The completed November 4, 6:27 AM CT Opus 5.5 High report predates the new conversion release. Claude receives collected public page excerpts, deterministic checks, retained research and native GA4/GSC aggregates, then returns a validated 15-area review with evidence-linked recommendations. It has no publishing tools or configuration-write authority. Native Refresh site checks uses no Claude tokens. Clarity behavior, US-segmented conversion denominators, staff-confirmed lead qualification and Square revenue are not currently model inputs; keep those gaps distinct from implemented tracking. The service-specific proposal drawer and private message flow remain live, with qualification/Square CRM work in the later phase.
 
 Hero correction production receipt: [PR67](https://github.com/ZINC-Digital-of-Miami/zinc-digital-web/pull/67) merged as `f766bc9c88d810f11545eb0c0394ca47f3e51172`; production `dpl_7KAgsb6AUz7Z95gtEVa3jjYva8a9` READY. Actual desktop/mobile browser readback verified the original dynamic composition with Bear Claw only in the mockup screens, working three-lane tabs, matching preload and no narrow overflow. This supersedes the white-backed PR65 hero result, not the conversion/messaging release.
+
+### Full agency positioning and case-study posting checkpoint — 4 November 2026 CT
+
+This checkpoint supersedes the earlier pending appointment question, saved description and Pending starter-post status above. Earlier receipts describe the state at the time, not the current publication state.
+
+Owner clarified: visits by appointment; position ZINC as a digital marketing agency with AI, BI apps, web design, branding and local SEO/AI optimization, cover the broader service offering, and post recent case studies. Current site sources establish eleven main service pages plus detailed capabilities and branding case work; this does not assert exactly twenty service pages.
+
+- [x] Primary category remains **Marketing agency** in Google's taxonomy; Website designer is secondary. Submitted the expanded description below, pending Google review.
+- [x] Submitted Planning → **Appointment required: Yes**. Native readback showed the existing Appointment not required as current and its removal/replacement as pending. Existing Monday–Friday 9 AM–5 PM hours were not changed or newly confirmed. Physical-accessibility attributes remain unverified.
+- [x] Added Custom Business App Development, Google Shopping & Merchant Center Management, TikTok Advertising and Data Integration & Reconciliation. Saved fourteen revised names/descriptions below; **all fourteen were reopened and matched exactly**. Native list still states service edits pending review, up to one day. Other detailed offerings remain; no invented prices or arbitrary twenty-entry cap.
+- [x] Submitted Bear Claw USA case-study Update for immediate publication using approved project artwork and the tagged case-study URL. Native editor readback matched copy, image and destination. Post `5456929169569474902` changed from Pending to **Rejected** on November 4.
+- [ ] **Neither new post is published.** Starter guide `746584289055578525` also changed from Pending to **Rejected**. Its requested November 5, 10 AM CT slot is not an approved scheduled publication. Native list and individual menus expose no reason; the list has no question-mark explanation. No duplicate resubmission or speculative cause is asserted.
+- [x] Existing heartbeat `zinc-google-business-local-updates` remains active Tuesday/Thursday 10 AM CT, now rotates published case studies and articles, and checks/reconciles rejected posts before any further submission. It retains drafts while rejection is unresolved. Existing SEO/article schedules are unchanged.
+- [x] Prepared the U.S. Oil Solutions app post below for the next available slot, initially November 10 at 10 AM CT. **Draft only; no Google submission.** Recent publication/refresh of a case study is not proof of newly delivered client work; the app dates to 2024–2025 and the next public website remains in progress.
+- [ ] Review Google's rejection and complete publication. Official [appeal guidance](https://support.google.com/business/answer/13597551?hl=en) routes U.S. rejected media/content to Contact us. The concrete support request below is prepared; sending is awaiting the owner's separate external-message authorization. No appeal or support message has been sent.
+- [ ] Google approval/public readback of description, category, website, services and appointment requirement remains open. Personal-number public call-link propagation and pending SMS removal remain open; saved privacy settings alone do not prove public removal. Qualification/Square attribution remains in the later CRM phase.
+
+**Revised description submitted**
+
+ZINC Digital is a digital marketing agency in Panama City, Florida, focused on local SEO and AI search optimization, custom business intelligence platforms and apps, web design and branding. We connect search visibility with the websites, software and data businesses use to win and manage work. Services include technical and enterprise SEO, Google Business Profile optimization, Shopify ecommerce, Google Search and Shopping ads, Meta and TikTok advertising, brand identity, content strategy, analytics and data integration. Our AI-supported BI work connects business data, explores patterns and supports decisions with evidence. Serving Panama City, Bay County and businesses nationwide. Office visits are by appointment.
+
+**Saved and reopened service descriptions**
+
+- **Business Intelligence Platforms & Apps:** Custom BI platforms and applications connect business data, surface patterns and anomalies, and support decisions. AI-assisted analysis links findings to evidence. We build the data models, dashboards and workflows around your industry and operating needs.
+- **Custom Business App Development:** Business software built around the work your team needs to complete: workflow and data models, user interfaces, role-based permissions, approved integrations and operational handover. Examples include field-service scheduling, assignments and service reporting.
+- **AI Search Optimization:** Help search and AI answer systems understand your business through clear entities, reliable source information and answer-focused content. We assess technical discoverability and observe mentions and citations against documented queries, with coverage limits stated.
+- **Local SEO Services:** Local SEO for Panama City, Bay County and multi-location businesses: eligible business profiles, accurate listings, distinct service and location pages, and local inquiry measurement. We distinguish Maps interactions from genuine prospective-client leads.
+- **Brand Strategy & Visual Identity:** Brand positioning and visual identity carried across logos, color, typography, websites and campaign graphics. Our published work includes the Summit Marine identity and website in Panama City, plus brand applications for other businesses.
+- **Website Design & Development:** Custom websites built around clear services, useful content and a direct inquiry path. Work includes information architecture, responsive design and development, accessibility, page performance and tested proposal or quote journeys.
+- **Shopify Ecommerce Development:** Shopify storefront architecture, theme development, product and collection structure, navigation, checkout and app configuration. We connect the store experience with search, Shopping campaigns and reporting, with third-party costs and access agreed in scope.
+- **Meta Advertising:** Facebook and Instagram advertising with account and tracking review, campaign and audience structure, creative test planning, and delivery analysis. Reporting identifies attribution windows and separates platform claims from confirmed business outcomes.
+- **Google Shopping & Merchant Center Management:** Merchant Center feed review, product eligibility and issue triage, Shopping campaign structure and product-level performance analysis. We check catalog, storefront and measurement issues before recommending changes to spend.
+- **TikTok Advertising:** TikTok advertising built around channel-specific creative and reliable event measurement. Services include campaign structure, creative testing, delivery and fatigue analysis, and purchase-journey reporting with attribution limits stated.
+- **Data Integration & Reconciliation:** Connect approved APIs, databases and exports for business intelligence applications. Define source ownership, metric meaning, refresh schedules and reconciliation checks so reporting exposes missing or inconsistent data.
+- **Conversion Tracking & Analytics:** Measurement planning, conversion-event setup and customer-journey reporting for websites and campaigns. Separate traffic, form activity, saved inquiries and confirmed sales outcomes, with source, period and attribution limits visible.
+- **Search Engine Optimization:** Technical search audits, search intent and page mapping, on-page content recommendations, indexation review and organic landing-page analysis. Prioritize pages with a business purpose and verify changes against search evidence.
+- **Google Search Ads Management:** Google Search campaign and conversion review, intent-led keywords and ads, landing-page alignment, search-term analysis and budget review. Measure spend and useful business outcomes with the reporting and attribution basis stated.
+
+**Bear Claw case-study receipt — Rejected**
+
+Source: https://www.zincdigital.co/work/bear-claw-usa/ . Approved image `src/assets/approved/build-bear-claw.png`, inspected full-size and in the composer, 1536×1024 and 2,036,767 bytes. The dark mockup composition is preserved. CTA Learn more: `https://www.zincdigital.co/work/bear-claw-usa/?utm_source=google&utm_medium=organic&utm_campaign=gbp_panama_city&utm_content=20261104_bear_claw_case`. Native editor: https://www.google.com/local/business/1858572599686865380/promote/updates/5456929169569474902/edit .
+
+> Case study: Bear Claw USA.
+
+> A product website needs to make the product, its uses and the quote process easy to understand. ZINC designed and developed Bear Claw’s website around those decisions, using the company’s existing brand identity.
+
+> The work connects product and application pages with a dedicated quote request across desktop, tablet and mobile. It also includes packaging labels and product renders, plus a private lead-management backend.
+
+> Explore the case study to see the website and supporting work. For a similar website project, send ZINC your business, project goals and timing through our proposal form.
+
+**U.S. Oil Solutions app — draft, not scheduled**
+
+Source: https://www.zincdigital.co/work/us-oil-solutions/ . Image `src/assets/work/uos-current-technicians-desktop.png`, inspected; existing approved public screenshot with names and location identifiers redacted, 1424×1105 and 1,086,424 bytes. CTA Learn more: `https://www.zincdigital.co/work/us-oil-solutions/?utm_source=google&utm_medium=organic&utm_campaign=gbp_panama_city&utm_content=20261110_uos_app_case`. Update date/topic campaign parameter if actual publication moves.
+
+> Case study: U.S. Oil Solutions.
+
+> A field-service app needs to connect the office with the people doing the work. ZINC developed a dedicated operations app for U.S. Oil Solutions, separate from its public website.
+
+> Technicians and supervisors use workflows for restaurant assignments, scheduling, check-ins, fryer records, service photos and reporting. The application also supports rescheduling and issue handling, bringing the service record into the same working environment.
+
+> Explore the case study and its redacted interface examples. If your business needs software built around an operational workflow, send ZINC the process you want to improve and the systems it needs to connect.
+
+**Prepared Google support review request — not sent**
+
+> Please review two rejected Update posts on the verified ZINC Digital Business Profile in Panama City, Florida (97 Oak Avenue, Suite 7, 32401; management ID 1858572599686865380; place/fid 10490689812028155340).
+
+> Post 5456929169569474902 describes our Bear Claw USA website project, with an approved project mockup and a Learn more link to https://www.zincdigital.co/work/bear-claw-usa/ . Post 746584289055578525 summarizes our published local SEO guide, with an approved illustration and a Learn more link to https://www.zincdigital.co/blog/local-seo-2026-operators-manual/ . The actual CTA URLs include Google Analytics campaign parameters.
+
+> Both posts changed from Pending to Rejected on November 4, 2026. The manager's post list gives no policy reason or question-mark explanation. Neither post copy contains a telephone number, email address, discount, or guaranteed results. Please identify the specific policy issue and review whether these posts can be approved. We have not resubmitted duplicates or filed another appeal for this issue.
