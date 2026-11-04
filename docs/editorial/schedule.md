@@ -19,14 +19,14 @@ Owner requested the first article early on 27 October. Its rewritten body and st
 
 ## Initial queue
 
-Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Items 01–03 are live. Later items are planned briefs, not completed articles or scheduled CMS records.
+Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Items 01–04 are live. Later items are planned briefs, not completed articles or scheduled CMS records.
 
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
 | 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
 | 02 | 2026-10-30 Fri | Wendy | Content how-to | Build a content hub people can actually use — one worked hub map, page roles, internal links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
 | 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Live 2 November; PR45; Docker173tests/98pages; production desktop/mobile and downloads verified |
-| 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Release prepared 4 November; retained draft integrated; live receipt pending |
+| 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Live4November; PR62; localNode24 215tests/101HTMLpages; production desktop/mobile, sources/schema and download verified |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
 | 06 | 2026-11-09 Mon | Kirk | BI/KPI setup how-to | Build a KPI dictionary before you build the dashboard — formula, grain, owner, source, refresh, exclusions and a reconciliation example | Planned |
 | 07 | 2026-11-11 Wed | Jaymie | Shopping industry analysis | How product discovery is changing the shopping journey — verify current platform changes and explain feed, merchandising and measurement implications | Planned |
@@ -90,3 +90,6 @@ Four-week runway continued4November (planned, not published):
 |---|---|---|---|---|---|
 |15|2026-11-30 Mon|Wendy|Content how-to|Interview a subject expert for a useful service article — prepare questions, separate approved facts from open questions, and turn the answers into an evidence-backed brief|Planned|
 |16|2026-12-02 Wed|Kirk|BI industry analysis|What AI-assisted reporting can actually verify — current platform capabilities, source traceability and the business decisions that still require reconciliation|Planned|
+
+
+Item04 release receipt, 4 November 2026 CT: [What AI discovery changes about your editorial plan](https://www.zincdigital.co/blog/what-ai-discovery-changes-editorial-plan/) by Wendy Funnell is LIVE. PR62 protected squash merge359eebaf9d39ec25a7bbdc60461901db454cef7a; reviewed clean head75a9927801d033cc0cc8ddc4aa783f6af3c667f7. LocalNode24:215tests,0failures; Astro0errors/0warnings/11hints;252assets;101HTMLpages pass. Fresh scoped final-head review passed. Vercel dpl_GMqzUWB2yirqUnGLQgbGb6Vehk7w READY with matching merge and www/apex aliases. Production readback4November09:17–09:19CT: full manuscript exact match, Wendy en-GB author graph and5bottom sources/citations, canonical/date/social image,20public internal destinations, sitemap/llms inclusion and308slash redirect pass. CSV and SVG HTTP200/correct MIME/byte-identical; CSV13columns with labelled specimen and blank row, edit/save/reopen tested. Desktop1440/mobile390 and local320/light/dark inspected, readable author/TLDR/diagram/table, no overflow or broken images. Source publication timestamp2026-11-04T15:06:39Z; production READY09:17CT. Current sitemap45blogs. Node24 only; no Docker, Actions or protection bypass. Next due Wendy Friday6November; all settled dates unchanged. Existing30/60/90-day measurement obligations remain separate; no claim of indexing, citations or leads. Evidence retained in release worktree .scratch/production-article-proof.json, body-comparison.json and final-head-validation.log.
