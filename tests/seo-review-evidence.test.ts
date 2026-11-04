@@ -4,6 +4,7 @@ import {mkdirSync,mkdtempSync,rmSync} from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {build} from 'esbuild';
+import {validateReview,REVIEW_AREAS} from '../src/lib/seo-review.ts';
 
 test('site scans honour canonical noindex intent without excusing unexpected public noindex',async()=>{
  mkdirSync('.scratch',{recursive:true});
@@ -21,9 +22,12 @@ test('site scans honour canonical noindex intent without excusing unexpected pub
   }) as typeof fetch;
   const sb={from:()=>({select:()=>({abortSignal:async()=>({data:[],error:null})})})};
   const {collectReviewEvidence}=await import(pathToFileURL(path.join(dir,'evidence.mjs')).href);
-  const {evidence}=await collectReviewEvidence(sb);
+  const {evidence,paths}=await collectReviewEvidence(sb);
   assert.equal(evidence.find((e:any)=>e.path==='/thanks/').analysis.grade,'excluded');
   assert.equal(evidence.find((e:any)=>e.path==='/unexpected/').analysis.grade,'blocked');
   assert.equal(evidence.find((e:any)=>e.id==='crawl-coverage').available,true);
+  const cited=evidence.find((e:any)=>e.id==='research:ahrefs');assert.equal(cited.url,'https://ahrefs.com/blog/ai-marketing-trends/');
+  const report={summary:'Fixture review.',checks:REVIEW_AREAS.map(area=>({area,status:'unavailable',detail:'Fixture evidence only.',evidenceIds:['research:ahrefs']})),recommendations:[]};
+  assert.doesNotThrow(()=>validateReview(report,new Map(evidence.map((e:any)=>[e.id,e])),paths));
  }finally{globalThis.fetch=original;rmSync(dir,{recursive:true,force:true});}
 });
