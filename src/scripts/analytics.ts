@@ -9,7 +9,9 @@ export function initPageTracking() {
     const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
     if (!anchor) return;
     const url = new URL(anchor.href, location.href);
-    if (['mailto:','tel:','sms:'].includes(url.protocol)) {
+    if (url.origin === location.origin && url.pathname === '/contact/' && ['#message-jaymie','#message-wendy'].includes(url.hash)) {
+      trackRfp('contact_click',{contact_method:'message'},window.gtag,window.clarity);
+    } else if (['mailto:','tel:','sms:'].includes(url.protocol)) {
       trackRfp('contact_click',{contact_method: url.protocol === 'mailto:' ? 'email' : url.protocol === 'tel:' ? 'phone' : 'sms'},window.gtag,window.clarity);
     } else if (url.origin === location.origin && url.pathname === '/contact/') {
       trackRfp('rfp_cta_click',{service_slug:url.searchParams.get('service') || service},window.gtag,window.clarity);

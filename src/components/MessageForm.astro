@@ -1,0 +1,32 @@
+---
+import type {Inquiry} from '../lib/inquiry';
+interface Props { intent: 'message' | 'content_question'; sourcePath?: string; values?: Partial<Inquiry>; error?: string }
+const {intent,sourcePath='/contact/',values={},error}=Astro.props;
+const person=intent==='message'?'Jaymie':'Wendy';
+const id='message-'+person.toLowerCase();
+---
+<section class="message-panel" id={id} aria-labelledby={id+'-title'}>
+  <span class="kick">{intent==='message'?'Projects & conversations':'Articles & editorial'}</span>
+  <h2 class="disp" id={id+'-title'}>Message {person}.</h2>
+  <p class="message-intro">{intent==='message'?'Have a question before writing a brief? Jaymie manages incoming inquiries and will help with the next step.':'Ask about an article, a source or an editorial detail. Your message goes directly to Wendy.'}</p>
+  <form class="p-form message-form" data-message-form data-clarity-mask="true" method="post" action={'/contact/send/#'+id}>
+    <input type="hidden" name="intent" value={intent} />
+    <input type="hidden" name="source_path" value={values.source_path || sourcePath} />
+    <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
+    <div class="p-fields"><label>Name<input name="name" autocomplete="name" required maxlength="120" value={values.name || ''} /></label><label>Email<input name="email" type="email" autocomplete="email" required maxlength="254" value={values.email || ''} /></label></div>
+    <label class="message-body">{intent==='message'?'Your message':'Your question'}<textarea name="message" rows="5" required maxlength="3000">{values.message || ''}</textarea></label>
+    <p class="p-err" role="alert" data-message-error>{error}</p>
+    <p class="message-success" role="status" data-message-success hidden></p>
+    <button class="btn fill" type="submit">Send to {person}</button>
+    <p class="message-note">Delivered by email. {person} can reply to the address you provide.</p>
+  </form>
+</section>
+<script>
+ import {initMessages} from '../scripts/messages';
+ initMessages();
+</script>
+<style>
+ :global(.message-options){display:grid;grid-template-columns:1fr 1fr;gap:64px}
+ .message-panel{scroll-margin-top:110px;min-width:0}.message-panel h2{font-size:clamp(32px,3vw,44px);line-height:1.05;margin:18px 0}.message-intro{color:var(--muted);line-height:1.7;margin-bottom:28px;max-width:48ch}.message-body{display:flex;flex-direction:column;gap:8px;margin-top:22px}.message-body textarea{display:block;width:100%;resize:vertical}.message-note{font-size:13px;color:var(--muted);line-height:1.6;margin-top:18px}.message-success{border-left:3px solid var(--tealt);padding:12px 16px;margin:20px 0;color:var(--ink)}.message-form input,.message-form textarea{font-size:16px;min-width:0;max-width:100%}.message-form .p-fields{gap:20px}.message-form .btn{border-radius:0}.message-form .p-err:empty{margin:0}
+ @media(max-width:800px){:global(.message-options){grid-template-columns:1fr;gap:64px}.message-form .p-fields{grid-template-columns:1fr}}
+</style>

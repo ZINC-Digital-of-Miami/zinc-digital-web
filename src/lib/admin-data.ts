@@ -12,7 +12,7 @@ export type ContentItem = {
   updated_at?: string; live_at?: string; live?: Record<string, unknown> | null; saved: boolean; pending?: boolean;
 };
 export type InquiryRow = {
-  id: string; company: string; name: string; email: string; website: string; services: string[];
+  intent?: import('./inquiry').InquiryIntent | null; id: string; company: string; name: string; email: string; website: string; services: string[];
   budget: string; timeline: string; message: string; notes: string; next_step: string; stage: string;
   source_path: string; created_at: string; archived_at: string | null; notify_status: string;
 };

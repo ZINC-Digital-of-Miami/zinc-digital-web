@@ -7,7 +7,7 @@ import { contentInput,uuid } from '../../../lib/admin-input';
 import { analyzeContent } from '../../../lib/seo-service';
 import { draftRevision,specialistInstructions,validateSeoProposal,SEO_SPECIALIST_VERSION } from '../../../lib/seo-agent';
 import { enqueueCodexJob,readCodexJob } from '../../../lib/codex-jobs';
-import { SITE,STUDIOS,PHONE,EMAIL,services } from '../../../data/site';
+import { SITE,STUDIOS,EMAIL,services } from '../../../data/site';
 import { savedGoogleSettings,seoSearchEvidence } from '../../../lib/google';
 import { createServerClient } from '../../../lib/supabase';
 export const POST:APIRoute=async ctx=>{
@@ -30,7 +30,7 @@ export const POST:APIRoute=async ctx=>{
       target:{kind:item.kind,key:item.key,origin:item.origin,path:item.path},
       revision:draftRevision(item),expected_updated_at:item.updated_at||null,
       input:JSON.stringify({draft:effective,editableContent:item.kind==='post'&&item.origin==='admin',report,
-        businessFacts:{name:'ZINC Digital',site:SITE,phone:PHONE,email:EMAIL,studios:STUDIOS.map(studio=>({...studio,state:'FL',country:'US'})),services:services.map(service=>({title:service.title,path:'/services/'+service.slug+'/',description:service.line}))},
+        businessFacts:{name:'ZINC Digital',site:SITE,email:EMAIL,studios:STUDIOS.map(studio=>({...studio,state:'FL',country:'US'})),services:services.map(service=>({title:service.title,path:'/services/'+service.slug+'/',description:service.line}))},
         metadataCatalog:items.filter(value=>value!==item).map(value=>({path:value.path,title:value.meta_title,description:value.meta_description})),
         searchConsole,
         revisionInstructions:body.instructions||'',pixelFeedback:typeof body.pixelFeedback==='string'?body.pixelFeedback.slice(0,4000):undefined}),

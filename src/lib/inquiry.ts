@@ -20,7 +20,8 @@ export const MESSAGES = {
 } as const;
 
 export type InquiryBody = Record<string, unknown>;
-export interface Inquiry { name: string; company: string; email: string; website: string; services: string[]; budget: string; timeline: string; message: string; source_path: string }
+export type InquiryIntent = 'proposal' | 'message' | 'content_question';
+export interface Inquiry { intent?: InquiryIntent | null; name: string; company: string; email: string; website: string; services: string[]; budget: string; timeline: string; message: string; source_path: string }
 export type Field = keyof Inquiry;
 export type Validation = { ok: true; value: Inquiry } | { ok: false; field: Field; error: string };
 export type Intake =
@@ -35,28 +36,38 @@ const httpUrl = (v: string) => { try { const u = new URL(v); return u.protocol =
 /** Checks every field against the Design's options and limits. Unknown fields, ids and stages are ignored. */
 export function validate(body: InquiryBody): Validation {
   const v: Inquiry = {
+    intent: (one(body.intent) || 'proposal') as InquiryIntent,
     name: one(body.name), company: one(body.company), email: one(body.email).toLowerCase(), website: one(body.website),
     services: [...new Set(many(body.service ?? body.services))], budget: one(body.budget), timeline: one(body.timeline),
     message: one(body.message), source_path: one(body.source_path) || '/contact/',
   };
   const bad = (field: Field, error: string): Validation => ({ ok: false, field, error });
-  for (const f of ['name', 'company', 'email', 'website'] as const) if (!v[f] || v[f].length > LIMITS[f]) return bad(f, MESSAGES.required);
+  if (!['proposal', 'message', 'content_question'].includes(v.intent!)) return bad('intent', MESSAGES.required);
+  for (const f of ['name', 'email'] as const) if (!v[f] || v[f].length > LIMITS[f]) return bad(f, MESSAGES.required);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) return bad('email', MESSAGES.required);
-  if (!httpUrl(v.website)) return bad('website', MESSAGES.required);
-  if (!v.services.length || v.services.some((s) => !SERVICE_SLUGS.includes(s))) return bad('services', MESSAGES.service);
-  if (!BUDGETS.includes(v.budget)) return bad('budget', MESSAGES.choice);
-  if (!TIMELINES.includes(v.timeline)) return bad('timeline', MESSAGES.choice);
+  if (v.intent === 'proposal') {
+    for (const f of ['company', 'website'] as const) if (!v[f] || v[f].length > LIMITS[f]) return bad(f, MESSAGES.required);
+    if (!httpUrl(v.website)) return bad('website', MESSAGES.required);
+    if (!v.services.length || v.services.some((s) => !SERVICE_SLUGS.includes(s))) return bad('services', MESSAGES.service);
+    if (!BUDGETS.includes(v.budget)) return bad('budget', MESSAGES.choice);
+    if (!TIMELINES.includes(v.timeline)) return bad('timeline', MESSAGES.choice);
+  } else {
+    // Short messages cannot smuggle proposal fields or recipients into storage/notifications.
+    v.company = ''; v.website = ''; v.services = []; v.budget = ''; v.timeline = '';
+  }
   if (!v.message || v.message.length > LIMITS.message) return bad('message', MESSAGES.required);
-  if (v.source_path.length > LIMITS.source_path || !v.source_path.startsWith('/')) v.source_path = '/contact/';
+  if (v.source_path.length > LIMITS.source_path || !/^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(v.source_path)) v.source_path = '/contact/';
   return { ok: true, value: v };
 }
 
 /** The submitted values, trimmed and clipped, for re-rendering the form after a rejected no-JS post. */
 export function formValues(body: InquiryBody): Partial<Inquiry> {
   return {
+    intent: body.intent === 'message' || body.intent === 'content_question' ? body.intent : 'proposal',
     name: one(body.name).slice(0, LIMITS.name), company: one(body.company).slice(0, LIMITS.company), email: one(body.email).slice(0, LIMITS.email),
     website: one(body.website).slice(0, LIMITS.website), services: many(body.service).filter((s) => SERVICE_SLUGS.includes(s)),
     budget: one(body.budget), timeline: one(body.timeline), message: one(body.message).slice(0, LIMITS.message),
+    source_path: /^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(one(body.source_path)) ? one(body.source_path).slice(0,LIMITS.source_path) : '/contact/',
   };
 }
 
@@ -98,6 +109,8 @@ export async function readBody(request: Request): Promise<{ ok: true; body: Inqu
 export const RATE = { shortMs: 10 * 60 * 1000, short: 5, dayMs: 24 * 60 * 60 * 1000, day: 20 } as const;
 export const NOTIFY_TIMEOUT_MS = 8000;
 export const DEFAULT_NOTIFY_TO = 'jaymie@zincdigital.co';
+export const CONTENT_NOTIFY_TO = 'wendy@zincdigital.co';
+export const intentLabel = (intent?: InquiryIntent | null) => intent === 'content_question' ? 'Content question · Wendy' : intent === 'message' ? 'Message · Jaymie' : intent === 'proposal' ? 'Proposal request · Jaymie' : 'Inquiry · Jaymie';
 export type NotifyStatus = 'pending' | 'sent' | 'failed';
 export type MailErrorClass = 'auth' | 'timeout' | 'rejected' | 'network';
 export interface Mail { to: string; replyTo: string; subject: string; text: string }
@@ -118,6 +131,7 @@ export type Submit =
 
 export const SUBMIT_MESSAGES = {
   origin: 'The inquiry could not be accepted from this page',
+  country: 'Website messages and proposal requests are accepted from US connections only',
   rate: 'Too many inquiries from this connection. Try again later',
   unavailable: 'The inquiry service is not available right now',
   failed: 'The inquiry could not be saved. Try again',
@@ -134,11 +148,11 @@ export function originAllowed(request: Request, siteOrigin: string): boolean {
 
 export function inquiryMail(v: Inquiry, to: string): Mail {
   const text = [
-    'Company: ' + v.company, 'Name: ' + v.name, 'Email: ' + v.email, 'Website: ' + v.website,
+    'Type: ' + intentLabel(v.intent), 'Company: ' + v.company, 'Name: ' + v.name, 'Email: ' + v.email, 'Website: ' + v.website,
     'Services: ' + v.services.join(', '), 'Budget: ' + v.budget, 'Timeline: ' + v.timeline, 'Page: ' + v.source_path,
     '', v.message,
   ].join('\n');
-  return { to, replyTo: v.email, subject: 'New inquiry · ' + v.company, text };
+  return { to: v.intent === 'content_question' ? CONTENT_NOTIFY_TO : to, replyTo: v.email, subject: (v.intent === 'content_question' ? 'Content question' : v.intent === 'message' ? 'New message' : 'New inquiry') + ' · ' + (v.company || v.name), text };
 }
 
 /** Maps a mail failure to the class stored in notify_error. */
@@ -188,11 +202,14 @@ export async function renotify(
 }
 
 export type Outcome =
-  | { kind: 'ok'; lead?: true } // lead is present only after storage; honeypots remain an untracked success
+  | { kind: 'ok'; lead?: true; message?: true } // lead is present only after storage; honeypots remain an untracked success
   | { kind: 'reject'; status: 400 | 403 | 413 | 422 | 429 | 502 | 503; error: string; field?: Field; values?: Partial<Inquiry>; retryAfter?: number };
 
 /** Every contact submission, from either route: size, honeypot, origin, validation, then submit(). */
 export async function handle(request: Request, clientAddress: string, opts: { siteOrigin: string; deps: () => Promise<Deps | null> }): Promise<Outcome> {
+  // Vercel supplies the country; the edge firewall independently gates these same POST routes.
+  // Missing geography is rejected, never inferred from form fields or browser locale.
+  if (request.headers.get('x-vercel-ip-country') !== 'US') return { kind: 'reject', status: 403, error: SUBMIT_MESSAGES.country };
   const read = await readBody(request);
   if (!read.ok) return { kind: 'reject', status: read.status, error: read.error };
   const r = intake(read.body);
@@ -205,7 +222,7 @@ export async function handle(request: Request, clientAddress: string, opts: { si
   const out = await submit(r.value, clientAddress, deps);
   if (out.kind === 'rate') return { kind: 'reject', status: 429, error: SUBMIT_MESSAGES.rate, retryAfter: out.retryAfter, values };
   if (out.kind === 'error') return { kind: 'reject', status: out.status, error: out.error, values };
-  return { kind: 'ok', lead: true }; // the visitor sees success whether or not the notification went out (R6.5)
+  return r.value.intent === 'proposal' ? { kind: 'ok', lead: true } : { kind: 'ok', message: true }; // the visitor sees success whether or not the notification went out (R6.5)
 }
 
 const rejectHeaders = (o: Extract<Outcome, { kind: 'reject' }>): Record<string, string> => (o.retryAfter ? { 'retry-after': String(o.retryAfter) } : {});
@@ -213,7 +230,7 @@ const rejectHeaders = (o: Extract<Outcome, { kind: 'reject' }>): Record<string, 
 /** POST /api/inquiries/ answers in JSON, never cached. */
 export function jsonAnswer(o: Outcome): Response {
   const headers = { 'content-type': 'application/json', 'cache-control': 'no-store', ...(o.kind === 'reject' ? rejectHeaders(o) : {}) };
-  if (o.kind === 'ok') return new Response(JSON.stringify({ ok: true, ...(o.lead ? { lead: true } : {}) }), { status: 200, headers });
+  if (o.kind === 'ok') return new Response(JSON.stringify({ ok: true, ...(o.lead ? { lead: true } : {}), ...(o.message ? { message: true } : {}) }), { status: 200, headers });
   return new Response(JSON.stringify(o.field ? { error: o.error, field: o.field } : { error: o.error }), { status: o.status, headers });
 }
 

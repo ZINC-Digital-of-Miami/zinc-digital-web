@@ -2,24 +2,24 @@
 // ContactForm.astro — the Design's three-step inquiry form (aside + form). Rendered by Page.astro on /contact/
 // and by /contact/send/, which re-renders it with the submitted values and the server's error (no JavaScript).
 // No-JS posts go to /contact/send/; page.ts posts JSON to data-endpoint.
-import { services, layers, SMS, PHONE_LABEL } from '../data/site';
+import { services, layers } from '../data/site';
 import { BUDGETS, TIMELINES, type Inquiry } from '../lib/inquiry';
-interface Props { values?: Partial<Inquiry>; error?: string }
-const { values = {}, error } = Astro.props;
+interface Props { values?: Partial<Inquiry>; error?: string; compact?: boolean; serviceSlug?: string; sourcePath?: string }
+const { values = {}, error, compact = false, serviceSlug, sourcePath = '/contact/' } = Astro.props;
 const v = { name: '', company: '', email: '', website: '', budget: '', timeline: '', message: '', ...values };
 const chosen = values.services || [];
 ---
 
-<form data-clarity-mask="true" class="p-form rv" id="inqForm" data-inquiry-form data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
+<form data-clarity-mask="true" class:list={["p-form", {rv: !compact}]} id="inqForm" data-inquiry-form data-service-slug={serviceSlug} data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
   <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
   <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
   <fieldset data-step="0"><legend>01 / Your business</legend><div class="p-fields"><label>Name<input id="inquiry-name" name="name" value={v.name} autocomplete="name" required maxlength="120" /></label><label>Company<input id="inquiry-company" name="company" value={v.company} autocomplete="organization" required maxlength="160" /></label><label>Work email<input id="inquiry-email" name="email" value={v.email} type="email" autocomplete="email" required maxlength="254" /></label><label>Website URL<input id="inquiry-website" name="website" value={v.website} type="url" autocomplete="url" placeholder="https://" required maxlength="500" /></label></div></fieldset>
   <fieldset data-step="1"><legend>02 / What you need</legend>{layers.map((layer) => <div class="p-svcgroup"><span class="lab">{layer}</span><div class="p-checks">{services.filter((s) => s.layer === layer).map((s) => <label class="p-check"><input type="checkbox" name="service" value={s.slug} checked={chosen.includes(s.slug)} data-service />{s.title}</label>)}</div></div>)}<div class="p-fields"><label>Monthly budget<select id="inquiry-budget" name="budget" required><option value="">Choose a range</option>{BUDGETS.map((x) => <option selected={v.budget === x}>{x}</option>)}</select></label><label>Timeline<select id="inquiry-timeline" name="timeline" required><option value="">Choose a timeline</option>{TIMELINES.map((x) => <option selected={v.timeline === x}>{x}</option>)}</select></label></div></fieldset>
-  <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000">{v.message}</textarea></label></div><p class="p-muted" style="margin:14px 0 0">Sending adds your inquiry to our board and emails the team. Nothing else is shared.</p></fieldset>
-  <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value="/contact/" />
-  <p class="p-err" id="inquiry-error" role="alert" data-form-error>{error && <>{error}. <a href={SMS}>Text us instead</a> and we will pick it up.</>}</p>
+  <fieldset data-step="2"><legend>03 / The context</legend><div style="margin-top:26px"><label>Message<textarea id="inquiry-message" name="message" rows="6" required maxlength="3000">{v.message}</textarea></label></div><p class="p-muted" style="margin:14px 0 0">Jaymie receives your request and coordinates the next step.</p></fieldset>
+  <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" /><input type="hidden" name="source_path" value={values.source_path || sourcePath} />
+  <p class="p-err" id="inquiry-error" role="alert" data-form-error>{error && <>{error}. <a href="mailto:hello@zincdigital.co">Email us</a>.</>}</p>
   <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>Back</button></div>
   <p class="p-muted" data-nojs-note style="margin:14px 0 0">Tell us about your project and how to reach you.</p>
   <button type="submit" class="btn fill" data-nojs-submit>Request a proposal</button>
 </form>
-<aside class="p-aside rv"><span class="kick">Request for proposal</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Tell us the project, the outcome you need and your constraints. We read every request and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} </a></aside>
+{!compact && <aside class="p-aside rv"><span class="kick">Request for proposal</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Tell us the project, the outcome you need and your constraints. We read every request and reply from hello@zincdigital.co.</p><a class="arrow" href="/contact/#message-jaymie" data-message-open="message" style="align-self:flex-start">Message Jaymie </a></aside>}

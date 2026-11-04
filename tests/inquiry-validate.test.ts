@@ -19,7 +19,7 @@ test('a complete inquiry validates and is normalised', () => {
   assert.ok(r.ok);
   if (!r.ok) return;
   assert.equal(r.value.email, 'ana@ruizsupply.com');
-  assert.deepEqual(Object.keys(r.value).sort(), ['budget', 'company', 'email', 'message', 'name', 'services', 'source_path', 'timeline', 'website']);
+  assert.deepEqual(Object.keys(r.value).sort(), ['budget', 'company', 'email', 'intent', 'message', 'name', 'services', 'source_path', 'timeline', 'website']);
   assert.equal(r.value.source_path, '/contact/');
 });
 
@@ -101,4 +101,13 @@ test('formValues keeps what the visitor typed, clipped, for the no-JS error page
   assert.equal(v.name, 'Ana');
   assert.equal(v.message?.length, LIMITS.message);
   assert.deepEqual(v.services, ['seo']);
+});
+
+test('proposal source paths keep canonical article attribution without queries or off-site destinations',()=>{
+ const path='/blog/ai-search-content-strategy/';
+ const result=validate({...good(),source_path:path});
+ assert.ok(result.ok);if(result.ok)assert.equal(result.value.source_path,path);
+ for(const source_path of ['//other.example/','/contact/?email=person@example.com','/blog/a/#fragment','/../admin/']){
+  const r=validate({...good(),source_path});assert.ok(r.ok);if(r.ok)assert.equal(r.value.source_path,'/contact/');
+ }
 });

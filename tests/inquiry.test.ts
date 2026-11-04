@@ -13,7 +13,7 @@ const good = () => ({
   service: ['shopify', 'seo'], budget: BUDGETS[1], timeline: TIMELINES[0], message: 'We need a faster storefront.',
 });
 const post = (body: unknown, headers: Record<string, string> = {}, url = SITE + '/api/inquiries/') =>
-  new Request(url, { method: 'POST', headers: { origin: SITE, 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) });
+  new Request(url, { method: 'POST', headers: { 'x-vercel-ip-country':'US', origin: SITE, 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body) });
 
 type Fake = Deps & { rows: Record<string, unknown>[]; sent: Mail[]; updates: { id: string; patch: Record<string, unknown> }[]; calls: string[] };
 function fake(over: Partial<Deps> & { retryAfter?: number } = {}): Fake {
@@ -70,7 +70,7 @@ test('the origin check rejects other sites and accepts the site, its Referer and
   rejected(await run(new Request(SITE + '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(good()) }), f), 403);
   rejected(await run(post(good(), { origin: 'https://other.vercel.app' }, 'https://zinc-preview.vercel.app/api/inquiries/'), f), 403);
   assert.deepEqual(f.calls, []);
-  assert.equal((await run(new Request(SITE + '/api/inquiries/', { method: 'POST', headers: { referer: SITE + '/contact/', 'content-type': 'application/json' }, body: JSON.stringify(good()) }), fake())).kind, 'ok');
+  assert.equal((await run(new Request(SITE + '/api/inquiries/', { method: 'POST', headers: { 'x-vercel-ip-country':'US', referer: SITE + '/contact/', 'content-type': 'application/json' }, body: JSON.stringify(good()) }), fake())).kind, 'ok');
   assert.equal((await run(post(good(), { origin: 'https://zinc-preview.vercel.app' }, 'https://zinc-preview.vercel.app/api/inquiries/'), fake())).kind, 'ok');
 });
 
@@ -163,4 +163,45 @@ test('a staff re-send turns a failed notification into sent and increments notif
   assert.equal(f.sent.length, 1);
   assert.deepEqual(f.updates[0], { id: '00000000-0000-4000-8000-000000000001', patch: { notify_status: 'sent', notify_error: null, notify_attempts: 2, notified_at: new Date(NOW).toISOString() } });
   assert.equal(await renotify('00000000-0000-4000-8000-000000000002', { ...f, get: async () => null }), null);
+});
+
+test('US-only intake rejects non-US and unknown countries before storage or notifications on both routes', async()=>{
+ for(const path of ['/api/inquiries/','/contact/send/'])for(const country of ['GB','CA','IN','','XX','us','US, GB']){
+  const f=fake();const req=post(good(),{'x-vercel-ip-country':country},SITE+path);
+  const result=rejected(await run(req,f),403);
+  assert.equal(result.error,SUBMIT_MESSAGES.country);assert.deepEqual(f.calls,[]);
+ }
+});
+test('US country cannot be claimed in the form body or an unrelated forwarding header',async()=>{
+ const f=fake();const req=post({...good(),country:'US'},{'x-vercel-ip-country':'GB','cf-ipcountry':'US'});
+ rejected(await run(req,f),403);assert.deepEqual(f.calls,[]);
+});
+
+test('short messages route by validated intent, persist before email, and never return a lead', async()=>{
+ for(const [intent,to] of [['message','jaymie@zincdigital.co'],['content_question','wendy@zincdigital.co']]){
+  const f=fake();
+  const result=await run(post({intent,name:'Reader',email:'reader@example.com',message:'A question about the article.',source_path:'/blog/example/',to:'attacker@example.com',notifyTo:'attacker@example.com',company:'Ignored',service:['seo']}),f);
+  assert.deepEqual(result,{kind:'ok',message:true});
+  assert.deepEqual(await jsonAnswer(result).json(),{ok:true,message:true});
+  assert.deepEqual(f.calls,['reserve','send','update']);
+  assert.equal(f.sent[0].to,to);assert.equal(f.rows[0].intent,intent);assert.equal(f.rows[0].source_path,'/blog/example/');
+  assert.deepEqual(f.rows[0].services,[]);assert.equal(f.rows[0].company,'');
+  assert.doesNotMatch(JSON.stringify(f.rows),/attacker/);
+ }
+});
+test('message validation, US restriction, honeypot and shared rate limits prevent notification effects',async()=>{
+ const body={intent:'content_question',name:'Reader',email:'reader@example.com',message:'Question'};
+ for(const [change,headers,status] of [[{intent:'other'},{},422],[{email:'invalid'},{},422],[{}, {'x-vercel-ip-country':'CA'},403],[{}, {'x-vercel-ip-country':''},403]] as const){
+  const f=fake();rejected(await run(post({...body,...change},headers),f),status);assert.deepEqual(f.calls,[]);
+ }
+ const f=fake();assert.deepEqual(await run(post({...body,company_website:'bot'}),f),{kind:'ok'});assert.deepEqual(f.calls,[]);
+ const rate=fake({retryAfter:60});rejected(await run(post(body),rate),429);assert.deepEqual(rate.sent,[]);
+});
+test('resending a content question retains Wendy routing and no-JS errors retain message identity',async()=>{
+ const f=fake();
+ await renotify('one',{...f,get:async()=>({...good(),services:[],intent:'content_question' as const,source_path:'/blog/example/'})});
+ assert.equal(f.sent[0].to,'wendy@zincdigital.co');
+ const out=await run(post({intent:'message',name:'Reader',email:'bad',message:'Keep this text'}),fake());
+ const answer=formAnswer(out);assert.ok('form' in answer);
+ if('form' in answer){assert.equal(answer.form.values?.intent,'message');assert.equal(answer.form.values?.message,'Keep this text');}
 });

@@ -30,9 +30,9 @@ export function initBlog() {
   if (want && ['Build', 'Demand', 'Intelligence'].includes(want)) { layer = want; apply(); }
 }
 
-export function initForm() {
-  const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
-  if (!form) return;
+export function initForm(form = document.querySelector<HTMLFormElement>('[data-inquiry-form]')) {
+  if (!form || form.dataset.initialized || (form.closest('dialog') && !form.closest('dialog')!.open)) return;
+  form.dataset.initialized = 'true';
   const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>('[data-step]'));
   const bars = Array.from(form.querySelectorAll<HTMLElement>('[data-step-bar]'));
   const next = form.querySelector<HTMLButtonElement>('[data-next]')!;
@@ -56,17 +56,20 @@ export function initForm() {
     field.closest('label')?.append(help); field.setAttribute('aria-invalid', 'true');
     field.setAttribute('aria-describedby', [field.getAttribute('aria-describedby'), help.id].filter(Boolean).join(' '));
   };
-  const track = (event: Parameters<typeof trackRfp>[0], error_type?: string) => trackRfp(event, {error_type}, window.gtag, window.clarity);
+  const track = (event: Parameters<typeof trackRfp>[0], error_type?: string) => trackRfp(event, {error_type,service_slug:form.dataset.serviceSlug}, window.gtag, window.clarity);
   let started = false;
   const start = () => { if (!started) { started = true; track('rfp_form_start'); } };
   const seenSteps = new Set<number>();
-  track('rfp_form_view');
   let step = 0;
   // Progressive enhancement: server markup is the one-page no-JS form; JS turns it into three steps.
   form.querySelectorAll<HTMLElement>('[data-js-only],[data-js-ctrls]').forEach((el) => { el.hidden = false; });
   form.querySelectorAll<HTMLElement>('[data-nojs-note],[data-nojs-submit]').forEach((el) => { el.hidden = true; });
   const pre = new URLSearchParams(location.search).getAll('service');
-  if (pre.length === 1) form.querySelectorAll<HTMLInputElement>('[data-service]').forEach((f) => { f.checked = f.value === pre[0]; });
+  const preselected = pre.length === 1 && Array.from(form.querySelectorAll<HTMLInputElement>('[data-service]')).some(f=>f.value===pre[0]) ? pre[0] : undefined;
+  if (preselected && !form.closest('dialog')) { form.dataset.serviceSlug=preselected; form.querySelectorAll<HTMLInputElement>('[data-service]').forEach(f=>{f.checked=f.value===preselected;}); }
+  const source = form.querySelector<HTMLInputElement>('[name=source_path]');
+  if(source?.value==='/contact/')try{const ref=new URL(document.referrer);if(ref.origin===location.origin&&/^\/blog\/[a-z0-9-]+\/$/.test(ref.pathname))source.value=ref.pathname;}catch{}
+  track('rfp_form_view');
   const show = (focus = false) => {
     if (!seenSteps.has(step)) { seenSteps.add(step); if (step === 1) track('rfp_scope_view'); if (step === 2) track('rfp_context_view'); }
     steps.forEach((el, i) => { el.hidden = i !== step; });
@@ -100,7 +103,7 @@ export function initForm() {
         const result = await r.json().catch(() => ({}));
         if (!r.ok || result.ok !== true) {
           failureRecorded = true;
-          track('rfp_submit_error',r.status === 422 ? 'validation' : 'server');
+          track('rfp_submit_error',r.status === 403 ? 'blocked' : r.status === 429 ? 'rate_limit' : r.status === 422 ? 'validation' : 'server');
           const field = result.field === 'services' ? form.querySelector<HTMLInputElement>('[data-service]') : typeof result.field === 'string' ? form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name="' + CSS.escape(result.field) + '"]') : null;
           const invalidStep = field ? steps.findIndex(el => el.contains(field)) : -1;
           if (field && invalidStep >= 0) {
@@ -112,12 +115,12 @@ export function initForm() {
             field.focus({ preventScroll: true }); field.scrollIntoView({ block: 'center' });
             return;
           }
-          throw new Error(result.error || 'Send failed');
+          throw new Error(result.error || (r.status === 403 ? 'This request could not be accepted. Proposal forms are available to US connections only' : 'Send failed'));
         }
         if (result.lead === true) { try { window.clarity?.('event','generate_lead'); } catch {} }
-        await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/');
+        await trackLead(result, window.gtag, window.zincAdsConversionLabel,form.dataset.serviceSlug); location.assign(form.dataset.thanks || '/thanks/');
       })
-      .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
+      .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Please try again, or email hello@zincdigital.co.'; });
   };
   next.addEventListener('click', advance);
   back.addEventListener('click', () => { if (next.disabled) return; step = Math.max(0, step - 1); show(true); });

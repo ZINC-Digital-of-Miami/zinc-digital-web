@@ -13,7 +13,7 @@ export function googleTagScript(label = ''): string {
 type Tag = (command: string, name: string, options: Record<string, unknown>) => void;
 
 /** Wait briefly for delivery before leaving the form, with a fallback for blocked Google scripts. */
-export async function trackLead(result: unknown, tag?: Tag, label = ''): Promise<void> {
+export async function trackLead(result: unknown, tag?: Tag, label = '', serviceSlug = ''): Promise<void> {
   if (!result || typeof result !== 'object' || !('ok' in result) || result.ok !== true || !('lead' in result) || result.lead !== true || !tag) return;
   const ads = conversionLabel(label);
   await new Promise<void>((resolve) => {
@@ -23,7 +23,7 @@ export async function trackLead(result: unknown, tag?: Tag, label = ''): Promise
     const delivered = () => { if (--remaining === 0) finish(); };
     const options = { event_callback: delivered, event_timeout: 1000 };
     try {
-      tag('event', 'generate_lead', { ...options, send_to: GA4_TAG });
+      tag('event', 'generate_lead', { ...options, send_to: GA4_TAG, ...(/^[a-z][a-z0-9-]{0,49}$/.test(serviceSlug) ? {service_slug:serviceSlug} : {}) });
       if (ads) tag('event', 'conversion', { ...options, send_to: ADS_TAG + '/' + ads });
     } catch { finish(); }
   });
