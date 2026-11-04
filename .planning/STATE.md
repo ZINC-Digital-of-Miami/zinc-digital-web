@@ -20,9 +20,11 @@ progress:
 
 # Project State
 
-### Current completion pointer — 4 November 2026 CT
+### Current completion pointer — 4 November 2026, 4:23 PM CT
 
-Use the current site-completion audit in `.kiro/specs/create-a-complete-implementation-spec/tasks.md`. Privacy/Terms shipped in PR71, core CRM and the approved first Publish are live through PR70/72, and native Google/staff connections are verified. Earlier pending-release statements below are historical. The owner now approves footer privacy controls/GPC/DNT with no banner, and excludes Square activation and waiting on Google approval. Current work is the scoped privacy, redirect-header, connection-refresh and sparse-chart correction on `codex/site-completion`. No paid Claude rerun, new provider credential, destructive retention policy or deletion of other worktrees is authorized by this record.
+Use the **Current closeout** in `.kiro/specs/create-a-complete-implementation-spec/tasks.md`. PR75 is live at main `a74e1c9`: the owner-approved visible consent bar supersedes the no-banner decision, and the approved manual retention policy is published. The exact five-hash cleanup was separately approved, committed and verified; all seven inquiries and 21 history events remain. PR70/72–74 backend, publishing, Research and dependency receipts remain applicable. The canonical closeout lists actual remaining verification, data-source and ongoing operational work without treating historical unchecked implementation items as absent features.
+
+Square and Google operations remain excluded. Cleanup is limited to this work's abandoned processes/windows; other sessions and the permanent Research runner are preserved. This GSD file remains historical rather than a competing execution plan.
 
 ### Privacy Policy and website Terms — 4 November 2026 CT
 
