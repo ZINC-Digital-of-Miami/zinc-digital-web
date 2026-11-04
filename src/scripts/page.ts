@@ -1,4 +1,5 @@
 // page.ts — blog filters (layer + topic) and the three-step inquiry form.
+import {trackRfp} from '../lib/rfp-tracking';
 import {trackLead} from '../lib/analytics';
 export function initBlog() {
   const root = document.querySelector<HTMLElement>('[data-blog]');
@@ -55,6 +56,11 @@ export function initForm() {
     field.closest('label')?.append(help); field.setAttribute('aria-invalid', 'true');
     field.setAttribute('aria-describedby', [field.getAttribute('aria-describedby'), help.id].filter(Boolean).join(' '));
   };
+  const track = (event: Parameters<typeof trackRfp>[0], error_type?: string) => trackRfp(event, {error_type}, window.gtag, window.clarity);
+  let started = false;
+  const start = () => { if (!started) { started = true; track('rfp_form_start'); } };
+  const seenSteps = new Set<number>();
+  track('rfp_form_view');
   let step = 0;
   // Progressive enhancement: server markup is the one-page no-JS form; JS turns it into three steps.
   form.querySelectorAll<HTMLElement>('[data-js-only],[data-js-ctrls]').forEach((el) => { el.hidden = false; });
@@ -62,16 +68,18 @@ export function initForm() {
   const pre = new URLSearchParams(location.search).getAll('service');
   if (pre.length === 1) form.querySelectorAll<HTMLInputElement>('[data-service]').forEach((f) => { f.checked = f.value === pre[0]; });
   const show = (focus = false) => {
+    if (!seenSteps.has(step)) { seenSteps.add(step); if (step === 1) track('rfp_scope_view'); if (step === 2) track('rfp_context_view'); }
     steps.forEach((el, i) => { el.hidden = i !== step; });
     bars.forEach((b, i) => b.classList.toggle('on', i <= step));
     back.hidden = step === 0;
-    next.textContent = step === 2 ? 'Send inquiry' : 'Continue';
+    next.textContent = step === 2 ? 'Request a proposal' : 'Continue';
     label.textContent = 'Step ' + (step + 1) + ' of 3';
     if (focus) error.textContent = ''; // keep a server-rendered error (/contact/send/) on first paint
     if (focus) steps[step].querySelector<HTMLElement>('input,select,textarea')?.focus();
   };
   const advance = () => {
     if (next.disabled) return;
+    start();
     const fields = Array.from(steps[step].querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input:not([type=checkbox]),select,textarea'));
     const bad = fields.find((f) => !f.checkValidity());
     fields.forEach(clearFieldError);
@@ -82,13 +90,17 @@ export function initForm() {
       form.querySelector<HTMLInputElement>('[data-service]')?.focus(); return;
     }
     if (step < 2) { step++; show(true); return; }
+    track('rfp_submit_attempt');
     next.style.minWidth = next.offsetWidth + 'px'; next.disabled = true; back.disabled = true; next.textContent = 'Sending…'; form.setAttribute('aria-busy','true');
     const body: Record<string, string | string[]> = { service: [] };
     new FormData(form).forEach((v, k) => { if (typeof v !== 'string') return; if (k === 'service') (body.service as string[]).push(v); else body[k] = v; });
+    let failureRecorded = false;
     fetch(form.dataset.endpoint || '/api/inquiries/', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(body) })
       .then(async (r) => {
         const result = await r.json().catch(() => ({}));
         if (!r.ok || result.ok !== true) {
+          failureRecorded = true;
+          track('rfp_submit_error',r.status === 422 ? 'validation' : 'server');
           const field = result.field === 'services' ? form.querySelector<HTMLInputElement>('[data-service]') : typeof result.field === 'string' ? form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name="' + CSS.escape(result.field) + '"]') : null;
           const invalidStep = field ? steps.findIndex(el => el.contains(field)) : -1;
           if (field && invalidStep >= 0) {
@@ -102,14 +114,16 @@ export function initForm() {
           }
           throw new Error(result.error || 'Send failed');
         }
+        if (result.lead === true) { try { window.clarity?.('event','generate_lead'); } catch {} }
         await trackLead(result, window.gtag, window.zincAdsConversionLabel); location.assign(form.dataset.thanks || '/thanks/');
       })
-      .catch((e) => { next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
+      .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
   };
   next.addEventListener('click', advance);
   back.addEventListener('click', () => { if (next.disabled) return; step = Math.max(0, step - 1); show(true); });
   form.addEventListener('submit', (e) => { e.preventDefault(); advance(); });
   form.addEventListener('input', (e) => {
+    start();
     const field=e.target;
     if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
       if(field.matches('[data-service]') && form.querySelector('[data-service]:checked')) { form.querySelectorAll<HTMLInputElement>('[data-service]').forEach(f=>{f.removeAttribute('aria-invalid');f.removeAttribute('aria-describedby');});error.textContent=''; }

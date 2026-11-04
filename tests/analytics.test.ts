@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {runInNewContext} from 'node:vm';
-import {googleTagScript, trackLead, analyticsEnabled} from '../src/lib/analytics.ts';
+import {googleTagScript, clarityScript, trackLead, analyticsEnabled} from '../src/lib/analytics.ts';
 
 test('analytics requires both the production environment and the explicit on flag',()=>{
   assert.equal(analyticsEnabled('on','production'),true);
@@ -55,4 +55,26 @@ test('Ads conversion requires an explicit valid label and blocked analytics neve
   t.mock.timers.tick(1100);
   await pending;
   assert.equal(completed,true);
+});
+
+test('public page tags identify the content and suppress explicit QA visits',()=>{
+  const loaded:unknown[]=[];
+  const window:Record<string,any>={};
+  const location={hostname:'www.zincdigital.co',pathname:'/services/seo/',href:'https://www.zincdigital.co/services/seo/?zinc_qa=1'};
+  runInNewContext(googleTagScript(),{window,location,document:{referrer:'',createElement:()=>({}),head:{appendChild:(t:unknown)=>loaded.push(t)}},URL,Date});
+  assert.equal(loaded.length,0);
+  assert.equal(window.gtag,undefined);
+});
+
+
+test('Clarity loads only the ZINC project on live public URLs and labels the page without form values',()=>{
+  for (const href of ['https://www.zincdigital.co/services/seo/','https://localhost/contact/','https://www.zincdigital.co/contact/?zinc_qa=1','https://www.zincdigital.co/contact/?email=private@example.com']) {
+    const window:Record<string,any>={},loaded:any[]=[];
+    const u=new URL(href);
+    runInNewContext(clarityScript(),{window,location:{hostname:u.hostname,href},document:{documentElement:{dataset:{pageType:'service',serviceSlug:'seo'}},createElement:()=>({}),head:{appendChild:(v:unknown)=>loaded.push(v)}},URL});
+    if(href==='https://www.zincdigital.co/services/seo/') {
+      assert.equal(loaded[0]?.src,'https://www.clarity.ms/tag/p6dd6jjhx3');
+      assert.deepEqual(Array.from(window.clarity.q,(v:any)=>Array.from(v)),[['set','page_type','service'],['set','service_slug','seo']]);
+    } else {assert.equal(loaded.length,0);assert.equal(window.clarity,undefined);}
+  }
 });

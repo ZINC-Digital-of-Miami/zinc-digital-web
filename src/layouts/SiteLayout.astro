@@ -14,7 +14,7 @@ import "../styles/site-direction.css";
 import Img from '../components/Img.astro';
 
 
-import {analyticsEnabled, googleTagScript} from '../lib/analytics';
+import {analyticsEnabled, googleTagScript, clarityScript} from '../lib/analytics';
 import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
@@ -37,10 +37,12 @@ Astro.csp?.insertDirective("font-src 'self' data:");
 Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
 if (analytics && Astro.csp) {
+  Astro.csp.insertScriptResource('https://www.clarity.ms');
+  Astro.csp.insertScriptResource('https://scripts.clarity.ms');
   // Google Ads also loads its view-through conversion endpoint as a script.
   Astro.csp.insertScriptResource('https://googleads.g.doubleclick.net');
-  Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net");
-  Astro.csp.insertDirective("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com");
+  Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net https://*.clarity.ms https://c.bing.com");
+  Astro.csp.insertDirective("img-src 'self' data: https://ad.doubleclick.net https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://*.clarity.ms https://c.bing.com");
   Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");
 }
 const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
@@ -117,7 +119,7 @@ const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph }
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
 const showCta = false;
 ---
-<html lang="en" data-theme="light">
+<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : undefined} lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -154,6 +156,7 @@ const showCta = false;
     <script type="application/ld+json" set:html={ld}></script>
     {analytics && <>
       <script is:inline set:html={googleTagScript(import.meta.env.PUBLIC_ADS_CONVERSION_LABEL)}></script>
+      <script is:inline set:html={clarityScript()}></script>
     </>}
   </head>
   <body>
@@ -228,7 +231,9 @@ const showCta = false;
     {t === 'case' && <CaseGalleryViewer />}
     <script>
       import { initShell } from '../scripts/shell';
+      import {initPageTracking} from '../scripts/analytics';
       initShell();
+      initPageTracking();
     </script>
   </body>
 </html>

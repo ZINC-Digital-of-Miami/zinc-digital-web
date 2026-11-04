@@ -10,7 +10,7 @@ const v = { name: '', company: '', email: '', website: '', budget: '', timeline:
 const chosen = values.services || [];
 ---
 
-<form class="p-form rv" id="inqForm" data-inquiry-form data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
+<form data-clarity-mask="true" class="p-form rv" id="inqForm" data-inquiry-form data-thanks="/thanks/" method="post" action="/contact/send/#inquiry-error" data-endpoint="/api/inquiries/" novalidate>
   <div class="p-steps" aria-hidden="true" data-js-only hidden><i class="on" data-step-bar></i><i data-step-bar></i><i data-step-bar></i></div>
   <p class="lab" style="margin:0 0 18px" data-step-label aria-live="polite" data-js-only hidden>Step 1 of 3</p>
   <fieldset data-step="0"><legend>01 / Your business</legend><div class="p-fields"><label>Name<input id="inquiry-name" name="name" value={v.name} autocomplete="name" required maxlength="120" /></label><label>Company<input id="inquiry-company" name="company" value={v.company} autocomplete="organization" required maxlength="160" /></label><label>Work email<input id="inquiry-email" name="email" value={v.email} type="email" autocomplete="email" required maxlength="254" /></label><label>Website URL<input id="inquiry-website" name="website" value={v.website} type="url" autocomplete="url" placeholder="https://" required maxlength="500" /></label></div></fieldset>
@@ -20,6 +20,6 @@ const chosen = values.services || [];
   <p class="p-err" id="inquiry-error" role="alert" data-form-error>{error && <>{error}. <a href={SMS}>Text us instead</a> and we will pick it up.</>}</p>
   <div class="p-ctrls" data-js-ctrls hidden><button type="button" class="btn fill" data-next>Continue</button><button type="button" class="p-textbtn" data-back hidden>Back</button></div>
   <p class="p-muted" data-nojs-note style="margin:14px 0 0">Tell us about your project and how to reach you.</p>
-  <button type="submit" class="btn fill" data-nojs-submit>Send inquiry</button>
+  <button type="submit" class="btn fill" data-nojs-submit>Request a proposal</button>
 </form>
-<aside class="p-aside rv"><span class="kick">Inquiry</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Three short steps. We read every inquiry and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} </a></aside>
+<aside class="p-aside rv"><span class="kick">Request for proposal</span><h2 class="disp p-sec" style="margin-top:14px">The right starting point.</h2><p class="p-muted">Tell us the project, the outcome you need and your constraints. We read every request and reply from hello@zincdigital.co.</p><a class="arrow" href={SMS} style="align-self:flex-start">Text {PHONE_LABEL} </a></aside>

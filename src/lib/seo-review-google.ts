@@ -1,3 +1,4 @@
+import {rfpFunnelRequest,parseRfpFunnel,rfpFunnelPeriod,RFP_FIRST_FULL_DAY} from './rfp-metrics';
 import {request,verifyZincAnalytics} from './google';
 import type {GoogleSettings} from './google-settings';
 import {queryLanguageGroups} from './seo-query-language';
@@ -22,7 +23,18 @@ export async function reviewGoogle(c:GoogleSettings,paths:Set<string>){
    return {period:{startDate,endDate},timeZone:data.metadata?.timeZone||null,metadata:data.metadata,rows,omittedRows,rowCount:data.rowCount,limit:dimension?100:null};
   };
   const periods=await Promise.all([{name:'current',start:'28daysAgo',end:'yesterday'},{name:'previous',start:'56daysAgo',end:'29daysAgo'}].map(async p=>{const [summary,channels,landingPages,devices]=await Promise.all([read(p.start,p.end),read(p.start,p.end,'sessionDefaultChannelGroup'),read(p.start,p.end,'landingPage'),read(p.start,p.end,'deviceCategory')]);return {name:p.name,summary,channels,landingPages,devices};}));
-  return {id:'ga4',available:true,source:'Google Analytics Data API',identity,hostFilter:'zincdigital.co and www.zincdigital.co',periods,note:'Aggregate sessions/engagement/key events. Native landingPage grain excludes query strings; top 100 rows only, paths outside the public inventory omitted. Key events are not verified qualified enquiries. No individual session recordings or causal evidence.'};
+  // Run after the eight summary reports to stay within the property's concurrent-request quota.
+  const zone=periods[0].summary.timeZone;
+  const day=(back:number)=>{if(!zone)throw new Error('GA4 reporting timezone unavailable.');const now=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const d=new Date(now+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-back);return d.toISOString().slice(0,10);};
+  const rfp=await (async()=>{
+   const current={startDate:day(28),endDate:day(1)},previous={startDate:day(56),endDate:day(29)};
+   const funnelPeriod=rfpFunnelPeriod(current.startDate,current.endDate);
+   const submissions=async(period:typeof current)=>{const data=await request(url,{dateRanges:[period],dimensionFilter:{andGroup:{expressions:[dimensionFilter,{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'generate_lead'}}}]}},metrics:[{name:'eventCount'}]});return {period,count:Number(data.rows?.[0]?.metricValues?.[0]?.value||0),metadata:data.metadata};};
+   const results=await Promise.allSettled([submissions(current),submissions(previous),funnelPeriod?request('https://analyticsdata.googleapis.com/v1alpha/properties/'+c.property+':runFunnelReport',rfpFunnelRequest(funnelPeriod.startDate,funnelPeriod.endDate)).then(parseRfpFunnel):Promise.resolve(null),request(url,{dateRanges:[current],dimensionFilter:{andGroup:{expressions:[dimensionFilter,{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'generate_lead'}}}]}},dimensions:[{name:'sessionDefaultChannelGroup'}],metrics:[{name:'eventCount'}],orderBys:[{metric:{metricName:'eventCount'},desc:true}],limit:50}).then(data=>({rows:(data.rows||[]).map((r:{dimensionValues:{value:string}[];metricValues:{value:string}[]})=>({channel:r.dimensionValues[0]?.value||'(not set)',count:Number(r.metricValues[0]?.value)})),metadata:data.metadata,rowCount:data.rowCount}))]);
+   const value=(i:number)=>results[i].status==='fulfilled'?(results[i] as PromiseFulfilledResult<unknown>).value:null;
+   return {gaps:results.flatMap((r,i)=>r.status==='rejected'?[["Current proposal submissions could not be loaded.","Previous proposal submissions could not be loaded.","The ordered funnel could not be loaded.","Acquisition channels could not be loaded."][i]]:[]),timeZone:zone,funnelPeriod,funnelStartsOn:RFP_FIRST_FULL_DAY,current:value(0),previous:value(1),funnel:value(2),channels:value(3),period:current,note:'Proposal submissions count generate_lead events, independent of key-event configuration. Funnel stages count active users completing the ordered sequence in the separately stated instrumented period, with intervening events allowed. Tags begin November 4, 2026; earlier steps are unavailable. This is not a session conversion rate, qualified pipeline or revenue. Consent, blockers, source thresholds and sampling can limit coverage.'};
+  })().catch(()=>null);
+  return {id:'ga4',available:true,rfp,source:'Google Analytics Data API',identity,hostFilter:'zincdigital.co and www.zincdigital.co',periods,note:'Aggregate sessions/engagement/key events. Native landingPage grain excludes query strings; top 100 rows only, paths outside the public inventory omitted. Key events are not verified qualified enquiries. No individual session recordings or causal evidence.'};
  })();
  const search=(async()=>{
   if(!c.site)throw new Error('Search Console property is not connected.');

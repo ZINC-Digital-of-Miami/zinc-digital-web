@@ -26,7 +26,7 @@ test('AI discovery uses only supplied published/indexable routes, including admi
 });
 test('curated page metadata is distinct and preserves registered work and service names',()=>{
  const values=Object.values(pageEditorial);assert.equal(new Set(values.map(value=>value.metaTitle)).size,values.length);assert.equal(new Set(values.map(value=>value.metaDescription)).size,values.length);
- assert.match(pageEditorial['/services/ai-search-optimization/'].metaTitle,/Generative Search Optimization/);
+ assert.match(pageEditorial['/services/ai-search-optimization/'].metaTitle,/AI Search Optimization/);
  assert.match(pageEditorial['/'].metaDescription,/Miami/);
  assert.match(pageEditorial['/'].metaDescription,/Panama City/);
  assert.match(pageEditorial['/work/zinc-fusion-v16/'].metaDescription,/in development/i);
