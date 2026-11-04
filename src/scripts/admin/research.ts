@@ -55,7 +55,7 @@ document.addEventListener('submit',async e=>{
   const error=form.querySelector<HTMLElement>('[data-chat-error]')!,question=form.querySelector<HTMLTextAreaElement>('[name=text]')!,model=form.querySelector<HTMLSelectElement>('[name=model]')!,button=form.querySelector<HTMLButtonElement>('button[type=submit]')!,log=document.querySelector<HTMLElement>('[data-chat-log]')!;
   const text=question.value.trim();if(!text)return;error.hidden=true;form.dataset.chatSending='true';button.disabled=true;model.disabled=true;question.disabled=true;
   const user=document.createElement('article');user.className='a-message';user.dataset.role='user';user.textContent=text;
-  const assistant=document.createElement('article');assistant.className='a-message';assistant.textContent='Starting…';log.append(user,assistant);log.scrollTop=log.scrollHeight;let content='';
+  const assistant=document.createElement('article');assistant.className='a-message';assistant.textContent='Starting…';log.querySelector('.a-empty')?.remove();log.append(user,assistant);log.scrollTop=log.scrollHeight;let content='';
   try{
    const res=await fetch('/api/admin/research/chat/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({project_id:form.dataset.project,chat_id:form.dataset.chat||null,text,model:model.value})});
    if(!res.ok||!res.body){const data=await res.json();throw new Error(data.error||'The chat could not be reached.');}

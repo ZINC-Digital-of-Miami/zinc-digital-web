@@ -15,6 +15,8 @@ import Img from '../components/Img.astro';
 
 
 import {analyticsEnabled, googleTagScript, clarityScript} from '../lib/analytics';
+import {trackingPrivacyScript} from '../lib/tracking-privacy';
+import PrivacyControls from '../components/PrivacyControls.astro';
 import {proposalPillar} from '../lib/proposal-pillar';
 import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -35,6 +37,7 @@ interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
 // The unchanged 14 KB display face is available before first paint; no fallback rewrap.
 const criticalDisplayCss = '@font-face{font-family:"Manrope-critical";src:url("' + criticalDisplayFont + '") format("woff2");font-weight:800;font-style:normal;font-display:block;} :root{--font-display:"Manrope-critical",sans-serif;}';
+Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(trackingPrivacyScript()).digest('base64')}`);
 Astro.csp?.insertDirective("font-src 'self' data:");
 Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
@@ -156,6 +159,7 @@ const showCta = false;
       (function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('zinc-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
     </script>
     <script type="application/ld+json" set:html={ld}></script>
+    <script is:inline set:html={trackingPrivacyScript()}></script>
     {analytics && <>
       <script is:inline set:html={googleTagScript(import.meta.env.PUBLIC_ADS_CONVERSION_LABEL)}></script>
       <script is:inline set:html={clarityScript()}></script>
@@ -222,6 +226,7 @@ const showCta = false;
             <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
           <p class="fmeta p-legal-notice" style="font-size:14px">We use Google Analytics and Microsoft Clarity to understand site use. <a href="/privacy/">Privacy and choices</a>.</p>
+          <PrivacyControls />
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
             <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>{ADMIN_PATH && <> · <a href={ADMIN_PATH}>Admin</a></>}</span>
