@@ -224,7 +224,7 @@ export const team: TeamMember[] = [
 export const homeCommitments = ['You own your accounts, data and code.', 'Direct access to the people doing the work.', 'Reporting tied to revenue, not impressions.'];
 export const sequence: [string, string][] = [['Understand', 'Agree on the business problem, the sources and the people responsible.'], ['Define', 'Set the scope, decision points and measures that will guide the work.'], ['Build and review', 'Bring complete working increments to a shared review.'], ['Measure and adjust', 'Check outcomes and choose the next priorities from evidence.']];
 
-// Privacy and Terms: the owner-approved text in legal.ts. Empty sections render no legal body (R2.6).
+// Privacy and Terms: current website notices in legal.ts.
 export const privacy = privacyApproved.sections;
 export const terms = termsApproved.sections;
 
@@ -275,8 +275,8 @@ export const routes: Route[] = [
   ...services.filter(s=>posts.some(p=>p.related.includes(s.slug))).map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:categoryEditorial[s.slug].description})),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, modified:p.modifiedGmt, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
   ...authors.map(a => route(authorPath(a.id), 'author', a.name, {slug:a.id,metaTitle:'Articles by '+a.schemaName,metaDescription:a.bio})),
-  route('/privacy/', 'privacy', 'Privacy'),
-  route('/terms/', 'terms', 'Terms'),
+  route('/privacy/', 'privacy', 'Privacy Policy'),
+  route('/terms/', 'terms', 'Terms & Conditions'),
 ];
 export const notFoundRoute: Route = { path: '/404/', template: '404', title: 'Page not found' };
 // Pages excluded from sitemap / indexing (plus /admin/ and /api/ by prefix, see middleware).
