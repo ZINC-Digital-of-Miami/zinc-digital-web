@@ -1,6 +1,10 @@
 /// <reference types="astro/client" />
 
 interface Window {
+  zincConsent?: import('./lib/tracking-privacy').PrivacyChoices;
+  zincConsentSaved?: boolean;
+  zincPrivacySignal?: boolean;
+  zincPrivacyStorage?: boolean;
   clarity?: (command: string, ...args: unknown[]) => void;
   gtag?: (command: string, name: string, options: Record<string, unknown>) => void;
   zincAdsConversionLabel?: string;
