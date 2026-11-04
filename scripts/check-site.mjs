@@ -87,7 +87,9 @@ if (llms) check(!/\/admin\/|\/api\//.test(llms), 'llms.txt must not advertise pr
 
 // Vercel aliases stay noindex; the live domain must not inherit that header at cutover.
 const projectHeaders = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
-const robotsRules = projectHeaders.headers.filter(rule => rule.headers.some(header => header.key.toLowerCase() === 'x-robots-tag'));
+const robotsRules = projectHeaders.headers.filter(rule => rule.source !== '/content-revision.json' && rule.headers.some(header => header.key.toLowerCase() === 'x-robots-tag'));
+const receiptRule=projectHeaders.headers.find(rule=>rule.source==='/content-revision.json');
+check(receiptRule?.headers.some(header=>header.key==='Cache-Control'&&header.value==='no-store')&&receiptRule?.headers.some(header=>header.key==='X-Robots-Tag'&&header.value==='noindex, nofollow'),'The opaque content receipt must be uncached and noindex');
 check(robotsRules.length === 1 && robotsRules[0].has?.some(condition => condition.type === 'host' && new RegExp('^' + condition.value + '$').test('zinc-digital-web.vercel.app') && !new RegExp('^' + condition.value + '$').test('www.zincdigital.co')), 'X-Robots-Tag must match Vercel hosts without blocking www.zincdigital.co');
 
 const expectAnalytics = process.argv.includes('--analytics=on');

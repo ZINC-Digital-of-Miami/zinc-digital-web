@@ -16,9 +16,16 @@ export async function triggerBuild(){
   if(!res.ok)throw new Error('Vercel could not start the build. Try again.');
   return(await res.json()).job as {id:string;state:string;createdAt:number};
 }
-export async function publishResult(value:Record<string,any>|null,list:typeof deployments=deployments){
+async function publicReceipt(revision:string){
+ const res=await fetch('https://www.zincdigital.co/content-revision.json?revision='+revision,{cache:'no-store',redirect:'error',signal:AbortSignal.timeout(10000)});
+ if(!res.ok)throw new Error('Public receipt unavailable');
+ return await res.json() as {revision?:string|null};
+}
+export async function publishResult(value:Record<string,any>|null,read:typeof publicReceipt=publicReceipt){
  if(!value||!['building','pending'].includes(value.status))return value;
- try{const rows=await list();const first=rows.filter(r=>r.created>=new Date(value.at).getTime()).sort((a,b)=>a.created-b.created)[0];
-  return first?{...value,status:first.state.toLowerCase(),deployment:first.url}:value;
- }catch{return {...value,status:'Build status unavailable · connect Vercel'};}
+ if(typeof value.revision!=='string'||! /^[a-f0-9]{64}$/.test(value.revision))return {...value,status:'Publication unverified · no content receipt'};
+ try{
+  const receipt=await read(value.revision);
+  return {...value,status:receipt?.revision===value.revision?'ready':value.request_unconfirmed?'Build request unconfirmed · check deployments':'Awaiting published content verification'};
+ }catch{return {...value,status:'Published content verification unavailable'};}
 }
