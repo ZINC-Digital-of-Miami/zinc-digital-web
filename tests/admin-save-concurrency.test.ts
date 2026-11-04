@@ -16,3 +16,14 @@ test('saving with another dirty form advances the request token without replacin
  assert.equal(JSON.parse(form.dataset.body).updated_at,'v2');assert.equal(JSON.parse(archive.dataset.body).updated_at,'v2');assert.equal(other.dataset.dirty,'true');assert.equal(JSON.parse(other.dataset.body).updated_at,'v7');
  form.dataset.dirty='true';await handlers.submit[0]({target:form,preventDefault(){}});assert.equal(requests[1].updated_at,'v2');
 });
+test('a failed action refreshes the view to reconcile an operation that may have completed',async()=>{
+ const handlers:Record<string,Function[]>={},requests:string[]=[];let replaced=false;
+ const message={textContent:'',hidden:false};const toast:any={hidden:true,querySelector:()=>message,contains:()=>false};
+ const region={replaceWith(){replaced=true}};
+ const document:any={activeElement:null,body:{append(){}},querySelector:(s:string)=>s==='[data-toast]'?toast:s==='[data-admin-region]'?region:null,querySelectorAll:()=>[],addEventListener:(name:string,fn:Function)=>(handlers[name]??=[]).push(fn),importNode:(x:unknown)=>x,dispatchEvent(){}};
+ const target:any={dataset:{endpoint:'/api/admin/publish/',body:'{}'},matches:()=>false,setAttribute(){},removeAttribute(){}};
+ const sandbox={document,window:{addEventListener(){}},location:{href:'/admin/backend/'},Event,setInterval(){},setTimeout(){return 1},clearTimeout(){},console,DOMParser:class{parseFromString(){return{querySelector:()=>({})}}},fetch:async(_url:string,init:any)=>{requests.push(init.method||'GET');return init.method==='POST'?{ok:false,json:async()=>({error:'Build response timed out.'})}:{ok:true,text:async()=>'<div data-admin-region>Current status</div>'};}};
+ vm.runInNewContext(stripTypeScriptTypes(readFileSync('src/scripts/admin/shell.ts','utf8').replace(/^export /gm,'')),sandbox);
+ await handlers.click[0]({target:{closest:()=>target}});
+ assert.deepEqual(requests,['POST','GET']);assert.equal(replaced,true);assert.equal(message.textContent,'Build response timed out.');
+});

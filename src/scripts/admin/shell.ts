@@ -90,7 +90,7 @@ document.addEventListener('click',async e=>{
       const body=JSON.parse(target.dataset.body||'{}');const saved=await post(target.dataset.endpoint,body);
       const reversible=body.archived===true?()=>post(target.dataset.endpoint!,{id:body.id,updated_at:saved.updated_at,archived:false}):undefined;
       toast(target.dataset.success||'Saved.',reversible);await refresh();
-    }catch(e){toast((e as Error).message);}finally{target.removeAttribute('disabled');}
+    }catch(e){toast((e as Error).message);await refresh();}finally{target.removeAttribute('disabled');}
   }
 });
 document.addEventListener('cancel',e=>{if((e.target as Element).matches('[data-confirm-dialog]'))return;e.preventDefault();void close(e.target as HTMLDialogElement);},true);
