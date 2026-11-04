@@ -1,3 +1,9 @@
+// First complete property-local day after the November 4 tracking release.
+export const RFP_FIRST_FULL_DAY='2026-11-05';
+export function rfpFunnelPeriod(startDate:string,endDate:string) {
+ const start=startDate>RFP_FIRST_FULL_DAY?startDate:RFP_FIRST_FULL_DAY;
+ return start<=endDate?{startDate:start,endDate}:null;
+}
 export const RFP_STEPS = [
  ['page_view','Visited the site'],['rfp_form_view','Viewed proposal form'],['rfp_form_start','Started proposal form'],
  ['rfp_scope_view','Reached project scope'],['rfp_context_view','Reached project context'],['generate_lead','Submitted request'],
