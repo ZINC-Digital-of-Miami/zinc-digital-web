@@ -6,8 +6,9 @@ import {createServerClient} from '../../../../lib/supabase';
 import {input,reply,fail} from '../../../../lib/admin-http';
 import {uuid} from '../../../../lib/admin-input';
 import {models} from '../../../../lib/research/models';
-import {question,sourcesPrompt,provider,answer,citations,type Source} from '../../../../lib/research/chat';
+import {question,sourcesPrompt,provider,answer,citations} from '../../../../lib/research/chat';
 import {codexConnection,enqueueCodexJob,readCodexJob} from '../../../../lib/codex-jobs';
+import {researchSources} from '../../../../lib/research/retrieval';
 import {CODEX_MODEL,CODEX_EFFORT} from '../../../../lib/codex-state';
 export const GET:APIRoute=async ctx=>{
  const staff=requireStaff(ctx);if(staff instanceof Response)return staff;
@@ -42,9 +43,7 @@ export const POST:APIRoute=async ctx=>{
   const assistant=await db.from('messages').insert({chat_id:chat,role:'assistant',content:'',status:'streaming',model:model.id}).select('id').single();
   if(assistant.error)return reply({error:'The answer could not be prepared.'},502);
   try{
-   const found=await db.rpc('search_chunks',{p_project:body.project_id,p_query:text,p_limit:8});
-   if(found.error)throw new Error('Research sources could not be searched.');
-   const sources=(found.data||[]) as Source[];
+   const sources=await researchSources(db,body.project_id,text);
    const history=await db.from('messages').select('role,content').eq('chat_id',chat).eq('status','done').order('id',{ascending:false}).limit(12);
    if(history.error)throw new Error('Chat history could not be loaded.');
    const messages=history.data.reverse().filter(m=>['user','assistant'].includes(m.role));

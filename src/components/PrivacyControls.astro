@@ -1,0 +1,24 @@
+<details class="tracking-privacy">
+ <summary>Privacy choices</summary>
+ <div>
+  <p>Control Google Analytics, Google Ads and Microsoft Clarity for this browser. Your choice does not affect proposal forms or staff sign-in.</p>
+  <p data-tracking-status role="status">JavaScript is needed to manage this browser’s choice. Without it, these tracking scripts do not run.</p>
+  <div class="tracking-actions">
+   <button type="button" data-tracking-choice="off" hidden>Turn off analytics and replay</button>
+   <button type="button" data-tracking-choice="on" hidden>Allow analytics and replay</button>
+  </div>
+  <p>This choice reloads the page. It does not erase information already sent or remove existing provider cookies. <a href="/privacy/">Read the Privacy Policy</a>.</p>
+ </div>
+</details>
+<style>
+ .tracking-privacy{font-size:14px;max-width:680px;margin:18px 0;color:var(--ink)}
+ summary{cursor:pointer;width:fit-content;border-bottom:1px solid var(--line);padding:12px 0}
+ .tracking-privacy>div{padding:4px 0 16px;line-height:1.6}
+ .tracking-privacy p{margin:8px 0}
+ .tracking-actions{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
+ button{font:inherit;background:transparent;color:inherit;border:1px solid var(--line);border-radius:8px;min-height:44px;padding:10px 16px;cursor:pointer}
+ button:focus-visible,summary:focus-visible{outline:2px solid var(--teal);outline-offset:4px}
+</style>
+<script>
+ import '../scripts/tracking-privacy';
+</script>

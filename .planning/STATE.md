@@ -20,6 +20,10 @@ progress:
 
 # Project State
 
+### Current completion pointer — 4 November 2026 CT
+
+Use the current site-completion audit in `.kiro/specs/create-a-complete-implementation-spec/tasks.md`. Privacy/Terms shipped in PR71, core CRM and the approved first Publish are live through PR70/72, and native Google/staff connections are verified. Earlier pending-release statements below are historical. The owner now approves footer privacy controls/GPC/DNT with no banner, and excludes Square activation and waiting on Google approval. Current work is the scoped privacy, redirect-header, connection-refresh and sparse-chart correction on `codex/site-completion`. No paid Claude rerun, new provider credential, destructive retention policy or deletion of other worktrees is authorized by this record.
+
 ### Privacy Policy and website Terms — 4 November 2026 CT
 
 Owner explicitly requested current Privacy and Terms built from the actual systems, and confirmed that each client agreement and accepted quote/invoice governs commercial details. `codex/privacy-terms-update` starts from production/main `abd7a84` in its own worktree. The notices are now drafted in `src/data/legal.ts` with usable provider/privacy-request links and a dated page body, plus notice links at proposal/message collection. Terms distinguish a request from an engagement and a separate Square transaction; no invented refunds, cancellations, arbitration or liability cap. The blank-body dependency recorded below is superseded by this authorized implementation; publication/readback remain pending.

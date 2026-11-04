@@ -1,5 +1,28 @@
 # Tasks — Finish and launch the ZINC Digital website
 
+## Site completion audit — 4 November 2026, 2:15 PM CT
+
+Owner directs finishing everything available without Square or Google approval, and explicitly approves **footer privacy controls honoring Global Privacy Control and Do Not Track, preserving the no-banner design**. Work starts from production/main `0cba4fd` in the existing clean isolated checkout, branch `codex/site-completion`. Other dirty worktrees and owner browser tabs are preserved.
+
+The earlier timeout/error-refresh release is complete: PR [#72](https://github.com/ZINC-Digital-of-Miami/zinc-digital-web/pull/72), main `0cba4fdd56d78339043c2908bc04dde8e6994544`, production `dpl_8U7o9TvdnSC16FDUkR6ZaXwTo9xi` READY/alias assigned. Backend and the exact approved content digest were verified live. The 1:58 PM checkpoint below is historical.
+
+Actual gaps found and repaired locally in this slice:
+- Public tracking lacked visitor controls. Add a footer Privacy choices disclosure, saved browser opt-out, GPC/DNT precedence and default-off behavior when browser storage cannot be read or written. Both Google and Clarity loaders require the bootstrap's explicit allowed flag. The exact bootstrap hash is registered in CSP and checked in every built HTML page. No banner, provider change, client data transmission or compliance certification is introduced. The Privacy Policy describes current behavior and its limits.
+- Ten anonymous admin redirects lacked `X-Robots-Tag`. Add `noindex, nofollow` before the login redirect; test the actual middleware against every private admin page.
+- Connection-check results disappeared on shell refresh or could land in a detached card. Preserve the latest dated result and render into the current card, including during an in-flight request.
+- The real Research smoke question reached `gpt-6.1-sol`/Medium but retrieved zero sources. Native read-only queries confirmed zero full-question matches and eight term matches from the ready project documents. Preserve exact matches first, then use bounded quoted terms through the same project-scoped/RLS search function only when the original query has no matches. Search failures remain errors; source IDs/citations stay intact. Remove the stale empty-chat prompt when the first message appears. No migration, new provider or paid Claude run.
+- Sparse Google daily reports compressed calendar spacing. Preserve every reporting day, distinguish unreported values from observed zero, and provide an expandable exact-values table usable without hover.
+
+Verification so far: original live deployment check passed 558/568 assertions across 100 public pages, with only the ten missing redirect headers failing. The built redirect inventory passes 860 requests, including 36 live targets and 20 unknown-path 404s. All 254 tests pass, including the actual-middleware redirect regression. Astro check has 0 errors, 0 warnings and 11 existing hints. Current Astro check/build/static receipts are in `.scratch/site-completion-*`; built static checks pass across 101 HTML files. Footer opt-out persists across a real browser reload; desktop and 400px layouts are readable. Actual Research shows one project, two ready sources and the available Codex subscription. No paid Claude review is needed: the completed November 4 review remains authoritative. Specific review found a readable-but-unwritable storage edge and it was repaired with a startup write probe and regression. A separate built-artifact check exposed the missing bootstrap CSP hash; explicit registration and the static gate now verify it, and independent re-review passed. Release/production verification of this slice remains the next action.
+
+Backlog reconciliation: the implementation is substantially ahead of the original October milestone checkboxes. Admin source and public/private-route tests exist; first Publish, native Google connections, CRM and live rendering are verified above/below. Research shipped in PR13; M6 launch preparation shipped in PR16/17, and the current live domain, routing, headers and legal pages can be verified directly. Privacy/Terms shipped in PR71. These facts do not retroactively certify every historical visual state, exact performance threshold, external notification receipt or deletion approval. Do not rerun DNS cutover, recreate accounts, republish saved content or invoke a paid review to satisfy stale wording.
+
+Remaining items requiring evidence or an owner decision, separate from this implementation:
+- Square activation and Google moderation/approval are excluded by current direction.
+- Regional consent/business applicability, provider advertising settings, record-retention duration and all-system erasure procedures remain unestablished. The approved opt-out control does not by itself establish worldwide legal compliance or automatic deletion. No retention/destructive policy is invented.
+- Real-user performance and the scheduled 30/60/90-day outcomes require their actual measurement windows. Do not infer ranking gains, qualified RFPs or collected revenue from the HTML checklist or submission events.
+- Historical cleanup of other worktrees, obsolete artifacts, accounts or infrastructure requires its exact approved deletion scope; this task does not discard other active work.
+
 ## Active completion checkpoint — 4 November 2026, 1:58 PM CT
 
 Latest owner correction: **stop all Square account/setup work and finish the remaining backend**. Leave the existing connection alone. No further Square activation, Google test posts, support messages or client invoices were attempted. CRM and backend scope remains delivered as described below; provider activation is paused by the owner, not silently removed from scope.
@@ -23,7 +46,7 @@ Completion scope:
 - [x] CRM proposal/won/lost stages, saved quotes, history and concurrency protection, preserving existing records.
 - [x] Approved migration application, row preservation, RLS/permission verification and desktop/narrow rendering.
 - [x] Owner-approved first Publish, matching live snapshot receipt and current ready status.
-- [ ] Release the reviewed timeout/error-refresh follow-up and verify its production revision.
+- [x] Release the reviewed timeout/error-refresh follow-up and verify its production revision — PR72, verified above.
 - [ ] Provider activation and live invoice/payment verification: **paused by the owner's explicit stop**, not required for the completed core CRM/Publish verification. Do not resume account/setup work or request credentials.
 - [ ] Google approvals, profile posting restriction and public personal-number removal: external pending states below; no full local-search-completion claim.
 
@@ -276,7 +299,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
-- [ ] M4 — Admin · implementation merged as #12; first Publish and granted Google data still require live verification
+- [ ] M4 — Admin · implementation and live Publish/Google verification complete; historical exhaustive visual/performance evidence remains qualified by the current completion audit
   - [x] 15. Admin migration
     - [x] 15.1 Write `0003_admin.sql` per design section 7.2 and rehearse it with `db-test.mjs`. **Owner go:** apply it.
       - **Verify:** read-only SQL confirms the `live` columns, `publish_all`, `admin_cache` and the foreign-key changes; the advisors return nothing; generated types updated; `npm run check` exits 0.
@@ -307,7 +330,7 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 18.2 Add the `marked` dependency and write `src/lib/content.ts`, which loads published content at build (design section 7.3). Render published admin posts in the article layout.
       - **Verify:** a build with a published test post produces its page and sitemap entry; a build with a deliberately wrong key fails.
       - _Requirements: R11.3, R11.6, R2.1_
-    - [ ] 18.3 Build `src/lib/vercel.ts` and the Publish route (owner only): `publish_all`, then the deploy hook, then publish status in the admin.
+    - [x] 18.3 Build `src/lib/vercel.ts` and the Publish route (owner only): `publish_all`, then the deploy hook, then publish status in the admin.
       - **Owner go:** run the first real Publish.
       - **Verify:** the published change is live on the production alias after the triggered deployment; the admin shows the publish time and result.
       - _Requirements: R11.5, R8.5_
@@ -367,8 +390,8 @@ Spec `create-a-complete-implementation-spec` · Phase 3 (tasks) · 4 October 202
     - [ ] 25.1 Run capture and review rounds for the research view, including the empty, loading, streaming and error states, until a round finds no mistakes.
       - **Verify:** the final round reads "No mistakes found".
       - _Requirements: R17.6_
-  - [ ] 26. M5 PR
-    - [ ] 26.1 Run the milestone PR steps.
+  - [x] 26. M5 PR · merged as #13 (`8473e81`)
+    - [x] 26.1 Run the milestone PR steps.
       - **Verify:** PR merged; the empty diff was confirmed before the branch reset.
       - _Requirements: R18.1_
 
@@ -732,7 +755,7 @@ Owner explicitly requested current Privacy/Terms built from the actual stack and
 - [x] Inspect production/main `abd7a84`, current intake/SMTP, Supabase staff inquiry board, US form gates, Google tags, Clarity masking/replay, Claude SEO inputs and private Anthropic/OpenAI research paths.
 - [x] Draft dated Privacy Policy and website Terms grounded in those flows; separate proposal requests from binding engagements and external Square transactions. Add provider choices/privacy-request links and notices to all proposal/message forms. Preserve accepted design, dynamic hero and all commercial agreements.
 - [x] Fresh scoped review; name OpenAI/Codex explicitly after verifying its current private-research route. No invented no-sale, consent, retention, certification or AI training guarantees.
-- [ ] Complete final build/static and desktop/narrow rendered page/link checks, final-head review, protected PR and production readback. Current 225 tests pass; final Astro check has zero errors/warnings. Production-configured Vercel build and static checks across 101 HTML pages pass; legal content/date/metadata/link readback passes. Final fresh scoped review reports no actionable findings. Local HTTP/internal-link and collection-notice checks also pass for Privacy, Terms, Contact and a representative service. Owner confirmed Node 24 with no Docker/Actions and directed completion of Privacy/Terms only, then stop; no CRM work. Rendered inspection remains unavailable unless an appropriate existing tab can be reused. No tab/window was opened, and no push/PR/merge/deployment is claimed.
+- [x] Protected Privacy/Terms release completed as PR71; production legal pages are live, and the current completion slice inspected the Privacy layout at desktop/400px. Historical pre-release receipt follows: Current 225 tests pass; final Astro check has zero errors/warnings. Production-configured Vercel build and static checks across 101 HTML pages pass; legal content/date/metadata/link readback passes. Final fresh scoped review reports no actionable findings. Local HTTP/internal-link and collection-notice checks also pass for Privacy, Terms, Contact and a representative service. Owner confirmed Node 24 with no Docker/Actions and directed completion of Privacy/Terms only, then stop; no CRM work. Rendered inspection remains unavailable unless an appropriate existing tab can be reused. No tab/window was opened, and no push/PR/merge/deployment is claimed.
 - [ ] Resolve regional tracking consent/opt-out and business applicability separately: public worldwide pages still load tracking without a site consent control, including no DNT/GPC response. US form restrictions do not fix that. No-banner requirement retained; disclosure is not proof of compliance. Retention duration/all-system erasure and unverified provider settings remain factual/operational gaps, not invented promises.
 
 Official regulator/provider evidence and current release state are recorded in `.planning/STATE.md`'s matching checkpoint. No paid research, email, inquiry, migration, production secret or tracking change is part of this slice.

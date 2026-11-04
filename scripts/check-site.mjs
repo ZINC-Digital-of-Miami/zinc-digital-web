@@ -8,6 +8,8 @@
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
+import {createHash} from 'node:crypto';
+import {trackingPrivacyScript} from '../src/lib/tracking-privacy.ts';
 import { caseScreens } from '../src/data/case-screens.ts';
 import { clientOrder, workFor, nextClient } from '../src/data/client-work.ts';
 import { laneNames, workLanes } from '../src/data/work-lanes.ts';
@@ -383,6 +385,8 @@ check(fusion.includes('"name":"ZINC Fusion v16"'), 'Fusion application schema mu
 for (const { rel, html } of pages) {
   const policy = html.match(/<meta http-equiv="content-security-policy" content="([^"]*)"/)?.[1] || '';
   const scripts = policy.match(/(?:^|;)\s*script-src ([^;]+)/)?.[1] || '';
+  const privacy=trackingPrivacyScript();
+  check(html.includes(privacy)&&scripts.includes('sha256-'+createHash('sha256').update(privacy).digest('base64')),rel+' lacks the privacy bootstrap or its exact CSP hash');
   check(scripts.includes("'self'") && scripts.includes("'sha256-") && !/'unsafe-inline'|'unsafe-eval'/.test(scripts), rel + ' lacks a hashed script policy without unsafe-inline or unsafe-eval');
 }
 

@@ -54,7 +54,7 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
   // Each route also calls requireStaff; this is the second line.
   if (gated && !ctx.locals.staff) {
     if (api) return new Response(JSON.stringify({ error: 'staff session required' }), { status: 401, headers: { 'content-type': 'application/json', 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' } });
-    return new Response(null, { status: 302, headers: { location: '/admin/login/?next=' + encodeURIComponent(safeNext(p)), 'cache-control': 'private, no-store' } });
+    return new Response(null, { status: 302, headers: { location: '/admin/login/?next=' + encodeURIComponent(safeNext(p)), 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' } });
   }
 
   return withHeaders(frameAncestors(await next()), { 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' });

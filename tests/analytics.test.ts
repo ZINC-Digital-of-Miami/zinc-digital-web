@@ -11,7 +11,7 @@ test('analytics requires both the production environment and the explicit on fla
 
 test('the tag configures the existing destinations only on the live ZINC hosts, with campaign attribution and without unrelated URL queries',()=>{
   for(const hostname of ['www.zincdigital.co','zincdigital.co','zinc-digital-web.vercel.app','localhost','zincdigital.co.evil.example']) {
-    const window:Record<string,any>={};
+    const window:Record<string,any>={zincTrackingAllowed:true};
     const loaded:any[]=[];
     runInNewContext(googleTagScript(''),{window,location:{hostname,origin:'https://'+hostname,pathname:'/contact/',href:'https://'+hostname+'/contact/?email=private@example.com&utm_source=google&utm_medium=cpc&utm_campaign=launch&gclid=click-id&gbraid=ios-click'},document:{referrer:'https://example.com/?email=private@example.com',createElement:()=>({}),head:{appendChild:(tag:unknown)=>loaded.push(tag)}},URL,Date});
     if(!['www.zincdigital.co','zincdigital.co'].includes(hostname)){assert.equal(window.gtag,undefined);assert.equal(loaded.length,0);continue;}
@@ -59,7 +59,7 @@ test('Ads conversion requires an explicit valid label and blocked analytics neve
 
 test('public page tags identify the content and suppress explicit QA visits',()=>{
   const loaded:unknown[]=[];
-  const window:Record<string,any>={};
+  const window:Record<string,any>={zincTrackingAllowed:true};
   const location={hostname:'www.zincdigital.co',pathname:'/services/seo/',href:'https://www.zincdigital.co/services/seo/?zinc_qa=1'};
   runInNewContext(googleTagScript(),{window,location,document:{referrer:'',createElement:()=>({}),head:{appendChild:(t:unknown)=>loaded.push(t)}},URL,Date});
   assert.equal(loaded.length,0);
@@ -69,7 +69,7 @@ test('public page tags identify the content and suppress explicit QA visits',()=
 
 test('Clarity loads only the ZINC project on live public URLs and labels the page without form values',()=>{
   for (const href of ['https://www.zincdigital.co/services/seo/','https://localhost/contact/','https://www.zincdigital.co/contact/?zinc_qa=1','https://www.zincdigital.co/contact/?email=private@example.com']) {
-    const window:Record<string,any>={},loaded:any[]=[];
+    const window:Record<string,any>={zincTrackingAllowed:true},loaded:any[]=[];
     const u=new URL(href);
     runInNewContext(clarityScript(),{window,location:{hostname:u.hostname,href},document:{documentElement:{dataset:{pageType:'service',serviceSlug:'seo'}},createElement:()=>({}),head:{appendChild:(v:unknown)=>loaded.push(v)}},URL});
     if(href==='https://www.zincdigital.co/services/seo/') {
