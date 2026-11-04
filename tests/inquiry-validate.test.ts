@@ -102,3 +102,12 @@ test('formValues keeps what the visitor typed, clipped, for the no-JS error page
   assert.equal(v.message?.length, LIMITS.message);
   assert.deepEqual(v.services, ['seo']);
 });
+
+test('proposal source paths keep canonical article attribution without queries or off-site destinations',()=>{
+ const path='/blog/ai-search-content-strategy/';
+ const result=validate({...good(),source_path:path});
+ assert.ok(result.ok);if(result.ok)assert.equal(result.value.source_path,path);
+ for(const source_path of ['//other.example/','/contact/?email=person@example.com','/blog/a/#fragment','/../admin/']){
+  const r=validate({...good(),source_path});assert.ok(r.ok);if(r.ok)assert.equal(r.value.source_path,'/contact/');
+ }
+});

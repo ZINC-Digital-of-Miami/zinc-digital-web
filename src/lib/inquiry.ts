@@ -47,7 +47,7 @@ export function validate(body: InquiryBody): Validation {
   if (!BUDGETS.includes(v.budget)) return bad('budget', MESSAGES.choice);
   if (!TIMELINES.includes(v.timeline)) return bad('timeline', MESSAGES.choice);
   if (!v.message || v.message.length > LIMITS.message) return bad('message', MESSAGES.required);
-  if (v.source_path.length > LIMITS.source_path || !v.source_path.startsWith('/')) v.source_path = '/contact/';
+  if (v.source_path.length > LIMITS.source_path || !/^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(v.source_path)) v.source_path = '/contact/';
   return { ok: true, value: v };
 }
 
@@ -57,6 +57,7 @@ export function formValues(body: InquiryBody): Partial<Inquiry> {
     name: one(body.name).slice(0, LIMITS.name), company: one(body.company).slice(0, LIMITS.company), email: one(body.email).slice(0, LIMITS.email),
     website: one(body.website).slice(0, LIMITS.website), services: many(body.service).filter((s) => SERVICE_SLUGS.includes(s)),
     budget: one(body.budget), timeline: one(body.timeline), message: one(body.message).slice(0, LIMITS.message),
+    source_path: /^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(one(body.source_path)) ? one(body.source_path).slice(0,LIMITS.source_path) : '/contact/',
   };
 }
 
@@ -118,6 +119,7 @@ export type Submit =
 
 export const SUBMIT_MESSAGES = {
   origin: 'The inquiry could not be accepted from this page',
+  country: 'Proposal requests are currently accepted from US connections only',
   rate: 'Too many inquiries from this connection. Try again later',
   unavailable: 'The inquiry service is not available right now',
   failed: 'The inquiry could not be saved. Try again',
@@ -193,6 +195,9 @@ export type Outcome =
 
 /** Every contact submission, from either route: size, honeypot, origin, validation, then submit(). */
 export async function handle(request: Request, clientAddress: string, opts: { siteOrigin: string; deps: () => Promise<Deps | null> }): Promise<Outcome> {
+  // Vercel supplies the country; the edge firewall independently gates these same POST routes.
+  // Missing geography is rejected, never inferred from form fields or browser locale.
+  if (request.headers.get('x-vercel-ip-country') !== 'US') return { kind: 'reject', status: 403, error: SUBMIT_MESSAGES.country };
   const read = await readBody(request);
   if (!read.ok) return { kind: 'reject', status: read.status, error: read.error };
   const r = intake(read.body);

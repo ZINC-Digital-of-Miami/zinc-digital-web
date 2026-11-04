@@ -15,6 +15,7 @@ import Img from '../components/Img.astro';
 
 
 import {analyticsEnabled, googleTagScript, clarityScript} from '../lib/analytics';
+import {proposalPillar} from '../lib/proposal-pillar';
 import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
@@ -119,7 +120,7 @@ const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph }
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
 const showCta = false;
 ---
-<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : undefined} lang="en" data-theme="light">
+<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : route.blogCategory || (t === "article" ? proposalPillar(allPosts.find(p=>p.slug===route.slug)?.related || []) : undefined)} lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

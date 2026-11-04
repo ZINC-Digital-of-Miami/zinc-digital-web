@@ -78,3 +78,13 @@ test('Clarity loads only the ZINC project on live public URLs and labels the pag
     } else {assert.equal(loaded.length,0);assert.equal(window.clarity,undefined);}
   }
 });
+
+test('saved proposal conversions retain only bounded service context',async()=>{
+ const calls:any[][]=[];
+ const tag=(...args:any[])=>{calls.push(args);args[2].event_callback();};
+ await trackLead({ok:true,lead:true},tag,'','ai-search-optimization');
+ assert.equal(calls[0][2].service_slug,'ai-search-optimization');
+ calls.length=0;
+ await trackLead({ok:true,lead:true},tag,'','private@example.com');
+ assert.equal(calls[0][2].service_slug,undefined);
+});
