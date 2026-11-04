@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {reviewSlot,cronAuthorized,reviewWithClaude,validateReview,savedReview,reviewsEnabled,REVIEW_AREAS} from '../src/lib/seo-review.ts';
+import {reviewSlot,cronAuthorized,reviewWithClaude,validateReview,savedReview,reviewsEnabled,REVIEW_AREAS,parseReviewResponse} from '../src/lib/seo-review.ts';
 import {scoreSnapshot,SCORING_VERSION} from '../src/lib/seo-review-dashboard.ts';
 import {storeReview} from '../src/lib/seo-review-store.ts';
 import {reviewSignals} from '../src/lib/seo-review-signals.ts';
@@ -59,7 +59,7 @@ test('Claude verifies exact model access, sets High effort, records usage and ne
  assert.equal(calls[0].url,'https://api.anthropic.com/v1/models/claude-opus-5-5');
  assert.deepEqual(calls[1].body?.output_config,{effort:'high'});
  assert.equal(calls[1].body?.model,'claude-opus-5-5');
- assert.equal(calls[1].body?.max_tokens,32000);
+ assert.equal(calls[1].body?.max_tokens,48000);
  assert.equal(calls[1].body?.stream,true);
  assert.deepEqual(result.usage,{input_tokens:10,output_tokens:20});
  assert.equal(result.providerRequestId,'req_test');
@@ -86,6 +86,14 @@ test('a terminal marker without terminal output usage cannot promote provisional
  const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):new Response(frame({type:'message_start',message:{id:'msg_missing_usage',model:'claude-opus-5-5',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'}})+frame({type:'message_stop'}),{headers:{'content-type':'text/event-stream'}});
  await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/terminal usage/);
  assert.equal(receipt?.usage,undefined);assert.deepEqual(receipt?.partialUsage,{input_tokens:10,output_tokens:1});
+});
+test('only complete fenced JSON is normalized; surrounding prose and truncation remain invalid',()=>{
+ const report=valid(),json=JSON.stringify(report);
+ assert.deepEqual(parseReviewResponse(json),report);
+ assert.deepEqual(parseReviewResponse('```json\n'+json+'\n```'),report);
+ assert.throws(()=>parseReviewResponse('```json\n'+json.slice(0,-1)));
+ assert.throws(()=>parseReviewResponse('Here is the review:\n'+json));
+ assert.throws(()=>parseReviewResponse(json+'\nextra prose'));
 });
 test('duplicate scheduled deliveries cannot repeat the paid operation; failures remain visible',async()=>{
  const rows=new Map<string,unknown>();let executions=0;

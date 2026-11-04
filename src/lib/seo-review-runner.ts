@@ -1,6 +1,6 @@
 import {createAdminClient} from './supabase';
 import {collectReviewEvidence} from './seo-review-evidence';
-import {reviewInstructions,reviewWithClaude,validateReview,reviewsEnabled} from './seo-review';
+import {reviewInstructions,reviewWithClaude,validateReview,reviewsEnabled,parseReviewResponse} from './seo-review';
 import {scoreSnapshot,parseScoreSnapshot,compareSnapshots,SCORING_VERSION,type ScoreSnapshot} from './seo-review-dashboard';
 import {reviewContext} from './seo-review-context';
 import {storeReview} from './seo-review-store';
@@ -28,7 +28,7 @@ export async function runSeoReview(key:string,source:'weekly'|'manual'){
   const measured={source,evidence,scorecard,scoringVersion:SCORING_VERSION,measuredAt,commit:import.meta.env.VERCEL_GIT_COMMIT_SHA||'local preparation'};
   await saveReceipt(measured);
   const result=await reviewWithClaude(apiKey,reviewInstructions(register),{checkedAt:measuredAt,source,scorecard,evidence:reviewContext(evidence)},fetch,receipt=>saveReceipt({...measured,...receipt}));
-  let value:unknown;try{value=JSON.parse(result.text);}catch{throw new Error('Claude did not return a valid JSON review. Its execution receipt was retained.');}
+  let value:unknown;try{value=parseReviewResponse(result.text);}catch{throw new Error('Claude did not return a valid JSON review. Its execution receipt was retained.');}
   const report=validateReview(value,new Map(evidence.map(e=>[e.id,e])),paths);
   return {...measured,report,model:result.model,effort:result.effort,messageId:result.messageId,providerRequestId:result.providerRequestId,stopReason:result.stopReason,usage:result.usage};
  });

@@ -58,6 +58,11 @@ function providerReceipt(data:Record<string,unknown>){
  const number=(v:unknown)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<0)throw new Error('Claude did not return a valid usage receipt.');return v;};
  return {model:text(data.model,100),effort:REVIEW_EFFORT,messageId:text(data.id,200),stopReason:text(data.stop_reason,100),usage:{input_tokens:number(usage.input_tokens),output_tokens:number(usage.output_tokens)}};
 }
+/** Normalize only a complete JSON fence; truncation or surrounding prose still fails. */
+export function parseReviewResponse(value:string):unknown{
+ const raw=value.trim(),fenced=raw.match(/^```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n```$/i);
+ return JSON.parse(fenced?fenced[1]:raw);
+}
 export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch,onReceipt:(value:Record<string,unknown>)=>Promise<void>=async()=>{}){
  if(!key)throw new Error('Add the Claude API key securely in Vercel before running a review.');
  const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
@@ -66,7 +71,7 @@ export async function reviewWithClaude(key:string,system:string,evidence:unknown
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
  // Opus 5.5 counts adaptive thinking and report text against the same output allowance.
- const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(420000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:32000,stream:true,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
+ const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(480000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:48000,stream:true,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
  if(!res.ok)throw new Error('Claude could not complete the review (HTTP '+res.status+'). Check the connection or account limits.');
  const providerRequestId=res.headers.get('request-id')||undefined;
  const data=await readClaudeMessage(res,async message=>{
