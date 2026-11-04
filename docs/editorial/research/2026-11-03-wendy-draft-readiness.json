@@ -1,0 +1,102 @@
+{
+  "checked_at_ct": "2026-11-03T12:27:51.106630-06:00",
+  "status": "unpublished-preparation",
+  "source_url_checks": {
+    "count": 5,
+    "all_http_200": true
+  },
+  "live_internal_article_links": {
+    "count": 3,
+    "all_http_200": true
+  },
+  "native_google_docs": {
+    "url": "https://docs.google.com/document/d/18nl1sUFBGQlXprGrLt9o2mKRyhRR_99o8i6MymI9wMs/edit?usp=drivesdk",
+    "revised_manuscript_readback_matches": true,
+    "featured_image_inserted": true,
+    "reader_decision_table": {
+      "rows": 4,
+      "columns": 3
+    },
+    "bottom_source_list": 5,
+    "anonymised_team_experience": true,
+    "final_revision": "AHj4eMRZm9dp1Or0TEzqFOZZUpfKo4Qz7StG_xu52EU7jX7STNcPEGUYRTKs6Q0Lse4HD_YtpTunW3CrrWoj0DpIp-_uL3l-DjjOdjryto8",
+    "draft_title_marks_unpublished": true
+  },
+  "local_static_preview": {
+    "browser": "Playwright MCP; Browser plugin unavailable",
+    "viewports": [
+      1440,
+      390,
+      320
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "theme_colors_verified_distinct": true,
+    "horizontal_overflow": false,
+    "broken_images": 0,
+    "section_navigation": true,
+    "csv_http_status": 200,
+    "csv_mime": "text/csv",
+    "robots": "noindex, nofollow",
+    "production_policy_changes": false,
+    "scope_limit": "Static approved-template review with scripts removed and inherited CSP omitted locally for review assets; not a production runtime or publishing test.",
+    "cleanup": "Task browser tab closed; owned preview server stopped",
+    "bottom_source_list": 5,
+    "social_image": {
+      "url": "http://127.0.0.1:4344/docs/editorial/images/ai-editorial-planning-studio.png",
+      "alt": "An open black editorial folio, clipped source notes and a paper calendar beside a laptop on a light studio desk.",
+      "width": 1672,
+      "height": 941,
+      "http_status": 200,
+      "matches_hero_bytes": true,
+      "scope": "Loopback draft preview only; generate canonical HTTPS production URLs at scheduled integration"
+    }
+  },
+  "editorial": {
+    "owner_rejected_first_voice": true,
+    "rewritten_against_owner_identified_samples": true,
+    "sample_archive": "https://www.onceuponabookclub.com/blogs/all",
+    "samples_read": 4,
+    "leak_scan_matches": 0,
+    "independent_publication_review": "pending due-time final changes",
+    "detector_certification": null,
+    "anonymised_experience_provenance": "Main 15ed6fd canonical case records: team built distinct service pages; no client identifiers, results or individual participation claimed.",
+    "reader_decision_table": true
+  },
+  "seo_preview": {
+    "tool": "existing project analyzeSeo",
+    "title_description_canonical_h1_heading_order": "pass",
+    "draft_grade": "excluded",
+    "score": null,
+    "publication_timestamps": null,
+    "production_Article_schema": "pending actual integration and publication dates"
+  },
+  "boundaries": {
+    "published": false,
+    "pushed": false,
+    "merged": false,
+    "schedule_changed": false,
+    "docker_used": false
+  },
+  "manuscript_sha256": "70e6dea7858729807fc813511e7430665d3cb0c96ef051439e90bab8dfa16455",
+  "instructional_graphic": {
+    "intrinsic_width": 360,
+    "intrinsic_height": 1140,
+    "essential_label_size": 20,
+    "rendered_width_at_320px_viewport": 257,
+    "loaded": true,
+    "overflow": false,
+    "enquiries_label": "Suitable enquiries with connection evidence.",
+    "sha256": "d0656f3bb7a0170457e39bb9fa8d3ea8e8b4948109929f315059e750f9547282"
+  },
+  "two_issue_corrections": {
+    "diagram_enquiries_wording": "verified",
+    "OG_Twitter_image_and_alt": "verified",
+    "metadata_dimensions": "1672x941, verified against actual PNG",
+    "browser_checks": "1440/320, light/dark; no overflow/clipped SVG labels",
+    "evidence": ".scratch/two-fixes-verification.json",
+    "publication_gates": "Still due at November4scheduled run; draft remains unpublished"
+  }
+}

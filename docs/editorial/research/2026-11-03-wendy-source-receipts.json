@@ -1,0 +1,42 @@
+{
+  "checked_at_ct": "2026-11-03T08:12:32.185381-06:00",
+  "scope": "Primary source retrieval and URL readback; not platform account or crawler verification",
+  "sources": [
+    {
+      "requested_url": "https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/",
+      "status": 200,
+      "final_url": "https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/",
+      "exit_code": 0
+    },
+    {
+      "requested_url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
+      "status": 200,
+      "final_url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
+      "exit_code": 0
+    },
+    {
+      "requested_url": "https://developers.openai.com/api/docs/bots",
+      "status": 200,
+      "final_url": "https://developers.openai.com/api/docs/bots",
+      "exit_code": 0
+    },
+    {
+      "requested_url": "https://support.google.com/webmasters/answer/16908024?hl=en",
+      "status": 200,
+      "final_url": "https://support.google.com/webmasters/answer/16908024?hl=en",
+      "exit_code": 0
+    },
+    {
+      "requested_url": "https://support.google.com/webmasters/answer/16984139",
+      "status": 200,
+      "final_url": "https://support.google.com/webmasters/answer/16984139",
+      "exit_code": 0
+    }
+  ],
+  "body_sha256": "169e4abd63e6385e6a3af59ef8bf00ab59f538f0123ea34a027391a30c2583d8",
+  "voice_reference_urls": [
+    "https://www.onceuponabookclub.com/blogs/lifestyle/cozy-fall-reading-season",
+    "https://www.onceuponabookclub.com/blogs/lifestyle/ouabc-lite-vs-full-box",
+    "https://www.onceuponabookclub.com/blogs/lifestyle/diy-cozy-fall-reading-corner-budget"
+  ]
+}
