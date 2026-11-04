@@ -12,7 +12,7 @@ export async function triggerBuild(){
   const c=deploymentConfig();if(!c.hook)throw new Error('Connect the deploy hook for main before publishing or redeploying.');
   const url=new URL(c.hook);
   if(url.origin!=='https://api.vercel.com'||!url.pathname.startsWith('/v1/integrations/deploy/'))throw new Error('The Vercel deploy hook is invalid.');
-  const res=await fetch(url,{method:'POST',signal:AbortSignal.timeout(10000)});
+  const res=await fetch(url,{method:'POST',signal:AbortSignal.timeout(30000)});
   if(!res.ok)throw new Error('Vercel could not start the build. Try again.');
   return(await res.json()).job as {id:string;state:string;createdAt:number};
 }
