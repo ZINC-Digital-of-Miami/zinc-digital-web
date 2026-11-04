@@ -161,7 +161,8 @@ for (const { rel, html } of pages) {
   check(themeToggle.replace(/<[^>]+>/g, '').trim() === '' && !themeToggle.includes('data-theme-label'), rel + ' appearance toggle must not render a visible text label');
   check(!/mix-blend-mode:\s*difference/.test(html), rel + ' cursor still uses mix-blend-mode difference');
   check(html.includes('id="zsCur"') && html.includes('class="zs-grain"'), rel + ' is missing the shell cursor/grain');
-  check(html.includes('href="sms:+17865754837"'), rel + ' is missing the sms link');
+  check(html.includes('href="/contact/#message-jaymie"'), rel + ' is missing the private Jaymie message link');
+  check(!/href="(?:tel:|sms:)|"telephone"/.test(html), rel + ' exposes a phone contact');
   check(html.includes('href="/contact/"'), rel + ' is missing a /contact/ link');
   check(!html.includes('href="#"'), rel + ' contains a bare href="#"');
   check(!html.includes('ZINC%20Site.dc.html') && !html.includes('.dc.html') && !/href="#\//.test(html), rel + ' still has a design-preview (hash or .dc.html) link');

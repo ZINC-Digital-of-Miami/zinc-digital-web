@@ -23,7 +23,7 @@ export const POST: APIRoute = async (ctx) => {
     notifyTo: env.smtp().to || DEFAULT_NOTIFY_TO,
     send: sendMail,
     get: async (key) => {
-      const { data, error } = await sb.from('inquiries').select('name,company,email,website,services,budget,timeline,message,source_path,notify_attempts').eq('id', key).maybeSingle();
+      const { data, error } = await sb.from('inquiries').select('intent,name,company,email,website,services,budget,timeline,message,source_path,notify_attempts').eq('id', key).maybeSingle();
       if (error) throw error;
       return data as (Inquiry & { notify_attempts: number | null }) | null;
     },

@@ -120,7 +120,7 @@ export function initForm(form = document.querySelector<HTMLFormElement>('[data-i
         if (result.lead === true) { try { window.clarity?.('event','generate_lead'); } catch {} }
         await trackLead(result, window.gtag, window.zincAdsConversionLabel,form.dataset.serviceSlug); location.assign(form.dataset.thanks || '/thanks/');
       })
-      .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Text us instead and we will pick it up.'; });
+      .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Please try again, or email hello@zincdigital.co.'; });
   };
   next.addEventListener('click', advance);
   back.addEventListener('click', () => { if (next.disabled) return; step = Math.max(0, step - 1); show(true); });

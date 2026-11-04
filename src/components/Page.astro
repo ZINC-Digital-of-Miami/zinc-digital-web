@@ -35,6 +35,7 @@ import CasePresentations from './CasePresentations.astro';
 import CaseScene from './CaseScene.astro';
 import { workLanes, laneNames } from '../data/work-lanes';
 import { casePresentations } from '../data/case-presentations';
+import MessageForm from './MessageForm.astro';
 import ContactForm from './ContactForm.astro';
 import ProposalDrawer from './ProposalDrawer.astro';
 import { articleImages } from '../data/article-images';
@@ -303,7 +304,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
     </article>
     {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articleGuide?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedGuide && articleGuide?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedGuide.slug + '/'}>{articleGuide?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span></a></li>)}</ul></nav>}
   </div></section>
-  <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><div class="p-author-services"><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles </a></div></div></div></section>
+  <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><p class="p-muted" style="margin-top:28px">A question about this article? <a class="arrow" href="/contact/#message-wendy" data-message-open="content_question">Message Wendy </a></p><div class="p-author-services"><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles </a></div></div></div></section>
   <ProposalDrawer related={post.related} sourcePath={route.path} />
 </>)}
 
@@ -312,7 +313,9 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
 
 {t === 'location' && <LocalMarket city={route.slug as 'miami'|'panama-city'} />}
-{t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={form?.values} error={form?.error} /></div></section>}
+{t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={!form?.values?.intent || form.values.intent === 'proposal' ? form?.values : undefined} error={!form?.values?.intent || form.values.intent === 'proposal' ? form?.error : undefined} /></div></section>}
+
+{t === 'contact' && <section class="p-band thin"><div class="wrap message-options">{(['message','content_question'] as const).map(intent => <MessageForm intent={intent} values={form?.values?.intent === intent ? form.values : undefined} error={form?.values?.intent === intent ? form.error : undefined} />)}</div></section>}
 
 {t === 'thanks' && <section class="p-band"><div class="wrap"><div class="p-related rv" style="margin-top:0"><a class="btn fill" href="/work/">Explore the work </a><a class="arrow" href="/" style="margin-top:0">Return home </a></div></div></section>}
 

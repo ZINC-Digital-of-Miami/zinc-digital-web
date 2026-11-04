@@ -19,7 +19,7 @@ test('a complete inquiry validates and is normalised', () => {
   assert.ok(r.ok);
   if (!r.ok) return;
   assert.equal(r.value.email, 'ana@ruizsupply.com');
-  assert.deepEqual(Object.keys(r.value).sort(), ['budget', 'company', 'email', 'message', 'name', 'services', 'source_path', 'timeline', 'website']);
+  assert.deepEqual(Object.keys(r.value).sort(), ['budget', 'company', 'email', 'intent', 'message', 'name', 'services', 'source_path', 'timeline', 'website']);
   assert.equal(r.value.source_path, '/contact/');
 });
 

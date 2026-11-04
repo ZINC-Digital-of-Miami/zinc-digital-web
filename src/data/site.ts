@@ -11,9 +11,6 @@ import { privacyApproved, termsApproved } from './legal';
 import { articleEditorial } from './article-editorial';
 
 export const SITE = 'https://www.zincdigital.co';
-export const PHONE = '+1-786-575-4837';
-export const SMS = 'sms:+17865754837';
-export const PHONE_LABEL = '(786) 575-4837';
 export const EMAIL = 'hello@zincdigital.co';
 // Footer "Admin" link (design: ZINC Site footer). /admin/ is an on-demand (server) route guarded by middleware.
 export const ADMIN_PATH: string | null = '/admin/';

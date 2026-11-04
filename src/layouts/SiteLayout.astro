@@ -27,8 +27,9 @@ import '../styles/themes.css';
 import '../styles/site.css';
 import '../styles/studio.css';
 import '../styles/typography.css';
+import MessageDialogs from '../components/MessageDialogs.astro';
 import CaseGalleryViewer from '../components/CaseGalleryViewer.astro';
-import { SITE, PHONE, SMS, PHONE_LABEL, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
+import { SITE, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
@@ -80,8 +81,8 @@ const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
 // ---- JSON-LD ----
-const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, telephone: PHONE, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
-const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/locations/'+s.id+'/', telephone: PHONE, email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
+const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
+const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/locations/'+s.id+'/', email:EMAIL,image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
 const seg = path.split('/').filter(Boolean);
 const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', authors: 'Authors', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
 const crumbs = t==='location' ? [{name:'Home',url:SITE+'/'},{name:route.title,url:canonical}] : route.blogCategory ? [{name:'Home',url:SITE+'/'},{name:'Articles',url:SITE+'/blog/'},{name:route.title,url:canonical}] : [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
@@ -192,7 +193,7 @@ const showCta = false;
         <div class="menu-background" aria-hidden="true"><img src={wordmark.src} alt="" width={wordmark.width} height={wordmark.height} /></div>
         <div class="menu-head"><a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} /></a><button type="button" class="menu-close" data-menu-close aria-label="Close navigation" autofocus><span aria-hidden="true"></span></button></div>
         <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Insights','/blog/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span></a>)}</nav></div>
-        <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href={SMS}>Text {PHONE_LABEL} </a></div>
+        <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div>
       </dialog>
 
       <main id="main"><slot /></main>
@@ -204,7 +205,7 @@ const showCta = false;
             <div>
               <span class="kick rv"><span class="mdot"></span> Work with ZINC</span>
               <h2 class="disp cta-h rv" style="margin-top:18px">Start an <span class="hit">inquiry.</span></h2>
-              <div class="p-related rv" style="margin-top:36px"><a class="btn fill" href="/contact/">Open the form</a><a class="btn ghost" href={SMS}>Text {PHONE_LABEL}</a></div>
+              <div class="p-related rv" style="margin-top:36px"><a class="btn fill" href="/contact/">Open the form</a><a class="btn ghost" href="/contact/#message-jaymie" data-message-open="message">Message Jaymie</a></div>
             </div>
             <div class="rv" style="width:clamp(160px,18vw,260px);aspect-ratio:1"><div class="badge"><div class="bring2"></div><Img k="zinc-badge" class="bimg" alt="" sizes="260px" /><div class="bring"></div><div class="borbit"><div class="bdot"></div></div></div></div>
           </div>
@@ -213,12 +214,12 @@ const showCta = false;
 
       {!customClosing && t !== 'home' && t !== 'contact' && t !== 'thanks' && <Closing />}
       <footer class="foot">
-        {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or text {PHONE_LABEL}</span> <span class="d">·</span></span></div></div>}
+        {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or message Jaymie</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or message Jaymie</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
             {STUDIOS.map((s) => <div><h2><a href={'/locations/'+s.id+'/'}>{s.name}</a></h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
-            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href={SMS}>Text {PHONE_LABEL} </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
+            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
@@ -229,6 +230,7 @@ const showCta = false;
       </footer>
     </div>
 
+    {t !== 'contact' && <MessageDialogs sourcePath={path} />}
     {t === 'case' && <CaseGalleryViewer />}
     <script>
       import { initShell } from '../scripts/shell';

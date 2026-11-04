@@ -176,3 +176,32 @@ test('US country cannot be claimed in the form body or an unrelated forwarding h
  const f=fake();const req=post({...good(),country:'US'},{'x-vercel-ip-country':'GB','cf-ipcountry':'US'});
  rejected(await run(req,f),403);assert.deepEqual(f.calls,[]);
 });
+
+test('short messages route by validated intent, persist before email, and never return a lead', async()=>{
+ for(const [intent,to] of [['message','jaymie@zincdigital.co'],['content_question','wendy@zincdigital.co']]){
+  const f=fake();
+  const result=await run(post({intent,name:'Reader',email:'reader@example.com',message:'A question about the article.',source_path:'/blog/example/',to:'attacker@example.com',notifyTo:'attacker@example.com',company:'Ignored',service:['seo']}),f);
+  assert.deepEqual(result,{kind:'ok',message:true});
+  assert.deepEqual(await jsonAnswer(result).json(),{ok:true,message:true});
+  assert.deepEqual(f.calls,['reserve','send','update']);
+  assert.equal(f.sent[0].to,to);assert.equal(f.rows[0].intent,intent);assert.equal(f.rows[0].source_path,'/blog/example/');
+  assert.deepEqual(f.rows[0].services,[]);assert.equal(f.rows[0].company,'');
+  assert.doesNotMatch(JSON.stringify(f.rows),/attacker/);
+ }
+});
+test('message validation, US restriction, honeypot and shared rate limits prevent notification effects',async()=>{
+ const body={intent:'content_question',name:'Reader',email:'reader@example.com',message:'Question'};
+ for(const [change,headers,status] of [[{intent:'other'},{},422],[{email:'invalid'},{},422],[{}, {'x-vercel-ip-country':'CA'},403],[{}, {'x-vercel-ip-country':''},403]] as const){
+  const f=fake();rejected(await run(post({...body,...change},headers),f),status);assert.deepEqual(f.calls,[]);
+ }
+ const f=fake();assert.deepEqual(await run(post({...body,company_website:'bot'}),f),{kind:'ok'});assert.deepEqual(f.calls,[]);
+ const rate=fake({retryAfter:60});rejected(await run(post(body),rate),429);assert.deepEqual(rate.sent,[]);
+});
+test('resending a content question retains Wendy routing and no-JS errors retain message identity',async()=>{
+ const f=fake();
+ await renotify('one',{...f,get:async()=>({...good(),services:[],intent:'content_question' as const,source_path:'/blog/example/'})});
+ assert.equal(f.sent[0].to,'wendy@zincdigital.co');
+ const out=await run(post({intent:'message',name:'Reader',email:'bad',message:'Keep this text'}),fake());
+ const answer=formAnswer(out);assert.ok('form' in answer);
+ if('form' in answer){assert.equal(answer.form.values?.intent,'message');assert.equal(answer.form.values?.message,'Keep this text');}
+});
