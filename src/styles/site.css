@@ -210,6 +210,8 @@ picture>source{display:none}
 .p-legal section{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:4rem 1fr;gap:16px}
 .p-legal h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,2.4vw,36px);text-transform:uppercase;line-height:1;margin:0}
 .p-legal section p{margin:12px 0 0;color:var(--muted);max-width:62ch}
+.p-legal-links{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;font-size:14px}
+.p-legal-links a,.p-legal-notice a{border-bottom:1px solid currentColor;overflow-wrap:anywhere}
 .p-contact{display:grid;grid-template-columns:1fr 1.5fr;gap:72px;align-items:start}
 .p-form fieldset{border:0;padding:0;margin:0}
 .p-form legend{font-family:var(--fd);font-weight:800;font-size:clamp(30px,3vw,46px);text-transform:uppercase;line-height:1;padding:0}

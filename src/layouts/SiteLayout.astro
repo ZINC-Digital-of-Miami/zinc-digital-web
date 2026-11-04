@@ -221,6 +221,7 @@ const showCta = false;
             {STUDIOS.map((s) => <div><h2><a href={'/locations/'+s.id+'/'}>{s.name}</a></h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
             <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
+          <p class="fmeta p-legal-notice" style="font-size:14px">We use Google Analytics and Microsoft Clarity to understand site use. <a href="/privacy/">Privacy and choices</a>.</p>
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
             <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>{ADMIN_PATH && <> · <a href={ADMIN_PATH}>Admin</a></>}</span>

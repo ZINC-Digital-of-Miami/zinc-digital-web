@@ -43,6 +43,7 @@ import {categoryPosts, categoryEditorial} from '../data/blog-categories';
 import { readingGuides, guideFor, readingPath } from '../data/blog-strategy';
 import type { Inquiry } from '../lib/inquiry';
 import { services, cases, layers, layerMeta, contract, readout, team, sequence, privacy, terms, lede, asset, svcBy, caseBy, pad, link, dateLabel, excerpt, type Route, type Layer } from '../data/site';
+import {legalUpdated} from '../data/legal';
 interface Props { route: Route; form?: { values?: Partial<Inquiry>; error?: string } }
 const { route, form } = Astro.props;
 const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
@@ -310,7 +311,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 
 {profile && <section class="p-band thin"><div class="wrap"><div class="p-author-profile"><Img k={profile.photo} alt={profile.schemaName} sizes="(max-width: 700px) 120px, 220px" loading="eager" fetchpriority="high" decoding="sync"/><div><span class="lab">{profile.role}</span><p class="p-body">{profile.bio}</p><p class="lab p-muted">{profile.topics}</p></div></div><h2 class="disp p-sec">Articles by {profile.schemaName.split(' ')[0]}.</h2>{authorPosts.length ? <div class="p-articles">{authorPosts.map(p=><article class="p-art">{articleImages[p.slug] && <a class="p-art-image" href={'/blog/'+p.slug+'/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px"/></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h3><a href={'/blog/'+p.slug+'/'}>{p.title}</a></h3><p>{excerpt(p)}</p><a class="arrow" href={'/blog/'+p.slug+'/'}>Read the article </a></article>)}</div> : <p class="p-muted">New articles are being prepared.</p>}</div></section>}
 
-{legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv">{legal.map(([h, p], i) => <section><span class="lab">{pad(i)}</span><div><h2>{h}</h2><p>{p}</p></div></section>)}</div></div></section>}
+{legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv"><p class="lab">Last updated <time datetime="2026-11-04">{legalUpdated}</time></p>{legal.map(([h, p, links], i) => <section><span class="lab">{String(i + 1).padStart(2, '0')}</span><div><h2>{h}</h2><p>{p}</p>{links && <ul class="p-legal-links">{links.map(({label,href}) => <li><a href={href}>{label}</a></li>)}</ul>}</div></section>)}</div></div></section>}
 
 {t === 'location' && <LocalMarket city={route.slug as 'miami'|'panama-city'} />}
 {t === 'contact' && <section class="p-band"><div class="wrap p-contact"><ContactForm values={!form?.values?.intent || form.values.intent === 'proposal' ? form?.values : undefined} error={!form?.values?.intent || form.values.intent === 'proposal' ? form?.error : undefined} /></div></section>}
