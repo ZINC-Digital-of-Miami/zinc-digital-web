@@ -1,5 +1,6 @@
 ---
 import {compareSnapshots,scoreTrend,trafficComparisons,type ScoreSnapshot,type ScoreHistory} from '../../lib/seo-review-dashboard';
+import SeoRfpFunnel from './SeoRfpFunnel.astro';
 import SeoContentPerformance from './SeoContentPerformance.astro';
 interface Props {snapshot:ScoreSnapshot|null;history:ScoreHistory[];at?:string;evidence:readonly unknown[];anomaly?:{status:string;detail:string}}
 const {snapshot,history,at,evidence,anomaly}=Astro.props;
@@ -28,6 +29,7 @@ const pageLink=(n:number)=>{const q=new URLSearchParams(Astro.url.searchParams);
 const editor=(path:string)=>{const article=path.match(/^\/blog\/([a-z0-9-]+)\/$/);return '/admin/seo/?'+new URLSearchParams({kind:article?'post':'page',key:article?article[1]:path});};
 ---
 <section class="analysis-dashboard" aria-label="SEO score and traffic dashboard">
+ <SeoRfpFunnel evidence={evidence}/>
  <div class="analysis-overview">
   <div class="analysis-score">
    <div class="a-label a-muted">Overall HTML checklist</div>

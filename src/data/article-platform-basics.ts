@@ -110,7 +110,7 @@ After submission, check review and delivery status. At the planned review, compa
 
 **Launch checklist:** outcome; business access; tested event; budget and dates; approved creative; working destination; named review owner.
 
-Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide where this test fits. Ongoing [social ads management](/services/social-ads/) should turn each review into a specific next action.
+Use the [channel planning guide](/blog/seven-digital-channels-which-to-skip/) to decide where this test fits. Ongoing [TikTok ads management](/services/tiktok-ads/) should turn each review into a specific next action.
 
 ## Work through a first website-sales test
 

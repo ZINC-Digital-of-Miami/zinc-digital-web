@@ -1,6 +1,7 @@
 /// <reference types="astro/client" />
 
 interface Window {
+  clarity?: (command: string, ...args: unknown[]) => void;
   gtag?: (command: string, name: string, options: Record<string, unknown>) => void;
   zincAdsConversionLabel?: string;
 }

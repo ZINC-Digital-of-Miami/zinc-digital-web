@@ -20,6 +20,16 @@ progress:
 
 # Project State
 
+### Verified SEO corrections and RFP goal — 4 November 2026 CT
+
+Current work: `codex/verified-seo-corrections`, isolated from the older dirty shared checkout. The owner’s goal is requests for proposals. Source fixes align Panama City as principal base, Miami as growth market and AI Search Optimization naming; connect service/article/case-study paths with proposal requests; make category descriptions specific; and exclude files from contextual-link scoring with a new method version. Protected release and production readbacks remain pending. Both schedules and Wendy’s unpublished seven files remain unchanged.
+
+The first Opus 5.5 High review is COMPLETE: canonical saved key `seo_review:manual:5b014cb7-e4b8-4f50-9fcd-84f73ab6055c`, 4 November 6:27 AM CT, `end_turn`, 262561 input / 32055 output, all 15 areas and 26 recommendations. Native reread confirms completion. [PR58 receipt](https://github.com/ZINC-Digital-of-Miami/zinc-digital-web/pull/58#issuecomment-6630665143). Older “first completion open” notes below are superseded historical checkpoints; do not trigger another paid review.
+
+Native investigation found six `generate_lead` events but no corresponding GA4 key-event definition in October 7–November 3. Owner approved marking it prospectively; the native key-event setting is now saved and verified. Submissions are not qualified RFPs. Matched homepage Search Console queries also worsened in average position, so broader query mix alone is insufficient; cause remains unresolved. Detailed periods and qualifications are in the current Kiro task section. Privacy/Terms remain empty pending approved owner text; no rendering defect or approved saved replacement was found. Remaining editorial/provenance and performance gaps stay open.
+
+Current measurement checkpoint: canonical sitemap accepted with 98 submitted URLs and no errors/warnings; four representative URLs are natively confirmed indexed. GA4 custom dimensions are configured; local page/form tagging, the direct existing Clarity project and an Analysis proposal funnel are implemented. 214 tests, typecheck, production build/static checks and intercepted form success/error tests pass. Production release, Clarity collection and final rendered review remain open. See the current Kiro section for native IDs and definitions. Latest owner focus is SEO, metrics and goals; CRM/Square management is retained as the subsequent phase, with no invented qualification or revenue results.
+
 ### Approved SEO activation — 3 November 2026 CT
 
 Latest execution: streaming repair PR57 is promoted at `eb51faa` and early/final provider receipts work. Run `e01744b7-ca5c-40a2-93a8-e8e8528a8cb0` reached the 32000-token allowance and remains failed with `max_tokens`; its raw text is retained for diagnosis, not accepted as a complete report. The full 99-page High review needs more completion room. `codex/complete-seo-review` changes only internal completion limits (48000 output, 480-second provider / unchanged 600-second function), accepts complete JSON fences and exposes already-collected research citations as first-class evidence IDs. Required scope, actual instructions, model/effort, both schedules and Wendy are preserved. Next: protected correction and first complete manual verification. No automatic retry/fallback.

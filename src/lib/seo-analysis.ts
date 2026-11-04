@@ -185,10 +185,11 @@ export function analyzeSeo(html: string, options: SeoAnalysisOptions): SeoAnalys
   add('word-count', 'Article length', 'Content', 'info', 0, `${words} words in the measured content. No minimum length or keyword-density penalty is applied.`);
 
   const links = bodyNodes.filter(node => node.tagName === 'a').map(node => ({ node, url: httpUrl(attr(node, 'href'), options.url) })).filter(link => link.url && !samePage(link.url, pageUrl));
-  const internal = links.filter(link => link.url!.origin === pageUrl?.origin);
+  // Files can be useful resources, but do not connect readers to another content page.
+  const internal = links.filter(link => link.url!.origin === pageUrl?.origin && !link.node.attrs.some(a => a.name === 'download') && !/\.(?:avif|gif|ico|jpe?g|png|svg|webp|pdf|csv|xlsx?|docx?|pptx?|zip|mp[34]|webm|woff2?|css|js)$/i.test(link.url!.pathname));
   const external = links.filter(link => link.url!.origin !== pageUrl?.origin);
   add('internal-links', 'Contextual internal links', 'Links', internal.length ? 'pass' : 'warn', 6,
-    internal.length ? `${internal.length} internal links in ${prose ? 'the article prose' : 'main content'}. Global navigation and same-page anchors do not count.` : 'Add a useful contextual link to a relevant service, guide or related article. Global navigation does not count.');
+    internal.length ? `${internal.length} internal links in ${prose ? 'the article prose' : 'main content'}. Global navigation, same-page anchors and asset/download links do not count.` : 'Add a useful contextual link to a relevant service, guide or related article. Global navigation does not count.');
   const slug = pageUrl?.pathname.match(/^\/blog\/([^/]+)\/?$/)?.[1];
   const guide = options.kind === 'post' && slug ? guideFor(slug) : undefined;
   const isGuide = guide?.slug === slug;

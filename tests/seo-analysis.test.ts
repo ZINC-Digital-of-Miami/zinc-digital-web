@@ -165,3 +165,13 @@ test('an author graph without main content reports missing content without throw
   assert.equal(check(noMain, 'main-content').status, 'fail');
   assert.equal(check(noMain, 'article-author').status, 'fail');
 });
+
+test('asset and download links cannot substitute for contextual page navigation', () => {
+  const guideLink = '<a href="/blog/four-pillars-of-seo-operators-view/">search guide</a>';
+  for (const href of ['/images/project.webp', '/images/project.JPG?size=large', '/art.svg#preview', '/downloads/guide.pdf', '/downloads/checklist.csv', '/_astro/image.png?dpl=old']) {
+    const html = good.replace(guideLink, `<a href="${href}">View the file</a>`);
+    assert.equal(check(html, 'internal-links').status, 'warn', href);
+    assert.equal(analyzeSeo(html, options).counts.internalLinks, 0, href);
+    assert.equal(check(html.replace('</article>', '<a href="/services/seo/">SEO service</a></article>'), 'internal-links').status, 'pass');
+  }
+});

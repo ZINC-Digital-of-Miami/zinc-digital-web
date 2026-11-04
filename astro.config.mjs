@@ -3,7 +3,7 @@ import vercel from '@astrojs/vercel';
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { redirects, retiredPaths } from './src/data/redirects.ts';
 import { adminThemeHash } from './src/lib/admin-theme.ts';
-import {analyticsEnabled, googleTagScript} from './src/lib/analytics.ts';
+import {analyticsEnabled, googleTagScript, clarityScript} from './src/lib/analytics.ts';
 import {createHash} from 'node:crypto';
 
 const analytics = analyticsEnabled(process.env.PUBLIC_ANALYTICS, process.env.VERCEL_ENV);
@@ -73,6 +73,6 @@ export default defineConfig({
   // Hashed script-src and style-src meta policy on every page. The Design's markup carries inline style
   // attributes, so style-src-attr allows those only; scripts stay hash-only. frame-ancestors is a header
   // (vercel.json), since browsers ignore it in a meta policy. Register hashes before SSR headers stream.
-  security: { csp: { scriptDirective: { hashes: [adminThemeHash, ...(analytics ? [analyticsHash] : [])], resources: ["'self'", ...(analytics ? ['https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.google.com'] : [])] }, styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
+  security: { csp: { scriptDirective: { hashes: [adminThemeHash, ...(analytics ? [analyticsHash, 'sha256-' + createHash('sha256').update(clarityScript()).digest('base64')] : [])], resources: ["'self'", ...(analytics ? ['https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.google.com'] : [])] }, styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] } } },
   redirects: Object.fromEntries(Object.entries(redirects).map(([from, to]) => [from, { status: 301, destination: to }])),
 });
