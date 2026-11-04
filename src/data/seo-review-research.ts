@@ -1,9 +1,10 @@
 /** Dated, human-reviewed research. These summaries are not a live keyword-volume feed. */
+import {homeMetaDescription} from './page-editorial.ts';
 export const seoResearch={
  checkedAt:'2026-11-03',
- status:'instruction proposal awaiting owner approval',
+ status:'owner-approved 2026-11-03',
  positioning:{recommendedPhrase:'AI search optimization',basis:'Clear service intent and buyer-language evidence. AI SEO has the highest estimated volume among the nine researched phrases, but can also mean using AI to do SEO.',mostSearchedTerm:'AI SEO',
-  proposedHomeDescription:'AI search optimization, custom websites and business intelligence from ZINC Digital. Working with businesses in Panama City, Miami and across the US.',
+  homeDescription:homeMetaDescription,
   candidates:['AI search optimization','generative engine optimization','answer engine optimization','AI optimization','AI SEO'],
   marketVolumeGap:'The retained US/English comparison estimates AI SEO at 6,600 monthly searches, generative engine optimization at 4,400, answer engine optimization at 2,400, and AI search optimization and AI optimization at 1,300 each. This is one dated market-estimate dataset, not all possible keywords or ZINC demand. Its backend provider was not identified in the response. Google Search Console impressions measure ZINC visibility; bare acronyms are ambiguous.'},
  marketDemand:{checkedAt:'2026-11-03',source:'HYPD keyword research transport; backend provider not returned',location:'United States',language:'English',period:'2025-10 through 2026-09',resultId:'1e448560-d3d3-4951-94ae-2e5a7bb32211',retainedEvidence:'docs/editorial/research/2026-11-03-ai-search-keyword-volume.json',
