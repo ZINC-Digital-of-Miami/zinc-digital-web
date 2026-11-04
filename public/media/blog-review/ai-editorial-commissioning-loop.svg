@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="1140" viewBox="0 0 360 1140" role="img" aria-labelledby="title desc">
+<title id="title">Give the editorial calendar three jobs</title>
+<desc id="desc">Commission a distinct answer with an evidence owner, maintain confirmed facts and review triggers, and evaluate visibility, visits and enquiries separately. Observations inform the next editorial decision. This is a conceptual model, not measured data.</desc>
+<rect width="360" height="1140" fill="#fff"/>
+<g font-family="Arial, sans-serif" fill="#151b1b">
+<text x="24" y="35" font-size="13" font-weight="700" letter-spacing="1.2" fill="#007c7d">EDITORIAL PLANNING MODEL</text>
+<text x="24" y="78" font-size="28" font-weight="700">Give the calendar</text>
+<text x="24" y="113" font-size="28" font-weight="700">three jobs.</text>
+<path d="M24 137H336" stroke="#161d1d" stroke-width="2"/>
+<rect x="24" y="158" width="312" height="194" rx="3" fill="#f3f6f5"/><path d="M24 158V352" stroke="#008d8e" stroke-width="4"/>
+<text x="42" y="196" font-size="26" font-weight="700">Commission</text>
+<text x="42" y="234" font-size="20">Which decision needs help?</text>
+<text x="42" y="275" font-size="20">What evidence is available?</text>
+<text x="42" y="316" font-size="20">Who can confirm the facts?</text>
+<rect x="24" y="374" width="312" height="194" rx="3" fill="#f3f6f5"/><path d="M24 374V568" stroke="#008d8e" stroke-width="4"/>
+<text x="42" y="412" font-size="26" font-weight="700">Maintain</text>
+<text x="42" y="450" font-size="20">Which page needs attention?</text>
+<text x="42" y="491" font-size="20">What facts have changed?</text>
+<text x="42" y="532" font-size="20">When should we review it?</text>
+<rect x="24" y="590" width="312" height="298" rx="3" fill="#f3f6f5"/><path d="M24 590V888" stroke="#008d8e" stroke-width="4"/>
+<text x="42" y="628" font-size="26" font-weight="700">Evaluate</text>
+<text x="42" y="668" font-size="20" font-weight="700">Visibility</text>
+<text x="42" y="696" font-size="20">Appearances or citations.</text>
+<text x="42" y="736" font-size="20" font-weight="700">Visits</text>
+<text x="42" y="764" font-size="20">Identifiable page arrivals.</text>
+<text x="42" y="804" font-size="20" font-weight="700">Enquiries</text>
+<text x="42" y="832" font-size="20">Suitable enquiries with</text>
+<text x="42" y="860" font-size="20">connection evidence.</text>
+<path d="M180 906V928m-6-8 6 8 6-8" fill="none" stroke="#007c7d" stroke-width="2"/>
+<text x="180" y="966" font-size="22" text-anchor="middle" font-weight="700">Make the next</text>
+<text x="180" y="995" font-size="22" text-anchor="middle" font-weight="700">editorial decision.</text>
+<text x="24" y="1048" font-size="18" fill="#4c5656">Conceptual model.</text>
+<text x="24" y="1075" font-size="18" fill="#4c5656">No measured flow or</text>
+<text x="24" y="1102" font-size="18" fill="#4c5656">guaranteed outcome is implied.</text>
+</g></svg>
