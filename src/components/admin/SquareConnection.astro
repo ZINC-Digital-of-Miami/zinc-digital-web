@@ -1,0 +1,15 @@
+---
+import {requireStaff} from '../../lib/auth';
+import {squareConfig} from '../../lib/square';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+let config;let error='';try{config=squareConfig();}catch(e){error=(e as Error).message;}
+---
+<section class="a-panel a-section"><h2 class="a-heading">Square invoices</h2>
+<p class="a-muted">Connect quotes to draft invoices and check payments recorded by Square.</p>
+<p>{error||(!config?.token||!config?.locationId?'Not connected. Set SQUARE_ACCESS_TOKEN, SQUARE_LOCATION_ID and SQUARE_ENVIRONMENT in the server environment.':`${config.environment} configuration present · location ${config.locationId}`)}</p>
+{staff.role==='owner'&&<button class="a-button" data-square-action data-body='{"action":"verify"}' disabled={!config?.token||!config?.locationId}>Verify Square connection</button>}
+<p class="a-count" data-square-result role="status"></p>
+<a class="a-link" href="https://app.squareup.com/dashboard/invoices/estimates">Manage estimates in Square</a>
+<p class="a-muted">Square estimates are managed in Square. Save the estimate link and client decision on the quote. Invoice drafts are not sent until an owner reviews and confirms Send invoice.</p>
+</section>
+<script>import '../../scripts/admin/square';</script>

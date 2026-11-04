@@ -10,6 +10,10 @@
     ]},
     { "source": "/(.*)", "has": [{ "type": "host", "value": ".*\\.vercel\\.app" }], "headers": [
       { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+    ]},
+    { "source": "/content-revision.json", "headers": [
+      { "key": "Cache-Control", "value": "no-store" },
+      { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
     ]}
   ]
 }
