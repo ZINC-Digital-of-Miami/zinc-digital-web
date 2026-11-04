@@ -37,6 +37,7 @@ const anomaly=data?.report?.checks.find(c=>c.area==='anomalies');
  {data?<>
   <p class="a-count">{data.status==='complete'?'Completed '+when(data.completedAt):'Started '+when(data.startedAt)} · {data.status}{data.source==='scan'?' · Site checks · no Claude call':''}{data.model?' · '+data.model+' / '+data.effort:''}</p>
   {data.status==='failed'&&<p class="a-error" role="alert">{data.error}</p>}
+  {data.partialUsage&&!data.usage&&<p class="a-count">Partial provider observation: {data.partialUsage.input_tokens} input tokens · {data.partialUsage.output_tokens} output tokens observed. Final usage is unavailable.</p>}
   {data.status==='running'&&<p class="a-notice">The review has not recorded completion. Refresh to check. If it was interrupted, it remains unverified; an owner can request a new review.</p>}
   {data.report&&<>
    <p class="review-summary">{data.report.summary}</p>

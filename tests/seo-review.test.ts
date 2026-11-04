@@ -4,6 +4,12 @@ import {reviewSlot,cronAuthorized,reviewWithClaude,validateReview,savedReview,re
 import {scoreSnapshot,SCORING_VERSION} from '../src/lib/seo-review-dashboard.ts';
 import {storeReview} from '../src/lib/seo-review-store.ts';
 import {reviewSignals} from '../src/lib/seo-review-signals.ts';
+const frame=(value:unknown)=>'data: '+JSON.stringify(value)+'\n\n';
+const streamed=(message:any)=>new Response([
+ frame({type:'message_start',message:{...message,content:[],stop_reason:null,usage:{input_tokens:message.usage.input_tokens,output_tokens:0}}}),
+ ...message.content.flatMap((block:any,index:number)=>[frame({type:'content_block_start',index,content_block:{type:block.type,text:''}}),frame({type:'content_block_delta',index,delta:{type:block.type==='text'?'text_delta':'thinking_delta',text:block.text}})]),
+ frame({type:'message_delta',delta:{stop_reason:message.stop_reason},usage:message.usage}),frame({type:'message_stop'}),
+].join(''),{headers:{'content-type':'text/event-stream','request-id':'req_test'}});
 
 test('weekly review runs at Monday 8 AM CT in winter and summer, once per local date',()=>{
  for(const date of ['2026-11-09T14:00:00Z','2027-07-05T13:00:00Z','2027-03-15T13:04:00Z']) assert.ok(reviewSlot(new Date(date)));
@@ -21,6 +27,7 @@ test('paid reviews require explicit activation; a deterministic scan is stored w
  const measured={source:'scan',status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),measuredAt:new Date().toISOString(),scoringVersion:SCORING_VERSION,scorecard:scoreSnapshot([]),evidence:[]};
  assert.equal(savedReview(measured).source,'scan');assert.equal(savedReview(measured).model,undefined);
  assert.throws(()=>savedReview({...measured,model:'claude-opus-5-5'}),/snapshot/);
+ assert.throws(()=>savedReview({...measured,partialUsage:{input_tokens:10,output_tokens:1}}),/snapshot/);
 });
 test('public signals preserve deployed canonical/social settings and exclude executable scripts',()=>{
  const data=reviewSignals('<title>Page | ZINC</title><link rel="canonical" href="https://www.zincdigital.co/"><meta property="og:image:alt" content="A useful diagram"><meta name="private" content="excluded"><script>private runtime data</script><img src="/missing-alt.png">');
@@ -46,23 +53,39 @@ test('Claude verifies exact model access, sets High effort, records usage and ne
  const calls:{url:string;body?:Record<string,unknown>}[]=[];
  const send:typeof fetch=async (url,init)=>{
   calls.push({url:String(url),body:init?.body?JSON.parse(String(init.body)):undefined});
-  return Response.json(calls.length===1?{id:'claude-opus-5-5'}:{id:'msg_test',model:'claude-opus-5-5',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[{type:'text',text:JSON.stringify(valid())}]});
+  return calls.length===1?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_test',model:'claude-opus-5-5',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[{type:'text',text:JSON.stringify(valid())}]});
  };
  const result=await reviewWithClaude('test-key','trusted instructions',{id:'settings'},send);
  assert.equal(calls[0].url,'https://api.anthropic.com/v1/models/claude-opus-5-5');
  assert.deepEqual(calls[1].body?.output_config,{effort:'high'});
  assert.equal(calls[1].body?.model,'claude-opus-5-5');
  assert.equal(calls[1].body?.max_tokens,32000);
+ assert.equal(calls[1].body?.stream,true);
  assert.deepEqual(result.usage,{input_tokens:10,output_tokens:20});
+ assert.equal(result.providerRequestId,'req_test');
  await assert.rejects(()=>reviewWithClaude('','','',send),/key/);
  await assert.rejects(()=>reviewWithClaude('test','',{},async()=>new Response('',{status:403})),/access/);
- await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>Response.json(String(url).includes('/models/')?{id:'claude-opus-5-5'}:{id:'msg_other',model:'other',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[]})),/model/);
+ await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_other',model:'other',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[]})),/model/);
 });
 test('incomplete Claude responses retain the provider receipt and precise stop reason',async()=>{
  let receipt:Record<string,unknown>|undefined;
- const send:typeof fetch=async url=>Response.json(String(url).includes('/models/')?{id:'claude-opus-5-5'}:{id:'msg_budget',model:'claude-opus-5-5',stop_reason:'max_tokens',usage:{input_tokens:250000,output_tokens:16000},content:[{type:'text',text:'{"summary":"unfinished'}]});
+ const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_budget',model:'claude-opus-5-5',stop_reason:'max_tokens',usage:{input_tokens:250000,output_tokens:16000},content:[{type:'text',text:'{"summary":"unfinished'}]});
  await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/max_tokens/);
  assert.equal(receipt?.messageId,'msg_budget');assert.equal(receipt?.stopReason,'max_tokens');assert.deepEqual(receipt?.usage,{input_tokens:250000,output_tokens:16000});
+ assert.equal(receipt?.rawResponse,'{"summary":"unfinished');
+});
+test('an interrupted stream retains identity and partial usage without claiming final totals or retrying',async()=>{
+ let calls=0,receipt:Record<string,unknown>|undefined;
+ const send:typeof fetch=async url=>{calls++;return String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):new Response(frame({type:'message_start',message:{id:'msg_interrupted',model:'claude-opus-5-5',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'},usage:{output_tokens:7}}),{headers:{'content-type':'text/event-stream'}});};
+ await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/message_stop/);
+ assert.equal(calls,2);assert.equal(receipt?.messageId,'msg_interrupted');assert.equal(receipt?.usage,undefined);assert.deepEqual(receipt?.partialUsage,{input_tokens:10,output_tokens:7});
+ const saved=savedReview({status:'failed',startedAt:new Date().toISOString(),...receipt});assert.equal(saved.usage,undefined);assert.deepEqual(saved.partialUsage,{input_tokens:10,output_tokens:7});
+});
+test('a terminal marker without terminal output usage cannot promote provisional counters to final totals',async()=>{
+ let receipt:Record<string,unknown>|undefined;
+ const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):new Response(frame({type:'message_start',message:{id:'msg_missing_usage',model:'claude-opus-5-5',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'}})+frame({type:'message_stop'}),{headers:{'content-type':'text/event-stream'}});
+ await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/terminal usage/);
+ assert.equal(receipt?.usage,undefined);assert.deepEqual(receipt?.partialUsage,{input_tokens:10,output_tokens:1});
 });
 test('duplicate scheduled deliveries cannot repeat the paid operation; failures remain visible',async()=>{
  const rows=new Map<string,unknown>();let executions=0;

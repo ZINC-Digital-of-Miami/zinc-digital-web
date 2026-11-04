@@ -1,5 +1,6 @@
 import {timingSafeEqual} from 'node:crypto';
 import {parseScoreSnapshot,type ScoreSnapshot} from './seo-review-dashboard.ts';
+import {readClaudeMessage} from './claude-message-stream.ts';
 
 export const REVIEW_MODEL='claude-opus-5-5';
 export const REVIEW_EFFORT='high';
@@ -52,6 +53,11 @@ The editorial register below is authoritative for editorial recommendations. Eve
 Return JSON only: {"summary":"...","checks":[{"area":"...","status":"checked|needs attention|unavailable","detail":"...","evidenceIds":["supplied ID"]}],"recommendations":[{"priority":"high|medium|low","area":"...","path":"supplied path, / for sitewide","problem":"specific observed issue","action":"specific proposed change","reason":"evidence-backed benefit or explicitly labelled hypothesis","evidenceIds":["supplied ID"],"validation":"how to verify the proposed change"}]}. Include exactly one check for each area: ${REVIEW_AREAS.join(', ')}. Cite only supplied evidence IDs. Up to 30 recommendations, highest priority first, consolidate repeated problems and name affected pages. Do not invent problems to fill the list. Unavailable evidence must never be marked checked. Changes are recommendations awaiting owner approval.
 <editorial-register>\n${register}\n</editorial-register>`;}
 
+function providerReceipt(data:Record<string,unknown>){
+ const usage=object(data.usage);
+ const number=(v:unknown)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<0)throw new Error('Claude did not return a valid usage receipt.');return v;};
+ return {model:text(data.model,100),effort:REVIEW_EFFORT,messageId:text(data.id,200),stopReason:text(data.stop_reason,100),usage:{input_tokens:number(usage.input_tokens),output_tokens:number(usage.output_tokens)}};
+}
 export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch,onReceipt:(value:Record<string,unknown>)=>Promise<void>=async()=>{}){
  if(!key)throw new Error('Add the Claude API key securely in Vercel before running a review.');
  const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
@@ -60,21 +66,24 @@ export async function reviewWithClaude(key:string,system:string,evidence:unknown
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
  // Opus 5.5 counts adaptive thinking and report text against the same output allowance.
- const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(420000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:32000,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
+ const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(420000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:32000,stream:true,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
  if(!res.ok)throw new Error('Claude could not complete the review (HTTP '+res.status+'). Check the connection or account limits.');
- const data=await res.json();
- const usage=object(data.usage);
- const number=(v:unknown)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<0)throw new Error('Claude did not return a valid usage receipt.');return v;};
- const receipt={model:text(data.model,100),effort:REVIEW_EFFORT,messageId:text(data.id,200),stopReason:text(data.stop_reason,100),usage:{input_tokens:number(usage.input_tokens),output_tokens:number(usage.output_tokens)}};
+ const providerRequestId=res.headers.get('request-id')||undefined;
+ const data=await readClaudeMessage(res,async message=>{
+  const {usage,...identity}=providerReceipt({...message,stop_reason:message.stop_reason||'in_progress'});
+  await onReceipt({...identity,providerRequestId,partialUsage:usage});
+  if(message.model!==REVIEW_MODEL)throw new Error('Claude returned an unexpected model. No fallback is permitted.');
+ });
+ const answer=(data.content||[]).filter((c:{type:string})=>c.type==='text').map((c:{text:string})=>c.text).join('');
+ const receipt={...providerReceipt(data),providerRequestId,rawResponse:answer};
  // Retain the paid execution even when its model, stop reason or later JSON validation is rejected.
  await onReceipt(receipt);
  if(data.model!==REVIEW_MODEL)throw new Error('Claude returned an unexpected model. No fallback is permitted.');
  if(data.stop_reason!=='end_turn')throw new Error('Claude returned an incomplete review ('+receipt.stopReason+'). No recommendations were accepted. Its usage receipt was retained.');
- const answer=(data.content||[]).filter((c:{type:string})=>c.type==='text').map((c:{text:string})=>c.text).join('');
  return {text:answer,...receipt};
 }
 
-export type SavedReview={status:'running'|'failed'|'complete';source?:'scan'|'manual'|'weekly';error?:string;startedAt:string;completedAt?:string;measuredAt?:string;scoringVersion?:string;scorecard?:ScoreSnapshot;model?:string;effort?:string;report?:Review;usage?:{input_tokens:number;output_tokens:number};evidence?:{id:string;available?:boolean;gap?:unknown;[key:string]:unknown}[];commit?:string};
+export type SavedReview={status:'running'|'failed'|'complete';source?:'scan'|'manual'|'weekly';error?:string;startedAt:string;completedAt?:string;measuredAt?:string;scoringVersion?:string;scorecard?:ScoreSnapshot;model?:string;effort?:string;report?:Review;usage?:{input_tokens:number;output_tokens:number};partialUsage?:{input_tokens:number;output_tokens:number};evidence?:{id:string;available?:boolean;gap?:unknown;[key:string]:unknown}[];commit?:string};
 /** A corrupt cache row must never break the rest of the SEO admin or masquerade as a verified report. */
 export function savedReview(value:unknown):SavedReview{
  const v=object(value);
@@ -83,11 +92,11 @@ export function savedReview(value:unknown):SavedReview{
  if(v.source!==undefined){if(!['scan','manual','weekly'].includes(String(v.source)))throw new Error('Invalid analysis source.');result.source=v.source as SavedReview['source'];}
  for(const k of ['error','completedAt','model','effort','commit'] as const)if(v[k]!==undefined)result[k]=text(v[k]);
  if(result.completedAt&&!Number.isFinite(Date.parse(result.completedAt)))throw new Error('The saved completion time is invalid.');
- if(v.usage){const u=object(v.usage);if(typeof u.input_tokens!=='number'||typeof u.output_tokens!=='number')throw new Error('Invalid usage receipt.');result.usage={input_tokens:u.input_tokens,output_tokens:u.output_tokens};}
+ for(const key of ['usage','partialUsage'] as const)if(v[key]){const u=object(v[key]);if(typeof u.input_tokens!=='number'||typeof u.output_tokens!=='number'||!Number.isFinite(u.input_tokens)||!Number.isFinite(u.output_tokens)||u.input_tokens<0||u.output_tokens<0)throw new Error('Invalid usage receipt.');result[key]={input_tokens:u.input_tokens,output_tokens:u.output_tokens};}
  if(v.evidence!==undefined){if(!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('Invalid source evidence.');result.evidence=v.evidence.map(e=>{const row=object(e);text(row.id,1000);return row as NonNullable<SavedReview['evidence']>[number];});}
  if(v.scorecard!==undefined){const card=parseScoreSnapshot(v.scorecard);if(!card||v.scoringVersion!==card.scoringVersion||typeof v.measuredAt!=='string'||!Number.isFinite(Date.parse(v.measuredAt)))throw new Error('Invalid score measurement.');result.scorecard=card;result.scoringVersion=card.scoringVersion;result.measuredAt=v.measuredAt;}
  if(v.status==='complete'){
-  if(v.source==='scan'){if(!result.completedAt||!result.evidence||!result.scorecard||v.model||v.report||v.usage)throw new Error('The site-check snapshot could not be verified.');return result;}
+  if(v.source==='scan'){if(!result.completedAt||!result.evidence||!result.scorecard||v.model||v.report||v.usage||v.partialUsage)throw new Error('The site-check snapshot could not be verified.');return result;}
   if(!result.completedAt||v.model!==REVIEW_MODEL||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
   const evidence=result.evidence!;
   const paths=new Set(['/',...evidence.flatMap(e=>typeof e.path==='string'&&/^\/(?:[a-z0-9-]+\/)*$/.test(e.path)?[e.path]:[])]);

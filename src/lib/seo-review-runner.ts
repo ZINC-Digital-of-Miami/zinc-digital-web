@@ -30,7 +30,7 @@ export async function runSeoReview(key:string,source:'weekly'|'manual'){
   const result=await reviewWithClaude(apiKey,reviewInstructions(register),{checkedAt:measuredAt,source,scorecard,evidence:reviewContext(evidence)},fetch,receipt=>saveReceipt({...measured,...receipt}));
   let value:unknown;try{value=JSON.parse(result.text);}catch{throw new Error('Claude did not return a valid JSON review. Its execution receipt was retained.');}
   const report=validateReview(value,new Map(evidence.map(e=>[e.id,e])),paths);
-  return {...measured,report,model:result.model,effort:result.effort,messageId:result.messageId,stopReason:result.stopReason,usage:result.usage};
+  return {...measured,report,model:result.model,effort:result.effort,messageId:result.messageId,providerRequestId:result.providerRequestId,stopReason:result.stopReason,usage:result.usage};
  });
 }
 /** Measurements do not call Claude or require the paid-review activation flag. */
