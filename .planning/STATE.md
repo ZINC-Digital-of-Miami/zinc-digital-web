@@ -20,6 +20,12 @@ progress:
 
 # Project State
 
+### Approved SEO activation — 3 November 2026 CT
+
+Owner approved the researched instructions, exact proposed homepage description and first Opus 5.5 High review. Preserve Monday 8 AM CT SEO reviews, Monday/Wednesday/Friday 9 AM CT articles, current-main register and Wendy’s unpublished draft/art. No Docker or Actions. PR54/55 are merged; corrected scan `seo_review:scan:3a4de8b7-0043-48c6-a4f9-73864f1d2bc0` verified main `cdfea7b`, version `.2`, 98 scored / 0 blocked / 1 intentional exclusion, native GA4/GSC/referrer evidence, 44 articles / 11 services / 10 pillars. Runtime receipts are in PR55.
+
+`codex/activate-seo-review` applies the exact accepted description in canonical homepage metadata, shares it with the approved research display, aligns the homepage’s one saved metadata field, and enables production `SEO_REVIEW_ENABLED` through the existing config. Protected release and independent review precede the first paid request. Model, effort, both schedules, report policy and all other instructions remain unchanged. First successful Claude result and its provider/usage receipt remain to be verified; subsequent release/runtime proof is recorded in this activation PR.
+
 ### SEO Analysis preparation checkpoint — 3 November 2026 CT
 
 Latest runtime checkpoint: PR54 merged at `cdfafe5` and promoted on the live domains. Owner scan `seo_review:scan:f032cf4c-92e0-4b8b-888e-90959dbe50f8` completed at 5:24 PM CT with native GA4/GSC and referrer evidence, 44 articles, 11 services and 10 populated service pillars; no Claude call. All 99 targets scanned. The 99/100 HTML baseline misclassified the intentionally excluded `/thanks/` page as blocked because the collector omitted the canonical `noindexPaths` policy used by `SiteLayout`. `codex/analysis-indexing-intent` corrects that input and versions the method; a regression preserves unexpected public noindex failures. Next: scoped protected correction and a token-free corrected baseline. Claude remains paused; homepage copy remains a proposal; editorial schedule and Wendy remain unchanged.

@@ -1,7 +1,8 @@
 /** Search-only presentation, grounded in the corresponding approved page content. */
 const entry=(metaTitle:string,metaDescription:string)=>({metaTitle,metaDescription});
+export const homeMetaDescription='AI search optimization, custom websites and business intelligence from ZINC Digital. Working with businesses in Panama City, Miami and across the US.';
 export const pageEditorial:Record<string,{metaTitle:string;metaDescription:string}>={
- '/':entry('Digital Agency in Miami & Panama City','ZINC Digital connects web design, Shopify, SEO, paid media and business intelligence. Miami HQ, Panama City satellite, working nationwide.'),
+ '/':entry('Digital Agency in Miami & Panama City',homeMetaDescription),
  '/services/':entry('Websites, Search & Business Intelligence Services','Explore ZINC’s Build, Demand and Intelligence services: websites, Shopify, apps, SEO, paid campaigns and business intelligence connected to the work.'),
  '/about/':entry('Our Team · Miami & Panama City','Meet the ZINC Digital team connecting websites, marketing and business reporting. Based in Miami with a Panama City satellite, working nationwide.'),
  '/contact/':entry('Contact ZINC · Miami & Panama City','Tell ZINC Digital about your website, marketing or business intelligence project. Contact the team in Miami and Panama City, working nationwide.'),
