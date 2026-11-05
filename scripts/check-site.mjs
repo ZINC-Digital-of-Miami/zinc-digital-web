@@ -62,7 +62,7 @@ for (const slug of ['the-lampstand-va', 'straight-street-ministries']) {
   check(!html.includes('The layers in use.'), slug + ' must use the nonprofit presentation');
 }
 // Every available source-backed comparison uses the shared accessible slider.
-for (const slug of ['las-vegas-safety','carla-funk-photography','us-oil-solutions','summit-marine-development','the-lampstand-va']) {
+for (const slug of ['las-vegas-safety','carla-funk-photography','us-oil-solutions','the-lampstand-va']) {
   const html = pages.find(p => p.rel === 'work/' + slug + '/index.html')?.html || '';
   check(html.includes('data-compare') && html.includes('type="range"') && html.includes('data-compare-to="100"') && html.includes('data-compare-to="0"'), slug + ' lacks before/after controls');
 }
@@ -380,6 +380,12 @@ for (const slug of clientOrder) {
 }
 check(overview.includes('"@type":"ItemList"'), 'Work lacks its portfolio ItemList');
 check(fusion.includes('"name":"ZINC Fusion v16"'), 'Fusion application schema must retain its registered product name');
+
+// Summit's later website belongs to a different provider. Keep portfolio imagery tied to ZINC's retained work.
+const summitPage=pages.find(p=>p.rel==='work/summit-marine-development/index.html')?.html||'';
+check(summitPage.includes('The ZINC-built website.')&&summitPage.includes('Past engagement'),'Summit must identify its retained ZINC-built website and past engagement');
+check(!/case-smd-(?:home|seawalls|docks)/.test(summitPage),'Summit must not present later non-ZINC website captures as ZINC work');
+check(!/href=["']https:\/\/summitmarinedevelopment[.]com/.test(summitPage),'Summit portfolio must not link its later website as the ZINC-built project');
 
 // ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
 for (const { rel, html } of pages) {
