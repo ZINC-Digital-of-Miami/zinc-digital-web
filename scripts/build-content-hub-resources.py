@@ -40,7 +40,7 @@ class Diagram:
     def save(self,name): (ART/name).write_text(''.join(self.parts)+'</svg>')
 
 def architecture(pdf=None):
-    d=Diagram('A pillar with distinct supporting answers',1010,pdf)
+    d=Diagram('A blog category and its related articles',1010,pdf)
     d.text(32,50,'ONE SUBJECT. USEFUL ARTICLES.',22,TEAL)
     d.rect(32,78,496,90,INK);d.text(52,114,'Business goal',23,'white');d.text(52,146,'Suitable regular-cleaning enquiries',22,'white')
     d.line(280,168,280,201)
@@ -53,18 +53,18 @@ def architecture(pdf=None):
     return d
 
 def links(pdf=None):
-    d=Diagram('Useful links, without linking everything to everything',790,pdf)
+    d=Diagram('Links between a category, articles and service page',790,pdf)
     d.text(32,49,'LINK WITH A REASON.',26,TEAL)
-    d.rect(32,80,496,95,INK);d.text(52,118,'PILLAR CATEGORY',22,'white');d.text(52,151,'Regular home cleaning blogs',25,'white')
+    d.rect(32,80,496,95,INK);d.text(52,118,'PILLAR CATEGORY',22,'white');d.text(52,151,'Regular home cleaning',25,'white')
     d.line(150,175,150,235);d.line(410,175,410,235)
     for x,title,sub in [(32,'Inclusions','What is covered?'),(300,'Frequency','How often?')]:
         d.rect(x,235,228,115,'white',TEAL);d.text(x+16,278,title,24);d.text(x+16,313,sub,21,GREY)
     d.line(260,292,300,292,PINK,True);d.line(268,285,260,292,PINK);d.line(268,299,260,292,PINK)
-    d.text(32,390,'Frequency → inclusions:',23,INK);d.text(32,423,'check what you are comparing.',22,GREY)
+    d.text(32,390,'Frequency to inclusions:',23,INK);d.text(32,423,'check what you are comparing.',22,GREY)
     d.rect(32,463,496,90,'white',LINE);d.text(52,500,'PRICE ARTICLE',23,TEAL);d.text(52,533,'Explain the quote factors first.',22)
     d.line(280,553,280,605,PINK,True)
-    d.rect(32,605,496,90,INK);d.text(52,642,'SERVICE / QUOTE PAGE',22,'white');d.text(52,675,'A relevant next action when ready.',22,'white')
-    d.text(32,739,'Teal: category ↔ its articles',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
+    d.rect(32,605,496,90,INK);d.text(52,642,'SERVICE / QUOTE PAGE',22,'white');d.text(52,675,'Request a regular-cleaning quote.',22,'white')
+    d.text(32,739,'Teal: links to and from the category',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
     return d
 
 architecture().save('pillar-map.svg');links().save('link-plan.svg')
@@ -99,7 +99,7 @@ def draw_ref(c,fn,x,y,width):
 
 ref=canvas.Canvas(str(OUT/'content-hub-architecture.pdf'),pagesize=A4)
 ref.setTitle('Blog categories, articles and links');ref.setAuthor('Wendy Funnell | ZINC Digital')
-for i,(fn,title,sub) in enumerate([(architecture,'Give each article a real purpose','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Make the next link useful','Help readers find related answers and reach the service page when they are ready.')],1):
+for i,(fn,title,sub) in enumerate([(architecture,'Organise articles by subject','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Link related articles','Help readers find related answers and reach the service page when they are ready.')],1):
     page(ref,i,title,sub);draw_ref(ref,fn,145,H-170,300)
     para(ref,'Read the article for planning advice and launch checks. There is no required number of articles or URL folder.',36,88,W-72,10);ref.linkURL(URL,(36,42,W-36,65),relative=0);ref.showPage()
 ref.save()
