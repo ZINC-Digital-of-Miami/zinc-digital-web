@@ -21,10 +21,12 @@
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.2",
     "astro": "7.4.5",
+    "jquery": "3.7.1",
     "mammoth": "1.13.0",
     "marked": "18.0.14",
     "nodemailer": "10.3.1",
     "parse5": "8.0.1",
+    "underscore": "1.13.8",
     "unpdf": "1.8.1"
   },
   "devDependencies": {

@@ -43,14 +43,29 @@ Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(trackingPrivac
 Astro.csp?.insertDirective("font-src 'self' data:");
 Astro.csp?.insertStyleHash(`sha256-${createHash('sha256').update(criticalDisplayCss).digest('base64')}`);
 const analytics = analyticsEnabled(import.meta.env.PUBLIC_ANALYTICS, import.meta.env.VERCEL_ENV);
+const subscriptionPage = route.template === 'subscribe';
+const signupConnect = subscriptionPage ? ' https://listgrowth.ctctcdn.com https://visitor2.constantcontact.com https://www.google.com' : '';
+const signupImages = subscriptionPage ? ' https://static.ctctcdn.com https://www.google.com https://www.gstatic.com' : '';
+const signupFrames = subscriptionPage ? ' https://www.google.com https://recaptcha.google.com' : '';
+if (subscriptionPage && Astro.csp) {
+  for (const source of ['https://static.ctctcdn.com', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/']) Astro.csp.insertScriptResource(source);
+  Astro.csp.insertStyleResource('https://static.ctctcdn.com');
+  // Exact native form styling and its initial empty scaffold; no broad inline-style exception.
+  for (const hash of ['sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=', 'sha256-RFPveeozBO426yl1kpNoF4xHnyy2OZfe/A30kby0jjg='] as const) Astro.csp.insertStyleHash(hash);
+  if (!analytics) {
+    Astro.csp.insertDirective(`connect-src 'self'${signupConnect}`);
+    Astro.csp.insertDirective(`img-src 'self' data:${signupImages}`);
+    Astro.csp.insertDirective(`frame-src${signupFrames}`);
+  }
+}
 if (analytics && Astro.csp) {
   Astro.csp.insertScriptResource('https://www.clarity.ms');
   Astro.csp.insertScriptResource('https://scripts.clarity.ms');
   // Google Ads also loads its view-through conversion endpoint as a script.
   Astro.csp.insertScriptResource('https://googleads.g.doubleclick.net');
-  Astro.csp.insertDirective("connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net https://*.clarity.ms https://c.bing.com");
-  Astro.csp.insertDirective("img-src 'self' data: https://ad.doubleclick.net https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://*.clarity.ms https://c.bing.com");
-  Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");
+  Astro.csp.insertDirective(`connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://ad.doubleclick.net https://*.clarity.ms https://c.bing.com${signupConnect}`);
+  Astro.csp.insertDirective(`img-src 'self' data: https://ad.doubleclick.net https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://*.clarity.ms https://c.bing.com${signupImages}`);
+  Astro.csp.insertDirective(`frame-src https://www.googletagmanager.com${signupFrames}`);
 }
 const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
 const posts=route.blogCategory?allPosts.filter(p=>p.primaryService === route.blogCategory):allPosts;

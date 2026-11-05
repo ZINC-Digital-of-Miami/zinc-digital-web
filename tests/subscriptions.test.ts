@@ -6,6 +6,8 @@ import {subscriptionTopics, subscriptionTopic, subscriptionHref} from '../src/li
 test('subscription choices cover every registered service exactly once', () => {
   assert.deepEqual(subscriptionTopics.map(topic => topic.slug).sort(), [...SERVICE_SLUGS].sort());
   assert.equal(new Set(subscriptionTopics.map(topic => topic.slug)).size, subscriptionTopics.length);
+  assert.equal(new Set(subscriptionTopics.map(topic => topic.listId)).size, subscriptionTopics.length);
+  for (const topic of subscriptionTopics) assert.match(topic.listId, /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/);
 });
 
 test('a contextual subscription selects one exact subject without broadening consent', () => {
