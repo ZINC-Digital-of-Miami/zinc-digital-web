@@ -1,5 +1,6 @@
 ---
 import IntelligenceScenario from './IntelligenceScenario.astro';
+import {serviceEditorial} from '../data/service-editorial';
 import IntelligenceHero from './IntelligenceHero.astro';
 import NeuralNetwork from './NeuralNetwork.astro';
 import { businessIntelligenceQuestions, businessIntelligenceScenarios } from '../data/business-intelligence';
@@ -13,7 +14,8 @@ const project=caseBy('zinc-fusion-v16');
 ---
 <div class="bi-platform">
 <section class="bi-hero bi-dark"><div class="bi-shell bi-hero-grid"><div class="bi-hero-copy"><p class="bi-eyebrow"><span class="bi-signal-dot"></span> Business intelligence / Custom platforms</p>
-<h1>Your next<br />{' '}move is in<br />{' '}<em>your data.</em></h1>
+<h1>{serviceEditorial['business-intelligence'].heading}</h1>
+<p class="bi-hero-tagline">Your next move is in your data.</p>
 <p class="bi-hero-lede">We build intelligence platforms that connect your data, uncover hidden patterns, and help you decide where to act.</p>
 <div class="bi-hero-actions"><a class="bi-button bi-primary" href="/contact/?service=business-intelligence">Discuss your platform </a><a class="bi-text-link" href="#connections">Explore the connections </a></div>
 <p class="bi-hero-note">Built for your business. Your systems. Your decisions.</p>

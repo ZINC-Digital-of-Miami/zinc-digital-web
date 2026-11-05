@@ -205,3 +205,12 @@ test('resending a content question retains Wendy routing and no-JS errors retain
  const answer=formAnswer(out);assert.ok('form' in answer);
  if('form' in answer){assert.equal(answer.form.values?.intent,'message');assert.equal(answer.form.values?.message,'Keep this text');}
 });
+test('first-website proposals reach storage and notification through JSON and no-JavaScript intake',async()=>{
+ const body={...good(),service:'web-design',website:'',message:'We need our first website.'};
+ const requests=[post(body),post(new URLSearchParams(body).toString(),{'content-type':'application/x-www-form-urlencoded'},SITE+'/contact/send/')];
+ for(const req of requests){
+  const f=fake();assert.deepEqual(await run(req,f),{kind:'ok',lead:true});
+  assert.equal(f.rows[0].website,'');assert.deepEqual(f.rows[0].services,['web-design']);
+  assert.equal(f.sent[0].to,'jaymie@zincdigital.co');assert.deepEqual(f.calls,['reserve','send','update']);
+ }
+});
