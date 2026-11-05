@@ -16,13 +16,21 @@ function compactSignals(value:unknown){
  const {metadata:_,...rest}=s;
  return {...rest,metadataValues:[...groups.values()]};
 }
+/** Lossless model encoding; retained evidence keeps the readable heading objects. */
+function compactContent(value:unknown){
+ const content=record(value);if(!content||!Array.isArray(content.headings))return value;
+ const rows=content.headings.map(record);
+ if(rows.some(h=>!h||typeof h.level!=='string'||typeof h.text!=='string'||Object.keys(h).some(k=>k!=='level'&&k!=='text')))return value;
+ const {headings:_,...rest}=content;
+ return {...rest,headingRows:rows.map(h=>[h!.level,h!.text])};
+}
 /** Keep every page/period and issue, without paying Claude to reread pass objects or entire daily-series tables. */
 export function reviewContext(evidence:readonly {id:string;[key:string]:unknown}[]){
  return evidence.map(item=>{
   if(item.id.startsWith('page:')){
    const a=record(item.analysis);if(!a||!Array.isArray(a.checks))return item;
    const {categories:_,checks,...analysis}=a;
-   return {...item,signals:compactSignals(item.signals),analysis:{...analysis,passedCheckIds:checks.filter(c=>record(c)?.status==='pass').map(c=>record(c)?.id),checks:checks.filter(c=>record(c)?.status!=='pass')}};
+   return {...item,signals:compactSignals(item.signals),content:compactContent(item.content),analysis:{...analysis,passedCount:checks.filter(c=>record(c)?.status==='pass').length,checks:checks.filter(c=>record(c)?.status!=='pass')}};
   }
   if(item.id==='page-performance'&&Array.isArray(item.pages))return {...item,pages:item.pages.map(value=>{
    const page=record(value);if(!page)return value;
