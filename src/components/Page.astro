@@ -1,4 +1,5 @@
 ---
+import SubscriptionSignup from './SubscriptionSignup.astro';
 import BeforeAfter from './BeforeAfter.astro';
 import DeviceComposition from './DeviceComposition.astro';
 import ClientMaterialCase from './ClientMaterialCase.astro';
@@ -198,6 +199,8 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
   </section>
   <PageRail path={route.path} title={t === "blog" && !categoryService ? "Insights" : route.title} />
 )}
+
+{t === 'subscribe' && <SubscriptionSignup />}
 
 {svc && (<>
   <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>

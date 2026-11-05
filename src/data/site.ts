@@ -254,7 +254,7 @@ export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { mo
 export const excerpt = (p: Post, n = 180) => { if (p.excerpt) return p.excerpt; const t = p.blocks.find((b) => b.type === 'p')?.runs?.map((r) => r.text).join('') || ''; return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t; };
 
 // ---- routes ----
-export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'blog' | 'article' | 'author' | 'location' | 'privacy' | 'terms' | '404';
+export type Template = 'home' | 'services' | 'service' | 'work' | 'case' | 'about' | 'contact' | 'thanks' | 'subscribe' | 'blog' | 'article' | 'author' | 'location' | 'privacy' | 'terms' | '404';
 export type Route = { path: string; template: Template; title: string; slug?: string; layer?: Layer; published?: string; modified?:string; metaTitle?:string; metaDescription?:string; noindex?:boolean; blogCategory?:string };
 const route = (path: string, template: Template, title: string, extra: Partial<Route> = {}): Route => ({ path, template, title, ...extra,metaTitle:extra.metaTitle||pageEditorial[path]?.metaTitle,metaDescription:extra.metaDescription||pageEditorial[path]?.metaDescription });
 export const routes: Route[] = [
@@ -271,6 +271,7 @@ export const routes: Route[] = [
   route('/locations/miami/', 'location', 'AI Search & Business Intelligence in Miami', {slug:'miami',metaTitle:'Miami AI Search Optimization & Business Intelligence',metaDescription:'ZINC serves Miami businesses with AI-search optimization, business intelligence and connected website work. Explore the approach and local design projects.'}),
   route('/locations/panama-city/', 'location', 'AI Search & Business Intelligence in Panama City', {slug:'panama-city',metaTitle:'Panama City AI Search Optimization & Business Intelligence',metaDescription:'Work with ZINC from our Panama City base on AI-search visibility, business intelligence and connected websites. See local work and prepare your first inquiry.'}),
   route('/thanks/', 'thanks', 'Inquiry received'),
+  route('/subscribe/', 'subscribe', 'Choose your how-tos', {metaTitle:'Subscribe to ZINC How-tos',metaDescription:'Choose practical ZINC how-tos by topic, from Web Design and Shopify to search, advertising and Business Intelligence.',noindex:true}),
   route('/blog/', 'blog', 'Notes on the work'),
   ...services.map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:categoryEditorial[s.slug].description})),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, modified:p.modifiedGmt, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
@@ -280,7 +281,7 @@ export const routes: Route[] = [
 ];
 export const notFoundRoute: Route = { path: '/404/', template: '404', title: 'Page not found' };
 // Pages excluded from sitemap / indexing (plus /admin/ and /api/ by prefix, see middleware).
-export const noindexPaths = new Set(['/thanks/', '/404/']);
+export const noindexPaths = new Set(['/thanks/', '/404/', '/subscribe/']);
 
 export const svcBy = (slug: string) => services.find((s) => s.slug === slug)!;
 export const caseBy = (slug: string) => cases.find((c) => c.slug === slug)!;

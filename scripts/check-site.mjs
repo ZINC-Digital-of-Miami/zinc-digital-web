@@ -33,7 +33,7 @@ for (const rel of htmlFiles) pages.push({ rel, html: await readFile(path.join(di
 // ---- expected route set. Keep the migrated snapshot and authored additions distinct. ----
 const SERVICE_SLUGS = ['shopify','web-design','apps','seo','local-seo','ai-search-optimization','google-search-ads','shopping-ads','social-ads','tiktok-ads','business-intelligence'];
 const CASE_SLUGS = ['carla-funk-photography','ballad-health','meade-tractor','general-shale','us-oil-solutions','las-vegas-safety','summit-marine-development','zinc-fusion-v16','the-lampstand-va','straight-street-ministries','bear-claw-usa','felon-motorwerk','miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
-const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'locations/miami', 'locations/panama-city', 'thanks', 'blog', 'privacy', 'terms', '404'];
+const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intelligence', 'about', 'contact', 'locations/miami', 'locations/panama-city', 'thanks', 'subscribe', 'blog', 'privacy', 'terms', '404'];
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
 const POST_SLUGS = authoredArticles.map((p) => p.slug);
@@ -75,7 +75,7 @@ check(ballad.includes('Enterprise SEO') && ballad.includes('2018') && ballad.inc
 for (const p of pages) check(!/once upon a book club|once-upon-a-book-club|onceuponabookclub|ouabc/i.test(p.html), p.rel + ' still references Once Upon a Book Club');
 for (const file of await readdir(distDir, { recursive: true })) check(!/ouabc|once-upon|book-?club/i.test(String(file)), 'dist/' + file + ' is a Once Upon a Book Club file');
 const SITE = 'https://www.zincdigital.co';
-const NOINDEX_PAGES = ['thanks/index.html', '404/index.html'];
+const NOINDEX_PAGES = ['thanks/index.html', '404/index.html', 'subscribe/index.html'];
 const readText = async (rel) => { try { return await readFile(path.join(distDir, rel), 'utf8'); } catch { return null; } };
 const sitemap = await readText('sitemap.xml');
 check(sitemap !== null, 'dist/sitemap.xml missing');
@@ -123,7 +123,7 @@ for (const [key, a] of Object.entries(siteAssets)) {
 }
 
 // ---- per page ----
-const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html']);
+const NOINDEX_OK = new Set(['thanks/index.html', '404.html', '404/index.html', 'subscribe/index.html']);
 const PLACEHOLDER = /\[(RECEIPT|OWNER CONFIRM|LOGO|PHOTO PENDING|PLACEHOLDER|TODO)[^\]]*\]|Receipt pending|\bTBD\b|\bTODO\b|\bFIXME\b|lorem ipsum|coming soon|placeholder text/i;
 // Every build is production: no demo or preview wording anywhere.
 const PREVIEW_WORDING = /design preview|mockup|Demo inquiry|sample information|Inquiry preview|Demo confirmation|Marked preview|non-sending demo/i;
