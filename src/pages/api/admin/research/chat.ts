@@ -6,7 +6,7 @@ import {createServerClient} from '../../../../lib/supabase';
 import {input,reply,fail} from '../../../../lib/admin-http';
 import {uuid} from '../../../../lib/admin-input';
 import {models} from '../../../../lib/research/models';
-import {question,sourcesPrompt,provider,answer,citations} from '../../../../lib/research/chat';
+import {question,questionHistory,sourcesPrompt,provider,answer,citations} from '../../../../lib/research/chat';
 import {codexConnection,enqueueCodexJob,readCodexJob} from '../../../../lib/codex-jobs';
 import {researchSources} from '../../../../lib/research/retrieval';
 import {CODEX_MODEL,CODEX_EFFORT} from '../../../../lib/codex-state';
@@ -39,14 +39,12 @@ export const POST:APIRoute=async ctx=>{
   const db=createServerClient(ctx).schema('research');
   const started=await db.rpc('start_question',{p_project:body.project_id,p_chat:body.chat_id||null,p_question:text,p_model:model.id});
   if(started.error)return reply({error:started.error.message.includes('rate limit')?'You have reached 20 questions in 10 minutes. Try again shortly.':'The chat could not be started.'},started.error.message.includes('rate limit')?429:502);
-  const chat=started.data[0].chat_id;
+  const {chat_id:chat,message_id:messageId}=started.data[0];
   const assistant=await db.from('messages').insert({chat_id:chat,role:'assistant',content:'',status:'streaming',model:model.id}).select('id').single();
   if(assistant.error)return reply({error:'The answer could not be prepared.'},502);
   try{
    const sources=await researchSources(db,body.project_id,text);
-   const history=await db.from('messages').select('role,content').eq('chat_id',chat).eq('status','done').order('id',{ascending:false}).limit(12);
-   if(history.error)throw new Error('Chat history could not be loaded.');
-   const messages=history.data.reverse().filter(m=>['user','assistant'].includes(m.role));
+   const messages=await questionHistory(db,chat,messageId);
    if(model.value==='codex'){
     const job=await enqueueCodexJob(ctx,'research',{instructions:sourcesPrompt(sources),input:JSON.stringify(messages),chat_id:chat,assistant_id:assistant.data.id,sources});
     return reply({job_id:job.id,chat_id:chat},202);
