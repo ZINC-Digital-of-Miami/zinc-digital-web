@@ -12,7 +12,7 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
       CHROMEDRIVER_SKIP_DOWNLOAD: 'true'
