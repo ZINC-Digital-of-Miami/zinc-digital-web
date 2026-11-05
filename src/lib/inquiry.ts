@@ -46,8 +46,8 @@ export function validate(body: InquiryBody): Validation {
   for (const f of ['name', 'email'] as const) if (!v[f] || v[f].length > LIMITS[f]) return bad(f, MESSAGES.required);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) return bad('email', MESSAGES.required);
   if (v.intent === 'proposal') {
-    for (const f of ['company', 'website'] as const) if (!v[f] || v[f].length > LIMITS[f]) return bad(f, MESSAGES.required);
-    if (!httpUrl(v.website)) return bad('website', MESSAGES.required);
+    if (!v.company || v.company.length > LIMITS.company) return bad('company', MESSAGES.required);
+    if (v.website.length > LIMITS.website || (v.website && !httpUrl(v.website))) return bad('website', MESSAGES.required);
     if (!v.services.length || v.services.some((s) => !SERVICE_SLUGS.includes(s))) return bad('services', MESSAGES.service);
     if (!BUDGETS.includes(v.budget)) return bad('budget', MESSAGES.choice);
     if (!TIMELINES.includes(v.timeline)) return bad('timeline', MESSAGES.choice);
