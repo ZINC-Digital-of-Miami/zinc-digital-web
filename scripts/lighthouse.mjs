@@ -9,6 +9,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
+import {once} from 'node:events';
 
 const args = process.argv.slice(2);
 const opt = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
@@ -16,7 +17,9 @@ const run = opt('--run', 'm2');
 const out = path.join(opt('--out', '/Volumes/Satechi Hub/zinc-digital-web-review/lighthouse'), run);
 const TEMPLATES = [['home', '/'], ['services', '/services/'], ['service', '/services/seo/'], ['work', '/work/'], ['case', '/work/las-vegas-safety/'], ['about', '/about/'], ['contact', '/contact/'], ['thanks', '/thanks/'], ['blog', '/blog/'], ['article', '/blog/seven-digital-channels-which-to-skip/'], ['privacy', '/privacy/'], ['terms', '/terms/'], ['404', '/not-a-real-page/']];
 
-let server; let base = opt('--base');
+let server,chrome; let base = opt('--base');
+const rows = [];
+try {
 if (!base) {
   base = 'http://127.0.0.1:4343';
   server = spawn(process.execPath, ['scripts/serve-static.mjs', '--port', '4343'], { stdio: 'ignore' });
@@ -25,10 +28,8 @@ if (!base) {
 await mkdir(out, { recursive: true });
 const flags = ['--headless=new', '--no-first-run'];
 if (process.env.CHROME_NO_SANDBOX === '1') flags.push('--no-sandbox');
-const chrome = await chromeLauncher.launch({ chromeFlags: flags });
+chrome = await chromeLauncher.launch({ chromeFlags: flags });
 const extraHeaders = process.env.VERCEL_BYPASS_SECRET ? { 'x-vercel-protection-bypass': process.env.VERCEL_BYPASS_SECRET } : undefined;
-const rows = [];
-try {
   for (const [template, p] of TEMPLATES) {
     const r = await lighthouse(base.replace(/\/$/, '') + p, { port: chrome.port, output: 'json', logLevel: 'error', onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'], extraHeaders });
     const lhr = r.lhr; const score = (k) => Math.round((lhr.categories[k]?.score ?? 0) * 100); const num = (k) => lhr.audits[k]?.numericValue;
@@ -38,7 +39,14 @@ try {
     rows.push({ ...row, failing });
     console.log(template.padEnd(9), [row.performance, row.accessibility, row.bestPractices, row.seo].join(' / '), 'LCP ' + row.lcpMs + ' ms', 'CLS ' + row.cls, 'TBT ' + row.tbtMs + ' ms');
   }
-} finally { await chrome.kill(); server?.kill('SIGTERM'); }
+} finally {
+  try { await chrome?.kill(); }
+  finally {
+    if(server && server.exitCode===null && server.signalCode===null){
+      const exited=once(server,'exit');server.kill('SIGTERM');await exited;
+    }
+  }
+}
 const md = ['# Lighthouse ' + run, '', 'Base: ' + base + ' · mobile preset · ' + new Date().toISOString(), '', '| Template | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |', '|---|---|---|---|---|---|---|---|',
   ...rows.map((r) => (r.runtimeError ? `| ${r.template} (${r.path}) | not scored: ${r.runtimeError} |||||||` : `| ${r.template} (${r.path}) | ${r.performance} | ${r.accessibility} | ${r.bestPractices} | ${r.seo} | ${r.lcpMs} ms | ${r.cls} | ${r.tbtMs} ms |`)), '',
   'Lighthouse does not score pages that answer with an error status, so the 404 template is listed without scores.', '',

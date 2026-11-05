@@ -21,6 +21,7 @@ import assert from 'node:assert/strict';
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
+import {build} from 'esbuild';
 // selenium-webdriver, axe-core and chromedriver are NOT root dependencies: they arrive through @axe-core/cli.
 // Resolve them from there so the retained package-lock.json is untouched.
 import { createRequire } from 'node:module';
@@ -33,14 +34,14 @@ const args = process.argv.slice(2);
 const option = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
 const mode = option('--mode', 'quick'); assert.ok(['quick', 'full'].includes(mode), 'mode must be quick or full');
 const root = process.cwd(); const out = path.join(root, '.scratch/verify-site');
-const { authoredArticles } = await import('../src/data/article-library.ts');
-const { authors } = await import('../src/data/authors.ts');
-const posts = authoredArticles.map(p => ({...p, blocks:[]}));
-const slugs = ['shopify', 'web-design', 'apps', 'seo', 'local-seo', 'ai-search-optimization', 'google-search-ads', 'shopping-ads', 'social-ads', 'tiktok-ads', 'business-intelligence'];
-const caseSlugs = ['us-oil-solutions', 'las-vegas-safety', 'summit-marine-development', 'zinc-fusion-v16', 'the-lampstand-va', 'straight-street-ministries', 'bear-claw-usa', 'felon-motorwerk', 'miami-tactical','fraim-cawley-company','smoky-mountain-survival','andrew-neese','porsche-roanoke'];
-const routes = [['/', 'home'], ['/services/', 'services'], ...slugs.map((s) => ['/services/' + s + '/', 'service']), ['/work/', 'work'], ['/work/build/', 'work'], ['/work/demand/', 'work'], ['/work/intelligence/', 'work'], ...caseSlugs.map((s) => ['/work/' + s + '/', 'case']), ['/about/', 'about'], ['/contact/', 'contact'], ['/thanks/', 'thanks'], ['/blog/', 'blog'], ...posts.map((p) => ['/blog/' + p.slug + '/', 'article']), ...authors.map(a=>['/authors/'+a.id+'/', 'author']), ['/privacy/', 'privacy'], ['/terms/', 'terms']];
-assert.equal(routes.length, 23 + caseSlugs.length + posts.length + authors.length, 'route inventory must include every public case, article and author');
-const NOINDEX = new Set(['/thanks/']);
+// Bundle the canonical registry for Node's extension/JSON import rules. Do not
+// maintain a second service/case/category/location inventory in the verifier.
+const registry = await build({entryPoints:[path.join(root,'src/data/site.ts')],bundle:true,platform:'node',format:'esm',write:false,logLevel:'silent'});
+const {routes:siteRoutes,posts,services,noindexPaths} = await import('data:text/javascript;base64,'+Buffer.from(registry.outputFiles[0].text).toString('base64'));
+const slugs = services.map(s=>s.slug);
+const routes = siteRoutes.map(r=>[r.path,r.template]);
+const NOINDEX = new Set([...noindexPaths,...siteRoutes.filter(r=>r.noindex).map(r=>r.path)]);
+if(args.includes('--inventory-only')){console.log(JSON.stringify({routes,noindex:[...NOINDEX]}));process.exit(0);}
 const JS_BUDGET = 15 * 1024;
 const SNOW = 'rgb(245, 246, 247)', NEAR_BLACK = 'rgb(10, 10, 11)';
 const base = option('--base', 'http://127.0.0.1:4329');
@@ -129,7 +130,12 @@ try {
         const imageResponse = await fetch(base + new URL(socialImage).pathname);
         check(imageResponse.ok && /image\/webp/.test(imageResponse.headers.get('content-type') || ''), route + ' social image response');
       }
-    } else check(/^https:\/\/www\.zincdigital\.co\/og\/[a-z]+\.png$/.test(socialImage), route + ' og:image');
+    } else {
+      const validImage=/^https:\/\/www\.zincdigital\.co\/(?:_astro\/[^/?]+\.(?:webp|png|jpe?g)|og\/[a-z-]+\.png)(?:\?dpl=[A-Za-z0-9_-]+)?$/.test(socialImage);
+      check(validImage,route+' og:image');
+      if(route==='/')check(/\/_astro\/zinc-badge\.[^/?]+\.webp(?:\?|$)/.test(socialImage), 'homepage keeps the approved machine-head social image');
+      if(validImage){const imageResponse=await fetch(base+new URL(socialImage).pathname);check(imageResponse.ok&&/^image\//.test(imageResponse.headers.get('content-type')||''),route+' social image response');}
+    }
     const main = decode(html.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ' ').match(/<main[\s\S]*<\/main>/)?.[0].replace(/<\/?(?:a|strong|em|b|i|span|code|abbr)\b[^>]*>/g, '').replace(/<[^>]+>/g, ' ') || '').replace(/\s+/g, ' ');
     // Privacy and Terms render no legal body until the owner's approved text is in src/data/legal.ts (R2.6).
     const legalPending = (template === 'privacy' && !privacyApproved.sections.length) || (template === 'terms' && !termsApproved.sections.length);
@@ -271,7 +277,7 @@ try {
   for (const [id, v] of [['name', 'Review Visitor'], ['company', 'Review Company'], ['email', 'reviewer@example.test'], ['website', 'https://example.test']]) await driver.findElement(By.id('inquiry-' + id)).sendKeys(v);
   await driver.findElement(By.css('[data-next]')).click(); await driver.executeScript('document.getElementById("inquiry-budget").selectedIndex=2;document.getElementById("inquiry-timeline").selectedIndex=1'); await driver.findElement(By.css('[data-next]')).click();
   await driver.findElement(By.id('inquiry-message')).sendKeys('Inquiry text for the local browser check.');
-  const lastLabel = await driver.executeScript('return document.querySelector("[data-next]").textContent'); check(lastLabel === 'Send inquiry', 'last step offers Send inquiry (got "' + lastLabel + '")');
+  const lastLabel = await driver.executeScript('return document.querySelector("[data-next]").textContent'); check(lastLabel === 'Request a proposal', 'last step offers Request a proposal (got "' + lastLabel + '")');
   // Replace fetch in this isolated test page: no request can create a real inquiry.
   await driver.executeScript(`window.fetch=()=>new Promise(resolve=>{window.resolveInquiryTest=()=>resolve(new Response(JSON.stringify({error:'Complete the required fields with valid information',field:'email'}),{status:422,headers:{'content-type':'application/json'}}))})`);
   await driver.findElement(By.css('[data-next]')).click();
