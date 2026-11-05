@@ -60,8 +60,13 @@ def links(pdf=None):
     for x,title,sub in [(32,'Inclusions','What is covered?'),(300,'Frequency','How often?')]:
         d.rect(x,235,228,115,'white',TEAL);d.text(x+16,278,title,24);d.text(x+16,313,sub,21,GREY)
     d.line(260,292,300,292,PINK,True);d.line(268,285,260,292,PINK);d.line(268,299,260,292,PINK)
-    d.text(32,390,'Frequency to inclusions:',23,INK);d.text(32,423,'check what you are comparing.',22,GREY)
+    d.text(32,390,'Useful peers link across.',23,INK);d.text(32,423,'Each article links to pillar + service.',22,GREY)
     d.rect(32,463,496,90,'white',LINE);d.text(52,500,'PRICE ARTICLE',23,TEAL);d.text(52,533,'Explain the quote factors first.',22)
+    # Both upper articles have direct service links; the price article does too.
+    d.line(32,320,18,320,PINK,True);d.line(18,320,18,650,PINK,True);d.line(18,650,32,650,PINK,True)
+    d.line(528,320,542,320,PINK,True);d.line(542,320,542,650,PINK,True);d.line(542,650,528,650,PINK,True)
+    # Price also returns to the pillar via the outside category rail.
+    d.line(528,125,553,125);d.line(553,125,553,505);d.line(553,505,528,505)
     d.line(280,553,280,605,PINK,True)
     d.rect(32,605,496,90,INK);d.text(52,642,'SERVICE / QUOTE PAGE',22,'white');d.text(52,675,'Request a regular-cleaning quote.',22,'white')
     d.text(32,739,'Teal: links to and from the category',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
@@ -76,7 +81,7 @@ def page(c,n,title,sub=''):
     c.setFont('Avenir',10);c.setFillColor(HexColor(GREY));c.drawString(36,H-63,'ZINC DIGITAL  /  WENDY FUNNELL  /  CONTENT PLANNING')
     c.setFont('AvenirBold',23);c.setFillColor(HexColor(INK));c.drawString(36,H-103,title)
     if sub: para(c,sub,36,H-126,W-72,10)
-    c.setFont('Avenir',8);c.setFillColor(HexColor(GREY));c.drawString(36,27,'zincdigital.co  ·  5 November 2026  ·  v1.1');c.drawRightString(W-36,27,str(n))
+    c.setFont('Avenir',8);c.setFillColor(HexColor(GREY));c.drawString(36,27,'zincdigital.co  ·  5 November 2026  ·  v1.2');c.drawRightString(W-36,27,str(n))
 
 def para(c,s,x,y,width,size=11,leading=None):
     leading=leading or size*1.45
@@ -99,7 +104,7 @@ def draw_ref(c,fn,x,y,width):
 
 ref=canvas.Canvas(str(OUT/'content-hub-architecture.pdf'),pagesize=A4)
 ref.setTitle('Blog categories, articles and links');ref.setAuthor('Wendy Funnell | ZINC Digital')
-for i,(fn,title,sub) in enumerate([(architecture,'Organise articles by subject','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Link related articles','Help readers find related answers and reach the service page when they are ready.')],1):
+for i,(fn,title,sub) in enumerate([(architecture,'Organise articles by subject','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Link related articles','Each article links to its pillar and service; useful peer links help readers continue.')],1):
     page(ref,i,title,sub);draw_ref(ref,fn,145,H-170,300)
     para(ref,'Read the article for planning advice and launch checks. There is no required number of articles or URL folder.',36,88,W-72,10);ref.linkURL(URL,(36,42,W-36,65),relative=0);ref.showPage()
 ref.save()
@@ -108,10 +113,10 @@ c=canvas.Canvas(str(OUT/'content-hub-workbook.pdf'),pagesize=A4)
 c.setTitle('Blog planning workbook');c.setAuthor('Wendy Funnell | ZINC Digital')
 page(c,1,'Plan your articles and links','Worked example: an imaginary business, not a client result. Use the next pages for your own plan.')
 draw_ref(c,architecture,157,H-165,280)
-para(c,'Pillar: a blog category aligned with a primary service or product collection. The category groups its articles; the service page presents the actual offer. There is no required page count or word count.',36,115,W-72,11)
+para(c,'This model uses a service-aligned category overview as its pillar. Each article links to that pillar and service. Comprehensive guides can be pillar pages in other models. There is no page or word quota.',36,115,W-72,11)
 para(c,'Complete fields in a PDF reader that supports forms, or print. Save your own copy. Read the full article at zincdigital.co/blog/build-a-content-hub-people-can-use/.',36,72,W-72,9);c.showPage()
 page(c,2,'Choose the subject and purpose','Decide who the article is for and what it should help them understand or do.')
-for i,(name,label) in enumerate([('business','Offer and business goal'),('reader','Reader and decision they need to make'),('scope','Pillar category / aligned service or collection'),('include','Included blog subjects'),('exclude','Excluded subjects and why'),('next','Where the reader can enquire or buy')]):field(c,name,label,36,H-175-i*95,W-72,54)
+for i,(name,label) in enumerate([('business','Offer and business goal'),('reader','Reader and decision they need to make'),('scope','One primary service / pillar URL / service URL'),('include','Included blog subjects'),('exclude','Excluded subjects and why'),('next','Where the reader can enquire or buy')]):field(c,name,label,36,H-175-i*95,W-72,54)
 c.showPage()
 page(c,3,'Map the questions to pages','One task per row. Similar wording does not automatically require separate pages.')
 for i in range(4):
@@ -119,7 +124,7 @@ for i in range(4):
     field(c,f'task{i}',f'{i+1}. Customer question',36,y,250,42)
     field(c,f'url{i}','Preferred page / existing URL',305,y,254,42)
     field(c,f'proof{i}','Answer / facts and sources to check',36,y-68,250,42)
-    field(c,f'action{i}','Reader next step / person responsible',305,y-68,254,42)
+    field(c,f'action{i}','Service + pillar links / next step / owner',305,y-68,254,42)
 para(c,'Copy this sheet for more questions. The category groups the articles; each article answers a distinct question. Check for repetition before writing another article.',36,65,W-72,9);c.showPage()
 page(c,4,'Audit the pages and plan the links','Keep, update, combine or create. A combination needs a destination and a redirect check.')
 for i in range(3):

@@ -250,7 +250,7 @@ Inspect the rejected enquiries. If most fall outside the service area, check tar
     layer: 'Intelligence',
     related: ['ai-search-optimization', 'seo', 'business-intelligence'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-05T17:58:02Z',
     markdown: `An AI citation is an observation. It is not a content strategy.
 
 Google says its [existing SEO practices apply to AI Overviews and AI Mode](https://developers.google.com/search/docs/appearance/ai-features). There is no special markup required for those features. Start with the customer question and the evidence available to answer it.
@@ -271,7 +271,7 @@ If a model helps draft or compare ideas, give it the supplied sources and requir
 
 Answer the main question early. Add steps, comparisons or decision criteria where they help. Explain limitations and identify the author or reviewer with relevant experience.
 
-Link to supporting pages with descriptive text. Keep specifications, prices and business details consistent with their source records. The [content-brief workflow](/blog/content-briefs-search-intent-internal-links/) turns this into an editorial handoff.
+Assign the article to one primary service and its matching pillar. Link directly to both, then add supporting pages with descriptive text where they help. For this article, those are [AI search optimization](/services/ai-search-optimization/) and the [AI search pillar](/blog/category/ai-search-optimization/). Cross-links to SEO or BI explain related work without changing that assignment. Keep specifications, prices and business details consistent with their source records. The [content-brief workflow](/blog/content-briefs-search-intent-internal-links/) turns this into an editorial handoff.
 
 ## 4. Check eligibility and access
 
