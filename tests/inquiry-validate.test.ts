@@ -42,7 +42,7 @@ test('every field limit: at the limit passes, one over fails', () => {
 });
 
 test('required fields and formats', () => {
-  for (const f of ['name', 'company', 'email', 'website', 'message']) fails({ ...good(), [f]: '   ' }, f);
+  for (const f of ['name', 'company', 'email', 'message']) fails({ ...good(), [f]: '   ' }, f);
   for (const e of ['ana', 'ana@', 'ana@ruiz', 'a b@c.com']) fails({ ...good(), email: e }, 'email');
   for (const w of ['ruizsupply.com', 'ftp://ruizsupply.com', 'javascript:alert(1)', 'https://']) fails({ ...good(), website: w }, 'website');
   assert.ok(validate({ ...good(), website: 'http://ruizsupply.com/shop' }).ok);
@@ -110,4 +110,12 @@ test('proposal source paths keep canonical article attribution without queries o
  for(const source_path of ['//other.example/','/contact/?email=person@example.com','/blog/a/#fragment','/../admin/']){
   const r=validate({...good(),source_path});assert.ok(r.ok);if(r.ok)assert.equal(r.value.source_path,'/contact/');
  }
+});
+test('a first-website proposal may omit the URL without bypassing supplied-URL validation',()=>{
+ for(const website of [undefined,'','   ']){
+  const result=validate({...good(),service:'web-design',website});
+  assert.equal(result.ok,true);
+  if(result.ok)assert.equal(result.value.website,'');
+ }
+ for(const website of ['javascript:alert(1)','ftp://example.test','https://'])fails({...good(),website},'website');
 });
