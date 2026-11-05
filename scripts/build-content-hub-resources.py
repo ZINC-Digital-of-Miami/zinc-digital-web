@@ -98,14 +98,14 @@ def draw_ref(c,fn,x,y,width):
     c.saveState();c.translate(x,y-h*s);c.scale(s,s);fn(c);c.restoreState()
 
 ref=canvas.Canvas(str(OUT/'content-hub-architecture.pdf'),pagesize=A4)
-ref.setTitle('Content hub architecture and linking reference');ref.setAuthor('Wendy Funnell | ZINC Digital')
+ref.setTitle('Blog categories, articles and links');ref.setAuthor('Wendy Funnell | ZINC Digital')
 for i,(fn,title,sub) in enumerate([(architecture,'Give each article a real purpose','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Make the next link useful','Help readers find related answers and reach the service page when they are ready.')],1):
     page(ref,i,title,sub);draw_ref(ref,fn,145,H-170,300)
     para(ref,'Read the article for planning advice and launch checks. There is no required number of articles or URL folder.',36,88,W-72,10);ref.linkURL(URL,(36,42,W-36,65),relative=0);ref.showPage()
 ref.save()
 
 c=canvas.Canvas(str(OUT/'content-hub-workbook.pdf'),pagesize=A4)
-c.setTitle('Content hub planning workbook');c.setAuthor('Wendy Funnell | ZINC Digital')
+c.setTitle('Blog planning workbook');c.setAuthor('Wendy Funnell | ZINC Digital')
 page(c,1,'Plan your articles and links','Worked example: an imaginary business, not a client result. Use the next pages for your own plan.')
 draw_ref(c,architecture,157,H-165,280)
 para(c,'Pillar: a blog category aligned with a primary service or product collection. The category groups its articles; the service page presents the actual offer. There is no required page count or word count.',36,115,W-72,11)

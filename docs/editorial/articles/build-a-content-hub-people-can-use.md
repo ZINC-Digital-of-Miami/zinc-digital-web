@@ -1,5 +1,5 @@
 ---
-title: "Build a content hub people can actually use"
+title: "How to plan useful blog content for your business"
 slug: build-a-content-hub-people-can-use
 author: "Wendy Funnell"
 author_id: 3
@@ -29,11 +29,11 @@ keywords:
 
 Writing more articles does not automatically make your website more useful. Readers need to find the right answer, understand it and know what to do next.
 
-A useful content hub helps a particular customer understand a subject, explore the questions that matter and take a sensible next step. Decide what each article should help someone understand or do, which questions need separate answers and how the articles relate to what your business offers.
+Start with the questions customers ask about your products or services. Decide which ones your existing articles already answer, where the gaps are and what each new article should help someone understand or do. Group related articles so readers can find the advice they need.
 
-This guide walks through those decisions, with illustrated maps and a checklist to help you check the finished pages.
+This guide shows how to choose subjects, plan articles, connect them with useful links and check the finished pages. It includes a worked example, diagrams and a fillable workbook.
 
-**Take the tools with you:** [Download the six-page content hub workbook (PDF)](/downloads/content-hub-workbook.pdf) for a worked example, fillable planning sheets and the complete checklist. [Download the illustrated page-and-link reference (PDF)](/downloads/content-hub-architecture.pdf) to share with your writer or website team. No email required.
+**Take the tools with you:** [Download the six-page blog planning workbook (PDF)](/downloads/content-hub-workbook.pdf) for a worked example, fillable planning sheets and the complete checklist. [Download the illustrated page-and-link reference (PDF)](/downloads/content-hub-architecture.pdf) to share with your writer or website team. No email required.
 
 ## 1. Start with the service or collection, then its blog category
 
@@ -210,7 +210,7 @@ Google's [AI search guidance](https://developers.google.com/search/docs/appearan
 
 ## Download the planning pack
 
-- [Six-page content hub workbook — fillable PDF](/downloads/content-hub-workbook.pdf): worked example, planning brief, questions and pages, review and linking plan, complete checklist and results record.
+- [Six-page blog planning workbook — fillable PDF](/downloads/content-hub-workbook.pdf): worked example, planning brief, questions and pages, review and linking plan, complete checklist and results record.
 - [Two-page guide to categories, articles and links — PDF](/downloads/content-hub-architecture.pdf): both illustrations with explanations.
 - [Category and article map — SVG](/media/content-hub/pillar-map.svg) and [linking illustration — SVG](/media/content-hub/link-plan.svg): scalable copies for working documents.
 
