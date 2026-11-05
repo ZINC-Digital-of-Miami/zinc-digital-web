@@ -349,7 +349,7 @@ Use one row per claim and original evidence family. If two articles repeat one s
     keywords: ['AI research workflow', 'AI source verification', 'research prompts', 'model selection'],
     authorName: 'Kirk Musick, MS, MBA', authorId: 1, layer: 'Intelligence', related: ['business-intelligence', 'ai-search-optimization'],
     dateGmt: '2026-10-07T00:18:00Z',
-    modifiedGmt: '2026-11-03T14:53:14Z',
+    modifiedGmt: '2026-11-05T20:57:48Z',
     markdown: `A fluent answer is not a research record.
 
 Split AI research into discovery, analysis and verification. Each stage has an output someone else can inspect.
@@ -398,6 +398,8 @@ A second model is another analytical pass, not independent evidence. Resolve dis
 ## Step 6: Keep the decision and its record
 
 Save the question, source table, corrections and recommendation. Record the model or tool used and the research date so the work can be repeated.
+
+For an in-development example, the [ZINC Fusion v16 project overview](/work/zinc-fusion-v16/) describes a procurement workspace that brings market, policy and sentiment information together with source dates and data-availability context. That project illustrates the presentation of evidence; it does not establish that a research conclusion or forecast is correct.
 
 Use [business intelligence](/services/business-intelligence/) to connect the finding with the next action. Keep the source table with the recommendation so someone else can check the reasoning. When the question concerns marketing investment, compare the researched options using the [channel selection criteria](/blog/seven-digital-channels-which-to-skip/).
 
