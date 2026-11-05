@@ -4,6 +4,11 @@ import IntelligenceHero from './IntelligenceHero.astro';
 import NeuralNetwork from './NeuralNetwork.astro';
 import { businessIntelligenceQuestions, businessIntelligenceScenarios } from '../data/business-intelligence';
 import '../styles/business-intelligence.css';
+import {caseBy} from '../data/site';
+import {categoryPosts} from '../data/blog-categories';
+const {posts}=await (await import('../lib/content')).loadPublished();
+const guides=categoryPosts('business-intelligence',posts).slice(0,3);
+const project=caseBy('zinc-fusion-v16');
 
 ---
 <div class="bi-platform">
@@ -84,6 +89,8 @@ import '../styles/business-intelligence.css';
 <h2 class="bi-display">A few useful<br />{' '}questions.</h2>
 <p>A platform designed around the way your business works.</p>
 <a class="bi-text-link bi-ink-link" href="/blog/category/business-intelligence/">Read our Business Intelligence articles </a>
+<ul>{guides.map(post=><li><a class="bi-text-link bi-ink-link" href={"/blog/"+post.slug+"/"}>{post.title}</a></li>)}</ul>
+{project.services.includes("business-intelligence") && <p>Explore <a class="bi-text-link bi-ink-link" href="/work/zinc-fusion-v16/">ZINC Fusion v16</a>, a commodity forecasting platform in development.</p>}
 </div>
 <div class="bi-faq-list">{businessIntelligenceQuestions.map(([question, answer]) => (
         <details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p>

@@ -5,6 +5,7 @@ export const articleResearchGuides: AddedArticle[] = [
   {
     id: 90013,
     slug: 'google-core-update-review',
+    primaryService: 'seo',
     title: 'Google Core Update Review: Find What Changed',
     description: 'Review a Google core update with consistent Search Console comparisons. Separate ranking changes from tracking issues and leave a clear page action list.',
     keywords: ['Google core update review', 'Search Console comparison', 'ranking changes', 'SEO reporting'],
@@ -87,6 +88,7 @@ Add site releases, stock changes, promotions and tracking changes to the same ti
   {
     id: 90014,
     slug: 'holiday-ecommerce-preparation',
+    primaryService: 'shopify',
     title: 'Holiday Ecommerce Preparation: Test Before Launch',
     description: 'Prepare a holiday ecommerce launch with a product, feed, discount and checkout checklist. Confirm stock, delivery promises and tracking before campaigns begin.',
     keywords: ['holiday ecommerce preparation', 'Shopify launch checklist', 'holiday shopping feed', 'checkout testing'],
@@ -166,6 +168,7 @@ Assign a person to stock exceptions, customer messages and stopping ads when the
   {
     id: 90015,
     slug: 'ecommerce-seasonal-campaign-plan',
+    primaryService: 'shopping-ads',
     title: 'A Seasonal Ecommerce Campaign Plan That Fits',
     description: 'Build a seasonal ecommerce plan from demand, stock and delivery dates. Align landing pages, campaign links and review rules before the promotion goes live.',
     keywords: ['seasonal ecommerce campaign plan', 'campaign planning', 'seasonal demand', 'ecommerce promotion'],
@@ -247,6 +250,7 @@ Give each channel a job: email may reach opted-in existing customers, search may
   {
     id: 90016,
     slug: 'research-consensus-report',
+    primaryService: 'business-intelligence',
     title: 'Build a Research Consensus Report You Can Use',
     description: 'Turn research into a decision brief. Check source independence, separate agreement from contradiction and unknowns, and keep each claim tied to evidence.',
     keywords: ['research consensus report', 'source triangulation', 'evidence review', 'decision brief'],
@@ -339,6 +343,7 @@ Use one row per claim and original evidence family. If two articles repeat one s
   {
     id: 90017,
     slug: 'ai-research-workflow',
+    primaryService: 'business-intelligence',
     title: 'AI Research Workflow: Find, Check, Decide',
     description: 'Use AI for research with a repeatable workflow: select tools by capability, collect primary evidence, verify citations and turn findings into a usable decision.',
     keywords: ['AI research workflow', 'AI source verification', 'research prompts', 'model selection'],
@@ -419,6 +424,7 @@ Use one row per decisive factual claim. Open the original URL, record the suppor
   {
     id: 90018,
     slug: 'ai-competitor-research-prompts',
+    primaryService: 'business-intelligence',
     title: 'AI Competitor Research: Prompts That Require Proof',
     description: 'Compare competitors with public evidence and copyable AI prompts. Build an offer matrix, challenge assumptions and keep private revenue and ad spend unknown.',
     keywords: ['AI competitor research prompts', 'competitor analysis', 'public evidence', 'competitive research'],

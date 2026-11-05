@@ -15,6 +15,9 @@ do $$begin
  perform dbtest.blocked('editor cannot change Google configuration',$q$update public.admin_cache set value='{}' where key='google_connection'$q$);
  perform dbtest.blocked('editor cannot rename cache into Google configuration',$q$update public.admin_cache set key='google_connection' where key='dbtest-metrics'$q$);
  execute 'set local role postgres';
+ if exists(select 1 from information_schema.columns where table_schema='public' and table_name='posts' and column_name='primary_service') then
+  execute $q$update public.posts set primary_service='apps' where slug='dbtest-publish'$q$;
+ end if;
  update public.posts set status='published' where slug='dbtest-publish';
  execute 'set local role service_role';
  perform public.publish_all('00000000-0000-4000-8000-00000000a001');

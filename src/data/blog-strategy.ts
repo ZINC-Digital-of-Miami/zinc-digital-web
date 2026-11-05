@@ -62,18 +62,18 @@ export const readingGuides = [
     description: 'Choose the channels, content and measurement that support the business. The calendar is not the strategy.',
     members: [
       'seven-digital-channels-which-to-skip',
-      'content-marketing-plan-that-produces-pipeline',
+      'meta-ads-basics',
+      'tiktok-ads-basics',
+      'paid-media-landing-page-checklist',
       'ga4-ecommerce-event-validation',
       'ga4-utm-naming-conventions',
-      'paid-media-landing-page-checklist',
-      'ecommerce-seasonal-campaign-plan',
+      'business-intelligence-basics',
       'research-consensus-report',
       'ai-research-workflow',
       'ai-competitor-research-prompts',
-      'tiktok-ads-basics',
-      'meta-ads-basics',
-      'business-intelligence-basics',
       'marketing-budgets-during-economic-stress',
+      'ecommerce-seasonal-campaign-plan',
+      'content-marketing-plan-that-produces-pipeline',
       'when-web-design-trends-actually-matter',
     ],
   },
@@ -81,12 +81,16 @@ export const readingGuides = [
 
 export const guideFor = (slug: string) => readingGuides.find(guide => (guide.members as readonly string[]).includes(slug));
 
-// Use only currently published articles, including after an admin draft change.
-export function readingPath<T extends { slug: string }>(slug: string, published: T[]) {
-  const guide = guideFor(slug);
-  if (!guide) return [];
-  const slugs = guide.slug === slug ? guide.members : [guide.slug, ...guide.members];
-  const available = slugs.filter((candidate, i, all) => candidate !== slug && all.indexOf(candidate) === i)
-    .flatMap(candidate => published.find(post => post.slug === candidate) || []);
-  return guide.slug === slug ? available : available.slice(0, 3);
+// Published peers in the assigned service, ordered by the retained editorial guides.
+// Sparse pillars show fewer links; they never borrow unrelated articles to meet a quota.
+export function readingPath<T extends { slug: string; primaryService: string }>(slug: string, published: T[]): T[] {
+  const current=published.find(p=>p.slug===slug);
+  if(!current)return [];
+  const order:readonly string[]=readingGuides.flatMap(guide=>[...guide.members]);
+  const peers=published.filter(p=>p.primaryService===current.primaryService).sort((a,b)=>{
+    const ai=order.indexOf(a.slug),bi=order.indexOf(b.slug);
+    return (ai<0?order.length:ai)-(bi<0?order.length:bi)||a.slug.localeCompare(b.slug);
+  });
+  const index=peers.findIndex(p=>p.slug===slug);
+  return [...new Set([-1,1,2].map(offset=>peers[(index+offset+peers.length)%peers.length]))].filter(p=>p.slug!==slug);
 }

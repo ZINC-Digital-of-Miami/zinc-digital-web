@@ -29,7 +29,7 @@ export const POST: APIRoute = async ctx => {
     else {
       if(!baseline&&!patch.title) return fail('A new post needs a title.');
       const base=baseline ? {title:baseline.title,meta_title:baseline.meta_title,meta_description:baseline.meta_description,status:baseline.status,noindex:baseline.noindex} : {status:'draft',author:'Team ZINC'};
-      const specific=kind==='page'?{path:key,template:baseline!.template}:{slug:key,origin:baseline?'repo':'admin',layer:baseline?.layer || patch.layer || 'Demand'};
+      const specific=kind==='page'?{path:key,template:baseline!.template}:{slug:key,origin:baseline?'repo':'admin',layer:baseline?.layer || patch.layer || 'Demand',primary_service:baseline?.primary_service || patch.primary_service || null};
       result=await sb.from(table).insert({...base,...specific,...patch,updated_by:staff.id}).select('id,updated_at').single();
     }
     if(result.error||!result.data) return reply({error:'The draft could not be saved. Try again.'},502);

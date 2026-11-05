@@ -22,7 +22,7 @@ test('articles retain sources and reading paths; short guides retain their instr
     assert.equal(readingGuides.filter(p=>(p.members as readonly string[]).includes(post.slug)).length, 1);
     // Reading-guide groups are not service-aligned pillar categories. Do not
     // force an unrelated guide link or a uniform numbered outline into prose.
-    assert.ok(readingPath(post.slug, all).length > 0);
+    assert.ok(readingPath(post.slug, all).every(p=>p.primaryService===post.primaryService));
     const author = authorFor(post.authorName);
     assert.ok(post.authorName==='Team ZINC'||(author && authors.includes(author)), post.slug+' needs a known author');
     for (const [, href] of post.markdown.matchAll(/\]\((\/[^)]+)\)/g)) {

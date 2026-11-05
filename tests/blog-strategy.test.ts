@@ -1,18 +1,21 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {authoredArticles as posts} from '../src/data/article-library.ts';
-import {readingGuides,guideFor,readingPath} from '../src/data/blog-strategy.ts';
-test('each canonical article has a reading group and only published destinations',()=>{
+import {readingPath} from '../src/data/blog-strategy.ts';
+test('read next keeps one service owner, excludes self and unpublished destinations',()=>{
  for(const post of posts){
-  assert.equal(readingGuides.filter(p=>(p.members as readonly string[]).includes(post.slug)).length,1);
-  const guide=guideFor(post.slug)!;assert.ok(posts.some(p=>p.slug===guide.slug));
-  const next=readingPath(post.slug,posts);assert.ok(next.length>0);
-  assert.ok(next.every(p=>p.slug!==post.slug));assert.equal(new Set(next.map(p=>p.slug)).size,next.length);
-  if(post.slug!==guide.slug)assert.equal(next[0].slug,guide.slug);
+  const next=readingPath(post.slug,posts);
+  assert.ok(next.every(p=>p.slug!==post.slug && p.primaryService===post.primaryService));
+  assert.equal(new Set(next.map(p=>p.slug)).size,next.length);
  }
+ assert.deepEqual(readingPath('unknown',posts),[]);
+ assert.deepEqual(readingPath(posts[0].slug,[posts[0]]),[]);
 });
-test('reading groups omit unavailable articles without substituting archived content',()=>{
- const withoutGuide=posts.filter(p=>p.slug!=='four-pillars-of-seo-operators-view');
- assert.ok(readingPath('technical-seo-ten-fixes-that-move-rankings',withoutGuide).every(p=>p.slug!=='four-pillars-of-seo-operators-view'));
- assert.deepEqual(readingPath('unknown',posts),[]);assert.deepEqual(readingPath(posts[0].slug,[]),[]);
+test('peer coverage is distributed rather than funnelled to the first articles',()=>{
+ const articles=Array.from({length:8},(_,i)=>({slug:'peer-'+i,primaryService:'seo'}));
+ const inbound=new Map(articles.map(p=>[p.slug,new Set<string>()]));
+ for(const post of articles)for(const next of readingPath(post.slug,articles))inbound.get(next.slug)!.add(post.slug);
+ for(const count of inbound.values())assert.ok(count.size>=3);
+ const without=articles.slice(1);
+ assert.ok(readingPath(without[0].slug,without).every(p=>p.slug!=='peer-0'));
 });

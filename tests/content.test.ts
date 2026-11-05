@@ -7,8 +7,8 @@ test('Markdown escapes executable HTML, rejects unsafe links and external images
  assert.ok(!html.includes('<script>'));assert.ok(!html.includes('href="javascript:'));assert.ok(!html.includes('src="https:'));assert.match(html,/src="\/assets\/photo.webp"/);assert.match(html,/href="https:\/\/example.com\//);
 });
 test('build uses live snapshots, excludes draft posts, adds published admin posts and SEO',()=>{
- const repo:any={id:1,slug:'old',title:'Old',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],related:[]};
- const result=publishedContent([{path:'/',template:'home',title:'Home'},{path:'/blog/old/',template:'article',title:'Old',slug:'old'}],[repo],[{live:{path:'/',meta_title:'Live SEO',noindex:true}}],[{live:{slug:'old',status:'draft'}},{live:{slug:'new',id:'id',origin:'admin',status:'published',title:'Published',layer:'Demand',body:'# Real',meta_description:'Published description'},live_at:'2026-10-05T12:00:00Z'},{live:null}]);
+ const repo:any={id:1,slug:'old',title:'Old',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],primaryService:'seo',related:[]};
+ const result=publishedContent([{path:'/',template:'home',title:'Home'},{path:'/blog/old/',template:'article',title:'Old',slug:'old'}],[repo],[{live:{path:'/',meta_title:'Live SEO',noindex:true}}],[{live:{primary_service:'seo',slug:'old',status:'draft'}},{live:{primary_service:'seo',slug:'new',id:'id',origin:'admin',status:'published',title:'Published',layer:'Demand',body:'# Real',meta_description:'Published description'},live_at:'2026-10-05T12:00:00Z'},{live:null}]);
  assert.deepEqual(result.posts.map(p=>p.slug),['new']);assert.equal(result.posts[0].markdown,'# Real');assert.equal(result.routes[0].metaTitle,'Live SEO');assert.equal(result.routes[0].noindex,true);assert.equal(result.routes.find(r=>r.slug==='new')?.metaDescription,'Published description');assert.ok(!result.routes.some(r=>r.slug==='old'));
 });
 test('unsnapshotted saved fields do not overwrite repository content',()=>{
@@ -18,22 +18,22 @@ test('unsnapshotted saved fields do not overwrite repository content',()=>{
 });
 test('a published layer edit reaches the article route and preserves its first publication date',()=>{
  const date='2026-09-01T12:00:00Z';
- const post:any={slug:'existing',title:'Original',date,dateGmt:date,author:{name:'Team ZINC'},layer:'Build',blocks:[],related:[]};
- const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',layer:'Build',published:date}],[post],[],[{live:{slug:'existing',title:'Updated',layer:'Demand',status:'published',published_at:date},live_at:'2026-10-05T14:00:00Z'}]);
+ const post:any={slug:'existing',title:'Original',date,dateGmt:date,author:{name:'Team ZINC'},layer:'Build',blocks:[],primaryService:'seo',related:[]};
+ const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',layer:'Build',published:date}],[post],[],[{live:{primary_service:'seo',slug:'existing',title:'Updated',layer:'Demand',status:'published',published_at:date},live_at:'2026-10-05T14:00:00Z'}]);
  assert.equal(result.posts[0].layer,'Demand');assert.equal(result.routes[0].layer,'Demand');
  assert.equal(result.routes[0].published,date);assert.equal(result.posts[0].date,date);
 });
 test('real published modification dates reach article schema and sitemap without resetting publication history',()=>{
  const original='2026-09-01T12:00:00Z',updated='2026-10-05T14:00:00Z';
- const post:any={slug:'existing',title:'Original',date:original,dateGmt:original,modifiedGmt:original,author:{name:'Team ZINC'},layer:'Build',blocks:[],related:[]};
- const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',published:original}],[post],[],[{live:{slug:'existing',title:'Updated',status:'published',updated_at:updated},live_at:'2026-10-06T12:00:00Z'}]);
+ const post:any={slug:'existing',title:'Original',date:original,dateGmt:original,modifiedGmt:original,author:{name:'Team ZINC'},layer:'Build',blocks:[],primaryService:'seo',related:[]};
+ const result=publishedContent([{path:'/blog/existing/',template:'article',title:'Original',slug:'existing',published:original}],[post],[],[{live:{primary_service:'seo',slug:'existing',title:'Updated',status:'published',updated_at:updated},live_at:'2026-10-06T12:00:00Z'}]);
  assert.equal(result.posts[0].modifiedGmt,updated);assert.equal(result.routes[0].modified,updated);assert.equal(result.posts[0].dateGmt,original);assert.equal(result.routes[0].published,original);
 });
 test('article SEO comes only from its published post snapshot',()=>{
- const repo:any={slug:'existing',title:'Original',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],related:[]};
+ const repo:any={slug:'existing',title:'Original',date:'2026-09-01',dateGmt:'2026-09-01',author:{name:'Author'},layer:'Build',blocks:[],primaryService:'seo',related:[]};
  const route:any={path:'/blog/existing/',template:'article',title:'Original',slug:'existing'};
  assert.throws(()=>publishedContent([route],[repo],[{live:{path:route.path,meta_title:'Wrong owner'}}],[]),/must be stored in Posts/);
- const published=publishedContent([route],[repo],[],[{live:{slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
+ const published=publishedContent([route],[repo],[],[{live:{primary_service:'seo',slug:'existing',meta_title:'Post title',meta_description:'Post description',noindex:false}}]).routes[0];
  assert.equal(published.metaTitle,'Post title');assert.equal(published.metaDescription,'Post description');assert.equal(published.noindex,false);
 });
 test('page modification comes from its actual saved snapshot rather than bulk publish time',()=>{

@@ -52,7 +52,7 @@ const { route, form } = Astro.props;
 const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
 const posts=route.blogCategory?categoryPosts(route.blogCategory,allPosts):allPosts;
 const categoryService=route.blogCategory?services.find(s=>s.slug===route.blogCategory):undefined;
-const pillarCategories=services.filter(s=>allPosts.some(p=>p.related.includes(s.slug)));
+const pillarCategories=services;
 const {renderArticleMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
@@ -177,7 +177,7 @@ const publishedGuide = articleGuide && posts.find(p => p.slug === articleGuide.s
 const nextArticles = post ? readingPath(post.slug, posts) : [];
 const feat = posts[0];
 const categoryGuides = readingGuides.filter(pillar=>posts.some(p=>p.slug===pillar.slug));
-const topics = services.filter((s) => posts.some((p) => p.related.includes(s.slug)));
+const topics = services.filter((s) => posts.some((p) => p.primaryService === s.slug));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 ---
 {t !== 'case' && t !== 'work' && (
@@ -191,7 +191,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
       {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
       {svc && <a class="zn-hero-action" href={'/contact/?service='+svc.slug}>Request a proposal </a>}
       {t === 'services' && <><a class="zn-hero-action" href="#service-directory">Find your service </a><div class="zn-service-art"><ServicesVisual /></div></>}
-      {post && <nav class="p-article-categories lab" aria-label="Blog categories">Categories: {services.filter(s=>post.related.includes(s.slug)).map(s=><a href={"/blog/category/"+s.slug+"/"}>{s.title}</a>)}</nav>}
+      {post && <nav class="p-article-categories lab" aria-label="Blog pillar">Pillar: {services.filter(s=>s.slug===post.primaryService).map(s=><a href={"/blog/category/"+s.slug+"/"}>{s.title}</a>)}</nav>}
       {categoryService && <p><a class="arrow" href={"/services/"+categoryService.slug+"/"}>Explore our {categoryService.title} service</a></p>}
       {articleImage && <figure class="p-article-hero"><Img k={articleImage.asset} alt={articleImage.alt} sizes="(max-width: 900px) 90vw, 1100px" widths={[480,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" /></figure>}
     </div>
@@ -219,8 +219,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 
 
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">Before the work begins</span><h2 class="disp p-sec">Useful questions.</h2></div><div class="p-faq rv">{svc.questions.map(([qq, a]) => <details><summary>{qq}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></div></section>
-  {svc.slug === 'tiktok-ads' && allPosts.some(p => p.slug === 'tiktok-ads-basics') && <section class="p-band thin"><div class="wrap"><p>Planning a first campaign? Read our <a href="/blog/tiktok-ads-basics/">TikTok campaign setup guide</a>, part of our <a href="/blog/category/social-ads/">paid social articles</a>.</p></div></section>}
-  {categoryPosts(svc.slug, allPosts).length > 0 && <section class="p-band thin"><div class="wrap"><p><a class="arrow" href={'/blog/category/' + svc.slug + '/'}>Read our {svc.title} articles</a></p></div></section>}
+  {<section class="p-band thin"><div class="wrap"><p><a class="arrow" href={'/blog/category/' + svc.slug + '/'}>Read our {svc.title} articles</a></p>{categoryPosts(svc.slug,allPosts).length > 0 && <ul class="p-links">{categoryPosts(svc.slug,allPosts).slice(0,3).map(p=><li><a href={"/blog/"+p.slug+"/"}>{p.title}</a></li>)}</ul>}</div></section>}
   <section class="p-band thin"><div class="wrap"><span class="kick rv">Connect the next part</span><h2 class="disp p-sec rv">Start with {svc.title.toLowerCase()}.</h2><div class="p-related rv"><a class="btn fill" href={link('/contact/', { service: svc.slug })}>Request a proposal</a><span class="brk"></span>{svc.related.map((s) => <a href={'/services/' + s + '/'}>{svcBy(s).title} </a>)}</div></div></section>
 </>)}
 
@@ -285,15 +284,16 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
   <section class="p-band thin"><div class="wrap p-split"><div class="rv"><span class="kick">How an engagement runs</span><h2 class="disp p-sec">A clear working sequence.</h2></div><ol class="p-seq rv rv-stag">{sequence.map(([name, body], i) => <li><span class="lab">{pad(i)}</span><div><h3 class="disp">{name}</h3><p>{body}</p></div></li>)}</ol></div></section>
 </>)}
 
-{t === 'blog' && feat && (<>
+{t === 'blog' && (<>
   <nav class="wrap p-category-nav" aria-label="Service-aligned blog categories"><span class="lab">Browse by service</span><div><a class="p-chip" href="/blog/">All articles</a>{pillarCategories.map(s=><a class="p-chip" href={'/blog/category/'+s.slug+'/'} aria-current={s.slug===route.blogCategory?'page':undefined}>{s.title}</a>)}</div></nav>
-  <section class="p-band studio-feature"><div class="wrap"><a class="p-feat p-feat-illustrated" href={'/blog/' + feat.slug + '/'}>{articleImages[feat.slug] && <Img k={articleImages[feat.slug].asset} alt={articleImages[feat.slug].alt} class="p-feat-image" sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px" widths={[480,640,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" />}<div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article </span></div></a></div></section>
+  {feat && <section class="p-band studio-feature"><div class="wrap"><a class="p-feat p-feat-illustrated" href={'/blog/' + feat.slug + '/'}>{articleImages[feat.slug] && <Img k={articleImages[feat.slug].asset} alt={articleImages[feat.slug].alt} class="p-feat-image" sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px" widths={[480,640,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" />}<div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article </span></div></a></div></section>}
+  {!feat && <section class="p-band thin"><div class="wrap"><h2 class="disp p-sec">Articles are being prepared.</h2><p class="p-muted">Explore the service above for its scope and a relevant next step.</p></div></section>}
 {categoryGuides.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{categoryGuides.map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide </span></a>)}</nav></div></section>}
   {posts.length > 1 && <section class="p-band thin"><div class="wrap" data-blog>
     <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
     <div class="p-filter rv" style="margin-top:14px" data-blog-topics><span class="lab" style="margin-right:10px">Topic</span><button type="button" class="p-chip sm on" data-topic="All" aria-pressed="true">All topics</button>{topics.map((s) => <button type="button" class="p-chip sm" data-topic={s.slug} aria-pressed="false">{s.title}</button>)}</div>
     <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{posts.length - 1} articles</p>
-    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.related.join(' ')}>{articleImages[p.slug] && <a class="p-art-image" href={'/blog/' + p.slug + '/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><a class="arrow" href={'/blog/' + p.slug + '/'}>Read the full article </a></article>)}</div>
+    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.primaryService}>{articleImages[p.slug] && <div class="p-art-image"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></div>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><span class="arrow" aria-hidden="true">Read the full article </span></article>)}</div>
     <div class="p-empty" data-empty hidden><h2 class="disp p-sec">No articles in this view yet.</h2><p class="p-muted">Clear the filters to see the full archive.</p><button class="btn fill" type="button" data-clear-filter>Clear filters</button></div>
   </div></section>}
 </>)}
@@ -308,11 +308,11 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
     </article>
     {nextArticles.length > 0 && <nav class="p-reading" aria-label="Related articles"><span class="kick">{articleGuide?.slug === post.slug ? 'Put the framework to work' : 'Keep the pieces connected'}</span><h2 class="disp p-sec">Read next.</h2>{publishedGuide && articleGuide?.slug !== post.slug && <p class="p-muted">This article is part of the <a href={'/blog/' + publishedGuide.slug + '/'}>{articleGuide?.title} guide</a>.</p>}<ul class="p-links">{nextArticles.map(p => <li><a href={'/blog/' + p.slug + '/'}><span>{p.title}</span></a></li>)}</ul></nav>}
   </div></section>
-  <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><p class="p-muted" style="margin-top:28px">A question about this article? <a class="arrow" href="/contact/#message-wendy" data-message-open="content_question">Message Wendy </a></p><div class="p-author-services"><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Related services</h3><ul class="p-links">{post.related.map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles </a></div></div></div></section>
-  <ProposalDrawer related={post.related} sourcePath={route.path} />
+  <section class="p-band thin"><div class="wrap"><ArticleShare path={route.path} title={post.title}/><p class="p-muted" style="margin-top:28px">A question about this article? <a class="arrow" href="/contact/#message-wendy" data-message-open="content_question">Message Wendy </a></p><div class="p-author-services"><div class="rv"><h3 class="disp" style="font-size:32px;margin-bottom:14px">Explore {svcBy(post.primaryService).title}</h3><p><a class="arrow" href={"/services/"+post.primaryService+"/"}>Our {svcBy(post.primaryService).title} service</a></p><p><a href={"/blog/category/"+post.primaryService+"/"}>More {svcBy(post.primaryService).title} articles</a></p><ul class="p-links">{post.related.filter(s=>s!==post.primaryService).map((s) => <li><a href={'/services/' + s + '/'}><span>{svcBy(s).title}</span></a></li>)}</ul><a class="arrow" href="/blog/">Return to all articles </a></div></div></div></section>
+  <ProposalDrawer primaryService={post.primaryService} sourcePath={route.path} />
 </>)}
 
-{profile && <section class="p-band thin"><div class="wrap"><div class="p-author-profile"><Img k={profile.photo} alt={profile.schemaName} sizes="(max-width: 700px) 120px, 220px" loading="eager" fetchpriority="high" decoding="sync"/><div><span class="lab">{profile.role}</span><p class="p-body">{profile.bio}</p><p class="lab p-muted">{profile.topics}</p></div></div><h2 class="disp p-sec">Articles by {profile.schemaName.split(' ')[0]}.</h2>{authorPosts.length ? <div class="p-articles">{authorPosts.map(p=><article class="p-art">{articleImages[p.slug] && <a class="p-art-image" href={'/blog/'+p.slug+'/'} aria-hidden="true" tabindex="-1"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px"/></a>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h3><a href={'/blog/'+p.slug+'/'}>{p.title}</a></h3><p>{excerpt(p)}</p><a class="arrow" href={'/blog/'+p.slug+'/'}>Read the article </a></article>)}</div> : <p class="p-muted">New articles are being prepared.</p>}</div></section>}
+{profile && <section class="p-band thin"><div class="wrap"><div class="p-author-profile"><Img k={profile.photo} alt={profile.schemaName} sizes="(max-width: 700px) 120px, 220px" loading="eager" fetchpriority="high" decoding="sync"/><div><span class="lab">{profile.role}</span><p class="p-body">{profile.bio}</p><p class="lab p-muted">{profile.topics}</p></div></div><h2 class="disp p-sec">Articles by {profile.schemaName.split(' ')[0]}.</h2>{authorPosts.length ? <div class="p-articles">{authorPosts.map(p=><article class="p-art">{articleImages[p.slug] && <div class="p-art-image"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px"/></div>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h3><a href={'/blog/'+p.slug+'/'}>{p.title}</a></h3><p>{excerpt(p)}</p><span class="arrow" aria-hidden="true">Read the article </span></article>)}</div> : <p class="p-muted">New articles are being prepared.</p>}</div></section>}
 
 {legal.length > 0 && <section class="p-band"><div class="wrap p-legal"><div class="rv"><p class="lab">Last updated <time datetime="2026-11-04">{legalUpdated}</time></p>{legal.map(([h, p, links], i) => <section><span class="lab">{String(i + 1).padStart(2, '0')}</span><div><h2>{h}</h2><p>{p}</p>{links && <ul class="p-legal-links">{links.map(({label,href}) => <li><a href={href}>{label}</a></li>)}</ul>}</div></section>)}</div></div></section>}
 
@@ -330,3 +330,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
   import { initBlog, initForm } from '../scripts/page';
   initBlog(); initForm();
 </script>
+
+<style>
+.p-art{position:relative}.p-art h2 a::after,.p-art h3 a::after{content:"";position:absolute;inset:0}.p-art:focus-within{outline:2px solid var(--ink);outline-offset:6px}
+</style>

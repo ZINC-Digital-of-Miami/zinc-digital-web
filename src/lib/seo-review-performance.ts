@@ -4,7 +4,7 @@ import {services} from '../data/site';
 import {categoryPath,categoryPosts} from '../data/blog-categories';
 import type {PagePerformance,PerformancePage,PerformanceMetrics} from './seo-review-dashboard';
 
-type Post={slug:string;title:string;related:readonly string[]};
+type Post={slug:string;title:string;primaryService:string;related:readonly string[]};
 type NativeRow={dimensionValues?:{value:string}[];metricValues?:{value:string}[];keys?:string[];clicks?:number;impressions?:number};
 type NativeReport={rows?:NativeRow[];rowCount?:number;metadata?:{timeZone?:string;subjectToThresholding?:boolean;samplingMetadatas?:unknown[];dataLossFromOtherRow?:boolean}};
 const finite=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>=0?v:null;
