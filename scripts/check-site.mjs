@@ -37,9 +37,8 @@ const STATIC = ['', 'services', 'work', 'work/build', 'work/demand', 'work/intel
 const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
 const POST_SLUGS = authoredArticles.map((p) => p.slug);
-const listedCategories = [...(pages.find(p=>p.rel==='blog/index.html')?.html || '').matchAll(/href="\/blog\/category\/([a-z-]+)\/"/g)].map(m=>m[1]);
 const CATEGORY_SLUGS = SERVICE_SLUGS;
-check(SERVICE_SLUGS.every(s=>listedCategories.includes(s)), 'blog navigation must include all 11 service pillars');
+check(SERVICE_SLUGS.every(s=>pages.find(p=>p.rel==='services/'+s+'/index.html')?.html.includes('href="/blog/category/'+s+'/"')), 'all 11 services must link their matching blog pillars');
 const expected = [
   ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
   ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
@@ -280,7 +279,7 @@ for (const s of CASE_SLUGS) {
 }
 // ---- blog ----
 const blog = pages.find((p) => p.rel === 'blog/index.html');
-if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === POST_SLUGS.length - 1, 'blog/index.html should list every post except the featured one'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter bars'); }
+if (blog) { check((blog.html.match(/class="p-art"/g) || []).length === POST_SLUGS.length, 'blog/index.html should list every post in the filterable archive'); check(POST_SLUGS.every(s=>blog.html.includes('href="/blog/'+s+'/"')), 'blog/index.html must retain every article destination'); check(!blog.html.includes('aria-label="Service-aligned blog categories"') && !blog.html.includes('class="p-feat ') && !blog.html.includes('aria-label="Article guides"'), 'root archive must start with filters rather than upper navigation, featured or framework blocks'); check(blog.html.includes('data-blog-filters') && blog.html.includes('data-blog-topics'), 'blog/index.html lacks the filter controls'); }
 for (const category of CATEGORY_SLUGS) {
   const p=pages.find(p=>p.rel==='blog/category/'+category+'/index.html');
   check(p?.html.includes('Service-aligned blog categories'),category+' lacks pillar category navigation');
@@ -324,7 +323,10 @@ for (const s of POST_SLUGS) {
     check((article?.image === social || (article?.image?.['@id'] === SITE+'/blog/'+s+'/#primaryimage' && JSON.parse(ld)['@graph']?.find(node=>node['@type']==='WebPage')?.primaryImageOfPage?.url===social)) && article?.keywords?.length >= 3 && article?.articleSection, 'blog/' + s + ' article metadata disagrees with its image or topic');
   }
 }
-if (blog) check(/aria-label="Article guides"/.test(blog.html), 'blog/index.html lacks the guide navigation');
+for (const category of CATEGORY_SLUGS) {
+  const page = pages.find(p=>p.rel==='blog/category/'+category+'/index.html');
+  if (page?.html.includes('Start with the framework')) check(/aria-label="Article guides"/.test(page.html), category+' lacks its guide navigation');
+}
 // ---- contact ----
 const contact = pages.find((p) => p.rel === 'contact/index.html');
 if (contact) { check(contact.html.includes('data-inquiry-form'), 'contact lacks the form'); check((contact.html.match(/<input\b[^>]*\bdata-service\b/g) || []).length === SERVICE_SLUGS.length, 'contact form should list every service as a checkbox'); }

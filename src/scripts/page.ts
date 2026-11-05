@@ -7,24 +7,28 @@ export function initBlog() {
   const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-blog-list] > [data-layer]'));
   const count = root.querySelector<HTMLElement>('[data-result-count]')!;
   const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+  const layerSelect = root.querySelector<HTMLSelectElement>('[data-layer-select]')!;
+  const topicSelect = root.querySelector<HTMLSelectElement>('[data-topic-select]')!;
   let layer = 'All', topic = 'All';
   const apply = () => {
     let n = 0;
     cards.forEach((c) => { const show = (layer === 'All' || c.dataset.layer === layer) && (topic === 'All' || (c.dataset.topics || '').split(' ').includes(topic)); c.hidden = !show; if (show) n++; });
     count.textContent = n + ' article' + (n === 1 ? '' : 's');
     empty.hidden = n > 0;
-    root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => { const on = b.dataset.filter === layer; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
-    root.querySelectorAll<HTMLButtonElement>('[data-topic]').forEach((b) => { const on = b.dataset.topic === topic; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+    layerSelect.value = layer;
+    topicSelect.value = topic;
+    root.querySelectorAll<HTMLButtonElement>('[data-clear-filter]').forEach(button => { button.disabled = layer === 'All' && topic === 'All'; });
     root.querySelector('[data-blog-list]')?.classList.add('in');
   };
-  root.addEventListener('click', (e) => {
-    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button');
-    if (!b) return;
-    if (b.dataset.filter) layer = b.dataset.filter;
-    else if (b.dataset.topic) topic = b.dataset.topic;
-    else if (b.hasAttribute('data-clear-filter')) { layer = 'All'; topic = 'All'; }
-    else return;
+  root.addEventListener('change', (event) => {
+    if (event.target !== layerSelect && event.target !== topicSelect) return;
+    layer = layerSelect.value;
+    topic = topicSelect.value;
     apply();
+  });
+  root.addEventListener('click', (event) => {
+    if (!(event.target as Element).closest('[data-clear-filter]')) return;
+    layer = 'All'; topic = 'All'; apply();
   });
   const want = new URLSearchParams(location.search).get('layer');
   if (want && ['Build', 'Demand', 'Intelligence'].includes(want)) { layer = want; apply(); }
