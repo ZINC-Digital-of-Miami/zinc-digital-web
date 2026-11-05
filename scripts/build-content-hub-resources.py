@@ -64,7 +64,7 @@ def links(pdf=None):
     d.rect(32,463,496,90,'white',LINE);d.text(52,500,'PRICE ARTICLE',23,TEAL);d.text(52,533,'Explain the quote factors first.',22)
     d.line(280,553,280,605,PINK,True)
     d.rect(32,605,496,90,INK);d.text(52,642,'SERVICE / QUOTE PAGE',22,'white');d.text(52,675,'A relevant next action when ready.',22,'white')
-    d.text(32,739,'Teal: category ↔ its blogs',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
+    d.text(32,739,'Teal: category ↔ its articles',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
     return d
 
 architecture().save('pillar-map.svg');links().save('link-plan.svg')
@@ -120,7 +120,7 @@ for i in range(4):
     field(c,f'url{i}','Preferred page / existing URL',305,y,254,42)
     field(c,f'proof{i}','Answer / facts and sources to check',36,y-68,250,42)
     field(c,f'action{i}','Reader next step / person responsible',305,y-68,254,42)
-para(c,'Copy this sheet for more questions. The category groups the articles; each blog answers a distinct question. Check for repetition before writing another article.',36,65,W-72,9);c.showPage()
+para(c,'Copy this sheet for more questions. The category groups the articles; each article answers a distinct question. Check for repetition before writing another article.',36,65,W-72,9);c.showPage()
 page(c,4,'Audit the pages and plan the links','Keep, update, combine or create. A combination needs a destination and a redirect check.')
 for i in range(3):
     y=H-170-i*185

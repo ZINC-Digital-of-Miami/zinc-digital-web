@@ -136,7 +136,7 @@ Use one row per business function: editing, forms, bookings or checkout. Record 
 }, {
   "id": 94002,
   "slug": "build-a-content-hub-people-can-use",
-  "title": "How to plan useful blog content for your business",
+  "title": "How to organise your website’s blog",
   "description": "Organise useful articles around your services, answer customer questions and connect related pages. Includes a workbook, diagrams and launch checklist.",
   "keywords": [
     "content hub",
@@ -153,12 +153,12 @@ Use one row per business function: editing, forms, bookings or checkout. Record 
     "ai-search-optimization"
   ],
   "dateGmt": "2026-10-30T14:04:34Z",
-  modifiedGmt: '2026-11-05T16:28:04Z',
-  markdown: `Writing more articles does not automatically make your website more useful. Readers need to find the right answer, understand it and know what to do next.
+  modifiedGmt: '2026-11-05T16:32:02Z',
+  markdown: `A content hub is a way of organising the blog section of a website. It groups related articles into categories and connects them with relevant links. The category page introduces the subject and helps readers find the articles they need.
 
-Start with the questions customers ask about your products or services. Decide which ones your existing articles already answer, where the gaps are and what each new article should help someone understand or do. Group related articles so readers can find the advice they need.
+For a business website, those categories should relate to the products or services you offer. Within each category, plan articles around the questions customers ask. Check what you have already published, identify the gaps and give each new article a real purpose.
 
-This guide shows how to choose subjects, plan articles, connect them with useful links and check the finished pages. It includes a worked example, diagrams and a fillable workbook.
+This guide explains how to organise those categories, decide which articles belong in each one and link them to related advice and relevant service or product pages. The downloadable workbook is a separate planning tool, with a worked example and checklist.
 
 **Take the tools with you:** [Download the six-page blog planning workbook (PDF)](/downloads/content-hub-workbook.pdf) for a worked example, fillable planning sheets and the complete checklist. [Download the illustrated page-and-link reference (PDF)](/downloads/content-hub-architecture.pdf) to share with your writer or website team. No email required.
 
@@ -166,13 +166,13 @@ This guide shows how to choose subjects, plan articles, connect them with useful
 
 A **pillar is a main blog category aligned with a primary service or product collection**. It groups articles about that subject. For a cleaning business, “Regular home cleaning” can be a pillar aligned with that service. For a shop, a product collection such as “Garden lighting” can be the main subject of the category.
 
-The **category landing page** is the hub: it introduces the topic and helps readers find the relevant blogs. It should explain what belongs there and organise the articles around useful questions. An article can be a substantial guide, comparison or how-to inside that category; the article itself is not the category.
+The **category landing page** is the hub: it introduces the topic and helps readers find the relevant articles. It should explain what belongs there and organise the articles around useful questions. An article can be a substantial guide, comparison or how-to inside that category; the article itself is not the category.
 
 A **topic cluster** is a related set of articles within the pillar. It lets you plan narrower questions without creating a new top-level category for every keyword. The separate service or collection page explains what you sell and helps someone enquire or buy.
 
 This is ZINC's editorial planning model, not a special Google ranking feature. Google's [SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) supports logical organisation and useful information. Neither a category name nor a fixed number of posts guarantees authority.
 
-![A regular-home-cleaning pillar category aligned with that primary service houses a choosing guide and four related blogs. A separate service page explains the offer and how to request a quote.](/media/content-hub/pillar-map.svg)
+![A regular-home-cleaning pillar category aligned with that primary service contains a choosing guide and four related articles. A separate service page explains the offer and how to request a quote.](/media/content-hub/pillar-map.svg)
 
 *The category groups the articles. The service page sells the service. A broad guide is one article within the category, not a replacement for the category.*
 
@@ -189,7 +189,7 @@ Our **illustrative example** is an imaginary residential cleaning business. Thes
 - **Subjects to leave out:** office cleaning, holiday-rental changeovers and detailed end-of-tenancy advice. Those serve different situations and may need their own collections if the business offers them.
 - **Where to enquire:** the regular-cleaning service page and quote form.
 
-“Everything about cleaning” gives you no useful limit. “Why weekly cleaning is good” is a blog subject within it. The category should cover related questions while leaving room for other subjects elsewhere on the website.
+“Everything about cleaning” gives you no useful limit. “Why weekly cleaning is good” is an article subject within it. The category should cover related questions while leaving room for other subjects elsewhere on the website.
 
 Gather actual customer enquiries, existing pages and input from the people delivering the service. Reliable Search Console data can add questions and landing pages to investigate. It describes searches where your site appeared, rather than every question your market might ask.
 
@@ -231,7 +231,7 @@ The workbook has space for the old address, action and replacement. Do not appro
 
 ## 5. Build the category hub and useful articles inside it
 
-The category hub should introduce the main topic, explain its relationship to your service or collection, and make its blogs easy to find. A bare chronological list gives the customer little help choosing where to start.
+The category hub should introduce the main topic, explain its relationship to your service or collection, and make its articles easy to find. A bare chronological list gives the customer little help choosing where to start.
 
 Organise the posts by task: understanding the service, comparing options, planning the budget and getting ready. Give each link a useful description. If a comprehensive introductory guide would help, publish it within the category and link to it from the category page.
 
@@ -247,7 +247,7 @@ The inclusions page needs the real exclusions; the price page needs the genuine 
 
 A list of URLs in a spreadsheet does not create the connections on your website. Name where each link belongs and why a reader would use it.
 
-![The category hub links to its blogs, which offer a route back to the category. Related articles link to one another where useful, and readers can visit the separate service page to enquire.](/media/content-hub/link-plan.svg)
+![The category hub links to its articles, which offer a route back to the category. Related articles link to one another where useful, and readers can visit the separate service page to enquire.](/media/content-hub/link-plan.svg)
 
 *The category helps readers find articles. The comparison helps them choose, and the quote link lets them enquire. Every page does not need to link to every other page.*
 
@@ -257,7 +257,7 @@ For the example:
 - The comparison offers a clearly labelled route back to its category and links to inclusions where readers need to check what they are comparing.
 - The price article links to the quote request after explaining the information required.
 - The service page offers explanatory guidance for customers who are not ready to enquire.
-- Relevant navigation or existing content links to the category hub so the blogs can be found.
+- Relevant navigation or existing content links to the category hub so the articles can be found.
 
 Use link wording such as **what's included in a regular clean**. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains crawlable links and meaningful wording. Ask your website team to verify that links work on a phone and reach the intended addresses.
 
@@ -265,9 +265,9 @@ You do not need to move every URL into a new folder. Keep useful addresses unles
 
 ## 7. See how this article fits ZINC's SEO pillar
 
-This article belongs to the [SEO blog category](/blog/category/seo/), aligned with our [SEO service](/services/seo/). That category groups the articles about SEO, including content planning, technical search work and measurement. It is the pillar; this how-to is one blog within it.
+This article belongs to the [SEO blog category](/blog/category/seo/), aligned with our [SEO service](/services/seo/). That category groups the articles about SEO, including content planning, technical search work and measurement. It is the pillar; this how-to is one article within it.
 
-Within that category, these related blogs form the content-planning cluster:
+Within that category, these related articles form the content-planning cluster:
 
 - [Write a content brief](/blog/content-briefs-search-intent-internal-links/) to assign the question, evidence and links.
 - [Audit internal links](/blog/internal-link-audit/) to check whether the planned routes exist.
@@ -299,7 +299,7 @@ Use **Pass / Fix / Not applicable**, record evidence and name the person respons
 
 **Links and technical delivery**
 
-- The category hub links to the blogs it houses, which display a route back to the category.
+- The category hub links to the articles it houses, which display a route back to the category.
 - Contextual links connect related answers where helpful, without compulsory links to everything.
 - Relevant navigation or content reaches the category hub; no required page is isolated.
 - Links reach correct live destinations; redirects and replacement links are verified.
@@ -321,15 +321,15 @@ Use **Pass / Fix / Not applicable**, record evidence and name the person respons
 - Existing performance is recorded with dates and known limitations.
 - A review date and triggers are assigned: changed services, questions, links or instructions.
 
-Fix failures that prevent an accurate answer or a completed task before calling the hub ready. Mark not applicable only with a reason. An unanswered check is not a pass.
+Fix failures that prevent an accurate answer or a completed task before publishing the changes. Mark not applicable only with a reason. An unanswered check is not a pass.
 
 ## 9. Review the results and improve the articles
 
-Review the pillar category and its blogs as a group as well as individually. Search Console can help compare relevant queries and pages. Website analytics may show movement between pages and completed enquiries where those events work correctly.
+Review the pillar category and its articles as a group as well as individually. Search Console can help compare relevant queries and pages. Website analytics may show movement between pages and completed enquiries where those events work correctly.
 
 Choose measures suited to the purpose: visibility for relevant questions, visits to useful answers, quote requests and questions still reaching your team. A preparation guide can help an already-booked customer even if it rarely starts an enquiry.
 
-Record the starting results, comparable review dates, changes and the person responsible for following up. Allow for low volumes, seasonality and other campaigns. Enquiry growth alone does not prove the hub caused it. A download count shows interest in a tool, not successful use.
+Record the starting results, comparable review dates, changes and the person responsible for following up. Allow for low volumes, seasonality and other campaigns. Enquiry growth alone does not prove the hub caused it. A workbook download shows interest, but does not tell you whether someone completed it or improved their blog.
 
 If the articles attract the wrong readers, reconsider the subjects and advice. If readers cannot find the next answer, improve the links. When the offer changes, update the affected pages together. Use our [content refresh process](/blog/content-refresh-review/) for the maintenance work.
 
