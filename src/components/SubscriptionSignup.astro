@@ -1,0 +1,53 @@
+---
+import {subscriptionTopics} from '../lib/subscription-topics';
+---
+<section class="p-band thin"><div class="wrap subscribe-layout" data-subscription-page data-clarity-mask="true">
+  <div class="subscribe-intro">
+    <span class="kick">Your subjects. Your inbox.</span>
+    <h2 class="disp">Useful how-tos.<br />Chosen by you.</h2>
+    <p>Follow the parts of the work that matter to you: building a website, finding customers or making sense of your business data.</p>
+    <p>A Web Design subscription is for Web Design how-tos. Other subjects are your choice.</p>
+    <p class="subscribe-note">Project inquiries and email subscriptions are separate. Sending an inquiry does not sign you up for updates.</p>
+  </div>
+  <div class="subscribe-form-panel" aria-labelledby="subscription-heading">
+    <span class="lab">Email subscriptions</span>
+    <h2 class="disp" id="subscription-heading" data-subscription-heading>Pick your topics.</h2>
+    <p class="subscribe-unavailable" id="subscription-availability">Email signup isn’t open yet. You can explore the topics below; no subscription will be created.</p>
+    <fieldset class="subscribe-topics" aria-describedby="subscription-selection">
+      <legend>Which how-tos would you like?</legend>
+      {['Build','Demand','Intelligence'].map(group=><div class="subscribe-topic-group"><h3 class="lab">{group}</h3><div>{subscriptionTopics.filter(topic=>topic.group===group).map(topic=><label><input type="checkbox" name="topics" value={topic.slug} /><span>{topic.title}</span></label>)}</div></div>)}
+    </fieldset>
+    <p class="subscribe-selection" id="subscription-selection" role="status" data-subscription-selection>No topics selected. Choose one or several.</p>
+    <label class="subscribe-email" for="subscription-email">Email address</label>
+    <input class="subscribe-email-input" id="subscription-email" type="email" autocomplete="email" placeholder="you@example.com" disabled aria-describedby="subscription-availability" />
+    <button class="btn fill" type="button" disabled aria-describedby="subscription-availability">Subscribe</button>
+    <p class="subscribe-disclosure">When signup opens, you’ll receive how-tos for the topics you select. <a href="/privacy/">Read our Privacy Policy</a>.</p>
+  </div>
+</div></section>
+<script>
+ import '../scripts/subscriptions';
+</script>
+<style>
+ .subscribe-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,100px);align-items:start;padding-bottom:60px}
+ .subscribe-intro h2{font-size:clamp(38px,4vw,60px);line-height:1.06;letter-spacing:-.045em;margin:20px 0 28px}
+ .subscribe-intro>p{font-size:17px;line-height:1.8;max-width:44ch;color:var(--muted);margin:18px 0}
+ .subscribe-intro .subscribe-note{font-size:14px;border-top:1px solid var(--line);padding-top:24px;margin-top:32px}
+ .subscribe-form-panel{border-top:3px solid var(--tealt);padding-top:26px;min-width:0}
+ .subscribe-form-panel h2{font-size:clamp(30px,3vw,42px);line-height:1.12;margin:18px 0;letter-spacing:-.035em}
+ .subscribe-form-panel p{font-size:16px;line-height:1.7;color:var(--muted);margin:18px 0}
+ .subscribe-unavailable{border-left:2px solid var(--tealt);padding:4px 0 4px 18px}
+ .subscribe-topics{border:0;padding:0;margin:30px 0 0;min-width:0}
+ .subscribe-topics legend{font-size:17px;font-weight:600;padding:0 0 16px}
+ .subscribe-topic-group{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+ .subscribe-topic-group h3{font-size:12px;margin:14px 0;overflow-wrap:anywhere}
+ .subscribe-topic-group label{display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 0;font-size:16px;line-height:1.5;cursor:pointer}
+ .subscribe-topic-group input{appearance:auto;width:20px;height:20px;margin:0;flex-shrink:0;accent-color:var(--tealt)}
+ .subscribe-topic-group input:focus-visible{outline:3px solid var(--tealt);outline-offset:4px}
+ .subscribe-form-panel .subscribe-selection{font-size:14px;padding-top:14px;border-top:1px solid var(--line)}
+ .subscribe-email{display:block;font-size:16px;margin:28px 0 10px}
+ .subscribe-email-input{display:block;width:100%;min-height:48px;border:1px solid var(--line);border-radius:0;background:var(--bg);color:var(--muted);font:inherit;padding:12px}
+ .subscribe-form-panel .btn{min-height:48px;margin:16px 0 0;white-space:normal}
+ .subscribe-form-panel :disabled{cursor:not-allowed;opacity:.65}
+ .subscribe-form-panel .subscribe-disclosure{font-size:14px}.subscribe-disclosure a{color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
+ @media(max-width:800px){.subscribe-layout{grid-template-columns:1fr;gap:36px}.subscribe-topic-group{grid-template-columns:1fr;gap:0}.subscribe-topic-group h3{margin:4px 0 10px}}
+</style>

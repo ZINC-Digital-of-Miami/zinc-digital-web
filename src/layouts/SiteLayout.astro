@@ -1,6 +1,8 @@
 ---
 import { clientOrder } from '../data/client-work';
 import { caseHeroes } from '../data/case-heroes';
+import SubscribeCallout from '../components/SubscribeCallout.astro';
+import {subscriptionTopic} from '../lib/subscription-topics';
 import Closing from "../components/Closing.astro";
 import criticalDisplayFont from '../assets/fonts/manrope-latin-800.woff2?inline';
 import criticalLogo from '../assets/zinc-white.webp?inline';
@@ -54,6 +56,10 @@ const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
 const posts=route.blogCategory?allPosts.filter(p=>p.primaryService === route.blogCategory):allPosts;
 const t = route.template;
 const path = route.path;
+// Use the explicit editorial assignment once available; never infer it from related links.
+const subscriptionArticle = t === 'article' ? posts.find(p => p.slug === route.slug) as {primaryService?: string} | undefined : undefined;
+const subscribeTopic = subscriptionTopic(route.blogCategory || (t === 'service' ? route.slug : subscriptionArticle?.primaryService))?.slug;
+const showSubscribe = ['home','services','service','blog','article','author'].includes(t);
 const title = brandTitle(route.metaTitle || route.title);
 const desc = route.metaDescription || (route.template==='article'?excerpt(posts.find(p=>p.slug===route.slug)!,155):describe(route));
 const canonical = SITE + path;
@@ -182,6 +188,7 @@ const showCta = false;
             <a class={navOn('services')} href="/services/" aria-current={t === 'services' ? 'page' : undefined}>Services</a>
             <a class={navOn('about')} href="/about/" aria-current={t === 'about' ? 'page' : undefined}>About</a>
             <a class={navOn('blog')} href="/blog/" aria-current={t === 'blog' ? 'page' : undefined}>Insights</a>
+            <a class:list={["nlink", {on: t === "subscribe"}]} href="/subscribe/" aria-current={t === "subscribe" ? "page" : undefined}>Subscribe</a>
           </nav>
           <button type="button" class="theme-t" id="themeToggle" aria-label="Switch between light and dark"><span class="ic" aria-hidden="true"></span></button>
           <a class="btn fill" href="/contact/" style="min-height:44px;padding:0 18px">Start an inquiry</a>
@@ -193,16 +200,17 @@ const showCta = false;
         <a class={navOn('services')} href="/services/">Services</a>
         <a class={navOn('about')} href="/about/">About</a>
         <a class={navOn('blog')} href="/blog/">Insights</a>
+        <a href="/subscribe/">Subscribe</a>
         <a href="/contact/">Contact</a>
       </nav>
       <dialog class="mobile-menu" id="mobileMenu" aria-labelledby="mobileMenuTitle">
         <div class="menu-background" aria-hidden="true"><img src={wordmark.src} alt="" width={wordmark.width} height={wordmark.height} /></div>
         <div class="menu-head"><a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} /></a><button type="button" class="menu-close" data-menu-close aria-label="Close navigation" autofocus><span aria-hidden="true"></span></button></div>
-        <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Insights','/blog/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span></a>)}</nav></div>
+        <div class="menu-body"><h2 class="menu-title" id="mobileMenuTitle">Explore ZINC</h2><nav class="menu-links" aria-label="Mobile navigation">{[['Work','/work/'],['Services','/services/'],['About','/about/'],['Insights','/blog/'],['Subscribe','/subscribe/'],['Contact','/contact/']].map(([name, href], i) => <a href={href} class:list={{on: path.startsWith(href)}} aria-current={path === href ? 'page' : undefined} style={'--menu-order:' + i}><span>{name}</span></a>)}</nav></div>
         <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div>
       </dialog>
 
-      <main id="main" style={caseHero ? "--case-accent:"+caseHero.accent : undefined}><slot /></main>
+      <main id="main" style={caseHero ? "--case-accent:"+caseHero.accent : undefined}><slot />{showSubscribe && <div class="wrap"><SubscribeCallout topic={subscribeTopic} /></div>}</main>
 
       {showCta && (
         <section class="band cta">
@@ -218,14 +226,14 @@ const showCta = false;
         </section>
       )}
 
-      {!customClosing && t !== 'home' && t !== 'contact' && t !== 'thanks' && <Closing />}
+      {!customClosing && t !== 'home' && t !== 'contact' && t !== 'thanks' && t !== 'subscribe' && <Closing />}
       <footer class="foot">
         {t !== 'thanks' && t !== 'work' && <div class="mq" aria-hidden="true"><div class="mqtrack" style="animation-duration:30s"><span class="mqi">Start an inquiry <span class="o">or message Jaymie</span> <span class="d">·</span></span><span class="mqi">Start an inquiry <span class="o">or message Jaymie</span> <span class="d">·</span></span></div></div>}
         <div class="wrap">
           {t === 'home' && <div class="fbig rv" aria-hidden="true"><span>Build.</span><span>Demand.</span><span>Intelligence.</span></div>}
           <div class="fgrid">
             {STUDIOS.map((s) => <div><h2><a href={'/locations/'+s.id+'/'}>{s.name}</a></h2><div class="fmeta">{('streetLabel' in s && s.streetLabel) || s.street}<br />{s.city}, FL {s.zip}</div></div>)}
-            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
+            <div><h2>Contact</h2><div class="fmeta"><a href={'mailto:' + EMAIL} style="text-decoration:underline;text-decoration-color:var(--line)">{EMAIL}</a><br /><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a><br /><a href="/subscribe/">Subscribe to how-tos</a></div><div class="socs">{SOCIAL.map(([n, u]) => <a href={u} rel="noopener">{n} </a>)}</div></div>
           </div>
           <p class="fmeta p-legal-notice" style="font-size:14px">You choose whether Google Analytics and Microsoft Clarity can measure your visit. <a href="/privacy/">Privacy and choices</a>.</p>
           <PrivacyControls />

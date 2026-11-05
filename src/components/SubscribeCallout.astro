@@ -1,0 +1,21 @@
+---
+import {subscriptionHref, subscriptionTopic} from '../lib/subscription-topics';
+interface Props { topic?: string }
+const selected = subscriptionTopic(Astro.props.topic);
+---
+<section class="subscribe-callout" aria-label="Email subscriptions">
+  <div>
+    <span class="kick">Keep learning</span>
+    <h2 class="disp">{selected ? selected.title + ', in your inbox.' : 'The how-tos you want.'}</h2>
+    <p>Practical guides on the topics you choose. Pick one subject or several, and change your interests at any time.</p>
+  </div>
+  <a class="btn ghost" href={subscriptionHref(selected?.slug)}>{selected ? 'Subscribe to ' + selected.title : 'Choose your email topics'} <span aria-hidden="true">↗</span></a>
+</section>
+<style>
+ .subscribe-callout{display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--line);padding:36px 0;margin-top:36px;text-align:left}
+ .subscribe-callout h2{font-size:clamp(28px,3vw,40px);line-height:1.12;letter-spacing:-.035em;margin:12px 0}
+ .subscribe-callout p{max-width:52ch;color:var(--muted);font-size:16px;line-height:1.7;margin:0}
+ .subscribe-callout .btn{flex-shrink:0;white-space:normal;max-width:340px;min-height:48px;line-height:1.5;text-align:left}
+ .subscribe-callout .btn:focus-visible{outline:3px solid var(--tealt);outline-offset:4px}
+ @media(max-width:760px){.subscribe-callout{align-items:flex-start;flex-direction:column;gap:24px}.subscribe-callout .btn{max-width:100%}}
+</style>
