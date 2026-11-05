@@ -76,6 +76,8 @@ declare n integer; m integer;
 begin
  perform pg_advisory_xact_lock(hashtext('zinc-publish'));
  if not exists(select 1 from public.staff where user_id=p_actor and role='owner') then raise exception 'owner role required'; end if;
+ -- Serialize all article edits/inserts with validation and snapshot creation.
+ lock table public.posts in share row exclusive mode;
  if exists(select 1 from public.posts where status='published' and primary_service is null) then
   raise exception 'Assign a primary service to every published post before publishing.';
  end if;

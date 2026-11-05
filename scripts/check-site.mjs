@@ -311,7 +311,9 @@ for (const s of POST_SLUGS) {
   check(noInlineArtwork ? !p.html.includes('data-article-illustration') : p.html.includes('data-article-illustration'), 'blog/' + s + ' has an unexpected supporting illustration state');
   check(p.html.includes('aria-label="Share this article"') && p.html.includes('data-author-card') && p.html.includes('data-share-url="' + SITE + '/blog/' + s + '/"'), 'blog/' + s + ' lacks sharing or author attribution');
   check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');
-  check(/<nav class="p-reading" aria-label="Related articles">/.test(p.html), 'blog/' + s + ' lacks a published reading path');
+  const primary=authoredArticles.find(article=>article.slug===s)?.primaryService;
+  const hasPeers=authoredArticles.some(article=>article.slug!==s && article.primaryService===primary);
+  check(!hasPeers || /<nav class="p-reading" aria-label="Related articles"/.test(p.html), 'blog/' + s + ' lacks a published reading path');
   const social = p.html.match(/property="og:image" content="([^"]+)"/)?.[1];
   check(!!social && !social.endsWith('/og/article.png') && !articleSocialImages.has(social), 'blog/' + s + ' lacks its own social artwork');
   if (social) articleSocialImages.add(social);
