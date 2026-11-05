@@ -1,0 +1,17 @@
+---
+import CaseNumber from './CaseNumber.astro';
+interface Props { items: { title?: string; body: string }[] }
+const { items } = Astro.props;
+---
+<ol class="case-steps" data-case-steps role="list">
+  {items.map((item,i)=><li><CaseNumber value={i+1}/><div>{item.title && <h3>{item.title}</h3>}<p>{item.body}</p></div></li>)}
+</ol>
+<style>
+.case-steps{--case-number-size:56px;list-style:none;margin:0;padding:0}
+.case-steps li{position:relative;display:grid;grid-template-columns:var(--case-number-size) minmax(0,1fr);gap:24px;padding-bottom:40px}
+.case-steps li:last-child{padding-bottom:0}
+.case-steps li:not(:last-child)::before{content:"";position:absolute;left:calc(var(--case-number-size)/2 - 1px);top:calc(var(--case-number-size) + 4px);bottom:4px;width:2px;background:repeating-linear-gradient(to bottom,var(--muted) 0 6px,transparent 6px 12px);opacity:.55}
+.case-steps h3{font:800 clamp(24px,2.4vw,34px)/1.1 var(--fd);letter-spacing:-.03em;margin:2px 0 8px}
+.case-steps p{margin:0;font-size:17px;line-height:1.55;color:var(--muted);text-wrap:pretty;max-width:60ch}
+@media(max-width:900px){.case-steps{--case-number-size:48px}.case-steps li{gap:16px;padding-bottom:32px}}
+</style>

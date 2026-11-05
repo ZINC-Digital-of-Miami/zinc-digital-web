@@ -201,7 +201,7 @@ const showCta = false;
         <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div>
       </dialog>
 
-      <main id="main"><slot /></main>
+      <main id="main" style={caseHero ? "--case-accent:"+caseHero.accent : undefined}><slot /></main>
 
       {showCta && (
         <section class="band cta">

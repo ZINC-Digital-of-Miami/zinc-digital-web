@@ -9,4 +9,4 @@ const source=asset(k);
 const href=images['../assets'+source.src]?.default.src || source.src;
 ---
 <a class="case-image" href={href} target="_blank" rel="noopener" aria-label={'Enlarge '+alt+' — view detail'}><Img k={k} alt={alt} {...props}/></a>
-<style>.case-image{display:block;cursor:zoom-in}.case-image:focus-visible{outline:3px solid var(--tealt,#00858a);outline-offset:5px}</style>
+<style>.case-image{display:block;cursor:zoom-in}.case-image :global(img){display:block;max-width:100%;height:auto}.case-image:focus-visible{outline:3px solid var(--tealt,#00858a);outline-offset:5px}</style>

@@ -1,0 +1,10 @@
+---
+interface Props { value: number }
+const { value } = Astro.props;
+---
+<span class="case-number" data-case-number aria-hidden="true">{String(value).padStart(2, '0')}</span>
+<style>
+.case-number{display:inline-grid;place-items:center;flex-shrink:0;width:var(--case-number-size,56px);height:var(--case-number-size,56px);border-radius:50%;background:var(--case-accent,#ff850a);color:#0a0a0b;font:400 15px/1 var(--fm);letter-spacing:.06em;vertical-align:middle}
+@media(max-width:760px){.case-number{width:var(--case-number-size,48px);height:var(--case-number-size,48px)}}
+@media(forced-colors:active){.case-number{border:2px solid CanvasText;background:Canvas;color:CanvasText}}
+</style>
