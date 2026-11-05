@@ -20,12 +20,16 @@ test('site scans honour canonical noindex intent without excusing unexpected pub
    if(p==='/robots.txt'||p==='/llms.txt')return new Response('Public fixture');
    return new Response(`<html><head><title>A useful page title for the site scan</title><meta name="description" content="A useful page description with enough context to explain the page to readers before they choose whether to visit."><link rel="canonical" href="${url}">${p==='/'?'':'<meta name="robots" content="noindex,nofollow">'}</head><body><main><h1>Useful page</h1><p>A concrete answer and useful next step.</p></main></body></html>`,{headers:{'content-type':'text/html'}});
   }) as typeof fetch;
-  const sb={from:()=>({select:()=>({abortSignal:async()=>({data:[],error:null})})})};
+  const sb={from:()=>{const q={select:()=>q,in:()=>q,gte:()=>q,order:()=>q,limit:()=>q,abortSignal:async()=>({data:[],error:null})};return q;}};
   const {collectReviewEvidence}=await import(pathToFileURL(path.join(dir,'evidence.mjs')).href);
   const {evidence,paths}=await collectReviewEvidence(sb);
   assert.equal(evidence.find((e:any)=>e.path==='/thanks/').analysis.grade,'excluded');
   assert.equal(evidence.find((e:any)=>e.path==='/unexpected/').analysis.grade,'blocked');
   assert.equal(evidence.find((e:any)=>e.id==='crawl-coverage').available,true);
+  assert.equal(evidence.find((e:any)=>e.id==='settings').business.services.length,11);
+  assert.ok(evidence.find((e:any)=>e.id==='review-baseline').leads.some((l:string[])=>l[0]==='L6'));
+  assert.equal(evidence.find((e:any)=>e.id==='codex-activity').available,true);
+  assert.ok(evidence.find((e:any)=>e.id==='crawl-coverage').checkCatalog.length>0);
   const cited=evidence.find((e:any)=>e.id==='research:ahrefs');assert.equal(cited.url,'https://ahrefs.com/blog/ai-marketing-trends/');
   const report={summary:'Fixture review.',checks:REVIEW_AREAS.map(area=>({area,status:'unavailable',detail:'Fixture evidence only.',evidenceIds:['research:ahrefs']})),recommendations:[]};
   assert.doesNotThrow(()=>validateReview(report,new Map(evidence.map((e:any)=>[e.id,e])),paths));

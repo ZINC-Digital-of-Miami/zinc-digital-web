@@ -1,3 +1,4 @@
+import {AiWorkBusy} from '../../../lib/ai-work-lock';
 export const prerender=false;
 import type {APIRoute} from 'astro';
 import {requireStaff} from '../../../lib/auth';
@@ -11,5 +12,5 @@ export const POST:APIRoute=async ctx=>{
   if(body.mode==='scan')return reply(await runSeoScan('seo_review:scan:'+body.requestId));
   if(body.mode!==undefined&&body.mode!=='review')return reply({error:'Choose site checks or a Claude review.'},422);
   return reply(await runSeoReview('seo_review:manual:'+body.requestId,'manual'));
- }catch(e){return reply({error:e instanceof Error?e.message:'The SEO review could not be completed.'},503);}
+ }catch(e){if(e instanceof AiWorkBusy)return reply({error:e.message},409);return reply({error:e instanceof Error?e.message:'The SEO review could not be completed.'},503);}
 };

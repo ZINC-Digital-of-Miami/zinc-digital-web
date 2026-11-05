@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "crons": [{"path":"/api/cron/seo-review/","schedule":"0 13,14 * * 1"}],
+  "crons": [{"path":"/api/cron/seo-review/","schedule":"0 13-16 * * 1"}],
   "headers": [
     { "source": "/(.*)", "headers": [
       { "key": "X-Content-Type-Options", "value": "nosniff" },

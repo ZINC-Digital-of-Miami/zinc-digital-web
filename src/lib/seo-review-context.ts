@@ -22,7 +22,7 @@ export function reviewContext(evidence:readonly {id:string;[key:string]:unknown}
   if(item.id.startsWith('page:')){
    const a=record(item.analysis);if(!a||!Array.isArray(a.checks))return item;
    const {categories:_,checks,...analysis}=a;
-   return {...item,signals:compactSignals(item.signals),analysis:{...analysis,passedCheckIds:checks.filter(c=>record(c)?.status==='pass').map(c=>record(c)?.id),checks:checks.filter(c=>record(c)?.status!=='pass')}};
+   return {...item,signals:compactSignals(item.signals),analysis:{...analysis,passedCount:checks.filter(c=>record(c)?.status==='pass').length,checks:checks.filter(c=>record(c)?.status!=='pass')}};
   }
   if(item.id==='page-performance'&&Array.isArray(item.pages))return {...item,pages:item.pages.map(value=>{
    const page=record(value);if(!page)return value;
