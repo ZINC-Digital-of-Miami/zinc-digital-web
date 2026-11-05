@@ -85,46 +85,6 @@ export const caseScreens: Record<string, CaseScreensPresentation> = {
       }
     ]
   },
-  "summit-marine-development": {
-    "slug": "summit-marine-development",
-    "title": "Waterfront services, across screens",
-    "intro": "Explore the homepage and dedicated seawall and dock service pages across desktop, tablet and mobile.",
-    "pages": [
-      {
-        "key": "home",
-        "title": "Home",
-        "url": "https://summitmarinedevelopment.com/",
-        "detail": "Waterfront construction services, project imagery and estimate inquiries.",
-        "images": {
-          "desktop": "case-smd-home-desktop",
-          "tablet": "case-smd-home-tablet",
-          "mobile": "case-smd-home-mobile"
-        }
-      },
-      {
-        "key": "seawalls",
-        "title": "Seawalls and bulkheads",
-        "url": "https://summitmarinedevelopment.com/services/seawall-and-bulkhead-installation/",
-        "detail": "A dedicated service page for shoreline protection and construction.",
-        "images": {
-          "desktop": "case-smd-seawalls-desktop",
-          "tablet": "case-smd-seawalls-tablet",
-          "mobile": "case-smd-seawalls-mobile"
-        }
-      },
-      {
-        "key": "docks",
-        "title": "Piers and docks",
-        "url": "https://summitmarinedevelopment.com/services/pier-and-dock-construction/",
-        "detail": "Dock construction information and waterfront project imagery.",
-        "images": {
-          "desktop": "case-smd-docks-desktop",
-          "tablet": "case-smd-docks-tablet",
-          "mobile": "case-smd-docks-mobile"
-        }
-      }
-    ]
-  },
   "the-lampstand-va": {
     "slug": "the-lampstand-va",
     "title": "Ministry information, across screens",
