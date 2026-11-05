@@ -102,7 +102,14 @@ const socialScale = socialSource && caseHero?.montage ? Math.min(1200 / socialSo
 const socialWidth = homeSocialImage ? 1024 : socialScale && socialSource ? Math.round(socialSource.width * socialScale) : 1200;
 const socialHeight = homeSocialImage ? 1024 : socialScale && socialSource ? Math.round(socialSource.height * socialScale) : 630;
 const ogImg = SITE + (socialImage?.src || '/og/' + (caseHero?.identity ? route.slug : ogKind(route)) + '.png');
-const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + ' — ' + caseHero.note : path === '/' ? 'ZINC Digital machine-head icon.' : 'ZINC Digital — ' + route.title);
+const fallbackSocialAlt: Record<string, string> = {
+  home: 'ZINC Digital. Build. Demand. Intelligence.',
+  build: 'ZINC Digital — Build. Websites, ecommerce and applications.',
+  demand: 'ZINC Digital — Demand. Search, campaigns and the path to a customer.',
+  intelligence: 'ZINC Digital — Intelligence. Reporting and systems that support the next decision.',
+  article: 'ZINC Digital — Ideas behind the work. Research, practice and perspective from ZINC.',
+};
+const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + ' — ' + caseHero.note : path === '/' ? 'ZINC Digital machine-head icon.' : !socialImage && fallbackSocialAlt[ogKind(route)] || 'ZINC Digital — ' + route.title);
 const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
