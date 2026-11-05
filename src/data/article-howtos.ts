@@ -326,14 +326,14 @@ Record item ID, group ID, option values, landing URL, image, availability and pr
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-03T14:53:14Z',
+    modifiedGmt: '2026-11-05T17:58:02Z',
     markdown: `A useful page is easy to miss when visitors can reach it only through site search. An internal-link audit checks the routes people actually use.
 
 Begin with important reader tasks, using [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/).
 
 ## 1. Name the pages worth reaching
 
-List important services, categories and core guides. Write each page's purpose and the reader task it supports.
+List important services, categories and core guides. Write each page's purpose and the reader task it supports. For ZINC’s service-aligned model, record each article’s single primary service, matching pillar and exact destination URLs.
 
 Do not prescribe an arbitrary link count. Decide which connections help someone use the content. The [content-hub planning guide](/blog/build-a-content-hub-people-can-use/) shows how to connect a service-aligned category with its supporting articles.
 
@@ -357,7 +357,7 @@ Check missing pages, unnecessary redirects and label/destination disagreements. 
 
 Read the likely introducing page. Link at the point where the reader needs a deeper explanation, relevant service or product choice.
 
-Connect core guides with useful supporting articles. Skip links that repeat the same answer. Our [content brief guide](/blog/content-briefs-search-intent-internal-links/) helps plan these relationships before drafting.
+Check direct article-to-pillar and article-to-service links, then the pillar and service routes back to relevant articles. Connect useful peers within the pillar first; add cross-pillar references when they answer the reader’s next question. Skip links that repeat the same answer. Our [content brief guide](/blog/content-briefs-search-intent-internal-links/) helps plan these relationships before drafting.
 
 ## 5. Repair shared defects at the source
 
@@ -415,7 +415,7 @@ Use one row per relationship. Record the introducing page, reader task, anchor a
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-05T17:58:02Z',
     markdown: `Refresh the answer, not just the date. Review what changed, what the reader needs and whether the existing page still serves that task.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to keep content and technical questions distinct.
@@ -463,14 +463,14 @@ Preserve the evidence behind the edit. A future reviewer should understand what 
 
 ## Example: an obsolete setup instruction
 
-Here is a completed illustrative refresh record for an article that incorrectly calls a long guide the pillar itself:
+Here is a completed illustrative refresh record for advice that does not match this site’s chosen service-aligned structure. Calling a comprehensive guide a pillar page is valid in other models; the defect here is inconsistent instructions for this website:
 
 | Field | Filled review |
 | --- | --- |
 | Reader task | Organise advice around the services the business sells |
 | Before | “Write one pillar page and put every related topic underneath it.” |
-| Problem | The wording confuses the service-aligned blog category with an individual guide and encourages overlapping articles |
-| After | “Use a blog category aligned with the service. House distinct articles inside it; a substantial guide can be one of those articles.” |
+| Problem | The instructions omit this site’s explicit service assignment, category overview and return links |
+| After | “Assign each article to one service-aligned pillar. Link it directly to that pillar, its service and useful supporting articles; link back from the pillar and service.” |
 | Basis | The site's actual service/category architecture and the approved editorial model—not a claim that Google requires one naming convention |
 | Affected material | Article explanation, architecture diagram, worksheet labels and related briefs |
 | Decision | Revise those items together; retain useful linking and measurement guidance |
@@ -492,7 +492,7 @@ Keep sections that still answer the reader’s question. Check downloadable copi
     layer: 'Demand',
     related: ['seo', 'web-design'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-02T20:44:16Z',
+    modifiedGmt: '2026-11-05T17:58:02Z',
     markdown: `A service page should explain fit: what the work includes, its boundaries and what happens next.
 
 Use [the four-pillar framework](/blog/four-pillars-of-seo-operators-view/) to connect that answer with search discovery.
@@ -539,7 +539,7 @@ Check title, metadata and links. Google's [title-link guidance](https://develope
 
 Use our [content brief guide](/blog/content-briefs-search-intent-internal-links/) to capture sources and reviewers. [SEO work](/services/seo/) connects the page to relevant topics while preserving its service-selection purpose.
 
-Plan supporting explanations through the [content-hub guide](/blog/build-a-content-hub-people-can-use/): the service page explains the offer, while its aligned blog category houses the related how-tos.
+Plan supporting explanations through the [content-hub guide](/blog/build-a-content-hub-people-can-use/): the service page explains the offer and links to its pillar and useful articles. Each article links directly to that pillar and service, with relevant supporting links.
 
 The useful result is fewer important assumptions in the first conversation.
 
