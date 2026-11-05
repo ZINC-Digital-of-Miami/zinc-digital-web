@@ -1,5 +1,9 @@
 # Tasks — Finish and launch the ZINC Digital website
 
+## Hero lettering direction — 5 November 2026 CT
+
+Owner requests more distinctive lettering after the larger-title/smaller-laptop release: outlines or a visual texture inside the letters. Apply solid fuchsia ZINC, outlined and diagonally hatched DIGITAL, and a closer teal accent dot. The owner flags period spacing: place the dot inside the reserved word span, after the actual DIGITAL lettering, as an inline baseline-aligned circle with a defined gap; remove the manually translated glyph. Preserve the larger/higher placement, smaller right-side laptop, original Summit artwork, BI scene and mobile fit. Keep this as accessible HTML/CSS within the existing hero.
+
 ## Homepage title sizing — 5 November 2026 CT
 
 Owner requests a larger “ZINC DIGITAL” title extending past the window center. Increase desktop type from 7vw to 11.2vw and remove its smaller short-window override. Preserve the approved grouped layout, artwork, lane headings and existing mobile sizing. Owner also confirms the laptop should sit farther right beside the text. The owner subsequently asks that laptop artwork be smaller and the title slightly higher. Contain the Build scene in a right-aligned 84%-width desktop region and lift the desktop text group to 40% of the stage; preserve mobile artwork and compact-height safeguards. The remaining Summit Demand hero/scene is rejected: replace every rendered instance of that scene with the retained `smd-devices` source, including homepage, lane, service and case presentations. Preserve source pixels rather than generating a replacement website. This checkpoint records implementation intent; release verification follows in the milestone PR.

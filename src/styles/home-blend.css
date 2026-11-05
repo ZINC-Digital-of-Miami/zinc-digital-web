@@ -9,12 +9,11 @@
 
 .zn-hero-picture[hidden]{display:none!important}
 
-/* Reserve the approved font's word advance so loading a fallback never moves its period. */
+/* Reserve the heading's advance while its words and dot flow together inside it. */
 .zn-mast h1>.zn-stable-word{display:inline-block;width:5.46301em;color:inherit}
 
 /* Each scene keeps a readable text layer over the artwork. */
 .zn-stage[data-lane=demand]{background:#f1f2f5;color:#111112}
-.zn-stage[data-lane=demand] .zn-mast h1>span:not(.zn-stable-word){color:#111112}
 .zn-stage[data-lane=demand] .zn-mast p>span{color:#555860}
 .zn-hero:has(.zn-stage[data-lane=demand]) .zn-tabs{background:#f1f2f5b3;border-color:#b8bcc3}
 .zn-hero:has(.zn-stage[data-lane=demand]) .zn-tabs button{color:#51535a;border-color:#b8bcc3}
@@ -28,3 +27,10 @@
 .zn-stage[data-lane=demand] .zn-hero-picture picture{inset:0 0 0 30%;display:flex;align-items:center}
 .zn-stage[data-lane=demand] .zn-hero-picture img{width:100%;height:auto;max-height:85%;object-fit:contain}
 @media(max-width:760px){.zn-stage[data-lane=build] .zn-hero-picture picture{inset:0}.zn-stage[data-lane=build] .zn-hero-picture img{mask-image:none}.zn-stage[data-lane=demand] .zn-hero-picture picture{inset:auto 24px 65px;width:calc(100% - 48px);display:block}.zn-stage[data-lane=demand] .zn-hero-picture img{position:static;width:100%;height:auto;max-height:none}}
+
+/* Engineered lettering: solid brand ink beside a fine outlined, hatched word. */
+.zn-mast h1 .zn-title-solid{color:var(--zn-pink)}
+.zn-mast h1 .zn-title-outline{display:inline-block;padding-right:.085em;color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.2px var(--zn-pink);background-image:repeating-linear-gradient(135deg,transparent 0 5px,#fa268c66 5px 6px),linear-gradient(#fa268c12,#fa268c12);background-clip:text;-webkit-background-clip:text}
+.zn-mast h1 .zn-title-mark{display:inline-block;width:.095em;height:.095em;margin-left:.055em;border-radius:50%;background:var(--teal);vertical-align:baseline;letter-spacing:0}
+@media(max-width:760px){.zn-mast h1 .zn-title-outline{-webkit-text-stroke:1px var(--zn-pink);background-image:none}}
+@media(forced-colors:active){.zn-mast h1 .zn-title-outline{color:CanvasText;-webkit-text-fill-color:CanvasText;-webkit-text-stroke:0;background:none}.zn-mast h1 .zn-title-mark{background:CanvasText}}
