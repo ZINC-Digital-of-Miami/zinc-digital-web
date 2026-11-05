@@ -1,6 +1,6 @@
 # ZINC full project review — 5 November 2026 CT
 
-**Verdict: the project does not pass a full completion review.** Nine findings need correction, retirement or release verification. This is a source/configuration review with bounded native and local reproduction evidence, not a penetration-test or accessibility certification.
+**Original review verdict: the project did not pass a full completion review.** Nine findings required correction, retirement or release verification. See the remediation status below for subsequent verified changes; the broader plan still has explicit evidence gaps. This is a source/configuration review with bounded native and local reproduction evidence, not a penetration-test or accessibility certification.
 
 Audited product: `origin/main` **2ad517f1273c1f538531f7fae07d1a90259f250d** (PR90). Production **dpl_2GYVRwRSxLtDijtShj2pAXhUkAVV** was READY with the matching SHA and www/apex aliases. Nine corrected articles matched the reviewed text and links; six PDFs/SVGs/CSV resources matched byte-for-byte.
 
@@ -98,3 +98,24 @@ No new browser tab/window, paid model test, support message or production test i
 ## Post-review remediation receipt
 
 5November2026CT: finding1 is corrected for ordinary merges. The owner approved the exact required-check payload; native readback confirms build/GitHubActions15368 and Vercel8329 are required, with existing rules and administrator PR bypass preserved. GitHub lists both as required on PR89. Finding3 is fixed in the reviewed commercial candidate and passes local JSON/no-JavaScript intake tests; it is not yet released. Other findings remain open or awaiting the release/verification described above.
+
+
+### Protected remediation releases — 5 November 2026 CT
+
+| Finding | Current disposition | Evidence boundary |
+|---|---|---|
+|1. Required checks|Owner-approved ruleset now enforces `build` and `Vercel`; exact-head passing checks preceded each protected merge.|Existing administrator bypass settings were preserved, not expanded.|
+|2. Google settings permissions|Reviewed migration0014 applied to verified ZINC project `zeetlqskfvsfbllrhzre`; native readback restored owner conditions.|Local role tests and production policy readback; no production editor mutation test.|
+|3. First-website intake|PR91 released optional website input with validation when supplied; blank-website drawer steps1–3 inspected.|No real test inquiry or inbox-delivery claim.|
+|4. Publication consistency|PR93 released the single-snapshot reader; live revision matches the published database snapshot.|Local concurrency/rollback proof; no production competing-publication test.|
+|5. Concurrent research history|PR93 bounds provider history to the initiating message; regression tests passed.|No paid production model test.|
+|6. Browser verifier|PR92 exact-head checks passed and protected merge completed; canonical inventory and current image/button assertions released in source.|Full browser execution remains open; inventory-only verification is not visual proof.|
+|7. Lighthouse cleanup|PR92 encloses startup in cleanup; injected startup failures terminated and awaited the owned server.|No new Lighthouse performance score claimed.|
+|8. Obsolete endpoints|Owner approved both deletions; PR92 preview returned404 for each and protected merge completed.|Production GET/POST404 verified for both; canonical research/publish routes still require authentication (401). Storage is unchanged.|
+|9. Coordination release|PR89 production verified; atomic gate, paid-key deduplication and pre-paid deferral handling live.|Monday execution remains future evidence;09:15CT verification stays active without starting a review.|
+
+PR92 merged as `9f00a0ebc5af6c9628c7270e077e806960bfa42a` after reviewed head `46072aa` passed Actions42117894272 and its matching Vercel preview. The hosted job completed in80seconds, restored the image cache and reused all2,305 generated images. Tests, Astro check, full build and103HTMLchecks still executed. Prior cold run42111864628 completed in about39minutes and saved the cache. This demonstrates reuse for this pair of runs, not a guaranteed future duration. Retained log: Claude worktree `.scratch/pr92-final-actions.log`.
+
+The canonical26-row reconciliation now records released commercial/entity/editorial work, the separately published homepage title,45 direct full-reader reviews and final45article/11pillar HTTP parity. Still open: native query-to-page overlap, current GA4 filters/event execution, actual mobile/performance/layout verification, stored-post publishing, some external-source/resource/provenance checks and qualification/revenue attribution. Source facts, rendered behavior, delivery and Monday execution remain distinct.
+
+Final PR92 deployment `dpl_7keNGUUYyEX3DWFZvgTfnkZCcC4X` is READY at the exact merge SHA with www/apex aliases. Production readback at4:06PM CT confirmed both retired paths return404 for GET/POST, protected research/publish routes return401 unauthenticated and the published content revision is unchanged. Receipt: Claude worktree `.scratch/pr92-production-receipt.json`. All nine identified repairs now have the source/configuration/release evidence stated above; the broader evidence gaps remain open.
