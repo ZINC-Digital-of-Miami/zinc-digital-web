@@ -871,3 +871,7 @@ Owner explicitly requested current Privacy/Terms built from the actual stack and
 - [x] Approved website privacy controls and manual retention process are released through PR75, including the separately approved first five-hash cleanup. Current closeout above distinguishes this completion from unverified provider settings, all-system erasure and broader legal applicability.
 
 Official regulator/provider evidence and current release state are recorded in `.planning/STATE.md`'s matching checkpoint. No paid research, email, inquiry, migration, production secret or tracking change is part of this slice.
+
+### Content hub wording correction — 5 November 2026 CT
+
+Owner requested natural, useful language throughout the content-hub article and its downloads. Replaced commissioning/page-job metaphors and awkward planning jargon in article 94002, its retained manuscript, two PDF resources and two SVG illustrations. Preserve the existing article URL, byline, published date, examples, sources, 24 checks and 111 fillable workbook fields. Fresh scoped source review passed; relevant article/resource tests passed (18 tests), Astro check has zero errors/warnings. PDFs rendered and inspected. Local production build and release verification pending. User direction: say “before you write that next article” and give each article a real purpose. Existing editorial and Google Business schedules unchanged; email remains deferred.
