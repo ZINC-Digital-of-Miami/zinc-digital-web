@@ -17,7 +17,7 @@ export const ADMIN_PATH: string | null = '/admin/';
 export const SOCIAL = [
   ['Facebook', 'https://www.facebook.com/zincdigitalofmiami'],
   ['Instagram', 'https://www.instagram.com/zincdigitalofmiami/'],
-  ['X', 'https://x.com/zinc_of'],
+  ['X', 'https://x.com/zincdigitalmia'],
   ['LinkedIn', 'https://www.linkedin.com/company/zinc-digital-of-miami/'],
 ] as const;
 export const STUDIOS = [
