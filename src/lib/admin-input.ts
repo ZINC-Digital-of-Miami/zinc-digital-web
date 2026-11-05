@@ -1,3 +1,4 @@
+import {proposalPillar} from './proposal-pillar.ts';
 import {CRM_STAGES} from './crm-model.ts';
 export const uuid = (value: unknown): value is string => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 const text = (value: unknown, limit: number, required = false) => {
@@ -36,6 +37,11 @@ export function contentInput(input: Record<string, unknown>, paths: string[]) {
   if ('noindex' in input) {
     if (typeof input.noindex !== 'boolean') throw new Error('Invalid indexing preference.');
     patch.noindex = input.noindex;
+  }
+  if (kind === 'post' && 'primary_service' in input) {
+    const service = input.primary_service;
+    if (service !== null && service !== '' && !proposalPillar(service)) throw new Error('Choose a valid primary service.');
+    patch.primary_service = service || null;
   }
   if (kind === 'post' && 'layer' in input) {
     if (!['Build', 'Demand', 'Intelligence'].includes(String(input.layer))) throw new Error('Choose a layer.');

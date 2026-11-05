@@ -8,7 +8,7 @@ import { mergeAdminContent } from './admin-content-model';
 export type ContentItem = {
   kind: 'page' | 'post'; key: string; path: string; title: string; template: string; status: string;
   meta_title: string; meta_description: string; focus_keyword: string; noindex: boolean;
-  layer: string; body: string; excerpt: string; author: string; origin: string;
+  layer: string; primary_service?: string | null; body: string; excerpt: string; author: string; origin: string;
   updated_at?: string; live_at?: string; live?: Record<string, unknown> | null; saved: boolean; pending?: boolean;
 };
 export type InquiryRow = {
@@ -20,7 +20,7 @@ export {CRM_STAGES as stages} from './crm-model';
 export const when = (value: string | null | undefined) => value ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' }).format(new Date(value)) + ' CT' : '—';
 export function repositoryContent(): ContentItem[] {
   const pages: ContentItem[] = routes.filter(r => r.template !== 'article').map(r => ({ kind: 'page', key: r.path, path: r.path, title: r.title, template: r.template, status: 'published', meta_title: r.metaTitle || r.title, meta_description: describe(r), focus_keyword: '', noindex: r.template === 'thanks', layer: r.layer || '', body: '', excerpt: '', author: '', origin: 'repo', saved: false }));
-  return [...pages, ...posts.map(p => ({ kind: 'post' as const, key: p.slug, path: '/blog/' + p.slug + '/', title: p.title, template: 'article', status: 'published', meta_title: articleEditorial[p.slug]?.title || p.title, meta_description: articleEditorial[p.slug]?.description || excerpt(p,160), focus_keyword: articleEditorial[p.slug]?.keywords[0] || '', noindex: false, layer: p.layer, body: '', excerpt: excerpt(p,2000), author: p.author.name, origin: 'repo', saved: false }))];
+  return [...pages, ...posts.map(p => ({ kind: 'post' as const, key: p.slug, path: '/blog/' + p.slug + '/', title: p.title, template: 'article', status: 'published', meta_title: articleEditorial[p.slug]?.title || p.title, meta_description: articleEditorial[p.slug]?.description || excerpt(p,160), focus_keyword: articleEditorial[p.slug]?.keywords[0] || '', noindex: false, layer: p.layer, primary_service:p.primaryService, body: '', excerpt: excerpt(p,2000), author: p.author.name, origin: 'repo', saved: false }))];
 }
 export async function contentList(ctx: APIContext | AstroGlobal) {
   const sb = createServerClient(ctx);

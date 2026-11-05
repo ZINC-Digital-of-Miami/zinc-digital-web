@@ -1,5 +1,5 @@
 import {SERVICE_SLUGS} from './inquiry.ts';
-/** Article memberships are editorially ordered. The first current service owns its proposal entry point. */
-export function proposalPillar(related: readonly string[]): string | undefined {
-  return related.find(slug => SERVICE_SLUGS.includes(slug));
+/** Explicit editorial ownership; related links never choose the proposal destination. */
+export function proposalPillar(primaryService: unknown): string | undefined {
+  return typeof primaryService === 'string' && SERVICE_SLUGS.includes(primaryService) ? primaryService : undefined;
 }

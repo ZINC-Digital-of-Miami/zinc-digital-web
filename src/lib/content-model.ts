@@ -1,3 +1,4 @@
+import {proposalPillar} from './proposal-pillar.ts';
 import type {Post,Route,Layer} from '../data/site';
 type Snapshot={live:Record<string,any>|null;live_at?:string|null};
 export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snapshot[],rows:Snapshot[]) {
@@ -6,13 +7,17 @@ export function publishedContent(repoRoutes:Route[],repoPosts:Post[],pages:Snaps
   const posts:Post[]=repoPosts.filter(p=>postMap.get(p.slug)?.status!=='draft').map(p=>{
     const live=postMap.get(p.slug);if(!live)return p;
     const modified=live.updated_at&&Number.isFinite(Date.parse(live.updated_at))&&Date.parse(live.updated_at)>Date.parse(p.modifiedGmt||p.dateGmt)?live.updated_at:p.modifiedGmt;
-    return {...p,title:live.title||p.title,layer:live.layer||p.layer,excerpt:live.excerpt||p.excerpt,author:live.author?{...p.author,name:live.author}:p.author,...(modified?{modified,modifiedGmt:modified}:{})};
+    const primaryService=proposalPillar(live.primary_service);
+    if(!primaryService)throw new Error('Published post '+p.slug+' is missing its primary service.');
+    return {...p,primaryService,title:live.title||p.title,layer:live.layer||p.layer,excerpt:live.excerpt||p.excerpt,author:live.author?{...p.author,name:live.author}:p.author,...(modified?{modified,modifiedGmt:modified}:{})};
   });
   for(const live of postMap.values())if(live.origin==='admin'&&live.status==='published'&&!repoPosts.some(p=>p.slug===live.slug)) {
     const date=live.published_at||live.live_at;
     if(!date)throw new Error('Published post is missing its publication date.');
     const modified=live.updated_at&&Number.isFinite(Date.parse(live.updated_at))&&Date.parse(live.updated_at)>=Date.parse(date)?live.updated_at:date;
-    posts.push({id:live.id,slug:live.slug,title:live.title,date,dateGmt:date,modified,modifiedGmt:modified,link:'/blog/'+live.slug+'/',author:{id:0,name:live.author||'Team ZINC',description:''},blocks:[],layer:live.layer as Layer,related:[],excerpt:live.excerpt,markdown:live.body||''} as unknown as Post);
+    const primaryService=proposalPillar(live.primary_service);
+    if(!primaryService)throw new Error('Published post '+live.slug+' is missing its primary service.');
+    posts.push({primaryService,id:live.id,slug:live.slug,title:live.title,date,dateGmt:date,modified,modifiedGmt:modified,link:'/blog/'+live.slug+'/',author:{id:0,name:live.author||'Team ZINC',description:''},blocks:[],layer:live.layer as Layer,related:[],excerpt:live.excerpt,markdown:live.body||''} as unknown as Post);
   }
   posts.sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
   const routes=repoRoutes.filter(r=>r.template!=='article'||posts.some(p=>p.slug===r.slug)).map(r=>({...r}));

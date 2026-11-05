@@ -14,7 +14,7 @@ await build({entryPoints:['src/lib/seo-review-performance.ts'],outfile:path.join
  b.onLoad({filter:/.*/,namespace:'fixture'},args=>({contents:args.path==='site'?`export const services=[{slug:'seo',title:'SEO'},{slug:'ai-search-optimization',title:'AI Search'}];`:`export const request=(url,body)=>globalThis.__zincPerformanceFixture.request(url,body);export const verifyZincAnalytics=property=>globalThis.__zincPerformanceFixture.verify(property);`,loader:'js'}));
 }}]});
 const {collectPagePerformance}=await import(pathToFileURL(path.join(dir,'performance.mjs')).href);
-const posts=[{slug:'a',title:'Article A',related:['seo','ai-search-optimization']},{slug:'b',title:'Article B',related:['seo']}];
+const posts=[{slug:'a',title:'Article A',primaryService:'seo',related:['seo','ai-search-optimization']},{slug:'b',title:'Article B',primaryService:'seo',related:['seo']}];
 const paths=new Set(['/blog/a/','/blog/b/','/services/seo/','/services/ai-search-optimization/','/blog/category/seo/','/blog/category/ai-search-optimization/']);
 const settings={property:'123',site:'https://www.zincdigital.co/'};
 

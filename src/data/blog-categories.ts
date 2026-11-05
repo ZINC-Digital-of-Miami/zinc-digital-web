@@ -1,8 +1,8 @@
 // Pillars are blog categories aligned with registered primary services.
-// An article may be relevant to more than one service; reading guides sit within categories.
+// Each article belongs to one primary service; cross-links do not confer membership.
 export const categoryPath = (service: string) => '/blog/category/' + service + '/';
-export function categoryPosts<T extends {related: readonly string[]}>(service: string, posts: readonly T[]): T[] {
-  return posts.filter(post => post.related.includes(service));
+export function categoryPosts<T extends {primaryService: string}>(service: string, posts: readonly T[]): T[] {
+  return posts.filter(post => post.primaryService === service);
 }
 
 /** Describe the articles actually available in each service-aligned category. */
@@ -36,15 +36,19 @@ export const categoryEditorial: Record<string, {description: string; intro: stri
     intro: 'Choose the outcome before the channel or budget. These guides cover campaign planning, landing pages and tagging so search-ad decisions have a clear business purpose.',
   },
   'social-ads': {
-    description: 'Set up and review Meta and TikTok campaigns, choose channels and check landing pages. Practical paid-social guides connect creative tests with business outcomes.',
-    intro: 'A useful paid-social test needs a clear question, suitable creative and a working destination. Explore Meta and TikTok setup, channel selection and landing-page checks.',
+    description: 'Set up and review Meta campaigns, choose channels and check landing pages. Practical paid-social guides connect creative tests with business outcomes.',
+    intro: 'A useful paid-social test needs a clear question, suitable creative and a working destination. Explore Meta campaign setup, channel selection and landing-page checks.',
+  },
+  'tiktok-ads': {
+    description: 'Plan TikTok campaigns, creative and event measurement with practical guides connected to ZINC’s TikTok advertising service.',
+    intro: 'Start with the customer, the creative question and the purchase journey. These guides cover TikTok campaign setup and the evidence needed to assess delivery and response.',
   },
   'business-intelligence': {
     description: 'Define business measures, validate analytics and interpret campaign or search changes. ZINC’s guides connect reporting evidence with decisions and next steps.',
     intro: 'What does the number measure, can you trust it, and which decision does it support? Start with reporting foundations, then investigate analytics, campaign economics and research evidence.',
   },
   'apps': {
-    description: 'Start with business intelligence foundations: define the decision, source data and workflow before scoping a reporting application for your team.',
-    intro: 'Before building a reporting application, define who needs it, the decision it supports and the sources it will use. The current guide covers those business intelligence foundations.',
+    description: 'Business app planning: workflows, permissions, integrations and testing. Explore the service while dedicated app guides are being prepared.',
+    intro: 'Start with the workflow, its users and the information they need. Our Apps service covers interfaces, permissions, integrations and testing. Dedicated articles for this pillar are being prepared.',
   },
 };

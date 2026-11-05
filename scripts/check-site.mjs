@@ -38,7 +38,8 @@ const { authoredArticles } = await import('../src/data/article-library.ts');
 const { authors, authorFor, authorPath } = await import('../src/data/authors.ts');
 const POST_SLUGS = authoredArticles.map((p) => p.slug);
 const listedCategories = [...(pages.find(p=>p.rel==='blog/index.html')?.html || '').matchAll(/href="\/blog\/category\/([a-z-]+)\/"/g)].map(m=>m[1]);
-const CATEGORY_SLUGS = [...new Set([...authoredArticles.flatMap(p=>p.related),...listedCategories])].filter(s=>SERVICE_SLUGS.includes(s));
+const CATEGORY_SLUGS = SERVICE_SLUGS;
+check(SERVICE_SLUGS.every(s=>listedCategories.includes(s)), 'blog navigation must include all 11 service pillars');
 const expected = [
   ...STATIC.map((s) => (s ? s + '/index.html' : 'index.html')),
   ...SERVICE_SLUGS.map((s) => 'services/' + s + '/index.html'),
@@ -152,6 +153,12 @@ for (const { rel, html } of pages) {
   if (rel.startsWith('blog/category/')) check(types.includes('CollectionPage') && !types.includes('Article'),rel+' must describe a category collection');
   if (rel.startsWith('blog/') && rel !== 'blog/index.html' && !rel.startsWith('blog/category/')) {
     const a = ld.find((x) => x['@type'] === 'Article');
+    const primary=(a?.isPartOf?.[0]?.['@id']||'').match(/\/blog\/category\/([a-z-]+)\/#webpage$/)?.[1];
+    check(SERVICE_SLUGS.includes(primary) && a.isPartOf.length === 1, rel+' must have one primary-service pillar');
+    check(html.includes('href="/services/'+primary+'/"') && html.includes('href="/blog/category/'+primary+'/"'), rel+' must link its assigned service and pillar');
+    const htmlService=html.match(/<html[^>]*data-service-slug="([a-z-]+)"/)?.[1];
+    const proposalService=html.match(/<aside[^>]*data-proposal-bar[^>]*data-service-slug="([a-z-]+)"/)?.[1];
+    check(htmlService===primary && proposalService===primary, rel+' analytics/proposal service must match article ownership');
     const profile = a?.author?.name && authorFor(a.author.name);
     check(!!a && ['Person', 'Organization'].includes(a.author?.['@type']) && !!a.author?.name && (a.author['@type'] === 'Organization') === (a.author.name === 'Team ZINC'), rel + ' has an inaccurate Article author');
     if (profile) check(a.author.url === SITE + authorPath(profile.id) && a.author['@id'] === SITE + authorPath(profile.id) + '#person' && a.author.name === profile.schemaName, rel + ' author must reference the correct profile');
@@ -166,6 +173,7 @@ for (const { rel, html } of pages) {
   check(!/mix-blend-mode:\s*difference/.test(html), rel + ' cursor still uses mix-blend-mode difference');
   check(html.includes('id="zsCur"') && html.includes('class="zs-grain"'), rel + ' is missing the shell cursor/grain');
   check(html.includes('href="/contact/#message-jaymie"'), rel + ' is missing the private Jaymie message link');
+  check(!html.includes('href="/admin/"'), rel+' exposes the admin link in public HTML');
   check(!/href="(?:tel:|sms:)|"telephone"/.test(html), rel + ' exposes a phone contact');
   check(html.includes('href="/contact/"'), rel + ' is missing a /contact/ link');
   check(!html.includes('href="#"'), rel + ' contains a bare href="#"');
@@ -303,7 +311,9 @@ for (const s of POST_SLUGS) {
   check(noInlineArtwork ? !p.html.includes('data-article-illustration') : p.html.includes('data-article-illustration'), 'blog/' + s + ' has an unexpected supporting illustration state');
   check(p.html.includes('aria-label="Share this article"') && p.html.includes('data-author-card') && p.html.includes('data-share-url="' + SITE + '/blog/' + s + '/"'), 'blog/' + s + ' lacks sharing or author attribution');
   check(/class="p-article-hero"/.test(p.html) && /image\/avif/.test(p.html) && /image\/webp/.test(p.html), 'blog/' + s + ' lacks responsive article artwork');
-  check(/<nav class="p-reading" aria-label="Related articles">/.test(p.html), 'blog/' + s + ' lacks a published reading path');
+  const primary=authoredArticles.find(article=>article.slug===s)?.primaryService;
+  const hasPeers=authoredArticles.some(article=>article.slug!==s && article.primaryService===primary);
+  check(!hasPeers || /<nav class="p-reading" aria-label="Related articles"/.test(p.html), 'blog/' + s + ' lacks a published reading path');
   const social = p.html.match(/property="og:image" content="([^"]+)"/)?.[1];
   check(!!social && !social.endsWith('/og/article.png') && !articleSocialImages.has(social), 'blog/' + s + ' lacks its own social artwork');
   if (social) articleSocialImages.add(social);

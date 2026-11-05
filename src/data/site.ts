@@ -242,12 +242,12 @@ export const lede: Record<string, string> = {
 // ---- canonical article collection ----
 export type Run = { text: string; href?: string };
 export type Block = { type: string; runs?: Run[]; items?: Run[][] };
-export type Post = {id:number;slug:string;title:string;date:string;dateGmt:string;modified:string;modifiedGmt:string;link:string;author:{id:number;name:string;description:string};blocks:Block[];layer:Layer;related:string[];excerpt?:string;markdown?:string};
+export type Post = {id:number;slug:string;title:string;date:string;dateGmt:string;modified:string;modifiedGmt:string;link:string;author:{id:number;name:string;description:string};blocks:Block[];layer:Layer;primaryService:string;related:string[];excerpt?:string;markdown?:string};
 export const posts: Post[] = authoredArticles.map(p => ({
  id:p.id,slug:p.slug,title:p.title,date:p.dateGmt,dateGmt:p.dateGmt,
  modified:p.modifiedGmt || p.dateGmt,modifiedGmt:p.modifiedGmt || p.dateGmt,
  link:'/blog/'+p.slug+'/',author:{id:p.authorId,name:p.authorName,description:authors.find(a=>a.name===p.authorName)?.bio||('authorDescription' in p ? String(p.authorDescription) : '')},
- blocks:[],markdown:p.markdown,layer:p.layer,related:p.related,excerpt:p.description,
+ blocks:[],markdown:p.markdown,layer:p.layer,primaryService:p.primaryService,related:p.related,excerpt:p.description,
 })).sort((a,b)=>b.dateGmt.localeCompare(a.dateGmt));
 export const dateLabel = (date: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(new Date(date.endsWith('Z') ? date : date + 'Z'));
 // The Design's own excerpt when there is one; otherwise the first paragraph, cut at a word boundary.
@@ -272,7 +272,7 @@ export const routes: Route[] = [
   route('/locations/panama-city/', 'location', 'AI Search & Business Intelligence in Panama City', {slug:'panama-city',metaTitle:'Panama City AI Search Optimization & Business Intelligence',metaDescription:'Work with ZINC from our Panama City base on AI-search visibility, business intelligence and connected websites. See local work and prepare your first inquiry.'}),
   route('/thanks/', 'thanks', 'Inquiry received'),
   route('/blog/', 'blog', 'Notes on the work'),
-  ...services.filter(s=>posts.some(p=>p.related.includes(s.slug))).map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:categoryEditorial[s.slug].description})),
+  ...services.map(s=>route('/blog/category/'+s.slug+'/', 'blog', s.title+' articles', {blogCategory:s.slug,metaTitle:s.title+' Articles and Practical Guides',metaDescription:categoryEditorial[s.slug].description})),
   ...posts.map((p) => route('/blog/' + p.slug + '/', 'article', p.title, { slug: p.slug, layer: p.layer, published: p.date, modified:p.modifiedGmt, metaTitle: articleEditorial[p.slug]?.title, metaDescription: articleEditorial[p.slug]?.description })),
   ...authors.map(a => route(authorPath(a.id), 'author', a.name, {slug:a.id,metaTitle:'Articles by '+a.schemaName,metaDescription:a.bio})),
   route('/privacy/', 'privacy', 'Privacy Policy'),

@@ -8,6 +8,7 @@ export type AddedArticle = {
   authorName: string;
   authorId: number;
   layer: 'Build' | 'Demand' | 'Intelligence';
+  primaryService: string;
   related: string[];
   markdown: string;
   dateGmt: string;
@@ -19,6 +20,7 @@ export const articleAdditions: AddedArticle[] = [
   {
     id: 90001,
     slug: 'ga4-ecommerce-event-validation',
+    primaryService: 'business-intelligence',
     title: 'GA4 Ecommerce Event Validation: Trace the Order',
     description: 'Validate GA4 ecommerce events from product view to purchase. Check item data, transaction IDs, value, consent and reporting against a controlled order.',
     keywords: ['GA4 ecommerce event validation', 'GA4 purchase event', 'ecommerce analytics', 'transaction ID', 'DebugView'],
@@ -105,6 +107,7 @@ The event name is shown with its parameters for readability. The actual sending 
   {
     id: 90002,
     slug: 'search-console-canonical-indexing-debugging',
+    primaryService: 'seo',
     title: 'Search Console Canonical Debugging: Follow the Evidence',
     description: 'Debug canonical and indexing problems in Search Console. Compare indexed and live evidence, redirects, canonicals, internal links and sitemap URLs.',
     keywords: ['Search Console canonical debugging', 'Google-selected canonical', 'URL Inspection', 'indexing problems', 'technical SEO'],
@@ -176,6 +179,7 @@ After the developer changes the conflicting signal, open the published URL and r
   {
     id: 90003,
     slug: 'merchant-center-feed-diagnostics',
+    primaryService: 'shopping-ads',
     title: 'Merchant Center Feed Diagnostics: Fix the Product Record',
     description: 'A practical Merchant Center diagnostic workflow for product issues, price mismatches, availability and variant data, with a repeatable verification record.',
     keywords: ['Merchant Center feed diagnostics', 'product disapprovals', 'price mismatch', 'product availability', 'Shopping feed'],
@@ -242,6 +246,7 @@ Use the [variant comparison sheet](/downloads/product-variant-comparison.csv) to
   {
     id: 90004,
     slug: 'content-briefs-search-intent-internal-links',
+    primaryService: 'seo',
     title: 'Content Briefs: Search Intent, Evidence and Internal Links',
     description: 'Build a useful content brief around a reader decision, verified evidence and contextual internal links. Include practical editorial and post-publication checks.',
     keywords: ['content brief', 'search intent', 'internal linking', 'pillar content strategy', 'SEO content planning'],

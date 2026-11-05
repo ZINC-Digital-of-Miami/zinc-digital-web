@@ -2,9 +2,9 @@
 import ContactForm from './ContactForm.astro';
 import {services} from '../data/site';
 import {proposalPillar} from '../lib/proposal-pillar';
-interface Props { related: string[]; sourcePath: string }
-const {related,sourcePath}=Astro.props;
-const slug=proposalPillar(related);
+interface Props { primaryService: string; sourcePath: string }
+const {primaryService,sourcePath}=Astro.props;
+const slug=proposalPillar(primaryService);
 const service=services.find(s=>s.slug===slug);
 const label=service?.title || 'Your next project';
 const copy: Record<string,string>={

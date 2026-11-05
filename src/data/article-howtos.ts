@@ -5,6 +5,7 @@ export const articleHowtos: AddedArticle[] = [
   {
     id: 90005,
     slug: 'ga4-utm-naming-conventions',
+    primaryService: 'business-intelligence',
     title: 'GA4 UTM Naming Conventions: Build a Clean Campaign Record',
     description: 'Create consistent GA4 UTM names, test campaign links and review acquisition data. A practical workflow for source, medium, campaign and creative records.',
     keywords: ['GA4 UTM naming conventions', 'campaign tracking', 'UTM parameters', 'traffic acquisition'],
@@ -83,6 +84,7 @@ Before distribution, open the exact link, confirm the correct page and record th
   {
     id: 90006,
     slug: 'search-console-query-page-review',
+    primaryService: 'seo',
     title: 'Search Console Query and Page Review: A Working Routine',
     description: 'Review Search Console queries and pages with consistent filters. Turn clicks, impressions and observed search intent into a focused editorial action list.',
     keywords: ['Search Console query review', 'page performance', 'organic search', 'SEO reporting'],
@@ -154,6 +156,7 @@ Compare the same query group, page filters, country, device and dates. If the gu
   {
     id: 90007,
     slug: 'shopify-product-page-seo',
+    primaryService: 'shopify',
     title: 'Shopify Product Page SEO: A Practical Editing Checklist',
     description: 'Improve a Shopify product page with accurate product copy, search metadata, image alt text and useful links. Verify the published page before judging results.',
     keywords: ['Shopify product page SEO', 'product descriptions', 'product metadata', 'image alt text'],
@@ -238,6 +241,7 @@ Use one row per product field and variant. Put the approved fact and its source 
   {
     id: 90008,
     slug: 'google-shopping-variant-feed-checklist',
+    primaryService: 'shopping-ads',
     title: 'Google Shopping Variant Feed Checklist: Test Each Option',
     description: 'Check Shopping product variants across IDs, grouping, options and landing pages. Trace each submitted item to its selected price, image and availability.',
     keywords: ['Google Shopping variants', 'variant feed checklist', 'item group ID', 'Merchant Center'],
@@ -313,6 +317,7 @@ Record item ID, group ID, option values, landing URL, image, availability and pr
   {
     id: 90009,
     slug: 'internal-link-audit',
+    primaryService: 'seo',
     title: 'Internal Link Audit: Find the Pages Your Site Hides',
     description: 'Audit internal links around important pages, crawlable destinations and reader tasks. Find broken paths and missing connections without adding link clutter.',
     keywords: ['internal link audit', 'site structure', 'crawlable links', 'pillar content'],
@@ -401,6 +406,7 @@ Use one row per relationship. Record the introducing page, reader task, anchor a
   {
     id: 90010,
     slug: 'content-refresh-review',
+    primaryService: 'seo',
     title: 'Content Refresh Review: Update the Answer, Not the Date',
     description: 'Review existing articles for outdated claims, missing answers and broken links. Choose keep, revise or consolidate from evidence, with honest update dates.',
     keywords: ['content refresh review', 'evergreen content', 'article updates', 'content maintenance'],
@@ -477,6 +483,7 @@ Keep sections that still answer the reader’s question. Check downloadable copi
   {
     id: 90011,
     slug: 'service-page-content-checklist',
+    primaryService: 'seo',
     title: 'Service Page Content Checklist: Make the Offer Clear',
     description: 'Review a service page for scope, process, evidence, practical questions and the inquiry path. Build a clear answer without unsupported promises or filler.',
     keywords: ['service page content checklist', 'service page SEO', 'website copy', 'inquiry journey'],
@@ -559,6 +566,7 @@ State exclusions that affect the purchase, including unavailable integrations or
   {
     id: 90012,
     slug: 'paid-media-landing-page-checklist',
+    primaryService: 'google-search-ads',
     title: 'Paid Media Landing Page Checklist: Test the Whole Path',
     description: 'Check the path from an ad to its landing page and inquiry or purchase. Verify the offer, mobile experience, form behavior and measurement before launch.',
     keywords: ['paid media landing page checklist', 'landing page experience', 'conversion testing', 'ad destination'],

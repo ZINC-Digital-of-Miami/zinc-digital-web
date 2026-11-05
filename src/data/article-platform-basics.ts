@@ -4,6 +4,7 @@ export const articlePlatformBasics: AddedArticle[] = [
   {
     id: 90019,
     slug: 'merchant-center-basics',
+    primaryService: 'shopping-ads',
     title: 'Merchant Center Basics: Set Up a Reliable Product Feed',
     description: 'Set up Google Merchant Center with a verified store, one reliable product source and clear checks for price, stock, shipping and product eligibility.',
     keywords: ['Google Merchant Center basics', 'product feed setup', 'Google Shopping', 'product data'],
@@ -67,6 +68,7 @@ Use the [product comparison sheet](/downloads/product-variant-comparison.csv) to
   {
     id: 90020,
     slug: 'tiktok-ads-basics',
+    primaryService: 'tiktok-ads',
     title: 'TikTok Ads Basics: Build and Check Your First Campaign',
     description: 'Build a TikTok campaign around one outcome. Check account access, events, audience, budget, creative and the landing page before evaluating results.',
     keywords: ['TikTok ads basics', 'TikTok campaign setup', 'paid social', 'conversion tracking'],
@@ -147,6 +149,7 @@ A next step might be to inspect the product page, offer and creative before spen
   {
     id: 90021,
     slug: 'meta-ads-basics',
+    primaryService: 'social-ads',
     title: 'Meta Ads Basics: Match the Goal, Creative and Outcome',
     description: 'Set up a focused Meta advertising test. Match the objective to a business goal, check budget and placements, then review creative and actual outcomes.',
     keywords: ['Meta ads basics', 'Facebook advertising', 'Instagram ads', 'campaign setup'],
@@ -238,6 +241,7 @@ Inspect the rejected enquiries. If most fall outside the service area, check tar
   {
     id: 90022,
     slug: 'ai-search-content-strategy',
+    primaryService: 'ai-search-optimization',
     title: 'AI Search Content Strategy: Build Answers With Evidence',
     description: 'Build a practical AI search content strategy: answer real questions, verify facts, check indexing and record citations without confusing samples with coverage.',
     keywords: ['AI search content strategy', 'generative search optimization', 'AI Overviews', 'content evidence'],
@@ -305,6 +309,7 @@ The assignment is complete when a business owner can prepare for the conversatio
   {
     id: 90023,
     slug: 'business-intelligence-basics',
+    primaryService: 'business-intelligence',
     title: 'Business Intelligence Basics: From Records to Decisions',
     description: 'Understand what business intelligence does: connect source records, define metrics, build useful reports and turn a business question into a verified action.',
     keywords: ['business intelligence basics', 'business reporting', 'data definitions', 'decision support'],

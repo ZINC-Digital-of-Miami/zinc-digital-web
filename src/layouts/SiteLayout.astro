@@ -31,7 +31,7 @@ import '../styles/studio.css';
 import '../styles/typography.css';
 import MessageDialogs from '../components/MessageDialogs.astro';
 import CaseGalleryViewer from '../components/CaseGalleryViewer.astro';
-import { SITE, EMAIL, SOCIAL, STUDIOS, ADMIN_PATH, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
+import { SITE, EMAIL, SOCIAL, STUDIOS, services, asset, describe, ogKind, svcBy, caseBy, excerpt, noindexPaths, type Route } from '../data/site';
 
 interface Props { route: Route; customClosing?: boolean }
 const { route, customClosing = false } = Astro.props;
@@ -51,7 +51,7 @@ if (analytics && Astro.csp) {
   Astro.csp.insertDirective("frame-src https://www.googletagmanager.com");
 }
 const {posts:allPosts}=await (await import('../lib/content')).loadPublished();
-const posts=route.blogCategory?allPosts.filter(p=>p.related.includes(route.blogCategory!)):allPosts;
+const posts=route.blogCategory?allPosts.filter(p=>p.primaryService === route.blogCategory):allPosts;
 const t = route.template;
 const path = route.path;
 const title = brandTitle(route.metaTitle || route.title);
@@ -102,10 +102,10 @@ if (t === 'article') {
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
   const {articleSources}=await import('../data/article-sources');
-  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:{'@id':canonical+'#primaryimage'},inLanguage:author?.id==='wendy-funnell'?'en-GB':'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>p.related.includes(s.slug)).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'},citation:articleSources(p).map(source=>({'@type':'CreativeWork',name:source.title,url:source.url})),isPartOf:p.related.filter(slug=>services.some(s=>s.slug===slug)).map(slug=>({'@id':SITE+'/blog/category/'+slug+'/#webpage'}))});
+  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:{'@id':canonical+'#primaryimage'},inLanguage:author?.id==='wendy-funnell'?'en-GB':'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>s.slug===p.primaryService).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'},citation:articleSources(p).map(source=>({'@type':'CreativeWork',name:source.title,url:source.url})),isPartOf:[{'@id':SITE+'/blog/category/'+p.primaryService+'/#webpage'}]});
 }
 if(t==='blog' && route.blogCategory){
-  const members=posts.filter(p=>p.related.includes(route.blogCategory!));
+  const members=posts.filter(p=>p.primaryService === route.blogCategory);
   webpage.mainEntity={'@id':canonical+'#articles'};
   graph.push({'@type':'ItemList','@id':canonical+'#articles',numberOfItems:members.length,itemListElement:members.map((p,index)=>({'@type':'ListItem',position:index+1,name:p.title,url:SITE+'/blog/'+p.slug+'/'}))});
 }
@@ -126,7 +126,7 @@ const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph }
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
 const showCta = false;
 ---
-<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : route.blogCategory || (t === "article" ? proposalPillar(allPosts.find(p=>p.slug===route.slug)?.related || []) : undefined)} lang="en" data-theme="light">
+<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : route.blogCategory || (t === "article" ? proposalPillar(allPosts.find(p=>p.slug===route.slug)?.primaryService) : undefined)} lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -231,7 +231,7 @@ const showCta = false;
           <PrivacyControls />
           <div class="fbot">
             <a href="/" aria-label="ZINC home"><img src={wordmark.src} alt="ZINC" width={wordmark.width} height={wordmark.height} loading="lazy" /></a>
-            <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>{ADMIN_PATH && <> · <a href={ADMIN_PATH}>Admin</a></>}</span>
+            <span>© 2026 ZINC Digital · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
             <span><span class="mdot" style="margin-right:10px"></span>ZINC Digital · Miami</span>
           </div>
         </div>

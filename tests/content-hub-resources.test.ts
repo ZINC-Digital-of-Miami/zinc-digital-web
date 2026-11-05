@@ -17,7 +17,7 @@ test('content planning hub and published supporting guides link in both directio
     assert.ok(child,slug+' is available');
     assert.ok(hub.markdown.includes('/blog/'+slug+'/'));
     assert.ok(child.markdown.includes('/blog/'+hub.slug+'/'));
-    assert.equal(readingPath(slug,authoredArticles)[0].slug,hub.slug);
+    assert.ok(readingPath(slug,authoredArticles).every(p=>p.primaryService===child.primaryService));
   }
 });
 
@@ -57,6 +57,6 @@ test('service-aligned pillar categories house relevant blogs without absorbing u
   assert.equal(categoryPath('seo'),'/blog/category/seo/');
   const members=categoryPosts('seo',authoredArticles);
   for(const slug of ['build-a-content-hub-people-can-use','content-briefs-search-intent-internal-links','internal-link-audit','content-refresh-review']) assert.ok(members.some(p=>p.slug===slug));
-  assert.ok(members.every(p=>p.related.includes('seo')));
+  assert.ok(members.every(p=>p.primaryService==='seo'));
   assert.ok(!members.some(p=>p.slug==='merchant-center-feed-diagnostics'));
 });

@@ -3,6 +3,7 @@ import type { AddedArticle } from './article-additions.ts';
 export const articleFeatures: AddedArticle[] = [{
   "id": 94004,
   "slug": "what-ai-discovery-changes-editorial-plan",
+  "primaryService": "ai-search-optimization",
   "title": "What AI discovery changes about your editorial plan",
   "description": "AI discovery changes what an editorial calendar must account for. Plan evidence, maintenance and measurement without confusing visibility with business results.",
   "keywords": [
@@ -25,6 +26,7 @@ export const articleFeatures: AddedArticle[] = [{
 {
   id: 94001,
   slug: 'wordpress-php-security-moving-to-astro',
+  primaryService: 'web-design',
   title: "WordPress security—and why we moved ZINC to Astro",
   description: "Astro does not use PHP. Kirk explains what WordPress owners should check now, why ZINC moved, and what a sensible website migration should include.",
   keywords: ['WordPress security', 'PHP security update', 'WordPress to Astro migration', 'Astro website'],
@@ -136,6 +138,7 @@ Use one row per business function: editing, forms, bookings or checkout. Record 
 }, {
   "id": 94002,
   "slug": "build-a-content-hub-people-can-use",
+  "primaryService": "seo",
   "title": "How to organise your website’s blog",
   "description": "Organise useful articles around your services, answer customer questions and connect related pages. Includes a workbook, diagrams and launch checklist.",
   "keywords": [
@@ -347,6 +350,7 @@ Start with a subject that matters to your customers and relates to what you offe
 }, {
   "id": 94003,
   "slug": "what-can-you-afford-to-spend-on-an-order",
+  "primaryService": "business-intelligence",
   "title": "What can you afford to spend on an order?",
   "description": "Calculate an order’s media spending limit after discounts, returns, delivery and fees. Includes a worked example, Excel calculator and fillable checklist.",
   "keywords": [
