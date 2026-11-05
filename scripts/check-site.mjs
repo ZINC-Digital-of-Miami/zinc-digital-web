@@ -131,7 +131,7 @@ const BANNED_ABBREVIATION = new RegExp('\\b' + String.fromCharCode(71, 69, 79) +
 const text = (html) => html.replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' ').replace(/<[^>]+>/g, ' ');
 const hrefs = (html) => Array.from(html.matchAll(/href=["']([^"']+)["']/g), (m) => m[1]);
 // On-demand (server-rendered) routes are not in dist/; they are gated by src/middleware.ts.
-const SERVER_ROUTES = ['/admin/', '/admin/login/', '/admin/auth/confirm/', '/contact/send/', '/api/inquiries/', '/api/admin/signout/', '/api/admin/notify/', '/api/research/chat/', '/api/research/ingest/'];
+const SERVER_ROUTES = ['/admin/', '/admin/login/', '/admin/auth/confirm/', '/contact/send/', '/api/inquiries/', '/api/admin/signout/', '/api/admin/notify/', '/api/admin/research/chat/', '/api/admin/research/ingest/'];
 const resolves = async (href) => {
   const clean = href.split('#')[0].split('?')[0];
   if (!clean.startsWith('/')) return true;
