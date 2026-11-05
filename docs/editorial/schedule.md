@@ -178,3 +178,29 @@ These are unscheduled briefs, not new publication promises. Replenish the establ
 |12|web-design / Kirk|Map URLs before a redesign: which should remain, redirect or retire?|URL mapping template and launch checks; distinct from the canonical/duplicate-content explainer. Link [Astro migration](/blog/wordpress-php-security-moving-to-astro/) and [Duplicate content](/blog/duplicate-content-isnt-a-penalty-but-its-a-tax/).|
 
 Remaining coverage gap: the twelve proposed briefs do not provide another TikTok-primary article. Do not count the Meta creative-test article or secondary references as TikTok membership. A distinct TikTok follow-up still needs a reader question and current evidence before commissioning.
+
+
+### How-to interest coverage follow-up — 5 November 2026 CT
+
+Owner requested useful how-tos for Shopify, AI optimisation, Analytics, Market Analysis, Databases, Content Marketing, Brand Development, Shopping/Performance Max and Meta, with missing coverage handed to the existing editorial workflow. These email interests are finer than the site's 11 service pillars; they do not create new service categories or change existing article ownership. Keep the current dates and author lanes above. The four briefs below are **unscheduled**, with research and publication still outstanding.
+
+| Requested interest | Existing published starting point | Remaining reader task |
+|---|---|---|
+| Shopify | [Product-page SEO](/blog/shopify-product-page-seo/), [launch checks](/blog/shopify-seo-launch-checklist/) | Existing how-tos; use the relevant one rather than commission a duplicate. |
+| AI optimisation | [AI-search content strategy](/blog/ai-search-content-strategy/), [AI discovery and editorial planning](/blog/what-ai-discovery-changes-editorial-plan/) | Existing guidance; preserve distinctions between content quality, visibility and commercial outcomes. |
+| Analytics | [GA4 event validation](/blog/ga4-ecommerce-event-validation/), [UTM naming](/blog/ga4-utm-naming-conventions/) | Existing practical measurement how-tos. |
+| Market Analysis | [Public competitor research](/blog/ai-competitor-research-prompts/) | Partial: a public offer matrix is not a full market assessment. Commission brief13 below. |
+| Databases | [BI foundations](/blog/business-intelligence-basics/) | Partial: metric definitions do not teach a record schema. Commission brief14. |
+| Content Marketing | [Content planning](/blog/build-a-content-hub-people-can-use/), [content briefs](/blog/content-briefs-search-intent-internal-links/) | Existing how-tos and Wendy's dated queue; no additional duplicate needed. |
+| Brand Development | [Service-page content](/blog/service-page-content-checklist/) | Partial: service-page facts do not replace a positioning and message brief. Commission brief15. |
+| Shopping / Performance Max | [Shopping management](/blog/google-shopping-ad-management-2026/), [feed diagnostics](/blog/merchant-center-feed-diagnostics/) | Existing operating guidance and a campaign-type comparison. A practical launch verification sequence remains brief16, distinct from backlog7's analysis. |
+| Meta Ads | [Meta basics](/blog/meta-ads-basics/) | Existing practical brief; backlog4 adds a distinct creative-testing task. |
+
+Append these to the commissioning backlog without moving any dated slot. Each article links to its one primary service and matching pillar, plus the relevant supporting articles below. Validate platform instructions against current primary sources when writing; examples are labelled and cannot imply measured client outcomes.
+
+| Brief | Primary service / author lane | Distinct reader question | Required practical deliverable and supporting links |
+|---|---|---|---|
+|13|business-intelligence / Kirk|How do I assess a market opportunity using evidence I can actually verify?|A market-evidence worksheet with geography, customer need, dated primary sources, comparable offers, uncertainty and an explicit decision. Separate demand observations from unsupported market-size estimates. Include a labelled worked example and source-validation steps. Link [competitor evidence](/blog/ai-competitor-research-prompts/), [research consensus](/blog/research-consensus-report/) and the BI service/pillar.|
+|14|apps / Kirk|How do I turn a small business workflow into tables that keep records consistent?|A fictional customer/project/quote schema with primary and foreign keys, types, relationships, uniqueness and a validation exercise for duplicate and missing references. Explain access boundaries; no live database writes or private records. Distinct from item18's app scope and backlog1's permissions. Link [BI foundations](/blog/business-intelligence-basics/), item18 when live and the Apps service/pillar.|
+|15|web-design / Wendy|How do I write a brand brief that a designer and content writer can both use?|A positioning, audience, evidence, message hierarchy and visual-direction worksheet with a labelled example, approved-fact checks and a handoff checklist. Distinguish the brief from a logo and avoid invented customer research. Link [service-page facts](/blog/service-page-content-checklist/), [content briefs](/blog/content-briefs-search-intent-internal-links/) and the Web Design service/pillar.|
+|16|shopping-ads / Jaymie|What must I verify before launching a Shopping or Performance Max campaign?|A launch checklist and evidence log tracing product eligibility, linked accounts, selected products, goals/values, destinations, assets and purchase validation. Keep campaign-type differences explicit and use current native instructions; do not imply publishing proves delivery, sales or profit. Distinct from backlog7's campaign-control comparison. Link [Shopping management](/blog/google-shopping-ad-management-2026/), [feed diagnostics](/blog/merchant-center-feed-diagnostics/), [GA4 validation](/blog/ga4-ecommerce-event-validation/) and the Shopping Ads service/pillar.|
