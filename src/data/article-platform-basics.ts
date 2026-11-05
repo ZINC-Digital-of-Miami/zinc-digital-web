@@ -318,7 +318,7 @@ The assignment is complete when a business owner can prepare for the conversatio
     layer: 'Intelligence',
     related: ['business-intelligence', 'apps'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-03T14:56:43Z',
+    modifiedGmt: '2026-11-05T20:57:48Z',
     markdown: `Business intelligence turns business records into decisions people can act on. It connects sources, defines the measures and shows what changed. You need it when separate reports leave the team arguing about what a number means.
 
 ## 1. Start with a business question
@@ -342,6 +342,8 @@ For purchase measurement, check the [GA4 purchase specification](https://develop
 Put the comparison, relevant breakdown and source date where the operator can see them. Identify attribution limits and incomplete records in the view itself.
 
 In client work, our team built reporting into a staff application alongside assignments and service-history records. The public website was a separate part of the engagement. A prospective buyer needs an explanation of the offer; an operator needs records that support the next task. Decide which person the report serves before deciding what belongs on its first screen.
+
+For a procurement-focused example, see [ZINC Fusion v16](/work/zinc-fusion-v16/), a soybean-oil forecasting platform in development. Its project overview describes market dashboards, purchasing scenarios and policy and sentiment views, with source dates, forecast horizons and data-availability context.
 
 ## 5. Assign an action and verify it
 

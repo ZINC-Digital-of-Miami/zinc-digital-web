@@ -31,7 +31,7 @@ test('articles retain sources and reading paths; short guides retain their instr
       else if (href.startsWith('/services/')) assert.ok(serviceSlugs.has(href.split('/')[2]), post.slug+' links to an unavailable service');
       else if(href.startsWith('/downloads/') || href.startsWith('/media/')) assert.ok(readFileSync(new URL('../public'+href,import.meta.url)).length>0,href);
       else if(href.startsWith('/locations/')) assert.ok(['/locations/miami/','/locations/panama-city/'].includes(href));
-      else assert.ok(['/downloads/campaign-test-brief.pdf','/downloads/search-review-workbook.pdf','/media/blog-review/campaign-checkpoints.svg','/media/blog-review/canonical-decisions.svg','/work/us-oil-solutions/','/downloads/order-acquisition-calculator.xlsx','/downloads/order-acquisition-worksheet.pdf','/media/order-economics/spending-bridge.svg','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
+      else assert.ok(['/downloads/campaign-test-brief.pdf','/downloads/search-review-workbook.pdf','/media/blog-review/campaign-checkpoints.svg','/media/blog-review/canonical-decisions.svg','/work/us-oil-solutions/','/work/zinc-fusion-v16/','/downloads/order-acquisition-calculator.xlsx','/downloads/order-acquisition-worksheet.pdf','/media/order-economics/spending-bridge.svg','/downloads/content-hub-workbook.pdf','/downloads/content-hub-architecture.pdf','/media/content-hub/pillar-map.svg','/media/content-hub/link-plan.svg'].includes(href), post.slug+' has an unexpected internal destination');
     }
   }
 });
