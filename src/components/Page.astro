@@ -179,7 +179,8 @@ const markdownParts = markdownArticle ? [markdownArticle.html.slice(0, illustrat
 const articleGuide = post ? guideFor(post.slug) : undefined;
 const publishedGuide = articleGuide && posts.find(p => p.slug === articleGuide.slug);
 const nextArticles = post ? readingPath(post.slug, posts) : [];
-const feat = posts[0];
+const feat = route.blogCategory ? posts[0] : undefined;
+const archivePosts = posts.filter(p => p !== feat);
 const categoryGuides = readingGuides.filter(pillar=>posts.some(p=>p.slug===pillar.slug));
 const topics = services.filter((s) => posts.some((p) => p.primaryService === s.slug));
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
@@ -293,15 +294,15 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 </>)}
 
 {t === 'blog' && (<>
-  <nav class="wrap p-category-nav" aria-label="Service-aligned blog categories"><span class="lab">Browse by service</span><div><a class="p-chip" href="/blog/">All articles</a>{pillarCategories.map(s=><a class="p-chip" href={'/blog/category/'+s.slug+'/'} aria-current={s.slug===route.blogCategory?'page':undefined}>{s.title}</a>)}</div></nav>
+  {route.blogCategory && <nav class="wrap p-category-nav" aria-label="Service-aligned blog categories"><span class="lab">Browse by service</span><div><a class="p-chip" href="/blog/">All articles</a>{pillarCategories.map(s=><a class="p-chip" href={'/blog/category/'+s.slug+'/'} aria-current={s.slug===route.blogCategory?'page':undefined}>{s.title}</a>)}</div></nav>}
   {feat && <section class="p-band studio-feature"><div class="wrap"><a class="p-feat p-feat-illustrated" href={'/blog/' + feat.slug + '/'}>{articleImages[feat.slug] && <Img k={articleImages[feat.slug].asset} alt={articleImages[feat.slug].alt} class="p-feat-image" sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px" widths={[480,640,720,960,1280]} decoding="sync" loading="eager" fetchpriority="high" />}<div><span class="kick"><span class="mdot"></span> Featured / {dateLabel(feat.dateGmt)} / {feat.layer}</span><h2 class="disp p-sec">{feat.title}</h2><p class="p-body p-muted">{excerpt(feat, 220)}</p><span class="arrow">Read the full article </span></div></a></div></section>}
-  {!feat && <section class="p-band thin"><div class="wrap"><h2 class="disp p-sec">Articles are being prepared.</h2><p class="p-muted">Explore the service above for its scope and a relevant next step.</p></div></section>}
-{categoryGuides.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{categoryGuides.map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide </span></a>)}</nav></div></section>}
-  {posts.length > 1 && <section class="p-band thin"><div class="wrap" data-blog>
+  {posts.length === 0 && <section class="p-band thin"><div class="wrap"><h2 class="disp p-sec">Articles are being prepared.</h2><p class="p-muted">Explore the service above for its scope and a relevant next step.</p></div></section>}
+{route.blogCategory && categoryGuides.length > 0 && <section class="p-band thin"><div class="wrap"><span class="kick">Start with the framework</span><h2 class="disp p-sec">See how the parts connect.</h2><nav class="p-pillars" aria-label="Article guides">{categoryGuides.map(pillar => <a href={'/blog/' + pillar.slug + '/'}><h3 class="disp">{pillar.title}</h3><p>{pillar.description}</p><span class="arrow">Read the guide </span></a>)}</nav></div></section>}
+  {archivePosts.length > 0 && <section class="p-band thin"><div class="wrap" data-blog>
     <div class="p-filter rv" data-blog-filters><span class="lab" style="margin-right:10px">Layer</span>{['All', ...layers].map((l, i) => <button type="button" class:list={['p-chip', { on: i === 0 }]} data-filter={l} aria-pressed={i === 0}>{l}</button>)}</div>
     <div class="p-filter rv" style="margin-top:14px" data-blog-topics><span class="lab" style="margin-right:10px">Topic</span><button type="button" class="p-chip sm on" data-topic="All" aria-pressed="true">All topics</button>{topics.map((s) => <button type="button" class="p-chip sm" data-topic={s.slug} aria-pressed="false">{s.title}</button>)}</div>
-    <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{posts.length - 1} articles</p>
-    <div class="p-articles rv-stag" data-blog-list>{posts.filter((p) => p !== feat).map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.primaryService}>{articleImages[p.slug] && <div class="p-art-image"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></div>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><span class="arrow" aria-hidden="true">Read the full article </span></article>)}</div>
+    <p class="lab rv" style="margin:26px 0 0" data-result-count aria-live="polite">{archivePosts.length} {archivePosts.length === 1 ? 'article' : 'articles'}</p>
+    <div class="p-articles rv-stag" data-blog-list>{archivePosts.map((p) => <article class="p-art" data-layer={p.layer} data-topics={p.primaryService}>{articleImages[p.slug] && <div class="p-art-image"><Img k={articleImages[p.slug].asset} alt="" sizes="(max-width: 900px) 90vw, 360px" /></div>}<span class="lab">{dateLabel(p.dateGmt)} / {p.layer}</span><h2><a href={'/blog/' + p.slug + '/'}>{p.title}</a></h2><p>{excerpt(p)}</p><span class="arrow" aria-hidden="true">Read the full article </span></article>)}</div>
     <div class="p-empty" data-empty hidden><h2 class="disp p-sec">No articles in this view yet.</h2><p class="p-muted">Clear the filters to see the full archive.</p><button class="btn fill" type="button" data-clear-filter>Clear filters</button></div>
   </div></section>}
 </>)}
