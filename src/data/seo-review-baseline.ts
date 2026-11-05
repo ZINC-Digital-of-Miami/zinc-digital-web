@@ -9,7 +9,7 @@ export const seoReviewBaseline={
   'Case links require documented matching service scope. ZINC Fusion is an in-development BI project, not proof of delivered results. The removed OUABC case must never return to public content.',
   'Preserve public URLs, genuine authors and original dates. Do not infer authorship from staff membership or fabricate company profiles, demand, revenue or personal contact details.',
   'Keep distinct article questions. Query overlap is a research lead, not proof of cannibalization or authority to redirect. Metadata length is guidance, not an automatic defect.',
-  'AI search optimization is the approved term. No GEO. Panama City is the principal base; Miami is a priority growth market. Preserve verified location facts.',
+  'AI search optimization is the approved term. Do not substitute generative-search acronyms. Panama City is the principal base; Miami is a priority growth market. Preserve verified location facts.',
  ],
  leads:[
   ['F1','Service and hub headings should state their useful purpose.'],
