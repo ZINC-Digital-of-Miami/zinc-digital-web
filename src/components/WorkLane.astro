@@ -4,6 +4,7 @@ import ApprovedImage from "./ApprovedImage.astro";
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import Img from './Img.astro';
+import summitDevices from '../assets/work/smd-devices.png';
 import { caseBy } from '../data/site';
 import { laneNames, workLanes, projectLink, type WorkLane } from '../data/work-lanes';
 import '../styles/work-lanes.css';
@@ -11,7 +12,7 @@ interface Props { lane: WorkLane }
 const { lane } = Astro.props;
 const data = workLanes[lane];
 const art = import.meta.glob<{ default: ImageMetadata }>('../assets/lanes/*.png', { eager: true });
-const scene = (name: string) => art['../assets/lanes/' + name + '.png'].default;
+const scene = (name: string) => name === 'demand-summit' ? summitDevices : art['../assets/lanes/' + name + '.png'].default;
 const features = data.projects.filter(p => p.scene);
 const cards = data.projects.filter(p => !p.scene && !p.community);
 const community = data.projects.filter(p => p.community);
@@ -30,7 +31,7 @@ const action = lane === 'Build' ? 'Explore the build' : lane === 'Demand' ? 'Exp
         {lane === 'Intelligence' && <span class="wl-hero-status">Featuring applications in development</span>}
       </div>
       <div class="wl-hero-art">
-        <ApprovedImage name={lane === "Intelligence" ? "intelligence-fusion.png" : lane === "Build" ? "build-uos.png" : "demand-summit.png"} loading="eager" sizes="(max-width: 700px) 100vw, 65vw" alt={lane === "Intelligence" ? "ZINC Fusion v16 forecasting dashboard on desktop and tablet; private figures removed" : lane + " project work across devices"} />
+        {lane === "Demand" ? <Img k="smd-devices" loading="eager" fetchpriority="high" quality={95} sizes="(max-width: 700px) 100vw, 65vw" alt="Retained ZINC-built Summit Marine Development website across devices" /> : <ApprovedImage name={lane === "Intelligence" ? "intelligence-fusion.png" : "build-uos.png"} loading="eager" sizes="(max-width: 700px) 100vw, 65vw" alt={lane === "Intelligence" ? "ZINC Fusion v16 forecasting dashboard on desktop and tablet; private figures removed" : lane + " project work across devices"} />}
       </div>
     </div>
   </section>
