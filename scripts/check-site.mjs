@@ -369,6 +369,7 @@ const listedClients = [...overview.matchAll(/data-client="([^"]+)"/g)].map(m => 
 check(JSON.stringify(listedClients) === JSON.stringify(clientOrder), 'Work must list each current client once, in portfolio order');
 for (const slug of clientOrder) {
   const page = pages.find(p => p.rel === 'work/'+slug+'/index.html')?.html || '';
+  check(page.includes('data-case-number'), slug+' lacks the approved large numbered-circle treatment');
   const footer = page.match(/<footer[^>]*data-case-footer[^>]*>([\s\S]*?)<\/footer>/)?.[1] || '';
   check(footer.includes('href="/work/'+nextClient(slug)+'/"'), slug+' has an incorrect next-project destination');
   for (const entry of workFor(slug)) {
