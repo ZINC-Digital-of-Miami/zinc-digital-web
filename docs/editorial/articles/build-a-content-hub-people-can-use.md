@@ -165,7 +165,7 @@ Use **Pass / Fix / Not applicable**, record evidence and name the person respons
 **Content and evidence**
 
 - The category hub introduces the topic and lists the relevant articles; each guide answers its own question in substance.
-- Blogs within the category add distinct answers rather than repeating one another.
+- Articles within the category add distinct answers rather than repeating one another.
 - Service details, prices, exclusions and procedures match the current offer.
 - Claims have suitable sources or a factual reviewer; examples are labelled.
 - Each page has a useful title, headings, descriptive search summary and accurate author or reviewer identity.
