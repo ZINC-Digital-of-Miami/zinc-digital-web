@@ -613,6 +613,12 @@ Owner rejected completeness after PR47. The recorded technical release remains f
 
 2November latestowner: STOP USING DOCKER. Correction uses localNode24 tests/check/build/siteaudit; retainprotectedPR/Vercelrelease. Approved16file retirementcomplete; all44blogsretained. Localacceptance passed176tests/237Astrofiles/100HTML,44metadata/schema checks,19downloads and264structuralviewport/themechecks. Corrected sevenadditionaleditorialfindings and assetvalidatorregressions. Correction protectedrelease/productionreadback remains open; earlierPR47receipt is not this correctionreceipt.
 
+### Claude recommendation follow-up — 5 November 2026 CT (work in progress)
+
+Owner requested completion of the remaining recommendations and verification of the next scheduled run. The Monday 9:15 AM CT verification heartbeat `verify-monday-claude-seo-review` is active; it checks the November 9 scheduled receipt without making a duplicate paid call. Cron configuration is not proof of execution.
+
+In `codex/remaining-seo-recommendations`, a reporting change aligns GA4 summary calendar dates with the Search Console windows while preserving the independently dated RFP funnel; it increases the landing-page fetch to 1,000 rows and discloses timezone boundaries and limits. Focused tests pass, including the Pacific-midnight boundary and a landing page beyond the prior 100-row limit. The change is not released. On November 5 the owner directed GitHub Actions for checks and release because organisation credits are restored, superseding the Docker requirement. The site checks workflow is being restored; its actual run and release remain to be verified. Remaining review recommendations, including content/evidence and performance work, remain open; do not treat this partial change as completion.
+
 ### Owner expansion — Claude weekly SEO review, 3 November 2026 CT
 
 - Requested backend: Claude Opus 5.5, High effort; review all SEO settings, public pages/blogs and native ZINC traffic evidence; suggest specific fixes awaiting approval.
