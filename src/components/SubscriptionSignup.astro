@@ -1,0 +1,66 @@
+---
+import {subscriptionTopics} from '../lib/subscription-topics';
+---
+<section class="p-band thin"><div class="wrap subscribe-layout" data-subscription-page data-clarity-mask="true">
+  <div class="subscribe-intro">
+    <span class="kick">Your subjects. Your inbox.</span>
+    <h2 class="disp">Useful how-tos.<br />Chosen by you.</h2>
+    <p>Follow the parts of the work that matter to you: building a website, finding customers or making sense of your business data.</p>
+    <p>A Web Design subscription is for Web Design how-tos. Other subjects are your choice.</p>
+    <p class="subscribe-note">Project inquiries and email subscriptions are separate. Sending an inquiry does not sign you up for updates.</p>
+  </div>
+  <div class="subscribe-form-panel" aria-labelledby="subscription-heading">
+    <span class="lab">Email subscriptions</span>
+    <h2 class="disp" id="subscription-heading" data-subscription-heading>Pick your topics.</h2>
+    <p>Choose your subjects, then open the signup form to enter your email and confirm.</p>
+    <fieldset class="subscribe-topics" aria-describedby="subscription-selection">
+      <legend>Which how-tos would you like?</legend>
+      {['Build','Demand','Intelligence'].map(group=><div class="subscribe-topic-group"><h3 class="lab">{group}</h3><div>{subscriptionTopics.filter(topic=>topic.group===group).map(topic=><label><input type="checkbox" name="topics" value={topic.slug} /><span>{topic.title}</span></label>)}</div></div>)}
+    </fieldset>
+    <p class="subscribe-selection" id="subscription-selection" role="status" data-subscription-selection>No topics selected. Choose one or several.</p>
+    <p class="subscribe-disclosure" id="subscription-disclosure">Opening the form connects to Constant Contact and Google reCAPTCHA and allows the cookies they use to run and protect signup. This does not turn on the site’s optional analytics or advertising.</p>
+    <button class="btn fill" type="button" data-subscription-load aria-describedby="subscription-disclosure" hidden>Open signup form</button>
+    <p role="status" data-subscription-status></p>
+    <p data-subscription-retry hidden><a href="/subscribe/">Reload the signup page</a> to try again.</p>
+    <div data-subscription-mount></div>
+    <noscript><p>Enable JavaScript to open the signup form and choose your email topics.</p></noscript>
+    <p class="subscribe-disclosure">Subscribe only to the how-to topics you select. Use the links in each email to update your interests or unsubscribe. <a href="/privacy/">Read our Privacy Policy</a>.</p>
+  </div>
+</div></section>
+<script>
+ import '../scripts/subscriptions';
+</script>
+<style>
+ .subscribe-form-panel :global([hidden]){display:none!important}
+ .subscribe-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,100px);align-items:start;padding-bottom:60px}
+ .subscribe-intro h2{font-size:clamp(38px,4vw,60px);line-height:1.06;letter-spacing:-.045em;margin:20px 0 28px}
+ .subscribe-intro>p{font-size:17px;line-height:1.8;max-width:44ch;color:var(--muted);margin:18px 0}
+ .subscribe-intro .subscribe-note{font-size:14px;border-top:1px solid var(--line);padding-top:24px;margin-top:32px}
+ .subscribe-form-panel{border-top:3px solid var(--tealt);padding-top:26px;min-width:0}
+ .subscribe-form-panel h2{font-size:clamp(30px,3vw,42px);line-height:1.12;margin:18px 0;letter-spacing:-.035em}
+ .subscribe-form-panel p{font-size:16px;line-height:1.7;color:var(--muted);margin:18px 0}
+ .subscribe-topics{border:0;padding:0;margin:30px 0 0;min-width:0}
+ .subscribe-topics legend{font-size:17px;font-weight:600;padding:0 0 16px}
+ .subscribe-topic-group{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+ .subscribe-topic-group h3{font-size:12px;margin:14px 0;overflow-wrap:anywhere}
+ .subscribe-topic-group label{display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 0;font-size:16px;line-height:1.5;cursor:pointer}
+ .subscribe-topic-group input{appearance:auto;width:20px;height:20px;margin:0;flex-shrink:0;accent-color:var(--tealt)}
+ .subscribe-topic-group input:focus-visible{outline:3px solid var(--tealt);outline-offset:4px}
+ .subscribe-form-panel .subscribe-selection{font-size:14px;padding-top:14px;border-top:1px solid var(--line)}
+ .subscribe-form-panel .btn{min-height:48px;margin:16px 0 0;white-space:normal}
+ .subscribe-form-panel :disabled{cursor:not-allowed;opacity:.65}
+ .subscribe-form-panel .subscribe-disclosure{font-size:14px}.subscribe-disclosure a{color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
+ :global(.subscribe-form-panel .ctct-form-defaults){background:var(--bg)!important;color:var(--ink)!important;padding:0!important;font-family:var(--font-body)!important}
+ :global(.subscribe-form-panel .ctct-form-custom > .ctct-form-header),:global(.subscribe-form-panel .ctct-form-custom > .ctct-form-text){display:none!important}
+ :global(.subscribe-form-panel .ctct-form-label),:global(.subscribe-form-panel .ctct-form-lists-legend),:global(.subscribe-form-panel .ctct-form-listname),:global(.subscribe-form-panel .ctct-gdpr-text){color:var(--ink)!important}
+ :global(.subscribe-form-panel .ctct-form-element){background:var(--bg)!important;color:var(--ink)!important;border:1px solid var(--line)!important;font-size:16px!important;min-height:48px}
+ :global(.subscribe-form-panel .ctct-form-listitem){padding:8px 0!important}
+ :global(.subscribe-form-panel .ctct-form-listname){font-size:16px!important;line-height:1.5!important}
+ :global(.subscribe-form-panel .ctct-form-button){background:var(--ink)!important;color:var(--bg)!important;border:1px solid var(--ink)!important;min-height:48px!important}
+ :global(.subscribe-form-panel input:focus-visible),:global(.subscribe-form-panel button:focus-visible){outline:3px solid var(--tealt)!important;outline-offset:4px}
+ :global(.subscribe-form-panel .ctct-gdpr-text){font-size:14px!important;line-height:1.6!important}
+ :global(.subscribe-form-panel .ctct-gdpr-text a){color:var(--ink)!important}
+ :global(.subscribe-form-panel .ctct-form-success),:global(.subscribe-form-panel .ctct-form-success .ctct-form-header),:global(.subscribe-form-panel .ctct-form-success .ctct-form-text){color:var(--ink)!important}
+ :global(.subscribe-form-panel .ctct-form-checkbox){accent-color:var(--tealt)}
+ @media(max-width:800px){.subscribe-layout{grid-template-columns:1fr;gap:36px}.subscribe-topic-group{grid-template-columns:1fr;gap:0}.subscribe-topic-group h3{margin:4px 0 10px}}
+</style>

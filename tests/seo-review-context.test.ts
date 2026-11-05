@@ -14,3 +14,13 @@ test('grouped head values preserve duplicate fields, values and their original p
  const malformed={...signals,metadata:[{name:'description',content:null}]};
  assert.deepEqual((reviewContext([{...source,signals:malformed}])[0] as any).signals,malformed);
 });
+test('compact heading rows preserve exact text, duplicates and document order without changing retained evidence',()=>{
+ const headings=[{level:'h1',text:'A useful page'},{level:'h2',text:'Costs & timing'},{level:'h2',text:'Costs & timing'},{level:'h3',text:'Panama City — next steps'}];
+ const source={id:'page:/example/',analysis:{checks:[]},content:{text:'Full retained excerpt.',headings,targets:['/services/web-design/'],excerptOnly:true}};
+ const packed=reviewContext([source])[0] as any;
+ assert.deepEqual(packed.content.headingRows.map(([level,text]:string[])=>({level,text})),headings);
+ assert.equal(packed.content.headings,undefined);assert.equal(packed.content.text,source.content.text);assert.deepEqual(source.content.headings,headings);
+ assert.ok(Buffer.byteLength(JSON.stringify(packed.content))<Buffer.byteLength(JSON.stringify(source.content)));
+ const extra={...source,content:{...source.content,headings:[{level:'h2',text:'Heading',id:'retain-this-evidence'}]}};
+ assert.deepEqual((reviewContext([extra])[0] as any).content,extra.content);
+});

@@ -255,7 +255,7 @@ Use the [variant comparison sheet](/downloads/product-variant-comparison.csv) to
     layer: 'Demand',
     related: ['seo', 'ai-search-optimization'],
     dateGmt: '2026-10-06T12:00:00',
-    modifiedGmt: '2026-11-03T14:56:43Z',
+    modifiedGmt: '2026-11-05T17:58:02Z',
     markdown: `A useful brief tells the writer what the reader needs to decide, which evidence supports the answer and where to link next.
 
 In our client work, we have built distinct pages to explain different services rather than asking one page to introduce the whole offer. That gives a writer a rather useful starting question: what does this reader still need to understand? Put that question in the brief, along with the person who can answer it. Otherwise, a perfectly respectable title can end up doing an awful lot of guessing.
@@ -266,9 +266,9 @@ Before you start, gather your service or collection list, the existing blog URLs
 
 Describe the reader in one sentence and name the task. “Desk lamps” is a topic; “choose lighting for a small desk without screen glare” is an assignment. List the questions the answer must resolve and the evidence you can actually supply.
 
-The pillar is the category aligned with the service or collection. The article sits inside it. A commercial service page has a different job: helping someone choose and enquire about the offer. Do not turn all three into copies of the same sales pitch.
+In ZINC’s structure, the pillar is a useful overview and article collection aligned with one primary service. Give each article that explicit assignment before publication; secondary references remain cross-links. A commercial service page has a different job: helping someone choose and enquire about the offer. Do not turn all three into copies of the same sales pitch.
 
-![Business intelligence service aligns with its blog category; the dashboard preparation article sits in that category and links to a useful supporting guide and the service when relevant.](/media/blog-review/content-brief-map.svg)
+![Business intelligence service aligns with its blog category; the dashboard preparation article sits in that category and links to a useful supporting guide and its assigned service.](/media/blog-review/content-brief-map.svg)
 
 Google's [people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) emphasises original value, clear sourcing and usefulness. It has no preferred word count. Decide what the reader needs to finish the task, then commission that work.
 
@@ -280,7 +280,7 @@ Here is an illustrative assignment for a business that sells reporting services.
 | --- | --- |
 | Reader | A business owner comparing reporting options after receiving conflicting revenue reports |
 | Main question | What should we check before paying for a dashboard? |
-| Category/pillar | Business intelligence, aligned with the reporting service |
+| Primary service and pillar | Business intelligence; /services/business-intelligence/ and /blog/category/business-intelligence/ |
 | Article’s job | Help the owner prepare a short requirements list |
 | Evidence | Approved source definitions, a labelled sample report and documentation for the source systems |
 | Sections | Decision to support; records required; metric definitions; access; acceptance checks |
@@ -301,6 +301,8 @@ For the dashboard example, make the linking instructions specific enough to impl
 | Section on website purchase records | [Check an ecommerce purchase event](/blog/ga4-ecommerce-event-validation/) | Relevant only when the example uses website purchase tracking; omit it for other data |
 | Final implementation step | [Business intelligence support](/services/business-intelligence/) | Gives the reader somewhere to ask for help with the requirements they have assembled |
 
+Every published article needs a direct link to its assigned service and pillar. The service page links back to the pillar and relevant articles. Useful peer links can cross categories without changing the primary assignment.
+
 Also choose an existing article that should link **to** the new one. Note the paragraph and proposed link wording, then review that change when the new article goes live. A link plan needs incoming routes as well as exits. There is no useful universal quota for links.
 
 Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains crawlable links and useful anchor text. Verify each destination and the reason for including it; a link quota is not an editorial strategy.
@@ -311,7 +313,7 @@ Complete the fields below. The downloadable version has space for the answers, a
 
 - **Reader and starting knowledge:** who is doing the task, and what can we reasonably assume they know?
 - **One question and finished outcome:** what will the reader be able to decide, prepare or do?
-- **Category and commercial connection:** which service or collection does the category support? Which existing article could be updated instead?
+- **Primary service and pillar:** record one service, its URL and its matching pillar URL. Which existing article could be updated instead?
 - **Required answer:** write a provisional two-sentence answer. List anything that still needs confirmation.
 - **Section plan:** give each section a reader question, an answer to develop and a piece of evidence or a demonstration.
 - **Evidence register:** record each consequential claim, its exact source, what the source supports, the date checked and the reviewer. Mark any example figures as illustrative.
@@ -328,7 +330,7 @@ Give the brief to the writer and ask them to describe the planned example, the s
 
 When the draft returns, work through its instructions as the intended reader. Can you produce the promised requirements list using the article alone? Open every source and check the actual claim, test the download, and follow the links on a phone. Send back specific omissions such as “show how the owner checks the refund definition”, rather than “make this more authoritative”.
 
-After publication, open the final URL, confirm its category listing and incoming link, and check that the title, summary and search description describe the article you actually published. Record a review date and a change trigger. Search appearances and enquiries can inform later improvements; one new query does not justify rewriting the whole assignment.
+After publication, open the final URL, confirm its primary pillar listing, direct service and pillar links, and incoming link, and check that the title, summary and search description describe the article you actually published. Record a review date and a change trigger. Search appearances and enquiries can inform later improvements; one new query does not justify rewriting the whole assignment.
 
 [Download the content brief and review worksheet](/downloads/content-brief-worksheet.pdf). It includes the dashboard example, a fillable assignment, a source-and-link record and the handover checks. Use the [content hub guide](/blog/build-a-content-hub-people-can-use/) and its [planning workbook](/downloads/content-hub-workbook.pdf) when deciding how this assignment fits the wider category and article collection.`,
   },

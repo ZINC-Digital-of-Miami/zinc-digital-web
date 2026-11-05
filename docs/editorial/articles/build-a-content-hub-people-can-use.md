@@ -37,17 +37,21 @@ This guide explains how to organise those categories, decide which articles belo
 
 ## 1. Start with the service or collection, then its blog category
 
-A **pillar is a main blog category aligned with a primary service or product collection**. It groups articles about that subject. For a cleaning business, “Regular home cleaning” can be a pillar aligned with that service. For a shop, a product collection such as “Garden lighting” can be the main subject of the category.
+In the model used here, a **pillar is a service-aligned overview and collection of articles**, published at its main blog category URL. It groups articles about that subject. For a cleaning business, “Regular home cleaning” can be a pillar aligned with that service. For a shop, a product collection such as “Garden lighting” can be the main subject of the category.
 
 The **category landing page** is the hub: it introduces the topic and helps readers find the relevant articles. It should explain what belongs there and organise the articles around useful questions. An article can be a substantial guide, comparison or how-to inside that category; the article itself is not the category.
 
 A **topic cluster** is a related set of articles within the pillar. It lets you plan narrower questions without creating a new top-level category for every keyword. The separate service or collection page explains what you sell and helps someone enquire or buy.
 
-This is ZINC's editorial planning model, not a special Google ranking feature. Google's [SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) supports logical organisation and useful information. Neither a category name nor a fixed number of posts guarantees authority.
+ZINC uses eleven service-aligned pillars, including separate Meta and TikTok collections. Every article has one primary service. Its pillar, direct service link and proposal form agree with that choice; useful cross-links do not reassign it.
+
+This is a chosen organisation, not a universal definition. [HubSpot describes a pillar page as a comprehensive resource](https://knowledge.hubspot.com/content-strategy/pillar-pages-topics-and-subtopics) connected to supporting articles. A substantial guide can fulfil that role. Here we use the service-aligned category overview for the central resource. It needs useful explanation as well as an article list.
+
+This is not a special Google ranking feature. Google's [SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) supports logical organisation and useful information. Neither a category name nor a fixed number of posts guarantees authority.
 
 ![A regular-home-cleaning pillar category aligned with that primary service contains a choosing guide and four related articles. A separate service page explains the offer and how to request a quote.](/media/content-hub/pillar-map.svg)
 
-*The category groups the articles. The service page sells the service. A broad guide is one article within the category, not a replacement for the category.*
+*In this example, the category overview groups the articles and connects them with the service. A broad guide is supporting content within this chosen structure.*
 
 ## 2. Set the business goal and the boundaries
 
@@ -127,9 +131,9 @@ A list of URLs in a spreadsheet does not create the connections on your website.
 For the example:
 
 - The category hub links to every article in the category, including the frequency comparison.
-- The comparison offers a clearly labelled route back to its category and links to inclusions where readers need to check what they are comparing.
+- Every article links directly to its assigned category overview and service. The comparison also links to inclusions where readers need to check what they are comparing.
 - The price article links to the quote request after explaining the information required.
-- The service page offers explanatory guidance for customers who are not ready to enquire.
+- The service page links back to its pillar and selected explanatory articles for customers who are not ready to enquire.
 - Relevant navigation or existing content links to the category hub so the articles can be found.
 
 Use link wording such as **what's included in a regular clean**. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains crawlable links and meaningful wording. Ask your website team to verify that links work on a phone and reach the intended addresses.
@@ -140,12 +144,15 @@ You do not need to move every URL into a new folder. Keep useful addresses unles
 
 This article belongs to the [SEO blog category](/blog/category/seo/), aligned with our [SEO service](/services/seo/). That category groups the articles about SEO, including content planning, technical search work and measurement. It is the pillar; this how-to is one article within it.
 
-Within that category, these related articles form the content-planning cluster:
+Within that SEO category, these articles address content planning:
 
 - [Write a content brief](/blog/content-briefs-search-intent-internal-links/) to assign the question, evidence and links.
 - [Audit internal links](/blog/internal-link-audit/) to check whether the planned routes exist.
 - [Check a service page](/blog/service-page-content-checklist/) to explain the offer clearly.
 - [Review existing content](/blog/content-refresh-review/) to decide what needs keeping, updating or combining.
+
+Useful cross-pillar reading belongs to the separate [AI search collection](/blog/category/ai-search-optimization/):
+
 - [Plan content for AI discovery](/blog/ai-search-content-strategy/) to review answer quality and evidence.
 - [Decide what AI discovery changes in your editorial plan](/blog/what-ai-discovery-changes-editorial-plan/) before writing another article.
 
@@ -157,7 +164,7 @@ Use **Pass / Fix / Not applicable**, record evidence and name the person respons
 
 **Purpose and planning**
 
-- Reader, business goal, pillar category, aligned service or collection, and excluded subjects are recorded.
+- Reader, business goal, one primary service, matching pillar URL and excluded subjects are recorded.
 - Every article, category and service page has a clear purpose, an address and a useful next step.
 - Similar questions have been reviewed together; unnecessary duplicates are resolved.
 - Existing articles have been checked before new ones are planned.
@@ -172,7 +179,7 @@ Use **Pass / Fix / Not applicable**, record evidence and name the person respons
 
 **Links and technical delivery**
 
-- The category hub links to the articles it houses, which display a route back to the category.
+- Each article links to its pillar and primary service; both link back to relevant articles.
 - Contextual links connect related answers where helpful, without compulsory links to everything.
 - Relevant navigation or content reaches the category hub; no required page is isolated.
 - Links reach correct live destinations; redirects and replacement links are verified.
