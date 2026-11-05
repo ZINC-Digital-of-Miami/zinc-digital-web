@@ -73,14 +73,15 @@ const caseHero = t === 'case' ? caseHeroes[route.slug!] : undefined;
 const caseImageKey = caseHero?.montage || caseHero?.desktop;
 const caseImage = caseImageKey ? imageFiles['../assets' + asset(caseImageKey).src]?.default : undefined;
 const localImage = t === 'location' ? imageFiles['../assets' + asset(route.slug === 'miami' ? 'felon-web-mockup' : 'smd-brand-book').src]?.default : undefined;
-const socialSource = imageFile || caseImage || demandHero || approvedHero || localImage;
-const socialImage = socialSource ? await getImage({ src: socialSource, width: 1200, height: 630, fit: caseHero?.montage ? 'contain' : 'cover', format: 'webp', quality: 82 }) : undefined;
+const homeSocialImage = path === '/' ? imageFiles['../assets/brand/zinc-badge.png']?.default : undefined;
+const socialSource = homeSocialImage || imageFile || caseImage || demandHero || approvedHero || localImage;
+const socialImage = socialSource ? await getImage({ src: socialSource, width: homeSocialImage ? 1024 : 1200, height: homeSocialImage ? 1024 : 630, fit: caseHero?.montage ? 'contain' : 'cover', format: 'webp', quality: 82 }) : undefined;
 // Astro maps contain to an inside resize: report the actual uncropped dimensions.
 const socialScale = socialSource && caseHero?.montage ? Math.min(1200 / socialSource.width, 630 / socialSource.height) : undefined;
-const socialWidth = socialScale && socialSource ? Math.round(socialSource.width * socialScale) : 1200;
-const socialHeight = socialScale && socialSource ? Math.round(socialSource.height * socialScale) : 630;
+const socialWidth = homeSocialImage ? 1024 : socialScale && socialSource ? Math.round(socialSource.width * socialScale) : 1200;
+const socialHeight = homeSocialImage ? 1024 : socialScale && socialSource ? Math.round(socialSource.height * socialScale) : 630;
 const ogImg = SITE + (socialImage?.src || '/og/' + (caseHero?.identity ? route.slug : ogKind(route)) + '.png');
-const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + ' — ' + caseHero.note : 'ZINC Digital — ' + route.title);
+const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + ' — ' + caseHero.note : path === '/' ? 'ZINC Digital machine-head icon.' : 'ZINC Digital — ' + route.title);
 const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
