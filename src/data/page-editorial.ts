@@ -2,11 +2,11 @@
 const entry=(metaTitle:string,metaDescription:string)=>({metaTitle,metaDescription});
 export const homeMetaDescription='AI search optimization, custom websites and business intelligence from ZINC Digital. Working with businesses in Panama City, Miami and across the US.';
 export const pageEditorial:Record<string,{metaTitle:string;metaDescription:string}>={
- '/':entry('Digital Agency in Miami & Panama City',homeMetaDescription),
+ '/':entry('AI Search, Websites & BI · Panama City & Miami',homeMetaDescription),
  '/services/':entry('Websites, Search & Business Intelligence Services','Explore ZINC’s Build, Demand and Intelligence services: websites, Shopify, apps, SEO, paid campaigns and business intelligence connected to the work.'),
  '/about/':entry('Our Team · Miami & Panama City','Meet the ZINC Digital team connecting websites, marketing and business reporting. Based in Panama City, serving Miami and businesses nationwide.'),
  '/contact/':entry('Contact ZINC · Miami & Panama City','Tell ZINC Digital about your website, marketing or business intelligence project. Contact the team in Miami and Panama City, working nationwide.'),
- '/blog/':entry('SEO, Ecommerce & Business Intelligence Insights','Read ZINC’s source-backed guides to SEO, Shopify, paid media, generative search and business intelligence. Practical decisions behind digital work.'),
+ '/blog/':entry('SEO, Ecommerce & Business Intelligence Insights','Read ZINC’s source-backed guides to SEO, Shopify, paid media, AI search optimization and business intelligence. Practical decisions behind digital work.'),
  '/work/':entry('Websites, SEO & Application Case Studies','Explore ZINC Digital’s website, Shopify, search and application projects. See the client context, work delivered and systems still in development.'),
  '/services/shopify/':entry('Shopify Ecommerce Development','Shopify stores built around clear product pages, dependable checkout and catalog operations. ZINC connects storefront development with search and paid media.'),
  '/services/web-design/':entry('Custom Web Design & Development','Custom websites with clear content, accessible navigation and fast page delivery. ZINC designs and develops the customer experience around the business.'),

@@ -4,6 +4,7 @@ import BeforeAfter from './BeforeAfter.astro';
 import DeviceComposition from './DeviceComposition.astro';
 import ClientMaterialCase from './ClientMaterialCase.astro';
 import PageRail from "./PageRail.astro";
+import {serviceEditorial,serviceLayerIntroductions} from '../data/service-editorial';
 import ServicesVisual from "./ServicesVisual.astro";
 import WorkOverview from "./WorkOverview.astro";
 import ApprovedImage from "./ApprovedImage.astro";
@@ -57,6 +58,8 @@ const pillarCategories=services;
 const {renderArticleMarkdown}=await import('../lib/markdown');
 const t = route.template;
 const svc = t === 'service' ? svcBy(route.slug!) : null;
+const serviceCopy=svc ? serviceEditorial[svc.slug] : undefined;
+const pageHeading=serviceCopy?.heading || (t==='services' ? 'Web Design, SEO, Paid Media and Business Intelligence Services' : t==='blog'&&!categoryService ? 'SEO, Ecommerce and Business Intelligence Articles' : route.title);
 const serviceCase = svc?.caseSlug ? caseBy(svc.caseSlug) : null;
 const serviceProofAssets: Record<string, string> = { apps: 'uos-current-technicians-desktop' };
 const serviceProof = svc && serviceCase ? serviceProofAssets[svc.slug] || serviceCase.hero : null;
@@ -182,12 +185,13 @@ const topics = services.filter((s) => posts.some((p) => p.primaryService === s.s
 const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 ---
 {t !== 'case' && t !== 'work' && (
-  <section class:list={["p-intro", "zn-page-hero", { "zn-long-title": route.title.length > 35, "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
+  <section class:list={["p-intro", "zn-page-hero", { "zn-long-title": pageHeading.length > 35, "p-intro-contact": t === "contact", "p-intro-article": t === "article" }]} >
     <div class="sph" data-par="0.07" style="width:560px;height:560px;right:-150px;top:-60px;animation:float1 11s ease-in-out infinite"></div>
     <div class:list={["wrap", {"zn-service-hero":t === "services"}]}>
       <div class="meta lab" style="padding-top:0"><span>{eyebrow}</span></div>
       <hr class="rule" />
-      <h1 class:list={['disp p-title', titleCls, {'zn-insights-title':t === 'blog'}, { rv: revealHeader }]}>{t === "blog" && !categoryService ? <>&lt;insights<span>.py</span>/&gt;</> : route.title}</h1>
+      {t === "blog" && !categoryService && <p class="lab" aria-hidden="true">&lt;insights.py/&gt;</p>}
+      <h1 class:list={['disp p-title', titleCls, {'zn-insights-title':t === 'blog'}, { rv: revealHeader }]}>{pageHeading}</h1>
       {pageLede && <p class:list={['p-lede', { rv: revealHeader }]}>{pageLede}</p>}
       {meta && <p class:list={['lab', { rv: revealHeader }]} style="margin:28px 0 0">{post ? <>{dateLabel(post.dateGmt)} / {postAuthor ? <a href={authorPath(postAuthor.id)} rel="author">{post.author.name}</a> : post.author.name} / {post.layer}</> : meta}</p>}
       {svc && <a class="zn-hero-action" href={'/contact/?service='+svc.slug}>Request a proposal </a>}
@@ -203,6 +207,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 {t === 'subscribe' && <SubscriptionSignup />}
 
 {svc && (<>
+  {serviceCopy?.fit && <section class="p-band thin"><div class="wrap p-split"><div><span class="kick">Who it is for</span><h2 class="disp p-sec">A clear purpose for the work.</h2><p class="p-body p-muted">{serviceCopy.fit}</p></div><div><h2 class="disp p-sec">Before we start.</h2><p class="p-body p-muted">{serviceCopy.prepare}</p></div></div></section>}
   <section class="p-band"><div class="wrap"><span class="kick rv">Service specification</span><h2 class="disp p-sec rv">What the work includes.</h2>
     <dl class="p-spec rv rv-stag"><div><dt class="lab">Deliverables</dt><dd><ul>{svc.deliverables.map((d, i) => <li><i>{pad(i)}</i><span>{d}</span></li>)}</ul></dd></div><div><dt class="lab">Cadence</dt><dd>{svc.cadence}</dd></div><div><dt class="lab">Client owns</dt><dd>{svc.owns}</dd></div><div><dt class="lab">Reported</dt><dd>{svc.reported}</dd></div></dl>
   </div></section>
@@ -228,7 +233,7 @@ const legal = t === 'terms' ? terms : t === 'privacy' ? privacy : [];
 
 {(t === 'services') && (
   <section class="p-band studio-lanes" id="service-directory"><div class="wrap"><span class="kick rv">The connected system</span><h2 class="disp p-sec rv">Build. Demand. Intelligence.</h2>
-    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div id={l.layer.toLowerCase()} class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3>{t === 'services' && <div class="studio-lane-image"><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></div>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span></a></li>)}</ul></div>)}</div>
+    <div class="p-layers rv rv-stag">{layerGrid.map((l) => <div id={l.layer.toLowerCase()} class:list={['p-layer', 'studio-lane-card', { on: l.on }]}><div class="p-layer-mot" aria-hidden="true"><div class="ring rgA"></div><div class="ring rgB"></div><div class="ring rgC"></div><div class="cdot"></div></div><span class="lab">{l.label}</span><h3 class="disp p-layer-h">{l.layer}</h3><p class="p-body p-muted">{serviceLayerIntroductions[l.layer]}</p>{t === 'services' && <div class="studio-lane-image"><CaseScene name={laneScenes[l.layer]} alt={l.layer + ' project mockups'} /></div>}<ul class="p-links">{l.services.map((s) => <li><a class={svc?.slug === s.slug ? 'cur' : ''} href={'/services/' + s.slug + '/'} aria-current={svc?.slug === s.slug ? 'page' : undefined}><span>{s.title}</span></a></li>)}</ul></div>)}</div>
   </div></section>
 )}
 

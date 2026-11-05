@@ -1768,3 +1768,7 @@ html[data-theme="dark"] .bi-platform .bi-neural-detail .bi-neural-route path{str
 html[data-theme="dark"] .bi-platform .bi-neural-detail :is(.bi-neural-inputs,.bi-neural-junctions){fill:#32c5c8}
 
 html[data-theme="dark"] .bi-platform .bi-custom-platform .bi-teal{color:#32c5c8}
+
+/* Keep the service heading readable within the approved hero composition. */
+.bi-platform .bi-hero h1 { font-size: clamp(38px, 5vw, 72px); line-height: 1.04; max-width: 10.5em; }
+.bi-platform .bi-hero-tagline { margin: 22px 0 0; font-size: clamp(20px, 2vw, 28px); line-height: 1.3; }
