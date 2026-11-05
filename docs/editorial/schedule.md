@@ -49,6 +49,25 @@ Each Wednesday is industry/strategic analysis; Monday and Friday are practical h
 
 For each new article, review existing coverage and add reciprocal links only where they genuinely help readers. These briefs are planned, not published.
 
+## Existing article intent map
+
+Reviewed against the current article openings on 5 November 2026. These are distinct reader tasks, not evidence that Google treats the pages as distinct queries. Retain the existing URLs; investigate actual Search Console overlap before proposing a merge or redirect.
+
+| Topic | Article | Reader task |
+|---|---|---|
+| Search updates | [Investigate a Google Search update](/blog/how-to-read-a-google-algorithm-update/) | Establish the event, compare dates and begin a focused investigation. |
+| Search updates | [Review a core update](/blog/google-core-update-review/) | Compare completed-rollout periods and decide which affected pages merit investigation. |
+| Search updates | [Search updates, 2023–2026](/blog/three-years-of-algorithm-updates-what-moved-rankings/) | Use the dated announcement record as context; do not infer a site-specific cause from timing. |
+| Merchant Center | [Merchant Center basics](/blog/merchant-center-basics/) | Establish account ownership, business details and a reliable catalog foundation. |
+| Merchant Center | [Shopify and Merchant Center checklist](/blog/shopify-google-merchant-center-checklist/) | Connect the store and check product, price and availability agreement before promotion. |
+| Merchant Center | [Feed diagnostics](/blog/merchant-center-feed-diagnostics/) | Investigate a reported item issue against the product record and supplied source. |
+| Merchant Center | [Variant feed checklist](/blog/google-shopping-variant-feed-checklist/) | Compare each purchasable option and submitted variant in a product family. |
+| Shopping ads | [Google Shopping management](/blog/google-shopping-ad-management-2026/) | Check product eligibility, measurement and order economics before adjusting spend. |
+| Search Console | [Operator’s guide](/blog/google-search-console-the-operators-guide/) | Understand the property and reports and choose the next useful question. |
+| Search Console | [Query and page review](/blog/search-console-query-page-review/) | Apply a repeatable page-level comparison and record a decision. |
+
+The existing openings state these roles. Keep useful contextual links between the guides; add prose links only when they help the reader's next step, rather than repeating the shared reading-guide navigation.
+
 ## Editorial standard
 
 Every article must resolve a reader's specific question. How-tos include prerequisites, steps, an actual worked example or usable template, and a way to tell whether the setup worked. Label example data; never invent client results. Analysis separates what changed, what the evidence supports, and our interpretation. Open with the actual issue, vary structure to suit it, remove generic scene-setting and padded summaries. Personality comes from judgment and specificity, not an artificial accent or joke quota.
