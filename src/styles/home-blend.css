@@ -9,7 +9,7 @@
 
 .zn-hero-picture[hidden]{display:none!important}
 
-/* Reserve the approved font's word advance so loading a fallback never moves its period. */
+/* Reserve the heading's advance while its words and dot flow together inside it. */
 .zn-mast h1>.zn-stable-word{display:inline-block;width:5.46301em;color:inherit}
 
 /* Each scene keeps a readable text layer over the artwork. */
