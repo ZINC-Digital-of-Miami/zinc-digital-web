@@ -3,10 +3,12 @@ title: "WordPress security—and why we moved ZINC to Astro"
 slug: wordpress-php-security-moving-to-astro
 author: "Kirk Musick, MS, MBA"
 layer: Build
-status: prepared-for-release
+status: published
 target_date: 2026-10-27
 timezone: America/Chicago
 source_checked: 2026-10-27
+primary_service: web-design
+manuscript_synced: 2026-11-05
 description: "What WordPress owners should check after PHP's October security updates, when staying makes sense, and how to plan a move to Astro."
 related_services:
   - web-design
@@ -23,6 +25,8 @@ But if nobody can tell you who handles its security updates, you already have a 
 WordPress runs on PHP. On October 21, 2026, the PHP team released fixes for two critical security flaws that could let an attacker run code on an affected server. In plain English: this is something your hosting company needs to check, even if your website appears to work perfectly.
 
 The [official PHP notice](https://www.php.net/archive/2026.php) has the technical details. You do not need to memorize them. You need someone accountable for fixing the right thing.
+
+![A platform change moves responsibility. 01 / Address the immediate issue: Confirm current PHP fixes: Test forms, logins and checkout: Save who checked and when. 02 / Choose the editing arrangement: Keep WordPress: maintain PHP too: Replace it: test the new editor: Inventory every required function. 03 / Verify the replacement: Check old links and public pages: Confirm the receiving form record: Name support and recovery owners](/media/blog-review/platform-responsibility.svg)
 
 ## Deal with the security issue first
 
@@ -106,3 +110,9 @@ The recommendation should explain what gets easier, what still needs maintenance
 Get the current security issue handled. Then make the platform decision around the business you run.
 
 That is the job the website is there to do.
+
+## Compare the upkeep before choosing a platform
+
+Use one row per business function: editing, forms, bookings or checkout. Record the current arrangement, the proposed replacement and who will test it. The specimen is fictional; security confirmation and migration acceptance stay pending until someone verifies them.
+
+[Download the website platform decision sheet](/downloads/website-platform-decision.csv). Open the CSV in your spreadsheet application, keep the specimen labelled, and add your own rows. Pending observations are work to complete, not failed or successful results.
