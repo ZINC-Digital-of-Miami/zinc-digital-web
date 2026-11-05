@@ -28,7 +28,7 @@ export async function collectReviewEvidence(sb:SupabaseClient,deadline=Date.now(
  if(routes.length>300)throw new Error('The public inventory exceeds 300 pages. Expand the reviewed scope before running Claude.');
  const paths=new Set(['/',...routes.map(r=>r.path)]);
  const evidence:Evidence[]=[];const structural:PageFacts[]=[];const checkCatalog=new Map<string,string>();
- const activity=sb.from('codex_jobs').select('kind,status,created_at,path:payload->target->>path').in('kind',['research','seo']).gte('created_at',new Date(Date.now()-14*86400000).toISOString()).order('created_at',{ascending:false}).limit(100).abortSignal(AbortSignal.timeout(10000));
+ const activity=Promise.resolve(sb.from('codex_jobs').select('kind,status,created_at,path:payload->target->>path').in('kind',['research','seo']).gte('created_at',new Date(Date.now()-14*86400000).toISOString()).order('created_at',{ascending:false}).limit(100).abortSignal(AbortSignal.timeout(10000))).catch(()=>({data:null,error:{message:'Recent subscription work unavailable.'}}));
  const [globals,[pages,posts],settings]=await Promise.all([
   Promise.all(['/sitemap.xml','/robots.txt','/llms.txt'].map(async path=>{try{return {id:path,path,...await readPublic(path,fetch,deadline)};}catch{return {id:path,path,available:false,gap:'Public file could not be read.'};}})),
   Promise.all([sb.from('pages').select('path,meta_title,meta_description,focus_keyword,canonical,noindex,status,updated_at,live_at').abortSignal(AbortSignal.timeout(10000)),sb.from('posts').select('slug,meta_title,meta_description,focus_keyword,noindex,status,updated_at,live_at').abortSignal(AbortSignal.timeout(10000))]),

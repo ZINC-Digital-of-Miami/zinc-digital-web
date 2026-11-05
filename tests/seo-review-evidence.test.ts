@@ -14,13 +14,15 @@ test('site scans honour canonical noindex intent without excusing unexpected pub
    b.onResolve({filter:/^\.\/(content|google|seo-review-google|seo-review-performance)$/},args=>({path:args.path,namespace:'fixture'}));
    b.onLoad({filter:/.*/,namespace:'fixture'},args=>({loader:'js',contents:args.path==='./content'?`export const loadPublished=async()=>({routes:[{path:'/',template:'home'},{path:'/thanks/',template:'thanks'},{path:'/unexpected/',template:'home'}],posts:[]});`:args.path==='./google'?`export const savedGoogleSettings=async()=>({property:'123',site:'sc-domain:zincdigital.co'});`:args.path==='./seo-review-google'?`export const reviewGoogle=async()=>[];`:`export const collectPagePerformance=async()=>({id:'page-performance',available:false});`}));
   }}]});
+  let activityStarted=false;
   globalThis.fetch=(async input=>{
    const url=new URL(String(input)),p=url.pathname;
    if(p==='/sitemap.xml')return new Response('<urlset><url><loc>https://www.zincdigital.co/</loc></url><url><loc>https://www.zincdigital.co/unexpected/</loc></url></urlset>');
    if(p==='/robots.txt'||p==='/llms.txt')return new Response('Public fixture');
+   assert.equal(activityStarted,true,'Lazy subscription query must start before public-page crawl');
    return new Response(`<html><head><title>A useful page title for the site scan</title><meta name="description" content="A useful page description with enough context to explain the page to readers before they choose whether to visit."><link rel="canonical" href="${url}">${p==='/'?'':'<meta name="robots" content="noindex,nofollow">'}</head><body><main><h1>Useful page</h1><p>A concrete answer and useful next step.</p></main></body></html>`,{headers:{'content-type':'text/html'}});
   }) as typeof fetch;
-  const sb={from:()=>{const q={select:()=>q,in:()=>q,gte:()=>q,order:()=>q,limit:()=>q,abortSignal:async()=>({data:[],error:null})};return q;}};
+  const sb={from:(table:string)=>{const q:any={select:()=>q,in:()=>q,gte:()=>q,order:()=>q,limit:()=>q,abortSignal:()=>q,then:(resolve:any)=>{if(table==='codex_jobs')activityStarted=true;return Promise.resolve({data:[],error:null}).then(resolve);}};return q;}};
   const {collectReviewEvidence}=await import(pathToFileURL(path.join(dir,'evidence.mjs')).href);
   const {evidence,paths}=await collectReviewEvidence(sb);
   assert.equal(evidence.find((e:any)=>e.path==='/thanks/').analysis.grade,'excluded');
