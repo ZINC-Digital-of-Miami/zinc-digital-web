@@ -1,3 +1,4 @@
+import {coordinationError} from './ai-work-lock.ts';
 import type {APIContext} from 'astro';
 import {requireStaff} from './auth';
 import {createAdminClient,createServerClient} from './supabase';
@@ -23,6 +24,7 @@ export async function enqueueCodexJob(ctx:APIContext,kind:CodexKind,payload:Reco
  if(pending.error)throw new Error('Codex requests could not be checked.');
  if((pending.count||0)>=4)throw new Error('Wait for your current Codex requests to finish before starting another.');
  const {data,error}=await db.from('codex_jobs').insert({requested_by:staff.id,kind,payload:checked}).select('id').single();
+ const busy=coordinationError(error);if(busy)throw busy;
  if(error||!data)throw new Error('The Codex request could not be saved. Try again.');
  return{id:data.id};
 }

@@ -3,7 +3,7 @@ import {collectReviewEvidence} from './seo-review-evidence';
 import {reviewInstructions,reviewWithClaude,validateReview,reviewsEnabled,parseReviewResponse} from './seo-review';
 import {scoreSnapshot,parseScoreSnapshot,compareSnapshots,SCORING_VERSION,type ScoreSnapshot} from './seo-review-dashboard';
 import {reviewContext} from './seo-review-context';
-import {storeReview} from './seo-review-store';
+import {storeReview,retryEligibility} from './seo-review-store';
 import register from '../../docs/editorial/schedule.md?raw';
 
 async function priorScores(sb:ReturnType<typeof createAdminClient>,key:string,current:ScoreSnapshot){
@@ -16,11 +16,12 @@ async function priorScores(sb:ReturnType<typeof createAdminClient>,key:string,cu
  return {id:'score-history',available:false,gap:'No previous comparable checklist measurement is saved. This is the first baseline.'};
 }
 
-export async function runSeoReview(key:string,source:'weekly'|'manual'){
+export async function runSeoReview(key:string,source:'weekly'|'manual',deferredOnly=false){
  if(!reviewsEnabled(import.meta.env.SEO_REVIEW_ENABLED))throw new Error('Claude reviews are paused until the research and instructions receive owner approval. Site checks remain available.');
  const apiKey=import.meta.env.ANTHROPIC_API_KEY;
  if(!apiKey)throw new Error('Add ANTHROPIC_API_KEY securely in Vercel to enable Claude reviews.');
  const sb=createAdminClient();
+ if(source==='weekly'&&deferredOnly){const eligibility=await retryEligibility(sb,key);if(eligibility==='reserved')return {key,duplicate:true};if(eligibility!=='deferred')return {key,skipped:'No pre-paid deferral was recorded for this weekly review.'};}
  return storeReview(sb,key,async saveReceipt=>{
   const {evidence,paths}=await collectReviewEvidence(sb);
   const measuredAt=new Date().toISOString(),scorecard=scoreSnapshot(evidence);

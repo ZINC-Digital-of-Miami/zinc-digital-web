@@ -27,11 +27,11 @@ export const POST:APIRoute=async ctx=>{
     const effective={...item,...patch};
     const job=await enqueueCodexJob(ctx,'seo',{
       instructions:specialistInstructions(),version:SEO_SPECIALIST_VERSION,
-      target:{kind:item.kind,key:item.key,origin:item.origin,path:item.path},
+      target:{kind:item.kind,key:item.key,origin:item.origin,path:item.path,primaryService:item.primary_service},
       revision:draftRevision(item),expected_updated_at:item.updated_at||null,
       input:JSON.stringify({draft:effective,editableContent:item.kind==='post'&&item.origin==='admin',report,
-        businessFacts:{name:'ZINC Digital',site:SITE,email:EMAIL,studios:STUDIOS.map(studio=>({...studio,state:'FL',country:'US'})),services:services.map(service=>({title:service.title,path:'/services/'+service.slug+'/',description:service.line}))},
-        metadataCatalog:items.filter(value=>value!==item).map(value=>({path:value.path,title:value.meta_title,description:value.meta_description})),
+        businessFacts:{name:'ZINC Digital',site:SITE,email:EMAIL,studios:STUDIOS.map(studio=>({...studio,state:'FL',country:'US'})),services:services.map(service=>({title:service.title,path:'/services/'+service.slug+'/',pillar:'/blog/category/'+service.slug+'/',description:service.line}))},
+        metadataCatalog:items.filter(value=>value!==item).map(value=>({path:value.path,title:value.meta_title,description:value.meta_description,focusKeyword:value.focus_keyword,primaryService:value.primary_service})),
         searchConsole,
         revisionInstructions:body.instructions||'',pixelFeedback:typeof body.pixelFeedback==='string'?body.pixelFeedback.slice(0,4000):undefined}),
     });
@@ -53,6 +53,9 @@ export const GET:APIRoute=async ctx=>{
     const items=await contentList(ctx);
     const duplicates=items.filter(value=>(value.kind!==item.kind||value.key!==item.key)&&((value.meta_title||'').trim().toLowerCase()===proposal.patch.meta_title.toLowerCase()||(value.meta_description||'').trim().toLowerCase()===proposal.patch.meta_description.toLowerCase()));
     if(duplicates.length)return reply({error:'The proposed metadata duplicates another page. Regenerate with instructions to make it unique.'},422);
+    const focus=proposal.patch.focus_keyword.trim().toLowerCase();
+    const overlapping=focus?items.filter(value=>value.path!==item.path&&(value.focus_keyword||'').trim().toLowerCase()===focus).map(value=>value.path):[];
+    if(overlapping.length)proposal.recommendations.push({category:'content',status:'verification_needed',problem:'The proposed focus keyword is also assigned to '+overlapping.join(', ')+'.',correction:'Compare the reader questions and native query/page evidence before accepting this focus. Shared wording alone is not a reason to consolidate pages.'});
     return reply({id,status:'completed',proposal,revision:job.payload.revision,expected_updated_at:job.payload.expected_updated_at,model:job.result.model,reasoningEffort:job.result.reasoningEffort});
   }catch(error){return reply({error:error instanceof Error?error.message:'SEO assistance is unavailable. Your draft is unchanged.'},502);}
 };

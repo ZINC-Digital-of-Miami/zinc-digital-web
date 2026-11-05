@@ -11,9 +11,9 @@ const streamed=(message:any)=>new Response([
  frame({type:'message_delta',delta:{stop_reason:message.stop_reason},usage:message.usage}),frame({type:'message_stop'}),
 ].join(''),{headers:{'content-type':'text/event-stream','request-id':'req_test'}});
 
-test('weekly review runs at Monday 8 AM CT in winter and summer, once per local date',()=>{
+test('weekly review starts at Monday 8 AM CT with deferred slots sharing the date key',()=>{
  for(const date of ['2026-11-09T14:00:00Z','2027-07-05T13:00:00Z','2027-03-15T13:04:00Z']) assert.ok(reviewSlot(new Date(date)));
- for(const date of ['2026-11-09T13:00:00Z','2027-07-05T14:00:00Z','2026-11-10T14:00:00Z']) assert.equal(reviewSlot(new Date(date)),null);
+ for(const date of ['2026-11-09T13:00:00Z','2027-07-05T16:00:00Z','2026-11-10T14:00:00Z']) assert.equal(reviewSlot(new Date(date)),null);
  assert.equal(reviewSlot(new Date('2026-11-09T14:00:00Z')),'2026-11-09');
 });
 test('cron denies missing or incorrect secrets',()=>{
@@ -109,4 +109,12 @@ test('duplicate scheduled deliveries cannot repeat the paid operation; failures 
  assert.equal((rows.get('failed') as any).status,'failed');
  await assert.rejects(()=>storeReview(sb as any,'invalid-result',async receipt=>{await receipt({messageId:'msg_paid',usage:{input_tokens:10,output_tokens:20}});throw new Error('Invalid result');}),/Invalid result/);
  assert.equal((rows.get('invalid-result') as any).messageId,'msg_paid');
+});
+
+test('Monday deferral window includes 9 and 10 CT in both DST offsets without changing the date key',()=>{
+ assert.equal(reviewSlot(new Date('2026-11-09T15:00:00Z')),'2026-11-09');
+ assert.equal(reviewSlot(new Date('2026-11-09T16:00:00Z')),'2026-11-09');
+ assert.equal(reviewSlot(new Date('2026-11-09T17:00:00Z')),null);
+ assert.equal(reviewSlot(new Date('2026-07-06T15:00:00Z')),'2026-07-06');
+ assert.equal(reviewSlot(new Date('2026-07-06T16:00:00Z')),null);
 });
