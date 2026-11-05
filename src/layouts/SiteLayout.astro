@@ -62,17 +62,18 @@ const imageFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/**/*.
 const imageFile = articleImage ? imageFiles['../assets' + asset(articleImage.asset).src]?.default : undefined;
 const heroArtwork = articleImage || (t === 'blog' && posts[0] ? articleImages[posts[0].slug] : undefined);
 const approvedHeroes = import.meta.glob<{ default: ImageMetadata }>('../assets/approved/*.png', { eager: true });
-const heroName = path === '/' ? 'build-bear-claw-wide.png' : path === '/work/' || path === '/work/build/' ? 'build-uos.png' : path === '/work/demand/' ? 'demand-summit.png' : path === '/work/intelligence/' ? 'intelligence-fusion.png' : undefined;
+const heroName = path === '/' ? 'build-bear-claw-wide.png' : path === '/work/' || path === '/work/build/' ? 'build-uos.png' : path === '/work/intelligence/' ? 'intelligence-fusion.png' : undefined;
 const approvedHero = heroName ? approvedHeroes['../assets/approved/' + heroName]?.default : undefined;
 const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + asset('lvs-case-devices-restaurant').src]?.default : undefined;
-const heroFile = lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536, ...(path === '/' ? [approvedHero.width] : [])] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(approvedHero || lvsHero ? {quality:path === "/" ? 100 : 90} : {}) }) : undefined;
-const heroSizes = lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 150vw, 100vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
+const demandHero = path === '/work/demand/' ? imageFiles['../assets' + asset('smd-devices').src]?.default : undefined;
+const heroFile = demandHero || lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (demandHero ? [480,960,1440,1920,demandHero.width] : lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536, ...(path === '/' ? [approvedHero.width] : [])] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(demandHero ? {quality:95} : approvedHero || lvsHero ? {quality:path === "/" ? 100 : 90} : {}) }) : undefined;
+const heroSizes = demandHero ? '(max-width: 700px) 100vw, 65vw' : lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 150vw, 100vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
 const caseHero = t === 'case' ? caseHeroes[route.slug!] : undefined;
 const caseImageKey = caseHero?.montage || caseHero?.desktop;
 const caseImage = caseImageKey ? imageFiles['../assets' + asset(caseImageKey).src]?.default : undefined;
 const localImage = t === 'location' ? imageFiles['../assets' + asset(route.slug === 'miami' ? 'felon-web-mockup' : 'smd-brand-book').src]?.default : undefined;
-const socialSource = imageFile || caseImage || approvedHero || localImage;
+const socialSource = imageFile || caseImage || demandHero || approvedHero || localImage;
 const socialImage = socialSource ? await getImage({ src: socialSource, width: 1200, height: 630, fit: caseHero?.montage ? 'contain' : 'cover', format: 'webp', quality: 82 }) : undefined;
 // Astro maps contain to an inside resize: report the actual uncropped dimensions.
 const socialScale = socialSource && caseHero?.montage ? Math.min(1200 / socialSource.width, 630 / socialSource.height) : undefined;

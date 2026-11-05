@@ -1,5 +1,9 @@
 # Tasks — Finish and launch the ZINC Digital website
 
+## Homepage title sizing — 5 November 2026 CT
+
+Owner requests a larger “ZINC DIGITAL” title extending past the window center. Increase desktop type from 7vw to 11.2vw and remove its smaller short-window override. Preserve the approved grouped layout, artwork, lane headings and existing mobile sizing. Owner also confirms the laptop should sit farther right beside the text. The owner subsequently asks that laptop artwork be smaller and the title slightly higher. Contain the Build scene in a right-aligned 84%-width desktop region and lift the desktop text group to 40% of the stage; preserve mobile artwork and compact-height safeguards. The remaining Summit Demand hero/scene is rejected: replace every rendered instance of that scene with the retained `smd-devices` source, including homepage, lane, service and case presentations. Preserve source pixels rather than generating a replacement website. This checkpoint records implementation intent; release verification follows in the milestone PR.
+
 ## Full-window graphic correction — 4 November 2026 CT
 
 Owner requests a full-window homepage hero with artwork off to the right and an extended background, rather than a graphic moved below the title. Keep the main/lane headlines together, vertically centered and farther left; overlap over the image is approved. The grouped desktop text and BI scene were explicitly accepted. Optimize mobile during the work and blur the bottom lane controls. These decisions supersede the earlier constrained 82%-width picture and tall stacked layout. No Google/Square operations.

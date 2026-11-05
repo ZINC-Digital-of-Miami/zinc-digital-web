@@ -387,6 +387,9 @@ check(summitPage.includes('The ZINC-built website.')&&summitPage.includes('Past 
 check(!/case-smd-(?:home|seawalls|docks)/.test(summitPage),'Summit must not present later non-ZINC website captures as ZINC work');
 check(!/href=["']https:\/\/summitmarinedevelopment[.]com/.test(summitPage),'Summit portfolio must not link its later website as the ZINC-built project');
 
+// Rejected Summit studio scenes must not return through shared homepage/service/lane rendering.
+for (const {rel,html} of pages) check(!/demand-summit(?:-wide)?[.]/.test(html),rel+' must not render the rejected Summit scene');
+
 // ---- headers in markup: Astro's hashed CSP meta policy on every page (frame-ancestors is a vercel.json header) ----
 for (const { rel, html } of pages) {
   const policy = html.match(/<meta http-equiv="content-security-policy" content="([^"]*)"/)?.[1] || '';
