@@ -31,9 +31,10 @@ export function pageEvidence(html:string,completeStructure=false){
   const visible:Node[]=[];
   const walk=(node:Node)=>{if('tagName' in node&&(excluded.has(node.tagName)||node.attrs.some(attr=>attr.name==='hidden'||attr.name==='aria-hidden'&&attr.value==='true')))return;visible.push(node);if('childNodes' in node)for(const child of node.childNodes)walk(child);};walk(scope);
   const headings=visible.filter(node=>'tagName' in node&&/^h[1-6]$/.test(node.tagName)).slice(0,completeStructure?undefined:60).map(node=>({level:(node as DefaultTreeAdapterMap['element']).tagName,text:compact(node).slice(0,500)}));
-  // Full structural reviews include in-main reading navigation without polluting prose excerpts.
+  // Structural links include in-main reading navigation and local case footers;
+  // the separate prose walker still excludes them. Global chrome stays outside main.
   const linkNodes:Node[]=[];
-  const walkLinks=(node:Node)=>{if('tagName' in node&&((excluded.has(node.tagName)&&node.tagName!=='nav')||node.attrs.some(a=>a.name==='hidden'||a.name==='aria-hidden'&&a.value==='true')))return;linkNodes.push(node);if('childNodes' in node)node.childNodes.forEach(walkLinks);};
+  const walkLinks=(node:Node)=>{if('tagName' in node&&((excluded.has(node.tagName)&&!(scope!==root&&['nav','footer'].includes(node.tagName)))||node.attrs.some(a=>a.name==='hidden'||a.name==='aria-hidden'&&a.value==='true')))return;linkNodes.push(node);if('childNodes' in node)node.childNodes.forEach(walkLinks);};
   if(completeStructure)walkLinks(scope);
   const internalLinks=(completeStructure?linkNodes:visible).flatMap(node=>{
     if(!('tagName' in node)||node.tagName!=='a')return [];

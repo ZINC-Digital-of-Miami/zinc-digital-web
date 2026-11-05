@@ -47,3 +47,13 @@ test('complete structural evidence includes reading navigation beyond old link c
  const evidence=pageEvidence(html,true);assert.equal(evidence.internalLinks.length,130);assert.equal(evidence.text,'Body');
  assert.equal(pageEvidence(html).internalLinks.length,0);
 });
+
+test('case-study structural evidence retains its local footer links without global chrome or prose contamination',()=>{
+ const html='<header><a href="/about/">About</a></header><main><article><h1>Bear Claw USA</h1><p>A product website.</p></article><footer class="case-end" data-case-footer="bear-claw-usa"><div class="wrap"><div class="case-end-links"><a href="/work/">All work</a><a href="/contact/?service=web-design">Discuss a similar project</a></div><nav class="case-articles" aria-label="Related service articles"><a href="/blog/category/web-design/">Read our Web Design articles</a></nav><a class="case-next" href="/work/felon-motorwerk/"><span>Next project</span></a></div></footer></main><footer><a href="/privacy/">Privacy</a></footer>';
+ const evidence=pageEvidence(html,true);
+ assert.ok(evidence.internalLinks.some(link=>link.href==='/blog/category/web-design/'));
+ assert.ok(evidence.internalLinks.some(link=>link.href==='/work/felon-motorwerk/'));
+ assert.ok(!evidence.internalLinks.some(link=>['/about/','/privacy/'].includes(link.href)));
+ assert.doesNotMatch(evidence.text,/Read our|Discuss a similar|Next project|Privacy/);
+ assert.ok(!pageEvidence(html).internalLinks.some(link=>link.href==='/blog/category/web-design/'));
+});
