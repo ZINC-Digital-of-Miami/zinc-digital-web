@@ -23,7 +23,7 @@ URL = 'https://www.zincdigital.co/blog/build-a-content-hub-people-can-use/'
 class Diagram:
     def __init__(self, title, height, pdf=None):
         self.h, self.pdf = height, pdf
-        self.parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="560" height="{height}" viewBox="0 0 560 {height}" role="img" aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">Planning example for an imaginary residential cleaning business. All page roles and connections are also explained in the accompanying article.</desc><rect width="560" height="{height}" fill="#f5f7f6"/>']
+        self.parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="560" height="{height}" viewBox="0 0 560 {height}" role="img" aria-labelledby="title desc"><title id="title">{escape(title)}</title><desc id="desc">Planning example for an imaginary residential cleaning business. The article also explains each page’s purpose and how the pages connect.</desc><rect width="560" height="{height}" fill="#f5f7f6"/>']
         self.rect(0,0,560,7,TEAL)
     def rect(self,x,y,w,h,fill='white',stroke=None):
         self.parts.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="4" fill="{fill}" stroke="{stroke or fill}"/>')
@@ -41,14 +41,14 @@ class Diagram:
 
 def architecture(pdf=None):
     d=Diagram('A pillar with distinct supporting answers',1010,pdf)
-    d.text(32,50,'ONE SUBJECT. CLEAR PAGE ROLES.',22,TEAL)
+    d.text(32,50,'ONE SUBJECT. USEFUL ARTICLES.',22,TEAL)
     d.rect(32,78,496,90,INK);d.text(52,114,'Business goal',23,'white');d.text(52,146,'Suitable regular-cleaning enquiries',22,'white')
     d.line(280,168,280,201)
     d.rect(32,202,496,125,'white',TEAL);d.text(52,240,'PILLAR CATEGORY',22,TEAL);d.text(52,276,'Regular home cleaning',25);d.text(52,308,'Aligned with the primary service',21,GREY)
     d.line(49,327,49,770)
     for i,(title,detail) in enumerate([('Choosing guide','How to select the right service'),('Inclusions','Tasks and exclusions'),('Frequency','Weekly or fortnightly?'),('Price factors','What goes into a quote?'),('First visit','Access and preparation')]):
         y=350+i*84;d.line(49,y+37,66,y+37);d.rect(66,y,462,74,'white',LINE);d.text(84,y+31,title,25);d.text(84,y+60,detail,22,GREY)
-    d.text(32,820,'The category houses these five blogs.',21,TEAL)
+    d.text(32,820,'The category groups these five articles.',21,TEAL)
     d.line(280,845,280,888,PINK,True);d.rect(32,890,496,85,INK);d.text(50,926,'SEPARATE SERVICE PAGE',20,'white');d.text(50,958,'Actual offer + quote request',23,'white')
     return d
 
@@ -64,7 +64,7 @@ def links(pdf=None):
     d.rect(32,463,496,90,'white',LINE);d.text(52,500,'PRICE ARTICLE',23,TEAL);d.text(52,533,'Explain the quote factors first.',22)
     d.line(280,553,280,605,PINK,True)
     d.rect(32,605,496,90,INK);d.text(52,642,'SERVICE / QUOTE PAGE',22,'white');d.text(52,675,'A relevant next action when ready.',22,'white')
-    d.text(32,739,'Teal: category ↔ its blogs',21,TEAL);d.text(32,773,'Dashed: contextual or commercial next step',20,GREY)
+    d.text(32,739,'Teal: category ↔ its blogs',21,TEAL);d.text(32,773,'Dashed: related answer or service page',20,GREY)
     return d
 
 architecture().save('pillar-map.svg');links().save('link-plan.svg')
@@ -76,7 +76,7 @@ def page(c,n,title,sub=''):
     c.setFont('Avenir',10);c.setFillColor(HexColor(GREY));c.drawString(36,H-63,'ZINC DIGITAL  /  WENDY FUNNELL  /  CONTENT PLANNING')
     c.setFont('AvenirBold',23);c.setFillColor(HexColor(INK));c.drawString(36,H-103,title)
     if sub: para(c,sub,36,H-126,W-72,10)
-    c.setFont('Avenir',8);c.setFillColor(HexColor(GREY));c.drawString(36,27,'zincdigital.co  ·  30 October 2026  ·  v1.0');c.drawRightString(W-36,27,str(n))
+    c.setFont('Avenir',8);c.setFillColor(HexColor(GREY));c.drawString(36,27,'zincdigital.co  ·  5 November 2026  ·  v1.1');c.drawRightString(W-36,27,str(n))
 
 def para(c,s,x,y,width,size=11,leading=None):
     leading=leading or size*1.45
@@ -98,29 +98,29 @@ def draw_ref(c,fn,x,y,width):
     c.saveState();c.translate(x,y-h*s);c.scale(s,s);fn(c);c.restoreState()
 
 ref=canvas.Canvas(str(OUT/'content-hub-architecture.pdf'),pagesize=A4)
-ref.setTitle('Content hub architecture and linking reference');ref.setAuthor('Wendy Funnell | ZINC Digital')
-for i,(fn,title,sub) in enumerate([(architecture,'Give every page a job','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Make the next link useful','The complete cluster has a guide route, relevant cross-links and a commercial destination.')],1):
+ref.setTitle('Blog categories, articles and links');ref.setAuthor('Wendy Funnell | ZINC Digital')
+for i,(fn,title,sub) in enumerate([(architecture,'Give each article a real purpose','Illustrative cleaning-business example. A planning model, not a ranking formula.'),(links,'Make the next link useful','Help readers find related answers and reach the service page when they are ready.')],1):
     page(ref,i,title,sub);draw_ref(ref,fn,145,H-170,300)
-    para(ref,'Read the article for scope, intent, page ownership and launch checks. No fixed cluster size or compulsory URL folder is implied.',36,88,W-72,10);ref.linkURL(URL,(36,42,W-36,65),relative=0);ref.showPage()
+    para(ref,'Read the article for planning advice and launch checks. There is no required number of articles or URL folder.',36,88,W-72,10);ref.linkURL(URL,(36,42,W-36,65),relative=0);ref.showPage()
 ref.save()
 
 c=canvas.Canvas(str(OUT/'content-hub-workbook.pdf'),pagesize=A4)
-c.setTitle('Content hub planning workbook');c.setAuthor('Wendy Funnell | ZINC Digital')
-page(c,1,'Start with the page relationships','Worked example: an imaginary business, not a client result. Use the next pages for your own plan.')
+c.setTitle('Blog planning workbook');c.setAuthor('Wendy Funnell | ZINC Digital')
+page(c,1,'Plan your articles and links','Worked example: an imaginary business, not a client result. Use the next pages for your own plan.')
 draw_ref(c,architecture,157,H-165,280)
-para(c,'Pillar: a blog category aligned with a primary service or product collection. The category houses its blogs; the service page presents the actual offer. There is no required page count or word count.',36,115,W-72,11)
+para(c,'Pillar: a blog category aligned with a primary service or product collection. The category groups its articles; the service page presents the actual offer. There is no required page count or word count.',36,115,W-72,11)
 para(c,'Complete fields in a PDF reader that supports forms, or print. Save your own copy. Read the full article at zincdigital.co/blog/build-a-content-hub-people-can-use/.',36,72,W-72,9);c.showPage()
-page(c,2,'Define the subject before the pages','Complete the boundaries and business goal before commissioning a writer.')
-for i,(name,label) in enumerate([('business','Offer and business goal'),('reader','Reader and decision they need to make'),('scope','Pillar category / aligned service or collection'),('include','Included blog subjects'),('exclude','Excluded subjects and why'),('next','Commercial destination and next action')]):field(c,name,label,36,H-175-i*95,W-72,54)
+page(c,2,'Choose the subject and purpose','Decide who the article is for and what it should help them understand or do.')
+for i,(name,label) in enumerate([('business','Offer and business goal'),('reader','Reader and decision they need to make'),('scope','Pillar category / aligned service or collection'),('include','Included blog subjects'),('exclude','Excluded subjects and why'),('next','Where the reader can enquire or buy')]):field(c,name,label,36,H-175-i*95,W-72,54)
 c.showPage()
 page(c,3,'Map the questions to pages','One task per row. Similar wording does not automatically require separate pages.')
 for i in range(4):
     y=H-170-i*143
-    field(c,f'task{i}',f'{i+1}. Customer question / intent',36,y,250,42)
+    field(c,f'task{i}',f'{i+1}. Customer question',36,y,250,42)
     field(c,f'url{i}','Preferred page / existing URL',305,y,254,42)
-    field(c,f'proof{i}','Distinct answer / evidence needed',36,y-68,250,42)
-    field(c,f'action{i}','Reader next step / page owner',305,y-68,254,42)
-para(c,'Copy this sheet for more questions. The pillar category houses the blogs; each blog owns a reader question. Review overlap before creating another address.',36,65,W-72,9);c.showPage()
+    field(c,f'proof{i}','Answer / facts and sources to check',36,y-68,250,42)
+    field(c,f'action{i}','Reader next step / person responsible',305,y-68,254,42)
+para(c,'Copy this sheet for more questions. The category groups the articles; each blog answers a distinct question. Check for repetition before writing another article.',36,65,W-72,9);c.showPage()
 page(c,4,'Audit the pages and plan the links','Keep, update, combine or create. A combination needs a destination and a redirect check.')
 for i in range(3):
     y=H-170-i*185
@@ -129,7 +129,7 @@ for i in range(3):
     field(c,f'link{i}','Link from → to / wording / reason',36,y-67,W-72,43)
     field(c,f'owner{i}','Owner / redirect or link test / due date',36,y-137,W-72,25)
 c.showPage()
-page(c,5,'Sign off the complete launch','Choose one status per check: P = Pass, F = Fix, N = Not applicable. Keep evidence on page 6.')
+page(c,5,'Check the pages before launch','Choose one status per check: P = Pass, F = Fix, N = Not applicable. Keep evidence on page 6.')
 article=(ROOT/'docs/editorial/articles/build-a-content-hub-people-can-use.md').read_text().split('## 8. Complete the launch checklist',1)[1].split('## 9.',1)[0]
 items=[line[2:] for line in article.splitlines() if line.startswith('- ')]
 assert len(items)==24,len(items)
@@ -143,7 +143,7 @@ for col in range(2):
         y=end-15
     assert y>44,y
 c.showPage()
-page(c,6,'Record evidence and review the result','An unchecked item is unresolved. A download or enquiry increase alone does not prove impact.')
+page(c,6,'Record checks and review results','An unchecked item is unresolved. A download or enquiry increase alone does not prove impact.')
 for i,(name,label,height) in enumerate([('issues','Unresolved checks: number / evidence / owner / due date',100),('na','Not applicable: check number and reason',60),('baseline','Page group / measures / source / baseline dates and values',70),('review','Comparable review dates / findings / changes / limitations',70),('approve','Factual reviewer / launch approval / next review and triggers',50)]):
     y=[H-170,H-305,H-400,H-505,H-610][i];field(c,name,label,36,y,W-72,height)
 para(c,'Article and sources: '+URL,36,67,W-72,8);c.linkURL(URL,(36,45,W-36,75),relative=0);c.showPage();c.save()
