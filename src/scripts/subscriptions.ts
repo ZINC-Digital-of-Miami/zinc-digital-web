@@ -81,6 +81,8 @@ if (page) {
         if (!lists.some(input => input.checked) || lists.length !== expected.size || new Set(lists.map(input => input.value)).size !== expected.size || lists.some(input => !expected.has(input.value))) {
           event.preventDefault(); event.stopImmediatePropagation();
           status.textContent = 'Choose at least one of the listed how-to topics before subscribing.';
+        } else {
+          status.textContent = '';
         }
       };
       host.addEventListener('submit', validateLists, true);
