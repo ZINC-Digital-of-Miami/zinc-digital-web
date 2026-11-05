@@ -27,3 +27,13 @@ export async function storeReview(sb:SupabaseClient,key:string,task:(receipt:(va
   throw new Error(error);
  }
 }
+
+/** Eligibility is separate from the transactional paid claim: later slots cannot create a fresh run. */
+export async function retryEligibility(sb:SupabaseClient,key:string):Promise<'reserved'|'deferred'|'not_deferred'>{
+ const deferredKey=key.replace('seo_review:','seo_review:deferred:');
+ const result=await sb.from('admin_cache').select('key,value').in('key',[key,deferredKey]).abortSignal(AbortSignal.timeout(10000));
+ if(result.error)throw new Error('The weekly retry receipt could not be checked. No review was started.');
+ if(result.data?.some(row=>row.key===key))return 'reserved';
+ const receipt=result.data?.find(row=>row.key===deferredKey)?.value;
+ return receipt?.status==='deferred'&&receipt.reviewKey===key&&receipt.paidRunStarted===false?'deferred':'not_deferred';
+}

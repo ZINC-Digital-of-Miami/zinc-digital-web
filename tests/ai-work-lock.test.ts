@@ -22,3 +22,12 @@ test('deferral is recorded separately from the paid-run reservation',async()=>{
  assert.equal(record.value.status,'deferred');assert.equal(record.value.paidRunStarted,false);
  assert.equal(record.value.reviewKey,'seo_review:weekly:2026-11-09');
 });
+test('later weekly slots require a saved pre-paid deferral and respect any existing reservation',async()=>{
+ const {retryEligibility}=await import('../src/lib/seo-review-store.ts');
+ const key='seo_review:weekly:2026-11-09';
+ const check=(rows:any[])=>retryEligibility({from:()=>({select:()=>({in:()=>({abortSignal:async()=>({data:rows,error:null})})})})} as any,key);
+ assert.equal(await check([]),'not_deferred');
+ assert.equal(await check([{key:'seo_review:deferred:weekly:2026-11-09',value:{status:'deferred',reviewKey:key,paidRunStarted:false}}]),'deferred');
+ assert.equal(await check([{key,value:{status:'failed'}}]),'reserved');
+ assert.equal(await check([{key:'seo_review:deferred:weekly:2026-11-09',value:{status:'deferred',reviewKey:key,paidRunStarted:true}}]),'not_deferred');
+});

@@ -11,6 +11,7 @@ type Area=typeof REVIEW_AREAS[number];
 export type Review={summary:string;checks:{area:Area;status:'checked'|'needs attention'|'unavailable';detail:string;evidenceIds:string[]}[];recommendations:{priority:'high'|'medium'|'low';area:Area;path:string;problem:string;action:string;reason:string;evidenceIds:string[];validation:string}[]};
 
 /** Vercel schedules are UTC. UTC candidates cover 8–10 AM Chicago across DST; later slots retry pre-call deferrals only. */
+export function reviewHour(now=new Date()){return new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour:'2-digit',hourCycle:'h23'}).format(now);}
 export function reviewSlot(now=new Date()):string|null{
  const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',weekday:'short',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(now).map(x=>[x.type,x.value]));
  return p.weekday==='Mon'&&['08','09','10'].includes(p.hour)?`${p.year}-${p.month}-${p.day}`:null;
