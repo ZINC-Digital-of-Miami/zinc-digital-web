@@ -1,6 +1,6 @@
 # ZINC Digital: on-page SEO review, synthesis and Codex runbook
 
-Prepared 5 November 2026 CT. This document replaces the action lists in `content-strategy-codex-brief-2026-11-05.md` and `internal-linking-plan-2026-11-05.md` wherever they conflict. Section 1 explains why.
+Prepared 5 November 2026 CT. Revised about 11:00 CT the same day: D8 withdrawn, D13 resolved (the Claude review stays on and is refined), the caching advice withdrawn, F3 and F4 linked to content handoff items L1 and L4. This document replaces the action lists in `content-strategy-codex-brief-2026-11-05.md` and `internal-linking-plan-2026-11-05.md` wherever they conflict. Section 1 explains why.
 
 **What was measured.** The live site at about 10:00 CT on 5 November 2026: all 99 URLs in `https://www.zincdigital.co/sitemap.xml`, each fetched and parsed for title, meta description, canonical, robots, headings, words inside `<main>`, images, in-body internal links and JSON-LD. The live build is `origin/main` at `b314bdd` (PR #82). Optimizer settings were read from `origin/main` source.
 
@@ -72,7 +72,7 @@ The site's technical base is sound. The remaining gains are in **service-page de
 | `/services/apps/` | Apps | Business App and Workflow Development |
 | `/services/seo/` | SEO | SEO Services |
 | `/services/local-seo/` | Local SEO | Local SEO Services |
-| `/services/ai-search-optimization/` | AI Search Optimization | AI Search Optimization Services (or "AI Search Optimization and AI SEO" if D8 = yes) |
+| `/services/ai-search-optimization/` | AI Search Optimization | AI Search Optimization Services |
 | `/services/google-search-ads/` | Google Search Ads | Google Search Ads Management |
 | `/services/shopping-ads/` | Shopping / Merchant Center Ads | Google Shopping and Merchant Center Management |
 | `/services/social-ads/` | Social Ads (Meta) | Meta Ads and Paid Social Management |
@@ -106,9 +106,14 @@ Set no word target. Length follows from these sections.
 | Google Search Ads and Meta posts | `/work/summit-marine-development/` |
 | Web design and Astro migration posts | `/work/us-oil-solutions/`, `/work/bear-claw-usa/` |
 | Ecommerce posts | `/work/las-vegas-safety/`, but only if that case lists Shopify or Shopping |
-| AI search and BI posts | No eligible case today. Leave them without one. |
+| BI posts | `/work/zinc-fusion-v16/` lists `business-intelligence`, and the BI service already has it as `caseSlug`. Owner decision D16 (content handoff L4) settles whether ZINC's own product counts as proof. |
+| AI search posts | No eligible case today. Leave them without one. |
 
 **F4. Overlapping posts (cannibalization).** For each group: give each post one distinct intent, retitle where needed, and add the missing two-way links. Measured link gaps are marked ✗.
+
+Two dependencies come first:
+- **Most ✗ gaps share one root cause:** `readingPath()` in `src/data/blog-strategy.ts` (content handoff L1). Fix it first, rebuild, and re-measure before adding any manual link.
+- **Open PR #83** (`codex/seo-article-intent-map`) records the intended intents in `docs/editorial/schedule.md`. Reconcile with it rather than duplicating it.
 
 | Group | Posts (live title) | Overlap | Fix |
 |---|---|---|---|
@@ -154,22 +159,7 @@ Twelve more posts are at 61–62 characters. They are borderline; leave them unl
 
 Page meta lives in `src/data/page-editorial.ts`. Category and author meta are built in `src/data/site.ts`.
 
-**F8. AI search service wording (owner decision D8).** Repo research (3 Nov, US monthly volumes):
-
-| Term | Volume |
-|---|---|
-| "ai seo" | 6,600 |
-| "ai search optimization" | 1,300 |
-| "ai seo services" | 1,000 |
-| "ai search optimization agency" | 480 |
-
-The page uses only "AI search optimization". If D8 is yes, add "AI SEO" as the secondary phrase:
-
-- Title: "AI Search Optimization & AI SEO Services | ZINC" (47).
-- Meta: "AI search optimization (AI SEO) that helps search and AI answer systems understand your business through clear entities, useful content and technical access." (157).
-- One body mention.
-
-Never use "GEO" (owner rule).
+**F8. AI search service wording: no change.** The owner approved "AI search optimization" as the service phrase on 3 Nov 2026 (`src/data/seo-review-research.ts`, `status: 'owner-approved 2026-11-03'`). That decision already weighed the higher estimated volume for "AI SEO", which can also mean using AI to do SEO. Keep the approved phrase. Never use "GEO". The earlier proposal to add "AI SEO" is withdrawn (D8).
 
 **F9. The `/services/` hub is thin: 82 words, H1 "Services".** Add one short paragraph per layer (Build · Demand · Intelligence) that names its services and links each one. Proposed H1: "Web Design, SEO, Paid Media and Business Intelligence Services". This is an owner design call (D9).
 
@@ -212,19 +202,22 @@ Confirm the owner's wording once (D12) and make page copy, schema order and the 
 
 Two separate systems on `origin/main` produce SEO advice.
 
-### 4a. Weekly Claude review (Anthropic API, paid)
+### 4a. Weekly Claude review (Anthropic API, paid): owner decision, 5 Nov 2026
 
-| Setting | Current (source) | Recommended |
+The owner's direction, verbatim: "claude reviews stay on, and get full refinement based off all these reports"; "all this get baked into claudes understanding and instructions"; "open up the cap, but keep the token burn low"; "do not alllow overlap with any scheduled gpt subscription work in the backend".
+
+| Setting | Current (source) | Refinement |
 |---|---|---|
-| Trigger | Vercel cron `0 13,14 * * 1`, gated by `reviewSlot()` to Monday 08:00 CT. A manual run is also possible. (`vercel.json`, `src/pages/api/cron/seo-review.ts`) | **Keep `SEO_REVIEW_ENABLED` unset or `false`.** The owner's rule: no analysis a Claude Code session can do runs on API credit, and each credit-billed run needs the owner's explicit approval. A weekly automatic run breaks that rule by design. |
-| Free alternative | `runSeoScan()` already measures the full evidence and scorecard **without calling Claude** (`src/lib/seo-review-runner.ts`) | Schedule the **scan** weekly instead, then have a Claude Code session (subscription) read the saved scan when analysis is wanted. |
-| Billing | `ANTHROPIC_API_KEY` in Vercel. Every run bills the API allowance. | If the owner approves runs: use a **dedicated key** for this workload so usage is attributable, and keep the Console monthly limit at or below the allowance. |
-| Model and effort | `claude-opus-5-5`, effort `high`, `max_tokens: 48000`, streaming, 480 s timeout, no fallback (`src/lib/seo-review.ts`) | If enabled: effort `medium` and `max_tokens` around 16k for the weekly digest. Keep Opus only for an owner-requested deep review. |
-| Input size | Full evidence set every run (`reviewContext`) | Send only pages and metrics that changed since the last comparable scan, plus the scorecard delta. |
-| Caching | The system prompt (`reviewInstructions(register)`) is resent each run with no `cache_control` | Mark the static system block for prompt caching. |
-| Receipts | Usage, model, stop reason and message ID are stored for every run, failures included | Good. Review them monthly against the allowance. |
+| Activation | `SEO_REVIEW_ENABLED` + `ANTHROPIC_API_KEY` in Vercel | Stays on. Don't change env vars in code work; the owner confirms them in Vercel. |
+| Model, effort, output | `claude-opus-5-5`, `high`, `max_tokens: 48000`, no fallback | Unchanged. The owner chose high-effort reports (PR #58), and saved-review validation checks the effort. |
+| Understanding | Instructions plus per-page excerpts | Add a dated **review baseline** evidence item holding these reports' findings, overlap groups, rules and pending decisions. Claude verifies each finding against live evidence every week (resolved, open or regressed) and never repeats one without current evidence. |
+| Caps | Per page: text 1,800 chars, 12 headings, 20 links with anchor text | **Open:** every heading as a compact string, every internal link target as a deduplicated path, word count, schema types, article author type. Add a computed **site-structure** item: service-page depth and links, hub depth, posts without case or service links, organization bylines, links to pages outside the inventory (catches the 410), missing links inside overlap groups, duplicate saved focus keywords. |
+| Token burn | Each page repeats its full passed-check ID list; links carry anchor text | **Lower:** per page, failing checks plus a passed count, with the check catalog sent once. Links as paths only, with weak anchors listed separately. Measure the payload before and after on the 99 saved pages; the total must not grow. |
+| Caching | None | **Don't add it.** A weekly run outlives the prompt-cache lifetime, so caching would only add cache-write cost. |
+| Overlap with GPT work | None | **Mutually exclusive.** The review doesn't start while any Codex `research`/`seo` job is queued or running, and retries within a Monday 08:00–10:59 CT window (cron `0 13-16 * * 1`, one paid run per date). Backend refuses new Codex `research`/`seo` jobs while a review is running. Claude's scope excludes metadata drafting and research, which stay with the Codex specialist. Recent Codex activity (kind, status, date, target path; no content) is supplied so Claude doesn't re-cover those pages. |
+| Receipts | Usage, model, stop reason and message ID stored for every run | Unchanged. Review monthly against the allowance. |
 
-**Access gap.** This session could not confirm whether `SEO_REVIEW_ENABLED` is `true` in production or how many paid runs have happened:
+**Access gap.** This session could not confirm the current production value of `SEO_REVIEW_ENABLED` or how many paid runs have happened:
 
 - Vercel env listing returned 404 for `zinc-digital-web` under the connected team.
 - The connected Supabase account shows only the OUABC project, not the ZINC site's database (`admin_cache` rows `seo_review:%` hold the receipts).
@@ -252,7 +245,7 @@ How it runs: `POST /api/admin/seo-fix` → `codex_jobs` → the runner on the Ma
 | Per-page metadata drafting | Codex specialist (subscription, on demand) |
 | Weekly measurement | `runSeoScan` (free, deterministic) |
 | Structural fixes in this brief | Codex PRs in the repo |
-| Weekly Claude API review | Off, unless the owner approves a specific run |
+| Weekly Claude API review | On (owner, 5 Nov). Sitewide verification against the baseline. Never runs at the same time as Codex jobs. |
 
 ---
 
@@ -267,12 +260,12 @@ How it runs: `POST /api/admin/seo-fix` → `codex_jobs` → the runner on the Ma
 | D5 | Named authors for the 2 "Team ZINC" posts | Open | Task 6 |
 | D6 | Group A: split intents (default) or merge `how-to-read-a-google-algorithm-update` and `google-core-update-review` (a merge needs a 301 and the owner's go) | Open, widened | Task 5 |
 | D7 | Proof rule: a case is shown or linked only where the case lists that service. Confirm the case for ai-search-optimization (none today) and whether Las Vegas Safety & Supply counts as Shopify/Shopping proof. | Replaces the old D7 | Tasks 3–4 |
-| D8 | Add "AI SEO" as secondary wording on the AI search service | New | Task 2 |
+| D8 | ~~Add "AI SEO" wording~~ | **Withdrawn.** The owner approved "AI search optimization" on 3 Nov. | — |
 | D9 | H1 wording on service pages, `/services/` and `/blog/` | New | Task 3 |
 | D10 | Thin categories (apps, local-seo): intro copy or `noindex, follow`; TikTok category label | New | Task 2 |
 | D11 | Author `sameAs` profile URLs | New | Task 6 |
 | D12 | One location statement (Panama City base / Miami) for copy, schema and the specialist prompt | New | Tasks 2, 6, 8 |
-| D13 | Weekly Claude API review: stay off (recommended), or approve specific runs with the 4a settings | New | Task 8 |
+| D13 | Weekly Claude API review | **Resolved (owner, 5 Nov):** stays on, refined per §4a, no overlap with Codex jobs | Task 8 |
 
 ---
 
@@ -308,7 +301,7 @@ How it runs: `POST /api/admin/seo-fix` → `codex_jobs` → the runner on the Ma
 3. If access fails, record the exact gap. Don't estimate.
 4. **Done when:** `docs/content/demand-baseline-2026-11.md` exists. Raw CSVs go to `/Volumes/Satechi Hub/CodexScratch/zinc-seo-onpage-2026-11-05/`.
 
-### Task 2: Metadata (F6, F7, F8 after D8, F11 after D10, F14 after D12)
+### Task 2: Metadata (F6, F7, F11 after D10, F14 after D12)
 
 1. Apply the approved titles and metas from §3.
 2. Add an optional post meta-title field if one doesn't exist, so H1s stay as they are.
@@ -371,7 +364,7 @@ Coverage was judged from live titles and descriptions only; read the bodies befo
 
 **Rule for every Intelligence draft:** no OUABC data, screenshots or story.
 
-### Task 8: Optimizer settings (§4; needs D13)
+### Task 8: Optimizer settings (§4; D13 resolved)
 
 1. Codex specialist (`src/lib/seo-agent.ts`, `src/pages/api/admin/seo-fix.ts`):
    - Allow "not applicable" categories.
@@ -379,8 +372,13 @@ Coverage was judged from live titles and descriptions only; read the bodies befo
    - Mark the keyword unverified when Search Console is absent.
    - Align the location line with D12.
    - Bump `SEO_SPECIALIST_VERSION` and update the tests in `tests/`.
-2. Claude review: don't enable it. If the owner approves runs, apply the 4a settings (effort `medium`, about 16k `max_tokens`, delta-only evidence, cached system block, dedicated key). Otherwise, schedule the free `runSeoScan` in place of the paid review: a separate cron path, or the existing route calling the scan when `SEO_REVIEW_ENABLED` is not `true`.
-3. **Done when:** `node --test` passes for the touched modules, and no new paid call path exists.
+2. Claude review: implement every "Refinement" row in §4a. The `codex/claude-review-refinement` worktree already has drafts of the baseline, site-structure and schema-signal pieces.
+3. **Done when:**
+   - `npm test`, `npm run check` and `npm run build` pass.
+   - Model, effort and `max_tokens` are unchanged.
+   - The measured review payload is no larger than before.
+   - Overlap is blocked in both directions, with tests.
+   - No new paid call path exists.
 
 ### Success measures (targets are set after Task 1; no invented numbers)
 
