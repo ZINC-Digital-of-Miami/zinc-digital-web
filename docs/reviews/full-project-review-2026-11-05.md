@@ -94,3 +94,7 @@ Finish the protected exact-head release after checks pass, then verify deployed 
 During PR90 preview verification, I accepted Vercel auto-link confirmation from an unlinked worktree and accidentally created the empty `live-pillar-corrections` project. That was an execution error. It had no deployments or repository connection. After the owner's explicit approval, project `prj_absWkvVNVONSX8In2qxUHxBZscbx` was deleted and a native read returned not-found. The real project was independently reread and is intact. The local worktree link and assistant-added `.gitignore` change were corrected. Future preview commands must first verify the existing project ID; a missing link is not permission to auto-create a project.
 
 No new browser tab/window, paid model test, support message or production test inquiry was created in this review. No persistent task-owned helper was started. Native reads used read-only transactions; the only cloud deletion was the specifically approved accidental project cleanup.
+
+## Post-review remediation receipt
+
+5November2026CT: finding1 is corrected for ordinary merges. The owner approved the exact required-check payload; native readback confirms build/GitHubActions15368 and Vercel8329 are required, with existing rules and administrator PR bypass preserved. GitHub lists both as required on PR89. Finding3 is fixed in the reviewed commercial candidate and passes local JSON/no-JavaScript intake tests; it is not yet released. Other findings remain open or awaiting the release/verification described above.
