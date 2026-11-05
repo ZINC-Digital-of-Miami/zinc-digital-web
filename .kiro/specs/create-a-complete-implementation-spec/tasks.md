@@ -2,7 +2,7 @@
 
 ## Hero lettering direction — 5 November 2026 CT
 
-Owner requests more distinctive lettering after the larger-title/smaller-laptop release: outlines or a visual texture inside the letters. Apply solid fuchsia ZINC, outlined and diagonally hatched DIGITAL, and a closer teal accent dot. Preserve the larger/higher placement, smaller right-side laptop, original Summit artwork, BI scene and mobile fit. Keep this as accessible HTML/CSS within the existing hero.
+Owner requests more distinctive lettering after the larger-title/smaller-laptop release: outlines or a visual texture inside the letters. Apply solid fuchsia ZINC, outlined and diagonally hatched DIGITAL, and a closer teal accent dot. The owner flags period spacing: place the dot inside the reserved word span, after the actual DIGITAL lettering, as an inline baseline-aligned circle with a defined gap; remove the manually translated glyph. Preserve the larger/higher placement, smaller right-side laptop, original Summit artwork, BI scene and mobile fit. Keep this as accessible HTML/CSS within the existing hero.
 
 ## Homepage title sizing — 5 November 2026 CT
 
