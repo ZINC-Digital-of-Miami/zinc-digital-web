@@ -11,3 +11,5 @@
 #zsRoot[data-template="case"] .c-brand:has(>:only-child)>.c-brand-tile{aspect-ratio:auto;min-height:240px}
 #zsRoot[data-template="case"] .c-brand:has(>:only-child) img{max-height:260px}
 @media(max-width:900px){#zsRoot[data-template="case"] .case-layers{grid-template-columns:1fr}#zsRoot[data-template="case"] .case-layers:has(>.p-layer:only-child)>.p-layer{grid-template-columns:1fr;gap:24px}.case-layer-heading{--case-number-size:48px;grid-template-columns:48px minmax(0,1fr);gap:16px}}
+
+@media(min-width:901px) and (max-width:1200px){#zsRoot[data-template="case"] .case-layers[data-case-layers="3"] .case-layer-heading{grid-template-columns:minmax(0,1fr);gap:16px}}
