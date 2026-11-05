@@ -41,7 +41,8 @@ const {routes:siteRoutes,posts,services,noindexPaths} = await import('data:text/
 const slugs = services.map(s=>s.slug);
 const routes = siteRoutes.map(r=>[r.path,r.template]);
 const NOINDEX = new Set([...noindexPaths,...siteRoutes.filter(r=>r.noindex).map(r=>r.path)]);
-if(args.includes('--inventory-only')){console.log(JSON.stringify({routes,noindex:[...NOINDEX]}));process.exit(0);}
+const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article'], ['/blog/ga4-ecommerce-event-validation/', 'article'], ['/blog/ai-competitor-research-prompts/', 'article'], ['/blog/meta-ads-basics/', 'article'], ...routes.filter(([,template])=>template==='author')];
+if(args.includes('--inventory-only')){console.log(JSON.stringify({routes,samples,noindex:[...NOINDEX]}));process.exit(0);}
 const JS_BUDGET = 15 * 1024;
 const SNOW = 'rgb(245, 246, 247)', NEAR_BLACK = 'rgb(10, 10, 11)';
 const base = option('--base', 'http://127.0.0.1:4329');
@@ -176,7 +177,6 @@ try {
   // Reset only this test origin's persisted theme in the dedicated test profile.
   await driver.sendAndGetDevToolsCommand('Storage.clearDataForOrigin', { origin: new URL(base).origin, storageTypes: 'local_storage' });
   const axeSrc = await fs.readFile(axeMinPath, 'utf8');
-  const samples = mode === 'full' ? [...new Map(routes.map((r) => [r[1], r])).values()] : [['/', 'home'], ['/services/seo/', 'service'], ['/work/las-vegas-safety/', 'case'], ['/contact/', 'contact'], ['/blog/', 'blog'], ['/blog/google-search-console-the-operators-guide/', 'article'], ['/blog/ga4-ecommerce-event-validation/', 'article'], ['/blog/ai-competitor-research-prompts/', 'article'], ['/blog/meta-ads-basics/', 'article'], ...authors.map(a=>['/authors/'+a.id+'/', 'author'])];
   for (const [route, template] of samples) for (const w of mode === 'full' ? [1440, 375] : [375, 1440]) {
     await load(route, w); const o = await observe();
     check(o.h1 && !o.overflow, route + '@' + w + ' overflow/h1'); check(o.underlines === 0, route + '@' + w + ' underlines ' + o.underlines);
