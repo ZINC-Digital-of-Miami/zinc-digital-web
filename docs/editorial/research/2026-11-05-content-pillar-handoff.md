@@ -14,7 +14,7 @@ Prepared 5 November 2026 CT against `origin/main` `b314bdd` (PR #82) and the liv
 2. `docs/editorial/schedule.md`, the editorial register. Its cadence, author lanes, standards and release rules govern every new article.
 3. `docs/editorial/research/2026-11-03-content-marketing-pillars.md`. Owner model: **a pillar is a service-aligned blog category** (`/blog/category/<service>/`). Guides sit inside categories, and they are articles, not pillars.
 4. `docs/editorial/research/2026-11-05-seo-onpage-codex-brief.md`, the on-page SEO runbook (Tasks 0–8, decisions D1–D13).
-5. This file: pillar coverage (§1), D14 (§2) and the queue extension (§3). §3 replaces Task 7 of the SEO runbook.
+5. This file: pillar coverage (§1), D14 (§2), the queue extension (§3) and link-graph additions (§4). §3 replaces Task 7 of the SEO runbook. §4 L4 corrects the BI row of SEO-runbook F3.
 6. Open PR #83 (`codex/seo-article-intent-map`), which already maps intent across the search-update, Merchant Center, Shopping and Search Console articles. Reconcile with it before touching SEO-runbook F4 or Task 5. Do not duplicate it.
 
 **Superseded and not committed:** `content-strategy-codex-brief-2026-11-05.md` and `internal-linking-plan-2026-11-05.md` at the root of the main checkout. Both were built from local `main` `1a2ea8b`, which is 76 commits behind `origin/main` and still holds the 25 September mockup. Ignore them.
@@ -81,7 +81,25 @@ Category pages list every post that names the service anywhere in `related`. As 
 - No invented results.
 - Link up to the pillar and across to 2–3 posts in the same pillar, as the SEO runbook F3/F4 rules require.
 
-## 4. Done when (for this file's scope)
+## 4. Link-graph additions (not in the SEO runbook)
+
+**Source:** the internal-linking session's local build of `origin/main` `b314bdd` (101 HTML pages, 5,648 links). I re-checked each finding against the source code and the live crawl HTML.
+
+**Already done on `origin/main`, so no task is needed:**
+- Service ↔ category links on all 11 services.
+- Post → primary service, post → category, and post → `/contact/?service=<pillar>` on 45 of 45 posts.
+- No orphans, and maximum click depth is 3.
+
+| ID | Finding (verified) | Task | Gate |
+|---|---|---|---|
+| L1 | **Root cause of most SEO-runbook F4 gaps.** `readingPath()` (`src/data/blog-strategy.ts`, end of file) returns `available.slice(0, 3)` for every non-hub member: the guide hub plus the guide's first two members. As a result, 18 of 45 posts get exactly one in-page link from another post (the hub). Meanwhile `four-pillars-of-seo-operators-view` gets 18, `ga4-ecommerce-event-validation` 17, `technical-seo-ten-fixes-that-move-rankings` 13 and `wordpress-php-security-moving-to-astro` 13. | Change the non-hub return to the hub plus the previous and next member in editorial order, wrapping at the ends, and keep the published-only filter. Add a unit test. **Done when:** after a rebuild, every guide member has at least 3 inbound links from other posts. Re-measure SEO-runbook F4 before adding any manual links, because many ✗ gaps should close on their own. | None (logic fix); before/after inbound counts in the PR |
+| L2 | The "Channels & measurement" guide (14 members) mixes paid social, GA4, research, budgets and web design. For example, `tiktok-ads-basics` reads next into the seven-channels, content-marketing-plan and GA4 posts, not `meta-ads-basics` or `paid-media-landing-page-checklist`. With L1 in place, member order decides these links. | Reorder the guide into topic runs (channels → paid media → measurement → research → planning) or split it into two guides. URLs stay unchanged either way. | **D15** (reorder or split) |
+| L3 | Case pages link to 0 posts and 0 categories. The SEO runbook covers only post → case links. | On each case page, add "Read our {Service} articles" links to the category of every service in that case's `services` list that has articles, using the same pattern as the service pages. Static HTML, no added JS. | None beyond normal PR review |
+| L4 | **Conflicts with SEO-runbook F3** ("AI search and BI posts: no eligible case"). `site.ts` sets `caseSlug: 'zinc-fusion-v16'` on `business-intelligence`, and that case lists `['apps', 'business-intelligence']`. The BI service page still shows no case, because `BusinessIntelligence.astro` never renders `serviceCase`. Only `Page.astro` does. | If D16 = yes: link the BI service page and the BI-primary posts to `/work/zinc-fusion-v16/` (F3 rule: one in-body link per post). If D16 = no: remove the `caseSlug`. | **D16:** does ZINC's own product count as proof for the BI service? |
+| L5 | Low. Each blog index and category card links to the same post three times: an image link with no text, the title, and "Read the full article", which appears 129 times (`src/components/Page.astro` card markup). | Make the title the only crawlable link. Keep the whole card clickable through CSS or by stretching the title link over the card, rather than adding duplicate `<a>` elements. Keep the existing keyboard and screen-reader behaviour. | None; accessibility check in the PR |
+| L6 | Low. The public footer links `/admin/` on all 99 live pages (`ADMIN_PATH` in `src/data/site.ts`), while `robots.txt` disallows `/admin/`. | Remove the link from the public footer only. The admin route itself stays unchanged. | **D17** (the link may be a deliberate owner convenience) |
+
+## 5. Done when (for this file's scope)
 
 - D14 is answered. If the recommended option is chosen, its template PR passes the repo's Node 24 checks and the category pages render primary-pillar posts first.
 - The approved D4 items are added to `docs/editorial/schedule.md` as planned rows, with dates, authors and formats, following the register's rules. They are not published early.
