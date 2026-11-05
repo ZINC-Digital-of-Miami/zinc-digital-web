@@ -24,7 +24,7 @@ Dates below are target run dates at 09:00 CT, except the owner-requested immedia
 | # | Date | Author | Format | Working title and practical deliverable | Status |
 |---|---|---|---|---|---|
 | 01 | 2026-10-27 Tue (early release) | Kirk | Web/security decision guide | WordPress security—and why we moved ZINC to Astro — current advisory, host request, platform choices and migration checks | Live 27 October; PR40; Docker166 tests/86 pages passed; desktop/mobile verified |
-| 02 | 2026-10-30 Fri | Wendy | Content how-to | How to plan useful blog content for your business — worked example, article planning, useful links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
+| 02 | 2026-10-30 Fri | Wendy | Content how-to | How to organise your website’s blog — worked example, article planning, useful links and launch checks | Live30October; PR41; Docker166tests/87pages; production desktop/mobile verified |
 | 03 | 2026-11-02 Mon | Jaymie | Ecommerce KPI how-to | Work out what you can afford to spend on an order — margin, returns, fulfilment and acquisition cost with a labelled worked example | Live 2 November; PR45; Docker173tests/98pages; production desktop/mobile and downloads verified |
 | 04 | 2026-11-04 Wed | Wendy | AI/content industry analysis | What AI discovery changes about your editorial plan — fresh primary-source developments, what they change, what remains unproven | Live4November; PR62; localNode24 215tests/101HTMLpages; production desktop/mobile, sources/schema and download verified |
 | 05 | 2026-11-06 Fri | Wendy | Authority how-to | Turn subject expertise into an article cluster — evidence inventory, unique page questions, contributor input and cannibalisation checks | Planned |
