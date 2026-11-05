@@ -36,7 +36,7 @@ Dates below are target run dates at 09:00 CT, except the owner-requested immedia
 | 11 | 2026-11-20 Fri | Wendy | Content how-to | Refresh a content hub without making its pages compete — intent comparison, keep/merge/rewrite decisions and redirect checks | Planned |
 | 12 | 2026-11-23 Mon | Wendy | Content KPI how-to | Build a content scorecard beyond page views — useful metrics by page purpose, conversions, assisted journeys and honest attribution limits | Planned |
 
-Each Wednesday is industry/strategic analysis; Monday and Friday are practical how-tos, with the opening security/migration decision guide as the launch feature. Replenish the queue four weeks ahead using the same mix, avoiding near-duplicates of the existing 41 posts. Timely developments may change a working title, not the author lane or required substance.
+Each Wednesday is industry/strategic analysis; Monday and Friday are practical how-tos, with the opening security/migration decision guide as the launch feature. Replenish the queue four weeks ahead using the same mix, avoiding near-duplicates of the current published library. Timely developments may change a working title, not the author lane or required substance.
 
 ## Distinct reader tasks for upcoming briefs
 
@@ -125,3 +125,56 @@ Four-week runway continued4November (planned, not published):
 
 
 Item04 release receipt, 4 November 2026 CT: [What AI discovery changes about your editorial plan](https://www.zincdigital.co/blog/what-ai-discovery-changes-editorial-plan/) by Wendy Funnell is LIVE. PR62 protected squash merge359eebaf9d39ec25a7bbdc60461901db454cef7a; reviewed clean head75a9927801d033cc0cc8ddc4aa783f6af3c667f7. LocalNode24:215tests,0failures; Astro0errors/0warnings/11hints;252assets;101HTMLpages pass. Fresh scoped final-head review passed. Vercel dpl_GMqzUWB2yirqUnGLQgbGb6Vehk7w READY with matching merge and www/apex aliases. Production readback4November09:17–09:19CT: full manuscript exact match, Wendy en-GB author graph and5bottom sources/citations, canonical/date/social image,20public internal destinations, sitemap/llms inclusion and308slash redirect pass. CSV and SVG HTTP200/correct MIME/byte-identical; CSV13columns with labelled specimen and blank row, edit/save/reopen tested. Desktop1440/mobile390 and local320/light/dark inspected, readable author/TLDR/diagram/table, no overflow or broken images. Source publication timestamp2026-11-04T15:06:39Z; production READY09:17CT. Current sitemap45blogs. Node24 only; no Docker, Actions or protection bypass. Next due Wendy Friday6November; all settled dates unchanged. Existing30/60/90-day measurement obligations remain separate; no claim of indexing, citations or leads. Evidence retained in release worktree .scratch/production-article-proof.json, body-comparison.json and final-head-validation.log.
+
+
+## Explicit service ownership and demand reconciliation — 5 November 2026 CT
+
+PR83’s intent map and merged PR86’s organisation guidance have been reconciled with PR87’s explicit service model. Every new brief has one primary service; that service determines the pillar, commercial link, proposal selection and subscription topic. Secondary links do not confer membership. ZINC’s service-aligned categories are its chosen pillar organisation; a comprehensive resource guide can be a pillar page in another content model.
+
+Current repository coverage: SEO17, BI9, Shopping6, Shopify4, AI search3, Web Design2; Local SEO, Google Search Ads, Meta and TikTok each1; Apps0. These are coverage counts, not search-volume estimates. Do not insert irrelevant links or commission duplicate questions to reach a count.
+
+The retained native Search Console receipt from the November4 Claude review covers October5–November1 versus September7–October4, web search, Pacific-time reporting. It recorded16clicks/3311impressions versus7/1253, and average position44.44 versus10.47. This does not establish a ranking collapse: the observed query/page mix changed and query-level comparisons are not retained in that receipt. Current-period examples include Local SEO service133impressions/0clicks, Apps53/0, the SEO framework151/0 and the AI-search explainer74/0. These observations support reviewing relevant destinations and coverage; they are not market demand, qualified leads or evidence of cannibalisation. Query privacy filtering and top-row limits apply. Fresh query×page/country evidence is still required before any consolidation or redirect; keep the distinct URLs and reader tasks. The existing November3 market-demand receipt remains separate and is due for comparable refresh after December3, before another positioning change.
+
+The November5 live native connection check reports GA4 and Search Console connected. Local Vercel environment reads hide the active sensitive OAuth credential; the local fallback account’s failed access does not contradict that runtime result. No paid research or model call was made for this reconciliation.
+
+### Already scheduled briefs: primary service, question and supporting links
+
+Dates, bylines and publication cadence above remain controlling. The assignments below add ownership and sharper boundaries; they do not publish a draft or change its author.
+
+| Item | Primary service | Distinct reader question | Supporting reading |
+|---|---|---|---|
+|05|seo|How do we turn documented expertise into distinct article questions within one service pillar?|[Content briefs](/blog/content-briefs-search-intent-internal-links/), [Blog organisation](/blog/build-a-content-hub-people-can-use/)|
+|06|business-intelligence|What definitions must a KPI dictionary settle before dashboard development?|[BI foundations](/blog/business-intelligence-basics/), [GA4 validation](/blog/ga4-ecommerce-event-validation/)|
+|07|shopping-ads|Which current product-discovery changes affect catalog preparation and measurement?|[Merchant Center basics](/blog/merchant-center-basics/), [Shopping management](/blog/google-shopping-ad-management-2026/)|
+|08|ai-search-optimization|How do we revise one article’s evidence and clarity without promising AI citations?|[AI editorial planning](/blog/what-ai-discovery-changes-editorial-plan/), [AI content strategy](/blog/ai-search-content-strategy/)|
+|09|shopping-ads|How do we reconcile Merchant Center shipping and returns with the actual store?|[Feed diagnostics](/blog/merchant-center-feed-diagnostics/), [Shopify/Google checklist](/blog/shopify-google-merchant-center-checklist/)|
+|10|apps|Is a particular AI-assisted task reliable enough for an operational workflow?|[BI foundations](/blog/business-intelligence-basics/), [AI research checks](/blog/ai-research-workflow/)|
+|11|seo|Which pages in one pillar need clearer intent, revision or a later justified consolidation?|[Page refresh](/blog/content-refresh-review/), [Internal links](/blog/internal-link-audit/)|
+|12|business-intelligence|Which definitions and denominators make a content scorecard useful beyond views?|[Content planning](/blog/content-marketing-plan-that-produces-pipeline/), [BI foundations](/blog/business-intelligence-basics/)|
+|13|web-design|Which verified browser/search changes affect real customer tasks on our website?|[Design decisions](/blog/when-web-design-trends-actually-matter/), [Service pages](/blog/service-page-content-checklist/)|
+|14|business-intelligence|How should returns evidence affect a product reorder decision?|[Order economics](/blog/what-can-you-afford-to-spend-on-an-order/), [BI foundations](/blog/business-intelligence-basics/)|
+|15|seo|How do we turn an expert interview into an approved, evidence-backed service-article brief?|[Content briefs](/blog/content-briefs-search-intent-internal-links/), [Content plan](/blog/content-marketing-plan-that-produces-pipeline/)|
+|16|business-intelligence|Which AI reporting claims can be verified against actual sources and reconciled measures?|[Research consensus](/blog/research-consensus-report/), [BI foundations](/blog/business-intelligence-basics/)|
+|17|local-seo|Which eligibility, address and appointment facts must a service-area profile get right?|[Local SEO manual](/blog/local-seo-2026-operators-manual/), [Service-page facts](/blog/service-page-content-checklist/)|
+|18|apps|What is the smallest complete workflow an initial business app should deliver?|[BI foundations](/blog/business-intelligence-basics/), [Service-page planning](/blog/service-page-content-checklist/)|
+
+### Additional commissioning backlog
+
+These are unscheduled briefs, not new publication promises. Replenish the established Monday/Wednesday/Friday9a.m.CT queue using its existing author lanes and how-to/analysis mix. Preserve Wendy’s already planned content-led work. Validate primary sources and demand evidence when each brief is commissioned. Every row also links directly to `/services/<primary-service>/` and `/blog/category/<primary-service>/`. Cross-pillar links below are deliberate next questions; Apps currently lacks same-pillar articles, which remains an explicit gap.
+
+| Priority | Primary service / author lane | Working title and distinct question | Deliverable and supporting reading |
+|---|---|---|---|
+|1|apps / Kirk|Who can see, change and approve each app record?|Roles-and-permissions worksheet; distinct from item18’s whole-workflow scope. Link item18 once live and [BI foundations](/blog/business-intelligence-basics/).|
+|2|local-seo / Jaymie|Build location pages customers can use: what must differ by real location?|Location-facts and content checklist; distinct from item17’s profile eligibility. Link [Local SEO manual](/blog/local-seo-2026-operators-manual/) and [Service-page checklist](/blog/service-page-content-checklist/).|
+|3|google-search-ads / Jaymie|Review search terms without excluding useful demand|Weekly query/exclusion decision log; distinct from channel selection and budget planning. Link [Channel choice](/blog/seven-digital-channels-which-to-skip/) and [Landing-page checks](/blog/paid-media-landing-page-checklist/).|
+|4|social-ads / Jaymie|Plan a Meta creative test around one decision|Test design, delivery evidence and decision log; Meta owns the article, TikTok is a cross-reference. Link [Meta basics](/blog/meta-ads-basics/) and [TikTok basics](/blog/tiktok-ads-basics/).|
+|5|business-intelligence / Kirk|Why Shopify, GA4 and ad-platform revenue do not match|Reconciliation worksheet for timing, attribution, refunds, tax and currency; distinct from event validation. Link [GA4 validation](/blog/ga4-ecommerce-event-validation/) and item06 once live.|
+|6|shopify / Jaymie|Move a store to Shopify without losing essential search and ordering paths|URL/product-data/checkout test map; distinct from the WordPress-to-Astro decision guide. Link [Shopify launch checks](/blog/shopify-seo-launch-checklist/) and [Product-page SEO](/blog/shopify-product-page-seo/).|
+|7|shopping-ads / Jaymie, Wednesday analysis|Performance Max or Standard Shopping: what can a catalog business actually control?|Current controls/reporting comparison, rechecked at writing. Link [Shopping management](/blog/google-shopping-ad-management-2026/) and [Feed diagnostics](/blog/merchant-center-feed-diagnostics/).|
+|8|business-intelligence / Kirk|Attribution windows for the finance team: how can three systems claim one order?|Labelled order timeline and reconciliation example; distinct from the revenue-difference diagnostic above. Link [UTM naming](/blog/ga4-utm-naming-conventions/) and [GA4 validation](/blog/ga4-ecommerce-event-validation/).|
+|9|local-seo / Jaymie|Separate local calls and form inquiries from profile interactions|Monthly measurement checklist with connected/qualified outcomes explicitly separate. Link [Local SEO manual](/blog/local-seo-2026-operators-manual/) and [Landing-page checks](/blog/paid-media-landing-page-checklist/).|
+|10|apps / Kirk, Wednesday analysis|Custom app, no-code platform or SaaS: which fits this workflow?|Decision framework for data, permissions, ownership and maintenance; distinct from item18’s implementation scope. Link item18 once live and [BI foundations](/blog/business-intelligence-basics/).|
+|11|shopify / Jaymie|Audit a Shopify app stack: what should stay, change or go?|Cost/data-access/dependency worksheet; distinct from rebuilding a store. Link [Shopify launch checks](/blog/shopify-seo-launch-checklist/) and [Shopify fixes](/blog/shopify-seo-problems-real-fixes/).|
+|12|web-design / Kirk|Map URLs before a redesign: which should remain, redirect or retire?|URL mapping template and launch checks; distinct from the canonical/duplicate-content explainer. Link [Astro migration](/blog/wordpress-php-security-moving-to-astro/) and [Duplicate content](/blog/duplicate-content-isnt-a-penalty-but-its-a-tax/).|
+
+Remaining coverage gap: the twelve proposed briefs do not provide another TikTok-primary article. Do not count the Meta creative-test article or secondary references as TikTok membership. A distinct TikTok follow-up still needs a reader question and current evidence before commissioning.
