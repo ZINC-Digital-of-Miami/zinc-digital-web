@@ -20,18 +20,18 @@ export const articleFeatures: AddedArticle[] = [{
     "seo"
   ],
   "dateGmt": "2026-11-06T15:04:06Z",
-  modifiedGmt: "2026-11-06T19:16:55Z",
-  markdown: `Imagine you’re in a fitted-furniture showroom with two pieces of oak on the counter. You’re deciding which finish would look better in your kitchen. Now imagine you’ve picked one, and the designer hands you a form to sign. You’ve still got the same piece of wood in your hand, but you’ve got a rather different question. What, exactly, are you agreeing to?
+  modifiedGmt: "2026-11-06T19:25:56Z",
+  markdown: `You’ve narrowed the kitchen cabinets down to two oak finishes. The pale one looks lovely by the window. So does the smoked one, rather inconveniently. You take them both home. A week later you’re back at the counter, quite sure which one you want, and the designer hands you a form. Hang on. Which of these little numbers says you’re getting *that* oak?
 
-That little change is where I’d start planning an article cluster. Think of a cluster as a handful of related articles that help someone make their way through a subject. They live in the blog category for the service or product collection they belong to. In our imaginary showroom, that’s fitted furniture. Each article needs a question of its own.
+If you run the showroom, those are two cracking questions to take back to your writer. Someone choosing a finish could use a side-by-side comparison. Someone with a pen in their hand needs to know where to check the sample number before they sign. Put those guides together in the blog category for your fitted-furniture service and you’ve started an article cluster. You’ve also saved the poor soul with the pen another tour of the colour options.
 
-To try this with your team, bring the service page, the articles you already have and one example you’re allowed to discuss. Invite the person who knows the work well enough to spot the detail everyone else has missed.
+Shall we try it with your business? Open your service page and the articles you already have. Then invite the person who actually does the work to bring along something they can show you. A blank form is plenty. There’s no need to borrow a customer’s paperwork for the occasion.
 
 ## Put the samples on the table
 
-Let’s give our fictional showroom a designer and an existing guide to cabinet finishes. Ask the designer to put the pale oak and the smoked oak side by side. If a customer took both home, what would you tell them to look for? What would the samples leave them guessing about?
+For the rest of this example, let’s borrow that imaginary showroom. It already has a finishes guide. Sit down with the designer, put the pale oak beside the smoked oak and ask, ‘If I took these home tonight, where would you tell me to look at them?’ Follow up with, ‘What might still surprise me when the cabinets arrive?’ Those answers give your writer something much more useful than two photographs of brown things.
 
-Now slide the approval form across the counter. Could the customer use the finishes guide to check that the sample reference matches their choice? If the designer has to put down the wood and fetch the paperwork to answer, pay attention. You may have found the next article.
+Now pick up the form. Ask the designer to show you where the sample number goes and what happens if it doesn’t match the one you chose. Notice what’s just happened: the designer has had to reach for a different piece of evidence, and you’ve got a different job to do. That’s a good reason to give sign-off a guide of its own.
 
 Jot down what the designer showed you and who can check the explanation before it goes public. The samples can illustrate the difference between finishes. The person responsible for the current form can tell you what the signature covers. Keep private paperwork out of your illustrations. Google’s [guide to helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) offers a useful editorial question here: what will someone learn from your first-hand knowledge that they couldn’t get from a quick summary elsewhere?
 
@@ -39,7 +39,7 @@ Jot down what the designer showed you and who can check the explanation before i
 
 In our client work, we’ve built separate service pages for distinct types of work. Those pages are a handy place to start. If a customer simply wants to know whether you fit cabinets in a particular kind of room, put the answer where they can enquire. Making them hunt through the blog for it is a bit much.
 
-Here’s how I’d divide the showroom questions. These are fictional examples; use your own approved service details when you try it.
+Here’s what I’d give the writer in our fictional showroom. Try reading down the first column as if you were the customer. By the fourth row you may feel you’ve been here before. Quite right, too.
 
 | Customer question | Evidence to inspect | Where the answer belongs |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ Here’s how I’d divide the showroom questions. These are fictional examples; 
 | What exactly am I approving when I sign off a sample? | Current approval form and an authorised, blank example | Commission a guide in the fitted-furniture category if the archive has no walkthrough. End with the questions to resolve before signing. |
 | Which cabinet finish should I pick? | Same samples, same decision as the comparison guide | Add this wording to the existing brief. A second URL would give the editor two copies of the same job. |
 
-Our [content hub guide](/blog/build-a-content-hub-people-can-use/) covers the category and its navigation. Here, the editorial work is deciding which question belongs on which page. A category can house several articles without promising a fresh one for every variation of a question.
+If you’re still deciding how to organise the category itself, our [content hub guide](/blog/build-a-content-hub-people-can-use/) will help. Once it’s in place, you can add the questions customers actually ask. Two ways of asking which finish to choose can share a perfectly good answer.
 
 ![A sample and a sign-off form support two separate reader tasks: comparing finishes in an existing guide and checking an approval in a new walkthrough.](/media/blog-review/expertise-to-article-map.svg)
 
@@ -64,7 +64,7 @@ The links can do a little work too. Where the finishes guide leaves someone hold
 
 ## What if you already have two guides to oak?
 
-Cover the titles and read each opening, example and final instruction. Could you swap the pages around and still help the same person do the same thing? Keep the clearer guide and bring the useful detail into it. But if one reader is carrying samples home and the other has a pen poised over the form, keep both guides and make that difference clear near the top.
+Lay the two guides side by side and cover their titles. Read the opening, look at the example and try the last instruction. Could you swap the pages around without the reader noticing? Keep the clearer guide and bring the useful bits across. On the other hand, if one reader is off home with the samples and the other is fishing about for a pen, each guide has earned its place.
 
 If you use Search Console, pick a date range in the Search results performance report, filter to a relevant query and open **Pages**. Read the pages that appeared. A service page and a finishes guide can both make sense for a broad cabinet search. If someone looking for sample sign-off lands on a page full of lovely oak photographs and no mention of the form, you’ve found something worth fixing. Seeing two URLs for one query won’t, on its own, tell you that either is losing traffic. Google’s [Performance report documentation](https://support.google.com/webmasters/answer/7576553) explains the filters and which queries may be missing.
 
