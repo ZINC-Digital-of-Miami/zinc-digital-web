@@ -7,7 +7,7 @@ const slides=[{name:'build',image:'build-bear-claw-wide.png',alt:'Bear Claw USA 
 <section aria-label="ZINC Digital and our work" class="zn-hero" id="hero">
  <div class="wrap">
   <div class="zn-stage" data-lane="build">
-   {slides.map((slide,i)=><div class="zn-hero-picture" data-zn-picture={slide.name} hidden={i!==0}>{slide.name==='demand' ? <Img k="smd-devices" alt={slide.alt} loading="eager" fetchpriority="low" quality={95} sizes="(max-width: 760px) calc(100vw - 48px), 70vw" /> : <ApprovedImage name={slide.image} alt={slide.alt} loading="eager" fetchpriority={i===0?'high':'low'} quality={100} sizes="(max-width: 760px) 150vw, 100vw" widths={[480,768,1100,1536,1672]} />}</div>)}
+   {slides.map((slide,i)=><div class="zn-hero-picture" data-zn-picture={slide.name} hidden={i!==0}>{slide.name==='demand' ? <Img k="smd-devices" alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority="low" quality={95} sizes="(max-width: 760px) calc(100vw - 48px), 70vw" /> : <ApprovedImage name={slide.image} alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'low'} quality={100} sizes="(max-width: 760px) 150vw, 100vw" widths={[480,768,1100,1536,1672]} />}</div>)}
    <div class="zn-home-copy">
     <div class="zn-mast">
      <h1 aria-label="ZINC Digital — web design, AI search optimization and business intelligence in Panama City and Miami"><span class="zn-stable-word"><span class="zn-title-solid">ZINC</span> <span class="zn-title-outline">DIGITAL</span><span class="zn-title-mark" aria-hidden="true"></span></span></h1>
@@ -30,6 +30,11 @@ const slides=[{name:'build',image:'build-bear-claw-wide.png',alt:'Bear Claw USA 
 <script>
 const root=document.querySelector('.zn-hero');
 if(root){
+// Defer hidden slides; warm them after the visible image decodes and two frames.
+const warmSlides=()=>root.querySelectorAll<HTMLImageElement>('[data-zn-picture][hidden] img').forEach(image=>image.loading='eager');
+const afterPaint=()=>requestAnimationFrame(()=>requestAnimationFrame(warmSlides));
+const firstImage=root.querySelector<HTMLImageElement>('[data-zn-picture="build"] img');
+firstImage?.decode().then(afterPaint,afterPaint);
 const content={build:['BUILD','Websites, commerce<br>and applications.'],demand:['DEMAND','Search. Campaigns.<br>The path to a customer.'],intelligence:['INTELLIGENCE','Reporting and systems<br>for the next decision.']};
 root.querySelectorAll<HTMLButtonElement>('[data-zn-lane]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.znLane as keyof typeof content;root.querySelector<HTMLElement>('.zn-stage')!.dataset.lane=key;root.querySelector('#zn-title')!.innerHTML=content[key][0]+'<span>.</span>';root.querySelector('#zn-description')!.innerHTML=content[key][1];root.querySelectorAll<HTMLElement>('[data-zn-picture]').forEach(p=>p.hidden=p.dataset.znPicture!==key);root.querySelectorAll('[data-zn-lane]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));
 }
