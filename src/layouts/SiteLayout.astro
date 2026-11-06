@@ -88,7 +88,9 @@ const approvedHero = heroName ? approvedHeroes['../assets/approved/' + heroName]
 const lvsHero = path === '/work/las-vegas-safety/' ? imageFiles['../assets' + asset('lvs-case-devices-restaurant').src]?.default : undefined;
 const demandHero = path === '/work/demand/' ? imageFiles['../assets' + asset('smd-devices').src]?.default : undefined;
 const heroFile = demandHero || lvsHero || approvedHero || (heroArtwork ? imageFiles['../assets' + asset(heroArtwork.asset).src]?.default : undefined);
-const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (demandHero ? [480,960,1440,1920,demandHero.width] : lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536, ...(path === '/' ? [approvedHero.width] : [])] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: 'avif', ...(demandHero ? {quality:95} : approvedHero || lvsHero ? {quality:path === "/" ? 100 : 90} : {}) }) : undefined;
+// At quality100 the existing WebP is smaller than AVIF for this photograph.
+const heroFormat = path === '/' ? 'webp' : 'avif';
+const heroPreload = heroFile ? await getImage({ src: heroFile, widths: (demandHero ? [480,960,1440,1920,demandHero.width] : lvsHero ? [...new Set([480,640,960,1440,1920,Math.min(lvsHero.width,1920)])] : approvedHero ? path === '/work/' ? [480, 640, 768, 1100, 1536] : [480, 768, 1100, 1536, ...(path === '/' ? [approvedHero.width] : [])] : t === "blog" ? [480, 640, 720, 960, 1280, heroFile.width] : [480, 720, 960, 1280, heroFile.width]).filter(width => width <= heroFile.width), format: heroFormat, ...(demandHero ? {quality:95} : approvedHero || lvsHero ? {quality:path === "/" ? 100 : 90} : {}) }) : undefined;
 const heroSizes = demandHero ? '(max-width: 700px) 100vw, 65vw' : lvsHero ? '(max-width: 800px) 85vw, 48vw' : approvedHero ? path === '/' ? '(max-width: 760px) 150vw, 100vw' : path === '/work/' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 92vw, (min-width: 1440px) 720px, calc(50.6vw - 11px)' : '(max-width: 700px) 100vw, 65vw' : t === 'blog' ? '(max-width: 600px) calc(100vw - 48px), (max-width: 900px) 90vw, 600px' : '(max-width: 900px) 90vw, 1100px';
 const caseHero = t === 'case' ? caseHeroes[route.slug!] : undefined;
 const caseImageKey = caseHero?.montage || caseHero?.desktop;
@@ -179,7 +181,7 @@ const showCta = false;
     <meta name="twitter:image" content={ogImg} />
     <meta name="twitter:image:alt" content={socialAlt} />
     <meta name="theme-color" content="#F5F6F7" />
-    {heroPreload && <link rel="preload" as="image" type="image/avif" href={heroPreload.src} imagesrcset={heroPreload.srcSet.attribute} imagesizes={heroSizes} fetchpriority="high" />}
+    {heroPreload && <link rel="preload" as="image" type={'image/' + heroFormat} href={heroPreload.src} imagesrcset={heroPreload.srcSet.attribute} imagesizes={heroSizes} fetchpriority="high" />}
     <link rel="preload" as="font" type="font/woff2" href={criticalDisplayFont} crossorigin="anonymous" />
     <style set:html={criticalDisplayCss} />
     <Font cssVariable="--font-body" preload />

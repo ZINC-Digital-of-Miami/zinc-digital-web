@@ -8,7 +8,7 @@ const slides=[{name:'build',image:'build-bear-claw-wide.png',alt:'Bear Claw USA 
 <section aria-label="ZINC Digital and our work" class="zn-hero" id="hero">
  <div class="wrap">
   <div class="zn-stage" data-lane="build">
-   {slides.map((slide,i)=><div class="zn-hero-picture" data-zn-picture={slide.name} hidden={i!==0}>{slide.name==='demand' ? <Img k="smd-devices" alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority="low" quality={95} sizes="(max-width: 760px) calc(100vw - 48px), 70vw" /> : <ApprovedImage name={slide.image} alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'low'} quality={100} sizes="(max-width: 760px) 150vw, 100vw" widths={[480,768,1100,1536,1672]} />}</div>)}
+   {slides.map((slide,i)=><div class="zn-hero-picture" data-zn-picture={slide.name} hidden={i!==0}>{slide.name==='demand' ? <Img k="smd-devices" alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority="low" quality={95} sizes="(max-width: 760px) calc(100vw - 48px), 70vw" /> : <ApprovedImage name={slide.image} alt={slide.alt} loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'low'} quality={100} formats={i===0?['webp']:undefined} sizes="(max-width: 760px) 150vw, 100vw" widths={[480,768,1100,1536,1672]} />}</div>)}
    <div class="zn-home-copy">
     <div class="zn-mast">
      <h1 aria-label="ZINC Digital — web design, AI search optimization and business intelligence in Panama City and Miami"><span class="sr-only">ZINC DIGITAL</span><span class="zn-stable-word" aria-hidden="true" set:html={heroLettering}></span></h1>
