@@ -147,6 +147,7 @@ This article belongs to the [SEO blog category](/blog/category/seo/), aligned wi
 Within that SEO category, these articles address content planning:
 
 - [Write a content brief](/blog/content-briefs-search-intent-internal-links/) to assign the question, evidence and links.
+- [Turn an expert’s examples into article assignments](/blog/turn-subject-expertise-into-an-article-cluster/) when several titles seem to answer the same question.
 - [Audit internal links](/blog/internal-link-audit/) to check whether the planned routes exist.
 - [Check a service page](/blog/service-page-content-checklist/) to explain the offer clearly.
 - [Review existing content](/blog/content-refresh-review/) to decide what needs keeping, updating or combining.

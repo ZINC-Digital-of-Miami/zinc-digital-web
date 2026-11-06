@@ -353,6 +353,7 @@ This article belongs to the [SEO blog category](/blog/category/seo/), aligned wi
 Within that SEO category, these articles address content planning:
 
 - [Write a content brief](/blog/content-briefs-search-intent-internal-links/) to assign the question, evidence and links.
+- [Turn an expert’s examples into article assignments](/blog/turn-subject-expertise-into-an-article-cluster/) when several titles seem to answer the same question.
 - [Audit internal links](/blog/internal-link-audit/) to check whether the planned routes exist.
 - [Check a service page](/blog/service-page-content-checklist/) to explain the offer clearly.
 - [Review existing content](/blog/content-refresh-review/) to decide what needs keeping, updating or combining.
@@ -360,7 +361,6 @@ Within that SEO category, these articles address content planning:
 Useful cross-pillar reading belongs to the separate [AI search collection](/blog/category/ai-search-optimization/):
 
 - [Plan content for AI discovery](/blog/ai-search-content-strategy/) to review answer quality and evidence.
-- [Turn an expert’s examples into article assignments](/blog/turn-subject-expertise-into-an-article-cluster/) when several titles seem to answer the same question.
 - [Decide what AI discovery changes in your editorial plan](/blog/what-ai-discovery-changes-editorial-plan/) before writing another article.
 
 The [SEO framework](/blog/four-pillars-of-seo-operators-view/) explains technical SEO, content, authority and experience as disciplines. Its “four pillars” title describes those disciplines; it does not define four blog categories. Keep the category structure tied to the business's services and collections.
