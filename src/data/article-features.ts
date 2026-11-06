@@ -20,25 +20,26 @@ export const articleFeatures: AddedArticle[] = [{
     "seo"
   ],
   "dateGmt": "2026-11-06T15:04:06Z",
-  markdown: `Ask someone who delivers your service to show you a decision a customer has to make. If they bring a sample, a marked-up drawing or a form with one particularly troublesome box, lovely. You have somewhere to start.
+  modifiedGmt: "2026-11-06T19:16:55Z",
+  markdown: `Imagine you’re in a fitted-furniture showroom with two pieces of oak on the counter. You’re deciding which finish would look better in your kitchen. Now imagine you’ve picked one, and the designer hands you a form to sign. You’ve still got the same piece of wood in your hand, but you’ve got a rather different question. What, exactly, are you agreeing to?
 
-Now ask what the customer can do with that evidence. That answer will tell you whether you have the makings of a new article, a useful addition to an existing page or a question for the next meeting. All three are perfectly respectable outcomes.
+That little change is where I’d start planning an article cluster. Think of a cluster as a handful of related articles that help someone make their way through a subject. They live in the blog category for the service or product collection they belong to. In our imaginary showroom, that’s fitted furniture. Each article needs a question of its own.
 
-An article cluster is a set of related explanations a reader can move between. Its home is a blog category aligned with a primary service or product collection. To build one, bring the service page, the articles already in that category, a contributor who knows the work and one example you have permission to discuss. A half-hour with those materials can produce a better brief than an afternoon spent inventing titles.
+To try this with your team, bring the service page, the articles you already have and one example you’re allowed to discuss. Invite the person who knows the work well enough to spot the detail everyone else has missed.
 
-## Ask the expert to show you where the answer changes
+## Put the samples on the table
 
-Suppose you run a fictional fitted-furniture business. Your designer suggests an article about choosing cabinet finishes. Before anyone opens a blank document, lay a finish sample and the sample approval form on the table. Ask the designer to walk through one choice from the customer's side.
+Let’s give our fictional showroom a designer and an existing guide to cabinet finishes. Ask the designer to put the pale oak and the smoked oak side by side. If a customer took both home, what would you tell them to look for? What would the samples leave them guessing about?
 
-Try three questions. **What can the customer tell from this sample? What still needs confirming? What would change your advice?** The third question earns its keep. If the designer gives different instructions before and after the customer signs off a sample, you may have two distinct reader tasks hiding under one rather broad title.
+Now slide the approval form across the counter. Could the customer use the finishes guide to check that the sample reference matches their choice? If the designer has to put down the wood and fetch the paperwork to answer, pay attention. You may have found the next article.
 
-Write down what the contributor showed you, which claim it supports, any exceptions and who can approve the public wording. A photograph can show two samples side by side. It cannot establish your current approval policy. For that, fetch the current form and ask its owner to check the wording. Keep private examples in your working notes and agree what can be shown publicly. Google's [guide to helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) asks publishers to consider first-hand expertise and what a reader can learn beyond the obvious.
+Jot down what the designer showed you and who can check the explanation before it goes public. The samples can illustrate the difference between finishes. The person responsible for the current form can tell you what the signature covers. Keep private paperwork out of your illustrations. Google’s [guide to helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) offers a useful editorial question here: what will someone learn from your first-hand knowledge that they couldn’t get from a quick summary elsewhere?
 
-## Give each question an address
+## Find a home for each question
 
-In our client work, our team built separate service pages for distinct types of work. That gives you a useful starting point when planning the supporting articles. Open the page where someone can actually enquire about the service. Keep the scope of the offer there. Use the articles for questions that deserve a fuller explanation, then link the reader back to the service when they are ready.
+In our client work, we’ve built separate service pages for distinct types of work. Those pages are a handy place to start. If a customer simply wants to know whether you fit cabinets in a particular kind of room, put the answer where they can enquire. Making them hunt through the blog for it is a bit much.
 
-Here is how that might work for our imaginary furniture business. The questions, documents and decisions below are illustrative. Your own service terms need someone at your business to confirm them.
+Here’s how I’d divide the showroom questions. These are fictional examples; use your own approved service details when you try it.
 
 | Customer question | Evidence to inspect | Where the answer belongs |
 | --- | --- | --- |
@@ -51,31 +52,29 @@ Our [content hub guide](/blog/build-a-content-hub-people-can-use/) covers the ca
 
 ![A sample and a sign-off form support two separate reader tasks: comparing finishes in an existing guide and checking an approval in a new walkthrough.](/media/blog-review/expertise-to-article-map.svg)
 
-## Make a writer's brief from one row
+## Give the writer something they can put to the test
 
-Take the sign-off question. Give the writer a reader, a source, a boundary and a finish line. For example:
+“Write about sample approval” sounds perfectly reasonable until you’re the one staring at the blank page. Give your writer the form and a brief they can actually use:
 
-> A customer has chosen a finish and received the sample approval form. Using the current blank form, show them where to identify the sample, which details the form asks them to confirm and whom to contact about a discrepancy. Ask the form owner to verify each field. Leave sample comparisons in the finishes guide. The reader should be able to point to what they are approving and identify anything they still need to ask.
+> Our reader has chosen a cabinet finish and received the approval form. Use the current blank form to show them where to find the sample reference, what they’re being asked to confirm and who can put a discrepancy right. Have the form owner check the field names. Link back to the finishes guide for anyone still weighing up the two samples.
 
-That is a brief someone can test. Hand the draft and the blank form to a colleague who missed the meeting. Ask them to locate the sample reference and explain what they would do if it differed from the sample in front of them. If they need the designer to translate the article, you have found the paragraph to fix. The [content brief walkthrough](/blog/content-briefs-search-intent-internal-links/) has a fuller handover template.
+You can test that brief before you publish. Give a colleague the draft, the form and a sample with a different reference. Ask them what they’d do next. If they spot the mismatch but have to ask you whom to call, you know exactly which sentence the draft is missing. There’s a fuller handover template in our [content brief walkthrough](/blog/content-briefs-search-intent-internal-links/).
 
-Link the comparison guide to the approval walkthrough at the point where the customer has chosen a sample. In the walkthrough, give anyone still deciding a route back to the comparison. Use link wording that names the task, such as “compare your finish samples”. Google's [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains how descriptive link text helps readers and search systems understand a destination.
+The links can do a little work too. Where the finishes guide leaves someone holding their chosen sample, offer “check what you’re approving”. Where the form guide meets someone still choosing, offer “compare the finishes”. Google’s [link guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable) explains why wording that names the destination helps people find their way.
 
-## Check whether two pages are trying to do the same job
+## What if you already have two guides to oak?
 
-Editors sometimes call this *cannibalisation*. A practical test is to cover the titles and read each page's opening, example and final action. If you could swap all three and the reader would barely notice, keep one brief and improve the page that already answers the question. If the examples and actions differ, make that distinction visible near the top of each page.
+Cover the titles and read each opening, example and final instruction. Could you swap the pages around and still help the same person do the same thing? Keep the clearer guide and bring the useful detail into it. But if one reader is carrying samples home and the other has a pen poised over the form, keep both guides and make that difference clear near the top.
 
-If you have Search Console access, open the Search results performance report. Select a date range, filter to a relevant query and open **Pages**. Inspect the actual pages that appeared. In our example, appearances for both the service page and the comparison guide under a broad cabinet query could make sense. For a question about sample approval, check whether the page people reach actually explains sign-off. Google's [Performance report documentation](https://support.google.com/webmasters/answer/7576553) explains its filters and the limits on the queries shown. Shared appearances alone cannot tell you that two pages are costing each other traffic.
+If you use Search Console, pick a date range in the Search results performance report, filter to a relevant query and open **Pages**. Read the pages that appeared. A service page and a finishes guide can both make sense for a broad cabinet search. If someone looking for sample sign-off lands on a page full of lovely oak photographs and no mention of the form, you’ve found something worth fixing. Seeing two URLs for one query won’t, on its own, tell you that either is losing traffic. Google’s [Performance report documentation](https://support.google.com/webmasters/answer/7576553) explains the filters and which queries may be missing.
 
-Record the question, the two URLs, what each reader can do and the decision you made. Without search data, do the same editorial comparison and leave the search observation pending. You can still fix a confusing pair of introductions today.
+## Try one row with your own expert
 
-## Take one assignment out of the meeting
+[Download the article cluster worksheet (CSV)](/downloads/expertise-article-cluster.csv). The first three rows follow our showroom example. Duplicate the blank row and fill it in for one real customer question. Name the person who’ll check the answer, paste the address of the page you looked at and decide whether to update it or commission a new piece. If you haven’t checked the search data, leave that observation open.
 
-[Download the article cluster worksheet (CSV)](/downloads/expertise-article-cluster.csv) and open it in your spreadsheet app. The fictional rows show how the same topic can lead to a refresh, a new guide or a decision to combine two ideas. Keep them for reference. Duplicate the blank row for each real customer question, name the evidence owner and record the URL you inspected before assigning a writer.
+Once the page is live, hand your phone to someone who missed the meeting. Start them in the category and ask them to find the answer, use the example and show you what they’d do next. Write down where they hesitate. That’s a much more useful edit for tomorrow morning than dreaming up a third title about oak.
 
-After publication, start at the category on a phone. Can a colleague choose the right article, use its example and reach the next relevant page? Ask the contributor to check the live explanation against the approved evidence. Put any correction beside the row that prompted it. If your team wants help investigating overlapping search results, our [SEO service](/services/seo/) covers that work. You can also find the related guides in our [SEO article category](/blog/category/seo/).
-
-One question with a clear home and a checked answer is enough to start. The second article earns its place when it helps the reader do something different.`,
+For help reading overlapping search results, see our [SEO service](/services/seo/). You’ll find the related how-tos in our [SEO article category](/blog/category/seo/).`,
 }, {
   "id": 94004,
   "slug": "what-ai-discovery-changes-editorial-plan",
