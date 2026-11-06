@@ -1119,3 +1119,25 @@ Local validation:280tests,Astro0errors/0warnings/12hints,production-configured b
 
 Independent final evidence review rejected four misattributed report filenames (About, Thanks, Privacy, Terms): their native URL fields still identified Work. Those four rows and12-template claim were removed before release. The8distinct-template baseline remains supported. Preserve raw mistaken receipts for diagnosis; filenames alone never establish the measured target. Future captures must assert native input URL, report path and device before inclusion.
 The next-image AX receipt updates the title/count to tablet2/12 but retains the prior desktop href. Source changes that href synchronously; the receipt does not prove its current destination. Selected-image URL after navigation remains a rendering/evidence recheck, not a verified behavior claim.
+
+
+### Verified case release and corrected additional measurements — 5 November 2026 CT
+
+PR103 merged55b94ecabfa414f0af5df981890374bbc8eef7bd after exact565415d Actions42137520786/Vercel and corrected-head independent review passed. Productiondpl_DwSzmC2T8JG5VHk3etsz34yJeP2r is READY with www/apex aliases. Live initial gallery href identifies the real Bear Claw image and returns200. Native post-release case report `https://pagespeed.web.dev/analysis/https-www-zincdigital-co-work-bear-claw-usa/dzqlsn684s?form_factor=mobile` now reports accessibility100/SEO100 (previously96/92). Mobile performance96/LCP2.7seconds remains unchanged at displayed precision; no performance improvement is inferred. Source fixes and static regression check are released. Receipt `.scratch/pr103-production-receipt.json`, raw `pagespeed-case-postrelease-verified-{mobile,desktop}-ui.txt`.
+
+The four previously misattributed destinations were remeasured via explicit analysis URLs. Each retained native input URL, report path and selected device was asserted before capture; original incorrect Work-repeat receipts remain excluded. Separate receipt `.scratch/pagespeed-verified-followup-summary.json` and `pagespeed-{about,privacy,terms,thanks}-verified-{mobile,desktop}-ui.txt` now add4distinct URLs/8device results to the8-URL baseline. These are separate lab runs, not a simultaneous snapshot or field measurement.
+
+|Verified additional template|Mobile performance / LCP / TBT|Desktop performance / LCP / TBT|
+|---|---|---|
+|About|100 / 1.4s / 0ms|100 / 0.3s / 0ms|
+|Privacy|100 / 1.4s / 10ms|100 / 0.3s / 0ms|
+|Terms|100 / 1.4s / 0ms|100 / 0.3s / 10ms|
+|Thanks|98 / 1.2s / 0ms|100 / 0.3s / 0ms|
+
+All8additional results report CLS0 and accessibility/best-practices100. Thanks SEO69 is caused by its intentional indexing block; the confirmation page remains noindex. Other3additional URLs report SEO100. Do not repeat the baseline's0TBT claim for these later runs. The homepage mobile4.2sLCP, homepage desktopCLS0.014 and case mobile2.7sLCP remain measured gaps; field data/INP and physical-device behavior remain unavailable.
+
+Actual signed-in production Posts UI loaded45repository entries with Database available. Read-only opening of the existing blog-organisation article showed Primary service=SEO and Published status, matching source; draft-save controls and explanatory publication separation render. No fields were changed, no fake post was created and no Save/Publish clicked. Receipts `.scratch/admin-posts-current-ui.txt` and `admin-article-primary-service-ui.txt`. This verifies rendered loading/assignment, not a stored-post publish transaction.
+
+Live post-release gallery follow-up resolves the selected-image destination evidence gap: native AX first retained a stale desktop href after moving to tablet2/12; opening the link context menu refreshed the reported destination to `bear-claw-product-tablet.DT-i9kID.png`. No menu navigation or new tab was activated. Actual tool receipts `.scratch/case-live-next-title.txt`, `case-live-next-context-link.txt`, and `case-live-gallery-close.txt` retain the title/count, refreshed link URL and closure. The earlier local next-image AX remains an incomplete readback, not evidence of a source bug. Live blog restored.
+
+Owner screenshot correction6:40PMCT: align blog card rows. First card used zero left padding while the other columns used26px, producing a wider/taller3:2image and lower date/title starts. Prepared uniform26px horizontal card padding. Narrow Sol audit caught the remaining1px last-column border difference; keeping that border transparent preserves equal content width without a visible outer rule. Image assets, aspect ratio, crop behavior, typography, white theme and filter behavior are preserved; narrow layouts retain their existing left-padding override. Local production-configured build and103HTMLchecks pass; settled desktop screenshot `.scratch/blog-row-alignment-desktop-settled.png` shows level image bottoms, dates and title starts. Narrow behavior is preserved by the existing single-column overrides; this slice has not rerun a physical-device test. Protected release and live readback pending.
