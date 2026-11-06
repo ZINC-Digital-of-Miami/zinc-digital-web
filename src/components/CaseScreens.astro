@@ -4,9 +4,10 @@ import type { CaseScreensPresentation } from '../data/case-screens';
 
 interface Props {
   presentation: CaseScreensPresentation;
+  projectName: string;
 }
 
-const { presentation } = Astro.props;
+const { presentation, projectName } = Astro.props;
 const application = presentation.kind === 'application';
 const sectionId = `case-pages-${presentation.slug}`;
 const devices = [
@@ -62,13 +63,13 @@ const devices = [
               <div class="cs-hardware">
                 {application && device.key === 'desktop' && <div class="cs-window-bar" aria-hidden="true"><span class="cs-window-dots"><i></i><i></i><i></i></span><span>{page.title}</span></div>}
                 <div class="cs-display">
-                  <CaseImage k={page.images[device.key]!} alt={`${page.title} ${application ? 'application view' : 'page'} in its ${device.title.toLowerCase()} layout`} sizes={sizesFor(device)} widths={[...device.widths]} quality={95} />
+                  <CaseImage k={page.images[device.key]!} alt={`${projectName}: ${page.title} ${application ? 'application view' : 'page'} in its ${device.title.toLowerCase()} layout`} sizes={sizesFor(device)} widths={[...device.widths]} quality={95} />
                 </div>
               </div>
               <figcaption><span>{application && device.key === 'desktop' ? 'Desktop workspace' : device.title}</span>{application && <span class="cs-status">In development</span>}<span>Enlarge</span></figcaption>
             </figure>)}
           </div>
-          {additionalDevices.length > 0 && <details class="case-archive"><summary>View {additionalDevices.map(d=>d.title.toLowerCase()).join(' and ')} layouts</summary><div class="cs-responsive">{additionalDevices.map(device=><figure><CaseImage k={page.images[device.key]!} alt={page.title+' — '+device.title.toLowerCase()+' layout'} sizes="(max-width:720px) 90vw, 600px" quality={95}/><figcaption>{device.title} · Enlarge</figcaption></figure>)}</div></details>}
+          {additionalDevices.length > 0 && <details class="case-archive"><summary>View {additionalDevices.map(d=>d.title.toLowerCase()).join(' and ')} layouts</summary><div class="cs-responsive">{additionalDevices.map(device=><figure><CaseImage k={page.images[device.key]!} alt={projectName+': '+page.title+' — '+device.title.toLowerCase()+' layout'} sizes="(max-width:720px) 90vw, 600px" quality={95}/><figcaption>{device.title} · Enlarge</figcaption></figure>)}</div></details>}
         </article>;
       })}
     </div>

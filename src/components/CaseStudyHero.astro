@@ -12,9 +12,7 @@ const crop = hero.mask ? crops[hero.mask] : undefined;
 const logoWidth = asset(study.hero).src.endsWith('.svg') ? 500 : Math.min(asset(study.hero).width,500);
 const longTitle = hero.title.some(part => part.length > 12);
 const desktopRatio = hero.desktop && !hero.mobile ? asset(hero.desktop).width + ' / ' + asset(hero.desktop).height : undefined;
-const imageAlt = study.slug === 'porsche-roanoke'
-  ? 'Illustrative Porsche device presentation; not screenshots of the Roanoke dealership websites'
-  : study.title + ' — ' + hero.note;
+const imageAlt = hero.imageDescription;
 ---
 <header class:list={['case-hero', { 'long-title':longTitle, 'identity-hero':hero.identity }]} aria-labelledby={titleId} data-case-hero={study.slug} style={'--case-accent:'+hero.accent}>
   <div class="wrap">
@@ -26,7 +24,7 @@ const imageAlt = study.slug === 'porsche-roanoke'
     <div class="case-accent-field" aria-hidden="true"></div>
     {hero.identity ? <figure class="case-identity" style={'--logo-width:'+logoWidth+'px'}>
       <div class="identity-meta"><span>{hero.scope}</span><span>ZINC / Selected engagement</span></div>
-      <Img k={study.hero} alt={study.title} loading="eager" fetchpriority="high" sizes="(max-width:760px) 65vw, 500px" />
+      <Img k={study.hero} alt={imageAlt} loading="eager" fetchpriority="high" sizes="(max-width:760px) 65vw, 500px" />
       <figcaption>{study.line}</figcaption>
     </figure> : hero.montage ? <figure class="case-montage" style={hero.mask ? '--device-mask:url(/masks/'+hero.mask+'.svg);--montage-ratio:'+crop![0]+';--montage-offset:'+crop![1] : undefined}>
       <Img k={hero.montage} alt={imageAlt} loading="eager" fetchpriority="high" sizes="(min-width:1600px) 1456px, 92vw" widths={[768,1100,1536,1920,2560]} quality={95}/>
@@ -35,7 +33,7 @@ const imageAlt = study.slug === 'porsche-roanoke'
         <div class="case-window" aria-hidden="true"><span>● ● ●</span><span>{study.title} / {study.application?'APPLICATION':'WEBSITE'}</span></div>
         <div class="case-desktop-screen" style={desktopRatio ? '--screen-ratio:'+desktopRatio : undefined}><Img k={hero.desktop!} alt={imageAlt} loading="eager" fetchpriority="high" sizes="(max-width:760px) 89vw, (min-width:1600px) 1456px, 84vw" widths={[960,1440,1920,2560,2880]} quality={95}/></div>
       </figure>
-      {hero.mobile && <figure class="case-mobile"><div class="case-mobile-screen"><Img k={hero.mobile} alt={study.title+' — actual mobile website layout'} loading="eager" sizes="(max-width:760px) 24vw, 230px" widths={[390,780]} quality={95}/></div></figure>}
+      {hero.mobile && <figure class="case-mobile"><div class="case-mobile-screen"><Img k={hero.mobile} alt={hero.imageDescription+' — mobile layout'} loading="eager" sizes="(max-width:760px) 24vw, 230px" widths={[390,780]} quality={95}/></div></figure>}
     </>}
     <div class="case-caption">{hero.captions.map((caption,i)=><span>0{i+1} / {caption}</span>)}<span>{hero.note}</span></div>
   </div>

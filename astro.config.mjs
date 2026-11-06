@@ -4,6 +4,8 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { redirects, retiredPaths } from './src/data/redirects.ts';
 import { adminThemeHash } from './src/lib/admin-theme.ts';
 import {analyticsEnabled, googleTagScript, clarityScript} from './src/lib/analytics.ts';
+import {generateAgentContent} from './scripts/generate-agent-content.mjs';
+import {markdownRoutes} from './src/lib/agent-content.ts';
 import {createHash} from 'node:crypto';
 
 const analytics = analyticsEnabled(process.env.PUBLIC_ANALYTICS, process.env.VERCEL_ENV);
@@ -44,8 +46,10 @@ const completeFonts = { name: 'zinc-complete-font-output', hooks: { 'astro:build
 // runs its build:done hook first, so rewrite its redirect routes here: match with or without the trailing
 // slash, ahead of the 308. check-site.mjs replays the route table to prove each alias lands in one hop.
 let projectRoot;
+let publicAgentPaths=[];
 const vercelRedirects = { name: 'zinc-vercel-redirects', hooks: {
   'astro:config:done': ({ config }) => { projectRoot = config.root; },
+  'astro:build:generated': async ({dir}) => {publicAgentPaths=await generateAgentContent(dir);},
   'astro:build:done': async () => {
     const file = new URL('.vercel/output/config.json', projectRoot);
     const cfg = JSON.parse(await readFile(file, 'utf8'));
@@ -55,7 +59,7 @@ const vercelRedirects = { name: 'zinc-vercel-redirects', hooks: {
     const at = rest.findIndex((r) => r.status === 308);
     const escape = (path) => path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const gone = retiredPaths.map((path) => ({src: '^' + escape(path.replace(/\/$/, '')) + '/?$', dest: '/404.html', status: 410, headers: {'X-Robots-Tag':'noindex, nofollow'}}));
-    rest.splice(at < 0 ? 0 : at, 0, ...redirects, ...gone);
+    rest.splice(at < 0 ? 0 : at, 0, ...redirects, ...gone, ...markdownRoutes(publicAgentPaths));
     await writeFile(file, JSON.stringify({ ...cfg, routes: rest }, null, 2));
   },
 } };

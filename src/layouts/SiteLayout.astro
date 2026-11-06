@@ -24,6 +24,7 @@ import { Font, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { articleImages } from '../data/article-images';
 import { articleEditorial } from '../data/article-editorial';
+import {publicImageEntities} from '../lib/public-images';
 import {brandTitle,pageEntity,serializeSchema} from '../lib/public-seo';
 import { authors, authorFor, authorPath } from '../data/authors';
 import '../styles/tokens.css';
@@ -115,15 +116,21 @@ const socialAlt = articleImage?.alt || (caseHero ? caseBy(route.slug!).title + '
 const noindex = route.noindex || noindexPaths.has(path);
 const wordmark = asset('wordmark-black');
 
+// Render the public slot once: supporting images and machine readers use this same published body.
+const publicBody = await Astro.slots.render('default');
+const supportingImages = publicImageEntities(publicBody,canonical);
+
 // ---- JSON-LD ----
-const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
-const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'ProfessionalService', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name, parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/locations/'+s.id+'/', email:EMAIL,sameAs:SOCIAL.map(([,url])=>url),areaServed:{'@type':'Country',name:'United States'},image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
+const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'ZINC Digital', description:'ZINC Digital is a digital marketing agency connecting AI search optimization, websites and applications, branding, paid campaigns and business intelligence. Based in Panama City and serving Miami and businesses across the United States.',hasOfferCatalog:{'@type':'OfferCatalog',name:'ZINC Digital services',itemListElement:services.map(service=>({'@type':'Offer',itemOffered:{'@type':'Service','@id':SITE+'/services/'+service.slug+'/#service',name:service.title,url:SITE+'/services/'+service.slug+'/',provider:{'@id':SITE+'/#org'}}}))}, url: SITE + '/', logo: SITE + wordmark.src, email: EMAIL, sameAs: SOCIAL.map(([, u]) => u),location:STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id})),areaServed:{'@type':'Country',name:'United States'} };
+const loc = (s: (typeof STUDIOS)[number]) => ({ '@type': 'LocalBusiness', '@id': SITE + '/#' + s.id, name: 'ZINC Digital — ' + s.name,description:'Digital marketing agency services: AI search optimization, web design, branding, applications and business intelligence.',hasMap:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.street+', '+s.city+', FL '+s.zip), parentOrganization: { '@id': SITE + '/#org' }, url: SITE + '/locations/'+s.id+'/', email:EMAIL,sameAs:SOCIAL.map(([,url])=>url),areaServed:{'@type':'Country',name:'United States'},image: SITE+wordmark.src, address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, addressRegion: 'FL', postalCode: s.zip, addressCountry: 'US' } });
 const seg = path.split('/').filter(Boolean);
 const names: Record<string, string> = { services: 'Services', work: 'Work', blog: 'Articles', about: 'About', authors: 'Authors', contact: 'Contact', privacy: 'Privacy', terms: 'Terms', thanks: 'Thanks' };
 const crumbs = t==='location' ? [{name:'Home',url:SITE+'/'},{name:route.title,url:canonical}] : route.blogCategory ? [{name:'Home',url:SITE+'/'},{name:'Articles',url:SITE+'/blog/'},{name:route.title,url:canonical}] : [{ name: 'Home', url: SITE + '/' }, ...seg.flatMap((s, i) => t === 'author' && i === 0 ? [] : [{ name: i === seg.length - 1 && i > 0 ? route.title : names[s] || route.title, url: SITE + '/' + seg.slice(0, i + 1).join('/') + '/' }])];
 const webpage=pageEntity(SITE,route,title,desc,ogImg);
-webpage.primaryImageOfPage={'@type':'ImageObject','@id':canonical+'#primaryimage',url:ogImg,contentUrl:ogImg,width:socialWidth,height:socialHeight,caption:socialAlt};
-const graph: unknown[] = [ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital',inLanguage:'en-US', publisher: { '@id': SITE + '/#org' } },webpage, { '@type': 'BreadcrumbList','@id':canonical+'#breadcrumb', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
+webpage.primaryImageOfPage={'@type':'ImageObject','@id':canonical+'#primaryimage',url:ogImg,contentUrl:ogImg,width:socialWidth,height:socialHeight,description:socialAlt};
+if(supportingImages.length)webpage.associatedMedia=supportingImages.map(image=>({'@id':image['@id']}));
+if(t==='contact')webpage.about=[{'@id':SITE+'/#org'},...STUDIOS.map(studio=>({'@id':SITE+'/#'+studio.id}))];
+const graph: unknown[] = [...supportingImages,ORG, ...STUDIOS.map(loc), { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'ZINC Digital',inLanguage:'en-US', publisher: { '@id': SITE + '/#org' } },webpage, { '@type': 'BreadcrumbList','@id':canonical+'#breadcrumb', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })) }];
 const personNode = (author: typeof authors[number]) => ({ '@type':'Person', '@id':SITE+authorPath(author.id)+'#person', name:author.schemaName, ...(author.suffix?{honorificSuffix:author.suffix}:{}), url:SITE+authorPath(author.id), jobTitle:author.role, knowsAbout:[...new Set(posts.filter(p=>authorFor(p.author.name)?.id===author.id).map(p=>services.find(s=>s.slug===p.primaryService)?.title).filter(Boolean))], description:author.bio, image:SITE+asset(author.photo).src, worksFor:{'@id':SITE+'/#org'} });
 if (t === 'article') {
   const p = posts.find(x=>x.slug===route.slug)!;
@@ -132,8 +139,10 @@ if (t === 'article') {
   const byline = author ? personNode(author) : {'@type':p.author.name==='Team ZINC'?'Organization':'Person', name:p.author.name, ...(p.author.name==='Team ZINC'?{url:SITE+'/about/'}:{})};
   const stamp = (value:string) => /Z$|[+-]\d\d:\d\d$/.test(value)?value:value+'Z';
   const {articleSources}=await import('../data/article-sources');
-  graph.push({'@type':'Article', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:{'@id':canonical+'#primaryimage'},inLanguage:author?.id==='wendy-funnell'?'en-GB':'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>s.slug===p.primaryService).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'},citation:articleSources(p).map(source=>({'@type':'CreativeWork',name:source.title,url:source.url})),isPartOf:[{'@id':SITE+'/blog/category/'+p.primaryService+'/#webpage'}]});
+  graph.push({'@type':'BlogPosting', '@id':canonical+'#article',url:canonical, headline:p.title, description:desc, datePublished:stamp(p.dateGmt), dateModified:stamp(p.modifiedGmt), image:{'@id':canonical+'#primaryimage'},inLanguage:author?.id==='wendy-funnell'?'en-GB':'en-US', keywords:articleEditorial[p.slug]?.keywords, articleSection:services.filter(s=>s.slug===p.primaryService).map(s=>s.title), author:byline, publisher:{'@id':SITE+'/#org'}, mainEntityOfPage:{'@id':canonical+'#webpage'},citation:articleSources(p).map(source=>({'@type':'CreativeWork',name:source.title,url:source.url})),isPartOf:[{'@id':SITE+'/blog/category/'+p.primaryService+'/#webpage'},{'@id':SITE+'/blog/#publication'}]});
 }
+if(t==='article'||t==='blog')graph.push({'@type':'Blog','@id':SITE+'/blog/#publication',name:'ZINC Digital Insights',url:SITE+'/blog/',inLanguage:'en',publisher:{'@id':SITE+'/#org'},isPartOf:{'@id':SITE+'/#site'},...(t==='blog'&&!route.blogCategory?{blogPost:allPosts.map(post=>({'@id':SITE+'/blog/'+post.slug+'/#article'}))}:{})});
+if(t==='blog'&&!route.blogCategory)webpage.mainEntity={'@id':SITE+'/blog/#publication'};
 if(t==='blog' && route.blogCategory){
   const members=posts.filter(p=>p.primaryService === route.blogCategory);
   webpage.mainEntity={'@id':canonical+'#articles'};
@@ -156,7 +165,7 @@ const ld = serializeSchema({ '@context': 'https://schema.org', '@graph': graph }
 const navOn = (k: string) => ({ work: t === 'work' || t === 'case', services: t === 'services' || t === 'service', about: t === 'about', blog: t === 'blog' || t === 'article' || t === 'author' } as Record<string, boolean>)[k] ? 'nlink on' : 'nlink';
 const showCta = false;
 ---
-<html data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : route.blogCategory || (t === "article" ? proposalPillar(allPosts.find(p=>p.slug===route.slug)?.primaryService) : undefined)} lang="en" data-theme="light">
+<html data-content-layer={route.layer} data-page-type={route.blogCategory ? "category" : route.template} data-page-slug={route.path} data-service-slug={route.template === "service" ? route.slug : route.blogCategory || (t === "article" ? proposalPillar(allPosts.find(p=>p.slug===route.slug)?.primaryService) : undefined)} lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -164,6 +173,7 @@ const showCta = false;
     <meta name="description" content={desc} />
     <meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'} />
     <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="alternate" type="text/markdown" href={canonical+'index.md'} />}
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta property="og:site_name" content="ZINC Digital" />
     <meta property="og:locale" content="en_US" />
@@ -234,7 +244,7 @@ const showCta = false;
         <div class="menu-foot"><span>Build. Demand. Intelligence.</span><a href="/contact/#message-jaymie" data-message-open="message">Message Jaymie </a></div>
       </dialog>
 
-      <main id="main" style={caseHero ? "--case-accent:"+caseHero.accent : undefined}><slot />{showSubscribe && <div class="wrap"><SubscribeCallout topic={subscribeTopic} /></div>}</main>
+      <main id="main" style={caseHero ? "--case-accent:"+caseHero.accent : undefined}><Fragment set:html={publicBody} />{showSubscribe && <div class="wrap"><SubscribeCallout topic={subscribeTopic} /></div>}</main>
 
       {showCta && (
         <section class="band cta">

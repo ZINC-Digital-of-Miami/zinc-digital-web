@@ -15,7 +15,7 @@ export function reviewSignals(html:string){
   if(!v||typeof v!=='object')return;
   const o=v as Record<string,unknown>;
   for(const t of typeOf(o))if(types.size<40)types.add(t.slice(0,60));
-  if(typeOf(o).some(t=>/Article$/.test(t)))for(const a of [o.author].flat())if(a&&typeof a==='object')for(const t of typeOf(a as Record<string,unknown>))authorTypes.add(t.slice(0,60));
+  if(typeOf(o).some(t=>t==='BlogPosting'||/Article$/.test(t)))for(const a of [o.author].flat())if(a&&typeof a==='object')for(const t of typeOf(a as Record<string,unknown>))authorTypes.add(t.slice(0,60));
   Object.values(o).forEach(walk);
  };
  for(const n of elements)if(n.tagName==='script'&&attr(n,'type')==='application/ld+json'){try{walk(JSON.parse(plain(n)));}catch{types.add('invalid-json-ld');}}
