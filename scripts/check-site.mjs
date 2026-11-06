@@ -216,6 +216,15 @@ if (home) {
 // Homepage and Work reuse the approved lane art with live navigation.
 if (home) {
   check(home.html.includes('data-zn-lane'), 'homepage lacks its service-lane controls');
+  // Preload must select the same responsive resource as the initially visible picture.
+  const imageAttrs = tag => Object.fromEntries([...String(tag || '').matchAll(/([a-z][a-z\d:-]*)="([^"]*)"/gi)].map(m => [m[1], m[2]]));
+  const preload = imageAttrs(home.html.match(/<link[^>]*rel="preload"[^>]*as="image"[^>]*>/)?.[0]);
+  const buildPicture = home.html.match(/data-zn-picture="build"[^>]*>([\s\S]*?)<\/picture>/)?.[1] || '';
+  const source = imageAttrs(buildPicture.match(/<source[^>]*>/)?.[0]);
+  const image = imageAttrs(buildPicture.match(/<img[^>]*>/)?.[0]);
+  check(!!source.srcset && preload.type === source.type && preload.imagesrcset === source.srcset && preload.imagesizes === source.sizes, 'homepage hero preload must match its initial picture format, srcset and sizes');
+  check(image.loading === 'eager' && image.fetchpriority === 'high', 'homepage visible hero must remain eager/high priority');
+
   check((home.html.match(/<section[^>]*data-case-slider/g)||[]).length === 1, 'homepage must have one case slider');
   check(!home.html.includes('class="home-case-scenes"'), 'homepage has orphan case panels');
   for (const scene of ['build-uos','demand-summit','intelligence-fusion','intelligence-uos']) check(home.html.includes('data-scene="'+scene+'"'), 'homepage lacks approved mockup ' + scene);
