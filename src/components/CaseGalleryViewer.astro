@@ -1,8 +1,12 @@
+---
+interface Props { originalHref: string }
+const {originalHref}=Astro.props;
+---
 <dialog class="gallery-viewer" aria-labelledby="gallery-viewer-title">
   <div class="viewer-toolbar"><div><span class="viewer-count" aria-live="polite"></span><h2 id="gallery-viewer-title"></h2></div><button type="button" data-viewer-close aria-label="Close image viewer">Close <span aria-hidden="true">×</span></button></div>
   <div class="viewer-stage" tabindex="0" aria-label="Image detail. Use arrow keys to browse; zoom for a closer view."></div>
   <p class="viewer-status" role="status"></p>
-  <div class="viewer-controls"><div><button type="button" data-viewer-prev aria-label="Previous image"><span>Previous</span></button><button type="button" data-viewer-next aria-label="Next image"><span>Next</span> </button></div><button type="button" data-viewer-zoom aria-pressed="false">Zoom in +</button><a data-viewer-original target="_blank" rel="noopener">Open full image </a></div>
+  <div class="viewer-controls"><div><button type="button" data-viewer-prev aria-label="Previous image"><span>Previous</span></button><button type="button" data-viewer-next aria-label="Next image"><span>Next</span> </button></div><button type="button" data-viewer-zoom aria-pressed="false">Zoom in +</button><a data-viewer-original href={originalHref} target="_blank" rel="noopener">Open full image </a></div>
 </dialog>
 <script>
   import { initCaseGallery } from '../scripts/case-gallery';

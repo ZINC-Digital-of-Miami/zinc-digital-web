@@ -269,7 +269,7 @@ const showCta = false;
     </div>
 
     {t !== 'contact' && <MessageDialogs sourcePath={path} />}
-    {t === 'case' && <CaseGalleryViewer />}
+    {t === 'case' && <CaseGalleryViewer originalHref={caseImage?.src || ogImg} />}
     <script>
       import { initShell } from '../scripts/shell';
       import {initPageTracking} from '../scripts/analytics';
