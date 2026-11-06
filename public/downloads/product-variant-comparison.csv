@@ -1,4 +1,4 @@
-Record type,Item ID,Item group ID,Colour,Size,Submitted URL,Submitted price,Source price,Landing selected option,Landing price,Availability,Actual image check,Processed result,Reviewer / date
-ILLUSTRATIVE,BAG-01-BLK,BAG-01,black,standard,https://example.com/products/day-bag?variant=101,60 USD,60 USD,black / standard,60 USD,in_stock,Black bag,Pending verification,
-ILLUSTRATIVE,BAG-01-TAN,BAG-01,tan,standard,https://example.com/products/day-bag?variant=102,65 USD,65 USD,tan / standard,65 USD,in_stock,Tan bag,Pending verification,
-YOUR RECORD,,,,,,,,,,,,,
+Record type,Item ID,Item group ID,Colour,Size,Market,Source updated at (timezone),Observed at (timezone),Device,Submitted URL,Submitted price,Source price,Landing selected option,Landing price,Source availability,Submitted availability,Landing availability,Processed availability,Actual image check,Processed result,Issue / status,Correction / next check,Reviewer / date
+ILLUSTRATIVE,BAG-01-BLK,BAG-01,black,standard,US (illustrative),,,,https://example.com/products/day-bag?variant=101,60 USD,60 USD,black / standard,60 USD,in_stock,Pending verification,Pending verification,Pending verification,Black bag,Pending verification,Pending verification,Record evidence before choosing a correction,
+ILLUSTRATIVE,BAG-01-TAN,BAG-01,tan,standard,US (illustrative),,,,https://example.com/products/day-bag?variant=102,65 USD,65 USD,tan / standard,65 USD,in_stock,Pending verification,Pending verification,Pending verification,Tan bag,Pending verification,Pending verification,Record evidence before choosing a correction,
+YOUR RECORD,,,,,,,,,,,,,,,,,,,,,,
