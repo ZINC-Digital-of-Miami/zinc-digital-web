@@ -17,6 +17,8 @@ Owner requested the first article early on 27 October. Its rewritten body and st
 - **Jaymie Wilhoit — Managing Partner:** ecommerce, Shopify, paid media, Shopping/Merchant Center and platform execution. Warm, lively, practical Miami energy; confident conversational explanations. No forced cafecito references, invented local anecdotes or gimmicky dialect.
 - Initial 12 articles: Wendy 6, Kirk 3, Jaymie 3. Continue approximately half Wendy, one quarter each Kirk/Jaymie across rolling four-week blocks. Assign by expertise, not by random byline rotation. Do not retrospectively reattribute existing work.
 
+Before release, read the TL;DR, body, table, diagram and download in the named author’s voice. For each instruction, say what a business owner would actually do, with what, and how they could tell it worked. Rewrite interchangeable agency language such as “commission a separate walkthrough”. A reader should hear Wendy’s warmth, Jaymie’s playful practicality or Kirk’s direct judgement in the advice itself. Compare Wendy’s copy with the owner’s private reference samples.
+
 ## Initial queue
 
 Dates below are target run dates at 09:00 CT, except the owner-requested immediate first release. Items 01–05 are live. Later items are planned briefs, not completed articles or scheduled CMS records.
