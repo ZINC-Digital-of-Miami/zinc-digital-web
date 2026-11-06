@@ -88,3 +88,44 @@ test('saved proposal conversions retain only bounded service context',async()=>{
  await trackLead({ok:true,lead:true},tag,'','private@example.com');
  assert.equal(calls[0][2].service_slug,undefined);
 });
+
+
+test('published content lane and canonical article path reach both measurement tools without identifying visitors',()=>{
+ const dataset={pageType:'article',pageSlug:'/blog/how-to-brief-content/',serviceSlug:'business-intelligence',contentLayer:'Demand'};
+ const document={documentElement:{dataset},referrer:'',createElement:()=>({}),head:{appendChild:()=>{}}};
+ const location={hostname:'www.zincdigital.co',pathname:dataset.pageSlug,href:'https://www.zincdigital.co'+dataset.pageSlug};
+ const ga:Record<string,any>={zincConsent:{analytics:true,recordings:true,advertising:false}};
+ runInNewContext(googleTagScript(),{window:ga,document,location,URL,Date});
+ const calls=Array.from(ga.dataLayer,(v:any)=>Array.from(v));
+ assert.ok(calls.some((v:any)=>v[0]==='set'&&v[1]==='content_layer'&&v[2]==='Demand'));
+ const cl:Record<string,any>={zincConsent:{recordings:true,advertising:false}};
+ runInNewContext(clarityScript(),{window:cl,document,location,URL});
+ const tags=Array.from(cl.clarity.q,(v:any)=>Array.from(v));
+ assert.ok(tags.some((v:any)=>v[0]==='set'&&v[1]==='page_slug'&&v[2]===dataset.pageSlug));
+ assert.ok(tags.some((v:any)=>v[0]==='set'&&v[1]==='content_layer'&&v[2]==='Demand'));
+ assert.ok(tags.some((v:any)=>v[0]==='set'&&v[1]==='service_slug'&&v[2]==='business-intelligence'));
+});
+
+test('Clarity accepts only known email-interest preselection and never arbitrary topic query values',()=>{
+ for(const topic of ['seo','analytics','private@example.com']){
+  const window:Record<string,any>={zincConsent:{recordings:true,advertising:false}},loaded:any[]=[];
+  runInNewContext(clarityScript(),{window,location:{hostname:'www.zincdigital.co',href:'https://www.zincdigital.co/subscribe/?topic='+encodeURIComponent(topic)},document:{documentElement:{dataset:{pageType:'subscribe'}},createElement:()=>({}),head:{appendChild:(v:any)=>loaded.push(v)}},URL});
+  assert.equal(loaded.length,topic==='private@example.com'?0:1);
+ }
+});
+
+test('confirmed proposal conversions carry the same form identity as earlier stages',async()=>{
+ const calls:any[][]=[];
+ await trackLead({ok:true,lead:true},(...args:any[])=>{calls.push(args);args[2].event_callback();});
+ assert.equal(calls[0][2].form_id,'proposal_request');
+});
+
+
+test('Clarity receives proposal success only after a real saved-lead response, independently of Analytics consent',async()=>{
+ const calls:any[][]=[];
+ const clarity=(...args:any[])=>calls.push(args);
+ for(const result of [{ok:true},{ok:false,lead:true},null])await trackLead(result,undefined,'','seo',clarity);
+ assert.equal(calls.length,0);
+ await trackLead({ok:true,lead:true},undefined,'','seo',clarity);
+ assert.deepEqual(calls,[['set','form_id','proposal_request'],['set','rfp_service','seo'],['event','generate_lead']]);
+});

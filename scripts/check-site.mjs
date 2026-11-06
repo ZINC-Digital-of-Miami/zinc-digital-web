@@ -147,13 +147,13 @@ for (const { rel, html } of pages) {
   check(/<meta property="og:image" content="https:\/\/www\.zincdigital\.co\/(?:og\/[a-z-]+\.png|_astro\/[^/?]+\.webp(?:\?dpl=[A-Za-z0-9_-]+)?)"/.test(html), rel + ' has no valid og:image');
   const ld = []; for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { const j = JSON.parse(b[1]); ld.push(...(j['@graph'] || [j])); } catch (e) { fail(rel + ' has JSON-LD that does not parse: ' + e.message); } }
   const types = ld.map((x) => x['@type']);
-  check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'ProfessionalService').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
+  check(types.includes('Organization') && types.includes('WebSite') && types.includes('BreadcrumbList') && types.filter((x) => x === 'LocalBusiness').length === 2, rel + ' JSON-LD lacks Organization, the two office locations, WebSite or BreadcrumbList: ' + types.join(', '));
   if (rel.startsWith('services/') && rel !== 'services/index.html') check(types.includes('Service') && types.includes('FAQPage'), rel + ' JSON-LD lacks Service or FAQPage');
-  if (rel.startsWith('blog/category/')) check(types.includes('CollectionPage') && !types.includes('Article'),rel+' must describe a category collection');
+  if (rel.startsWith('blog/category/')) check(types.includes('CollectionPage') && !types.includes('BlogPosting'),rel+' must describe a category collection');
   if (rel.startsWith('blog/') && rel !== 'blog/index.html' && !rel.startsWith('blog/category/')) {
-    const a = ld.find((x) => x['@type'] === 'Article');
+    const a = ld.find((x) => x['@type'] === 'BlogPosting');
     const primary=(a?.isPartOf?.[0]?.['@id']||'').match(/\/blog\/category\/([a-z-]+)\/#webpage$/)?.[1];
-    check(SERVICE_SLUGS.includes(primary) && a.isPartOf.length === 1, rel+' must have one primary-service pillar');
+    check(SERVICE_SLUGS.includes(primary) && a.isPartOf.filter(part=>/\/blog\/category\//.test(part['@id']||'')).length === 1 && a.isPartOf.some(part=>part['@id']===SITE+'/blog/#publication'), rel+' must have one primary-service pillar');
     check(html.includes('href="/services/'+primary+'/"') && html.includes('href="/blog/category/'+primary+'/"'), rel+' must link its assigned service and pillar');
     const htmlService=html.match(/<html[^>]*data-service-slug="([a-z-]+)"/)?.[1];
     const proposalService=html.match(/<aside[^>]*data-proposal-bar[^>]*data-service-slug="([a-z-]+)"/)?.[1];
@@ -330,7 +330,7 @@ for (const s of POST_SLUGS) {
   check(/property="og:image:alt" content="[^"]+"/.test(p.html), 'blog/' + s + ' lacks descriptive image metadata');
   const ld = p.html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   if (ld) {
-    const article = JSON.parse(ld)['@graph']?.find(node => node['@type'] === 'Article');
+    const article = JSON.parse(ld)['@graph']?.find(node => node['@type'] === 'BlogPosting');
     check((article?.image === social || (article?.image?.['@id'] === SITE+'/blog/'+s+'/#primaryimage' && JSON.parse(ld)['@graph']?.find(node=>node['@type']==='WebPage')?.primaryImageOfPage?.url===social)) && article?.keywords?.length >= 3 && article?.articleSection, 'blog/' + s + ' article metadata disagrees with its image or topic');
   }
 }
@@ -439,7 +439,7 @@ const SECRET_PATTERNS = [
   ['secret variable with a value', /\b(?:SUPABASE_SERVICE_ROLE|SMTP_PASS|INQUIRY_HASH_SALT|OPENAI_API_KEY|ANTHROPIC_API_KEY|RESEND_API_KEY|CODEX_BRIDGE_TOKEN|VERCEL_BYPASS_SECRET)["']?\s*[:=]\s*["']?[A-Za-z0-9_\-./+]{12,}/],
 ];
 const jwtRole = (payload) => { try { return JSON.parse(Buffer.from(payload, 'base64url').toString('utf8')).role; } catch { return undefined; } };
-const TEXT_FILE = /\.(?:html|js|mjs|cjs|css|json|txt|xml|svg|map|webmanifest)$/;
+const TEXT_FILE = /\.(?:html|js|mjs|cjs|css|json|txt|xml|svg|map|webmanifest|md)$/;
 for (const rel of (await readdir(distDir, { recursive: true })).filter((f) => TEXT_FILE.test(f)).sort()) {
   const body = await readFile(path.join(distDir, rel), 'utf8');
   for (const [name, re] of SECRET_PATTERNS) if (re.test(body)) fail('dist/client/' + rel + ' contains what looks like a secret (' + name + ')');

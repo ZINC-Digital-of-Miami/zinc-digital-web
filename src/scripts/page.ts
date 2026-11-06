@@ -1,5 +1,5 @@
 // page.ts — blog filters (layer + topic) and the three-step inquiry form.
-import {trackRfp} from '../lib/rfp-tracking';
+import {trackRfp,trackContent} from '../lib/rfp-tracking';
 import {trackLead} from '../lib/analytics';
 export function initBlog() {
   const root = document.querySelector<HTMLElement>('[data-blog]');
@@ -25,10 +25,12 @@ export function initBlog() {
     layer = layerSelect.value;
     topic = topicSelect.value;
     apply();
+    trackContent('blog_filter_change',{service_slug:topic==='All'?undefined:topic,content_layer:layer},window.gtag,window.clarity);
   });
   root.addEventListener('click', (event) => {
     if (!(event.target as Element).closest('[data-clear-filter]')) return;
     layer = 'All'; topic = 'All'; apply();
+    trackContent('blog_filter_reset',{},window.gtag,window.clarity);
   });
   const want = new URLSearchParams(location.search).get('layer');
   if (want && ['Build', 'Demand', 'Intelligence'].includes(want)) { layer = want; apply(); }
@@ -121,8 +123,7 @@ export function initForm(form = document.querySelector<HTMLFormElement>('[data-i
           }
           throw new Error(result.error || (r.status === 403 ? 'This request could not be accepted. Proposal forms are available to US connections only' : 'Send failed'));
         }
-        if (result.lead === true) { try { window.clarity?.('event','generate_lead'); } catch {} }
-        await trackLead(result, window.gtag, window.zincAdsConversionLabel,form.dataset.serviceSlug); location.assign(form.dataset.thanks || '/thanks/');
+        await trackLead(result, window.gtag, window.zincAdsConversionLabel,form.dataset.serviceSlug,window.clarity); location.assign(form.dataset.thanks || '/thanks/');
       })
       .catch((e) => { if (!failureRecorded) track('rfp_submit_error','network'); next.disabled = false; back.disabled = false; show(); form.removeAttribute('aria-busy'); error.textContent = e.message + '. Please try again, or email hello@zincdigital.co.'; });
   };
