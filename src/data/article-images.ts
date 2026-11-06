@@ -3,7 +3,7 @@
 import siteAssets from './assets.site.json';
 
 const topicArtwork: Record<string, { asset: string; alt: string }> = {
-  "turn-subject-expertise-into-an-article-cluster": {asset:"article-expertise-cluster",alt:"A wood sample and black calliper beside three illustrated planning cards on a studio desk."},
+  "turn-subject-expertise-into-an-article-cluster": {asset:"article-expertise-cluster",alt:"Pale and smoked oak samples beside a tablet showing guides to comparing finishes and approving a sample, with a blank sign-off slip."},
   "what-ai-discovery-changes-editorial-plan": {"asset": "article-ai-editorial-planning", "alt": "An open black editorial folio, clipped source notes and a paper calendar beside a laptop on a light studio desk."},
   "what-can-you-afford-to-spend-on-an-order": {asset:"article-order-economics",alt:"Light studio still life with a packed ecommerce order, black laptop, calculator and label printer beside an order-cost worksheet."},
   "build-a-content-hub-people-can-use": {asset:"article-content-hub",alt:"Studio view of a tablet displaying a customer guide, surrounded by editorial planning cards, a black notebook and a white mug."},
