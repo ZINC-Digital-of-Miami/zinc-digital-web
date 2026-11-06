@@ -28,6 +28,12 @@ test('unchanged saved content keeps its stored timestamp while actual body edits
  assert.equal(contentChanged(saved,{body:'## Revised guide'}),true);
  assert.equal(saved.updated_at,'2026-11-01T12:00:00Z');
 });
+test('a new saved draft with null metadata keeps the untouched editor defaults',()=>{
+ const draft=mergeAdminContent([],[],[{slug:'new-post',title:'New post',origin:'admin',meta_title:null,author:null,layer:null,primary_service:null,noindex:null}])[0];
+ assert.equal(contentChanged(draft,{meta_title:'New post',author:'Team ZINC',layer:'Build',primary_service:null,noindex:false}),false);
+ assert.equal(contentChanged(draft,{meta_title:''}),true);
+ assert.equal(contentChanged(draft,{author:''}),true);
+});
 test('article metadata has one owner and cannot fall back to a page record',()=>{
  assert.throws(()=>mergeAdminContent(base,[{path:'/blog/story/',meta_title:'Wrong owner'}],[]),/must be stored in Posts/);
  const post=mergeAdminContent(base,[],[{slug:'story',meta_title:'Saved title',noindex:true,updated_at:'2026-10-06',live_at:'2026-10-05'}])[1];

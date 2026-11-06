@@ -8,7 +8,10 @@ const seoFields = ['meta_title', 'meta_description', 'focus_keyword', 'noindex']
 export function contentChanged(current:ContentItem,patch:Record<string,unknown>) {
   return Object.entries(patch).some(([field,value])=>{
     const previous=field==='primary_service' ? current.primary_service||null
-      : field==='noindex' ? !!current.noindex : current[field as keyof ContentItem]??'';
+      : field==='noindex' ? !!current.noindex
+      : field==='layer' ? current.layer??'Build'
+      : field==='meta_title' ? current.meta_title??current.title
+      : field==='author' ? current.author??'Team ZINC' : current[field as keyof ContentItem]??'';
     return value!==previous;
   });
 }
