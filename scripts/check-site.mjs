@@ -240,6 +240,8 @@ for (const s of CASE_SLUGS) {
   if (!p) continue;
   check(p.html.includes('data-case-hero="' + s + '"') && p.html.includes('data-case-mockup="' + s + '"') && p.html.includes('id="case-story"'), 'work/' + s + ' lacks the shared case-study layout');
   check(p.html.includes('data-case-footer="' + s + '"'), 'work/' + s + ' lacks the shared next-project navigation');
+  const originalImageLink = p.html.match(/<a\b[^>]*data-viewer-original[^>]*>/)?.[0];
+  check(originalImageLink && hrefs(originalImageLink).some(h => /\.(?:png|jpe?g|webp|avif)(?:\?|$)/i.test(h)), 'work/' + s + ' image viewer needs a crawlable image destination before interaction');
   if (!['bear-claw-usa','ballad-health','meade-tractor','general-shale'].includes(s)) check(p.html.includes('data-case-pages="' + s + '"'), 'work/' + s + ' lacks its detailed page presentation');
   for (const screenPage of caseScreens[s]?.pages || []) {
     for (const image of Object.values(screenPage.images)) check(p.html.includes(image + '.'), 'work/' + s + ' lacks its ' + screenPage.title + ' image: ' + image);
