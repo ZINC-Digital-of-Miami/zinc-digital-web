@@ -4,6 +4,15 @@ type SavedRow = Record<string, any>;
 const hasPending = (row: SavedRow) => !row.live_at || !row.updated_at || new Date(row.updated_at) > new Date(row.live_at);
 const seoFields = ['meta_title', 'meta_description', 'focus_keyword', 'noindex'] as const;
 
+/** Compare the effective editor values before creating or touching a saved override. */
+export function contentChanged(current:ContentItem,patch:Record<string,unknown>) {
+  return Object.entries(patch).some(([field,value])=>{
+    const previous=field==='primary_service' ? current.primary_service||null
+      : field==='noindex' ? !!current.noindex : current[field as keyof ContentItem]??'';
+    return value!==previous;
+  });
+}
+
 /** Article metadata is owned exclusively by Posts. */
 export function mergeAdminContent(repository: ContentItem[], pages: SavedRow[], posts: SavedRow[]): ContentItem[] {
   const items = repository.map(item => ({ ...item }));

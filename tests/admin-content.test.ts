@@ -1,8 +1,28 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mergeAdminContent} from '../src/lib/admin-content-model.ts';
+import {mergeAdminContent,contentChanged} from '../src/lib/admin-content-model.ts';
 import {articleEditorial} from '../src/data/article-editorial.ts';
 const base:any[]=[{kind:'page',key:'/',path:'/',title:'Home',saved:false},{kind:'post',key:'story',path:'/blog/story/',title:'Story',meta_title:'Story',meta_description:'Repository',noindex:false,saved:false}];
+test('saving an unchanged repository article needs no override or new modification date',()=>{
+ const article:any={...base[1],status:'published',primary_service:'seo',layer:'Demand',excerpt:'A practical guide.',author:'Team ZINC',focus_keyword:''};
+ const submitted={title:article.title,status:article.status,primary_service:'seo',layer:'Demand',excerpt:article.excerpt,author:article.author,meta_title:'Story',meta_description:'Repository',focus_keyword:'',noindex:false};
+ assert.equal(contentChanged(article,submitted),false);
+ assert.equal(contentChanged(article,{...submitted,meta_description:'A substantively revised description.'}),true);
+ assert.equal(article.saved,false);
+});
+test('change detection preserves intentional clears and indexing/service changes',()=>{
+ const draft:any={...base[1],primary_service:null,focus_keyword:null};
+ assert.equal(contentChanged(draft,{focus_keyword:'',primary_service:null}),false);
+ assert.equal(contentChanged(draft,{meta_description:''}),true);
+ assert.equal(contentChanged({...draft,noindex:true},{noindex:false}),true);
+ assert.equal(contentChanged({...draft,primary_service:'seo'},{primary_service:null}),true);
+});
+test('unchanged saved content keeps its stored timestamp while actual body edits remain saves',()=>{
+ const saved:any={...base[1],body:'## Original guide',updated_at:'2026-11-01T12:00:00Z'};
+ assert.equal(contentChanged(saved,{body:'## Original guide'}),false);
+ assert.equal(contentChanged(saved,{body:'## Revised guide'}),true);
+ assert.equal(saved.updated_at,'2026-11-01T12:00:00Z');
+});
 test('article metadata has one owner and cannot fall back to a page record',()=>{
  assert.throws(()=>mergeAdminContent(base,[{path:'/blog/story/',meta_title:'Wrong owner'}],[]),/must be stored in Posts/);
  const post=mergeAdminContent(base,[],[{slug:'story',meta_title:'Saved title',noindex:true,updated_at:'2026-10-06',live_at:'2026-10-05'}])[1];
