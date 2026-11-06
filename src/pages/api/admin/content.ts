@@ -5,6 +5,7 @@ import { createServerClient } from '../../../lib/supabase';
 import { input, reply, fail } from '../../../lib/admin-http';
 import { contentInput } from '../../../lib/admin-input';
 import { contentList } from '../../../lib/admin-data';
+import { contentChanged } from '../../../lib/admin-content-model';
 import { routes } from '../../../data/site';
 export const POST: APIRoute = async ctx => {
   const staff = requireStaff(ctx); if (staff instanceof Response) return staff;
@@ -18,7 +19,8 @@ export const POST: APIRoute = async ctx => {
     if(body.create===true&&(baseline||existing.data))return fail('This post address already exists. Choose another slug.');
     const guarded=Object.prototype.hasOwnProperty.call(body,'expected_updated_at');
     if(guarded&&body.expected_updated_at!==null&&typeof body.expected_updated_at!=='string')return fail('Invalid draft revision.');
-    if(guarded&&(existing.data?.updated_at??baseline?.updated_at??null)!==body.expected_updated_at)return reply({error:'This draft changed elsewhere. Reload before saving generated changes.'},409);
+    if(guarded&&(baseline?.updated_at??existing.data?.updated_at??null)!==body.expected_updated_at)return reply({error:'This draft changed elsewhere. Reload before saving generated changes.'},409);
+    if(baseline&&!contentChanged(baseline,patch))return reply({ok:true,id:existing.data?.id??null,updated_at:baseline.updated_at??null,unchanged:true});
     let result;
     if(existing.data){
       let update=sb.from(table).update({...patch,updated_by:staff.id}).eq('id',existing.data.id);

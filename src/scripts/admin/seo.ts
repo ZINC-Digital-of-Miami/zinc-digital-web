@@ -106,7 +106,7 @@ async function savePatch(form:HTMLFormElement,patch:DraftFields,expected:string|
       else if(field instanceof HTMLInputElement||field instanceof HTMLTextAreaElement||field instanceof HTMLSelectElement)field.value=String(value);
     }
     form.dataset.updatedAt=saved.updated_at||'';delete form.dataset.dirty;
-    if(!form.dataset.pending){
+    if(!saved.unchanged&&!form.dataset.pending){
       const pendingLabel=document.querySelector<HTMLElement>('.a-publish .a-label'),count=Number(pendingLabel?.textContent?.match(/^\d+/)?.[0]);
       if(pendingLabel&&Number.isFinite(count))pendingLabel.textContent=(count+1)+' unpublished '+(count===0?'change':'changes');
       form.dataset.pending='true';
