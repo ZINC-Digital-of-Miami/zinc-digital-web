@@ -16,6 +16,11 @@ test('change detection preserves intentional clears and indexing/service changes
  assert.equal(contentChanged(draft,{meta_description:''}),true);
  assert.equal(contentChanged({...draft,noindex:true},{noindex:false}),true);
  assert.equal(contentChanged({...draft,primary_service:'seo'},{primary_service:null}),true);
+ const cleared=mergeAdminContent(base,[],[{slug:'story',meta_title:'',author:'',live_at:'2026-11-01T12:00:00Z',updated_at:'2026-11-01T12:00:00Z'}]).find(item=>item.kind==='post')!;
+ assert.equal(cleared.meta_title,'');
+ assert.equal(contentChanged(cleared,{meta_title:'',author:''}),false);
+ assert.equal(contentChanged(cleared,{author:'Team ZINC'}),true);
+ assert.equal(contentChanged(cleared,{meta_title:'Story'}),true);
 });
 test('unchanged saved content keeps its stored timestamp while actual body edits remain saves',()=>{
  const saved:any={...base[1],body:'## Original guide',updated_at:'2026-11-01T12:00:00Z'};
