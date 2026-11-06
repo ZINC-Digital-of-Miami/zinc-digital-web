@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="670" viewBox="0 0 440 670" role="img" aria-labelledby="title desc">
+<title id="title">Two sources, two reader decisions</title><desc id="desc">A pair of finish samples supports a comparison in an existing guide. A current blank approval form supports a different walkthrough of what to approve. Link the pages when the reader moves from choosing to confirming.</desc>
+<rect width="440" height="670" fill="#f6f6f3"/>
+<g font-family="Arial, sans-serif" fill="#171b1c"><text x="24" y="45" font-size="27" font-weight="700">What can the reader do?</text>
+<path d="M24 66h392" stroke="#8b9695"/>
+<g transform="translate(26 95)"><rect x="8" y="8" width="65" height="48" rx="3" fill="#b08761"/><rect width="65" height="48" rx="3" fill="#dcc29f" stroke="#735e48"/><path d="M7 13q14 -8 26 0t24 0M7 26q14 -8 26 0t24 0" fill="none" stroke="#957452" stroke-width="2"/></g>
+<text x="123" y="116" font-size="16" fill="#006561">EVIDENCE</text><text x="123" y="146" font-size="24" font-weight="700">Two finish samples</text>
+<text x="26" y="204" font-size="22">Compare the finishes at home.</text><text x="26" y="241" font-size="18" fill="#006561">Refresh the existing comparison guide.</text>
+<path d="M25 268h390" stroke="#8b9695"/>
+<g transform="translate(28 302)"><rect width="54" height="66" rx="2" fill="white" stroke="#536462" stroke-width="2"/><path d="M9 13h34M9 23h34M9 33h19M9 51l6 6 12-15" stroke="#006561" fill="none" stroke-width="2"/></g>
+<text x="123" y="326" font-size="16" fill="#006561">EVIDENCE</text><text x="123" y="356" font-size="22" font-weight="700">Current approval form</text>
+<text x="26" y="422" font-size="22">Check what the signature covers.</text><text x="26" y="459" font-size="18" fill="#006561">Brief a walkthrough for this decision.</text>
+<rect x="0" y="501" width="440" height="169" fill="#182728"/><text x="26" y="544" font-size="23" font-weight="700" fill="#fff">Where to connect them</text><text x="26" y="582" font-size="20" fill="#fff">When a reader chooses a sample,</text><text x="26" y="612" font-size="20" fill="#fff">link to the approval walkthrough.</text><text x="26" y="649" font-size="15" fill="#a7d2cd">Illustrative fitted-furniture business</text></g></svg>

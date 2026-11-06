@@ -12,6 +12,7 @@ export const readingGuides = [
       'content-refresh-review',
       'service-page-content-checklist',
       'ai-search-content-strategy',
+      'turn-subject-expertise-into-an-article-cluster',
       'what-ai-discovery-changes-editorial-plan',
     ],
   },
