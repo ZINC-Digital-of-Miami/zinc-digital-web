@@ -11,6 +11,10 @@ export function loadPublished(){
     const sb=createAdminClient();
     const {pages,posts:snapshots,revision}=await readContentSnapshots(sb);
     return {...publishedContent(routes,posts,pages,snapshots),revision};
-  })();
+  })().catch(error=>{
+    // Fail this request closed, but let a later request recover from a transient read failure.
+    loading=undefined;
+    throw error;
+  });
   return loading;
 }
