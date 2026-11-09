@@ -110,3 +110,16 @@ The owner rejected the version9 rewrite described above. His instructions about 
 ## Content loading recovery — PR124, 9 November 2026 CT
 
 A failed published-content snapshot read left a rejected promise cached in loadPublished(), so later requests on that server instance kept failing and Studio stopped reopening. PR124 clears the cached promise when the read rejects and rethrows, so the current request still fails closed and a later request reads afresh. No retry loop or fallback content. Squash merge cb03125cf703da451499f93de98156eb958ac619 at reviewed head440598abfbc996a48c856eb3bd0ad8a1765d2afd; required build42694769722 passed on the head, and the build and Vercel deployment succeeded on the merge commit. After deployment, public pages returned200 and /admin/content-studio/ redirected to staff login. Authenticated Studio reopening is not yet verified.
+
+## Article desk — 9 November 2026 CT
+
+Owner asked for a simpler Studio: rows of article titles with a small trend line, click a title, read it and change it with Fable 5.2 using large buttons, without redundant navigation.
+
+- Opening screen is the article list: every published article with its 28-day sparkline, views and search clicks against the earlier 28 days, and whether a private working copy exists. Search, pillar filter and ordering (most views, falling, rising, A to Z). The list reuses the shared admin list search and table.
+- Clicking a title opens that article: its saved working copy if one exists, otherwise the published text as an unsaved copy. Header shows the title, author, pillar, live link, numbers and a larger trend line.
+- Edit step: title, TL;DR and manuscript beside a Fable panel with a free instruction and one-click changes (tighten, sharpen the opening, plainer language) plus Challenge it. A click saves the working copy first, sends one request and shows the proposal with Use this version or Close.
+- New routed action `revise` (Claude, Fable 5.2 High) with its own instruction: return the complete revised manuscript only, change only what was asked, no invented facts. Owner role is still required for model requests. Instruction is limited to 1,500 characters.
+- Brief and research, review and release, and search positions are steps inside the open article. Pillars remains a top-level tab. The full performance tables are no longer repeated in Studio; they stay in Analysis.
+- Unchanged: nothing publishes from Studio, review checks, version history, comments, handoff export, Wendy's hold, Terra writing and artwork (now under one disclosure in the Edit step).
+- Not built: publishing an accepted change straight to the live article. Repository articles still go live through the protected release path.
+
