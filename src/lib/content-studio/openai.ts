@@ -7,15 +7,18 @@ export async function writeWithOpenAI(key:string,model:string,instructions:strin
  const requestId=response.headers.get('x-request-id')||undefined;
  const reader=response.body?.getReader(),decoder=new TextDecoder();let buffer='',data:string[]=[],terminal:any=null,bytes=0,finalReceipt:ReturnType<typeof receiptFor>|null=null;
  const receiptFor=(r:any)=>{const content=(r.output||[]).filter((item:any)=>item.type==='message').flatMap((item:any)=>item.content||[]),text=content.filter((item:any)=>item.type==='output_text').map((item:any)=>item.text).join('\n');const usage=r.usage,validUsage=usage&&['input_tokens','output_tokens','total_tokens'].every(k=>typeof usage[k]==='number'&&Number.isFinite(usage[k])&&usage[k]>=0);return {images:(r.output||[]).filter((item:any)=>item.type==='image_generation_call'&&typeof item.result==='string').map((item:any)=>({id:item.id,mime:'image/webp',data:item.result})),provider:'openai',requestedModel:model,effort,model:r.model,responseId:r.id,providerRequestId:requestId,usage:validUsage?usage:undefined,usageUnavailable:!validUsage,responseStatus:r.status,rawResponse:text,refused:content.some((item:any)=>item.type==='refusal')};};
+ let savedReceipt:Record<string,unknown>={};
+ const record=async(value:Record<string,unknown>)=>{savedReceipt={...savedReceipt,...value};await onReceipt(savedReceipt);};
+ const safeError=(value:unknown)=>typeof value==='string'?value.replaceAll(key,'[redacted]').replace(/sk-[A-Za-z0-9_-]+/g,'[redacted]').slice(0,500):'No provider detail supplied.';
  const event=async()=>{
   if(!data.length)return;const raw=data.join('\n');data=[];if(raw==='[DONE]')return;
   let value:any;try{value=JSON.parse(raw);}catch{throw new Error('OpenAI returned an invalid stream event.');}
-  if(value.type==='response.created')await onReceipt({provider:'openai',requestedModel:model,effort,providerRequestId:requestId,responseId:value.response?.id,usageUnavailable:true});
-  if(['response.completed','response.incomplete','response.failed'].includes(value.type)){terminal=value.response;finalReceipt=receiptFor(terminal);await onReceipt(finalReceipt);}
-  if(value.type==='error')throw new Error('OpenAI reported a stream error. Check the retained request ID before retrying.');
+  if(value.type==='response.created')await record({provider:'openai',requestedModel:model,effort,providerRequestId:requestId,responseId:value.response?.id,usageUnavailable:true});
+  if(['response.completed','response.incomplete','response.failed'].includes(value.type)){terminal=value.response;finalReceipt=receiptFor(terminal);await record(finalReceipt);}
+  if(value.type==='error'){const detail=safeError(value.message||value.error?.message);await record({providerError:detail});throw new Error('OpenAI image/writing request failed: '+detail+' No automatic retry was made.');}
  };
  try{
-  await onReceipt({provider:'openai',requestedModel:model,effort,providerRequestId:requestId,usageUnavailable:true});
+  await record({provider:'openai',requestedModel:model,effort,providerRequestId:requestId,usageUnavailable:true});
   if(!response.ok)throw new Error('OpenAI writing request failed (HTTP '+response.status+'). Check the API project and model access. No automatic retry was made.');
   if(!reader)throw new Error('OpenAI returned no response stream.');
   while(!terminal){const chunk=await reader.read();if(chunk.done)break;bytes+=chunk.value.byteLength;if(bytes>(image?24_000_000:8_000_000))throw new Error('OpenAI response exceeded the bounded manuscript limit.');buffer+=decoder.decode(chunk.value,{stream:true});let end:number;while(!terminal&&(end=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,end).replace(/\r$/,'');buffer=buffer.slice(end+1);if(!line)await event();else if(line.startsWith('data:'))data.push(line.slice(5).trimStart());}}
