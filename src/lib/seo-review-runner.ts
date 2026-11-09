@@ -42,3 +42,13 @@ export async function runSeoScan(key:string){
   return {source:'scan',evidence,scorecard:scoreSnapshot(evidence),scoringVersion:SCORING_VERSION,measuredAt:new Date().toISOString(),commit:import.meta.env.VERCEL_GIT_COMMIT_SHA||'local preparation'};
  });
 }
+
+/** Owner-gated Content Studio analysis shares the existing transactional AI claim and receipts. */
+export async function runStudioAnalysis(key:string,apiKey:string,identity:Record<string,unknown>,instructions:string,evidence:unknown){
+ if(!/^seo_review:studio:[0-9a-f-]{36}$/.test(key))throw new Error('Invalid Studio analysis key.');
+ return storeReview(createAdminClient(),key,async receipt=>{
+  await receipt(identity);
+  const result=await reviewWithClaude(apiKey,instructions,evidence,fetch,r=>receipt({...identity,...r}));
+  return {...identity,text:result.text,model:result.model,usage:result.usage,providerRequestId:result.providerRequestId};
+ });
+}

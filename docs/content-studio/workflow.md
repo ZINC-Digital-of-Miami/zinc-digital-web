@@ -1,0 +1,15 @@
+# Content Studio editorial workflow
+
+Owner-approved adaptation of Writing Intelligence Studio for the existing ZINC admin, 9 November 2026. Its host-specific visual artifact runtime is not embedded. These instructions are included with model requests, alongside the named author's versioned canonical voice skill.
+
+1. Brief: target business reader, situation, main question, intended action, search intent, existing primary service/category, appropriate format, distinct contribution.
+2. Research: read current inventory before commissioning. Use saved native article/pillar/query metrics with source, dates, filters and gaps. Seek current primary sources for consequential claims. Record support and uncertainty. Market search volume, local fixed-location rank and AI citation access are separate from site observations.
+3. Plan: central substantive pillar overview, supporting questions, meaningful links, service destination, existing-article improvement versus distinct new coverage. Preserve all eleven existing assignments, including separate Meta and TikTok.
+4. Draft: complete manuscript in assigned author voice and US English. Explain terminology, prerequisites, reasoning, worked specimen examples, tradeoffs, troubleshooting and validation. No arbitrary word/paragraph/sentence quotas, mandatory FAQ or filler.
+5. Challenge and edit: review the whole argument against title and reader task. Name concrete objects rather than vague page-job metaphors. Remove generic AI patterns, unsupported certainty, fabricated experience, copied language, internal notes and placeholders. Detector scores do not prove quality or authorship.
+6. Verify: every consequential claim against supporting sources, with a deduplicated source list. Preserve actual publication dates and truthful modification dates. Validate metadata, author entities, canonical, social image, connected schema, discovery directives and source limitations. No special AI schema or ranking promise.
+7. Illustrate and equip: topic-specific explanatory graphic beyond hero; useful guides/checklists/worksheets/calculators where appropriate. Exact approved logos, white mugs, sharp readable on-brand imagery. Test actual files, links, PDF text/form save-reopen, worksheet instructions, arithmetic and invalid inputs. Do not substitute a mockup for instructional evidence.
+8. Review: complete voice read, desktop/mobile light/dark inspection, semantic tables, contrast/overflow, images/resources and private provenance. Each human check records evidence against a specific revision. Edits invalidate prior checks. Model output is a proposal, never an approval.
+9. Release: preserve article-specific owner holds and calendar. Content Studio working documents do not publish automatically. Export an exact reviewed version for the protected GitHub/Node24/GitHub Actions release and normal deployment path. No Docker. Keep merged, deployed, indexed, cited and generating inquiries distinct.
+
+Wendy's article-cluster revision remains on an explicit owner hold. Do not schedule, publish or treat Studio approval as approval of that article.

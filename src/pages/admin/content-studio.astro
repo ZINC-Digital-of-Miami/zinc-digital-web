@@ -1,0 +1,16 @@
+---
+export const prerender=false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ContentStudio from '../../components/admin/studio/ContentStudio.astro';
+import {requireStaff} from '../../lib/auth';
+import {createServerClient} from '../../lib/supabase';
+import {loadPublished} from '../../lib/content';
+const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
+const db=createServerClient(Astro),catalog=await loadPublished();
+const [rows,saved]=await Promise.all([
+ db.from('admin_cache').select('value').eq('key','content_studio:performance').maybeSingle(),
+ db.from('admin_cache').select('value').like('key','content\\_studio:draft:%').order('fetched_at',{ascending:false}).limit(200),
+]);
+const inventory=catalog.posts.map(p=>({slug:p.slug,title:p.title,author:p.author.name,service:p.primaryService,body:p.markdown||''}));
+---
+<AdminLayout view="content-studio" title="Content Studio"><ContentStudio snapshot={rows.data?.value} documents={(saved.data||[]).map(r=>r.value)} inventory={inventory} storageError={rows.error||saved.error?"Studio storage could not be read. Reload before editing.":""}/></AdminLayout>

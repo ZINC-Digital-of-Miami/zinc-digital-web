@@ -11,7 +11,7 @@ interface Props {view:string;title?:string}
 const {view,title=view}=Astro.props;
 const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
 const shell=await shellData(Astro);
-const nav=[['dashboard','Dashboard',''],['research','Research',shell.counts.research],['inquiries','Inquiries',shell.counts.inquiries],['pages','Pages',shell.counts.pages],['posts','Posts',shell.counts.posts],['seo','SEO',''],['analysis','Analysis',''],['stats','Stats',''],['backend','Backend',''],['staff','Staff',shell.counts.staff]];
+const nav=[['dashboard','Dashboard',''],['research','Research',shell.counts.research],['inquiries','Inquiries',shell.counts.inquiries],['pages','Pages',shell.counts.pages],['posts','Posts',shell.counts.posts],['content-studio','Content Studio',''],['seo','SEO',''],['analysis','Analysis',''],['stats','Stats',''],['backend','Backend',''],['staff','Staff',shell.counts.staff]];
 ---
 <html lang="en" data-theme="dark"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>{title} | ZINC admin</title><link rel="icon" href="/favicon.png"/>
 <Font cssVariable="--font-display" preload/><Font cssVariable="--font-body"/><Font cssVariable="--font-mono"/>

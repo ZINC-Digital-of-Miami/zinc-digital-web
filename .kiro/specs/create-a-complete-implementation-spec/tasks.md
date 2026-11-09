@@ -1271,3 +1271,11 @@ The native configuration proofs above are now released alongside the tag changes
 ### Wendy article mug wordmark correction — 9 November 2026 CT
 
 Owner identified incorrect spaced lettering on the white mug in the article-cluster hero. Replaced the printed mark using the canonical ZINC wordmark as image-edit reference; retained the white mug, wood samples, tablet wording and 1672×941 composition. Fresh scoped visual review found no blocker; minor generated pixel variations mean this is not an exact pixel-preserving composite. The only public asset changed is `src/assets/articles/expertise-to-article-cluster.png`; article prose and its separate review hold remain unchanged. Node24: 297 tests passed, Astro check zero errors/warnings, production build and 104-page static checks passed. Desktop1440/mobile390 rendered hero inspected with no page overflow, temporary Chrome/server exited. Protected release and production readback pending.
+
+
+### Content Studio — owner approved 9 November 2026
+
+- [x] Implement existing-admin Studio, three canonical voices, private versioned drafts, native article/pillar/query evidence, research briefs and mandatory review checks.
+- [x] Correct scoped review findings and run Node24 tests/check/build/static validation; retain limits in docs/content-studio/implementation.md.
+- [ ] Resolve GPT connection choice and complete authenticated save/readback, metrics and model execution checks.
+- [ ] Complete authenticated desktop/mobile inspection, protected GitHub release and production verification. Wendy rewrite remains held for separate approval.

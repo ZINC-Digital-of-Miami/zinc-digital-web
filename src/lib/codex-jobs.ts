@@ -14,8 +14,10 @@ export async function codexConnection(ctx:APIContext){
  if(staff.role!=='owner')status.authUrl=null;
  return status;
 }
-export async function enqueueCodexJob(ctx:APIContext,kind:CodexKind,payload:Record<string,unknown>):Promise<{id:string}>{
+export async function enqueueCodexJob(ctx:APIContext,kind:CodexKind,payload:Record<string,unknown>,requestId?:string):Promise<{id:string}>{
  const staff=requireStaff(ctx,kind==='connect'||kind==='verify'?'owner':undefined);if(staff instanceof Response)throw new Error('Staff authorization required.');
+ if(requestId&&!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId))throw new Error('Invalid request identifier.');
+ if(requestId){const existing=await createServerClient(ctx).from('codex_jobs').select('id').eq('id',requestId).eq('requested_by',staff.id).maybeSingle();if(existing.error)throw new Error('Request history unavailable.');if(existing.data)return {id:existing.data.id};}
  const checked=jobRequest(kind,payload,staff.role),state=await codexConnection(ctx);
  if(!state.online)throw new Error(state.message);
  if(kind!=='connect'&&kind!=='verify'&&!state.ready)throw new Error('Connect your Codex subscription in Backend first.');
@@ -23,7 +25,7 @@ export async function enqueueCodexJob(ctx:APIContext,kind:CodexKind,payload:Reco
  const pending=await db.from('codex_jobs').select('id',{count:'exact',head:true}).eq('requested_by',staff.id).in('status',['queued','running']);
  if(pending.error)throw new Error('Codex requests could not be checked.');
  if((pending.count||0)>=4)throw new Error('Wait for your current Codex requests to finish before starting another.');
- const {data,error}=await db.from('codex_jobs').insert({requested_by:staff.id,kind,payload:checked}).select('id').single();
+ const {data,error}=await db.from('codex_jobs').insert({...requestId?{id:requestId}:{},requested_by:staff.id,kind,payload:checked}).select('id').single();
  const busy=coordinationError(error);if(busy)throw busy;
  if(error||!data)throw new Error('The Codex request could not be saved. Try again.');
  return{id:data.id};
