@@ -4,6 +4,10 @@ docs/*
 !docs/editorial/
 docs/editorial/*
 !docs/editorial/schedule.md
+!docs/content-studio/
+docs/content-studio/*
+!docs/content-studio/workflow.md
+!docs/content-studio/voices/
 .scratch/
 .env
 .env.*

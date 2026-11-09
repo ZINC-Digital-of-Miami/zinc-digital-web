@@ -30,3 +30,5 @@ Vercel's existing signed-in browser shows zinc-digital-web, production d9385ca, 
 Release remains pending: resolve GPT transport selection, obtain a signed-in website admin session, verify authenticated workflows and provider execution, then protected GitHub checks/merge and production readback. Standard API billing is not implied by a ChatGPT subscription. Fixed-location city ranks, AI-citation measurements and qualified-lead attribution remain unavailable unless their actual sources are connected; they are not inferred from GSC average position.
 
 Work add: this is private agency admin/editorial infrastructure, excluded by prepare-work-adds. No client-facing Work entry or invented time was created.
+
+PR119 preview caught Vercel upload exclusion of the runtime voice/workflow files (the local build had the files). Added narrow .vercelignore exceptions for workflow.md and voices/ only; implementation notes remain excluded. Await the replacement deployment result before claiming preview success.
