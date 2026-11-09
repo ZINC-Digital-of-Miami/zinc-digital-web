@@ -118,3 +118,15 @@ test('Monday deferral window includes 9 and 10 CT in both DST offsets without ch
  assert.equal(reviewSlot(new Date('2026-07-06T15:00:00Z')),'2026-07-06');
  assert.equal(reviewSlot(new Date('2026-07-06T16:00:00Z')),null);
 });
+
+
+test('Claude sends the selected workspace on both model access and generation',async()=>{
+ const headers:Headers[]=[];
+ const send:typeof fetch=async(url,init)=>{
+  headers.push(new Headers(init?.headers));
+  return String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):streamed({id:'msg_workspace',model:'claude-fable-5-1',stop_reason:'end_turn',usage:{input_tokens:1,output_tokens:1},content:[{type:'text',text:'Verified'}]});
+ };
+ await reviewWithClaude('test-key','test',{},send,async()=>{},'wrkspc_test');
+ assert.equal(headers.length,2);
+ for(const header of headers)assert.equal(header.get('anthropic-workspace-id'),'wrkspc_test');
+});

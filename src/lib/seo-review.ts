@@ -67,9 +67,10 @@ export function parseReviewResponse(value:string):unknown{
  const raw=value.trim(),fenced=raw.match(/^```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n```$/i);
  return JSON.parse(fenced?fenced[1]:raw);
 }
-export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch,onReceipt:(value:Record<string,unknown>)=>Promise<void>=async()=>{}){
+export async function reviewWithClaude(key:string,system:string,evidence:unknown,send:typeof fetch=fetch,onReceipt:(value:Record<string,unknown>)=>Promise<void>=async()=>{},workspaceId=process.env.ZINC_ANTHROPIC_WORKSPACE_ID||''){
  if(!key)throw new Error('Add the Claude API key securely in Vercel before running a review.');
- const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
+ const headers:Record<string,string>={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
+ if(workspaceId)headers['anthropic-workspace-id']=workspaceId;
  const access=await send('https://api.anthropic.com/v1/models/'+REVIEW_MODEL,{headers,signal:AbortSignal.timeout(10000)});
  const accessData=await access.json().catch(()=>({}));
  if(!access.ok||accessData.id!==REVIEW_MODEL)throw new Error('Fable 5.1 access could not be verified (HTTP '+access.status+(typeof accessData.error?.type==='string'?' · '+accessData.error.type.replace(/[^a-zA-Z0-9_]/g,'').slice(0,80):'')+'). '+(typeof accessData.error?.message==='string'?accessData.error.message.replaceAll(key,'[redacted]').replace(/sk-[A-Za-z0-9_-]+/g,'[redacted]').slice(0,400):'Check the Claude key and model access.')+' No generation was requested.');
