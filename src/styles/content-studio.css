@@ -40,7 +40,7 @@
 .cs-steps button{font-size:15px;padding:14px 22px;min-height:52px}
 .cs-editor-grid{grid-template-columns:minmax(0,1fr) 340px;align-items:start}
 .cs .cs-title-input{font-size:22px;font-weight:600;min-height:60px}
-.cs-fable{border:1px solid var(--line);border-top:4px solid var(--tealt);background:var(--pn);padding:22px;position:sticky;top:16px}
+.cs-fable{border:1px solid var(--line);border-top:4px solid var(--tealt);background:var(--pn);padding:22px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
 .cs-fable h3{font-family:var(--font-display),sans-serif;font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;margin:8px 0 18px}
 .cs-or{margin:22px 0 12px}
 .cs-quick{display:grid;gap:10px;margin-bottom:16px}
@@ -53,5 +53,5 @@
 .cs-more{border-top:1px solid var(--line);margin-top:16px}
 .cs-assistance{margin:0 0 28px;border:2px solid var(--tealt);background:var(--pn)}
 .cs-assistance h3{margin:0}
-@media(max-width:1100px){.cs-editor-grid{grid-template-columns:minmax(0,1fr)}.cs-fable{position:static;order:-1}.cs-work-head{grid-template-columns:minmax(0,1fr)}.cs-work-actions{justify-content:flex-start}}
+@media(max-width:1100px){.cs-editor-grid{grid-template-columns:minmax(0,1fr)}.cs-fable{position:static;order:-1;max-height:none;overflow:visible}.cs-work-head{grid-template-columns:minmax(0,1fr)}.cs-work-actions{justify-content:flex-start}}
 @media(max-width:650px){.cs-tabs button{font-size:16px;padding:14px 18px;min-height:52px}.cs-top>.cs-big{width:100%;margin-bottom:12px}.cs-refresh{justify-items:start;text-align:left}.cs-stats,.cs-stats dl{gap:20px}.cs-stat-spark .cs-spark{width:200px;height:60px}.cs-stats dd{font-size:26px}.cs-fable{padding:16px}.cs-work-actions .cs-big{width:100%}}

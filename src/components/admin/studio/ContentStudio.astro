@@ -32,7 +32,7 @@ const period=performance?performance.range.current.start+' to '+performance.rang
 ---
 <div class="cs" id="content-studio" data-studio>
  <div class="cs-top">
-  <nav class="cs-tabs" aria-label="Content Studio"><button type="button" data-panel="articles" aria-pressed="true">Articles</button><button type="button" data-panel="pillars">Pillars</button></nav>
+  <nav class="cs-tabs" aria-label="Content Studio"><button type="button" data-panel="articles" aria-pressed="true">Articles</button><button type="button" data-panel="pillars" aria-pressed="false">Pillars</button></nav>
   <button class="a-button primary cs-big" type="button" data-new-article>+ New article</button>
  </div>
  <p class="cs-status" role="status" aria-live="polite" data-status></p>
@@ -64,11 +64,11 @@ const period=performance?performance.range.current.start+' to '+performance.rang
  <div class="cs-workspace" data-workspace hidden>
   <div class="cs-work-head">
    <button class="a-button" type="button" data-back>← All articles</button>
-   <div class="cs-work-title"><p class="a-label a-muted" data-work-meta></p><h2 data-work-title>New article</h2></div>
+   <div class="cs-work-title"><p class="a-label a-muted" data-work-meta></p><h2 data-work-title tabindex="-1">New article</h2></div>
    <div class="cs-work-actions"><a class="a-link" data-live target="_blank" rel="noopener noreferrer" hidden>View live article ↗</a><span class="a-count" data-revision>Unsaved</span><button class="a-button primary cs-big" type="button" data-save>Save private version</button></div>
   </div>
   <div class="cs-stats" data-work-stats hidden><div class="cs-stat-spark" data-work-spark></div><dl><div><dt>Views · 28 days</dt><dd data-stat="views">—</dd><small data-stat="viewsChange"></small></div><div><dt>Search clicks</dt><dd data-stat="clicks">—</dd><small data-stat="clicksChange"></small></div><div><dt>Search impressions</dt><dd data-stat="impressions">—</dd><small>Search Console</small></div></dl></div>
-  <nav class="cs-steps" aria-label="Article"><button type="button" data-panel="write">Edit</button><button type="button" data-panel="brief">Brief &amp; research</button><button type="button" data-panel="review">Review &amp; release</button><button type="button" data-panel="ranks" data-ranks-step>Search positions</button></nav>
+  <nav class="cs-steps" aria-label="Article"><button type="button" data-panel="write" aria-pressed="false">Edit</button><button type="button" data-panel="brief" aria-pressed="false">Brief &amp; research</button><button type="button" data-panel="review" aria-pressed="false">Review &amp; release</button><button type="button" data-panel="ranks" aria-pressed="false" data-ranks-step>Search positions</button></nav>
 
   <section class="cs-assistance" hidden data-assistance aria-labelledby="cs-proposal-title"><div class="cs-section-head"><h3 id="cs-proposal-title">Proposal</h3><div class="cs-controls"><button class="a-button primary cs-big" type="button" data-apply hidden>Use this version</button><button class="a-button" type="button" data-check-job>Check request</button><button class="a-button" type="button" data-discard>Close</button></div></div><p class="a-count" data-job-status>No request started.</p><pre data-result></pre><div data-result-images></div><p class="a-count">Using a version puts it in the editor unsaved. Nothing is published from here.</p></section>
 
