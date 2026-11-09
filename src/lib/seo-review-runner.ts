@@ -18,8 +18,8 @@ async function priorScores(sb:ReturnType<typeof createAdminClient>,key:string,cu
 
 export async function runSeoReview(key:string,source:'weekly'|'manual',deferredOnly=false){
  if(!reviewsEnabled(import.meta.env.SEO_REVIEW_ENABLED))throw new Error('Claude reviews are paused until the research and instructions receive owner approval. Site checks remain available.');
- const apiKey=import.meta.env.ANTHROPIC_API_KEY;
- if(!apiKey)throw new Error('Add ANTHROPIC_API_KEY securely in Vercel to enable Claude reviews.');
+ const apiKey=import.meta.env.ZINC_ANTHROPIC_API_KEY;
+ if(!apiKey)throw new Error('Add ZINC_ANTHROPIC_API_KEY securely in Vercel to enable Claude reviews.');
  const sb=createAdminClient();
  if(source==='weekly'&&deferredOnly){const eligibility=await retryEligibility(sb,key);if(eligibility==='reserved')return {key,duplicate:true};if(eligibility!=='deferred')return {key,skipped:'No pre-paid deferral was recorded for this weekly review.'};}
  return storeReview(sb,key,async saveReceipt=>{
@@ -49,13 +49,13 @@ export async function runStudioAnalysis(key:string,apiKey:string,identity:Record
  return storeReview(createAdminClient(),key,async receipt=>{
   await receipt(identity);
   const result=await reviewWithClaude(apiKey,instructions,evidence,fetch,r=>receipt({...identity,...r}));
-  return {...identity,text:result.text,model:result.model,usage:result.usage,providerRequestId:result.providerRequestId};
+  return {...identity,text:result.text,model:result.model,effort:result.effort,messageId:result.messageId,usage:result.usage,providerRequestId:result.providerRequestId};
  });
 }
 
 /** Direct API writing uses the existing privileged, transactional receipt boundary. */
-export async function runStudioWriting(key:string,apiKey:string,model:string,identity:Record<string,unknown>,instructions:string,evidence:unknown){
+export async function runStudioWriting(key:string,apiKey:string,model:string,identity:Record<string,unknown>,instructions:string,evidence:unknown,image=false){
  if(!/^seo_review:studio:[0-9a-f-]{36}$/.test(key))throw new Error('Invalid Studio writing key.');
  const {writeWithOpenAI}=await import('./content-studio/openai');
- return storeReview(createAdminClient(),key,async receipt=>{await receipt(identity);const result=await writeWithOpenAI(apiKey,model,instructions,JSON.stringify(evidence),fetch,r=>receipt({...r,...identity}),'high');return {...result,...identity};},'OpenAI');
+ return storeReview(createAdminClient(),key,async receipt=>{await receipt(identity);const result=await writeWithOpenAI(apiKey,model,instructions,JSON.stringify(evidence),fetch,r=>receipt({...r,...identity}),'high',image);return {...result,...identity};},'OpenAI');
 }

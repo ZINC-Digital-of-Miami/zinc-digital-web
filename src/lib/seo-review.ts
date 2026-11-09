@@ -2,7 +2,7 @@ import {timingSafeEqual} from 'node:crypto';
 import {parseScoreSnapshot,type ScoreSnapshot} from './seo-review-dashboard.ts';
 import {readClaudeMessage} from './claude-message-stream.ts';
 
-export const REVIEW_MODEL='claude-opus-5-5';
+export const REVIEW_MODEL='claude-fable-5-1';
 export const REVIEW_EFFORT='high';
 export const reviewsEnabled=(value:string|undefined)=>value==='true';
 export const REVIEW_INSTRUCTIONS_VERSION='2026-11-05.2';
@@ -53,7 +53,7 @@ Review homepage wording and search demand using the supplied Ahrefs, Semrush, Se
 Panama City is ZINC's principal operating base; Miami is a priority growth market. Never infer staffing, office hours, eligibility or profile claims. Review all SEO settings and every page in the supplied inventory: metadata, canonical/indexing controls, sitemap/robots, structured data, image/alt/social signals, internal pillar-to-service links, content usefulness and author voice, local/AI search, performance evidence, tracking and traffic behavior. Distinguish saved draft settings from deployed settings. Do not recommend early publication, changing the editorial schedule or Docker. Retain existing public URLs, authors and publication dates unless an explicit owner decision says otherwise.
 The editorial register below is authoritative for editorial recommendations. Every article must answer its main question, explain the reasoning, give a concrete example and useful next action; citations, tables, illustrations and reader downloads must serve the topic. Kirk is stern, bold and confident; Jaymie is light and playful; Wendy uses a conversational British voice with quirk and wit, using the existing voice guidance as style only. The removed client must never appear in public content, examples, imagery or links. Follow the actual register and do not invent testimonials or results. Only verified anonymised client work may support experience claims. An excerpt and HTML structure cannot certify full editorial compliance, source accuracy, artwork, downloads or author voice; identify those review gaps explicitly.
 Use review-baseline only as dated investigation leads. In the relevant check details, classify each baseline finding as resolved, open, regressed or unverified against CURRENT supplied page evidence; do not repeat a historical finding as current. Name an unresolved owner decision instead of treating it as approved. Use site-structure for explicit ownership, observed main-content links, author types, missing targets and keyword overlap. Organization bylines are valid when truthful; length thresholds and multiple pages appearing for a query do not alone prove SEO defects.
-Metadata drafting and editorial research belong to the Codex subscription specialist. Route verified metadata issues as "regenerate with the SEO specialist"; do not write replacement copy. codex-activity covers only recent job kind/status/date/target paths; check published outcomes for these pages, do not duplicate their drafting/research. Missing activity is an access gap, not proof no work occurred.
+Fable High handles SEO analysis, research, planning and specialist proposals. Route verified metadata issues as "regenerate with the SEO specialist"; this review does not change saved copy. Terra High handles publishable content and creative writing. codex-activity covers only recent job kind/status/date/target paths; check published outcomes for these pages, do not duplicate their drafting/research. Missing activity is an access gap, not proof no work occurred.
 Return JSON only: {"summary":"...","checks":[{"area":"...","status":"checked|needs attention|unavailable","detail":"...","evidenceIds":["supplied ID"]}],"recommendations":[{"priority":"high|medium|low","area":"...","path":"supplied path, / for sitewide","problem":"specific observed issue","action":"specific proposed change","reason":"evidence-backed benefit or explicitly labelled hypothesis","evidenceIds":["supplied ID"],"validation":"how to verify the proposed change"}]}. Include exactly one check for each area: ${REVIEW_AREAS.join(', ')}. Cite only supplied evidence IDs. Up to 30 recommendations, highest priority first, consolidate repeated problems and name affected pages. Do not invent problems to fill the list. Unavailable evidence must never be marked checked. Changes are recommendations awaiting owner approval.
 <editorial-register>\n${register}\n</editorial-register>`;}
 
@@ -71,10 +71,10 @@ export async function reviewWithClaude(key:string,system:string,evidence:unknown
  if(!key)throw new Error('Add the Claude API key securely in Vercel before running a review.');
  const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
  const access=await send('https://api.anthropic.com/v1/models/'+REVIEW_MODEL,{headers,signal:AbortSignal.timeout(10000)});
- if(!access.ok||(await access.json()).id!==REVIEW_MODEL)throw new Error('Opus 5.5 access could not be verified. Check the Claude key and model access.');
+ if(!access.ok||(await access.json()).id!==REVIEW_MODEL)throw new Error('Fable 5.1 access could not be verified. Check the Claude key and model access.');
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
- // Opus 5.5 counts adaptive thinking and report text against the same output allowance.
+ // Fable 5.1 counts adaptive thinking and report text against the same output allowance.
  const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(480000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:48000,stream:true,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
  if(!res.ok)throw new Error('Claude could not complete the review (HTTP '+res.status+'). Check the connection or account limits.');
  const providerRequestId=res.headers.get('request-id')||undefined;
@@ -106,7 +106,7 @@ export function savedReview(value:unknown):SavedReview{
  if(v.scorecard!==undefined){const card=parseScoreSnapshot(v.scorecard);if(!card||v.scoringVersion!==card.scoringVersion||typeof v.measuredAt!=='string'||!Number.isFinite(Date.parse(v.measuredAt)))throw new Error('Invalid score measurement.');result.scorecard=card;result.scoringVersion=card.scoringVersion;result.measuredAt=v.measuredAt;}
  if(v.status==='complete'){
   if(v.source==='scan'){if(!result.completedAt||!result.evidence||!result.scorecard||v.model||v.report||v.usage||v.partialUsage)throw new Error('The site-check snapshot could not be verified.');return result;}
-  if(!result.completedAt||v.model!==REVIEW_MODEL||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
+  if(!result.completedAt||![REVIEW_MODEL,'claude-opus-5-5'].includes(String(v.model))||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
   const evidence=result.evidence!;
   const paths=new Set(['/',...evidence.flatMap(e=>typeof e.path==='string'&&/^\/(?:[a-z0-9-]+\/)*$/.test(e.path)?[e.path]:[])]);
   result.evidence=evidence;result.report=validateReview(v.report,new Map(evidence.map(e=>[e.id,e])),paths);

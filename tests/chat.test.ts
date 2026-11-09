@@ -9,14 +9,14 @@ test('limits questions and maps only citations supplied by retrieval',()=>{
 });
 test('GPT models cannot invoke an API-key provider or silently fall back',async()=>{
  let called=false;const mock:any=async()=>{called=true;throw new Error('Must not send');};
- for(const model of ['gpt61','sol','codex'])await assert.rejects(async()=>{for await(const _ of provider(model,'gpt-6.1-sol','key','instructions',[],new AbortController().signal,mock)){};},/Codex subscription/);
+ for(const model of ['gpt61','sol','codex'])await assert.rejects(async()=>{for await(const _ of provider(model,'gpt-6.1-sol','key','instructions',[],new AbortController().signal,mock)){};},/configured API provider/);
  assert.equal(called,false);
 });
-test('Anthropic adapter handles cumulative usage and provider errors',async()=>{
- const mock:any=async()=>response([{type:'message_start',message:{usage:{input_tokens:10}}},{type:'content_block_delta',delta:{type:'text_delta',text:'Answer'}},{type:'message_delta',usage:{output_tokens:3}},{type:'message_stop'}]);
- const parts=[];for await(const p of provider('claude','model','key','system',[],new AbortController().signal,mock))parts.push(p);assert.equal(parts[1].delta,'Answer');assert.equal(parts[2].tokens_out,3);
- const error:any=async()=>response([{type:'error'}]);await assert.rejects(async()=>{for await(const _ of provider('claude','model','key','system',[],new AbortController().signal,error)){};});
- const early:any=async()=>response([{type:'response.output_text.delta',delta:'Partial'}]);await assert.rejects(async()=>{for await(const _ of provider('sol','model','key','system',[],new AbortController().signal,early)){};});
+test('Anthropic research verifies Fable High and retains the terminal receipt',async()=>{
+ const receipts:any[]=[];let request:any;
+ const mock:any=async(url:string,init:any)=>{if(url.includes('/models/'))return Response.json({id:'claude-fable-5-1'});request=JSON.parse(init.body);return new Response('data: '+JSON.stringify({type:'message_start',message:{id:'msg_test',model:'claude-fable-5-1',content:[],usage:{input_tokens:10,output_tokens:0}}})+'\n\ndata: '+JSON.stringify({type:'content_block_delta',index:0,delta:{type:'text_delta',text:'Answer'}})+'\n\ndata: '+JSON.stringify({type:'message_delta',delta:{stop_reason:'end_turn'},usage:{output_tokens:3}})+'\n\ndata: '+JSON.stringify({type:'message_stop'})+'\n\n',{headers:{'content-type':'text/event-stream'}});};
+ const parts=[];for await(const part of provider('claude','claude-fable-5-1','key','system',[],new AbortController().signal,mock,async r=>{receipts.push(r);}))parts.push(part);
+ assert.equal(parts[0].delta,'Answer');assert.equal(parts[0].tokens_out,3);assert.equal(request.output_config.effort,'high');assert.equal(receipts.at(-1).messageId,'msg_test');assert.equal(receipts.at(-1).usage.output_tokens,3);
 });
 test('stream persists a sanitized completed answer and error state after partial output',async()=>{
  const frames:any[]=[],saved:any[]=[];
