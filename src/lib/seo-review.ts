@@ -2,7 +2,7 @@ import {timingSafeEqual} from 'node:crypto';
 import {parseScoreSnapshot,type ScoreSnapshot} from './seo-review-dashboard.ts';
 import {readClaudeMessage} from './claude-message-stream.ts';
 
-export const REVIEW_MODEL='claude-fable-5-1';
+export const REVIEW_MODEL='claude-fable-5-2';
 export const REVIEW_EFFORT='high';
 export const reviewsEnabled=(value:string|undefined)=>value==='true';
 export const REVIEW_INSTRUCTIONS_VERSION='2026-11-05.2';
@@ -73,10 +73,10 @@ export async function reviewWithClaude(key:string,system:string,evidence:unknown
  if(workspaceId)headers['anthropic-workspace-id']=workspaceId;
  const access=await send('https://api.anthropic.com/v1/models/'+REVIEW_MODEL,{headers,signal:AbortSignal.timeout(10000)});
  const accessData=await access.json().catch(()=>({}));
- if(!access.ok||accessData.id!==REVIEW_MODEL)throw new Error('Fable 5.1 access could not be verified (HTTP '+access.status+(typeof accessData.error?.type==='string'?' · '+accessData.error.type.replace(/[^a-zA-Z0-9_]/g,'').slice(0,80):'')+'). '+(typeof accessData.error?.message==='string'?accessData.error.message.replaceAll(key,'[redacted]').replace(/sk-[A-Za-z0-9_-]+/g,'[redacted]').slice(0,400):'Check the Claude key and model access.')+' No generation was requested.');
+ if(!access.ok||accessData.id!==REVIEW_MODEL)throw new Error('Fable 5.2 access could not be verified (HTTP '+access.status+(typeof accessData.error?.type==='string'?' · '+accessData.error.type.replace(/[^a-zA-Z0-9_]/g,'').slice(0,80):'')+'). '+(typeof accessData.error?.message==='string'?accessData.error.message.replaceAll(key,'[redacted]').replace(/sk-[A-Za-z0-9_-]+/g,'[redacted]').slice(0,400):'Check the Claude key and model access.')+' No generation was requested.');
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
- // Fable 5.1 counts adaptive thinking and report text against the same output allowance.
+ // Fable 5.2 counts adaptive thinking and report text against the same output allowance.
  const res=await send('https://api.anthropic.com/v1/messages',{method:'POST',headers,signal:AbortSignal.timeout(480000),body:JSON.stringify({model:REVIEW_MODEL,max_tokens:48000,stream:true,output_config:{effort:REVIEW_EFFORT},system,messages:[{role:'user',content:payload}]})});
  if(!res.ok)throw new Error('Claude could not complete the review (HTTP '+res.status+'). Check the connection or account limits.');
  const providerRequestId=res.headers.get('request-id')||undefined;
@@ -108,7 +108,7 @@ export function savedReview(value:unknown):SavedReview{
  if(v.scorecard!==undefined){const card=parseScoreSnapshot(v.scorecard);if(!card||v.scoringVersion!==card.scoringVersion||typeof v.measuredAt!=='string'||!Number.isFinite(Date.parse(v.measuredAt)))throw new Error('Invalid score measurement.');result.scorecard=card;result.scoringVersion=card.scoringVersion;result.measuredAt=v.measuredAt;}
  if(v.status==='complete'){
   if(v.source==='scan'){if(!result.completedAt||!result.evidence||!result.scorecard||v.model||v.report||v.usage||v.partialUsage)throw new Error('The site-check snapshot could not be verified.');return result;}
-  if(!result.completedAt||![REVIEW_MODEL,'claude-opus-5-5'].includes(String(v.model))||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
+  if(!result.completedAt||![REVIEW_MODEL,'claude-fable-5-1','claude-opus-5-5'].includes(String(v.model))||v.effort!==REVIEW_EFFORT||!Array.isArray(v.evidence)||v.evidence.length>1000)throw new Error('The saved execution could not be verified.');
   const evidence=result.evidence!;
   const paths=new Set(['/',...evidence.flatMap(e=>typeof e.path==='string'&&/^\/(?:[a-z0-9-]+\/)*$/.test(e.path)?[e.path]:[])]);
   result.evidence=evidence;result.report=validateReview(v.report,new Map(evidence.map(e=>[e.id,e])),paths);

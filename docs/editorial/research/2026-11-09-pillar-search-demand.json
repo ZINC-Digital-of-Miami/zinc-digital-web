@@ -1,0 +1,1048 @@
+{
+  "retrievedAt": "2026-11-09T20:12:15.636Z",
+  "request": {
+    "keywords": [
+      "shopify seo checklist",
+      "wordpress to astro",
+      "business app development",
+      "content cluster strategy",
+      "local seo checklist",
+      "ai search optimization",
+      "google ads keyword research",
+      "merchant center product data",
+      "meta ads creative testing",
+      "tiktok ads for small business",
+      "kpi dashboard",
+      "content brief template",
+      "how to measure content marketing"
+    ],
+    "location": "United States",
+    "language": "English",
+    "pageSize": 30
+  },
+  "priorResearch": "Checked retained November 3 AI-search-only research; it does not cover this cross-pillar query set.",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"columns\":[\"keyword\",\"spell\",\"location_code\",\"language_code\",\"search_partners\",\"competition\",\"competition_index\",\"search_volume\",\"low_top_of_page_bid\",\"high_top_of_page_bid\",\"cpc\",\"monthly_searches\",\"keyword_annotations\"],\"expiresAt\":\"2026-11-10T20:12:15.259Z\",\"page\":1,\"pageSize\":30,\"resultId\":\"36831559-d514-4c8b-abe3-f0f7707309f1\",\"rowCount\":13,\"rows\":[{\"keyword\":\"shopify seo checklist\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":8,\"search_volume\":110,\"low_top_of_page_bid\":3.75,\"high_top_of_page_bid\":10.56,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":110},{\"year\":2025,\"month\":11,\"search_volume\":90},{\"year\":2025,\"month\":12,\"search_volume\":50},{\"year\":2026,\"month\":1,\"search_volume\":90},{\"year\":2026,\"month\":2,\"search_volume\":90},{\"year\":2026,\"month\":3,\"search_volume\":260},{\"year\":2026,\"month\":4,\"search_volume\":140},{\"year\":2026,\"month\":5,\"search_volume\":170},{\"year\":2026,\"month\":6,\"search_volume\":90},{\"year\":2026,\"month\":7,\"search_volume\":90},{\"year\":2026,\"month\":8,\"search_volume\":140},{\"year\":2026,\"month\":9,\"search_volume\":90}],\"keyword_annotations\":null},{\"keyword\":\"business app development\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":17,\"search_volume\":210,\"low_top_of_page_bid\":12.52,\"high_top_of_page_bid\":58.54,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":260},{\"year\":2025,\"month\":11,\"search_volume\":210},{\"year\":2025,\"month\":12,\"search_volume\":110},{\"year\":2026,\"month\":1,\"search_volume\":110},{\"year\":2026,\"month\":2,\"search_volume\":90},{\"year\":2026,\"month\":3,\"search_volume\":320},{\"year\":2026,\"month\":4,\"search_volume\":260},{\"year\":2026,\"month\":5,\"search_volume\":590},{\"year\":2026,\"month\":6,\"search_volume\":170},{\"year\":2026,\"month\":7,\"search_volume\":140},{\"year\":2026,\"month\":8,\"search_volume\":30},{\"year\":2026,\"month\":9,\"search_volume\":50}],\"keyword_annotations\":null},{\"keyword\":\"content cluster strategy\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":0,\"search_volume\":30,\"low_top_of_page_bid\":null,\"high_top_of_page_bid\":null,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":10},{\"year\":2025,\"month\":11,\"search_volume\":10},{\"year\":2025,\"month\":12,\"search_volume\":10},{\"year\":2026,\"month\":1,\"search_volume\":10},{\"year\":2026,\"month\":2,\"search_volume\":70},{\"year\":2026,\"month\":3,\"search_volume\":70},{\"year\":2026,\"month\":4,\"search_volume\":20},{\"year\":2026,\"month\":5,\"search_volume\":20},{\"year\":2026,\"month\":6,\"search_volume\":10},{\"year\":2026,\"month\":7,\"search_volume\":50},{\"year\":2026,\"month\":8,\"search_volume\":10},{\"year\":2026,\"month\":9,\"search_volume\":40}],\"keyword_annotations\":null},{\"keyword\":\"local seo checklist\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":3,\"search_volume\":170,\"low_top_of_page_bid\":4.39,\"high_top_of_page_bid\":23.72,\"cpc\":35.67,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":140},{\"year\":2025,\"month\":11,\"search_volume\":70},{\"year\":2025,\"month\":12,\"search_volume\":90},{\"year\":2026,\"month\":1,\"search_volume\":210},{\"year\":2026,\"month\":2,\"search_volume\":110},{\"year\":2026,\"month\":3,\"search_volume\":320},{\"year\":2026,\"month\":4,\"search_volume\":260},{\"year\":2026,\"month\":5,\"search_volume\":320},{\"year\":2026,\"month\":6,\"search_volume\":140},{\"year\":2026,\"month\":7,\"search_volume\":260},{\"year\":2026,\"month\":8,\"search_volume\":140},{\"year\":2026,\"month\":9,\"search_volume\":140}],\"keyword_annotations\":null},{\"keyword\":\"ai search optimization\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"MEDIUM\",\"competition_index\":36,\"search_volume\":1300,\"low_top_of_page_bid\":15.32,\"high_top_of_page_bid\":46.01,\"cpc\":52.23,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":1000},{\"year\":2025,\"month\":11,\"search_volume\":880},{\"year\":2025,\"month\":12,\"search_volume\":720},{\"year\":2026,\"month\":1,\"search_volume\":1000},{\"year\":2026,\"month\":2,\"search_volume\":1000},{\"year\":2026,\"month\":3,\"search_volume\":1900},{\"year\":2026,\"month\":4,\"search_volume\":1600},{\"year\":2026,\"month\":5,\"search_volume\":1300},{\"year\":2026,\"month\":6,\"search_volume\":1600},{\"year\":2026,\"month\":7,\"search_volume\":1600},{\"year\":2026,\"month\":8,\"search_volume\":1600},{\"year\":2026,\"month\":9,\"search_volume\":1600}],\"keyword_annotations\":null},{\"keyword\":\"google ads keyword research\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":24,\"search_volume\":140,\"low_top_of_page_bid\":9.46,\"high_top_of_page_bid\":46.19,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":140},{\"year\":2025,\"month\":11,\"search_volume\":70},{\"year\":2025,\"month\":12,\"search_volume\":70},{\"year\":2026,\"month\":1,\"search_volume\":90},{\"year\":2026,\"month\":2,\"search_volume\":90},{\"year\":2026,\"month\":3,\"search_volume\":110},{\"year\":2026,\"month\":4,\"search_volume\":90},{\"year\":2026,\"month\":5,\"search_volume\":110},{\"year\":2026,\"month\":6,\"search_volume\":590},{\"year\":2026,\"month\":7,\"search_volume\":210},{\"year\":2026,\"month\":8,\"search_volume\":50},{\"year\":2026,\"month\":9,\"search_volume\":30}],\"keyword_annotations\":null},{\"keyword\":\"merchant center product data\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":null,\"competition_index\":null,\"search_volume\":10,\"low_top_of_page_bid\":null,\"high_top_of_page_bid\":null,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":10},{\"year\":2025,\"month\":11,\"search_volume\":0},{\"year\":2025,\"month\":12,\"search_volume\":10},{\"year\":2026,\"month\":1,\"search_volume\":10},{\"year\":2026,\"month\":2,\"search_volume\":0},{\"year\":2026,\"month\":3,\"search_volume\":0},{\"year\":2026,\"month\":4,\"search_volume\":0},{\"year\":2026,\"month\":5,\"search_volume\":10},{\"year\":2026,\"month\":6,\"search_volume\":0},{\"year\":2026,\"month\":7,\"search_volume\":0},{\"year\":2026,\"month\":8,\"search_volume\":0},{\"year\":2026,\"month\":9,\"search_volume\":0}],\"keyword_annotations\":null},{\"keyword\":\"tiktok ads for small business\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":7,\"search_volume\":90,\"low_top_of_page_bid\":null,\"high_top_of_page_bid\":null,\"cpc\":3.67,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":110},{\"year\":2025,\"month\":11,\"search_volume\":110},{\"year\":2025,\"month\":12,\"search_volume\":110},{\"year\":2026,\"month\":1,\"search_volume\":110},{\"year\":2026,\"month\":2,\"search_volume\":110},{\"year\":2026,\"month\":3,\"search_volume\":70},{\"year\":2026,\"month\":4,\"search_volume\":90},{\"year\":2026,\"month\":5,\"search_volume\":90},{\"year\":2026,\"month\":6,\"search_volume\":70},{\"year\":2026,\"month\":7,\"search_volume\":50},{\"year\":2026,\"month\":8,\"search_volume\":30},{\"year\":2026,\"month\":9,\"search_volume\":10}],\"keyword_annotations\":null},{\"keyword\":\"kpi dashboard\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"MEDIUM\",\"competition_index\":37,\"search_volume\":5400,\"low_top_of_page_bid\":5.84,\"high_top_of_page_bid\":20.83,\"cpc\":25.05,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":3600},{\"year\":2025,\"month\":11,\"search_volume\":3600},{\"year\":2025,\"month\":12,\"search_volume\":2900},{\"year\":2026,\"month\":1,\"search_volume\":2900},{\"year\":2026,\"month\":2,\"search_volume\":3600},{\"year\":2026,\"month\":3,\"search_volume\":4400},{\"year\":2026,\"month\":4,\"search_volume\":3600},{\"year\":2026,\"month\":5,\"search_volume\":2900},{\"year\":2026,\"month\":6,\"search_volume\":2900},{\"year\":2026,\"month\":7,\"search_volume\":22200},{\"year\":2026,\"month\":8,\"search_volume\":3600},{\"year\":2026,\"month\":9,\"search_volume\":2900}],\"keyword_annotations\":null},{\"keyword\":\"content brief template\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":12,\"search_volume\":210,\"low_top_of_page_bid\":1.72,\"high_top_of_page_bid\":12.37,\"cpc\":4.23,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":320},{\"year\":2025,\"month\":11,\"search_volume\":260},{\"year\":2025,\"month\":12,\"search_volume\":110},{\"year\":2026,\"month\":1,\"search_volume\":110},{\"year\":2026,\"month\":2,\"search_volume\":210},{\"year\":2026,\"month\":3,\"search_volume\":260},{\"year\":2026,\"month\":4,\"search_volume\":170},{\"year\":2026,\"month\":5,\"search_volume\":110},{\"year\":2026,\"month\":6,\"search_volume\":140},{\"year\":2026,\"month\":7,\"search_volume\":70},{\"year\":2026,\"month\":8,\"search_volume\":480},{\"year\":2026,\"month\":9,\"search_volume\":140}],\"keyword_annotations\":null},{\"keyword\":\"how to measure content marketing\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":0,\"search_volume\":10,\"low_top_of_page_bid\":null,\"high_top_of_page_bid\":null,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":10},{\"year\":2025,\"month\":11,\"search_volume\":10},{\"year\":2025,\"month\":12,\"search_volume\":10},{\"year\":2026,\"month\":1,\"search_volume\":10},{\"year\":2026,\"month\":2,\"search_volume\":30},{\"year\":2026,\"month\":3,\"search_volume\":40},{\"year\":2026,\"month\":4,\"search_volume\":20},{\"year\":2026,\"month\":5,\"search_volume\":20},{\"year\":2026,\"month\":6,\"search_volume\":20},{\"year\":2026,\"month\":7,\"search_volume\":30},{\"year\":2026,\"month\":8,\"search_volume\":10},{\"year\":2026,\"month\":9,\"search_volume\":10}],\"keyword_annotations\":null},{\"keyword\":\"wordpress to astro\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":13,\"search_volume\":20,\"low_top_of_page_bid\":null,\"high_top_of_page_bid\":null,\"cpc\":null,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":10},{\"year\":2025,\"month\":11,\"search_volume\":10},{\"year\":2025,\"month\":12,\"search_volume\":10},{\"year\":2026,\"month\":1,\"search_volume\":20},{\"year\":2026,\"month\":2,\"search_volume\":10},{\"year\":2026,\"month\":3,\"search_volume\":20},{\"year\":2026,\"month\":4,\"search_volume\":20},{\"year\":2026,\"month\":5,\"search_volume\":20},{\"year\":2026,\"month\":6,\"search_volume\":10},{\"year\":2026,\"month\":7,\"search_volume\":20},{\"year\":2026,\"month\":8,\"search_volume\":20},{\"year\":2026,\"month\":9,\"search_volume\":20}],\"keyword_annotations\":null},{\"keyword\":\"meta ads creative testing\",\"spell\":null,\"location_code\":2840,\"language_code\":\"1000\",\"search_partners\":false,\"competition\":\"LOW\",\"competition_index\":29,\"search_volume\":20,\"low_top_of_page_bid\":6.74,\"high_top_of_page_bid\":34.69,\"cpc\":197.89,\"monthly_searches\":[{\"year\":2025,\"month\":10,\"search_volume\":10},{\"year\":2025,\"month\":11,\"search_volume\":10},{\"year\":2025,\"month\":12,\"search_volume\":10},{\"year\":2026,\"month\":1,\"search_volume\":10},{\"year\":2026,\"month\":2,\"search_volume\":10},{\"year\":2026,\"month\":3,\"search_volume\":20},{\"year\":2026,\"month\":4,\"search_volume\":20},{\"year\":2026,\"month\":5,\"search_volume\":20},{\"year\":2026,\"month\":6,\"search_volume\":20},{\"year\":2026,\"month\":7,\"search_volume\":20},{\"year\":2026,\"month\":8,\"search_volume\":10},{\"year\":2026,\"month\":9,\"search_volume\":20}],\"keyword_annotations\":null}],\"totalPages\":1}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "columns": [
+          "keyword",
+          "spell",
+          "location_code",
+          "language_code",
+          "search_partners",
+          "competition",
+          "competition_index",
+          "search_volume",
+          "low_top_of_page_bid",
+          "high_top_of_page_bid",
+          "cpc",
+          "monthly_searches",
+          "keyword_annotations"
+        ],
+        "expiresAt": "2026-11-10T20:12:15.259Z",
+        "page": 1,
+        "pageSize": 30,
+        "resultId": "36831559-d514-4c8b-abe3-f0f7707309f1",
+        "rowCount": 13,
+        "rows": [
+          {
+            "keyword": "shopify seo checklist",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 8,
+            "search_volume": 110,
+            "low_top_of_page_bid": 3.75,
+            "high_top_of_page_bid": 10.56,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 110
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 90
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 50
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 260
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 170
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 90
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "business app development",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 17,
+            "search_volume": 210,
+            "low_top_of_page_bid": 12.52,
+            "high_top_of_page_bid": 58.54,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 260
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 210
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 320
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 260
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 590
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 170
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 30
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 50
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "content cluster strategy",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 0,
+            "search_volume": 30,
+            "low_top_of_page_bid": null,
+            "high_top_of_page_bid": null,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 50
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 40
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "local seo checklist",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 3,
+            "search_volume": 170,
+            "low_top_of_page_bid": 4.39,
+            "high_top_of_page_bid": 23.72,
+            "cpc": 35.67,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 140
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 70
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 210
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 320
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 260
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 320
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 260
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 140
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "ai search optimization",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "MEDIUM",
+            "competition_index": 36,
+            "search_volume": 1300,
+            "low_top_of_page_bid": 15.32,
+            "high_top_of_page_bid": 46.01,
+            "cpc": 52.23,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 1000
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 880
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 720
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 1000
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 1000
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 1900
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 1600
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 1300
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 1600
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 1600
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 1600
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 1600
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "google ads keyword research",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 24,
+            "search_volume": 140,
+            "low_top_of_page_bid": 9.46,
+            "high_top_of_page_bid": 46.19,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 140
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 70
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 590
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 210
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 50
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 30
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "merchant center product data",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": null,
+            "competition_index": null,
+            "search_volume": 10,
+            "low_top_of_page_bid": null,
+            "high_top_of_page_bid": null,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 0
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 0
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 0
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "tiktok ads for small business",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 7,
+            "search_volume": 90,
+            "low_top_of_page_bid": null,
+            "high_top_of_page_bid": null,
+            "cpc": 3.67,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 110
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 110
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 90
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 50
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 30
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 10
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "kpi dashboard",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "MEDIUM",
+            "competition_index": 37,
+            "search_volume": 5400,
+            "low_top_of_page_bid": 5.84,
+            "high_top_of_page_bid": 20.83,
+            "cpc": 25.05,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 3600
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 3600
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 2900
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 2900
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 3600
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 4400
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 3600
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 2900
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 2900
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 22200
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 3600
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 2900
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "content brief template",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 12,
+            "search_volume": 210,
+            "low_top_of_page_bid": 1.72,
+            "high_top_of_page_bid": 12.37,
+            "cpc": 4.23,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 320
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 260
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 210
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 260
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 170
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 110
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 140
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 70
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 480
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 140
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "how to measure content marketing",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 0,
+            "search_volume": 10,
+            "low_top_of_page_bid": null,
+            "high_top_of_page_bid": null,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 30
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 40
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 30
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 10
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "wordpress to astro",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 13,
+            "search_volume": 20,
+            "low_top_of_page_bid": null,
+            "high_top_of_page_bid": null,
+            "cpc": null,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 20
+              }
+            ],
+            "keyword_annotations": null
+          },
+          {
+            "keyword": "meta ads creative testing",
+            "spell": null,
+            "location_code": 2840,
+            "language_code": "1000",
+            "search_partners": false,
+            "competition": "LOW",
+            "competition_index": 29,
+            "search_volume": 20,
+            "low_top_of_page_bid": 6.74,
+            "high_top_of_page_bid": 34.69,
+            "cpc": 197.89,
+            "monthly_searches": [
+              {
+                "year": 2025,
+                "month": 10,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 11,
+                "search_volume": 10
+              },
+              {
+                "year": 2025,
+                "month": 12,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 1,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 2,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 3,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 4,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 5,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 6,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 7,
+                "search_volume": 20
+              },
+              {
+                "year": 2026,
+                "month": 8,
+                "search_volume": 10
+              },
+              {
+                "year": 2026,
+                "month": 9,
+                "search_volume": 20
+              }
+            ],
+            "keyword_annotations": null
+          }
+        ],
+        "totalPages": 1
+      }
+    }
+  },
+  "cost": "Included-window research authorized. Exact charge is only established if returned in the receipt; otherwise unknown."
+}

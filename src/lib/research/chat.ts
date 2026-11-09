@@ -19,7 +19,7 @@ export function citations(text:string,sources:Source[]){
 export async function* provider(model:string,id:string,key:string,system:string,messages:Message[],signal:AbortSignal,send:typeof fetch=fetch,onReceipt:(receipt:Record<string,unknown>)=>Promise<void>=async()=>{}):AsyncGenerator<Part>{
  if(model==='gpt'){const result=await writeWithOpenAI(key,id,system,JSON.stringify(messages),send,onReceipt,'high',false,signal);yield {delta:result.text,tokens_in:result.usage.input_tokens,tokens_out:result.usage.output_tokens};return;}
  if(model!=='claude')throw new Error('Select a configured API provider.');
- if(id!=='claude-fable-5-1')throw new Error('Research requires Fable 5.1 High.');
+ if(id!=='claude-fable-5-2')throw new Error('Research requires Fable 5.2 High.');
  const result=await reviewWithClaude(key,system,messages,(url,init)=>send(url,{...init,signal:AbortSignal.any([signal,...(init?.signal?[init.signal]:[])])}),onReceipt);
  yield {delta:result.text,tokens_in:result.usage.input_tokens,tokens_out:result.usage.output_tokens};
 }
