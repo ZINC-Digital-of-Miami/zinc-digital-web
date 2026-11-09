@@ -1,6 +1,6 @@
 # Content Studio implementation
 
-Owner approved 9 November 2026. Existing admin, three voices, topic research, native article/pillar/query metrics, instructional resources and evidence-based editorial review. Wendy's article-cluster rewrite remains held for separate owner approval. No Docker. No changes to public articles or automatic publishing.
+Owner approved 9 November 2026. Existing admin, three voices, topic research, native article/pillar/query metrics, instructional resources and evidence-based editorial review. Wendy's November 9 private rewrite was rejected by the owner (see the correction at the end of this file); her replacement topic is not yet set. No Docker. No changes to public articles or automatic publishing.
 
 Architecture: add /admin/content-studio/ within AdminLayout and link Posts. Reuse native Google and existing SEO evidence. Store private versioned working documents in existing staff-only admin_cache, never public posts/live snapshots. GPT writes; Claude interprets evidence and reviews. Arithmetic remains deterministic. Use existing authenticated server transports; no credentials in browser.
 
@@ -94,13 +94,13 @@ Wendy's rewrite is private Studio version9, slug turn-subject-expertise-into-an-
 
 Additional Fable editorial review403093cd-5ab5-42e4-8cf6-d05346a6ae05 returned POST503 and receipt lookups404; exact cause and provider outcome unconfirmed. No duplicate request launched or pass claimed. Existing research/model success is not proof this later review succeeded. Preserve this request identity for investigation. A nearby runtime log reported published-content snapshot read failure, but causation for this request is not established.
 
-The proposed November30 expert-interview topic may overlap this held rewrite; inspect the queue before commissioning it, without changing its date or author now. No Docker, public manuscript change or task-owned background service. This is internal agency work; no client Work add.
+The proposed November30 expert-interview topic may overlap this rewrite (since rejected, see below); inspect the queue before commissioning it, without changing its date or author now. No Docker, public manuscript change or task-owned background service. This is internal agency work; no client Work add.
 
 ## Owner correction: internal workflow is not an article topic — 9 November 2026 CT
 
 The owner rejected the version9 rewrite described above. His instructions about researching topics, interviewing experts, using client experience, choosing article formats, developing resources, checking quality and coordinating models describe how the agency operates Content Studio. They were never a subject for a public article. He ordered a full stop and turnover.
 
-- Version9 remains a saved private draft with rejected status. Do not resume, polish, publish or reuse it, and do not treat its topic as approved.
+- Version9 remains saved in Studio as a private draft, but the owner rejected it. Do not resume, polish, publish or reuse it, and do not treat its topic as approved.
 - Do not invent a replacement topic. Wendy's customer-facing topic must come from the owner before anything is written.
 - The applicable process lessons live in workflow.md as internal guidance only.
 - docs/editorial/resources/expert-interview-article-planner.csv is a private file tied to the rejected draft. It has no public route and is not approved for one.
