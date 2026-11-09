@@ -7,9 +7,9 @@ import {parseScoreSnapshot,type ScoreHistory} from '../../lib/seo-review-dashboa
 import SeoAnalysisDashboard from './SeoAnalysisDashboard.astro';
 import {seoResearch} from '../../data/seo-review-research';
 const staff=requireStaff(Astro);if(staff instanceof Response)return staff;
-const configured=!!import.meta.env.ANTHROPIC_API_KEY,approved=import.meta.env.SEO_REVIEW_ENABLED==='true',scheduled=configured&&approved&&!!import.meta.env.CRON_SECRET;
+const configured=!!import.meta.env.ZINC_ANTHROPIC_API_KEY,approved=import.meta.env.SEO_REVIEW_ENABLED==='true',scheduled=configured&&approved&&!!import.meta.env.CRON_SECRET;
 const sb=createServerClient(Astro);
-const history=await sb.from('admin_cache').select('key,fetched_at,scorecard:value->scorecard,scoringVersion:value->>scoringVersion,measuredAt:value->>measuredAt,status:value->>status,source:value->>source').like('key','seo\\_review:%').order('fetched_at',{ascending:false}).limit(24).abortSignal(AbortSignal.timeout(10000));
+const history=await sb.from('admin_cache').select('key,fetched_at,scorecard:value->scorecard,scoringVersion:value->>scoringVersion,measuredAt:value->>measuredAt,status:value->>status,source:value->>source').like('key','seo\\_review:%').not('key','like','seo\\_review:studio:%').not('key','like','seo\\_review:deferred:studio:%').order('fetched_at',{ascending:false}).limit(24).abortSignal(AbortSignal.timeout(10000));
 const rows=(history.data||[]) as unknown as {key:string;fetched_at:string;scorecard?:unknown;scoringVersion?:string;measuredAt?:string;status?:string;source?:string}[];
 const requested=Astro.url.searchParams.get('review');
 const key=requested&&/^seo_review:(?:deferred:)?(weekly:\d{4}-\d{2}-\d{2}|(?:manual|scan):[0-9a-f-]{36})$/.test(requested)?requested:rows[0]?.key;

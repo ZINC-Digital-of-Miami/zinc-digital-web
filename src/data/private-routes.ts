@@ -12,6 +12,13 @@ export const PUBLIC_ADMIN_PATHS = ['/admin/login/', '/admin/auth/confirm/', '/ap
 export const PRIVATE_PREFIXES = ['/admin/', '/api/admin/'];
 
 export const PRIVATE_ROUTES: PrivateRoute[] = [
+  {path:'/api/admin/content-studio/connection/',kind:'api',role:'owner',file:'src/pages/api/admin/content-studio/connection.ts'},
+  {path:'/api/admin/content-studio/review/',kind:'api',role:'editor',file:'src/pages/api/admin/content-studio/review.ts'},
+  {path:'/api/admin/content-studio/checks/',kind:'api',role:'editor',file:'src/pages/api/admin/content-studio/checks.ts'},
+  {path:'/admin/content-studio/',kind:'page',role:'editor',file:'src/pages/admin/content-studio.astro'},
+  {path:'/api/admin/content-studio/draft/',kind:'api',role:'editor',file:'src/pages/api/admin/content-studio/draft.ts'},
+  {path:'/api/admin/content-studio/metrics/',kind:'api',role:'editor',file:'src/pages/api/admin/content-studio/metrics.ts'},
+  {path:'/api/admin/content-studio/assist/',kind:'api',role:'editor',file:'src/pages/api/admin/content-studio/assist.ts'},
   {path:'/api/admin/quotes/',kind:'api',role:'editor',file:'src/pages/api/admin/quotes.ts'},
   {path:'/api/admin/square/',kind:'api',role:'owner',file:'src/pages/api/admin/square.ts'},
   {path:'/admin/analysis/',kind:'page',role:'editor',file:'src/pages/admin/analysis.astro'},

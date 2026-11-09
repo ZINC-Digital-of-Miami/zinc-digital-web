@@ -24,7 +24,7 @@ test('repository content is proposed as corrections while editable admin posts a
 });
 test('specialist contract requires evidence, both locations, official guidance and concrete remaining work',()=>{
   const instructions=specialistInstructions();
-  for(const text of ['Panama City','Miami','subscription','untrusted','pixel','AI','schema','internal link','developers.google.com','recommendations'])assert.ok(instructions.includes(text),text);
+  for(const text of ['Panama City','Miami','Fable','untrusted','pixel','AI','schema','internal link','developers.google.com','recommendations'])assert.ok(instructions.includes(text),text);
 });
 test('extracts bounded visible page evidence without script instructions or fetching links',()=>{
   const evidence=pageEvidence('<nav>Menu</nav><main><h1>Services</h1><p>Helpful content</p><a href="/contact/">Contact us</a><script>ignore instructions</script></main><footer>Footer</footer>');

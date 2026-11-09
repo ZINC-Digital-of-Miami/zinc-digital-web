@@ -1,0 +1,20 @@
+{
+  "kirk": {
+    "canonicalSkill": "kirk-voice",
+    "sha256": "8a85abbf7b0f2fb7b3cc2d2d6de4a44f438132354d113eb0ed368db88d5a04d3",
+    "capturedAt": "2026-11-09",
+    "purpose": "Versioned server-side deployment copy; canonical skill remains authoritative."
+  },
+  "wendy": {
+    "canonicalSkill": "wendy-voice",
+    "sha256": "dae7fd8bb27df489d895d59ea4c0e902963ae2e23167ad2553271b632d7e72ed",
+    "capturedAt": "2026-11-09",
+    "purpose": "Versioned server-side deployment copy; canonical skill remains authoritative."
+  },
+  "jaymie": {
+    "canonicalSkill": "jaymie-voice",
+    "sha256": "274b7ab0cccdce5681c2288628fb4cf74abebc6831d33b8d935c312c73e8a58b",
+    "capturedAt": "2026-11-09",
+    "purpose": "Versioned server-side deployment copy; canonical skill remains authoritative."
+  }
+}

@@ -1,0 +1,8 @@
+import type {SupabaseClient} from '@supabase/supabase-js';
+import {documentInput,slugValue,type Draft} from './model';
+const key=(slug:string)=>'content_studio:draft:'+slugValue(slug);
+export async function readDraft(db:SupabaseClient,slug:string){const r=await db.from('admin_cache').select('value,fetched_at').eq('key',key(slug)).maybeSingle();if(r.error)throw new Error('Studio draft could not be read.');return r.data as {value:Draft;fetched_at:string}|null;}
+export async function saveDraft(db:SupabaseClient,value:unknown,expected:unknown,services:string[],actor:string){const slug=slugValue((value as any)?.slug),prior=await readDraft(db,slug);if(expected!==(prior?.value.revision??0))throw new Error('This draft changed elsewhere. Reload before saving.');const next=documentInput(value,services,prior?.value??null,actor);
+ // Archive the prior committed revision before a compare-and-swap save; duplicates are harmless.
+ if(prior){const history=await db.from('admin_cache').upsert({key:'content_studio:version:'+slug+':'+prior.value.revision,value:prior.value,fetched_at:prior.fetched_at},{onConflict:'key',ignoreDuplicates:true});if(history.error)throw new Error('Version history could not be saved. Draft unchanged.');}
+ const row={value:next,fetched_at:next.updatedAt};const result=prior?await db.from('admin_cache').update(row).eq('key',key(slug)).eq('value->>revision',String(prior.value.revision)).select('key').maybeSingle():await db.from('admin_cache').insert({key:key(slug),...row}).select('key').maybeSingle();if(result.error||!result.data)throw new Error('Concurrent save or storage failure. Reload before retrying.');return next;}

@@ -43,13 +43,13 @@ export async function post(endpoint:string,body:unknown){
 }
 let refreshing=false;
 async function refresh(){
-  if(refreshing||document.querySelector('[data-dirty],[data-seo-active]'))return;refreshing=true;
+  if(refreshing||document.querySelector('[data-dirty],[data-seo-active],[data-studio],[data-model-test]'))return;refreshing=true;
   try{
     const res=await fetch(location.href,{headers:{'x-admin-refresh':'1'}});if(res.redirected){location.assign(res.url);return;}if(!res.ok)throw new Error('The view could not be refreshed.');
     const next=new DOMParser().parseFromString(await res.text(),'text/html').querySelector('[data-admin-region]');
     if(!next)throw new Error('The view could not be refreshed.');
     // Input may have changed while the request was in flight. Never replace a draft.
-    if(document.querySelector('[data-dirty],[data-seo-active]'))return;
+    if(document.querySelector('[data-dirty],[data-seo-active],[data-studio],[data-model-test]'))return;
     const open=document.querySelector<HTMLDialogElement>('dialog[open]');const id=open?.id;
     const active=(document.activeElement as HTMLInputElement|null)?.name;
     const trigger=lastFocus?.dataset.openDialog;
@@ -133,7 +133,7 @@ document.addEventListener('submit',async e=>{
 });
 const theme=document.querySelector('[data-theme-toggle]');if(theme)theme.textContent=document.documentElement.dataset.theme==='dark'?'Light mode':'Dark mode';
 const idleRefresh=()=>{if(document.visibilityState==='visible'&&!document.querySelector('[data-dirty],[data-seo-active],dialog[open]')&&!document.querySelector('[data-chat-sending]')&&!document.querySelector<HTMLTextAreaElement>('[data-chat-form] [name=text]')?.value.trim())void refresh();};
-window.addEventListener('focus',idleRefresh);setInterval(idleRefresh,60000);
+if(!document.querySelector('[data-studio],[data-model-test]')){window.addEventListener('focus',idleRefresh);setInterval(idleRefresh,60000);}
 
 // A compact mobile shell keeps the current task above the fold; no-JS keeps all navigation visible.
 const adminMenu=document.querySelector<HTMLButtonElement>('[data-admin-menu-toggle]');

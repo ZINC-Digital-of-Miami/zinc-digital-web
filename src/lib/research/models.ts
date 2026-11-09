@@ -1,5 +1,5 @@
-import {CODEX_MODEL} from '../codex-state.ts';
-export function models(subscriptionReady=false){const e=import.meta.env;return[
- {value:'codex' as const,label:'GPT-6.1 Sol · Medium · Codex subscription',id:CODEX_MODEL,available:subscriptionReady,reason:'Connect Codex in Backend'},
- ...(e.ANTHROPIC_API_KEY?[{value:'claude' as const,label:'Claude',id:e.ANTHROPIC_MODEL||'claude-opus-5-5',available:true,reason:''}]:[]),
+import {openAiApiKey} from '../provider-keys';
+export function models(){const e=import.meta.env;return[
+ {value:'claude' as const,label:'Fable 5.1 · High · Research',id:'claude-fable-5-1',available:!!e.ZINC_ANTHROPIC_API_KEY,reason:'Configure the Claude API in Backend'},
+ {value:'gpt' as const,label:'Terra 6.1 · High · Writing and chat',id:'gpt-6.1-terra',available:!!openAiApiKey(),reason:'Configure the OpenAI API in Backend'},
 ];}

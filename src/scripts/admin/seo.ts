@@ -122,22 +122,27 @@ async function fixEditor(report:HTMLElement){
   const before=values(form),submitted=fingerprint(form),wasDirty=!!form.dataset.dirty;
   const state=fixes.get(report)||{};fixes.set(report,state);
   fixPending.add(report);buttons.forEach(button=>button.disabled=true);error.hidden=true;form.dataset.dirty='true';form.dataset.seoActive='true';report.setAttribute('aria-busy','true');
-  status.textContent='Reading the page and Search Console evidence, then requesting your Codex specialist…';
+  status.textContent='Reading the page and Search Console evidence, then requesting Fable High…';
   try{
     const currentMeasurements=renderPixels(report);
-    const requested=await post('/api/admin/seo-fix/',{...identity(form),...before,instructions:report.querySelector<HTMLTextAreaElement>('[data-seo-instructions]')!.value,pixelFeedback:state.pixelFeedback||JSON.stringify(currentMeasurements)});
+    const recoveryKey='zinc:seo-request:'+JSON.stringify(identity(form));
+    const retained=JSON.parse(sessionStorage.getItem(recoveryKey)||'null');
+    if(retained&&retained.submitted!==submitted)throw new Error('An earlier SEO request has an unknown outcome. Restore the submitted draft or inspect its saved request before starting another.');
+    const requestId=retained?.id||crypto.randomUUID();sessionStorage.setItem(recoveryKey,JSON.stringify({id:requestId,submitted}));
+    const requested=await post('/api/admin/seo-fix/',{...identity(form),...before,requestId,instructions:report.querySelector<HTMLTextAreaElement>('[data-seo-instructions]')!.value,pixelFeedback:state.pixelFeedback||JSON.stringify(currentMeasurements)});
     let result:any;
-    // Bounded polling; credentials remain on the Mac and every read checks staff ownership.
+    // Read the server-side receipt; every read checks staff ownership.
     for(let attempt=0;attempt<240;attempt++){
       if(!report.isConnected)return;
       result=await readFix(requested.id);
       if(result.status==='completed')break;
-      if(result.status==='failed')throw new Error(result.error||'The subscription request failed. Check Codex in Backend and retry.');
-      status.textContent=result.status==='running'?'The SEO specialist is working. You can keep editing; changed drafts will be preserved.':'Waiting for the Codex runner on your Mac. Keep the Mac awake and connected.';
+      if(result.status==='failed')throw new Error(result.error||'The Fable request failed. Check its receipt in Backend before retrying.');
+      status.textContent=result.status==='running'?'The SEO specialist is working. You can keep editing; changed drafts will be preserved.':'The Fable request is reserved.';
       await new Promise(resolve=>setTimeout(resolve,2500));
     }
-    if(result?.status!=='completed')throw new Error('The request is taking longer than expected. Your draft is unchanged. Check the runner in Backend before regenerating.');
+    if(result?.status!=='completed')throw new Error('The request is taking longer than expected. Your draft is unchanged. Check the provider receipt before regenerating.');
     if(!report.isConnected)return;
+    sessionStorage.removeItem(recoveryKey);
     const proposal=result.proposal as SeoProposal;showProposal(report,proposal,before);
     const measurements=renderPixels(report,proposal.patch.meta_title,proposal.patch.meta_description);
     if(measurements.some(result=>result.titleOverflow||result.descriptionOverflow)){
@@ -147,7 +152,7 @@ async function fixEditor(report:HTMLElement){
     await savePatch(form,{...before,...proposal.patch},result.expected_updated_at,submitted);
     state.previous=Object.fromEntries(Object.keys(proposal.patch).map(key=>[key,before[key]??'']));state.savedFingerprint=fingerprint(form);state.pixelFeedback=undefined;
     report.querySelector<HTMLButtonElement>('[data-restore-seo]')!.hidden=false;
-    status.textContent='Saved an editable draft with GPT-6.1 Sol · Medium. Review the changes and remaining corrections. Publish when ready.';
+    status.textContent='Saved an editable draft with Fable 5.1 · High. Review the changes and remaining corrections. Publish when ready.';
     updatePreview(form);void analyzeEditor(report);
   }catch(cause){
     if(!report.isConnected)return;

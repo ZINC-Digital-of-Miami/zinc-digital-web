@@ -26,7 +26,7 @@ test('paid reviews require explicit activation; a deterministic scan is stored w
  assert.equal(reviewsEnabled('true'),true);
  const measured={source:'scan',status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),measuredAt:new Date().toISOString(),scoringVersion:SCORING_VERSION,scorecard:scoreSnapshot([]),evidence:[]};
  assert.equal(savedReview(measured).source,'scan');assert.equal(savedReview(measured).model,undefined);
- assert.throws(()=>savedReview({...measured,model:'claude-opus-5-5'}),/snapshot/);
+ assert.throws(()=>savedReview({...measured,model:'claude-fable-5-1'}),/snapshot/);
  assert.throws(()=>savedReview({...measured,partialUsage:{input_tokens:10,output_tokens:1}}),/snapshot/);
 });
 test('public signals preserve deployed canonical/social settings and exclude executable scripts',()=>{
@@ -43,7 +43,7 @@ test('model output must cover every review area and cite only supplied evidence 
  assert.throws(()=>validateReview(falsePass,new Map([['settings',{}],['performance',{available:false}]]),new Set(['/'])),/Performance/);
  const falseTraffic=valid();falseTraffic.checks.find(c=>c.area==='traffic behavior')!.status='checked';
  assert.throws(()=>validateReview(falseTraffic,new Map([['settings',{}],['ga4',{available:false}],['gsc',{available:false}]]),new Set(['/'])),/Google/);
- const stored={status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),model:'claude-opus-5-5',effort:'high',report:valid(),evidence:[{id:'settings'}]};
+ const stored={status:'complete',startedAt:new Date().toISOString(),completedAt:new Date().toISOString(),model:'claude-fable-5-1',effort:'high',report:valid(),evidence:[{id:'settings'}]};
  assert.equal(savedReview(stored).status,'complete');
  assert.throws(()=>savedReview({...stored,report:{}}),/review/);
  assert.throws(()=>savedReview({...stored,completedAt:'invalid'}),/completion time/);
@@ -53,37 +53,37 @@ test('Claude verifies exact model access, sets High effort, records usage and ne
  const calls:{url:string;body?:Record<string,unknown>}[]=[];
  const send:typeof fetch=async (url,init)=>{
   calls.push({url:String(url),body:init?.body?JSON.parse(String(init.body)):undefined});
-  return calls.length===1?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_test',model:'claude-opus-5-5',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[{type:'text',text:JSON.stringify(valid())}]});
+  return calls.length===1?Response.json({id:'claude-fable-5-1'}):streamed({id:'msg_test',model:'claude-fable-5-1',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[{type:'text',text:JSON.stringify(valid())}]});
  };
  const result=await reviewWithClaude('test-key','trusted instructions',{id:'settings'},send);
- assert.equal(calls[0].url,'https://api.anthropic.com/v1/models/claude-opus-5-5');
+ assert.equal(calls[0].url,'https://api.anthropic.com/v1/models/claude-fable-5-1');
  assert.deepEqual(calls[1].body?.output_config,{effort:'high'});
- assert.equal(calls[1].body?.model,'claude-opus-5-5');
+ assert.equal(calls[1].body?.model,'claude-fable-5-1');
  assert.equal(calls[1].body?.max_tokens,48000);
  assert.equal(calls[1].body?.stream,true);
  assert.deepEqual(result.usage,{input_tokens:10,output_tokens:20});
  assert.equal(result.providerRequestId,'req_test');
  await assert.rejects(()=>reviewWithClaude('','','',send),/key/);
  await assert.rejects(()=>reviewWithClaude('test','',{},async()=>new Response('',{status:403})),/access/);
- await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_other',model:'other',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[]})),/model/);
+ await assert.rejects(()=>reviewWithClaude('test','',{},async(url)=>String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):streamed({id:'msg_other',model:'other',stop_reason:'end_turn',usage:{input_tokens:10,output_tokens:20},content:[]})),/model/);
 });
 test('incomplete Claude responses retain the provider receipt and precise stop reason',async()=>{
  let receipt:Record<string,unknown>|undefined;
- const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):streamed({id:'msg_budget',model:'claude-opus-5-5',stop_reason:'max_tokens',usage:{input_tokens:250000,output_tokens:16000},content:[{type:'text',text:'{"summary":"unfinished'}]});
+ const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):streamed({id:'msg_budget',model:'claude-fable-5-1',stop_reason:'max_tokens',usage:{input_tokens:250000,output_tokens:16000},content:[{type:'text',text:'{"summary":"unfinished'}]});
  await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/max_tokens/);
  assert.equal(receipt?.messageId,'msg_budget');assert.equal(receipt?.stopReason,'max_tokens');assert.deepEqual(receipt?.usage,{input_tokens:250000,output_tokens:16000});
  assert.equal(receipt?.rawResponse,'{"summary":"unfinished');
 });
 test('an interrupted stream retains identity and partial usage without claiming final totals or retrying',async()=>{
  let calls=0,receipt:Record<string,unknown>|undefined;
- const send:typeof fetch=async url=>{calls++;return String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):new Response(frame({type:'message_start',message:{id:'msg_interrupted',model:'claude-opus-5-5',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'},usage:{output_tokens:7}}),{headers:{'content-type':'text/event-stream'}});};
+ const send:typeof fetch=async url=>{calls++;return String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):new Response(frame({type:'message_start',message:{id:'msg_interrupted',model:'claude-fable-5-1',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'},usage:{output_tokens:7}}),{headers:{'content-type':'text/event-stream'}});};
  await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/message_stop/);
  assert.equal(calls,2);assert.equal(receipt?.messageId,'msg_interrupted');assert.equal(receipt?.usage,undefined);assert.deepEqual(receipt?.partialUsage,{input_tokens:10,output_tokens:7});
  const saved=savedReview({status:'failed',startedAt:new Date().toISOString(),...receipt});assert.equal(saved.usage,undefined);assert.deepEqual(saved.partialUsage,{input_tokens:10,output_tokens:7});
 });
 test('a terminal marker without terminal output usage cannot promote provisional counters to final totals',async()=>{
  let receipt:Record<string,unknown>|undefined;
- const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-opus-5-5'}):new Response(frame({type:'message_start',message:{id:'msg_missing_usage',model:'claude-opus-5-5',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'}})+frame({type:'message_stop'}),{headers:{'content-type':'text/event-stream'}});
+ const send:typeof fetch=async url=>String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):new Response(frame({type:'message_start',message:{id:'msg_missing_usage',model:'claude-fable-5-1',content:[],usage:{input_tokens:10,output_tokens:1}}})+frame({type:'message_delta',delta:{stop_reason:'end_turn'}})+frame({type:'message_stop'}),{headers:{'content-type':'text/event-stream'}});
  await assert.rejects(()=>reviewWithClaude('test','',{},send,async r=>{receipt=r;}),/terminal usage/);
  assert.equal(receipt?.usage,undefined);assert.deepEqual(receipt?.partialUsage,{input_tokens:10,output_tokens:1});
 });
@@ -117,4 +117,16 @@ test('Monday deferral window includes 9 and 10 CT in both DST offsets without ch
  assert.equal(reviewSlot(new Date('2026-11-09T17:00:00Z')),null);
  assert.equal(reviewSlot(new Date('2026-07-06T15:00:00Z')),'2026-07-06');
  assert.equal(reviewSlot(new Date('2026-07-06T16:00:00Z')),null);
+});
+
+
+test('Claude sends the selected workspace on both model access and generation',async()=>{
+ const headers:Headers[]=[];
+ const send:typeof fetch=async(url,init)=>{
+  headers.push(new Headers(init?.headers));
+  return String(url).includes('/models/')?Response.json({id:'claude-fable-5-1'}):streamed({id:'msg_workspace',model:'claude-fable-5-1',stop_reason:'end_turn',usage:{input_tokens:1,output_tokens:1},content:[{type:'text',text:'Verified'}]});
+ };
+ await reviewWithClaude('test-key','test',{},send,async()=>{},'wrkspc_test');
+ assert.equal(headers.length,2);
+ for(const header of headers)assert.equal(header.get('anthropic-workspace-id'),'wrkspc_test');
 });
