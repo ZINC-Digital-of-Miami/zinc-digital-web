@@ -52,3 +52,10 @@ export async function runStudioAnalysis(key:string,apiKey:string,identity:Record
   return {...identity,text:result.text,model:result.model,usage:result.usage,providerRequestId:result.providerRequestId};
  });
 }
+
+/** Direct API writing uses the existing privileged, transactional receipt boundary. */
+export async function runStudioWriting(key:string,apiKey:string,model:string,identity:Record<string,unknown>,instructions:string,evidence:unknown){
+ if(!/^seo_review:studio:[0-9a-f-]{36}$/.test(key))throw new Error('Invalid Studio writing key.');
+ const {writeWithOpenAI}=await import('./content-studio/openai');
+ return storeReview(createAdminClient(),key,async receipt=>{await receipt(identity);const result=await writeWithOpenAI(apiKey,model,instructions,JSON.stringify(evidence),fetch,r=>receipt({...r,...identity}),'high');return {...result,...identity};},'OpenAI');
+}

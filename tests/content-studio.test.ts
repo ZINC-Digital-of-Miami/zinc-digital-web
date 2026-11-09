@@ -24,3 +24,5 @@ test('Wendy hold blocks even a fully documented review and incomplete manuscript
 });
 
 test('mandatory review gates cannot be bypassed by marking everything inapplicable',()=>{const d=emptyDraft('another-article');d.title='Title';d.body='Body';for(const c of Object.values(d.checks)){c.status='not-applicable';c.evidence='Skip';}assert.equal(reviewProgress(d).complete,0);assert.throws(()=>assertHandoff(d),/Complete every review/);});
+
+test('Apply requires a completed result for the exact request as well as document revision',()=>{const job={id:'new-request',slug:'article',revision:2};assert.equal(canApplyProposal(job,job,false,''),false);assert.equal(canApplyProposal(job,job,false,'old-request'),false);assert.equal(canApplyProposal(job,job,false,'new-request'),true);assert.equal(canApplyProposal(job,{...job,revision:3},false,'new-request'),false);});
