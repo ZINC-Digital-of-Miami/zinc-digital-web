@@ -72,7 +72,7 @@ export async function reviewWithClaude(key:string,system:string,evidence:unknown
  const headers={'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json'};
  const access=await send('https://api.anthropic.com/v1/models/'+REVIEW_MODEL,{headers,signal:AbortSignal.timeout(10000)});
  const accessData=await access.json().catch(()=>({}));
- if(!access.ok||accessData.id!==REVIEW_MODEL)throw new Error('Fable 5.1 access could not be verified (HTTP '+access.status+(typeof accessData.error?.type==='string'?' · '+accessData.error.type.replace(/[^a-zA-Z0-9_]/g,'').slice(0,80):'')+'). Check the Claude key and model access. No generation was requested.');
+ if(!access.ok||accessData.id!==REVIEW_MODEL)throw new Error('Fable 5.1 access could not be verified (HTTP '+access.status+(typeof accessData.error?.type==='string'?' · '+accessData.error.type.replace(/[^a-zA-Z0-9_]/g,'').slice(0,80):'')+'). '+(typeof accessData.error?.message==='string'?accessData.error.message.replaceAll(key,'[redacted]').replace(/sk-[A-Za-z0-9_-]+/g,'[redacted]').slice(0,400):'Check the Claude key and model access.')+' No generation was requested.');
  const payload=JSON.stringify(evidence);
  if(payload.length>700000)throw new Error('The evidence exceeds the review limit. No Claude review was requested.');
  // Fable 5.1 counts adaptive thinking and report text against the same output allowance.
