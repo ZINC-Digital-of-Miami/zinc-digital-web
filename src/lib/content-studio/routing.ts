@@ -1,5 +1,12 @@
+import {RESEARCH_JOBS} from './research-jobs.ts';
 /** Owner-approved routing, 9 November 2026. No implicit provider fallback. */
 export const STUDIO_ACTIONS={
+ demand:{provider:'claude',task:RESEARCH_JOBS.demand.task},
+ intent:{provider:'claude',task:RESEARCH_JOBS.intent.task},
+ gaps:{provider:'claude',task:RESEARCH_JOBS.gaps.task},
+ experience:{provider:'claude',task:RESEARCH_JOBS.experience.task},
+ creativeResearch:{provider:'claude',task:RESEARCH_JOBS.creativeResearch.task},
+ topicPlan:{provider:'claude',task:RESEARCH_JOBS.topicPlan.task},
  write:{provider:'gpt',task:'Write the complete publishable manuscript in the assigned author voice.'},
  creative:{provider:'gpt',task:'Develop a specific on-brand creative concept, exact copy, composition and asset brief. Do not replace the manuscript.'},
  image:{provider:'gpt',task:'Generate one on-brand editorial illustration using the supplied topic and asset instructions. Off-white studio composition, teal and restrained magenta, sharp meaningful type, white mugs only. Do not invent logos or data. This is a review draft, not a published asset.'},

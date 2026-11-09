@@ -1,3 +1,5 @@
+import {researchJobInstructions} from '../../../../lib/content-studio/research-jobs';
+import {pillarSearchResearch} from '../../../../lib/content-studio/research-evidence';
 import {openAiApiKey} from '../../../../lib/provider-keys';
 export const prerender=false;
 import {studioAction} from '../../../../lib/content-studio/routing';
@@ -15,5 +17,5 @@ export const POST:APIRoute=async ctx=>{const staff=requireStaff(ctx);if(staff in
   return reply({id:body.requestId,provider:'gpt',...run});
  }
  const apiKey=import.meta.env.ZINC_ANTHROPIC_API_KEY;if(!apiKey)throw new Error('Claude API is not configured. Check Backend.');
- const run=await runStudioAnalysis(key,apiKey,{actor:staff.id,provider:'claude',revision:draft.revision,slug,source:'studio',action:body.action},studioAnalysisInstructions(draft.author),{task:task.task,draft,evidence});return reply({id:body.requestId,provider:'claude',...run});
+ const run=await runStudioAnalysis(key,apiKey,{actor:staff.id,provider:'claude',revision:draft.revision,slug,source:'studio',action:body.action},studioAnalysisInstructions(draft.author)+'\n'+researchJobInstructions(body.action),{task:task.task,draft,evidence,marketResearch:researchJobInstructions(body.action)?pillarSearchResearch:undefined});return reply({id:body.requestId,provider:'claude',...run});
  }catch(e){return reply({error:(e as Error).message},503);}};

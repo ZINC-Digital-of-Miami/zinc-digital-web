@@ -49,7 +49,7 @@ export const GET:APIRoute=async ctx=>{
     const saved=await createServerClient(ctx).from('admin_cache').select('value').eq('key','seo_review:studio:'+id).maybeSingle();
     const job=saved.data?.value;if(saved.error||!job||job.actor!==staff.id||job.source!=='seo-specialist')return fail('Choose your SEO request.');
     if(job.status!=='complete')return reply({id,status:job.status,error:job.error});
-    if(job.model!=='claude-fable-5-1'||job.effort!=='high')return reply({error:'The requested Fable High execution was not verified.'},502);
+    if(!['claude-fable-5-2','claude-fable-5-1'].includes(job.model)||job.effort!=='high')return reply({error:'The requested Fable High execution was not verified.'},502);
     const target=job.payload.target as {kind:string;key:string;origin:string};
     const item=(await contentList(ctx)).find(value=>value.kind===target.kind&&value.key===target.key);
     if(!item||draftRevision(item)!==job.payload.revision)return reply({error:'This draft was saved elsewhere while the specialist was working. Reload and regenerate to preserve the newer changes.'},409);

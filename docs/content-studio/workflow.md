@@ -13,3 +13,11 @@ Owner-approved adaptation of Writing Intelligence Studio for the existing ZINC a
 9. Release: preserve article-specific owner holds and calendar. Content Studio working documents do not publish automatically. Export an exact reviewed version for the protected GitHub/Node24/GitHub Actions release and normal deployment path. No Docker. Keep merged, deployed, indexed, cited and generating inquiries distinct.
 
 Wendy's article-cluster revision remains on an explicit owner hold. Do not schedule, publish or treat Studio approval as approval of that article.
+
+## Audience-led research and editorial direction — owner, November 9
+
+Fable 5.2 High leads topic research, reasoning, structure, troubleshooting and specific corrections. Terra finishes and polishes in the assigned author voice. Judge reader value, not template completion. Select format for audience and task: short updates, insights, decision guides, procedural guides or evergreen references. Frameworks such as AIDA, problem/solution, what/why/how and claim/evidence/explanation are tools, not mandatory structures. Keep workflow checks out of publishable prose.
+
+HYPD methods are grouped into six jobs: demand, intent, competing coverage, agency problem/fix, explanatory visuals/resources, topic/format selection. Source prompts and provenance are retained in hypd-prompts.json. Adapted allowlisted jobs live in src/lib/content-studio/research-jobs.ts. They analyze saved evidence; no server-side HYPD credentials or automatic tool transport has been established. Current retained cross-pillar research is dated November 9, US/English, 13 selected terms; it is not exhaustive research or local rank tracking. Native platform reporting remains separate. Further collection uses the authorized connected HYPD tools and saves receipts before another charged call.
+
+Reject generic topics without a useful original contribution. Use approved actual work where it helps: problem, investigation, tradeoffs, fix, outcome and practical lesson. Require private provenance, truthful status, and permission for identifiable client material. Never invent experience to meet this preference. Preserve all eleven categories and the separate Wendy publication hold.

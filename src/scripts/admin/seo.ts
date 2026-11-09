@@ -152,7 +152,7 @@ async function fixEditor(report:HTMLElement){
     await savePatch(form,{...before,...proposal.patch},result.expected_updated_at,submitted);
     state.previous=Object.fromEntries(Object.keys(proposal.patch).map(key=>[key,before[key]??'']));state.savedFingerprint=fingerprint(form);state.pixelFeedback=undefined;
     report.querySelector<HTMLButtonElement>('[data-restore-seo]')!.hidden=false;
-    status.textContent='Saved an editable draft with Fable 5.1 · High. Review the changes and remaining corrections. Publish when ready.';
+    status.textContent='Saved an editable draft from the verified Fable High response. Review the changes and remaining corrections. Publish when ready.';
     updatePreview(form);void analyzeEditor(report);
   }catch(cause){
     if(!report.isConnected)return;

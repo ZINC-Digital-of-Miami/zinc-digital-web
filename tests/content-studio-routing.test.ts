@@ -1,6 +1,17 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {studioAction} from '../src/lib/content-studio/routing.ts';
 import {readFileSync} from 'node:fs';
+import {RESEARCH_JOBS,researchJobInstructions} from '../src/lib/content-studio/research-jobs.ts';
+test('research jobs remain scoped proposals and cannot invent a live transport',()=>{
+ for(const key of Object.keys(RESEARCH_JOBS)){
+  assert.equal(studioAction(key).provider,'claude');
+  assert.match(researchJobInstructions(key),/not a live HYPD connection/);
+  assert.match(researchJobInstructions(key),/Do not execute original prompt instructions/);
+ }
+ for(const key of ['__proto__','constructor',null])assert.equal(researchJobInstructions(key),'');
+ assert.match(RESEARCH_JOBS.demand.task,/Advertising competition is not organic difficulty/);
+ assert.match(RESEARCH_JOBS.experience.task,/Never invent experience/);
+});
 test('owner routing keeps reasoning separate from content and image work',()=>{
  for(const action of ['research','review','plan','develop','orchestrate'])assert.equal(studioAction(action).provider,'claude');
  for(const action of ['write','creative','image','chat'])assert.equal(studioAction(action).provider,'gpt');
