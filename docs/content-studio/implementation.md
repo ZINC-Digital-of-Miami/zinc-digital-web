@@ -7,11 +7,11 @@ Architecture: add /admin/content-studio/ within AdminLayout and link Posts. Reus
 - [x] Build strict document/check/voice model; optimistic saves and retained revisions; prohibit publication from Studio.
 - [x] Reuse article performance collection, add native GSC query/current/previous position and daily observations; retain provenance and completeness.
 - [x] Build responsive dashboard, pillar tracking, article inventory, topic brief, manuscript, resource/check review and history.
-- [ ] Integrate GPT connection and Claude interpretation with idempotency, saved usage and explicit failure states. No model automatically approves work.
-- [ ] Test authorization, stale writes, source gaps, weighted arithmetic, revision invalidation, hold preservation and rendered narrow/light/dark layouts.
-- [ ] Fresh scoped review, Node24 checks, protected GitHub release and production verification.
+- [x] Integrate GPT connection and Claude interpretation with idempotency, saved usage and explicit failure states. No model automatically approves work.
+- [x] Test authorization, stale writes, source gaps, weighted arithmetic, revision invalidation, hold preservation and rendered narrow/light/dark layouts.
+- [x] Fresh scoped review, Node24 checks, protected GitHub release and production verification.
 
-Open access decision: current GPT transport is Codex subscription runner, not standard OpenAI API. Owner asked which current account transport to use. No credential/configuration changes authorized. Existing Claude API configuration must be verified without exposing keys.
+Current connection: direct owner-selected OpenAI and Claude APIs are configured and verified in production. Earlier checkpoints below describe superseded states; the final release receipt controls current status.
 
 Research rules: preserve eleven service categories; substantive pillar overview plus supporting articles; no all-to-all links. Every new-topic proposal receives existing inventory, exact measurement periods/gaps and primary service. No invented demand or causal claims.
 
@@ -57,3 +57,16 @@ GitHub run42671964072 initially failed before any jobs with internal server erro
 
 
 Claude workspace correction — 9 November 2026 CT: live preflight identified an all-workspaces key requiring anthropic-workspace-id. Owner supplied the workspace ID; ZINC_ANTHROPIC_WORKSPACE_ID was saved as server-only configuration for Production+Preview and its exact value/targets read back. Shared Claude transport now sends it on both access and generation requests; scoped keys remain supported when unset. Failing regression reproduced before fix;326tests pass, Astro check0errors/0warnings. Fresh scoped review found no actionable issues. Official reference: https://platform.claude.com/docs/en/manage-claude/authentication . Actual Fable generation remains pending the new preview. GitHub run42673529499 passed at f8cba4b after earlier startup errors. Mobile390 author panel measured329px with the manuscript immediately below; suspected blank gap did not reproduce, no CSS change made.
+
+
+## Production release receipt — 9 November 2026 CT
+
+PR119 protected squash merge8be2574976e9a27b38bc11aa6b4a93dc4c105012 at12:33PMCT. Exact head39bc02b6a9aea40ea36a8a64ade6cb9ea3b45a15 passed GitHub build42674670720;326Node24tests, typecheck0errors/0warnings, fresh scoped reviews. Vercel dpl_ExjDhY3UQmG7DJ1pGToUJoHoBrbr READY with that merge and www.zincdigital.co alias verified. Live authenticated /admin/content-studio/ renders46articles/11pillars, native metrics, three voice directions and private drafts.
+
+Both production connection tests completed with high effort: Fable claude-fable-5-1 request req_011CgsqTCzAnjKUZd1LVYYuF/message msg_011CgsqTDhaqpbJ7s777Z9E9 at2026-11-09T18:34:59.424Z,54input/8outputtokens; Terra gpt-6.1-terra request req_1c543221f9704fa98bb092097113f7fc/response resp_0fcffcdd18cb7130016af212619d7887d2bd1d03141f505e5f at2026-11-09T18:35:15.039Z,38input/7outputtokens. Configuration and execution independently verified; no credentials exposed.
+
+Task-owned private draft studio-verification-2026-11-09 saved/reloaded versions1–3, version comparison and comment readback passed; incomplete-draft export rejected. GSC query refresh for Shopify SEO completed with no returned query rows, shown as unavailable rather than fabricated demand. Desktop and narrow light/dark inspected; production390width has375pxdocument width. Existing public manuscripts untouched. Owner repeated the separate Wendy semantic correction is for later; no work on that article. Her explicit handoff hold remains.
+
+Scope boundaries: fixed-location city ranks, AI citations and qualified-lead attribution require their actual sources; they are not invented. Development/orchestration buttons produce proposals, not autonomous code execution or deployment. Image-tool production request is currently being verified; do not treat mock tests as provider execution. No task-owned background service was started. Private agency operations excluded from client-facing Work adds.
+
+Artwork verification follow-up: actual production image action returned SVG text rather than invoking the available tool. Narrow fix now forces documented image_generation tool_choice and rejects image actions without an image while retaining paid receipts. Regression tests failed before and pass after; fresh scoped review found no issues,327tests pass. https://developers.openai.com/api/docs/guides/tools-image-generation . Deployment and real generated-image readback remain required.
