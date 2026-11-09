@@ -4,6 +4,9 @@ docs/*
 !docs/editorial/
 docs/editorial/*
 !docs/editorial/schedule.md
+!docs/editorial/research/
+docs/editorial/research/*
+!docs/editorial/research/2026-11-09-pillar-search-demand.json
 !docs/content-studio/
 docs/content-studio/*
 !docs/content-studio/workflow.md
