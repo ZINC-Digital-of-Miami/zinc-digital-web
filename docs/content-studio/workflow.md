@@ -12,7 +12,9 @@ Owner-approved adaptation of Writing Intelligence Studio for the existing ZINC a
 8. Review: complete voice read, desktop/mobile light/dark inspection, semantic tables, contrast/overflow, images/resources and private provenance. Each human check records evidence against a specific revision. Edits invalidate prior checks. Model output is a proposal, never an approval.
 9. Release: preserve article-specific owner holds and calendar. Content Studio working documents do not publish automatically. Export an exact reviewed version for the protected GitHub/Node24/GitHub Actions release and normal deployment path. No Docker. Keep merged, deployed, indexed, cited and generating inquiries distinct.
 
-Wendy's article-cluster revision remains on an explicit owner hold. Do not schedule, publish or treat Studio approval as approval of that article.
+This document is internal operating guidance. It is never a subject for a public article: do not propose, draft or publish content about how the agency researches, interviews, drafts, reviews or coordinates models. Topics come from the reader's needs and the owner's approval.
+
+Wendy's article-cluster revision remains on an explicit owner hold. Do not schedule, publish or treat Studio approval as approval of that article. The owner rejected the November 9 private rewrite (Studio version 9) and its topic; do not resume it or assume a replacement topic.
 
 ## Audience-led research and editorial direction — owner, November 9
 
