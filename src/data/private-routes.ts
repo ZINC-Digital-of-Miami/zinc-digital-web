@@ -45,6 +45,7 @@ export const PRIVATE_ROUTES: PrivateRoute[] = [
   { path: '/api/admin/content/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/content.ts' },
   { path: '/api/admin/metrics/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/metrics.ts' },
   { path: '/api/admin/staff/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/staff.ts' },
+  { path: '/api/admin/password/', kind: 'api', role: 'editor', file: 'src/pages/api/admin/password.ts' },
   { path: '/api/admin/publish/', kind: 'api', role: 'owner', file: 'src/pages/api/admin/publish.ts' },
   { path: '/api/admin/redeploy/', kind: 'api', role: 'owner', file: 'src/pages/api/admin/redeploy.ts' },
   { path: '/admin/', kind: 'page', role: 'editor', file: 'src/pages/admin/index.astro' },

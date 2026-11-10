@@ -1,36 +1,60 @@
 ---
-// /admin/login/ — staff sign-in by one-time link (design section 6.2). Posts to itself. The server sends the
-// link with shouldCreateUser: false and always shows the same message, so it never reveals whether an
-// address has an account. Public route; noindex.
+// /admin/login/ — staff sign-in with a work email and password, or by one-time link (design section 6.2;
+// password sign-in added on owner direction, 9 November 2026). Posts to itself. A wrong password and an
+// unknown address get the same message, and a link request always shows the same message, so the page
+// never reveals whether an address has an account. The link stays as the way in for a first sign-in or a
+// forgotten password; the password itself is set on /admin/staff/. Public route; noindex.
 export const prerender = false;
 import {Font} from 'astro:assets';
 import {adminThemeScript} from '../../lib/admin-theme';
 import { createServerClient } from '../../lib/supabase';
 import { isConfigured } from '../../lib/env';
-import { safeNext } from '../../lib/auth';
-import { NEXT_COOKIE, NEXT_COOKIE_OPTIONS, STAFF_DOMAINS, isStaffAddress, signInAllowed } from '../../lib/signin';
+import { safeNext, staffRole } from '../../lib/auth';
+import { NEXT_COOKIE, NEXT_COOKIE_OPTIONS, STAFF_DOMAINS, isStaffAddress, signInAllowed, passwordAttemptAllowed } from '../../lib/signin';
 import '../../styles/tokens.css';
 import '../../styles/themes.css';
 import '../../styles/site.css';
 
 const ok = isConfigured('supabase');
 let sent = false;
-const error = Astro.url.searchParams.get('error') === 'link' ? 'This link has expired. Request a new one.' : '';
+let error = Astro.url.searchParams.get('error') === 'link' ? 'This link has expired. Request a new one.' : '';
 let next = safeNext(Astro.url.searchParams.get('next'));
+let email = '';
 if (Astro.request.method === 'POST' && ok) {
   const fd = await Astro.request.formData();
-  const email = String(fd.get('email') || '').trim().toLowerCase().slice(0, 254);
+  email = String(fd.get('email') || '').trim().toLowerCase().slice(0, 254);
   next = safeNext(String(fd.get('next') || ''));
-  Astro.cookies.set(NEXT_COOKIE, next, NEXT_COOKIE_OPTIONS);
-  if (isStaffAddress(email) && signInAllowed(email)) {
-    try {
-      const { error: e } = await createServerClient(Astro).auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: Astro.url.origin + '/admin/auth/confirm/' } });
-      if (e) console.warn('sign-in link not sent:', e.status || e.name);
-    } catch {
-      console.warn('sign-in link not sent: network');
+  if (fd.get('mode') === 'link') {
+    Astro.cookies.set(NEXT_COOKIE, next, NEXT_COOKIE_OPTIONS);
+    if (isStaffAddress(email) && signInAllowed(email)) {
+      try {
+        const { error: e } = await createServerClient(Astro).auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: Astro.url.origin + '/admin/auth/confirm/' } });
+        if (e) console.warn('sign-in link not sent:', e.status || e.name);
+      } catch {
+        console.warn('sign-in link not sent: network');
+      }
     }
+    sent = true;
+  } else {
+    const password = String(fd.get('password') || '');
+    let signedIn = false;
+    // Only real staff-domain attempts are counted, so the limiter cannot be filled with arbitrary keys.
+    if (isStaffAddress(email) && password && password.length <= 200) {
+      if (!passwordAttemptAllowed(email)) error = 'Too many attempts. Wait 15 minutes, or use the emailed link.';
+      else try {
+        const sb = createServerClient(Astro);
+        const { error: e } = await sb.auth.signInWithPassword({ email, password });
+        if (e) console.warn('password sign-in refused:', e.status || e.name);
+        // An account that is not on the staff list gets no session and the same message as a wrong password.
+        else if (await staffRole(sb)) signedIn = true;
+        else await sb.auth.signOut();
+      } catch {
+        console.warn('password sign-in failed: network');
+      }
+    }
+    if (signedIn) return Astro.redirect(next, 303);
+    if (!error) error = 'That email and password did not match. If you have not set a password yet, use the emailed link.';
   }
-  sent = true;
 }
 ---
 <html lang="en" data-theme="dark"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Staff sign-in | ZINC</title><link rel="icon" href="/favicon.png" type="image/png" />
@@ -39,15 +63,17 @@ if (Astro.request.method === 'POST' && ok) {
 <body><div class="zb"><main class="wrap" style="max-width:520px;padding:12vh 24px 80px">
   <span class="kick">ZINC / admin</span>
   <h1 class="disp p-sec" style="margin-top:16px">Staff sign-in.</h1>
-  <p class="p-muted" style="margin:16px 0 32px">A one-time link goes to your {STAFF_DOMAINS.map((d) => '@' + d).join(' or ')} address.</p>
+  <p class="p-muted" style="margin:16px 0 32px">Use your {STAFF_DOMAINS.map((d) => '@' + d).join(' or ')} address.</p>
   {!ok ? <p class="p-err">PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_PUBLISHABLE_KEY are not set. Sign-in is unavailable in this build.</p>
   : sent ? <p class="p-body" role="status">Check your inbox. The link signs you in on this device.</p>
   : (
     <form method="post" class="p-form">
       <input type="hidden" name="next" value={next} />
-      <label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+      <label>Work email<input name="email" type="email" autocomplete="username" maxlength="254" value={email} required /></label>
+      <label style="margin-top:18px">Password<input name="password" type="password" autocomplete="current-password" maxlength="200" /></label>
       <p class="p-err" role="alert">{error}</p>
-      <div class="p-ctrls" style="margin-top:14px"><button type="submit" class="btn fill">Send sign-in link</button></div>
+      <div class="p-ctrls" style="margin-top:14px"><button type="submit" name="mode" value="password" class="btn fill">Sign in</button><button type="submit" name="mode" value="link" class="btn">Email me a link instead</button></div>
+      <p class="p-muted" style="margin-top:24px;font-size:14px">First time, or forgot your password? Use the emailed link, then set a password on the Staff page.</p>
     </form>
   )}
 </main></div></body></html>

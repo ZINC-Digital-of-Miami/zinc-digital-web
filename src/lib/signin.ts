@@ -26,3 +26,29 @@ export function signInAllowed(email: string, now = Date.now()): boolean {
   if (sent.size > 1000) for (const [k, v] of sent) if (v.every((t) => now - t >= WINDOW_MS)) sent.delete(k);
   return true;
 }
+
+const PASSWORD_LIMIT = 8;
+const tried = new Map<string, number[]>();
+
+/**
+ * At most 8 password attempts per address per 15 minutes, counted in this server instance and separately
+ * from sign-in links. Supabase's own Auth limits apply across instances.
+ */
+export function passwordAttemptAllowed(email: string, now = Date.now()): boolean {
+  const recent = (tried.get(email) || []).filter((t) => now - t < WINDOW_MS);
+  if (recent.length >= PASSWORD_LIMIT) { tried.set(email, recent); return false; }
+  recent.push(now);
+  tried.set(email, recent);
+  if (tried.size > 1000) for (const [k, v] of tried) if (v.every((t) => now - t >= WINDOW_MS)) tried.delete(k);
+  return true;
+}
+
+/** Why a new password is refused, or '' when it is acceptable. Length is the rule; no character quotas. */
+export function passwordProblem(password: unknown, email = ''): string {
+  if (typeof password !== 'string' || password.length < 12) return 'Use at least 12 characters.';
+  if (password.length > 200) return 'Use 200 characters or fewer.';
+  const lower = password.toLowerCase(), name = email.toLowerCase().split('@')[0];
+  if (email && (lower === email.toLowerCase() || (name.length >= 4 && lower.includes(name)))) return 'Do not use your email address in the password.';
+  if (new Set(password).size < 5) return 'Use a less repetitive password.';
+  return '';
+}
